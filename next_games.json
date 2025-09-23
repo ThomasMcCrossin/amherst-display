@@ -1,32 +1,10 @@
 {
-  "generated_at": "2025-09-23T18:14:41Z",
+  "generated_at": "2025-09-23T18:19:08Z",
   "timezone": "America/Halifax",
   "teams": [
     {
       "team_slug": "amherst-ramblers",
-      "games": [
-        {
-          "opponent_slug": "grand-falls-rapids",
-          "home": false,
-          "start": "NaN-NaN-NaNTNaN:NaN:NaN-04:00",
-          "venue": "E. & P. Sénéchal Centre",
-          "city": ""
-        },
-        {
-          "opponent_slug": "edmundston-blizzard",
-          "home": false,
-          "start": "NaN-NaN-NaNTNaN:NaN:NaN-04:00",
-          "venue": "Centre Jean Daigle",
-          "city": ""
-        },
-        {
-          "opponent_slug": "pictou-county-weeks-crushers",
-          "home": false,
-          "start": "NaN-NaN-NaNTNaN:NaN:NaN-04:00",
-          "venue": "Pictou County Wellness Centre",
-          "city": ""
-        }
-      ]
+      "games": []
     },
     {
       "team_slug": "amherst-ducks",
