@@ -2,7 +2,7 @@ name: Build display JSONs
 
 on:
   schedule:
-    - cron: '30 6 * * *'   # 6:30 UTC ≈ 3:30am Atlantic
+    - cron: '30 6 * * *'
   workflow_dispatch: {}
   push:
     paths:
@@ -15,9 +15,6 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      RAMBLERS_ICS_URL: ${{ secrets.RAMBLERS_ICS_URL }}  # optional; or rely on data/ramblers.ics
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -25,8 +22,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: '20'   # <-- no cache here
 
       - name: Install deps
         run: npm ci || npm i
