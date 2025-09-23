@@ -1,1 +1,30 @@
+{
+  "league_meta": {
+    "MHL": { "badge": "assets/league-mhl.png", "color": "#2d74ff" },
+    "BSHL": { "badge": "assets/league-bshl.png", "color": "#19c37d" }
+  },
+  "teams": [
+    { "slug": "amherst-ramblers", "league": "MHL", "names": ["Amherst Ramblers","Ramblers","Amherst"], "logo_url": "assets/logos/mhl/amherst-ramblers.png", "brand_color": "#7a1d2b" },
+    { "slug": "truro-bearcats", "league": "MHL", "names": ["Truro Bearcats","Truro"], "logo_url": "assets/logos/mhl/truro-bearcats.png", "brand_color": "#c8342d" },
+    { "slug": "pictou-county-weeks-crushers", "league": "MHL", "names": ["Pictou County Weeks Crushers","Pictou County","Crushers"], "logo_url": "assets/logos/mhl/pictou-county-weeks-crushers.png", "brand_color": "#e74c3c" },
+    { "slug": "yarmouth-mariners", "league": "MHL", "names": ["Yarmouth Mariners","Yarmouth"], "logo_url": "assets/logos/mhl/yarmouth-mariners.png", "brand_color": "#004c98" },
+    { "slug": "valley-wildcats", "league": "MHL", "names": ["Valley Wildcats","Valley"], "logo_url": "assets/logos/mhl/valley-wildcats.png", "brand_color": "#006c49" },
+    { "slug": "west-kent-steamers", "league": "MHL", "names": ["West Kent Steamers","West Kent","Steamers"], "logo_url": "assets/logos/mhl/west-kent-steamers.png", "brand_color": "#0b6cc3" },
+    { "slug": "summerside-western-capitals", "league": "MHL", "names": ["Summerside Western Capitals","Summerside","Caps"], "logo_url": "assets/logos/mhl/summerside-western-capitals.png", "brand_color": "#00205b" },
+    { "slug": "edmundston-blizzard", "league": "MHL", "names": ["Edmundston Blizzard","Edmundston"], "logo_url": "assets/logos/mhl/edmundston-blizzard.png", "brand_color": "#1d87d7" },
+    { "slug": "grand-falls-rapids", "league": "MHL", "names": ["Grand Falls Rapids","Grand Falls"], "logo_url": "assets/logos/mhl/grand-falls-rapids.png", "brand_color": "#006a4e" },
+    { "slug": "miramichi-timberwolves", "league": "MHL", "names": ["Miramichi Timberwolves","Miramichi"], "logo_url": "assets/logos/mhl/miramichi-timberwolves.png", "brand_color": "#115740" },
+    { "slug": "campbellton-tigers", "league": "MHL", "names": ["Campbellton Tigers","Campbellton"], "logo_url": "assets/logos/mhl/campbellton-tigers.png", "brand_color": "#f5a300" },
+    { "slug": "chaleur-lightning", "league": "MHL", "names": ["Chaleur Lightning","Chaleur"], "logo_url": "assets/logos/mhl/chaleur-lightning.png", "brand_color": "#ffd000" },
+
+    { "slug": "amherst-ducks", "league": "BSHL", "names": ["Amherst Ducks","Ducks","Amherst"], "logo_url": "assets/logos/bshl/amherst-ducks.png", "brand_color": "#ff7a00" },
+    { "slug": "bouchette-bouctouche", "league": "BSHL", "names": ["Bouctouche","Bouctouche JC","Bouctouche Ducks Opp"], "logo_url": "assets/logos/bshl/bouctouche.png", "brand_color": "#006837" },
+    { "slug": "dalhousie", "league": "BSHL", "names": ["Dalhousie"], "logo_url": "assets/logos/bshl/dalhousie.png", "brand_color": "#a61e2a" },
+    { "slug": "elsipogtog", "league": "BSHL", "names": ["Elsipogtog"], "logo_url": "assets/logos/bshl/elsipogtog.png", "brand_color": "#e31837" },
+    { "slug": "fredericton", "league": "BSHL", "names": ["Fredericton"], "logo_url": "assets/logos/bshl/fredericton.png", "brand_color": "#002d62" },
+    { "slug": "miramichi-bshl", "league": "BSHL", "names": ["Miramichi"], "logo_url": "assets/logos/bshl/miramichi.png", "brand_color": "#115740" },
+    { "slug": "belle-baie", "league": "BSHL", "names": ["Belle-Baie","Belle Baie"], "logo_url": "assets/logos/bshl/belle-baie.png", "brand_color": "#0057b8" },
+    { "slug": "peninsule", "league": "BSHL", "names": ["Péninsule","Peninsule"], "logo_url": "assets/logos/bshl/peninsule.png", "brand_color": "#ffb81c" }
+  ]
+}
 
