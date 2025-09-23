@@ -9,17 +9,24 @@ on:
       - 'scripts/**'
       - 'teams.json'
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      RAMBLERS_ICS_URL: ${{ secrets.RAMBLERS_ICS_URL }}  # optional; or rely on data/ramblers.ics
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Use Node
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
 
       - name: Install deps
         run: npm ci || npm i
@@ -31,6 +38,6 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "actions@users.noreply.github.com"
-          git add games.json standings_*.json road_games_*.json next_games.json || true
-          git diff --quiet && echo "No changes" || git commit -m "chore: nightly JSON update"
+          git add -A
+          git diff --cached --quiet && echo "No changes" || git commit -m "chore: nightly JSON update"
           git push
