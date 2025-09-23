@@ -19,7 +19,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      # Optional: set this secret to pull the Ramblers ICS from the web
+      # Optional: set this secret in repo settings if you prefer a hosted ICS URL
       RAMBLERS_ICS_URL: ${{ secrets.RAMBLERS_ICS_URL }}
 
     steps:
@@ -35,13 +35,21 @@ jobs:
       - name: Install deps
         run: npm install
 
-      # NEW: install a browser for Puppeteer (v23+ no longer auto-downloads)
+      # Cache Chrome/Chromium that Puppeteer downloads
+      - name: Cache Puppeteer browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/puppeteer
+          key: puppeteer-chrome-${{ runner.os }}-v131
+
+      # Install Chrome for Puppeteer (v23+ no auto-download)
       - name: Install Chrome for Puppeteer
         run: npx puppeteer browsers install chrome
 
       - name: Build JSONs (tee logs)
         run: node scripts/build_all.mjs 2>&1 | tee build.log
 
+      # Standings snapshots (PNG)
       - name: Snapshot standings to PNGs
         run: npm run snap
 
@@ -62,6 +70,3 @@ jobs:
             git commit -m "chore: nightly JSON & standings snapshot update"
             git push
           fi
-
-      - name: Show artifact hint
-        run: echo "Download the build log from the 'build-log' artifact on this run."
