@@ -1,9 +1,16 @@
 import fetch from 'node-fetch';
 import * as cheerio from 'cheerio';
-import { formatInTimeZone } from 'date-fns-tz';
 
-const TZ = 'America/Halifax';
-const nowISO = () => formatInTimeZone(new Date(), TZ, "yyyy-MM-dd'T'HH:mm:ssXXX");
+// simple Atlantic timestamp (no tz lib)
+function generatedNowAtlantic(){
+  const now = new Date();
+  // use UTC now -> attach Atlantic offset (good enough for a stamp)
+  const pad = n => String(n).padStart(2,'0');
+  const y = now.getUTCFullYear(), mo = pad(now.getUTCMonth()+1), da = pad(now.getUTCDate());
+  const hh = pad(now.getUTCHours()), mi = pad(now.getUTCMinutes()), ss = pad(now.getUTCSeconds());
+  // we don't need perfect locals here; keep UTC 'Z' to avoid ICU entirely:
+  return `${y}-${mo}-${da}T${hh}:${mi}:${ss}Z`;
+}
 
 const norm = s => (s||'').replace(/\s+/g,' ').trim();
 const lo = s => norm(s).toLowerCase();
@@ -47,17 +54,9 @@ function parseStandingsTable($, tableEl, nameToSlug) {
     const teamName = norm($(tds.get(iTeam >= 0 ? iTeam : 0)).text());
     if (!teamName) return;
     const slug = nameToSlug.get(lo(teamName));
-    if (!slug) return; // unmapped team; add alias in teams.json if you want it rendered
-
+    if (!slug) return; // unmapped team; add alias if you want it rendered
     const num = (i) => i>=0 ? parseInt($(tds.get(i)).text(),10)||0 : 0;
-    rows.push({
-      team_slug: slug,
-      gp:  num(iGP),
-      w:   num(iW),
-      l:   num(iL),
-      otl: num(iOTL),
-      pts: num(iPTS)
-    });
+    rows.push({ team_slug: slug, gp: num(iGP), w: num(iW), l: num(iL), otl: num(iOTL), pts: num(iPTS) });
   });
   return rows;
 }
@@ -67,10 +66,9 @@ export async function buildBSHLStandings({ nameToSlug, standingsUrl = 'https://w
   if (!res.ok) throw new Error(`BSHL standings HTTP ${res.status}`);
   const html = await res.text();
   const $ = cheerio.load(html);
-
   const table = findTableByHeader($, ['team','gp','pts']) || $('table').first();
   const rows = parseStandingsTable($, table, nameToSlug);
-  return { generated_at: nowISO(), season: '', league: 'BSHL', rows };
+  return { generated_at: generatedNowAtlantic(), season: '', league: 'BSHL', rows };
 }
 
 export async function buildMHLStandings({ nameToSlug, standingsUrl = 'https://www.themhl.ca/stats/standings' }) {
@@ -88,5 +86,5 @@ export async function buildMHLStandings({ nameToSlug, standingsUrl = 'https://ww
     }
   });
 
-  return { generated_at: nowISO(), season: '', league: 'MHL', rows };
+  return { generated_at: generatedNowAtlantic(), season: '', league: 'MHL', rows };
 }
