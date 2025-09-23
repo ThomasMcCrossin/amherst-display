@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import cheerio from 'cheerio';
+import * as cheerio from 'cheerio';
 import { formatInTimeZone } from 'date-fns-tz';
 
 const TZ = 'America/Halifax';
@@ -8,9 +8,6 @@ const nowISO = () => formatInTimeZone(new Date(), TZ, "yyyy-MM-dd'T'HH:mm:ssXXX"
 const norm = s => (s||'').replace(/\s+/g,' ').trim();
 const lo = s => norm(s).toLowerCase();
 
-/**
- * Find a table whose header contains the given tokens (case-insensitive).
- */
 function findTableByHeader($, tokens) {
   const tks = tokens.map(t => t.toLowerCase());
   let best = null;
@@ -22,17 +19,12 @@ function findTableByHeader($, tokens) {
   return best;
 }
 
-/**
- * Parse a standings table into rows with { team_slug, gp, w, l, otl, pts }.
- * We detect columns by header names to be resilient to column order.
- */
 function parseStandingsTable($, tableEl, nameToSlug) {
   const $tbl = $(tableEl);
   const $headRow = $tbl.find('thead tr').first().length ? $tbl.find('thead tr').first() : $tbl.find('tr').first();
   const headers = [];
   $headRow.find('th,td').each((i, th) => headers.push(lo($(th).text())));
 
-  // map common header names → column index
   const idx = (names) => {
     for (const n of names) {
       const k = headers.findIndex(h => h.includes(n));
@@ -55,7 +47,8 @@ function parseStandingsTable($, tableEl, nameToSlug) {
     const teamName = norm($(tds.get(iTeam >= 0 ? iTeam : 0)).text());
     if (!teamName) return;
     const slug = nameToSlug.get(lo(teamName));
-    if (!slug) return; // skip unmapped; add alias in teams.json to fix
+    if (!slug) return; // unmapped team; add alias in teams.json if you want it rendered
+
     const num = (i) => i>=0 ? parseInt($(tds.get(i)).text(),10)||0 : 0;
     rows.push({
       team_slug: slug,
@@ -69,28 +62,23 @@ function parseStandingsTable($, tableEl, nameToSlug) {
   return rows;
 }
 
-/** Build BSHL standings from https://www.beausejourseniorhockeyleague.ca/standings.php */
 export async function buildBSHLStandings({ nameToSlug, standingsUrl = 'https://www.beausejourseniorhockeyleague.ca/standings.php' }) {
   const res = await fetch(standingsUrl);
   if (!res.ok) throw new Error(`BSHL standings HTTP ${res.status}`);
   const html = await res.text();
   const $ = cheerio.load(html);
 
-  // The page shows a regular table with "Team", "GP", "W", "L", "OTL", "Pts" columns.
   const table = findTableByHeader($, ['team','gp','pts']) || $('table').first();
   const rows = parseStandingsTable($, table, nameToSlug);
   return { generated_at: nowISO(), season: '', league: 'BSHL', rows };
 }
 
-/** Build MHL standings from https://www.themhl.ca/stats/standings */
 export async function buildMHLStandings({ nameToSlug, standingsUrl = 'https://www.themhl.ca/stats/standings' }) {
   const res = await fetch(standingsUrl);
   if (!res.ok) throw new Error(`MHL standings HTTP ${res.status}`);
   const html = await res.text();
   const $ = cheerio.load(html);
 
-  // The page lists standings (divisional) with a header row that includes Team/GP/W/L/OTL/PTS.
-  // We parse the first qualifying table, then any subsequent ones, and merge.
   const rows = [];
   $('table').each((_, tbl) => {
     const headerTxt = lo($(tbl).find('thead').text() || $(tbl).find('tr').first().text());
