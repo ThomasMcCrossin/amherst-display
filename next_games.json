@@ -1,20 +1,36 @@
 {
-  "generated_at": "",
+  "generated_at": "2025-09-23T14:56:39-03:00",
   "timezone": "America/Halifax",
   "teams": [
     {
       "team_slug": "amherst-ramblers",
       "games": [
-        { "opponent_slug": "truro-bearcats", "home": true,  "start": "2025-09-27T19:00:00-03:00", "venue": "Amherst Stadium", "city": "Amherst" },
-        { "opponent_slug": "yarmouth-mariners", "home": false, "start": "2025-10-01T19:00:00-03:00", "venue": "Mariners Centre", "city": "Yarmouth" }
+        {
+          "opponent_slug": "grand-falls-rapids",
+          "home": false,
+          "start": "NaN-NaN-NaNTNaN:NaN:NaN-04:00",
+          "venue": "E. & P. Sénéchal Centre",
+          "city": ""
+        },
+        {
+          "opponent_slug": "edmundston-blizzard",
+          "home": false,
+          "start": "NaN-NaN-NaNTNaN:NaN:NaN-04:00",
+          "venue": "Centre Jean Daigle",
+          "city": ""
+        },
+        {
+          "opponent_slug": "pictou-county-weeks-crushers",
+          "home": false,
+          "start": "NaN-NaN-NaNTNaN:NaN:NaN-04:00",
+          "venue": "Pictou County Wellness Centre",
+          "city": ""
+        }
       ]
     },
     {
       "team_slug": "amherst-ducks",
-      "games": [
-        { "opponent_slug": "bouctouche", "home": true,  "start": "2025-09-28T19:00:00-03:00", "venue": "Amherst Stadium", "city": "Amherst" },
-        { "opponent_slug": "elsipogtog", "home": false, "start": "2025-10-03T20:00:00-03:00", "venue": "ELS Centre", "city": "Elsipogtog" }
-      ]
+      "games": []
     }
   ]
 }
