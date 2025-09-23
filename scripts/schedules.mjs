@@ -181,93 +181,68 @@ export async function fetchRamblersFromICS({ nameToSlug }){
 
 /* ========================= BSHL (Ducks) =========================
    Table-driven parser to avoid stray weekday/month words leaking into venue. */
+// ================= BSHL (Ducks) — robust text parser =================
 const BSHL_SCHEDULE_URL = 'https://www.beausejourseniorhockeyleague.ca/schedule.php';
 
 export async function fetchDucksFromBSHL({ nameToSlug }){
   try{
     const html = await safeFetchText(BSHL_SCHEDULE_URL, 'BSHL');
     if(!html){ console.warn('[BSHL] empty HTML'); return []; }
-    const $ = cheerio.load(html);
 
-    // Find a schedule-looking table (has Away/Home/Time headers)
-    let target = null;
-    $('table').each((_, tbl)=>{
-      const head = ($(tbl).find('thead').text() || $(tbl).find('tr').first().text() || '').toLowerCase();
-      if(head.includes('away') && head.includes('home') && (head.includes('time') || head.includes('venue') || head.includes('rink') || head.includes('arena'))){
-        target = tbl; return false;
-      }
-    });
-    if(!target){ console.warn('[BSHL] schedule table not found'); return []; }
+    // Use plain text of the page; lines look like:
+    // "Friday, October 10th, 2025 Bouctouche  -- Miramichi  --  8:15 PM Civic"
+    const text = html.replace(/<[^>]+>/g,' ')
+                     .replace(/&nbsp;/g,' ')
+                     .replace(/\s+/g,' ')
+                     .trim();
 
-    const headerRow = $(target).find('thead tr').first().length ? $(target).find('thead tr').first() : $(target).find('tr').first();
-    const headers = [];
-    headerRow.find('th,td').each((i, th) => headers.push(lo($(th).text())));
+    // Split into likely rows on weekday markers
+    const rows = text.split(/(?=Sunday,|Monday,|Tuesday,|Wednesday,|Thursday,|Friday,|Saturday,)/g);
 
-    const idx = keys => {
-      for(const k of keys){ const i = headers.findIndex(h => h.includes(k)); if(i !== -1) return i; }
-      return -1;
-    };
-    const iDate  = idx(['date']);
-    const iAway  = idx(['away','visitor']);
-    const iHome  = idx(['home']);
-    const iTime  = idx(['time','start']);
-    const iVenue = idx(['venue','rink','arena','location']);
-
-    const monthIdx = m => ({january:0,february:1,march:2,april:3,may:4,june:5,july:6,august:7,september:8,october:9,november:10,december:11})[lo(m)] ?? null;
+    const monthIdx = m => ({january:0,february:1,march:2,april:3,may:4,june:5,july:6,august:7,september:8,october:9,november:10,december:11})[m.toLowerCase()] ?? null;
+    const norm = s => (s||'').replace(/\s+/g,' ').trim();
+    const lo = s => norm(s).toLowerCase();
     const timeRe = /(\d{1,2}):(\d{2})\s*([AP]M)/i;
+    const dateRe = /(Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday),\s+([A-Za-z]+)\s+(\d{1,2})(?:st|nd|rd|th)?,\s+(\d{4})/i;
 
-    const rows = $(target).find('tbody tr').length ? $(target).find('tbody tr') : $(target).find('tr').slice(1);
     const events = [];
+    for(const raw of rows){
+      const line = norm(raw);
+      if(!dateRe.test(line) || !line.includes('--')) continue;
 
-    rows.each((_, tr)=>{
-      const $td = $(tr).find('td');
-      if(!$td.length) return;
+      const dm = line.match(dateRe);
+      const mi = monthIdx(dm[2]); const day = +dm[3]; const year = +dm[4];
+      if(mi==null || !year) continue;
 
-      const awayN = norm($td.eq(iAway >= 0 ? iAway : 0).text());
-      const homeN = norm($td.eq(iHome >= 0 ? iHome : 1).text());
-      let   timeT = norm($td.eq(iTime >= 0 ? iTime : 2).text());
-      let   venue = iVenue >= 0 ? norm($td.eq(iVenue).text()) : '';
+      // Strip the date portion so we're left with "Away -- Home -- time venue"
+      const afterDate = line.slice(dm[0].length).trim();
 
-      if(!awayN || !homeN) return;
+      const parts = afterDate.split('--').map(s=>norm(s));
+      if(parts.length < 3) continue;
 
-      // Date
-      let year, mi, day;
-      if(iDate >= 0){
-        const dtxt = norm($td.eq(iDate).text());               // e.g., "Saturday, October 12, 2025"
-        const m = dtxt.match(/([A-Za-z]+)\s+(\d{1,2}),\s*(\d{4})/);
-        if(m){ mi = monthIdx(m[1]); day = +m[2]; year = +m[3]; }
-      }
-      if(mi == null){ // fallback: parse from row text if no Date column
-        const rowtxt = norm($(tr).text());
-        const m = rowtxt.match(/([A-Za-z]+)\s+(\d{1,2})(?:st|nd|rd|th)?,\s*(\d{4})/);
-        if(m){ mi = monthIdx(m[1]); day = +m[2]; year = +m[3]; }
-      }
-      if(mi == null || !year) return; // can't schedule without a date
+      const awayN = parts[0];
+      const homeN = parts[1];
+      const timeVenue = parts[2];
 
-      // Time (default 7:00 PM if absent)
-      const tm = timeT.match(timeRe);
+      const tm = timeVenue.match(timeRe);
       const HH = tm ? ((parseInt(tm[1],10) % 12) + (/p/i.test(tm[3]) ? 12 : 0)) : 19;
       const MM = tm ? parseInt(tm[2],10) : 0;
+      const venue = tm ? norm(timeVenue.replace(tm[0], '')) : norm(timeVenue);
 
-      // Clean venue: strip any lingering weekday junk
-      venue = venue.replace(/\b(Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday)\b.*$/i, '').trim();
-
-      // Map team names → slugs
       const homeSlug = nameToSlug.get(lo(homeN));
       const awaySlug = nameToSlug.get(lo(awayN));
-      if(!homeSlug || !awaySlug) return;
+      if(!homeSlug || !awaySlug) { /* unmapped team; skip */ continue; }
 
-      // Build Atlantic-local ISO
       const startISO = atlanticISOFromLocalParts(year, mi, day, HH, MM, 0);
 
       events.push({
-        league:'BSHL',
+        league: 'BSHL',
         home_team: homeN, away_team: awayN,
         home_slug: homeSlug, away_slug: awaySlug,
         start: startISO,
         location: venue
       });
-    });
+    }
 
     events.sort((a,b)=> new Date(a.start)-new Date(b.start));
     console.log(`[schedules/BSHL] parsed=${events.length}`);
