@@ -1,129 +1,158 @@
-import { writeFileSync, readFileSync } from 'fs';
-import { formatInTimeZone } from 'date-fns-tz';
-import { buildMHLStandings, buildBSHLStandings } from './standings.mjs';
-import { fetchRamblersSchedule, fetchDucksSchedule } from './schedules.mjs';
-import { readFileSync, writeFileSync, existsSync } from 'fs';
+/**
+ * Amherst Display Builder
+ * - Reads Amherst Ramblers schedule from ICS (URL or local file)
+ * - Scrapes Ducks (BSHL) schedule from league site
+ * - Writes:
+ *    - games.json        (master feed for GameBoard)
+ *    - next_games.json   (Next 3 — Ramblers & Ducks)
+ *    - standings_mhl.json / standings_bshl.json (stubs here; wire later if you want)
+ *
+ * Requirements in package.json:
+ *   "node-fetch", "cheerio", "date-fns-tz"
+ */
+
+import fetch from 'node-fetch';
+import cheerio from 'cheerio';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { formatInTimeZone } from 'date-fns-tz';
 
+// --------------------------- Config ---------------------------
 const TZ = 'America/Halifax';
 const nowISO = () => formatInTimeZone(new Date(), TZ, "yyyy-MM-dd'T'HH:mm:ssXXX");
 
-function loadJSON(path, fallback){ 
-  try{ return JSON.parse(readFileSync(path,'utf8')); } 
-  catch{ return fallback; }
+// 1) RAMBLERS ICS
+// Option A: set a public URL in env RAMBLERS_ICS_URL
+// Option B: drop the file into your repo at data/ramblers.ics
+const RAMBLERS_ICS_URL = process.env.RAMBLERS_ICS_URL || null;
+const RAMBLERS_ICS_LOCAL = 'data/ramblers.ics';
+
+// 2) DUCKS (BSHL) schedule page (server-rendered, whole season)
+const BSHL_SCHEDULE_URL = 'https://www.beausejourseniorhockeyleague.ca/schedule.php';
+
+// 3) League labels (for your cards)
+const LEAGUE_MHL = 'MHL';
+const LEAGUE_BSHL = 'BSHL';
+
+// ---------------------- helpers / utilities -------------------
+const normalize = (s) => (s || '').replace(/\s+/g, ' ').trim();
+const lower = (s) => normalize(s).toLowerCase();
+
+/** Load teams.json and build a name->slug map using aliases */
+function loadTeamDirectory() {
+  const raw = JSON.parse(readFileSync('teams.json', 'utf8'));
+  const teams = raw.teams || [];
+  const bySlug = Object.fromEntries(teams.map(t => [t.slug, t]));
+  const nameToSlug = new Map();
+  for (const t of teams) {
+    if (t.name) nameToSlug.set(lower(t.name), t.slug);
+    for (const a of (t.aliases || [])) nameToSlug.set(lower(a), t.slug);
+  }
+  return { teams, bySlug, nameToSlug };
 }
 
-function sameTeams(a,b){ return a.home_slug===b.home_slug && a.away_slug===b.away_slug; }
-function nearSameDay(a,b){
-  const A = new Date(a.start), B = new Date(b.start);
-  const diff = Math.abs(A - B) / 86400000;
-  return diff <= 2; // within ±2 days
+/** Convert a JS Date (UTC or local) to Atlantic ISO */
+function toAtlanticISO(d) {
+  return formatInTimeZone(d, TZ, "yyyy-MM-dd'T'HH:mm:ssXXX");
 }
 
-// Merge: manual overrides win
-function mergeEvents(scraped, manual){
-  const out = [...scraped];
+/** Parse a SUMMARY like "Amherst Ramblers @ Truro Bearcats" / "Home vs Away" -> {homeName, awayName} */
+function parseTeamsFromSummary(summary) {
+  const s = normalize(summary);
+  if (!s) return { homeName: null, awayName: null };
+  // common hockey formats:
+  // Away @ Home
+  let m = s.match(/^(.*?)\s*@\s*(.*?)$/);
+  if (m) return { awayName: normalize(m[1]), homeName: normalize(m[2]) };
+  // Home vs Away
+  m = s.match(/^(.*?)\s*(?:vs\.?|v)\s*(.*?)$/i);
+  if (m) return { homeName: normalize(m[1]), awayName: normalize(m[2]) };
+  // fallback: try split on dash or en-dash — this is guessy
+  m = s.split(/[-–—]/);
+  if (m.length === 2) return { homeName: normalize(m[0]), awayName: normalize(m[1]) };
+  return { homeName: null, awayName: null };
+}
 
-  // Apply/insert manual
-  for(const m of manual){
-    const idx = out.findIndex(e => sameTeams(e,m) && nearSameDay(e,m));
-    const status = (m.status||'scheduled').toLowerCase();
+/** Given display names and alias map -> slugs (or null) */
+function namesToSlugs({ homeName, awayName }, nameToSlug) {
+  const home = homeName ? nameToSlug.get(lower(homeName)) : null;
+  const away = awayName ? nameToSlug.get(lower(awayName)) : null;
+  return { homeSlug: home || null, awaySlug: away || null };
+}
 
-    if(status === 'cancelled'){
-      if(idx>=0) out.splice(idx,1);
-      continue;
-    }
-    if(status === 'postponed'){
-      if(idx>=0) out.splice(idx,1);
-      continue;
-    }
+// --------------------------- ICS (Ramblers) ---------------------------
+async function fetchRamblersICS() {
+  let icsText = '';
+  if (RAMBLERS_ICS_URL) {
+    const res = await fetch(RAMBLERS_ICS_URL);
+    if (!res.ok) throw new Error(`ICS HTTP ${res.status}`);
+    icsText = await res.text();
+  } else if (existsSync(RAMBLERS_ICS_LOCAL)) {
+    icsText = readFileSync(RAMBLERS_ICS_LOCAL, 'utf8');
+  } else {
+    console.warn('[ICS] No ICS source set (env RAMBLERS_ICS_URL or data/ramblers.ics). Returning [].');
+    return [];
+  }
+  return parseICS(icsText);
+}
 
-    if(idx>=0){
-      // Update existing
-      const e = out[idx];
-      e.start = m.revised_start || m.start || e.start;
-      e.end   = m.end || e.end;
-      e.location = m.location || e.location;
-      e.league   = m.league || e.league;
-    }else{
-      // Insert new
-      out.push({...m});
+/** Minimal ICS parser for the fields we need (VEVENT w/ DTSTART/DTEND/SUMMARY/LOCATION) */
+function parseICS(text) {
+  const lines = text.split(/\r?\n/);
+  const events = [];
+  let inEvent = false;
+  let cur = null;
+
+  for (let line of lines) {
+    line = line.trim();
+    if (line === 'BEGIN:VEVENT') {
+      inEvent = true;
+      cur = { SUMMARY: '', LOCATION: '', DTSTART: '', DTEND: '' };
+    } else if (line === 'END:VEVENT') {
+      if (cur && cur.DTSTART && cur.SUMMARY) {
+        events.push({ ...cur });
+      }
+      inEvent = false;
+      cur = null;
+    } else if (inEvent && cur) {
+      // Unfolded ICS may continue lines starting with space; we keep it simple since the feed is compact.
+      const idx = line.indexOf(':');
+      if (idx > -1) {
+        const key = line.slice(0, idx);
+        const val = line.slice(idx + 1);
+        const k = key.split(';')[0]; // strip TZID= etc.
+        if (k === 'DTSTART') cur.DTSTART = val;     // e.g., 20250927T220000Z (UTC)
+        else if (k === 'DTEND') cur.DTEND = val;
+        else if (k === 'SUMMARY') cur.SUMMARY = val;
+        else if (k === 'LOCATION') cur.LOCATION = val;
+        // STATUS/UID not required for display
+      }
     }
   }
-
-  // sort by start
-  out.sort((a,b)=> new Date(a.start) - new Date(b.start));
-  return out;
+  return events;
 }
 
-// Load team directory once (for aliases)
-const TEAM_DIR = JSON.parse(readFileSync('teams.json','utf8'));
-const NAME_TO_SLUG = (()=>{
-  const m = new Map();
-  for(const t of TEAM_DIR.teams){
-    m.set(t.name.toLowerCase(), t.slug);
-    for(const a of (t.aliases||[])) m.set(a.toLowerCase(), t.slug);
-  }
-  return m;
-})();
+function icsToEvents(icsEvents, nameToSlug) {
+  const out = [];
+  for (const ev of icsEvents) {
+    const { SUMMARY, LOCATION, DTSTART, DTEND } = ev;
+    const { homeName, awayName } = parseTeamsFromSummary(SUMMARY);
+    if (!homeName || !awayName) continue;
 
-// ---- Source URLs (plug these once) ----
-const SOURCES = {
-  mhlStandings: 'https://themhla.ca/standings',                   // TODO: confirm final URL
-  bshlStandings: 'https://bshlhockey.com/standings',              // TODO
-  ramblersSchedule: 'https://themhla.ca/stats/schedule/123',      // TODO
-  ducksSchedule:     'https://bshlhockey.com/schedule/amherst-ducks' // TODO
-};
+    const { homeSlug, awaySlug } = namesToSlugs({ homeName, awayName }, nameToSlug);
+    if (!homeSlug || !awaySlug) {
+      console.warn('[ICS] Unmapped team(s):', homeName, awayName);
+      continue;
+    }
 
-async function buildStandings(){
-  const mhl = await buildMHLStandings({ nameToSlug: NAME_TO_SLUG, standingsUrl: SOURCES.mhlStandings });
-  const bshl= await buildBSHLStandings({ nameToSlug: NAME_TO_SLUG, standingsUrl: SOURCES.bshlStandings });
-  writeFileSync('standings_mhl.json', JSON.stringify(mhl,  null, 2));
-  writeFileSync('standings_bshl.json', JSON.stringify(bshl, null, 2));
-}
+    // DTSTART/DTEND like 20250927T220000Z => Date in UTC
+    const start = new Date(DTSTART.replace('Z', 'Z')); // ensure UTC
+    const end = DTEND ? new Date(DTEND.replace('Z', 'Z')) : null;
 
-async function buildSchedules(){
-  const ev1 = await fetchRamblersSchedule({ scheduleUrl: SOURCES.ramblersSchedule, nameToSlug: NAME_TO_SLUG });
-  const ev2 = await fetchDucksSchedule({     scheduleUrl: SOURCES.ducksSchedule,     nameToSlug: NAME_TO_SLUG });
-  const events = [...ev1, ...ev2].sort((a,b)=> new Date(a.start) - new Date(b.start));
-
-  // Master events (weekly board)
-  writeFileSync('games.json', JSON.stringify({ generated_at: nowISO(), timezone: TZ, events }, null, 2));
-
-  // Helper: next N games for a team (home OR away)
-  const nextN = (teamSlug, n=3) => events
-    .filter(e => e.home_slug===teamSlug || e.away_slug===teamSlug)
-    .slice(0,n)
-    .map(e => ({
-      opponent_slug: e.home_slug===teamSlug ? e.away_slug : e.home_slug,
-      home: e.home_slug===teamSlug,
-      start: e.start,
-      venue: e.location||'',
-      city: ''
-    }));
-
-  // Combined next-games payload for the Next 3 slide
-  const nextPayload = {
-    generated_at: nowISO(),
-    timezone: TZ,
-    teams: [
-      { team_slug: 'amherst-ramblers', games: nextN('amherst-ramblers', 3) },
-      { team_slug: 'amherst-ducks',    games: nextN('amherst-ducks', 3) }
-    ]
-  };
-  writeFileSync('next_games.json', JSON.stringify(nextPayload, null, 2));
-
-  // Optional road files
-  const road = (slugTeam) => events
-    .filter(e=> e.away_slug === slugTeam)
-    .slice(0,3)
-    .map(e=> ({ opponent_slug: e.home_slug, start: e.start, venue: e.location||'', city: '' }));
-  writeFileSync('road_games_ramblers.json', JSON.stringify({ team_slug: 'amherst-ramblers', games: road('amherst-ramblers') }, null, 2));
-  writeFileSync('road_games_ducks.json',     JSON.stringify({ team_slug: 'amherst-ducks',    games: road('amherst-ducks') }, null, 2));
-}
-
-async function main(){
-  await buildStandings();
-  await buildSchedules();
-}
-main().catch(e=>{ console.error(e); process.exit(1); });
+    out.push({
+      league: LEAGUE_MHL,
+      home_team: homeName,
+      away_team: awayName,
+      home_slug: homeSlug,
+      away_slug: awaySlug,
+      start: toAtlanticISO(start),
+      end: end ? toAtlanti
