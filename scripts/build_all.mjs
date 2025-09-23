@@ -155,4 +155,119 @@ function icsToEvents(icsEvents, nameToSlug) {
       home_slug: homeSlug,
       away_slug: awaySlug,
       start: toAtlanticISO(start),
-      end: end ? toAtlanti
+      end: end ? toAtlanticISO(end) : undefined,
+      location: LOCATION || ''
+    });
+  }
+  // sort by start
+  out.sort((a,b)=> new Date(a.start) - new Date(b.start));
+  return out;
+}
+
+// ---------------------- BSHL (Ducks) scraper -----------------------
+async function fetchDucksSchedule(nameToSlug) {
+  const res = await fetch(BSHL_SCHEDULE_URL);
+  if (!res.ok) { console.warn('[BSHL] HTTP', res.status); return []; }
+  const html = await res.text();
+  const $ = cheerio.load(html);
+
+  // The schedule page contains lines with “ -- ” separators: Away -- Home -- Time Venue
+  const text = $('body').text();
+  const lines = text.split('\n').map(s => s.trim()).filter(Boolean);
+
+  const events = [];
+  const dateRe = /(Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday),\s+([A-Za-z]+)\s+(\d{1,2})(?:st|nd|rd|th)?,\s+(\d{4})/i;
+
+  for (const line of lines) {
+    if (!dateRe.test(line) || !line.includes('--')) continue;
+    try {
+      const [datePart, restRaw] = line.split(/(?<=\d{4})\s+/); // split after the year
+      const m = datePart.match(dateRe);
+      if (!m) continue;
+      const [, , mon, day, year] = m;
+      const dateISO = `${mon} ${day}, ${year}`;
+
+      const parts = restRaw.split('--').map(s => s.trim());
+      if (parts.length < 3) continue;
+      // The page uses "Away  -- Home  --  8:15 PM Venue"
+      const awayN = parts[0];
+      const homeN = parts[1];
+      const timeArena = parts[2];
+
+      const timeMatch = timeArena.match(/(\d{1,2}:\d{2}\s*[AP]M)/i);
+      const timeStr = timeMatch ? timeMatch[1] : '7:00 PM';
+      const venue = timeMatch ? timeArena.replace(timeMatch[1], '').trim() : timeArena.trim();
+
+      const startLocal = new Date(`${dateISO} ${timeStr}`); // local parse; we convert to Atlantic ISO next
+      const startISO = toAtlanticISO(startLocal);
+
+      const homeSlug = nameToSlug.get(lower(homeN));
+      const awaySlug = nameToSlug.get(lower(awayN));
+      if (!homeSlug || !awaySlug) continue;
+
+      events.push({
+        league: LEAGUE_BSHL,
+        home_team: homeN,
+        away_team: awayN,
+        home_slug: homeSlug,
+        away_slug: awaySlug,
+        start: startISO,
+        location: venue
+      });
+    } catch {}
+  }
+
+  events.sort((a,b)=> new Date(a.start) - new Date(b.start));
+  return events;
+}
+
+// ------------------------------ Build ------------------------------
+async function main() {
+  const { nameToSlug } = loadTeamDirectory();
+
+  // 1) Ramblers from ICS
+  const icsRaw = await fetchRamblersICS();                   // raw VEVENTs
+  const ramblers = icsToEvents(icsRaw, nameToSlug);          // normalized events
+
+  // 2) Ducks from BSHL page
+  const ducks = await fetchDucksSchedule(nameToSlug);
+
+  // 3) Merge & write games.json
+  const events = [...ramblers, ...ducks].sort((a,b)=> new Date(a.start) - new Date(b.start));
+
+  writeFileSync('games.json', JSON.stringify({
+    generated_at: nowISO(),
+    timezone: TZ,
+    events
+  }, null, 2));
+
+  // 4) Write next_games.json (Next 3 for Ramblers & Ducks, home OR away)
+  const nextN = (slug, n=3) => events
+    .filter(e => e.home_slug === slug || e.away_slug === slug)
+    .slice(0, n)
+    .map(e => ({
+      opponent_slug: e.home_slug === slug ? e.away_slug : e.home_slug,
+      home: e.home_slug === slug,
+      start: e.start,
+      venue: e.location || '',
+      city: ''
+    }));
+
+  const nextPayload = {
+    generated_at: nowISO(),
+    timezone: TZ,
+    teams: [
+      { team_slug: 'amherst-ramblers', games: nextN('amherst-ramblers', 3) },
+      { team_slug: 'amherst-ducks',    games: nextN('amherst-ducks', 3) }
+    ]
+  };
+  writeFileSync('next_games.json', JSON.stringify(nextPayload, null, 2));
+
+  // 5) Leave standings as empty scaffolds (wire later)
+  if (!existsSync('standings_mhl.json')) writeFileSync('standings_mhl.json', JSON.stringify({ generated_at: nowISO(), season: '', league: LEAGUE_MHL, rows: [] }, null, 2));
+  if (!existsSync('standings_bshl.json')) writeFileSync('standings_bshl.json', JSON.stringify({ generated_at: nowISO(), season: '', league: LEAGUE_BSHL, rows: [] }, null, 2));
+
+  console.log(`[OK] events=${events.length}  ramblers=${ramblers.length}  ducks=${ducks.length}`);
+}
+
+main().catch(err => { console.error(err); process.exit(1); });
