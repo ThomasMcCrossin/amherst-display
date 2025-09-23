@@ -1,15 +1,526 @@
 {
-  "generated_at": "2025-09-23T18:35:55Z",
+  "generated_at": "2025-09-23T18:43:03Z",
   "timezone": "America/Halifax",
   "events": [
     {
-      "league": "BSHL",
-      "home_team": "Miramichi",
-      "away_team": "Bouctouche",
-      "home_slug": "miramichi-bshl",
-      "away_slug": "bouctouche",
-      "start": "2025-10-10T20:15:00-03:00",
-      "location": "Civic Saturday, October 11th, 2025"
+      "league": "MHL",
+      "home_team": "Grand Falls Rapids",
+      "away_team": "Amherst Ramblers",
+      "home_slug": "grand-falls-rapids",
+      "away_slug": "amherst-ramblers",
+      "start": "2025-09-12T19:00:00-03:00",
+      "end": "2025-09-12T22:00:00-03:00",
+      "location": "E. & P. Sénéchal Centre"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Edmundston Blizzard",
+      "away_team": "Amherst Ramblers",
+      "home_slug": "edmundston-blizzard",
+      "away_slug": "amherst-ramblers",
+      "start": "2025-09-13T19:30:00-03:00",
+      "end": "2025-09-13T22:30:00-03:00",
+      "location": "Centre Jean Daigle"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Pictou County Weeks Crushers",
+      "away_team": "Amherst Ramblers",
+      "home_slug": "pictou-county-weeks-crushers",
+      "away_slug": "amherst-ramblers",
+      "start": "2025-09-18T19:00:00-03:00",
+      "end": "2025-09-18T22:00:00-03:00",
+      "location": "Pictou County Wellness Centre"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Truro Bearcats",
+      "away_team": "Amherst Ramblers",
+      "home_slug": "truro-bearcats",
+      "away_slug": "amherst-ramblers",
+      "start": "2025-09-20T19:00:00-03:00",
+      "end": "2025-09-20T22:00:00-03:00",
+      "location": "Rath Eastlink Community Centre"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Amherst Ramblers",
+      "away_team": "Chaleur Lightning",
+      "home_slug": "amherst-ramblers",
+      "away_slug": "chaleur-lightning",
+      "start": "2025-09-27T19:00:00-03:00",
+      "end": "2025-09-27T22:00:00-03:00",
+      "location": "Amherst Stadium"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Valley Wildcats",
+      "away_team": "Amherst Ramblers",
+      "home_slug": "valley-wildcats",
+      "away_slug": "amherst-ramblers",
+      "start": "2025-09-28T15:00:00-03:00",
+      "end": "2025-09-28T18:00:00-03:00",
+      "location": "Kings Mutual Century Centre"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Truro Bearcats",
+      "away_team": "Amherst Ramblers",
+      "home_slug": "truro-bearcats",
+      "away_slug": "amherst-ramblers",
+      "start": "2025-10-02T19:00:00-03:00",
+      "end": "2025-10-02T22:00:00-03:00",
+      "location": "Rath Eastlink Community Centre"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Amherst Ramblers",
+      "away_team": "West Kent Steamers",
+      "home_slug": "amherst-ramblers",
+      "away_slug": "west-kent-steamers",
+      "start": "2025-10-04T19:00:00-03:00",
+      "end": "2025-10-04T22:00:00-03:00",
+      "location": "Amherst Stadium"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Yarmouth Mariners",
+      "away_team": "Amherst Ramblers",
+      "home_slug": "yarmouth-mariners",
+      "away_slug": "amherst-ramblers",
+      "start": "2025-10-05T16:00:00-03:00",
+      "end": "2025-10-05T19:00:00-03:00",
+      "location": "Mariners Centre"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Amherst Ramblers",
+      "away_team": "Valley Wildcats",
+      "home_slug": "amherst-ramblers",
+      "away_slug": "valley-wildcats",
+      "start": "2025-10-11T19:00:00-03:00",
+      "end": "2025-10-11T22:00:00-03:00",
+      "location": "Amherst Stadium"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Amherst Ramblers",
+      "away_team": "Yarmouth Mariners",
+      "home_slug": "amherst-ramblers",
+      "away_slug": "yarmouth-mariners",
+      "start": "2025-10-13T14:00:00-03:00",
+      "end": "2025-10-13T17:00:00-03:00",
+      "location": "Amherst Stadium"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Truro Bearcats",
+      "away_team": "Amherst Ramblers",
+      "home_slug": "truro-bearcats",
+      "away_slug": "amherst-ramblers",
+      "start": "2025-10-16T19:00:00-03:00",
+      "end": "2025-10-16T22:00:00-03:00",
+      "location": "Rath Eastlink Community Centre"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Amherst Ramblers",
+      "away_team": "Summerside Western Capitals",
+      "home_slug": "amherst-ramblers",
+      "away_slug": "summerside-western-capitals",
+      "start": "2025-10-18T19:00:00-03:00",
+      "end": "2025-10-18T22:00:00-03:00",
+      "location": "Amherst Stadium"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Amherst Ramblers",
+      "away_team": "Pictou County Weeks Crushers",
+      "home_slug": "amherst-ramblers",
+      "away_slug": "pictou-county-weeks-crushers",
+      "start": "2025-10-25T19:00:00-03:00",
+      "end": "2025-10-25T22:00:00-03:00",
+      "location": "Amherst Stadium"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Pictou County Weeks Crushers",
+      "away_team": "Amherst Ramblers",
+      "home_slug": "pictou-county-weeks-crushers",
+      "away_slug": "amherst-ramblers",
+      "start": "2025-10-30T19:00:00-03:00",
+      "end": "2025-10-30T22:00:00-03:00",
+      "location": "Pictou County Wellness Centre"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Amherst Ramblers",
+      "away_team": "Campbellton Tigers",
+      "home_slug": "amherst-ramblers",
+      "away_slug": "campbellton-tigers",
+      "start": "2025-11-01T18:00:00-04:00",
+      "end": "2025-11-01T21:00:00-04:00",
+      "location": "Amherst Stadium"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Summerside Western Capitals",
+      "away_team": "Amherst Ramblers",
+      "home_slug": "summerside-western-capitals",
+      "away_slug": "amherst-ramblers",
+      "start": "2025-11-06T19:00:00-04:00",
+      "end": "2025-11-06T22:00:00-04:00",
+      "location": "Credit Union Place"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Amherst Ramblers",
+      "away_team": "Pictou County Weeks Crushers",
+      "home_slug": "amherst-ramblers",
+      "away_slug": "pictou-county-weeks-crushers",
+      "start": "2025-11-08T19:00:00-04:00",
+      "end": "2025-11-08T22:00:00-04:00",
+      "location": "Amherst Stadium"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Amherst Ramblers",
+      "away_team": "Valley Wildcats",
+      "home_slug": "amherst-ramblers",
+      "away_slug": "valley-wildcats",
+      "start": "2025-11-11T15:00:00-04:00",
+      "end": "2025-11-11T18:00:00-04:00",
+      "location": "Amherst Stadium"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Campbellton Tigers",
+      "away_team": "Amherst Ramblers",
+      "home_slug": "campbellton-tigers",
+      "away_slug": "amherst-ramblers",
+      "start": "2025-11-14T19:00:00-04:00",
+      "end": "2025-11-14T22:00:00-04:00",
+      "location": "Campbellton Memorial Civic Centre"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Chaleur Lightning",
+      "away_team": "Amherst Ramblers",
+      "home_slug": "chaleur-lightning",
+      "away_slug": "amherst-ramblers",
+      "start": "2025-11-15T19:00:00-04:00",
+      "end": "2025-11-15T22:00:00-04:00",
+      "location": "KC Irving Regional Centre"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Amherst Ramblers",
+      "away_team": "Grand Falls Rapids",
+      "home_slug": "amherst-ramblers",
+      "away_slug": "grand-falls-rapids",
+      "start": "2025-11-20T19:00:00-04:00",
+      "end": "2025-11-20T22:00:00-04:00",
+      "location": "Amherst Stadium"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Pictou County Weeks Crushers",
+      "away_team": "Amherst Ramblers",
+      "home_slug": "pictou-county-weeks-crushers",
+      "away_slug": "amherst-ramblers",
+      "start": "2025-11-27T19:00:00-04:00",
+      "end": "2025-11-27T22:00:00-04:00",
+      "location": "Pictou County Wellness Centre"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Summerside Western Capitals",
+      "away_team": "Amherst Ramblers",
+      "home_slug": "summerside-western-capitals",
+      "away_slug": "amherst-ramblers",
+      "start": "2025-11-29T20:00:00-04:00",
+      "end": "2025-11-29T23:00:00-04:00",
+      "location": "Credit Union Place"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Miramichi Timberwolves",
+      "away_team": "Amherst Ramblers",
+      "home_slug": "miramichi-timberwolves",
+      "away_slug": "amherst-ramblers",
+      "start": "2025-11-30T16:00:00-04:00",
+      "end": "2025-11-30T19:00:00-04:00",
+      "location": "Miramichi Civic Centre"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Amherst Ramblers",
+      "away_team": "Truro Bearcats",
+      "home_slug": "amherst-ramblers",
+      "away_slug": "truro-bearcats",
+      "start": "2025-12-06T19:30:00-04:00",
+      "end": "2025-12-06T22:30:00-04:00",
+      "location": "Amherst Stadium"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Amherst Ramblers",
+      "away_team": "Yarmouth Mariners",
+      "home_slug": "amherst-ramblers",
+      "away_slug": "yarmouth-mariners",
+      "start": "2025-12-13T19:00:00-04:00",
+      "end": "2025-12-13T22:00:00-04:00",
+      "location": "Amherst Stadium"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Amherst Ramblers",
+      "away_team": "Summerside Western Capitals",
+      "home_slug": "amherst-ramblers",
+      "away_slug": "summerside-western-capitals",
+      "start": "2025-12-14T14:00:00-04:00",
+      "end": "2025-12-14T17:00:00-04:00",
+      "location": "Amherst Stadium"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Summerside Western Capitals",
+      "away_team": "Amherst Ramblers",
+      "home_slug": "summerside-western-capitals",
+      "away_slug": "amherst-ramblers",
+      "start": "2025-12-16T11:00:00-04:00",
+      "end": "2025-12-16T14:00:00-04:00",
+      "location": "Credit Union Place"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Valley Wildcats",
+      "away_team": "Amherst Ramblers",
+      "home_slug": "valley-wildcats",
+      "away_slug": "amherst-ramblers",
+      "start": "2025-12-20T19:00:00-04:00",
+      "end": "2025-12-20T22:00:00-04:00",
+      "location": "Kings Mutual Century Centre"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Amherst Ramblers",
+      "away_team": "Summerside Western Capitals",
+      "home_slug": "amherst-ramblers",
+      "away_slug": "summerside-western-capitals",
+      "start": "2025-12-31T14:00:00-04:00",
+      "end": "2025-12-31T17:00:00-04:00",
+      "location": "Amherst Stadium"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Amherst Ramblers",
+      "away_team": "Valley Wildcats",
+      "home_slug": "amherst-ramblers",
+      "away_slug": "valley-wildcats",
+      "start": "2026-01-02T19:00:00-04:00",
+      "end": "2026-01-02T22:00:00-04:00",
+      "location": "Amherst Stadium"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Pictou County Weeks Crushers",
+      "away_team": "Amherst Ramblers",
+      "home_slug": "pictou-county-weeks-crushers",
+      "away_slug": "amherst-ramblers",
+      "start": "2026-01-03T19:00:00-04:00",
+      "end": "2026-01-03T22:00:00-04:00",
+      "location": "Pictou County Wellness Centre"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Amherst Ramblers",
+      "away_team": "Edmundston Blizzard",
+      "home_slug": "amherst-ramblers",
+      "away_slug": "edmundston-blizzard",
+      "start": "2026-01-09T19:00:00-04:00",
+      "end": "2026-01-09T22:00:00-04:00",
+      "location": "Amherst Stadium"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Amherst Ramblers",
+      "away_team": "Miramichi Timberwolves",
+      "home_slug": "amherst-ramblers",
+      "away_slug": "miramichi-timberwolves",
+      "start": "2026-01-10T19:00:00-04:00",
+      "end": "2026-01-10T22:00:00-04:00",
+      "location": "Amherst Stadium"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Yarmouth Mariners",
+      "away_team": "Amherst Ramblers",
+      "home_slug": "yarmouth-mariners",
+      "away_slug": "amherst-ramblers",
+      "start": "2026-01-16T19:00:00-04:00",
+      "end": "2026-01-16T22:00:00-04:00",
+      "location": "Mariners Centre"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Amherst Ramblers",
+      "away_team": "Truro Bearcats",
+      "home_slug": "amherst-ramblers",
+      "away_slug": "truro-bearcats",
+      "start": "2026-01-17T19:00:00-04:00",
+      "end": "2026-01-17T22:00:00-04:00",
+      "location": "Amherst Stadium"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Amherst Ramblers",
+      "away_team": "Yarmouth Mariners",
+      "home_slug": "amherst-ramblers",
+      "away_slug": "yarmouth-mariners",
+      "start": "2026-01-23T19:00:00-04:00",
+      "end": "2026-01-23T22:00:00-04:00",
+      "location": "Amherst Stadium"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Amherst Ramblers",
+      "away_team": "Summerside Western Capitals",
+      "home_slug": "amherst-ramblers",
+      "away_slug": "summerside-western-capitals",
+      "start": "2026-01-24T19:00:00-04:00",
+      "end": "2026-01-24T22:00:00-04:00",
+      "location": "Amherst Stadium"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Valley Wildcats",
+      "away_team": "Amherst Ramblers",
+      "home_slug": "valley-wildcats",
+      "away_slug": "amherst-ramblers",
+      "start": "2026-01-30T19:00:00-04:00",
+      "end": "2026-01-30T22:00:00-04:00",
+      "location": "Kings Mutual Century Centre"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Amherst Ramblers",
+      "away_team": "Pictou County Weeks Crushers",
+      "home_slug": "amherst-ramblers",
+      "away_slug": "pictou-county-weeks-crushers",
+      "start": "2026-01-31T19:00:00-04:00",
+      "end": "2026-01-31T22:00:00-04:00",
+      "location": "Amherst Stadium"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Yarmouth Mariners",
+      "away_team": "Amherst Ramblers",
+      "home_slug": "yarmouth-mariners",
+      "away_slug": "amherst-ramblers",
+      "start": "2026-02-06T19:00:00-04:00",
+      "end": "2026-02-06T22:00:00-04:00",
+      "location": "Mariners Centre"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Amherst Ramblers",
+      "away_team": "Pictou County Weeks Crushers",
+      "home_slug": "amherst-ramblers",
+      "away_slug": "pictou-county-weeks-crushers",
+      "start": "2026-02-07T19:00:00-04:00",
+      "end": "2026-02-07T22:00:00-04:00",
+      "location": "Amherst Stadium"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Summerside Western Capitals",
+      "away_team": "Amherst Ramblers",
+      "home_slug": "summerside-western-capitals",
+      "away_slug": "amherst-ramblers",
+      "start": "2026-02-12T19:00:00-04:00",
+      "end": "2026-02-12T22:00:00-04:00",
+      "location": "Credit Union Place"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Amherst Ramblers",
+      "away_team": "Valley Wildcats",
+      "home_slug": "amherst-ramblers",
+      "away_slug": "valley-wildcats",
+      "start": "2026-02-14T19:00:00-04:00",
+      "end": "2026-02-14T22:00:00-04:00",
+      "location": "Amherst Stadium"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Amherst Ramblers",
+      "away_team": "Truro Bearcats",
+      "home_slug": "amherst-ramblers",
+      "away_slug": "truro-bearcats",
+      "start": "2026-02-16T14:00:00-04:00",
+      "end": "2026-02-16T17:00:00-04:00",
+      "location": "Amherst Stadium"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Valley Wildcats",
+      "away_team": "Amherst Ramblers",
+      "home_slug": "valley-wildcats",
+      "away_slug": "amherst-ramblers",
+      "start": "2026-02-20T19:00:00-04:00",
+      "end": "2026-02-20T22:00:00-04:00",
+      "location": "Kings Mutual Century Centre"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Amherst Ramblers",
+      "away_team": "Yarmouth Mariners",
+      "home_slug": "amherst-ramblers",
+      "away_slug": "yarmouth-mariners",
+      "start": "2026-02-21T19:00:00-04:00",
+      "end": "2026-02-21T22:00:00-04:00",
+      "location": "Amherst Stadium"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Truro Bearcats",
+      "away_team": "Amherst Ramblers",
+      "home_slug": "truro-bearcats",
+      "away_slug": "amherst-ramblers",
+      "start": "2026-02-26T19:00:00-04:00",
+      "end": "2026-02-26T22:00:00-04:00",
+      "location": "Rath Eastlink Community Centre"
+    },
+    {
+      "league": "MHL",
+      "home_team": "West Kent Steamers",
+      "away_team": "Amherst Ramblers",
+      "home_slug": "west-kent-steamers",
+      "away_slug": "amherst-ramblers",
+      "start": "2026-02-28T19:00:00-04:00",
+      "end": "2026-02-28T22:00:00-04:00",
+      "location": "J. K. Irving Centre"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Amherst Ramblers",
+      "away_team": "Truro Bearcats",
+      "home_slug": "amherst-ramblers",
+      "away_slug": "truro-bearcats",
+      "start": "2026-03-07T19:00:00-04:00",
+      "end": "2026-03-07T22:00:00-04:00",
+      "location": "Amherst Stadium"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Yarmouth Mariners",
+      "away_team": "Amherst Ramblers",
+      "home_slug": "yarmouth-mariners",
+      "away_slug": "amherst-ramblers",
+      "start": "2026-03-08T15:00:00-04:00",
+      "end": "2026-03-08T18:00:00-04:00",
+      "location": "Mariners Centre"
     }
   ]
 }
