@@ -1,29 +1,29 @@
 {
-  "generated_at": "2025-09-23T18:56:36Z",
+  "generated_at": "2025-09-23T18:57:58Z",
   "timezone": "America/Halifax",
   "teams": [
     {
       "team_slug": "amherst-ramblers",
       "games": [
         {
-          "opponent_slug": "grand-falls-rapids",
-          "home": false,
-          "start": "2025-09-12T19:00:00-03:00",
-          "venue": "E. & P. Sénéchal Centre",
+          "opponent_slug": "chaleur-lightning",
+          "home": true,
+          "start": "2025-09-27T19:00:00-03:00",
+          "venue": "Amherst Stadium",
           "city": ""
         },
         {
-          "opponent_slug": "edmundston-blizzard",
+          "opponent_slug": "valley-wildcats",
           "home": false,
-          "start": "2025-09-13T19:30:00-03:00",
-          "venue": "Centre Jean Daigle",
+          "start": "2025-09-28T15:00:00-03:00",
+          "venue": "Kings Mutual Century Centre",
           "city": ""
         },
         {
-          "opponent_slug": "pictou-county-weeks-crushers",
+          "opponent_slug": "truro-bearcats",
           "home": false,
-          "start": "2025-09-18T19:00:00-03:00",
-          "venue": "Pictou County Wellness Centre",
+          "start": "2025-10-02T19:00:00-03:00",
+          "venue": "Rath Eastlink Community Centre",
           "city": ""
         }
       ]
