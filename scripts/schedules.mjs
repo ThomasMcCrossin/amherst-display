@@ -1,81 +1,139 @@
 import fetch from 'node-fetch';
 import cheerio from 'cheerio';
+import { existsSync, readFileSync } from 'fs';
 import { formatInTimeZone } from 'date-fns-tz';
 
 const TZ = 'America/Halifax';
 const toISO = (d) => formatInTimeZone(d, TZ, "yyyy-MM-dd'T'HH:mm:ssXXX");
-const normalize = (s) => s?.replace(/\s+/g,' ').trim() || '';
+const norm = s => (s||'').replace(/\s+/g,' ').trim();
+const lo = s => norm(s).toLowerCase();
 
-export async function fetchRamblersSchedule({ scheduleUrl, nameToSlug }){
-  const html = await (await fetch(scheduleUrl)).text();
-  const $ = cheerio.load(html);
+// ---------------- Ramblers from ICS ----------------
+const RAMBLERS_ICS_URL = process.env.RAMBLERS_ICS_URL || null;
+const RAMBLERS_ICS_LOCAL = 'data/ramblers.ics';
+
+async function fetchRamblersICSRaw() {
+  if (RAMBLERS_ICS_URL) {
+    const r = await fetch(RAMBLERS_ICS_URL);
+    if (!r.ok) throw new Error(`ICS HTTP ${r.status}`);
+    return await r.text();
+  }
+  if (existsSync(RAMBLERS_ICS_LOCAL)) return readFileSync(RAMBLERS_ICS_LOCAL, 'utf8');
+  return ''; // nothing provided; return empty
+}
+
+function parseICS(text) {
+  const lines = text.split(/\r?\n/);
+  const out = [];
+  let inEvent = false, cur = null;
+  for (let line of lines) {
+    line = line.trim();
+    if (line === 'BEGIN:VEVENT') { inEvent = true; cur = { SUMMARY:'', LOCATION:'', DTSTART:'', DTEND:'' }; continue; }
+    if (line === 'END:VEVENT')   { if (cur?.DTSTART && cur?.SUMMARY) out.push(cur); inEvent = false; cur = null; continue; }
+    if (!inEvent || !cur) continue;
+    const i = line.indexOf(':'); if (i < 0) continue;
+    const key = line.slice(0,i).split(';')[0];
+    const val = line.slice(i+1);
+    if (key === 'SUMMARY') cur.SUMMARY = val;
+    if (key === 'LOCATION') cur.LOCATION = val;
+    if (key === 'DTSTART') cur.DTSTART = val;
+    if (key === 'DTEND')   cur.DTEND   = val;
+  }
+  return out;
+}
+
+function parseTeamsFromSummary(summary) {
+  const s = norm(summary);
+  // "Away @ Home"
+  let m = s.match(/^(.*?)\s*@\s*(.*?)$/);
+  if (m) return { homeName: norm(m[2]), awayName: norm(m[1]) };
+  // "Home vs Away"
+  m = s.match(/^(.*?)\s*(?:vs\.?|v)\s*(.*?)$/i);
+  if (m) return { homeName: norm(m[1]), awayName: norm(m[2]) };
+  return { homeName: null, awayName: null };
+}
+
+export async function fetchRamblersFromICS({ nameToSlug }) {
+  const raw = await fetchRamblersICSRaw();
+  if (!raw) return [];
+  const ics = parseICS(raw);
   const events = [];
-  // TODO: adjust selector for Ramblers schedule rows on themhla.ca
-  $('table tbody tr').each((_, tr)=>{
-    const tds = $(tr).find('td');
-    if(tds.length < 5) return;
-    const dateStr = normalize($(tds[0]).text());
-    const timeStr = normalize($(tds[1]).text());
-    const homeN   = normalize($(tds[2]).text());
-    const awayN   = normalize($(tds[3]).text());
-    const venue   = normalize($(tds[4]).text());
-    const start   = toISO(new Date(`${dateStr} ${timeStr}`));
-    const home    = nameToSlug.get(homeN.toLowerCase());
-    const away    = nameToSlug.get(awayN.toLowerCase());
-    if(!home||!away) return;
+
+  for (const ev of ics) {
+    const { SUMMARY, LOCATION, DTSTART, DTEND } = ev;
+    const { homeName, awayName } = parseTeamsFromSummary(SUMMARY);
+    if (!homeName || !awayName) continue;
+
+    const homeSlug = nameToSlug.get(lo(homeName));
+    const awaySlug = nameToSlug.get(lo(awayName));
+    if (!homeSlug || !awaySlug) continue;
+
+    const start = new Date(DTSTART.replace('Z','Z'));
+    const end = DTEND ? new Date(DTEND.replace('Z','Z')) : null;
+
     events.push({
       league: 'MHL',
-      home_team: homeN, away_team: awayN,
-      home_slug: home,  away_slug: away,
-      start, location: venue
+      home_team: homeName, away_team: awayName,
+      home_slug: homeSlug, away_slug: awaySlug,
+      start: toISO(start),
+      end: end ? toISO(end) : undefined,
+      location: LOCATION || ''
     });
-  });
+  }
+  events.sort((a,b)=> new Date(a.start) - new Date(b.start));
   return events;
 }
 
-export async function fetchDucksSchedule({ scheduleUrl, nameToSlug }) {
-  const html = await (await fetch(scheduleUrl)).text();
+// ---------------- Ducks from BSHL schedule page ----------------
+const BSHL_SCHEDULE_URL = 'https://www.beausejourseniorhockeyleague.ca/schedule.php';
+
+export async function fetchDucksFromBSHL({ nameToSlug }) {
+  const res = await fetch(BSHL_SCHEDULE_URL);
+  if (!res.ok) return [];
+  const html = await res.text();
   const $ = cheerio.load(html);
 
-  // Grab the main content text; the schedule appears as lines with “ -- ” separators.
-  const text = $('body').text(); // you can narrow this if you find a specific container
+  const text = $('body').text();
   const lines = text.split('\n').map(s => s.trim()).filter(Boolean);
-
   const events = [];
+
   const dateRe = /(Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday),\s+([A-Za-z]+)\s+(\d{1,2})(?:st|nd|rd|th)?,\s+(\d{4})/i;
+
   for (const line of lines) {
-    // Example: Friday, October 10th, 2025 Bouctouche  -- Miramichi  --  8:15 PM Civic
+    // Example: Friday, October 10th, 2025 Bouctouche -- Amherst Ducks -- 8:15 PM Civic Centre
     if (!dateRe.test(line) || !line.includes('--')) continue;
     try {
-      const [datePart, rest] = line.split(/(?<=\d{4})\s+/); // split after the year
+      const [datePart, rest] = line.split(/(?<=\d{4})\s+/); // split after year
       const m = datePart.match(dateRe);
       if (!m) continue;
-      const [_, dow, mon, day, year] = m;
+      const [, , mon, day, year] = m;
       const dateISO = `${mon} ${day}, ${year}`;
 
       const parts = rest.split('--').map(s => s.trim());
       if (parts.length < 3) continue;
-      const awayN = parts[0].replace(/-\s*$/, '').trim();
-      const homeN = parts[1].replace(/^\s*-/, '').trim();
+      const awayN = parts[0];
+      const homeN = parts[1];
       const timeArena = parts[2];
+
       const timeMatch = timeArena.match(/(\d{1,2}:\d{2}\s*[AP]M)/i);
       const timeStr = timeMatch ? timeMatch[1] : '7:00 PM';
-      const venue = timeMatch ? timeArena.replace(timeMatch[1], '').trim() : timeArena.trim();
+      const venue = timeMatch ? timeArena.replace(timeMatch[1],'').trim() : timeArena.trim();
 
-      const start = new Date(`${dateISO} ${timeStr}`);
-      const homeSlug = nameToSlug.get(homeN.toLowerCase());
-      const awaySlug = nameToSlug.get(awayN.toLowerCase());
+      const startLocal = new Date(`${dateISO} ${timeStr}`);
+      const homeSlug = nameToSlug.get(lo(homeN));
+      const awaySlug = nameToSlug.get(lo(awayN));
       if (!homeSlug || !awaySlug) continue;
 
       events.push({
         league: 'BSHL',
         home_team: homeN, away_team: awayN,
         home_slug: homeSlug, away_slug: awaySlug,
-        start: formatInTimeZone(start, 'America/Halifax', "yyyy-MM-dd'T'HH:mm:ssXXX"),
+        start: toISO(startLocal),
         location: venue
       });
     } catch {}
   }
 
-  return events.sort((a,b)=> new Date(a.start) - new Date(b.start));
+  events.sort((a,b)=> new Date(a.start) - new Date(b.start));
+  return events;
 }
