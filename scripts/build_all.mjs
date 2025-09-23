@@ -2,9 +2,59 @@ import { writeFileSync, readFileSync } from 'fs';
 import { formatInTimeZone } from 'date-fns-tz';
 import { buildMHLStandings, buildBSHLStandings } from './standings.mjs';
 import { fetchRamblersSchedule, fetchDucksSchedule } from './schedules.mjs';
+import { readFileSync, writeFileSync, existsSync } from 'fs';
+import { formatInTimeZone } from 'date-fns-tz';
 
 const TZ = 'America/Halifax';
 const nowISO = () => formatInTimeZone(new Date(), TZ, "yyyy-MM-dd'T'HH:mm:ssXXX");
+
+function loadJSON(path, fallback){ 
+  try{ return JSON.parse(readFileSync(path,'utf8')); } 
+  catch{ return fallback; }
+}
+
+function sameTeams(a,b){ return a.home_slug===b.home_slug && a.away_slug===b.away_slug; }
+function nearSameDay(a,b){
+  const A = new Date(a.start), B = new Date(b.start);
+  const diff = Math.abs(A - B) / 86400000;
+  return diff <= 2; // within ±2 days
+}
+
+// Merge: manual overrides win
+function mergeEvents(scraped, manual){
+  const out = [...scraped];
+
+  // Apply/insert manual
+  for(const m of manual){
+    const idx = out.findIndex(e => sameTeams(e,m) && nearSameDay(e,m));
+    const status = (m.status||'scheduled').toLowerCase();
+
+    if(status === 'cancelled'){
+      if(idx>=0) out.splice(idx,1);
+      continue;
+    }
+    if(status === 'postponed'){
+      if(idx>=0) out.splice(idx,1);
+      continue;
+    }
+
+    if(idx>=0){
+      // Update existing
+      const e = out[idx];
+      e.start = m.revised_start || m.start || e.start;
+      e.end   = m.end || e.end;
+      e.location = m.location || e.location;
+      e.league   = m.league || e.league;
+    }else{
+      // Insert new
+      out.push({...m});
+    }
+  }
+
+  // sort by start
+  out.sort((a,b)=> new Date(a.start) - new Date(b.start));
+  return out;
+}
 
 // Load team directory once (for aliases)
 const TEAM_DIR = JSON.parse(readFileSync('teams.json','utf8'));
