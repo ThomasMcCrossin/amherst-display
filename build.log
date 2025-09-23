@@ -1,4 +1,4 @@
 [standings] mhlRows=0 bshlRows=2
 [schedules/ICS] parsed=52
-[BSHL] schedule table not found
-[schedules] events=52 ramblers=52 ducks=0
+[schedules/BSHL] parsed=50
+[schedules] events=102 ramblers=52 ducks=50
