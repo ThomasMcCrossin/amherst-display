@@ -26,16 +26,22 @@ async function buildSchedules() {
 
   writeFileSync('games.json', JSON.stringify({ generated_at: nowISO(), timezone: 'America/Halifax', events }, null, 2));
 
-  const nextN = (slug, n=3) => events
-    .filter(e => e.home_slug===slug || e.away_slug===slug)
-    .slice(0, n)
+// Helper: next N games for a specific team (home OR away), FUTURE only
+const nextN = (teamSlug, n=3) => {
+  const now = new Date();
+  return events
+    .filter(e => (e.home_slug===teamSlug || e.away_slug===teamSlug) && new Date(e.start) >= now)
+    .sort((a,b)=> new Date(a.start)-new Date(b.start))
+    .slice(0,n)
     .map(e => ({
-      opponent_slug: e.home_slug===slug ? e.away_slug : e.home_slug,
-      home: e.home_slug===slug,
+      opponent_slug: e.home_slug===teamSlug ? e.away_slug : e.home_slug,
+      home: e.home_slug===teamSlug,
       start: e.start,
       venue: e.location || '',
       city: ''
     }));
+};
+
   const nextPayload = {
     generated_at: nowISO(),
     timezone: 'America/Halifax',
