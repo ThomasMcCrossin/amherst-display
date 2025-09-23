@@ -1,4 +1,4 @@
-name: Build display JSONs
+name: Build display JSONs & standings snapshots
 
 on:
   schedule:
@@ -19,7 +19,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      # Optional: set this secret in repo settings if you prefer a hosted ICS
+      # Optional: set this secret in repo settings if you prefer a hosted ICS URL
       RAMBLERS_ICS_URL: ${{ secrets.RAMBLERS_ICS_URL }}
 
     steps:
@@ -30,12 +30,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
 
       - name: Install deps
         run: npm install
 
       - name: Build JSONs (tee logs)
         run: node scripts/build_all.mjs 2>&1 | tee build.log
+
+      - name: Snapshot standings to PNGs
+        run: npm run snap
 
       - name: Upload build log
         uses: actions/upload-artifact@v4
@@ -51,6 +55,9 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes"
           else
-            git commit -m "chore: nightly JSON update"
+            git commit -m "chore: nightly JSON & standings snapshot update"
             git push
           fi
+
+      - name: Show artifact hint
+        run: echo "Download the build log from the 'build-log' artifact on this run."
