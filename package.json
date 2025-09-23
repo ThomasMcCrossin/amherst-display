@@ -3,12 +3,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "node scripts/build_all.mjs"
+    "build": "node scripts/build_all.mjs",
+    "snap": "node scripts/snap_standings.mjs"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.12",
     "date-fns": "^3.6.0",
     "date-fns-tz": "^3.2.0",
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^3.3.2",
+    "puppeteer": "^23.4.1"
   }
 }
