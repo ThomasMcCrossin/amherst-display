@@ -1,5 +1,5 @@
-// Snap just the standings table into PNGs for clean display in Yodeck.
-// Saves to: assets/standings/standings_mhl.png and standings_bshl.png
+// Snap just the standings table into PNGs for clean display (no page chrome).
+// Saves: assets/standings/standings_mhl.png and standings_bshl.png
 
 import fs from 'fs/promises';
 import path from 'path';
@@ -8,18 +8,16 @@ import puppeteer from 'puppeteer';
 const OUT_DIR = 'assets/standings';
 await fs.mkdir(OUT_DIR, { recursive: true });
 
-// Tweak these if the sites change structure.
 const TARGETS = [
   {
     league: 'mhl',
     url: 'https://www.themhl.ca/stats/standings',
-    // We’ll wait for any table and then pick the largest one on the page.
     selector: 'table',
     darkCSS: `
       html,body { background:#0b0c10 !important; }
-      header,nav,footer,.cookie, .cookies, .site-header, .site-footer, .ad, [role="banner"], [role="contentinfo"] { display:none !important; }
-      table { background:#11151e !important; color:#f5f7fb !important; border-collapse: collapse; }
-      th, td { border: 1px solid #2a2f37 !important; padding: 6px 10px !important; font-size:14px !important; }
+      header,nav,footer,.cookie,.cookies,.ad,[role="banner"],[role="contentinfo"] { display:none !important; }
+      table { background:#11151e !important; color:#f5f7fb !important; border-collapse:collapse; }
+      th,td { border:1px solid #2a2f37 !important; padding:6px 10px !important; font-size:14px !important; }
       thead th { background:#171b23 !important; font-weight:800 !important; }
     `
   },
@@ -29,15 +27,15 @@ const TARGETS = [
     selector: 'table',
     darkCSS: `
       html,body { background:#0b0c10 !important; }
-      header,nav,footer,.ad, .ads, .cookie, .cookies, [role="banner"], [role="contentinfo"] { display:none !important; }
-      table { background:#11151e !important; color:#f5f7fb !important; border-collapse: collapse; }
-      th, td { border: 1px solid #2a2f37 !important; padding: 6px 10px !important; font-size:14px !important; }
+      header,nav,footer,.ad,.ads,.cookie,.cookies,[role="banner"],[role="contentinfo"] { display:none !important; }
+      table { background:#11151e !important; color:#f5f7fb !important; border-collapse:collapse; }
+      th,td { border:1px solid #2a2f37 !important; padding:6px 10px !important; font-size:14px !important; }
       thead th { background:#171b23 !important; font-weight:800 !important; }
     `
   }
 ];
 
-function pickLargestTableRects() {
+function pickLargestTableRect() {
   const tables = Array.from(document.querySelectorAll('table'));
   let best = null, bestArea = 0;
   for (const t of tables) {
@@ -45,7 +43,7 @@ function pickLargestTableRects() {
     const area = r.width * r.height;
     if (area > bestArea) { best = r; bestArea = area; }
   }
-  return best; // DOMRect-like
+  return best;
 }
 
 async function snapOne(browser, { league, url, selector, darkCSS }) {
@@ -53,45 +51,38 @@ async function snapOne(browser, { league, url, selector, darkCSS }) {
   await page.setViewport({ width: 1920, height: 1080, deviceScaleFactor: 2 });
   await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
 
-  // Give JS-rendered tables time to load (MHL is dynamic).
+  // JS-rendered pages (MHL) need a moment
   await page.waitForTimeout(3500);
-
-  // Inject dark CSS to unify look & hide chrome
   await page.addStyleTag({ content: darkCSS });
 
-  // Ensure at least one table exists; if not, try a tiny extra wait
   const hasTable = await page.$(selector);
   if (!hasTable) await page.waitForSelector(selector, { timeout: 10000 }).catch(()=>{});
 
-  // Compute the largest table’s bounding box on the page
-  const rect = await page.evaluate(pickLargestTableRects);
-
+  const rect = await page.evaluate(pickLargestTableRect);
   if (!rect || rect.width < 200 || rect.height < 100) {
     console.warn(`[snap] No suitable table on ${url} — skipping ${league}`);
     await page.close();
     return false;
   }
 
-  // Add a bit of padding around the table
   const pad = 16;
   const clip = {
     x: Math.max(0, rect.x - pad),
     y: Math.max(0, rect.y - pad),
-    width: Math.min(rect.width + pad*2, 1920 * 3),   // generous max
-    height: Math.min(rect.height + pad*2, 1080 * 10) // tall pages ok
+    width: rect.width + pad * 2,
+    height: rect.height + pad * 2
   };
 
   const outPath = path.join(OUT_DIR, `standings_${league}.png`);
   await page.screenshot({ path: outPath, clip, type: 'png' });
   await page.close();
-  console.log(`[snap] Saved ${outPath}  (${Math.round(clip.width)}x${Math.round(clip.height)})`);
+  console.log(`[snap] Saved ${outPath} (${Math.round(clip.width)}x${Math.round(clip.height)})`);
   return true;
 }
 
 (async () => {
   const browser = await puppeteer.launch({
     headless: 'new',
-    // Faster + fewer surprises in CI
     args: ['--no-sandbox','--disable-setuid-sandbox']
   });
 
