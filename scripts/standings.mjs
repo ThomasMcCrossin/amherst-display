@@ -5,49 +5,100 @@ import { formatInTimeZone } from 'date-fns-tz';
 const TZ = 'America/Halifax';
 const nowISO = () => formatInTimeZone(new Date(), TZ, "yyyy-MM-dd'T'HH:mm:ssXXX");
 
-/**
- * Normalize for matching aliases.
- */
-function normalize(name){ return name?.replace(/\s+/g,' ').trim().toLowerCase() || ''; }
+const norm = s => (s||'').replace(/\s+/g,' ').trim();
+const lo = s => norm(s).toLowerCase();
 
-export async function buildMHLStandings({ nameToSlug, standingsUrl }){
-  const html = await (await fetch(standingsUrl)).text();
-  const $ = cheerio.load(html);
-  const rows = [];
-  // TODO: confirm the correct table selector on themhla.ca
-  $('table tbody tr').each((_, tr)=>{
-    const tds = $(tr).find('td');
-    if(tds.length < 6) return;
-    const teamName = $(tds[0]).text().trim();
-    const gp = parseInt($(tds[1]).text(),10)||0;
-    const w  = parseInt($(tds[2]).text(),10)||0;
-    const l  = parseInt($(tds[3]).text(),10)||0;
-    const ot = parseInt($(tds[4]).text(),10)||0;  // OTL/SOL depending on site
-    const pts= parseInt($(tds[5]).text(),10)||0;
-    const slug = nameToSlug.get(normalize(teamName));
-    if(!slug){ console.warn('[MHL] Unmapped team:', teamName); return; }
-    rows.push({ team_slug: slug, gp, w, l, otl: ot, pts });
+/**
+ * Find a table whose header contains the given tokens (case-insensitive).
+ */
+function findTableByHeader($, tokens) {
+  const tks = tokens.map(t => t.toLowerCase());
+  let best = null;
+  $('table').each((_, tbl) => {
+    const headerText = lo($(tbl).find('thead').text() || $(tbl).find('tr').first().text());
+    const ok = tks.every(t => headerText.includes(t));
+    if (ok && !best) best = tbl;
   });
-  return { generated_at: nowISO(), season: '', league: 'MHL', rows };
+  return best;
 }
 
-export async function buildBSHLStandings({ nameToSlug, standingsUrl }){
-  const html = await (await fetch(standingsUrl)).text();
-  const $ = cheerio.load(html);
+/**
+ * Parse a standings table into rows with { team_slug, gp, w, l, otl, pts }.
+ * We detect columns by header names to be resilient to column order.
+ */
+function parseStandingsTable($, tableEl, nameToSlug) {
+  const $tbl = $(tableEl);
+  const $headRow = $tbl.find('thead tr').first().length ? $tbl.find('thead tr').first() : $tbl.find('tr').first();
+  const headers = [];
+  $headRow.find('th,td').each((i, th) => headers.push(lo($(th).text())));
+
+  // map common header names → column index
+  const idx = (names) => {
+    for (const n of names) {
+      const k = headers.findIndex(h => h.includes(n));
+      if (k !== -1) return k;
+    }
+    return -1;
+  };
+  const iTeam = idx(['team']);
+  const iGP   = idx(['gp','games']);
+  const iW    = idx(['w','wins']);
+  const iL    = idx(['l','losses']);
+  const iOTL  = idx(['otl','ol','sol','o/sol','ot/sol']);
+  const iPTS  = idx(['pts','points']);
+
   const rows = [];
-  // TODO: confirm the correct table selector on bshlhockey.com
-  $('table tbody tr').each((_, tr)=>{
+  const $bodyRows = $tbl.find('tbody tr').length ? $tbl.find('tbody tr') : $tbl.find('tr').slice(1);
+  $bodyRows.each((_, tr) => {
     const tds = $(tr).find('td');
-    if(tds.length < 6) return;
-    const teamName = $(tds[0]).text().trim();
-    const gp = parseInt($(tds[1]).text(),10)||0;
-    const w  = parseInt($(tds[2]).text(),10)||0;
-    const l  = parseInt($(tds[3]).text(),10)||0;
-    const ot = parseInt($(tds[4]).text(),10)||0;
-    const pts= parseInt($(tds[5]).text(),10)||0;
-    const slug = nameToSlug.get(normalize(teamName));
-    if(!slug){ console.warn('[BSHL] Unmapped team:', teamName); return; }
-    rows.push({ team_slug: slug, gp, w, l, otl: ot, pts });
+    if (!tds.length) return;
+    const teamName = norm($(tds.get(iTeam >= 0 ? iTeam : 0)).text());
+    if (!teamName) return;
+    const slug = nameToSlug.get(lo(teamName));
+    if (!slug) return; // skip unmapped; add alias in teams.json to fix
+    const num = (i) => i>=0 ? parseInt($(tds.get(i)).text(),10)||0 : 0;
+    rows.push({
+      team_slug: slug,
+      gp:  num(iGP),
+      w:   num(iW),
+      l:   num(iL),
+      otl: num(iOTL),
+      pts: num(iPTS)
+    });
   });
+  return rows;
+}
+
+/** Build BSHL standings from https://www.beausejourseniorhockeyleague.ca/standings.php */
+export async function buildBSHLStandings({ nameToSlug, standingsUrl = 'https://www.beausejourseniorhockeyleague.ca/standings.php' }) {
+  const res = await fetch(standingsUrl);
+  if (!res.ok) throw new Error(`BSHL standings HTTP ${res.status}`);
+  const html = await res.text();
+  const $ = cheerio.load(html);
+
+  // The page shows a regular table with "Team", "GP", "W", "L", "OTL", "Pts" columns.
+  const table = findTableByHeader($, ['team','gp','pts']) || $('table').first();
+  const rows = parseStandingsTable($, table, nameToSlug);
   return { generated_at: nowISO(), season: '', league: 'BSHL', rows };
+}
+
+/** Build MHL standings from https://www.themhl.ca/stats/standings */
+export async function buildMHLStandings({ nameToSlug, standingsUrl = 'https://www.themhl.ca/stats/standings' }) {
+  const res = await fetch(standingsUrl);
+  if (!res.ok) throw new Error(`MHL standings HTTP ${res.status}`);
+  const html = await res.text();
+  const $ = cheerio.load(html);
+
+  // The page lists standings (divisional) with a header row that includes Team/GP/W/L/OTL/PTS.
+  // We parse the first qualifying table, then any subsequent ones, and merge.
+  const rows = [];
+  $('table').each((_, tbl) => {
+    const headerTxt = lo($(tbl).find('thead').text() || $(tbl).find('tr').first().text());
+    if (!headerTxt) return;
+    if (headerTxt.includes('team') && (headerTxt.includes('gp') || headerTxt.includes('games'))) {
+      rows.push(...parseStandingsTable($, tbl, nameToSlug));
+    }
+  });
+
+  return { generated_at: nowISO(), season: '', league: 'MHL', rows };
 }
