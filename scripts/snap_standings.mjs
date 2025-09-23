@@ -82,6 +82,7 @@ async function snapOne(browser, { league, url, selector, darkCSS }) {
 
 (async () => {
   const browser = await puppeteer.launch({
+    channel: 'chrome',                         // use the Chrome we install in the workflow
     headless: 'new',
     args: ['--no-sandbox','--disable-setuid-sandbox']
   });
