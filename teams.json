@@ -4,7 +4,7 @@
     "BSHL": { "badge": "assets/league-bshl.png", "color": "#19c37d" }
   },
   "teams": [
-    { "slug": "amherst-ramblers", "league": "MHL", "names": ["Amherst Ramblers","Ramblers","Amherst","amherst-ramblers"], "logo_url": "assets/logos/mhl/amherst-ramblers.png", "brand_color": "#7a1d2b" },
+    { "slug": "amherst-ramblers", "league": "MHL", "names": ["Amherst Ramblers","Ramblers","Amherst","amherst-ramblers"], "logo_url": "https://thomas.mccrossin.github.io/amherst-display/assets/logos/mhl/amherst-ramblers.png", "brand_color": "#7a1d2b" },
     { "slug": "truro-bearcats", "league": "MHL", "names": ["Truro Bearcats","Truro","truro-bearcats"], "logo_url": "assets/logos/mhl/truro-bearcats.png", "brand_color": "#c8342d" },
     { "slug": "pictou-county-weeks-crushers", "league": "MHL", "names": ["Pictou County Weeks Crushers","Pictou County","Crushers"], "logo_url": "assets/logos/mhl/pictou-county-weeks-crushers.png", "brand_color": "#e74c3c" },
     { "slug": "yarmouth-mariners", "league": "MHL", "names": ["Yarmouth Mariners","Yarmouth"], "logo_url": "assets/logos/mhl/yarmouth-mariners.png", "brand_color": "#004c98" },
