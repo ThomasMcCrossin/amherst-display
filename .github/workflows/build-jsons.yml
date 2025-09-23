@@ -19,7 +19,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      # Optional: set this secret in repo settings if you prefer a hosted ICS URL
+      # Optional: set this secret to pull the Ramblers ICS from the web
       RAMBLERS_ICS_URL: ${{ secrets.RAMBLERS_ICS_URL }}
 
     steps:
@@ -34,6 +34,10 @@ jobs:
 
       - name: Install deps
         run: npm install
+
+      # NEW: install a browser for Puppeteer (v23+ no longer auto-downloads)
+      - name: Install Chrome for Puppeteer
+        run: npx puppeteer browsers install chrome
 
       - name: Build JSONs (tee logs)
         run: node scripts/build_all.mjs 2>&1 | tee build.log
