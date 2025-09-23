@@ -1,1 +1,37 @@
+{
+  "generated_at": "2025-09-23T10:00:00-03:00",
+  "timezone": "America/Halifax",
+  "events": [
+    {
+      "league": "MHL",
+      "home_team": "Amherst Ramblers",
+      "away_team": "Truro Bearcats",
+      "home_slug": "amherst-ramblers",
+      "away_slug": "truro-bearcats",
+      "start": "2025-09-27T19:00:00-03:00",
+      "end":   "2025-09-27T21:30:00-03:00",
+      "location": "Amherst Stadium"
+    },
+    {
+      "league": "BSHL",
+      "home_team": "Amherst Ducks",
+      "away_team": "Bouctouche",
+      "home_slug": "amherst-ducks",
+      "away_slug": "bouchette-bouctouche",
+      "start": "2025-10-12T14:00:00-03:00",
+      "end":   "2025-10-12T16:30:00-03:00",
+      "location": "Amherst Stadium"
+    },
+    {
+      "league": "MHL",
+      "home_team": "Amherst Ramblers",
+      "away_team": "Yarmouth Mariners",
+      "home_slug": "amherst-ramblers",
+      "away_slug": "yarmouth-mariners",
+      "start": "2025-10-18T19:00:00-03:00",
+      "end":   "2025-10-18T21:30:00-03:00",
+      "location": "Amherst Stadium"
+    }
+  ]
+}
 
