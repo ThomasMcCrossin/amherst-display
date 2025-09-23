@@ -1,0 +1,20 @@
+{
+  "generated_at": "",
+  "timezone": "America/Halifax",
+  "teams": [
+    {
+      "team_slug": "amherst-ramblers",
+      "games": [
+        { "opponent_slug": "truro-bearcats", "home": true,  "start": "2025-09-27T19:00:00-03:00", "venue": "Amherst Stadium", "city": "Amherst" },
+        { "opponent_slug": "yarmouth-mariners", "home": false, "start": "2025-10-01T19:00:00-03:00", "venue": "Mariners Centre", "city": "Yarmouth" }
+      ]
+    },
+    {
+      "team_slug": "amherst-ducks",
+      "games": [
+        { "opponent_slug": "bouctouche", "home": true,  "start": "2025-09-28T19:00:00-03:00", "venue": "Amherst Stadium", "city": "Amherst" },
+        { "opponent_slug": "elsipogtog", "home": false, "start": "2025-10-03T20:00:00-03:00", "venue": "ELS Centre", "city": "Elsipogtog" }
+      ]
+    }
+  ]
+}
