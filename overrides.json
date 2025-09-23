@@ -1,1 +1,10 @@
+{
+  "active": false,
+  "type": "full", 
+  "until": "2025-10-12T18:00:00-03:00",
+  "text": "Welcome U11 Tournament Teams!",
+  "subtext": "Good luck this weekend • Concessions open late",
+  "image_url": "assets/overrides/welcome-u11.png",
+  "ticker": "CANTEEN SPECIAL: Poutine + Pop Combo • Amherst Candy Shoppe across from ScotiaBank • Curly’s Sports & Supplements: Buy 10 Get 2 Free"
+}
 
