@@ -1,14 +1,51 @@
 import fetch from 'node-fetch';
 import * as cheerio from 'cheerio';
 import { existsSync, readFileSync } from 'fs';
-import { formatInTimeZone } from 'date-fns-tz';
 
-const TZ = 'America/Halifax';
-const toISO = (d) => formatInTimeZone(d, TZ, "yyyy-MM-dd'T'HH:mm:ssXXX");
-const norm = s => (s||'').replace(/\s+/g,' ').trim();
-const lo = s => norm(s).toLowerCase();
+/* ---- Atlantic time helpers (no Intl tz needed) ---- */
+// DST in Atlantic Canada: second Sunday in March to first Sunday in November.
+function dstStart(year){ // 2nd Sunday in March
+  const d = new Date(Date.UTC(year, 2, 1)); // Mar 1 UTC
+  const day = d.getUTCDay();                // 0 Sun .. 6 Sat
+  const firstSun = 7 - day;                 // days to first Sunday (1..7)
+  const secondSun = firstSun + 7;           // 2nd Sunday date (8..14)
+  return new Date(Date.UTC(year, 2, secondSun, 6, 0, 0)); // 3:00 local becomes 6:00 UTC-ish; safe pivot
+}
+function dstEnd(year){ // 1st Sunday in November
+  const d = new Date(Date.UTC(year, 10, 1)); // Nov 1 UTC
+  const day = d.getUTCDay();
+  const firstSun = (7 - day) % 7 || 7;       // 1..7
+  return new Date(Date.UTC(year, 10, firstSun, 5, 0, 0)); // 2:00 local ~ 5:00 UTC pivot
+}
+function atlanticOffsetMinutes(utcDate){
+  const y = utcDate.getUTCFullYear();
+  const start = dstStart(y), end = dstEnd(y);
+  // in DST => ADT = UTC-3 (-180); else AST = UTC-4 (-240)
+  return (utcDate >= start && utcDate < end) ? -180 : -240;
+}
+function atlanticISOFromUTC(utcDate){
+  const offMin = atlanticOffsetMinutes(utcDate);
+  const localMs = utcDate.getTime() + offMin*60000;
+  const d = new Date(localMs);
+  const pad = n => String(n).padStart(2,'0');
+  const sign = offMin <= 0 ? '-' : '+';
+  const off = Math.abs(offMin);
+  const hh = pad(Math.floor(off/60)), mm = pad(off%60);
+  return `${d.getUTCFullYear()}-${pad(d.getUTCMonth()+1)}-${pad(d.getUTCDate())}`+
+         `T${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}:${pad(d.getUTCSeconds())}${sign}${hh}:${mm}`;
+}
+/* If you already have a local Atlantic wall-time (e.g., parsed from site), make an ISO with the
+   *correct zone suffix* for that calendar date. */
+function atlanticISOFromLocalParts(year, monIdx, day, hour, min, sec=0){
+  // pretend the supplied time is Atlantic local; find its UTC by subtracting offset
+  // First guess: assume DST; we’ll compute offset using a temporary UTC guess
+  const guessUTC = new Date(Date.UTC(year, monIdx, day, hour, min, sec));
+  const offMin = atlanticOffsetMinutes(guessUTC);
+  const utcMs = Date.UTC(year, monIdx, day, hour, min, sec) - offMin*60000;
+  return atlanticISOFromUTC(new Date(utcMs));
+}
 
-// ---- Ramblers from ICS ----
+// ---------------- Ramblers from ICS ----------------
 const RAMBLERS_ICS_URL = process.env.RAMBLERS_ICS_URL || null;
 const RAMBLERS_ICS_LOCAL = 'data/ramblers.ics';
 
@@ -36,11 +73,14 @@ function parseICS(text) {
     const val = line.slice(i+1);
     if (key === 'SUMMARY') cur.SUMMARY = val;
     if (key === 'LOCATION') cur.LOCATION = val;
-    if (key === 'DTSTART') cur.DTSTART = val;
+    if (key === 'DTSTART') cur.DTSTART = val; // e.g. 20250927T220000Z (UTC)
     if (key === 'DTEND')   cur.DTEND   = val;
   }
   return out;
 }
+
+const norm = s => (s||'').replace(/\s+/g,' ').trim();
+const lo = s => norm(s).toLowerCase();
 
 function parseTeamsFromSummary(summary) {
   const s = norm(summary);
@@ -66,15 +106,16 @@ export async function fetchRamblersFromICS({ nameToSlug }) {
     const awaySlug = nameToSlug.get(lo(awayName));
     if (!homeSlug || !awaySlug) continue;
 
-    const start = new Date(DTSTART.replace('Z','Z'));
-    const end = DTEND ? new Date(DTEND.replace('Z','Z')) : null;
+    // ICS times are UTC (…Z). Convert to Atlantic ISO with correct DST suffix.
+    const startUTC = new Date(DTSTART.replace('Z','Z'));
+    const endUTC   = DTEND ? new Date(DTEND.replace('Z','Z')) : null;
 
     events.push({
       league: 'MHL',
       home_team: homeName, away_team: awayName,
       home_slug: homeSlug, away_slug: awaySlug,
-      start: toISO(start),
-      end: end ? toISO(end) : undefined,
+      start: atlanticISOFromUTC(startUTC),
+      end: endUTC ? atlanticISOFromUTC(endUTC) : undefined,
       location: LOCATION || ''
     });
   }
@@ -82,7 +123,7 @@ export async function fetchRamblersFromICS({ nameToSlug }) {
   return events;
 }
 
-// ---- Ducks from BSHL league page ----
+// ---------------- Ducks from BSHL schedule page ----------------
 const BSHL_SCHEDULE_URL = 'https://www.beausejourseniorhockeyleague.ca/schedule.php';
 
 export async function fetchDucksFromBSHL({ nameToSlug }) {
@@ -94,16 +135,22 @@ export async function fetchDucksFromBSHL({ nameToSlug }) {
   const text = $('body').text();
   const lines = text.split('\n').map(s => s.trim()).filter(Boolean);
   const events = [];
+
   const dateRe = /(Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday),\s+([A-Za-z]+)\s+(\d{1,2})(?:st|nd|rd|th)?,\s+(\d{4})/i;
+  const monIdx = m => ({
+    january:0,february:1,march:2,april:3,may:4,june:5,
+    july:6,august:7,september:8,october:9,november:10,december:11
+  })[m.toLowerCase()] ?? null;
 
   for (const line of lines) {
     if (!dateRe.test(line) || !line.includes('--')) continue;
     try {
-      const [datePart, rest] = line.split(/(?<=\d{4})\s+/);
+      const [datePart, rest] = line.split(/(?<=\d{4})\s+/); // split after YYYY
       const m = datePart.match(dateRe);
       if (!m) continue;
-      const [, , mon, day, year] = m;
-      const dateISO = `${mon} ${day}, ${year}`;
+      const [, , monName, dayStr, yearStr] = m;
+      const mi = monIdx(monName); if (mi == null) continue;
+      const day = parseInt(dayStr,10), year = parseInt(yearStr,10);
 
       const parts = rest.split('--').map(s => s.trim());
       if (parts.length < 3) continue;
@@ -111,20 +158,23 @@ export async function fetchDucksFromBSHL({ nameToSlug }) {
       const homeN = parts[1];
       const timeArena = parts[2];
 
-      const timeMatch = timeArena.match(/(\d{1,2}:\d{2}\s*[AP]M)/i);
-      const timeStr = timeMatch ? timeMatch[1] : '7:00 PM';
-      const venue = timeMatch ? timeArena.replace(timeMatch[1], '').trim() : timeArena.trim();
+      const timeMatch = timeArena.match(/(\d{1,2}):(\d{2})\s*([AP]M)/i);
+      const hh = timeMatch ? (parseInt(timeMatch[1],10)%12 + (/p/i.test(timeMatch[3])?12:0)) : 19;
+      const mm = timeMatch ? parseInt(timeMatch[2],10) : 0;
+      const venue = timeMatch ? timeArena.replace(timeMatch[0], '').trim() : timeArena.trim();
 
-      const startLocal = new Date(`${dateISO} ${timeStr}`);
       const homeSlug = nameToSlug.get(lo(homeN));
       const awaySlug = nameToSlug.get(lo(awayN));
       if (!homeSlug || !awaySlug) continue;
+
+      // Build Atlantic local ISO with correct DST suffix from local calendar parts:
+      const startISO = atlanticISOFromLocalParts(year, mi, day, hh, mm, 0);
 
       events.push({
         league: 'BSHL',
         home_team: homeN, away_team: awayN,
         home_slug: homeSlug, away_slug: awaySlug,
-        start: toISO(startLocal),
+        start: startISO,
         location: venue
       });
     } catch {/* ignore bad line */}
