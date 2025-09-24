@@ -1,4 +1,4 @@
-file:///home/runner/work/amherst-display/amherst-display/scripts/build_all.mjs:3
+file:///home/runner/work/amherst-display/amherst-display/scripts/build_all.mjs:10
 import { buildMHLStandings, buildBSHLStandings } from './standings.mjs';
                             ^^^^^^^^^^^^^^^^^^
 SyntaxError: The requested module './standings.mjs' does not provide an export named 'buildBSHLStandings'
