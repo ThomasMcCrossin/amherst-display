@@ -1,15 +1,14 @@
 /**
- * Build standings JSONs with rich logging.
- * - MHL: Headless Chrome → parse largest table → rows[]
- * - BSHL: Static HTML → regex lines → rows[]
+ * Build standings JSONs with robust parsing + helpful logs.
+ * - MHL: Headless Chrome (JS-rendered) → choose table by headers → parse rows
+ * - BSHL: Try real <table> first; fallback to text-line regex
  *
  * Outputs:
  *   standings_mhl.json
  *   standings_bshl.json
  *
- * Requires:
- *   - puppeteer ^23 (workflow must install chrome: `npx puppeteer browsers install chrome`)
- *   - cheerio ^1
+ * Requires in package.json: "puppeteer", "cheerio"
+ * Workflow must install Chrome:  npx puppeteer browsers install chrome
  */
 
 import fs from 'fs/promises';
@@ -17,158 +16,198 @@ import path from 'path';
 import * as cheerio from 'cheerio';
 import puppeteer from 'puppeteer';
 
-const TZ = 'America/Halifax';
-const OUT_MHL  = 'standings_mhl.json';
-const OUT_BSHL = 'standings_bshl.json';
-
 const URL_MHL  = 'https://www.themhl.ca/stats/standings';
 const URL_BSHL = 'https://www.beausejourseniorhockeyleague.ca/standings.php';
 
-// ---------- helpers ----------
 const nowISO = () => new Date().toISOString();
-
-const readTeams = async () => {
-  let teamsRaw = null;
-  try {
-    teamsRaw = JSON.parse(await fs.readFile('teams.json', 'utf8'));
-  } catch {
-    console.warn('[teams] teams.json not found — slug mapping will be empty.');
-    return { byName: new Map(), bySlug: new Map() };
-  }
-  const teams = Array.isArray(teamsRaw.teams) ? teamsRaw.teams : [];
-  const bySlug = new Map(teams.map(t => [t.slug, t]));
-  const byName = new Map();
-  const norm = s => (s||'').toLowerCase().replace(/\s+/g, ' ').trim();
-
-  for (const t of teams) {
-    if (t.name) byName.set(norm(t.name), t.slug);
-    for (const a of (t.aliases || [])) byName.set(norm(a), t.slug);
-  }
-  return { byName, bySlug };
-};
-
-const nameToSlug = (name, byName) => {
-  if (!name) return null;
-  const norm = name.toLowerCase().replace(/\s+/g, ' ').trim();
-  return byName.get(norm) || null;
-};
 
 const ensureDir = async (fp) => {
   const dir = path.dirname(fp);
   await fs.mkdir(dir, { recursive: true });
 };
 
-// ---------- BSHL (static text parse) ----------
-async function buildBSHL(byName) {
-  console.log(`[bshl] fetch ${URL_BSHL}`);
-  const res = await fetch(URL_BSHL);
-  if (!res.ok) throw new Error(`[bshl] HTTP ${res.status}`);
-  const html = await res.text();
-  const $ = cheerio.load(html);
-
-  // Grab the visible text; their page lists a header and then rows of text with numbers.
-  const bodyText = $('body').text().split('\n').map(s => s.trim()).filter(Boolean);
-
-  // Keep only lines that look like standings rows.
-  // Example: "Amherst Ducks 0 0 0 0 0-0-0 0-0-0 0 0 0 0"
-  const rowRe = /^([A-Za-zÀ-ÿ'’\-\s]+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+-\d+-\d+)\s+(\d+-\d+-\d+)\s+(\d+)\s+(\d+)\s+([+-]?\d+)\s+(\d+)$/;
-
-  const rows = [];
-  for (const line of bodyText) {
-    if (/^Team\s+GP\b/i.test(line)) continue; // skip header
-    const m = line.match(rowRe);
-    if (!m) continue;
-    const [, team, gp, w, l, otl, homeRec, roadRec, gf, ga, diff, pts] = m;
-    const slug = nameToSlug(team, byName);
-    rows.push({
-      team, slug,
-      gp: +gp, w: +w, l: +l, otl: +otl,
-      home: homeRec, road: roadRec,
-      gf: +gf, ga: +ga, diff: +diff, pts: +pts
-    });
-  }
-
-  console.log(`[bshl] scanned=${bodyText.length} matched=${rows.length}${rows[0] ? ` example=${JSON.stringify(rows[0])}` : ''}`);
-  return {
-    generated_at: nowISO(),
-    league: 'BSHL',
-    season: '',
-    rows
-  };
+// ------------ slug mapping helpers (use map passed in from build_all) -----------
+const norm = s => (s||'').toLowerCase().replace(/\s+/g,' ').trim();
+function slugFor(name, nameToSlug){
+  if (!name || !nameToSlug) return null;
+  const n = norm(name);
+  return nameToSlug.get(n) || null;
+}
+function attachSlug(row, nameToSlug){
+  const slug = slugFor(row.team, nameToSlug);
+  return { ...row, slug };
 }
 
-// ---------- MHL (JS-rendered → headless table scrape) ----------
-async function buildMHL(byName) {
-  console.log(`[mhl] launch headless → ${URL_MHL}`);
+// ------------ BSHL ------------
+async function fetchText(url){
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.text();
+}
+
+function parseBSHLTable($, nameToSlug){
+  const tables = $('table');
+  if (!tables.length) return [];
+
+  // Pick the table with most body rows
+  let best = null; let bestRows = 0;
+  tables.each((i, el) => {
+    const r = $(el).find('tbody tr').length || $(el).find('tr').length;
+    if (r > bestRows){ best = el; bestRows = r; }
+  });
+  if (!best) return [];
+
+  const headers = $(best).find('thead th, tr:first-child th').map((i,el)=>$(el).text().trim().toLowerCase()).get();
+  const hidx = (label) => {
+    const i = headers.findIndex(h => h === label || h.includes(label));
+    return i >= 0 ? i : -1;
+  };
+
+  const teamIdx = Math.max(0, hidx('team'));
+  const idx = {
+    gp: hidx('gp'), w: hidx('w'), l: hidx('l'),
+    otl: hidx('otl') >=0 ? hidx('otl') : (hidx('ol')>=0 ? hidx('ol') : -1),
+    sol: hidx('sol'), pts: hidx('pts') >=0 ? hidx('pts') : hidx('points'),
+    gf: hidx('gf'), ga: hidx('ga'), diff: (hidx('diff')>=0 ? hidx('diff') : hidx('+') )
+  };
+
+  const out = [];
+  $(best).find('tbody tr, tr').each((i,tr)=>{
+    const tds = $(tr).find('td');
+    if (!tds.length) return;
+    const cells = tds.map((j,td)=>$(td).text().replace(/\s+/g,' ').trim()).get();
+    const team = cells[teamIdx] || cells[0] || '';
+    if (!team) return;
+
+    const num = (i) => (i>=0 && cells[i]!=null && /^-?\d+(\.\d+)?$/.test(cells[i])) ? Number(cells[i]) : 0;
+    const row = {
+      team,
+      gp:  num(idx.gp), w: num(idx.w), l: num(idx.l),
+      otl: num(idx.otl), sol: num(idx.sol),
+      pts: num(idx.pts),
+      gf:  num(idx.gf), ga: num(idx.ga),
+      diff: ( (idx.diff>=0 && /^-?\d+$/.test(cells[idx.diff]||'')) ? Number(cells[idx.diff]) : 0 )
+    };
+    out.push(attachSlug(row, nameToSlug));
+  });
+
+  return out.filter(r => r.team); // basic sanity
+}
+
+function parseBSHLText($, nameToSlug){
+  // Example line:
+  // Amherst Ducks 0 0 0 0 0-0-0 0-0-0 0 0 0 0
+  const lines = $('body').text().replace(/\u00A0/g,' ').split('\n').map(s=>s.trim()).filter(Boolean);
+  const rowRe = /^([A-Za-zÀ-ÿ'’\-\s]+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+-\d+-\d+)\s+(\d+-\d+-\d+)\s+(\d+)\s+(\d+)\s+([+-]?\d+)\s+(\d+)$/;
+
+  const out = [];
+  let matched = 0;
+  for (const line of lines) {
+    if (/^team\s+gp\b/i.test(line)) continue;
+    const m = line.match(rowRe);
+    if (!m) continue;
+    matched++;
+    const [, team, gp, w, l, otl, home, road, gf, ga, diff, pts] = m;
+    out.push(attachSlug({
+      team,
+      gp:+gp, w:+w, l:+l, otl:+otl, pts:+pts,
+      gf:+gf, ga:+ga, diff:+diff,
+      home, road
+    }, nameToSlug));
+  }
+  console.log(`[standings/BSHL] text parse matched=${matched} lines`);
+  return out;
+}
+
+export async function buildBSHLStandings({ nameToSlug }){
+  try{
+    const html = await fetchText(URL_BSHL);
+    const $ = cheerio.load(html);
+
+    let rows = parseBSHLTable($, nameToSlug);
+    console.log(`[standings/BSHL] table rows=${rows.length}`);
+    if (rows.length < 2) {
+      rows = parseBSHLText($, nameToSlug);
+    }
+
+    // compute diff if missing
+    rows = rows.map(r => ({ ...r, diff: (r.diff || (typeof r.gf === 'number' && typeof r.ga === 'number') ? (r.gf - r.ga) : 0) }));
+
+    console.log(rows[0] ? `[standings/BSHL] example=${JSON.stringify(rows[0])}` : '[standings/BSHL] example=none');
+
+    return {
+      generated_at: nowISO(),
+      season: '',
+      league: 'BSHL',
+      rows
+    };
+  }catch(e){
+    console.warn('[standings/BSHL] failed:', e.message);
+    return { generated_at: nowISO(), league: 'BSHL', season: '', rows: [] };
+  }
+}
+
+// ------------ MHL ------------
+export async function buildMHLStandings({ nameToSlug }){
   const browser = await puppeteer.launch({
     channel: 'chrome',
     headless: 'new',
     args: ['--no-sandbox','--disable-setuid-sandbox']
   });
 
-  try {
+  try{
     const page = await browser.newPage();
     await page.setViewport({ width: 1600, height: 1200, deviceScaleFactor: 1 });
     await page.goto(URL_MHL, { waitUntil: 'domcontentloaded', timeout: 60000 });
 
-    // Wait for client JS to draw; then see if any tables exist.
-    await page.waitForTimeout(3500);
+    // Let the client JS fetch+render. Then wait for network to idle briefly.
+    await page.waitForNetworkIdle({ idleTime: 1000, timeout: 15000 }).catch(()=>{});
+    await page.waitForTimeout(800);
 
-    // Find the largest table on the page (what worked best in practice)
-    const tableInfo = await page.evaluate(() => {
-      function rectArea(r){ return r.width * r.height; }
+    const info = await page.evaluate(() => {
       const tables = Array.from(document.querySelectorAll('table'));
-      if (!tables.length) return null;
+      const headerWords = t => {
+        const h = t.querySelector('thead') || t.querySelector('tr');
+        if (!h) return [];
+        const cells = Array.from(h.querySelectorAll('th,td')).map(c => (c.textContent||'').trim().toLowerCase());
+        return cells;
+      };
 
-      let best = null, bestArea = 0;
+      // Choose by header (TEAM / GP / PTS or Points). Fallback: largest.
+      let chosen = null;
       for (const t of tables) {
-        const r = t.getBoundingClientRect();
-        const area = rectArea(r);
-        if (area > bestArea) { best = t; bestArea = area; }
+        const words = headerWords(t);
+        const ok = words.includes('team') && words.includes('gp') && (words.includes('pts') || words.includes('points'));
+        if (ok) { chosen = t; break; }
       }
-      if (!best) return null;
+      if (!chosen && tables.length){
+        chosen = tables.sort((a,b) => {
+          const ra=a.getBoundingClientRect(), rb=b.getBoundingClientRect();
+          return (rb.width*rb.height) - (ra.width*ra.height);
+        })[0];
+      }
+      if (!chosen) return { count: tables.length, headers: [], rows: [], size:{w:0,h:0} };
 
-      const headers = [];
-      const thead = best.querySelector('thead');
-      if (thead) {
-        const ths = Array.from(thead.querySelectorAll('th'));
-        for (const th of ths) headers.push(th.textContent.trim());
-      } else {
-        // Sometimes headers are the first row of tbody
-        const firstRow = best.querySelector('tr');
-        if (firstRow) {
-          const cells = Array.from(firstRow.querySelectorAll('th,td'));
-          if (cells.length > 3) headers.push(...cells.map(c => c.textContent.trim()));
-        }
-      }
+      const headers = headerWords(chosen);
+      const bodyRows = chosen.querySelector('tbody') ? Array.from(chosen.querySelectorAll('tbody tr')) : Array.from(chosen.querySelectorAll('tr')).slice(1);
 
       const rows = [];
-      const trs = Array.from(best.querySelectorAll('tbody tr')).length
-        ? Array.from(best.querySelectorAll('tbody tr'))
-        : Array.from(best.querySelectorAll('tr')).slice(1); // skip first if used as header
-
-      for (const tr of trs) {
+      for (const tr of bodyRows) {
         const tds = Array.from(tr.querySelectorAll('td'));
         if (!tds.length) continue;
         rows.push(tds.map(td => td.textContent.replace(/\s+/g,' ').trim()));
       }
-
-      return {
-        size: best.getBoundingClientRect(),
-        headers,
-        rows
-      };
+      const r = chosen.getBoundingClientRect();
+      return { count: tables.length, headers, rows, size: {w:r.width, h:r.height} };
     });
 
-    if (!tableInfo) {
-      console.warn('[mhl] No <table> elements found on page.');
-      return { generated_at: nowISO(), league: 'MHL', season: '', rows: [] };
+    console.log(`[standings/MHL] tables=${info.count} chosen=${Math.round(info.size.w)}x${Math.round(info.size.h)} headers=${JSON.stringify(info.headers)} rows=${info.rows.length}`);
+
+    if (!info.rows.length) {
+      return { generated_at: nowISO(), league:'MHL', season:'', rows: [] };
     }
 
-    const { size, headers, rows: grid } = tableInfo;
-    console.log(`[mhl] table ${Math.round(size.width)}x${Math.round(size.height)} headers=${JSON.stringify(headers)} rows=${grid.length}`);
-
-    // Normalize header → key mapping
+    // Map headers to canonical keys
     const mapHeader = (h) => {
       const x = (h||'').toLowerCase().replace(/[^a-z0-9]+/g,'');
       if (/^team/.test(x)) return 'team';
@@ -178,81 +217,70 @@ async function buildMHL(byName) {
       if (x === 'otl' || x === 'ol') return 'otl';
       if (x === 'sol' || x === 'so') return 'sol';
       if (x === 'pts' || x === 'points') return 'pts';
-      if (x === 'pct' || x === 'winpct') return 'pct';
+      if (x === 'gf') return 'gf';
+      if (x === 'ga') return 'ga';
+      if (x === 'diff' || x === 'plusminus' || x === 'gd' || x === '+-') return 'diff';
+      if (x === 'streak' || x === 'stk') return 'streak';
+      if (x === 'p10' || x === 'last10') return 'p10';
       if (x === 'rw') return 'rw';
       if (x === 'otw') return 'otw';
       if (x === 'sow') return 'sow';
-      if (x === 'gf') return 'gf';
-      if (x === 'ga') return 'ga';
-      if (x === 'diff' || x === '+-') return 'diff';
-      if (x === 'pim') return 'pim';
-      if (x === 'stk' || x === 'streak') return 'streak';
-      if (x === 'p10' || x === 'last10') return 'p10';
       return h || x || 'col';
     };
-    const headerKeys = headers.map(mapHeader);
+    const headerKeys = info.headers.map(mapHeader);
 
-    // Build row objects
+    // Build normalized rows
     const rows = [];
-    for (const row of grid) {
+    for (const arr of info.rows) {
+      if (!arr.length) continue;
       const obj = {};
-      for (let i=0; i<row.length; i++) {
+      for (let i=0;i<arr.length;i++){
         const key = headerKeys[i] || `col${i}`;
-        obj[key] = row[i];
+        obj[key] = arr[i];
       }
-      // Team name is usually in column 0
-      obj.team = obj.team || row[0] || '';
-      // Attach slug if we can
-      const slug = nameToSlug(obj.team, byName);
-      if (slug) obj.slug = slug;
-
-      // Parse numerics where obvious
-      ['gp','w','l','otl','sol','pts','rw','otw','sow','gf','ga','diff','pim'].forEach(k=>{
-        if (obj[k] != null && /^[+-]?\d+(\.\d+)?$/.test(String(obj[k]))) obj[k] = Number(obj[k]);
+      obj.team = obj.team || arr[0] || '';
+      // numeric coercion where obvious
+      const toNum = (v) => (/^-?\d+(\.\d+)?$/.test(String(v||''))) ? Number(v) : v;
+      ['gp','w','l','otl','sol','pts','rw','otw','sow','gf','ga','diff'].forEach(k=>{
+        if (obj[k] != null) obj[k] = toNum(obj[k]);
       });
+      if (obj.diff == null && typeof obj.gf === 'number' && typeof obj.ga === 'number') obj.diff = obj.gf - obj.ga;
 
       rows.push(obj);
     }
 
-    console.log(`[mhl] parsed rows=${rows.length}${rows[0] ? ` example=${JSON.stringify(rows[0])}` : ''}`);
+    // Attach slug
+    const withSlug = rows
+      .filter(r => r.team && (r.gp!=null || r.pts!=null)) // drop empty/footer rows
+      .map(r => attachSlug(r, nameToSlug));
+
+    console.log(withSlug[0] ? `[standings/MHL] example=${JSON.stringify(withSlug[0])}` : '[standings/MHL] example=none');
+
     return {
       generated_at: nowISO(),
-      league: 'MHL',
       season: '',
-      rows
+      league: 'MHL',
+      rows: withSlug
     };
-  } finally {
+  }catch(e){
+    console.warn('[standings/MHL] failed:', e.message);
+    return { generated_at: nowISO(), league: 'MHL', season: '', rows: [] };
+  }finally{
     await browser.close();
   }
 }
 
-// ---------- main ----------
-(async () => {
-  const { byName } = await readTeams();
-
-  // Build BSHL first (fast), then MHL
-  let bshl = null, mhl = null;
-  try {
-    bshl = await buildBSHL(byName);
-  } catch (e) {
-    console.warn('[bshl] failed:', e.message);
-    bshl = { generated_at: nowISO(), league: 'BSHL', season: '', rows: [] };
-  }
-
-  try {
-    mhl = await buildMHL(byName);
-  } catch (e) {
-    console.warn('[mhl] failed:', e.message);
-    mhl = { generated_at: nowISO(), league: 'MHL', season: '', rows: [] };
-  }
-
-  await ensureDir(OUT_BSHL);
-  await fs.writeFile(OUT_BSHL, JSON.stringify(bshl, null, 2));
-  await ensureDir(OUT_MHL);
-  await fs.writeFile(OUT_MHL, JSON.stringify(mhl, null, 2));
-
-  console.log(`[standings] done → ${OUT_MHL} rows=${mhl.rows.length} | ${OUT_BSHL} rows=${bshl.rows.length}`);
-})().catch(err => {
-  console.error('[standings] fatal:', err);
-  process.exit(1);
-});
+// ------------- CLI entry (optional local run) -------------
+if (process.argv[1] && process.argv[1].endsWith('standings.mjs')) {
+  (async ()=>{
+    // In local ad-hoc run, we won’t have nameToSlug; parse without slugs.
+    const nameToSlug = new Map(); // provide one if you want local mapping
+    const mhl = await buildMHLStandings({ nameToSlug });
+    const bshl = await buildBSHLStandings({ nameToSlug });
+    await ensureDir('standings_mhl.json');
+    await fs.writeFile('standings_mhl.json', JSON.stringify(mhl, null, 2));
+    await ensureDir('standings_bshl.json');
+    await fs.writeFile('standings_bshl.json', JSON.stringify(bshl, null, 2));
+    console.log(`[standings] wrote: MHL=${mhl.rows.length} BSHL=${bshl.rows.length}`);
+  })().catch(e=>{ console.error(e); process.exit(1); });
+}
