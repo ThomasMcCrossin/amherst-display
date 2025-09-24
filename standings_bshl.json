@@ -1,23 +1,98 @@
 {
-  "generated_at": "2025-09-23T19:47:40Z",
+  "generated_at": "2025-09-24T12:55:39.272Z",
   "season": "",
   "league": "BSHL",
   "rows": [
     {
-      "team_slug": "amherst-ducks",
+      "team": "Team",
       "gp": 0,
       "w": 0,
       "l": 0,
       "otl": 0,
-      "pts": 0
+      "sol": 0,
+      "pts": 0,
+      "gf": 0,
+      "ga": 0,
+      "diff": 0,
+      "slug": null
     },
     {
-      "team_slug": "elsipogtog",
+      "team": "Amherst Ducks",
       "gp": 0,
       "w": 0,
       "l": 0,
       "otl": 0,
-      "pts": 0
+      "sol": 0,
+      "pts": 0,
+      "gf": 0,
+      "ga": 0,
+      "diff": 0,
+      "slug": "amherst-ducks"
+    },
+    {
+      "team": "Bouctouche JCs",
+      "gp": 0,
+      "w": 0,
+      "l": 0,
+      "otl": 0,
+      "sol": 0,
+      "pts": 0,
+      "gf": 0,
+      "ga": 0,
+      "diff": 0,
+      "slug": null
+    },
+    {
+      "team": "Dalhousie Marauders",
+      "gp": 0,
+      "w": 0,
+      "l": 0,
+      "otl": 0,
+      "sol": 0,
+      "pts": 0,
+      "gf": 0,
+      "ga": 0,
+      "diff": 0,
+      "slug": null
+    },
+    {
+      "team": "Elsipogtog Hawks",
+      "gp": 0,
+      "w": 0,
+      "l": 0,
+      "otl": 0,
+      "sol": 0,
+      "pts": 0,
+      "gf": 0,
+      "ga": 0,
+      "diff": 0,
+      "slug": "elsipogtog"
+    },
+    {
+      "team": "Miramichi Northmen",
+      "gp": 0,
+      "w": 0,
+      "l": 0,
+      "otl": 0,
+      "sol": 0,
+      "pts": 0,
+      "gf": 0,
+      "ga": 0,
+      "diff": 0,
+      "slug": null
+    },
+    {
+      "team": "Peninsule Acadienne Corsaires",
+      "gp": 0,
+      "w": 0,
+      "l": 0,
+      "otl": 0,
+      "sol": 0,
+      "pts": 0,
+      "gf": 0,
+      "ga": 0,
+      "diff": 0,
+      "slug": null
     }
   ]
 }
