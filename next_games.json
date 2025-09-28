@@ -1,17 +1,10 @@
 {
-  "generated_at": "2025-09-27T06:42:01Z",
+  "generated_at": "2025-09-28T06:43:45Z",
   "timezone": "America/Halifax",
   "teams": [
     {
       "team_slug": "amherst-ramblers",
       "games": [
-        {
-          "opponent_slug": "chaleur-lightning",
-          "home": true,
-          "start": "2025-09-27T19:00:00-03:00",
-          "venue": "Amherst Stadium",
-          "city": ""
-        },
         {
           "opponent_slug": "valley-wildcats",
           "home": false,
@@ -24,6 +17,13 @@
           "home": false,
           "start": "2025-10-02T19:00:00-03:00",
           "venue": "Rath Eastlink Community Centre",
+          "city": ""
+        },
+        {
+          "opponent_slug": "west-kent-steamers",
+          "home": true,
+          "start": "2025-10-04T19:00:00-03:00",
+          "venue": "Amherst Stadium",
           "city": ""
         }
       ]
