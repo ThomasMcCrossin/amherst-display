@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-10-01T06:47:01Z",
+  "generated_at": "2025-10-02T06:45:14Z",
   "timezone": "America/Halifax",
   "events": [
     {
@@ -488,6 +488,15 @@
     },
     {
       "league": "BSHL",
+      "home_team": "Bouctouche",
+      "away_team": "Amherst",
+      "home_slug": "bouctouche",
+      "away_slug": "amherst-ducks",
+      "start": "2025-12-05T20:00:00-04:00",
+      "location": "CP"
+    },
+    {
+      "league": "BSHL",
       "home_team": "Miramichi",
       "away_team": "Fredericton",
       "home_slug": "miramichi-bshl",
@@ -531,15 +540,6 @@
       "away_slug": "miramichi-bshl",
       "start": "2025-12-07T18:45:00-04:00",
       "location": "J. K."
-    },
-    {
-      "league": "BSHL",
-      "home_team": "Bouctouche",
-      "away_team": "Amherst",
-      "home_slug": "bouctouche",
-      "away_slug": "amherst-ducks",
-      "start": "2025-12-12T20:00:00-04:00",
-      "location": "CP"
     },
     {
       "league": "MHL",
