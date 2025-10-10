@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-10-09T06:47:41Z",
+  "generated_at": "2025-10-10T06:47:39Z",
   "timezone": "America/Halifax",
   "events": [
     {
@@ -441,21 +441,21 @@
     },
     {
       "league": "BSHL",
-      "home_team": "Amherst",
-      "away_team": "Dalhousie",
-      "home_slug": "amherst-ducks",
-      "away_slug": "dalhousie",
-      "start": "2025-11-29T19:00:00-04:00",
-      "location": "Amherst Stadium"
-    },
-    {
-      "league": "BSHL",
       "home_team": "Fredericton",
       "away_team": "Miramichi",
       "home_slug": "fredericton",
       "away_slug": "miramichi-bshl",
       "start": "2025-11-29T19:00:00-04:00",
       "location": "York Arena"
+    },
+    {
+      "league": "BSHL",
+      "home_team": "Amherst",
+      "away_team": "Dalhousie",
+      "home_slug": "amherst-ducks",
+      "away_slug": "dalhousie",
+      "start": "2025-11-29T19:00:00-04:00",
+      "location": "Amherst Stadium"
     },
     {
       "league": "MHL",
