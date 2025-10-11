@@ -1,10 +1,36 @@
 {
-  "generated_at": "2025-10-10T06:47:39.680Z",
+  "generated_at": "2025-10-11T06:42:43.018Z",
   "season": "",
   "league": "BSHL",
   "rows": [
     {
       "team": "Team",
+      "gp": 0,
+      "w": 0,
+      "l": 0,
+      "otl": 0,
+      "sol": 0,
+      "pts": 0,
+      "gf": 0,
+      "ga": 0,
+      "diff": 0,
+      "slug": null
+    },
+    {
+      "team": "Miramichi Northmen",
+      "gp": 0,
+      "w": 0,
+      "l": 0,
+      "otl": 0,
+      "sol": 0,
+      "pts": 0,
+      "gf": 0,
+      "ga": 0,
+      "diff": 0,
+      "slug": null
+    },
+    {
+      "team": "Bouctouche JCs",
       "gp": 0,
       "w": 0,
       "l": 0,
@@ -28,19 +54,6 @@
       "ga": 0,
       "diff": 0,
       "slug": "amherst-ducks"
-    },
-    {
-      "team": "Bouctouche JCs",
-      "gp": 0,
-      "w": 0,
-      "l": 0,
-      "otl": 0,
-      "sol": 0,
-      "pts": 0,
-      "gf": 0,
-      "ga": 0,
-      "diff": 0,
-      "slug": null
     },
     {
       "team": "Dalhousie Marauders",
@@ -67,19 +80,6 @@
       "ga": 0,
       "diff": 0,
       "slug": "elsipogtog"
-    },
-    {
-      "team": "Miramichi Northmen",
-      "gp": 0,
-      "w": 0,
-      "l": 0,
-      "otl": 0,
-      "sol": 0,
-      "pts": 0,
-      "gf": 0,
-      "ga": 0,
-      "diff": 0,
-      "slug": null
     },
     {
       "team": "Peninsule Acadienne Corsaires",
