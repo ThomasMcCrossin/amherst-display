@@ -1,10 +1,23 @@
 {
-  "generated_at": "2025-10-12T06:42:41.312Z",
+  "generated_at": "2025-10-13T06:49:18.428Z",
   "season": "",
   "league": "BSHL",
   "rows": [
     {
       "team": "Team",
+      "gp": 0,
+      "w": 0,
+      "l": 0,
+      "otl": 0,
+      "sol": 0,
+      "pts": 0,
+      "gf": 0,
+      "ga": 0,
+      "diff": 0,
+      "slug": null
+    },
+    {
+      "team": "Bouctouche JCs",
       "gp": 0,
       "w": 0,
       "l": 0,
@@ -31,19 +44,6 @@
     },
     {
       "team": "Miramichi Northmen",
-      "gp": 0,
-      "w": 0,
-      "l": 0,
-      "otl": 0,
-      "sol": 0,
-      "pts": 0,
-      "gf": 0,
-      "ga": 0,
-      "diff": 0,
-      "slug": null
-    },
-    {
-      "team": "Bouctouche JCs",
       "gp": 0,
       "w": 0,
       "l": 0,

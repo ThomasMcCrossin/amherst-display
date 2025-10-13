@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-10-12T06:42:41Z",
+  "generated_at": "2025-10-13T06:49:18Z",
   "timezone": "America/Halifax",
   "events": [
     {
@@ -101,24 +101,6 @@
       "start": "2025-10-11T19:00:00-03:00",
       "end": "2025-10-11T22:00:00-03:00",
       "location": "Amherst Stadium"
-    },
-    {
-      "league": "BSHL",
-      "home_team": "Amherst",
-      "away_team": "Fredericton",
-      "home_slug": "amherst-ducks",
-      "away_slug": "fredericton",
-      "start": "2025-10-12T14:00:00-03:00",
-      "location": "Amherst Stadium"
-    },
-    {
-      "league": "BSHL",
-      "home_team": "Elsipogtog",
-      "away_team": "Bouctouche",
-      "home_slug": "elsipogtog",
-      "away_slug": "bouctouche",
-      "start": "2025-10-12T17:30:00-03:00",
-      "location": "Kent North"
     },
     {
       "league": "MHL",
