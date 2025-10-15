@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-10-14T06:46:42.623Z",
+  "generated_at": "2025-10-15T06:47:23.221Z",
   "season": "",
   "league": "BSHL",
   "rows": [
@@ -30,20 +30,7 @@
       "slug": null
     },
     {
-      "team": "Dalhousie Marauders",
-      "gp": 0,
-      "w": 0,
-      "l": 0,
-      "otl": 0,
-      "sol": 0,
-      "pts": 0,
-      "gf": 0,
-      "ga": 0,
-      "diff": 0,
-      "slug": null
-    },
-    {
-      "team": "Miramichi Northmen",
+      "team": "Fredericton Express",
       "gp": 0,
       "w": 0,
       "l": 0,
@@ -80,19 +67,6 @@
       "ga": 0,
       "diff": 0,
       "slug": "elsipogtog"
-    },
-    {
-      "team": "Peninsule Acadienne Corsaires",
-      "gp": 0,
-      "w": 0,
-      "l": 0,
-      "otl": 0,
-      "sol": 0,
-      "pts": 0,
-      "gf": 0,
-      "ga": 0,
-      "diff": 0,
-      "slug": null
     }
   ]
 }

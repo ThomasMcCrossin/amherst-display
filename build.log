@@ -1,7 +1,7 @@
 [standings/MHL] failed: page.waitForTimeout is not a function
-[standings/BSHL] table rows=7
+[standings/BSHL] table rows=5
 [standings/BSHL] example={"team":"Team","gp":0,"w":0,"l":0,"otl":0,"sol":0,"pts":0,"gf":0,"ga":0,"diff":0,"slug":null}
-[standings] mhlRows=0  bshlRows=7
+[standings] mhlRows=0  bshlRows=5
 [schedules/ICS] parsed=52
 [schedules/BSHL] parsed=47
 [schedules] events=99  ramblers=52  ducks=47
