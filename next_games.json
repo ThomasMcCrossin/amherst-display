@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-10-17T06:46:06Z",
+  "generated_at": "2025-10-18T06:43:59Z",
   "timezone": "America/Halifax",
   "teams": [
     {
@@ -32,13 +32,6 @@
       "team_slug": "amherst-ducks",
       "games": [
         {
-          "opponent_slug": "elsipogtog",
-          "home": true,
-          "start": "2025-10-17T19:30:00-03:00",
-          "venue": "Amherst Stadium",
-          "city": ""
-        },
-        {
           "opponent_slug": "bouctouche",
           "home": false,
           "start": "2025-10-24T20:00:00-03:00",
@@ -50,6 +43,13 @@
           "home": false,
           "start": "2025-11-08T19:00:00-04:00",
           "venue": "LBR",
+          "city": ""
+        },
+        {
+          "opponent_slug": "miramichi-bshl",
+          "home": false,
+          "start": "2025-11-14T20:15:00-04:00",
+          "venue": "Civic",
           "city": ""
         }
       ]
