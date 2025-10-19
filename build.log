@@ -3,5 +3,5 @@
 [standings/BSHL] example={"team":"Team","gp":0,"w":0,"l":0,"otl":0,"sol":0,"pts":0,"gf":0,"ga":0,"diff":0,"slug":null}
 [standings] mhlRows=0  bshlRows=5
 [schedules/ICS] parsed=52
-[schedules/BSHL] parsed=46
-[schedules] events=98  ramblers=52  ducks=46
+[schedules/BSHL] parsed=45
+[schedules] events=97  ramblers=52  ducks=45
