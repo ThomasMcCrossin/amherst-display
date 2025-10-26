@@ -1,7 +1,7 @@
 [standings/MHL] failed: page.waitForTimeout is not a function
-[standings/BSHL] failed: fetch failed
-[standings] mhlRows=0  bshlRows=0
+[standings/BSHL] table rows=5
+[standings/BSHL] example={"team":"Team","gp":0,"w":0,"l":0,"otl":0,"sol":0,"pts":0,"gf":0,"ga":0,"diff":0,"slug":null}
+[standings] mhlRows=0  bshlRows=5
 [schedules/ICS] parsed=52
-[BSHL] fetch error: request to https://www.beausejourseniorhockeyleague.ca/schedule.php failed, reason: getaddrinfo EAI_AGAIN www.beausejourseniorhockeyleague.ca
-[BSHL] empty HTML
-[schedules] events=52  ramblers=52  ducks=0
+[schedules/BSHL] parsed=40
+[schedules] events=92  ramblers=52  ducks=40
