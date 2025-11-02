@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Amherst GameBoard</title>
+  <style>
+    :root{
+      --bg:#0b0c10; --bg2:#0f1118; --muted:#a7b0ba; --ink:#f5f7fb; --accent:#f28c18; --mhl:#2d74ff; --bshl:#19c37d;
+      --maxw:1820px; --rowh:118px; --logoH:60px; --logoW:140px; --radius:22px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;color:var(--ink);font-family:var(--font);display:flex;flex-direction:column;align-items:center;
+      background: radial-gradient(1200px 700px at 15% 10%, #1a1f2a 0%, #0f1219 60%, #0b0c10 100%);}
+    .bg::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.08;
+      background-image:url('assets/bg/ice-texture.jpg');background-size:cover;background-position:center;mix-blend-mode:screen;}
+
+    .wrap{width:100%;max-width:var(--maxw);padding:28px 40px}
+    header{display:flex;align-items:baseline;gap:18px;margin-bottom:10px}
+    .title{font-weight:900;font-size:60px;letter-spacing:0.3px}
+    .subtitle{color:var(--muted);font-size:22px}
+    .legend{margin-top:10px;display:flex;gap:16px;color:var(--muted);font-size:16px;flex-wrap:wrap}
+    .pill{padding:6px 12px;border-radius:999px;background:#1b1f27;color:#cfd6df;border:1px solid #2a2f37}
+
+    /* LAYOUTS */
+    .cards{display:grid;gap:18px;margin-top:16px}
+    .hero{grid-template-columns:1fr} /* 1 game */
+    .split{grid-template-columns:1fr 1fr} /* 2 games */
+    .list{grid-template-columns:1fr} /* 3+ games stack */
+
+    .card{position:relative;background:linear-gradient(180deg,#171b23,#12151d);border:1px solid #232730;border-radius:var(--radius);
+      overflow:hidden;display:grid;grid-template-columns:190px 1fr 210px;align-items:center;min-height:180px}
+    .card.hero{min-height:320px;grid-template-columns:240px 1fr 260px}
+    .card::after{content:"";position:absolute;inset:0;background:radial-gradient(600px 240px at 10% 10%, rgba(255,255,255,.06), transparent 60%)}
+
+    .time{padding:16px 20px;font-size:42px;font-weight:900}
+    .meta{padding:16px 0}
+    .logos{display:flex;gap:16px;align-items:center;padding:0 8px 0 0}
+    .logos img{height:var(--logoH);max-width:var(--logoW);width:auto;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5))}
+
+    .names{min-width:0}
+    .vs{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+    .team{font-size:42px;font-weight:900;white-space:nowrap}
+    .sep{opacity:.6;font-weight:800}
+    .loc{color:var(--muted);font-size:18px;margin-top:6px}
+
+    .league{margin-left:auto;justify-self:end;display:flex;align-items:center;gap:10px;padding-right:20px}
+    .league img{height:26px}
+    .tag{font-size:15px;font-weight:900;padding:8px 12px;border-radius:999px;border:1px solid #2c3341;background:#1a1f2a}
+    .tag.mhl{border-color:#2d74ff55}
+    .tag.bshl{border-color:#19c37d66}
+    /* COUNTDOWN */
+    .countwrap{display:flex;align-items:center;gap:28px}
+    .countbox{display:flex;gap:10px}
+    .count{min-width:140px;padding:14px 16px;border-radius:16px;background:#101420;border:1px solid #2b3040;text-align:center}
+    .count .num{font-size:80px;font-weight:900;line-height:1}
+    .count .lab{font-size:14px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+    .count-sub{font-size:22px;color:var(--muted)}
+    .live{background:crimson!important;color:white!important;border-color:#000}
+
+    /* DAY HEADER */
+    .dayhead{display:flex;align-items:center;gap:14px;margin-top:6px;margin-bottom:6px}
+    .dow{font-weight:900;font-size:24px}
+    .date{color:var(--muted);font-size:18px}
+    .badge{margin-left:auto;font-size:12px;color:#0a0a0a;background:#f5c451;border-radius:999px;padding:6px 10px;font-weight:800}
+
+    footer{max-width:var(--maxw);width:100%;display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:16px;padding:8px 40px}
+    .clock{font-variant-numeric:tabular-nums;font-weight:700}
+
+    /* DIAGNOSTICS (non‑intrusive) */
+    #dbg{position:fixed;right:10px;bottom:10px;background:#0b0d12cc;border:1px solid #2a2f37;border-radius:10px;padding:8px 10px;color:#cfd6df;font:12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;z-index:99999;max-width:36ch;display:none}
+    #dbg.show{display:block}
+    #dbg b{color:#fff}
+    .warn{display:inline-block;vertical-align:middle;opacity:.9;margin-left:8px}
+
+    @media (max-width:1500px){
+      .title{font-size:48px}
+      .team{font-size:36px}
+      .time{font-size:36px}
+      .card.hero{grid-template-columns:220px 1fr 240px}
+    }
+
+    /* CCMHA MINOR HOCKEY SECTION */
+    .ccmha-section{margin-top:40px;padding-top:30px;border-top:2px solid #232730}
+    .ccmha-header{display:flex;align-items:center;gap:20px;margin-bottom:20px}
+    .ccmha-logo{height:80px;width:auto;filter:drop-shadow(0 2px 8px rgba(0,0,0,.6))}
+    .ccmha-title{display:flex;flex-direction:column;gap:4px}
+    .ccmha-main{font-size:32px;font-weight:900;letter-spacing:0.3px}
+    .ccmha-sub{font-size:14px;color:var(--muted);opacity:.7}
+
+    .ccmha-games{display:grid;gap:12px}
+    .ccmha-card{background:linear-gradient(180deg,#14161e,#0f1118);border:1px solid #1f2229;border-radius:14px;
+      padding:14px 18px;display:grid;grid-template-columns:80px 1fr 100px;align-items:center;gap:12px;min-height:70px}
+    .ccmha-time{font-size:22px;font-weight:800}
+    .ccmha-details{min-width:0}
+    .ccmha-matchup{display:flex;gap:8px;align-items:baseline;font-size:20px;font-weight:800;flex-wrap:wrap}
+    .ccmha-vs{opacity:.5;font-size:16px}
+    .ccmha-division{color:var(--muted);font-size:14px;margin-top:2px}
+    .ccmha-league-tag{font-size:13px;font-weight:800;padding:6px 10px;border-radius:999px;
+      background:#1a1f2a;border:1px solid #2c3341;text-align:center;white-space:nowrap}
+  </style>
+</head>
+<body class="bg">
+  <div class="wrap">
+    <header>
+      <div class="title">This Week at Amherst Stadium</div>
+      <div class="subtitle" id="date-range"></div>
+    </header>
+    <div class="legend">
+      <span class="pill">Auto‑updates every 10 min</span>
+      <span class="pill">Atlantic Time</span>
+      <span class="pill">Home games only</span>
+    </div>
+    <section class="cards" id="cards"></section>
+
+    <!-- CCMHA Minor Hockey Section -->
+    <section class="ccmha-section" id="ccmha-section" style="display:none;">
+      <div class="ccmha-header">
+        <img src="assets/logos/ccmha/cumberland-ramblers.png" alt="Cumberland Ramblers" class="ccmha-logo">
+        <div class="ccmha-title">
+          <div class="ccmha-main">Cumberland Ramblers Minor Hockey</div>
+          <div class="ccmha-sub">Schedule data from GrayJay Leagues</div>
+        </div>
+      </div>
+      <div class="ccmha-games" id="ccmha-games"></div>
+    </section>
+  </div>
+  <footer>
+    <div>Ramblers • Ducks • Community events welcome</div>
+    <div class="clock" id="clock"></div>
+  </footer>
+
+  <div id="dbg"></div>
+
+<script>
+// ========= CONFIG =========
+const CONFIG = {
+  DATA_URL: "https://thomasmccrossin.github.io/amherst-display/games.json",
+  TEAMS_URL: "https://thomasmccrossin.github.io/amherst-display/teams.json",
+  OVERRIDES_URL: "https://thomasmccrossin.github.io/amherst-display/overrides.json", // optional (welcome/ticker)
+  CCMHA_URL: "https://thomasmccrossin.github.io/amherst-display/ccmha_games.json",
+  DAYS_AHEAD: 7,
+  HOME_ONLY: true,
+  HOME_VENUES: ["Amherst Stadium"],
+  TIMEZONE: "America/Halifax",
+  REFRESH_MINUTES: 10,
+  COUNTDOWN_HOURS: 24,      // start countdown this many hours before puck drop
+  PREGAME_MINUTES: 60,      // within this window, you may choose to swap layouts in Yodeck
+  LEAGUE: {
+    MHL: { tagClass: "mhl", icon: "assets/league/mhl.png" },
+    BSHL:{ tagClass: "bshl", icon: "assets/league/bshl.png" }
+  }
+};
+// ==========================
+
+const $cards = document.getElementById('cards');
+const $range = document.getElementById('date-range');
+const $clock = document.getElementById('clock');
+const $dbg = document.getElementById('dbg');
+const DEBUG = new URLSearchParams(location.search).has('debug');
+
+let TEAM_DIR = {}; // slug -> { logo_url, names[], league, brand_color }
+
+function dbg(msg){ if(!DEBUG) return; $dbg.classList.add('show'); $dbg.textContent = msg; }
+
+function fmtDate(d){ return new Intl.DateTimeFormat('en-CA',{weekday:'short',month:'short',day:'numeric'}).format(d); }
+function fmtLong(d){ return new Intl.DateTimeFormat('en-CA',{weekday:'long',month:'long',day:'numeric'}).format(d); }
+function fmtTime(d){ return new Intl.DateTimeFormat('en-CA',{hour:'numeric',minute:'2-digit',hour12:true,timeZone:CONFIG.TIMEZONE}).format(d); }
+function startOfDay(d){ return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+function addDays(d,n){ const x=new Date(d); x.setDate(x.getDate()+n); return x; }
+function withinWindow(dt){ const now=new Date(), end=addDays(now, CONFIG.DAYS_AHEAD); return dt>=startOfDay(now)&&dt<end; }
+function isHome(evt){ if(!CONFIG.HOME_ONLY) return true; if(!evt.location) return false; return CONFIG.HOME_VENUES.some(v=> (evt.location||'').toLowerCase().includes(v.toLowerCase())); }
+function leagueKey(evt){ const k=(evt.league||'').toUpperCase(); if(k.includes('MHL')) return 'MHL'; if(k.includes('BSHL')||k.includes('BEAUSEJOUR')) return 'BSHL'; return 'MHL'; }
+
+async function fetchJSON(url){ const res=await fetch(url+`?t=${Date.now()}`,{cache:'no-store'}); if(!res.ok) throw new Error(`HTTP ${res.status} ${url}`); return res.json(); }
+
+async function loadAll(){
+  let teams=null, data=null, ov=null; let err='';
+  try{ data = await fetchJSON(CONFIG.DATA_URL); }catch(e){ err += ` data:${e.message}`; data = JSON.parse(localStorage.getItem('amherst_last')||'{"events":[]}'); }
+  try{ teams = await fetchJSON(CONFIG.TEAMS_URL); }catch(e){ err += ` teams:${e.message}`; }
+  try{ ov = CONFIG.OVERRIDES_URL ? await fetchJSON(CONFIG.OVERRIDES_URL) : null; }catch(e){ err += ` ov:${e.message}`; }
+  if(teams && Array.isArray(teams.teams)) TEAM_DIR = Object.fromEntries(teams.teams.map(t=> [t.slug, t]));
+  if(data) localStorage.setItem('amherst_last', JSON.stringify(data));
+  if(DEBUG) dbg(`events=${(data?.events||[]).length} teams=${Object.keys(TEAM_DIR).length}${err? ' |'+err: ''}`);
+  return {data, ov, err};
+}
+
+function logo(slug){ const t=TEAM_DIR[slug]; return t?.logo_url || null; }
+function labelForDay(d){ const today=startOfDay(new Date()), dd=startOfDay(d), delta=Math.round((dd-today)/86400000); if(delta===0) return 'TODAY'; if(delta===1) return 'TOMORROW'; return fmtDate(d).toUpperCase(); }
+function isLive(now,start,end){ const ends=end? new Date(end): new Date(new Date(start).getTime()+165*60000); return now>=new Date(start)&& now<=ends; }
+
+function cardHTML(e){
+  const h = e.home_team || e.title?.split(/vs|@|—|–/i)[0]?.trim() || 'Home';
+  const a = e.away_team || e.title?.replace(h,'').split(/vs|@|—|–/i)[1]?.trim() || 'Away';
+  const hLogo = e.home_slug? logo(e.home_slug): null;
+  const aLogo = e.away_slug? logo(e.away_slug): null;
+  const keyL = leagueKey(e);
+  const warn = (!hLogo||!aLogo) ? '<svg class="warn" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l10 18H2L12 2z" fill="#f5c451"/><path d="M12 9v5" stroke="#222" stroke-width="2"/><circle cx="12" cy="17" r="1.5" fill="#222"/></svg>' : '';
+  const live = isLive(new Date(), e.start, e.end);
+  return `
+    <div class="card ${e.mode||''}">
+      <div class="time">${fmtTime(e.start)}</div>
+      <div class="meta">
+        <div class="dayhead"><div class="dow">${labelForDay(e.start)}</div><div class="date">${fmtLong(e.start)}</div>${labelForDay(e.start)==='TODAY'? '<div class="badge">GAME DAY</div>':''}</div>
+        <div class="logos">${hLogo? `<img src="${hLogo}" alt="${h}">`:''}${aLogo? `<img src="${aLogo}" alt="${a}">`:''}</div>
+        <div class="names"><div class="vs"><span class="team">${h}</span> <span class="sep">vs</span> <span class="team">${a}</span>${warn}</div><div class="loc">${e.location||''}</div></div>
+      </div>
+      <div class="league">${CONFIG.LEAGUE[keyL]?.icon? `<img src="${CONFIG.LEAGUE[keyL].icon}" alt="${keyL}">`:''}<div class="tag ${CONFIG.LEAGUE[keyL]?.tagClass||''}">${live? 'LIVE NOW': keyL}</div></div>
+    </div>`;
+}
+
+function render(data){
+  const now = new Date();
+  const events=(data.events||[])
+    .map(e=> ({...e, start:new Date(e.start), end: e.end? new Date(e.end): null}))
+    .filter(e=> withinWindow(e.start) && (!CONFIG.HOME_ONLY || isHome(e)))
+    .sort((a,b)=> a.start-b.start);
+
+  // Countdown mode for next Amherst home game within COUNTDOWN_HOURS
+  const next = events[0];
+  // date range subtitle (always set)
+  const s=startOfDay(new Date()), t=addDays(s, CONFIG.DAYS_AHEAD-1); $range.textContent = `${fmtDate(s)} → ${fmtDate(t)}`;
+
+  if(next){
+    const isAmherstHome = (next.home_slug && (/^amherst-(ramblers|ducks)$/.test(next.home_slug))) || (/amherst/i.test(next.home_team||''));
+    const msTo = next.start - now;
+    const withinCountdown = isAmherstHome && msTo > 0 && msTo <= CONFIG.COUNTDOWN_HOURS*3600*1000;
+    const withinPre = isAmherstHome && msTo > 0 && msTo <= CONFIG.PREGAME_MINUTES*60*1000;
+
+    if(withinCountdown){
+      $cards.className = 'cards hero';
+      $cards.innerHTML = countdownHTML(next, msTo, withinPre);
+      startCountdownTick(next);
+      return; // do not render weekly list while in countdown
+    }
+  }
+
+  // choose layout class (no countdown)
+  const layout = events.length<=1? 'hero' : (events.length===2? 'split' : 'list');
+  $cards.className = `cards ${layout}`;
+
+  $cards.innerHTML = events.map(cardHTML).join('');
+}
+
+let COUNTDOWN_TIMER = null;
+function hms(ms){
+  const total = Math.max(0, Math.floor(ms/1000));
+  const d = Math.floor(total/86400);
+  const h = Math.floor((total%86400)/3600);
+  const m = Math.floor((total%3600)/60);
+  const s = total%60;
+  return {d,h,m,s};
+}
+
+function countdownHTML(e, msTo, withinPre){
+  const h = e.home_team || 'Home';
+  const a = e.away_team || 'Away';
+  const hLogo = e.home_slug? logo(e.home_slug): null;
+  const aLogo = e.away_slug? logo(e.away_slug): null;
+  const dd = hms(msTo);
+  const preNote = withinPre ? '<div class="count-sub">Doors Open • Concessions • Merch at Curly\'s Sports</div>' : '';
+  return `
+    <div class="card hero">
+      <div class="time">${fmtTime(e.start)}</div>
+      <div class="meta">
+        <div class="dayhead"><div class="dow">COUNTDOWN</div><div class="date">${fmtLong(e.start)}</div><div class="badge">PUCK DROP</div></div>
+        <div class="logos">${hLogo? `<img src="${hLogo}" alt="${h}">`:''}${aLogo? `<img src="${aLogo}" alt="${a}">`:''}</div>
+        <div class="names"><div class="vs"><span class="team">${h}</span> <span class="sep">vs</span> <span class="team">${a}</span></div>
+          <div class="loc">${e.location||''}</div>
+          <div class="countwrap">
+            <div class="countbox">
+              <div class="count"><div class="num" id="cdd">${String(dd.d).padStart(2,'0')}</div><div class="lab">DAYS</div></div>
+              <div class="count"><div class="num" id="cdh">${String(dd.h).padStart(2,'0')}</div><div class="lab">HOURS</div></div>
+              <div class="count"><div class="num" id="cdm">${String(dd.m).padStart(2,'0')}</div><div class="lab">MIN</div></div>
+              <div class="count"><div class="num" id="cds">${String(dd.s).padStart(2,'0')}</div><div class="lab">SEC</div></div>
+            </div>
+          </div>
+          ${preNote}
+        </div>
+      </div>
+      <div class="league"><div class="tag ${CONFIG.LEAGUE[leagueKey(e)]?.tagClass||''}">${leagueKey(e)}</div></div>
+    </div>`;
+}
+
+function startCountdownTick(e){
+  if(COUNTDOWN_TIMER) clearInterval(COUNTDOWN_TIMER);
+  const update=()=>{
+    const ms = new Date(e.start) - new Date();
+    if(ms<=0){ clearInterval(COUNTDOWN_TIMER); location.reload(); return; }
+    const t = hms(ms);
+    const dEl=document.getElementById('cdd'), hEl=document.getElementById('cdh'), mEl=document.getElementById('cdm'), sEl=document.getElementById('cds');
+    if(dEl){ dEl.textContent=String(t.d).padStart(2,'0'); }
+    if(hEl){ hEl.textContent=String(t.h).padStart(2,'0'); }
+    if(mEl){ mEl.textContent=String(t.m).padStart(2,'0'); }
+    if(sEl){ sEl.textContent=String(t.s).padStart(2,'0'); }
+    if(DEBUG) dbg(`COUNTDOWN → ${t.d}d ${t.h}h ${t.m}m ${t.s}s`);
+  };
+  update();
+  COUNTDOWN_TIMER = setInterval(update, 1000);
+}
+
+// ========= CCMHA MINOR HOCKEY =========
+async function loadCCMHA(){
+  try{
+    const res = await fetchJSON(CONFIG.CCMHA_URL);
+    return res.games || [];
+  }catch(e){
+    console.warn('[CCMHA] failed to load:', e.message);
+    return [];
+  }
+}
+
+function ccmhaCardHTML(game){
+  const start = new Date(game.start);
+  return `
+    <div class="ccmha-card">
+      <div class="ccmha-time">${fmtTime(start)}</div>
+      <div class="ccmha-details">
+        <div class="ccmha-matchup">
+          <span>${game.home_team}</span>
+          <span class="ccmha-vs">vs</span>
+          <span>${game.away_team}</span>
+        </div>
+        <div class="ccmha-division">${fmtDate(start)}</div>
+      </div>
+      <div class="ccmha-league-tag">${game.league}</div>
+    </div>`;
+}
+
+async function renderCCMHA(){
+  const games = await loadCCMHA();
+  const $section = document.getElementById('ccmha-section');
+  const $games = document.getElementById('ccmha-games');
+
+  if (games.length === 0) {
+    $section.style.display = 'none';
+    return;
+  }
+
+  // Sort by start time
+  games.sort((a,b)=> new Date(a.start) - new Date(b.start));
+
+  $games.innerHTML = games.map(ccmhaCardHTML).join('');
+  $section.style.display = 'block';
+}
+
+async function bootstrap(){
+  setInterval(()=>{ $clock.textContent=new Intl.DateTimeFormat('en-CA',{hour:'numeric',minute:'2-digit',second:'2-digit',hour12:true,timeZone:CONFIG.TIMEZONE}).format(new Date()); },1000);
+  try{
+    const {data} = await loadAll();
+    render(data||{events:[]});
+    await renderCCMHA();
+  }
+  catch(e){ dbg('fatal '+e.message); render({events:[]}); }
+  setInterval(async()=>{
+    try{
+      const {data} = await loadAll();
+      render(data||{events:[]});
+      await renderCCMHA();
+    }catch(e){ dbg('refresh '+e.message); }
+  }, CONFIG.REFRESH_MINUTES*60*1000);
+}
+bootstrap();
+</script>
+</body>
+</html>

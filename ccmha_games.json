@@ -1,0 +1,42 @@
+{
+  "generated_at": "2025-11-02T20:00:23Z",
+  "timezone": "America/Halifax",
+  "games": [
+    {
+      "league": "U11-AA",
+      "home_team": "Pictou County Crushers White",
+      "away_team": "Cumberland Ramblers",
+      "start": "2025-11-08T13:45:00-04:00",
+      "end": "2025-11-08T15:15:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U13-AA",
+      "home_team": "Truro Bearcats",
+      "away_team": "Cumberland Ramblers",
+      "start": "2025-11-09T12:00:00-04:00",
+      "end": "2025-11-09T13:30:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U15-AA",
+      "home_team": "Antigonish Bulldogs",
+      "away_team": "Cumberland Ramblers",
+      "start": "2025-11-09T13:45:00-04:00",
+      "end": "2025-11-09T15:15:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U18-A",
+      "home_team": "Truro Bearcats",
+      "away_team": "Cumberland Ramblers",
+      "start": "2025-11-09T15:30:00-04:00",
+      "end": "2025-11-09T17:00:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    }
+  ]
+}
