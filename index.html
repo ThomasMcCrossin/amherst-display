@@ -100,6 +100,11 @@
     .ccmha-division{color:var(--muted);font-size:14px;margin-top:2px}
     .ccmha-league-tag{font-size:13px;font-weight:800;padding:6px 10px;border-radius:999px;
       background:#1a1f2a;border:1px solid #2c3341;text-align:center;white-space:nowrap}
+
+    /* PAGINATION */
+    .page-indicator{display:flex;justify-content:center;gap:8px;margin-top:20px;padding:10px}
+    .page-dot{width:10px;height:10px;border-radius:50%;background:#2c3341;transition:all 0.3s}
+    .page-dot.active{background:var(--accent);width:24px;border-radius:5px}
   </style>
 </head>
 <body class="bg">
@@ -126,6 +131,9 @@
       </div>
       <div class="ccmha-games" id="ccmha-games"></div>
     </section>
+
+    <!-- Pagination Indicator -->
+    <div class="page-indicator" id="page-indicator" style="display:none;"></div>
   </div>
   <footer>
     <div>Ramblers • Ducks • Community events welcome</div>
@@ -148,6 +156,9 @@ const CONFIG = {
   REFRESH_MINUTES: 10,
   COUNTDOWN_HOURS: 24,      // start countdown this many hours before puck drop
   PREGAME_MINUTES: 60,      // within this window, you may choose to swap layouts in Yodeck
+  PAGINATION_ROTATION_SECONDS: 20,  // rotate pages every 20 seconds
+  MAX_RAMBLERS_DUCKS_PER_PAGE: 3,   // max main games per page
+  MAX_CCMHA_PER_PAGE: 6,            // max minor hockey games per page
   LEAGUE: {
     MHL: { tagClass: "mhl", icon: "assets/league/mhl.png" },
     BSHL:{ tagClass: "bshl", icon: "assets/league/bshl.png" }
@@ -159,9 +170,17 @@ const $cards = document.getElementById('cards');
 const $range = document.getElementById('date-range');
 const $clock = document.getElementById('clock');
 const $dbg = document.getElementById('dbg');
+const $pageIndicator = document.getElementById('page-indicator');
 const DEBUG = new URLSearchParams(location.search).has('debug');
 
 let TEAM_DIR = {}; // slug -> { logo_url, names[], league, brand_color }
+let PAGINATION = {
+  currentPage: 0,
+  totalPages: 1,
+  timer: null,
+  mainGames: [],
+  ccmhaGames: []
+};
 
 function dbg(msg){ if(!DEBUG) return; $dbg.classList.add('show'); $dbg.textContent = msg; }
 
@@ -218,11 +237,11 @@ function render(data){
     .filter(e=> withinWindow(e.start) && (!CONFIG.HOME_ONLY || isHome(e)))
     .sort((a,b)=> a.start-b.start);
 
-  // Countdown mode for next Amherst home game within COUNTDOWN_HOURS
-  const next = events[0];
   // date range subtitle (always set)
   const s=startOfDay(new Date()), t=addDays(s, CONFIG.DAYS_AHEAD-1); $range.textContent = `${fmtDate(s)} → ${fmtDate(t)}`;
 
+  // Countdown mode for next Amherst home game within COUNTDOWN_HOURS
+  const next = events[0];
   if(next){
     const isAmherstHome = (next.home_slug && (/^amherst-(ramblers|ducks)$/.test(next.home_slug))) || (/amherst/i.test(next.home_team||''));
     const msTo = next.start - now;
@@ -230,18 +249,18 @@ function render(data){
     const withinPre = isAmherstHome && msTo > 0 && msTo <= CONFIG.PREGAME_MINUTES*60*1000;
 
     if(withinCountdown){
+      stopPageRotation();
       $cards.className = 'cards hero';
       $cards.innerHTML = countdownHTML(next, msTo, withinPre);
       startCountdownTick(next);
+      $pageIndicator.style.display = 'none';
+      document.getElementById('ccmha-section').style.display = 'none';
       return; // do not render weekly list while in countdown
     }
   }
 
-  // choose layout class (no countdown)
-  const layout = events.length<=1? 'hero' : (events.length===2? 'split' : 'list');
-  $cards.className = `cards ${layout}`;
-
-  $cards.innerHTML = events.map(cardHTML).join('');
+  // Store games in pagination state
+  PAGINATION.mainGames = events;
 }
 
 let COUNTDOWN_TIMER = null;
@@ -301,6 +320,85 @@ function startCountdownTick(e){
   COUNTDOWN_TIMER = setInterval(update, 1000);
 }
 
+// ========= PAGINATION =========
+function calculatePages(mainGames, ccmhaGames) {
+  const mainPerPage = CONFIG.MAX_RAMBLERS_DUCKS_PER_PAGE;
+  const ccmhaPerPage = CONFIG.MAX_CCMHA_PER_PAGE;
+
+  const mainPages = Math.max(1, Math.ceil(mainGames.length / mainPerPage));
+  const ccmhaPages = Math.max(1, Math.ceil(ccmhaGames.length / ccmhaPerPage));
+
+  return Math.max(mainPages, ccmhaPages);
+}
+
+function updatePageIndicator() {
+  if (PAGINATION.totalPages <= 1) {
+    $pageIndicator.style.display = 'none';
+    return;
+  }
+
+  $pageIndicator.style.display = 'flex';
+  $pageIndicator.innerHTML = Array.from({length: PAGINATION.totalPages}, (_, i) =>
+    `<div class="page-dot ${i === PAGINATION.currentPage ? 'active' : ''}"></div>`
+  ).join('');
+}
+
+function showPage(pageNum) {
+  PAGINATION.currentPage = pageNum % PAGINATION.totalPages;
+
+  const mainPerPage = CONFIG.MAX_RAMBLERS_DUCKS_PER_PAGE;
+  const ccmhaPerPage = CONFIG.MAX_CCMHA_PER_PAGE;
+
+  // Slice main games for this page
+  const mainStart = PAGINATION.currentPage * mainPerPage;
+  const mainEnd = mainStart + mainPerPage;
+  const pageMainGames = PAGINATION.mainGames.slice(mainStart, mainEnd);
+
+  // Slice CCMHA games for this page
+  const ccmhaStart = PAGINATION.currentPage * ccmhaPerPage;
+  const ccmhaEnd = ccmhaStart + ccmhaPerPage;
+  const pageCCMHAGames = PAGINATION.ccmhaGames.slice(ccmhaStart, ccmhaEnd);
+
+  // Render main games
+  if (pageMainGames.length > 0) {
+    const layout = pageMainGames.length <= 1 ? 'hero' : (pageMainGames.length === 2 ? 'split' : 'list');
+    $cards.className = `cards ${layout}`;
+    $cards.innerHTML = pageMainGames.map(cardHTML).join('');
+  } else {
+    $cards.innerHTML = '<div class="card"><div class="meta"><div class="names"><div class="vs"><span class="team">No games scheduled</span></div></div></div></div>';
+  }
+
+  // Render CCMHA games
+  const $ccmhaSection = document.getElementById('ccmha-section');
+  const $ccmhaGames = document.getElementById('ccmha-games');
+
+  if (pageCCMHAGames.length > 0) {
+    $ccmhaGames.innerHTML = pageCCMHAGames.map(ccmhaCardHTML).join('');
+    $ccmhaSection.style.display = 'block';
+  } else {
+    $ccmhaSection.style.display = 'none';
+  }
+
+  updatePageIndicator();
+}
+
+function startPageRotation() {
+  if (PAGINATION.timer) clearInterval(PAGINATION.timer);
+
+  if (PAGINATION.totalPages <= 1) return;
+
+  PAGINATION.timer = setInterval(() => {
+    showPage(PAGINATION.currentPage + 1);
+  }, CONFIG.PAGINATION_ROTATION_SECONDS * 1000);
+}
+
+function stopPageRotation() {
+  if (PAGINATION.timer) {
+    clearInterval(PAGINATION.timer);
+    PAGINATION.timer = null;
+  }
+}
+
 // ========= CCMHA MINOR HOCKEY =========
 async function loadCCMHA(){
   try{
@@ -331,19 +429,22 @@ function ccmhaCardHTML(game){
 
 async function renderCCMHA(){
   const games = await loadCCMHA();
-  const $section = document.getElementById('ccmha-section');
-  const $games = document.getElementById('ccmha-games');
-
-  if (games.length === 0) {
-    $section.style.display = 'none';
-    return;
-  }
 
   // Sort by start time
   games.sort((a,b)=> new Date(a.start) - new Date(b.start));
 
-  $games.innerHTML = games.map(ccmhaCardHTML).join('');
-  $section.style.display = 'block';
+  // Store in pagination state
+  PAGINATION.ccmhaGames = games;
+
+  // Calculate total pages and start pagination
+  PAGINATION.totalPages = calculatePages(PAGINATION.mainGames, PAGINATION.ccmhaGames);
+  PAGINATION.currentPage = 0;
+
+  // Show first page
+  showPage(0);
+
+  // Start auto-rotation if multiple pages
+  startPageRotation();
 }
 
 async function bootstrap(){
