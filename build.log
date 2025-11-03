@@ -3,9 +3,9 @@
 [standings/BSHL] example={"team":"Team","gp":0,"w":0,"l":0,"otl":0,"sol":0,"pts":0,"gf":0,"ga":0,"diff":0,"slug":null}
 [standings] mhlRows=0  bshlRows=5
 [schedules/ICS] parsed=52
-[schedules/BSHL] parsed=38
-[schedules] events=90  ramblers=52  ducks=38
+[schedules/BSHL] parsed=37
+[schedules] events=89  ramblers=52  ducks=37
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 197 total schedule items
-[CCMHA] Found 4 games at Amherst Stadium
-[ccmha] games=4
+[CCMHA] API returned 174 total schedule items
+[CCMHA] Found 3 games at Amherst Stadium
+[ccmha] games=3

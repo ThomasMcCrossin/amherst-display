@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-11-02T20:05:10Z",
+  "generated_at": "2025-11-03T06:50:10Z",
   "timezone": "America/Halifax",
   "events": [
     {
@@ -161,15 +161,6 @@
       "start": "2025-11-01T18:00:00-04:00",
       "end": "2025-11-01T21:00:00-04:00",
       "location": "Amherst Stadium"
-    },
-    {
-      "league": "BSHL",
-      "home_team": "Elsipogtog",
-      "away_team": "Fredericton",
-      "home_slug": "elsipogtog",
-      "away_slug": "fredericton",
-      "start": "2025-11-02T17:30:00-04:00",
-      "location": "Kent North"
     },
     {
       "league": "MHL",
