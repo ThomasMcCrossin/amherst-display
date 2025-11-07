@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-11-06T06:49:41Z",
+  "generated_at": "2025-11-07T06:48:52Z",
   "timezone": "America/Halifax",
   "events": [
     {
@@ -296,15 +296,6 @@
     },
     {
       "league": "BSHL",
-      "home_team": "Fredericton",
-      "away_team": "Elsipogtog",
-      "home_slug": "fredericton",
-      "away_slug": "elsipogtog",
-      "start": "2025-11-22T19:00:00-04:00",
-      "location": "York Arena"
-    },
-    {
-      "league": "BSHL",
       "home_team": "Elsipogtog",
       "away_team": "Amherst",
       "home_slug": "elsipogtog",
@@ -329,7 +320,7 @@
       "home_slug": "fredericton",
       "away_slug": "miramichi-bshl",
       "start": "2025-11-29T19:00:00-04:00",
-      "location": "York Arena"
+      "location": "Grant - Harvey"
     },
     {
       "league": "BSHL",
@@ -613,6 +604,15 @@
       "location": "Amherst Stadium"
     },
     {
+      "league": "BSHL",
+      "home_team": "Fredericton",
+      "away_team": "Elsipogtog",
+      "home_slug": "fredericton",
+      "away_slug": "elsipogtog",
+      "start": "2026-01-09T19:45:00-04:00",
+      "location": "LBR"
+    },
+    {
       "league": "MHL",
       "home_team": "Amherst Ramblers",
       "away_team": "Miramichi Timberwolves",
@@ -629,7 +629,7 @@
       "home_slug": "fredericton",
       "away_slug": "dalhousie",
       "start": "2026-01-10T19:00:00-04:00",
-      "location": "Grant - Harvey"
+      "location": "LBR"
     },
     {
       "league": "BSHL",
