@@ -1,16 +1,7 @@
 {
-  "generated_at": "2025-11-07T06:48:52Z",
+  "generated_at": "2025-11-08T06:44:49Z",
   "timezone": "America/Halifax",
   "games": [
-    {
-      "league": "U11-AA",
-      "home_team": "Pictou County Crushers White",
-      "away_team": "Cumberland Ramblers",
-      "start": "2025-11-08T13:45:00-04:00",
-      "end": "2025-11-08T15:15:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
     {
       "league": "U13-AA",
       "home_team": "Truro Bearcats",
@@ -26,6 +17,15 @@
       "away_team": "Cumberland Ramblers",
       "start": "2025-11-09T15:30:00-04:00",
       "end": "2025-11-09T17:00:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U11-AA",
+      "home_team": "Cape Breton West Islanders",
+      "away_team": "Cumberland Ramblers",
+      "start": "2025-11-15T13:45:00-04:00",
+      "end": "2025-11-15T15:15:00-04:00",
       "location": "Amherst Stadium",
       "source": "ccmha"
     }
