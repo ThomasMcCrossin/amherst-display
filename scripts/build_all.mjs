@@ -5,7 +5,7 @@
 // - Builds games.json + next_games.json via ./schedules.mjs
 // - Writes sane fallbacks if any stage fails
 
-import { readFileSync, writeFileSync, existsSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
 import { fetchRamblersFromICS, fetchDucksFromBSHL } from './schedules.mjs';
 import { buildMHLStandings, buildBSHLStandings } from './standings.mjs';
 import { fetchCCMHAGames } from './ccmha.mjs';
@@ -166,14 +166,20 @@ async function buildCCMHA() {
 
 async function buildRostersWrapper() {
   try {
-    const rosters = await buildRosters();
-    console.log(`[rosters] Complete! Teams=${Object.keys(rosters.teams||{}).length}`);
+    const index = await buildRosters();
+    console.log(`[rosters] Complete! Teams=${index.team_count}`);
   } catch(e) {
     console.warn('[rosters] failed:', e.message);
-    // Write empty rosters.json as fallback
-    writeJson('rosters.json', {
+    // Write empty index as fallback
+    const rostersDir = 'rosters';
+    try {
+      mkdirSync(rostersDir, { recursive: true });
+    } catch {}
+    writeJson('rosters/index.json', {
       generated_at: nowISO(),
-      teams: {}
+      league: 'MHL',
+      team_count: 0,
+      teams: []
     });
   }
 }
@@ -192,7 +198,7 @@ async function main(){
   await buildCCMHA();
 
   // 5) Ensure base files exist (first run safety)
-  if (!existsSync('rosters.json'))        writeJson('rosters.json',        { generated_at: nowISO(), teams: {} });
+  if (!existsSync('rosters/index.json'))  writeJson('rosters/index.json',  { generated_at: nowISO(), league: 'MHL', team_count: 0, teams: [] });
   if (!existsSync('games.json'))          writeJson('games.json',          { generated_at: nowISO(), timezone: TZ, events: [] });
   if (!existsSync('next_games.json'))     writeJson('next_games.json',     { generated_at: nowISO(), timezone: TZ, teams: [] });
   if (!existsSync('standings_mhl.json'))  writeJson('standings_mhl.json',  { generated_at: nowISO(), season: '', league: 'MHL',  rows: [] });

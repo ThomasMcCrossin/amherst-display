@@ -23,12 +23,20 @@ const HOCKEYTECH_BASE_URL = 'https://lscluster.hockeytech.com/feed/';
 const SEASON_ID = 41; // 2024-25 season
 
 // Team configuration: { slug: { name, team_id } }
+// All MHL teams for 2024-25 season
 const TEAMS = {
   'amherst-ramblers': { name: 'Amherst-Ramblers', team_id: 1, league: 'MHL' },
-  // Uncomment to add more teams:
-  // 'truro-bearcats': { name: 'Truro-Bearcats', team_id: 3, league: 'MHL' },
-  // 'valley-wildcats': { name: 'Valley-Wildcats', team_id: 4, league: 'MHL' },
-  // etc.
+  'edmundston-blizzard': { name: 'Edmundston-Blizzard', team_id: 2, league: 'MHL' },
+  'truro-bearcats': { name: 'Truro-Bearcats', team_id: 3, league: 'MHL' },
+  'valley-wildcats': { name: 'Valley-Wildcats', team_id: 4, league: 'MHL' },
+  'yarmouth-mariners': { name: 'Yarmouth-Mariners', team_id: 5, league: 'MHL' },
+  'west-kent-steamers': { name: 'West-Kent-Steamers', team_id: 6, league: 'MHL' },
+  'pictou-county-crushers': { name: 'Pictou-County-Crushers', team_id: 7, league: 'MHL' },
+  'campbellton-tigers': { name: 'Campbellton-Tigers', team_id: 8, league: 'MHL' },
+  'miramichi-timberwolves': { name: 'Miramichi-Timberwolves', team_id: 9, league: 'MHL' },
+  'summerside-capitals': { name: 'Summerside-Capitals', team_id: 10, league: 'MHL' },
+  'grand-falls-rapids': { name: 'Grand-Falls-Rapids', team_id: 12, league: 'MHL' },
+  'chaleur-lightning': { name: 'Chaleur-Lightning', team_id: 21, league: 'MHL' }
 };
 
 const nowISO = () => new Date().toISOString();
@@ -130,14 +138,18 @@ function parseWeight(weightStr) {
 }
 
 /**
- * Process roster: normalize data and download headshots
+ * Process roster: normalize data and download headshots (only for Amherst Ramblers)
  */
 async function processRoster(teamSlug, teamName, rawPlayers) {
   const players = [];
-  const headshotDir = path.join(ROOT_DIR, 'assets', 'headshots', teamName);
-  await ensureDir(headshotDir);
+  const downloadHeadshots = teamSlug === 'amherst-ramblers'; // Only download for Amherst
 
-  console.log(`[rosters/${teamSlug}] Processing ${rawPlayers.length} players`);
+  if (downloadHeadshots) {
+    const headshotDir = path.join(ROOT_DIR, 'assets', 'headshots', teamName);
+    await ensureDir(headshotDir);
+  }
+
+  console.log(`[rosters/${teamSlug}] Processing ${rawPlayers.length} players${downloadHeadshots ? ' (downloading headshots)' : ''}`);
 
   for (const rawPlayer of rawPlayers) {
     const playerId = generatePlayerId(rawPlayer);
@@ -145,11 +157,12 @@ async function processRoster(teamSlug, teamName, rawPlayers) {
     const playerName = rawPlayer.name || `${rawPlayer.first_name || ''} ${rawPlayer.last_name || ''}`.trim() || 'Unknown Player';
     const fileId = `${jerseyNum}-${normalizeNameForId(playerName)}`;
 
-    // Download headshot if available
+    // Download headshot only for Amherst Ramblers, keep URL for others
     let headshotPath = null;
-    if (rawPlayer.player_image) {
+    if (rawPlayer.player_image && downloadHeadshots) {
       const ext = rawPlayer.player_image.match(/\.(jpg|jpeg|png|gif)(\?|$)/i)?.[1] || 'jpg';
       const filename = `${fileId}.${ext}`;
+      const headshotDir = path.join(ROOT_DIR, 'assets', 'headshots', teamName);
       const localPath = path.join(headshotDir, filename);
       const success = await downloadImage(rawPlayer.player_image, localPath);
       if (success) {
@@ -208,9 +221,12 @@ async function processRoster(teamSlug, teamName, rawPlayers) {
  * Build all rosters
  */
 export async function buildRosters() {
-  console.log('[rosters] Starting roster build...');
+  console.log('[rosters] Starting roster build for all MHL teams...');
 
-  const rosters = {};
+  const rostersDir = path.join(ROOT_DIR, 'rosters');
+  await ensureDir(rostersDir);
+
+  const teamIndex = [];
 
   for (const [teamSlug, config] of Object.entries(TEAMS)) {
     try {
@@ -218,7 +234,7 @@ export async function buildRosters() {
       const rawPlayers = await fetchRosterFromAPI(config.team_id);
       const players = await processRoster(teamSlug, config.name, rawPlayers);
 
-      rosters[teamSlug] = {
+      const rosterData = {
         team_slug: teamSlug,
         team_name: config.name,
         league: config.league,
@@ -230,10 +246,25 @@ export async function buildRosters() {
         players
       };
 
-      console.log(`[rosters/${teamSlug}] Processed ${players.length} players`);
+      // Write individual team roster file
+      const teamFilePath = path.join(rostersDir, `${teamSlug}.json`);
+      await fs.writeFile(teamFilePath, JSON.stringify(rosterData, null, 2));
+      console.log(`[rosters/${teamSlug}] Wrote rosters/${teamSlug}.json (${players.length} players)`);
+
+      // Add to index
+      teamIndex.push({
+        team_slug: teamSlug,
+        team_name: config.name,
+        league: config.league,
+        team_id: config.team_id,
+        player_count: players.length,
+        file: `rosters/${teamSlug}.json`
+      });
+
     } catch (e) {
       console.error(`[rosters/${teamSlug}] Error:`, e.message);
-      rosters[teamSlug] = {
+
+      const errorData = {
         team_slug: teamSlug,
         team_name: config.name,
         league: config.league,
@@ -245,23 +276,39 @@ export async function buildRosters() {
         players: [],
         error: e.message
       };
+
+      // Still write the file even on error
+      const teamFilePath = path.join(rostersDir, `${teamSlug}.json`);
+      await fs.writeFile(teamFilePath, JSON.stringify(errorData, null, 2));
+
+      teamIndex.push({
+        team_slug: teamSlug,
+        team_name: config.name,
+        league: config.league,
+        team_id: config.team_id,
+        player_count: 0,
+        file: `rosters/${teamSlug}.json`,
+        error: e.message
+      });
     }
   }
 
-  // Write rosters.json
-  const outputPath = path.join(ROOT_DIR, 'rosters.json');
-  const output = {
+  // Write index file
+  const indexPath = path.join(rostersDir, 'index.json');
+  const indexData = {
     generated_at: nowISO(),
     season: '2024-25',
     season_id: SEASON_ID,
     api_source: 'HockeyTech',
-    teams: rosters
+    league: 'MHL',
+    team_count: teamIndex.length,
+    teams: teamIndex
   };
 
-  await fs.writeFile(outputPath, JSON.stringify(output, null, 2));
-  console.log(`[rosters] Wrote rosters.json with ${Object.keys(rosters).length} team(s)`);
+  await fs.writeFile(indexPath, JSON.stringify(indexData, null, 2));
+  console.log(`[rosters] Wrote rosters/index.json with ${teamIndex.length} team(s)`);
 
-  return output;
+  return indexData;
 }
 
 // ------------- CLI entry (optional local run) -------------
