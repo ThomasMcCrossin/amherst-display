@@ -9,6 +9,7 @@ import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { fetchRamblersFromICS, fetchDucksFromBSHL } from './schedules.mjs';
 import { buildMHLStandings, buildBSHLStandings } from './standings.mjs';
 import { fetchCCMHAGames } from './ccmha.mjs';
+import { buildRosterData } from './roster.mjs';
 
 const TZ = 'America/Halifax';
 
@@ -163,6 +164,34 @@ async function buildCCMHA() {
   console.log(`[ccmha] games=${ccmhaGames.length}`);
 }
 
+async function buildRoster() {
+  let rosterData = {
+    generated_at: nowISO(),
+    teams: {
+      'amherst-ramblers': {
+        team_slug: 'amherst-ramblers',
+        team_name: 'Amherst Ramblers',
+        league: 'MHL',
+        season: '2024-25',
+        updated_at: nowISO(),
+        player_count: 0,
+        players: []
+      }
+    }
+  };
+
+  try {
+    rosterData = await buildRosterData();
+  } catch(e) {
+    console.warn('[roster] failed:', e.message);
+  }
+
+  writeJson('roster.json', rosterData);
+
+  const playerCount = rosterData.teams['amherst-ramblers']?.player_count || 0;
+  console.log(`[roster] amherst-ramblers players=${playerCount}`);
+}
+
 async function main(){
   // 1) Standings first (fast feedback if selectors change)
   await buildStandings();
@@ -173,12 +202,16 @@ async function main(){
   // 3) CCMHA minor hockey games
   await buildCCMHA();
 
-  // 4) Ensure base files exist (first run safety)
+  // 4) Roster data
+  await buildRoster();
+
+  // 5) Ensure base files exist (first run safety)
   if (!existsSync('games.json'))          writeJson('games.json',          { generated_at: nowISO(), timezone: TZ, events: [] });
   if (!existsSync('next_games.json'))     writeJson('next_games.json',     { generated_at: nowISO(), timezone: TZ, teams: [] });
   if (!existsSync('standings_mhl.json'))  writeJson('standings_mhl.json',  { generated_at: nowISO(), season: '', league: 'MHL',  rows: [] });
   if (!existsSync('standings_bshl.json')) writeJson('standings_bshl.json', { generated_at: nowISO(), season: '', league: 'BSHL', rows: [] });
   if (!existsSync('ccmha_games.json'))    writeJson('ccmha_games.json',    { generated_at: nowISO(), timezone: TZ, games: [] });
+  if (!existsSync('roster.json'))         writeJson('roster.json',         { generated_at: nowISO(), teams: {} });
 }
 
 main().catch(e => { console.error(e); process.exit(1); });
