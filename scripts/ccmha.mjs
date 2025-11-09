@@ -93,7 +93,9 @@ export async function fetchCCMHAGames({ daysAhead = 7 } = {}) {
     console.log(`[CCMHA] API returned ${items.length} total schedule items`);
 
     // Filter by date range and venue
-    const today = new Date();
+    const now = new Date();
+    // Start of today (midnight) - to include all games happening today
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     const endDate = new Date(today.getTime() + daysAhead * 24 * 60 * 60 * 1000);
 
     const games = [];

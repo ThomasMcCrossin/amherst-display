@@ -107,5 +107,5 @@
 [schedules] events=100  ramblers=52  ducks=48
 [CCMHA] Fetching games for next 7 days
 [CCMHA] API returned 185 total schedule items
-[CCMHA] Found 3 games at Amherst Stadium
-[ccmha] games=3
+[CCMHA] Found 5 games at Amherst Stadium
+[ccmha] games=5
