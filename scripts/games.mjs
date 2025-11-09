@@ -1,11 +1,11 @@
 /**
- * Build Amherst Ramblers game summaries
+ * Build Amherst Ramblers game summaries with detailed stats
  * - Fetches completed games from schedule
- * - Stores game results with basic info
- * - Linked to player IDs for future stat expansion
+ * - Fetches game summaries with scoring plays, penalties, player stats
+ * - Links all data to player IDs from roster
  *
  * Outputs:
- *   games/amherst-ramblers.json - All Ramblers games this season
+ *   games/amherst-ramblers.json - All Ramblers games with detailed data
  */
 
 import fs from 'fs/promises';
@@ -27,6 +27,30 @@ const nowISO = () => new Date().toISOString();
 const ensureDir = async (fp) => {
   await fs.mkdir(fp, { recursive: true });
 };
+
+/**
+ * Load roster to map players by jersey number
+ */
+async function loadRoster() {
+  try {
+    const rosterPath = path.join(ROOT_DIR, 'rosters', 'amherst-ramblers.json');
+    const data = await fs.readFile(rosterPath, 'utf8');
+    const roster = JSON.parse(data);
+
+    // Create map: jersey_number -> player_id
+    const playerMap = new Map();
+    for (const player of roster.players) {
+      if (player.number) {
+        playerMap.set(String(player.number), player.player_id);
+      }
+    }
+
+    return playerMap;
+  } catch (e) {
+    console.warn('[games] Could not load roster:', e.message);
+    return new Map();
+  }
+}
 
 /**
  * Fetch Amherst Ramblers schedule
@@ -53,17 +77,193 @@ async function fetchRamblersSchedule() {
 }
 
 /**
- * Process games and create summaries
+ * Fetch detailed game summary (scoring, penalties, stats)
  */
-function processGames(schedule) {
+async function fetchGameSummary(gameId) {
+  const url = new URL(HOCKEYTECH_BASE_URL + 'index.php');
+  url.searchParams.set('feed', 'statviewfeed');
+  url.searchParams.set('view', 'gameSummary');
+  url.searchParams.set('game_id', gameId);
+  url.searchParams.set('key', HOCKEYTECH_API_KEY);
+  url.searchParams.set('client_code', HOCKEYTECH_CLIENT);
+  url.searchParams.set('fmt', 'json');
+
+  const response = await fetch(url.toString());
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+  }
+
+  let text = await response.text();
+
+  // HockeyTech wraps response in parentheses - strip them
+  if (text.startsWith('(') && text.endsWith(')')) {
+    text = text.slice(1, -1);
+  }
+
+  return JSON.parse(text);
+}
+
+/**
+ * Parse scoring plays from game summary
+ */
+function parseScoringPlays(gameSummary, playerMap, isHomeGame) {
+  const scoringPlays = [];
+
+  if (!gameSummary.periods) return scoringPlays;
+
+  for (const period of gameSummary.periods) {
+    if (!period.goals) continue;
+
+    for (const goal of period.goals) {
+      // Check if this goal was scored by Amherst
+      const isRamblersGoal = isHomeGame ?
+        goal.team === 'home' :
+        goal.team === 'visiting';
+
+      const scorer = goal.scoredBy || {};
+      const scorerNumber = String(scorer.jerseyNumber || '');
+      const scorerPlayerId = playerMap.get(scorerNumber);
+
+      const assists = (goal.assists || []).map(assist => ({
+        player_id: playerMap.get(String(assist.jerseyNumber || '')),
+        name: `${assist.firstName || ''} ${assist.lastName || ''}`.trim(),
+        number: assist.jerseyNumber
+      }));
+
+      scoringPlays.push({
+        period: parseInt(period.info?.id || 0),
+        period_name: period.info?.longName || '',
+        time: goal.time || '',
+        team: isRamblersGoal ? 'amherst-ramblers' : 'opponent',
+        scorer: {
+          player_id: scorerPlayerId,
+          name: `${scorer.firstName || ''} ${scorer.lastName || ''}`.trim(),
+          number: scorer.jerseyNumber,
+          position: scorer.position
+        },
+        assists,
+        power_play: goal.properties?.isPowerPlay === '1',
+        short_handed: goal.properties?.isShortHanded === '1',
+        game_winning: goal.properties?.isGameWinningGoal === '1',
+        empty_net: goal.properties?.isEmptyNet === '1'
+      });
+    }
+  }
+
+  return scoringPlays;
+}
+
+/**
+ * Parse penalties from game summary
+ */
+function parsePenalties(gameSummary, playerMap, isHomeGame) {
+  const penalties = [];
+
+  if (!gameSummary.periods) return penalties;
+
+  for (const period of gameSummary.periods) {
+    if (!period.penalties) continue;
+
+    for (const penalty of period.penalties) {
+      const isRamblersPenalty = isHomeGame ?
+        penalty.againstTeam === 'home' :
+        penalty.againstTeam === 'visiting';
+
+      if (!isRamblersPenalty) continue; // Only track Ramblers penalties
+
+      const player = penalty.takenBy || {};
+      const playerNumber = String(player.jerseyNumber || '');
+      const playerId = playerMap.get(playerNumber);
+
+      penalties.push({
+        period: parseInt(period.info?.id || 0),
+        period_name: period.info?.longName || '',
+        time: penalty.time || '',
+        player: {
+          player_id: playerId,
+          name: `${player.firstName || ''} ${player.lastName || ''}`.trim(),
+          number: player.jerseyNumber,
+          position: player.position
+        },
+        infraction: penalty.description || '',
+        duration: parseInt(penalty.minutes || 0),
+        is_bench: penalty.isBench === true
+      });
+    }
+  }
+
+  return penalties;
+}
+
+/**
+ * Parse player stats from game summary
+ */
+function parsePlayerStats(gameSummary, playerMap, isHomeGame) {
+  const stats = {};
+
+  const team = isHomeGame ? gameSummary.homeTeam : gameSummary.visitingTeam;
+  if (!team) return stats;
+
+  // Skater stats
+  if (team.skaters) {
+    for (const skater of team.skaters) {
+      const number = String(skater.info?.jerseyNumber || '');
+      const playerId = playerMap.get(number);
+
+      if (!playerId) continue;
+
+      stats[playerId] = {
+        position: skater.info?.position || '',
+        goals: parseInt(skater.stats?.goals || 0),
+        assists: parseInt(skater.stats?.assists || 0),
+        points: parseInt(skater.stats?.points || 0),
+        penalty_minutes: parseInt(skater.stats?.penaltyMinutes || 0),
+        shots: parseInt(skater.stats?.shots || 0),
+        plus_minus: skater.stats?.plusMinus || '0',
+        hits: parseInt(skater.stats?.hits || 0),
+        blocked_shots: parseInt(skater.stats?.blockedShots || 0),
+        faceoff_wins: parseInt(skater.stats?.faceoffWins || 0),
+        faceoff_losses: parseInt(skater.stats?.faceoffLosses || 0)
+      };
+    }
+  }
+
+  // Goalie stats
+  if (team.goalies) {
+    for (const goalie of team.goalies) {
+      const number = String(goalie.info?.jerseyNumber || '');
+      const playerId = playerMap.get(number);
+
+      if (!playerId) continue;
+
+      stats[playerId] = {
+        position: 'G',
+        saves: parseInt(goalie.stats?.saves || 0),
+        shots_against: parseInt(goalie.stats?.shotsAgainst || 0),
+        goals_against: parseInt(goalie.stats?.goalsAgainst || 0),
+        save_percentage: goalie.stats?.savePct || '0.000',
+        time_on_ice: goalie.stats?.timeOnIce || '00:00'
+      };
+    }
+  }
+
+  return stats;
+}
+
+/**
+ * Process games and fetch detailed summaries
+ */
+async function processGames(schedule, playerMap) {
   const games = [];
 
-  for (const game of schedule) {
-    // Only include completed games (status 4 = Final)
-    if (game.final !== '1' || game.status !== '4') {
-      continue;
-    }
+  // Filter completed games
+  const completedGames = schedule.filter(game =>
+    game.final === '1' && game.status === '4'
+  );
 
+  console.log(`[games] Processing ${completedGames.length} completed games...`);
+
+  for (const game of completedGames) {
     const isHomeGame = game.home_team === String(AMHERST_TEAM_ID);
     const ramblersScore = isHomeGame ? parseInt(game.home_goal_count) : parseInt(game.visiting_goal_count);
     const opponentScore = isHomeGame ? parseInt(game.visiting_goal_count) : parseInt(game.home_goal_count);
@@ -71,6 +271,22 @@ function processGames(schedule) {
     const won = ramblersScore > opponentScore;
     const overtime = game.overtime === '1';
     const shootout = game.shootout === '1';
+
+    // Fetch detailed game summary
+    let gameSummary = null;
+    let scoring = [];
+    let penalties = [];
+    let player_stats = {};
+
+    try {
+      gameSummary = await fetchGameSummary(game.game_id);
+      scoring = parseScoringPlays(gameSummary, playerMap, isHomeGame);
+      penalties = parsePenalties(gameSummary, playerMap, isHomeGame);
+      player_stats = parsePlayerStats(gameSummary, playerMap, isHomeGame);
+      console.log(`[games] Fetched summary for game ${game.game_id} (${scoring.length} goals, ${penalties.length} penalties)`);
+    } catch (e) {
+      console.warn(`[games] Could not fetch summary for game ${game.game_id}:`, e.message);
+    }
 
     const gameData = {
       game_id: game.game_id,
@@ -92,14 +308,15 @@ function processGames(schedule) {
         final_score: `${ramblersScore}-${opponentScore}${overtime ? ' (OT)' : ''}${shootout ? ' (SO)' : ''}`
       },
       attendance: game.attendance ? parseInt(game.attendance) : null,
-      // Placeholder for future player stats
-      player_stats: {
-        // Will be populated later with individual player stats by player_id
-        // Format: { player_id: { goals, assists, points, ... } }
-      }
+      scoring,
+      penalties,
+      player_stats
     };
 
     games.push(gameData);
+
+    // Small delay to avoid hammering API
+    await new Promise(resolve => setTimeout(resolve, 200));
   }
 
   // Sort by date (most recent first)
@@ -168,8 +385,11 @@ export async function buildRamblersGames() {
   await ensureDir(gamesDir);
 
   try {
+    const playerMap = await loadRoster();
+    console.log(`[games] Loaded roster with ${playerMap.size} players`);
+
     const schedule = await fetchRamblersSchedule();
-    const games = processGames(schedule);
+    const games = await processGames(schedule, playerMap);
     const summary = calculateSeasonSummary(games);
 
     const output = {
