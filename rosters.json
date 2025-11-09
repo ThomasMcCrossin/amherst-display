@@ -1,4 +1,14 @@
 {
-  "generated_at": "2025-11-09T00:00:00Z",
-  "teams": {}
+  "generated_at": "2025-11-09T04:45:25.194Z",
+  "teams": {
+    "amherst-ramblers": {
+      "team_slug": "amherst-ramblers",
+      "team_name": "Amherst Ramblers",
+      "league": "MHL",
+      "season": "2024-25",
+      "updated_at": "2025-11-09T04:45:25.100Z",
+      "player_count": 0,
+      "players": []
+    }
+  }
 }
