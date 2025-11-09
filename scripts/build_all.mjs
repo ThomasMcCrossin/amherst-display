@@ -9,6 +9,7 @@ import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { fetchRamblersFromICS, fetchDucksFromBSHL } from './schedules.mjs';
 import { buildMHLStandings, buildBSHLStandings } from './standings.mjs';
 import { fetchCCMHAGames } from './ccmha.mjs';
+import { buildRosters } from './rosters.mjs';
 
 const TZ = 'America/Halifax';
 
@@ -163,17 +164,35 @@ async function buildCCMHA() {
   console.log(`[ccmha] games=${ccmhaGames.length}`);
 }
 
+async function buildRostersWrapper() {
+  try {
+    const rosters = await buildRosters();
+    console.log(`[rosters] Complete! Teams=${Object.keys(rosters.teams||{}).length}`);
+  } catch(e) {
+    console.warn('[rosters] failed:', e.message);
+    // Write empty rosters.json as fallback
+    writeJson('rosters.json', {
+      generated_at: nowISO(),
+      teams: {}
+    });
+  }
+}
+
 async function main(){
-  // 1) Standings first (fast feedback if selectors change)
+  // 1) Rosters (can take time, but good to do early)
+  await buildRostersWrapper();
+
+  // 2) Standings (fast feedback if selectors change)
   await buildStandings();
 
-  // 2) Schedules
+  // 3) Schedules
   await buildSchedules();
 
-  // 3) CCMHA minor hockey games
+  // 4) CCMHA minor hockey games
   await buildCCMHA();
 
-  // 4) Ensure base files exist (first run safety)
+  // 5) Ensure base files exist (first run safety)
+  if (!existsSync('rosters.json'))        writeJson('rosters.json',        { generated_at: nowISO(), teams: {} });
   if (!existsSync('games.json'))          writeJson('games.json',          { generated_at: nowISO(), timezone: TZ, events: [] });
   if (!existsSync('next_games.json'))     writeJson('next_games.json',     { generated_at: nowISO(), timezone: TZ, teams: [] });
   if (!existsSync('standings_mhl.json'))  writeJson('standings_mhl.json',  { generated_at: nowISO(), season: '', league: 'MHL',  rows: [] });
