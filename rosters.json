@@ -1,11 +1,16 @@
 {
   "generated_at": "2025-11-09T04:45:25.194Z",
+  "season": "2024-25",
+  "season_id": 41,
+  "api_source": "HockeyTech",
   "teams": {
     "amherst-ramblers": {
       "team_slug": "amherst-ramblers",
-      "team_name": "Amherst Ramblers",
+      "team_name": "Amherst-Ramblers",
       "league": "MHL",
       "season": "2024-25",
+      "season_id": 41,
+      "team_id": 1,
       "updated_at": "2025-11-09T04:45:25.100Z",
       "player_count": 0,
       "players": []
