@@ -1,3 +1,41 @@
+[rosters] Starting roster build...
+[rosters/amherst-ramblers] Fetching roster for Amherst-Ramblers...
+[rosters] Fetching from API: team_id=1
+[rosters/amherst-ramblers] Processing 32 players
+[rosters] Downloaded: 4-christian-white.jpg
+[rosters] Downloaded: 7-ty-peddigrew.jpg
+[rosters] Downloaded: 9-tyler-moroz.jpg
+[rosters] Downloaded: 10-ryan-dawe.jpg
+[rosters] Downloaded: 11-anthony-gaudet.jpg
+[rosters] Downloaded: 12-aidan-silvaggio.jpg
+[rosters] Downloaded: 13-elliot-wright.jpg
+[rosters] Downloaded: 15-evan-nicholson.jpg
+[rosters] Downloaded: 16-jack-o-blenis.jpg
+[rosters] Downloaded: 17-patrick-lambe.jpg
+[rosters] Downloaded: 18-darien-reynolds.jpg
+[rosters] Downloaded: 19-zach-wheeler.jpg
+[rosters] Downloaded: 21-thomas-gagnon.jpg
+[rosters] Downloaded: 22-bailey-shortall.jpg
+[rosters] Downloaded: 24-anthony-morin.jpg
+[rosters] Downloaded: 25-owen-aura.jpg
+[rosters] Downloaded: 27-mark-corbett.jpg
+[rosters] Downloaded: 29-lyam-leblanc.jpg
+[rosters] Downloaded: 30-hudson-bradley.jpg
+[rosters] Downloaded: 37-cooper-cormier.jpg
+[rosters] Downloaded: 39-cole-echlin.jpg
+[rosters] Downloaded: 71-nolan-shaw.jpg
+[rosters] Downloaded: 77-jeremie-richard.jpg
+[rosters] Downloaded: 82-owen-dyke.jpg
+[rosters] Downloaded: 91-luke-jardine.jpg
+[rosters] Downloaded: 99-chandler-bell.jpg
+[rosters] Skipping placeholder image
+[rosters] Downloaded: 99-ethan-fraser.jpg
+[rosters] Skipping placeholder image
+[rosters] Skipping placeholder image
+[rosters] Downloaded: 99-jack-white.jpg
+[rosters/amherst-ramblers] Processed 32 players
+[rosters] Wrote rosters.json with 1 team(s)
+[rosters] Complete! Teams=1
 [standings/MHL] table rows found
 [standings/MHL] tables=1 chosen=1306x378 rows=12
 [standings/MHL] example={"col":"1","eastlink south eastlink south":"Summerside Western Capitals","south south":"SWC","gp":17,"w":10,"l":3,"otl":3,"sol":1,"pts":24,"pct pct":"0.706","rw":8,"otw":2,"sow":0,"gf":75,"ga":62,"diff":13,"pim pim":"482","streak":"0-2-0-0","p10":"5-3-2-0","team":"Summerside Western Capitals","slug":"summerside-western-capitals"}
