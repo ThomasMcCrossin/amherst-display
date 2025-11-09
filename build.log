@@ -33,7 +33,7 @@
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
 [rosters] Downloaded: 99-jack-white.jpg
-[rosters/amherst-ramblers] Error: Cannot read properties of undefined (reading 'toLowerCase')
+[rosters/amherst-ramblers] Processed 32 players
 [rosters] Wrote rosters.json with 1 team(s)
 [rosters] Complete! Teams=1
 [standings/MHL] table rows found
