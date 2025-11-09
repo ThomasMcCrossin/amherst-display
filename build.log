@@ -93,7 +93,27 @@
 [rosters] Wrote rosters/index.json with 12 team(s)
 [rosters] Complete! Teams=12
 [games] Starting Ramblers games build...
+[games] Loaded roster with 26 players
 [games] Fetching Ramblers schedule...
+[games] Processing 18 completed games...
+[games] Fetched summary for game 4612 (7 goals, 0 penalties)
+[games] Fetched summary for game 4619 (12 goals, 0 penalties)
+[games] Fetched summary for game 4624 (7 goals, 0 penalties)
+[games] Fetched summary for game 4632 (10 goals, 0 penalties)
+[games] Fetched summary for game 4641 (7 goals, 0 penalties)
+[games] Fetched summary for game 4647 (10 goals, 0 penalties)
+[games] Fetched summary for game 4650 (3 goals, 0 penalties)
+[games] Fetched summary for game 4655 (9 goals, 0 penalties)
+[games] Fetched summary for game 4659 (9 goals, 0 penalties)
+[games] Fetched summary for game 4667 (6 goals, 0 penalties)
+[games] Fetched summary for game 4675 (4 goals, 0 penalties)
+[games] Fetched summary for game 4677 (8 goals, 0 penalties)
+[games] Fetched summary for game 4681 (5 goals, 0 penalties)
+[games] Fetched summary for game 4691 (7 goals, 0 penalties)
+[games] Fetched summary for game 4699 (6 goals, 0 penalties)
+[games] Fetched summary for game 4704 (7 goals, 0 penalties)
+[games] Fetched summary for game 4713 (7 goals, 0 penalties)
+[games] Fetched summary for game 4718 (3 goals, 0 penalties)
 [games] Wrote games/amherst-ramblers.json (18 completed games)
 [games] Complete! Games=18
 [standings/MHL] table rows found
