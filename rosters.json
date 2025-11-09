@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-11-09T04:45:25.194Z",
+  "generated_at": "2025-11-09T05:06:43.345Z",
   "season": "2024-25",
   "season_id": 41,
   "api_source": "HockeyTech",
@@ -11,9 +11,10 @@
       "season": "2024-25",
       "season_id": 41,
       "team_id": 1,
-      "updated_at": "2025-11-09T04:45:25.100Z",
+      "updated_at": "2025-11-09T05:06:43.345Z",
       "player_count": 0,
-      "players": []
+      "players": [],
+      "error": "Cannot read properties of undefined (reading 'toLowerCase')"
     }
   }
 }
