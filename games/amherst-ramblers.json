@@ -1,0 +1,428 @@
+{
+  "team_slug": "amherst-ramblers",
+  "team_name": "Amherst Ramblers",
+  "team_id": 1,
+  "season": "2024-25",
+  "season_id": 41,
+  "updated_at": "2025-11-09T06:16:04.116Z",
+  "summary": {
+    "games_played": 18,
+    "wins": 10,
+    "losses": 8,
+    "ot_losses": 0,
+    "shootout_losses": 0,
+    "points": 20,
+    "goals_for": 61,
+    "goals_against": 66,
+    "home_record": {
+      "wins": 6,
+      "losses": 2,
+      "ot_losses": 0
+    },
+    "away_record": {
+      "wins": 4,
+      "losses": 6,
+      "ot_losses": 0
+    },
+    "goal_differential": -5,
+    "record": "10-8-0"
+  },
+  "games": [
+    {
+      "game_id": "4718",
+      "date": "2025-11-08",
+      "date_time": "2025-11-08T19:00:00-04:00",
+      "opponent": {
+        "team_id": 7,
+        "team_name": "Pictou County Weeks Crushers",
+        "team_code": "PCC"
+      },
+      "home_game": true,
+      "venue": "Amherst Stadium",
+      "result": {
+        "won": true,
+        "ramblers_score": 2,
+        "opponent_score": 1,
+        "overtime": false,
+        "shootout": false,
+        "final_score": "2-1"
+      },
+      "attendance": 917,
+      "player_stats": {}
+    },
+    {
+      "game_id": "4713",
+      "date": "2025-11-06",
+      "date_time": "2025-11-06T19:00:00-04:00",
+      "opponent": {
+        "team_id": 10,
+        "team_name": "Summerside Western Capitals",
+        "team_code": "SWC"
+      },
+      "home_game": false,
+      "venue": "Credit Union Place",
+      "result": {
+        "won": true,
+        "ramblers_score": 4,
+        "opponent_score": 3,
+        "overtime": false,
+        "shootout": false,
+        "final_score": "4-3"
+      },
+      "attendance": 1232,
+      "player_stats": {}
+    },
+    {
+      "game_id": "4704",
+      "date": "2025-11-01",
+      "date_time": "2025-11-01T19:00:00-03:00",
+      "opponent": {
+        "team_id": 8,
+        "team_name": "Campbellton Tigers",
+        "team_code": "CAM"
+      },
+      "home_game": true,
+      "venue": "Amherst Stadium",
+      "result": {
+        "won": true,
+        "ramblers_score": 4,
+        "opponent_score": 3,
+        "overtime": true,
+        "shootout": false,
+        "final_score": "4-3 (OT)"
+      },
+      "attendance": 725,
+      "player_stats": {}
+    },
+    {
+      "game_id": "4699",
+      "date": "2025-10-30",
+      "date_time": "2025-10-30T19:00:00-03:00",
+      "opponent": {
+        "team_id": 7,
+        "team_name": "Pictou County Weeks Crushers",
+        "team_code": "PCC"
+      },
+      "home_game": false,
+      "venue": "Pictou County Wellness Centre",
+      "result": {
+        "won": false,
+        "ramblers_score": 1,
+        "opponent_score": 5,
+        "overtime": false,
+        "shootout": false,
+        "final_score": "1-5"
+      },
+      "attendance": 870,
+      "player_stats": {}
+    },
+    {
+      "game_id": "4691",
+      "date": "2025-10-25",
+      "date_time": "2025-10-25T19:00:00-03:00",
+      "opponent": {
+        "team_id": 7,
+        "team_name": "Pictou County Weeks Crushers",
+        "team_code": "PCC"
+      },
+      "home_game": true,
+      "venue": "Amherst Stadium",
+      "result": {
+        "won": false,
+        "ramblers_score": 2,
+        "opponent_score": 5,
+        "overtime": false,
+        "shootout": false,
+        "final_score": "2-5"
+      },
+      "attendance": 815,
+      "player_stats": {}
+    },
+    {
+      "game_id": "4681",
+      "date": "2025-10-18",
+      "date_time": "2025-10-18T19:00:00-03:00",
+      "opponent": {
+        "team_id": 10,
+        "team_name": "Summerside Western Capitals",
+        "team_code": "SWC"
+      },
+      "home_game": true,
+      "venue": "Amherst Stadium",
+      "result": {
+        "won": true,
+        "ramblers_score": 4,
+        "opponent_score": 1,
+        "overtime": false,
+        "shootout": false,
+        "final_score": "4-1"
+      },
+      "attendance": 925,
+      "player_stats": {}
+    },
+    {
+      "game_id": "4677",
+      "date": "2025-10-16",
+      "date_time": "2025-10-16T19:00:00-03:00",
+      "opponent": {
+        "team_id": 3,
+        "team_name": "Truro Bearcats",
+        "team_code": "TRU"
+      },
+      "home_game": false,
+      "venue": "Rath Eastlink Community Centre",
+      "result": {
+        "won": true,
+        "ramblers_score": 5,
+        "opponent_score": 3,
+        "overtime": false,
+        "shootout": false,
+        "final_score": "5-3"
+      },
+      "attendance": 425,
+      "player_stats": {}
+    },
+    {
+      "game_id": "4675",
+      "date": "2025-10-13",
+      "date_time": "2025-10-13T14:00:00-03:00",
+      "opponent": {
+        "team_id": 5,
+        "team_name": "Yarmouth Mariners",
+        "team_code": "YAR"
+      },
+      "home_game": true,
+      "venue": "Amherst Stadium",
+      "result": {
+        "won": true,
+        "ramblers_score": 3,
+        "opponent_score": 1,
+        "overtime": false,
+        "shootout": false,
+        "final_score": "3-1"
+      },
+      "attendance": 649,
+      "player_stats": {}
+    },
+    {
+      "game_id": "4667",
+      "date": "2025-10-11",
+      "date_time": "2025-10-11T19:00:00-03:00",
+      "opponent": {
+        "team_id": 4,
+        "team_name": "Valley Wildcats",
+        "team_code": "VAL"
+      },
+      "home_game": true,
+      "venue": "Amherst Stadium",
+      "result": {
+        "won": true,
+        "ramblers_score": 4,
+        "opponent_score": 2,
+        "overtime": false,
+        "shootout": false,
+        "final_score": "4-2"
+      },
+      "attendance": 965,
+      "player_stats": {}
+    },
+    {
+      "game_id": "4659",
+      "date": "2025-10-05",
+      "date_time": "2025-10-05T16:00:00-03:00",
+      "opponent": {
+        "team_id": 5,
+        "team_name": "Yarmouth Mariners",
+        "team_code": "YAR"
+      },
+      "home_game": false,
+      "venue": "Mariners Centre",
+      "result": {
+        "won": false,
+        "ramblers_score": 4,
+        "opponent_score": 5,
+        "overtime": false,
+        "shootout": false,
+        "final_score": "4-5"
+      },
+      "attendance": 980,
+      "player_stats": {}
+    },
+    {
+      "game_id": "4655",
+      "date": "2025-10-04",
+      "date_time": "2025-10-04T19:00:00-03:00",
+      "opponent": {
+        "team_id": 6,
+        "team_name": "West Kent Steamers",
+        "team_code": "WKS"
+      },
+      "home_game": true,
+      "venue": "Amherst Stadium",
+      "result": {
+        "won": true,
+        "ramblers_score": 6,
+        "opponent_score": 3,
+        "overtime": false,
+        "shootout": false,
+        "final_score": "6-3"
+      },
+      "attendance": 835,
+      "player_stats": {}
+    },
+    {
+      "game_id": "4650",
+      "date": "2025-10-02",
+      "date_time": "2025-10-02T19:00:00-03:00",
+      "opponent": {
+        "team_id": 3,
+        "team_name": "Truro Bearcats",
+        "team_code": "TRU"
+      },
+      "home_game": false,
+      "venue": "Rath Eastlink Community Centre",
+      "result": {
+        "won": true,
+        "ramblers_score": 2,
+        "opponent_score": 1,
+        "overtime": true,
+        "shootout": false,
+        "final_score": "2-1 (OT)"
+      },
+      "attendance": 462,
+      "player_stats": {}
+    },
+    {
+      "game_id": "4647",
+      "date": "2025-09-28",
+      "date_time": "2025-09-28T15:00:00-03:00",
+      "opponent": {
+        "team_id": 4,
+        "team_name": "Valley Wildcats",
+        "team_code": "VAL"
+      },
+      "home_game": false,
+      "venue": "Kings Mutual Century Centre",
+      "result": {
+        "won": true,
+        "ramblers_score": 7,
+        "opponent_score": 3,
+        "overtime": false,
+        "shootout": false,
+        "final_score": "7-3"
+      },
+      "attendance": 256,
+      "player_stats": {}
+    },
+    {
+      "game_id": "4641",
+      "date": "2025-09-27",
+      "date_time": "2025-09-27T19:00:00-03:00",
+      "opponent": {
+        "team_id": 21,
+        "team_name": "Chaleur Lightning",
+        "team_code": "CHA"
+      },
+      "home_game": true,
+      "venue": "Amherst Stadium",
+      "result": {
+        "won": false,
+        "ramblers_score": 3,
+        "opponent_score": 4,
+        "overtime": false,
+        "shootout": false,
+        "final_score": "3-4"
+      },
+      "attendance": 1285,
+      "player_stats": {}
+    },
+    {
+      "game_id": "4632",
+      "date": "2025-09-20",
+      "date_time": "2025-09-20T19:00:00-03:00",
+      "opponent": {
+        "team_id": 3,
+        "team_name": "Truro Bearcats",
+        "team_code": "TRU"
+      },
+      "home_game": false,
+      "venue": "Rath Eastlink Community Centre",
+      "result": {
+        "won": false,
+        "ramblers_score": 4,
+        "opponent_score": 6,
+        "overtime": false,
+        "shootout": false,
+        "final_score": "4-6"
+      },
+      "attendance": 631,
+      "player_stats": {}
+    },
+    {
+      "game_id": "4624",
+      "date": "2025-09-18",
+      "date_time": "2025-09-18T19:00:00-03:00",
+      "opponent": {
+        "team_id": 7,
+        "team_name": "Pictou County Weeks Crushers",
+        "team_code": "PCC"
+      },
+      "home_game": false,
+      "venue": "Pictou County Wellness Centre",
+      "result": {
+        "won": false,
+        "ramblers_score": 3,
+        "opponent_score": 4,
+        "overtime": false,
+        "shootout": false,
+        "final_score": "3-4"
+      },
+      "attendance": 1090,
+      "player_stats": {}
+    },
+    {
+      "game_id": "4619",
+      "date": "2025-09-13",
+      "date_time": "2025-09-13T19:30:00-03:00",
+      "opponent": {
+        "team_id": 2,
+        "team_name": "Edmundston Blizzard",
+        "team_code": "EDM"
+      },
+      "home_game": false,
+      "venue": "Centre Jean Daigle",
+      "result": {
+        "won": false,
+        "ramblers_score": 2,
+        "opponent_score": 10,
+        "overtime": false,
+        "shootout": false,
+        "final_score": "2-10"
+      },
+      "attendance": 2328,
+      "player_stats": {}
+    },
+    {
+      "game_id": "4612",
+      "date": "2025-09-12",
+      "date_time": "2025-09-12T19:00:00-03:00",
+      "opponent": {
+        "team_id": 12,
+        "team_name": "Grand Falls Rapids",
+        "team_code": "GFR"
+      },
+      "home_game": false,
+      "venue": "E. & P. Sénéchal Centre",
+      "result": {
+        "won": false,
+        "ramblers_score": 1,
+        "opponent_score": 6,
+        "overtime": false,
+        "shootout": false,
+        "final_score": "1-6"
+      },
+      "attendance": 1060,
+      "player_stats": {}
+    }
+  ]
+}

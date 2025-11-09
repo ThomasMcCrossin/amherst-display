@@ -46,6 +46,88 @@ const ensureDir = async (fp) => {
 };
 
 /**
+ * Fetch player stats from HockeyTech API
+ */
+async function fetchPlayerStats(teamId) {
+  const skatersUrl = new URL(HOCKEYTECH_BASE_URL);
+  skatersUrl.searchParams.set('feed', 'modulekit');
+  skatersUrl.searchParams.set('view', 'statviewtype');
+  skatersUrl.searchParams.set('type', 'topscorers');
+  skatersUrl.searchParams.set('team_id', teamId);
+  skatersUrl.searchParams.set('season_id', SEASON_ID);
+  skatersUrl.searchParams.set('key', HOCKEYTECH_API_KEY);
+  skatersUrl.searchParams.set('fmt', 'json');
+  skatersUrl.searchParams.set('client_code', HOCKEYTECH_CLIENT);
+
+  const goaliesUrl = new URL(HOCKEYTECH_BASE_URL);
+  goaliesUrl.searchParams.set('feed', 'modulekit');
+  goaliesUrl.searchParams.set('view', 'statviewtype');
+  goaliesUrl.searchParams.set('type', 'goalies');
+  goaliesUrl.searchParams.set('team_id', teamId);
+  goaliesUrl.searchParams.set('season_id', SEASON_ID);
+  goaliesUrl.searchParams.set('key', HOCKEYTECH_API_KEY);
+  goaliesUrl.searchParams.set('fmt', 'json');
+  goaliesUrl.searchParams.set('client_code', HOCKEYTECH_CLIENT);
+
+  console.log(`[rosters] Fetching stats from API: team_id=${teamId}`);
+
+  try {
+    const [skatersRes, goaliesRes] = await Promise.all([
+      fetch(skatersUrl.toString()),
+      fetch(goaliesUrl.toString())
+    ]);
+
+    const skatersData = skatersRes.ok ? await skatersRes.json() : { SiteKit: { Statviewtype: [] } };
+    const goaliesData = goaliesRes.ok ? await goaliesRes.json() : { SiteKit: { Statviewtype: [] } };
+
+    const statsMap = new Map();
+
+    // Process skater stats
+    for (const player of (skatersData.SiteKit?.Statviewtype || [])) {
+      statsMap.set(player.player_id, {
+        games_played: parseInt(player.games_played) || 0,
+        goals: parseInt(player.goals) || 0,
+        assists: parseInt(player.assists) || 0,
+        points: parseInt(player.points) || 0,
+        plus_minus: parseInt(player.plus_minus) || 0,
+        penalty_minutes: parseInt(player.penalty_minutes) || 0,
+        power_play_goals: parseInt(player.power_play_goals) || 0,
+        power_play_assists: parseInt(player.power_play_assists) || 0,
+        power_play_points: parseInt(player.power_play_points) || 0,
+        short_handed_goals: parseInt(player.short_handed_goals) || 0,
+        short_handed_assists: parseInt(player.short_handed_assists) || 0,
+        short_handed_points: parseInt(player.short_handed_points) || 0,
+        game_winning_goals: parseInt(player.game_winning_goals) || 0,
+        overtime_goals: parseInt(player.overtime_goals) || 0,
+        points_per_game: parseFloat(player.points_per_game) || 0
+      });
+    }
+
+    // Process goalie stats
+    for (const player of (goaliesData.SiteKit?.Statviewtype || [])) {
+      statsMap.set(player.player_id, {
+        games_played: parseInt(player.games_played) || 0,
+        wins: parseInt(player.wins) || 0,
+        losses: parseInt(player.losses) || 0,
+        ot_losses: parseInt(player.ot_losses) || 0,
+        minutes_played: parseInt(player.minutes_played) || 0,
+        saves: parseInt(player.saves) || 0,
+        shots: parseInt(player.shots) || 0,
+        goals_against: parseInt(player.goals_against) || 0,
+        shutouts: parseInt(player.shutouts) || 0,
+        save_percentage: parseFloat(player.save_percentage) || 0,
+        goals_against_average: parseFloat(player.goals_against_average) || 0
+      });
+    }
+
+    return statsMap;
+  } catch (e) {
+    console.warn(`[rosters] Error fetching stats: ${e.message}`);
+    return new Map();
+  }
+}
+
+/**
  * Fetch roster data from HockeyTech API
  */
 async function fetchRosterFromAPI(teamId) {
@@ -140,7 +222,7 @@ function parseWeight(weightStr) {
 /**
  * Process roster: normalize data and download headshots (only for Amherst Ramblers)
  */
-async function processRoster(teamSlug, teamName, rawPlayers) {
+async function processRoster(teamSlug, teamName, rawPlayers, statsMap) {
   const players = [];
   const downloadHeadshots = teamSlug === 'amherst-ramblers'; // Only download for Amherst
 
@@ -170,6 +252,9 @@ async function processRoster(teamSlug, teamName, rawPlayers) {
       }
     }
 
+    // Get stats for this player
+    const stats = statsMap.get(rawPlayer.id) || {};
+
     // Create normalized player object
     const player = {
       player_id: playerId, // Unique ID across all teams/seasons
@@ -191,6 +276,8 @@ async function processRoster(teamSlug, teamName, rawPlayers) {
       veteran: rawPlayer.veteran_status === '1',
       headshot: headshotPath,
       headshot_url: rawPlayer.player_image?.includes('nophoto') ? null : rawPlayer.player_image,
+      // Season stats
+      stats,
       // Additional metadata
       hockeytech_id: rawPlayer.id,
       person_id: rawPlayer.person_id,
@@ -231,8 +318,11 @@ export async function buildRosters() {
   for (const [teamSlug, config] of Object.entries(TEAMS)) {
     try {
       console.log(`[rosters/${teamSlug}] Fetching roster for ${config.name}...`);
-      const rawPlayers = await fetchRosterFromAPI(config.team_id);
-      const players = await processRoster(teamSlug, config.name, rawPlayers);
+      const [rawPlayers, statsMap] = await Promise.all([
+        fetchRosterFromAPI(config.team_id),
+        fetchPlayerStats(config.team_id)
+      ]);
+      const players = await processRoster(teamSlug, config.name, rawPlayers, statsMap);
 
       const rosterData = {
         team_slug: teamSlug,
