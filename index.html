@@ -430,11 +430,15 @@ function ccmhaCardHTML(game){
 async function renderCCMHA(){
   const games = await loadCCMHA();
 
-  // Sort by start time
-  games.sort((a,b)=> new Date(a.start) - new Date(b.start));
+  // Filter to upcoming games within the window (same as main games)
+  const now = new Date();
+  const filteredGames = games
+    .map(g => ({...g, start: new Date(g.start)}))
+    .filter(g => withinWindow(g.start))
+    .sort((a,b)=> a.start - b.start);
 
   // Store in pagination state
-  PAGINATION.ccmhaGames = games;
+  PAGINATION.ccmhaGames = filteredGames;
 
   // Calculate total pages and start pagination
   PAGINATION.totalPages = calculatePages(PAGINATION.mainGames, PAGINATION.ccmhaGames);
