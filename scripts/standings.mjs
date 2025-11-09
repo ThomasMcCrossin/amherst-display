@@ -49,15 +49,22 @@ function parseBSHLTable($, nameToSlug){
   const tables = $('table');
   if (!tables.length) return [];
 
-  // Pick the table with most body rows
-  let best = null; let bestRows = 0;
-  tables.each((i, el) => {
-    const r = $(el).find('tbody tr').length || $(el).find('tr').length;
-    if (r > bestRows){ best = el; bestRows = r; }
-  });
-  if (!best) return [];
+  // Parse ALL tables and combine rows (multiple divisions)
+  const allRows = [];
 
-  const headers = $(best).find('thead th, tr:first-child th').map((i,el)=>$(el).text().trim().toLowerCase()).get();
+  tables.each((tableIdx, table) => {
+    const rows = parseTableRows($, $(table), nameToSlug);
+    allRows.push(...rows);
+  });
+
+  return allRows;
+}
+
+function parseTableRows($, table, nameToSlug){
+  let headers = table.find('thead th, tr:first-child th, tr:first-child td').map((i,el)=>$(el).text().trim().toLowerCase()).get();
+  // Filter empty headers caused by malformed HTML
+  headers = headers.filter(h => h !== '');
+
   const hidx = (label) => {
     const i = headers.findIndex(h => h === label || h.includes(label));
     return i >= 0 ? i : -1;
@@ -72,22 +79,32 @@ function parseBSHLTable($, nameToSlug){
   };
 
   const out = [];
-  $(best).find('tbody tr, tr').each((i,tr)=>{
+  table.find('tbody tr, tr').each((i,tr)=>{
     const tds = $(tr).find('td');
     if (!tds.length) return;
-    const cells = tds.map((j,td)=>$(td).text().replace(/\s+/g,' ').trim()).get();
+    let cells = tds.map((j,td)=>$(td).text().replace(/\s+/g,' ').trim()).get();
+    // Filter out empty cells caused by malformed HTML
+    cells = cells.filter(c => c !== '');
     const team = cells[teamIdx] || cells[0] || '';
     if (!team) return;
 
-    const num = (i) => (i>=0 && cells[i]!=null && /^-?\d+(\.\d+)?$/.test(cells[i])) ? Number(cells[i]) : 0;
+    // Skip header rows
+    if (/^team$/i.test(team)) return;
+
+    const num = (i) => {
+      if (i < 0 || !cells[i]) return 0;
+      const val = cells[i].replace(/\s+/g,'').trim();
+      return /^-?\d+(\.\d+)?$/.test(val) ? Number(val) : 0;
+    };
     const row = {
       team,
       gp:  num(idx.gp), w: num(idx.w), l: num(idx.l),
       otl: num(idx.otl), sol: num(idx.sol),
       pts: num(idx.pts),
       gf:  num(idx.gf), ga: num(idx.ga),
-      diff: ( (idx.diff>=0 && /^-?\d+$/.test(cells[idx.diff]||'')) ? Number(cells[idx.diff]) : 0 )
+      diff: num(idx.diff)
     };
+
     out.push(attachSlug(row, nameToSlug));
   });
 
@@ -121,7 +138,12 @@ function parseBSHLText($, nameToSlug){
 
 export async function buildBSHLStandings({ nameToSlug }){
   try{
-    const html = await fetchText(URL_BSHL);
+    let html = await fetchText(URL_BSHL);
+    // Fix malformed HTML where <td> appears instead of </td>
+    // Pattern: </td><td>X<td> becomes </td><td>X</td>
+    html = html.replace(/(<\/td>)<td>([^<]+)<td>/gi, '$1<td>$2</td><td>');
+    // Pattern at start: <td>X<td> becomes <td>X</td><td>
+    html = html.replace(/([^d])<td>([^<]+)<td>/gi, '$1<td>$2</td><td>');
     const $ = cheerio.load(html);
 
     let rows = parseBSHLTable($, nameToSlug);
@@ -150,7 +172,6 @@ export async function buildBSHLStandings({ nameToSlug }){
 // ------------ MHL ------------
 export async function buildMHLStandings({ nameToSlug }){
   const browser = await puppeteer.launch({
-    channel: 'chrome',
     headless: 'new',
     args: ['--no-sandbox','--disable-setuid-sandbox']
   });
@@ -158,18 +179,25 @@ export async function buildMHLStandings({ nameToSlug }){
   try{
     const page = await browser.newPage();
     await page.setViewport({ width: 1600, height: 1200, deviceScaleFactor: 1 });
-    await page.goto(URL_MHL, { waitUntil: 'domcontentloaded', timeout: 60000 });
+    await page.goto(URL_MHL, { waitUntil: 'networkidle2', timeout: 60000 });
 
-    // Let the client JS fetch+render. Then wait for network to idle briefly.
-    await page.waitForNetworkIdle({ idleTime: 1000, timeout: 15000 }).catch(()=>{});
-    await page.waitForTimeout(800);
+    // Wait for table to appear with data rows
+    try {
+      await page.waitForSelector('table tbody tr', { timeout: 10000 });
+      console.log('[standings/MHL] table rows found');
+    } catch (e) {
+      console.warn('[standings/MHL] table selector timeout, trying anyway');
+    }
+    await new Promise(resolve => setTimeout(resolve, 1000));
 
     const info = await page.evaluate(() => {
       const tables = Array.from(document.querySelectorAll('table'));
       const headerWords = t => {
         const h = t.querySelector('thead') || t.querySelector('tr');
         if (!h) return [];
-        const cells = Array.from(h.querySelectorAll('th,td')).map(c => (c.textContent||'').trim().toLowerCase());
+        const cells = Array.from(h.querySelectorAll('th,td')).map(c => {
+          return (c.textContent||'').replace(/\s+/g,' ').trim().toLowerCase();
+        });
         return cells;
       };
 
@@ -195,13 +223,23 @@ export async function buildMHLStandings({ nameToSlug }){
       for (const tr of bodyRows) {
         const tds = Array.from(tr.querySelectorAll('td'));
         if (!tds.length) continue;
-        rows.push(tds.map(td => td.textContent.replace(/\s+/g,' ').trim()));
+        const cells = tds.map(td => td.textContent.replace(/\s+/g,' ').trim());
+        // Skip empty rows
+        if (cells.every(c => !c)) continue;
+        rows.push(cells);
       }
       const r = chosen.getBoundingClientRect();
-      return { count: tables.length, headers, rows, size: {w:r.width, h:r.height} };
+      return {
+        count: tables.length,
+        headers,
+        rows,
+        size: {w:r.width, h:r.height},
+        tbodyRows: bodyRows.length,
+        firstRowSample: rows[0] || null
+      };
     });
 
-    console.log(`[standings/MHL] tables=${info.count} chosen=${Math.round(info.size.w)}x${Math.round(info.size.h)} headers=${JSON.stringify(info.headers)} rows=${info.rows.length}`);
+    console.log(`[standings/MHL] tables=${info.count} chosen=${Math.round(info.size.w)}x${Math.round(info.size.h)} rows=${info.rows.length}`);
 
     if (!info.rows.length) {
       return { generated_at: nowISO(), league:'MHL', season:'', rows: [] };
@@ -211,20 +249,20 @@ export async function buildMHLStandings({ nameToSlug }){
     const mapHeader = (h) => {
       const x = (h||'').toLowerCase().replace(/[^a-z0-9]+/g,'');
       if (/^team/.test(x)) return 'team';
-      if (x === 'gp') return 'gp';
-      if (x === 'w')  return 'w';
-      if (x === 'l')  return 'l';
-      if (x === 'otl' || x === 'ol') return 'otl';
-      if (x === 'sol' || x === 'so') return 'sol';
-      if (x === 'pts' || x === 'points') return 'pts';
-      if (x === 'gf') return 'gf';
-      if (x === 'ga') return 'ga';
-      if (x === 'diff' || x === 'plusminus' || x === 'gd' || x === '+-') return 'diff';
-      if (x === 'streak' || x === 'stk') return 'streak';
-      if (x === 'p10' || x === 'last10') return 'p10';
-      if (x === 'rw') return 'rw';
-      if (x === 'otw') return 'otw';
-      if (x === 'sow') return 'sow';
+      if (x === 'gp' || x === 'gpgp') return 'gp';
+      if (x === 'w' || x === 'ww')  return 'w';
+      if (x === 'l' || x === 'll')  return 'l';
+      if (x === 'otl' || x === 'otlotl' || x === 'ol') return 'otl';
+      if (x === 'sol' || x === 'solsol' || x === 'so') return 'sol';
+      if (x === 'pts' || x === 'ptspts' || x === 'points') return 'pts';
+      if (x === 'gf' || x === 'gfgf') return 'gf';
+      if (x === 'ga' || x === 'gaga') return 'ga';
+      if (x === 'diff' || x === 'diffdiff' || x === 'plusminus' || x === 'gd' || x === '+-') return 'diff';
+      if (x === 'streak' || x === 'stk' || x === 'stkstk') return 'streak';
+      if (x === 'p10' || x === 'p10p10' || x === 'last10') return 'p10';
+      if (x === 'rw' || x === 'rwrw') return 'rw';
+      if (x === 'otw' || x === 'otwotw') return 'otw';
+      if (x === 'sow' || x === 'sowsow') return 'sow';
       return h || x || 'col';
     };
     const headerKeys = info.headers.map(mapHeader);
@@ -238,7 +276,10 @@ export async function buildMHLStandings({ nameToSlug }){
         const key = headerKeys[i] || `col${i}`;
         obj[key] = arr[i];
       }
-      obj.team = obj.team || arr[0] || '';
+      // Find team name: look for first non-numeric cell with length > 2
+      if (!obj.team || /^\d+$/.test(obj.team)) {
+        obj.team = arr.find(cell => cell && cell.length > 2 && !/^[\d.]+$/.test(cell)) || arr[1] || arr[0] || '';
+      }
       // numeric coercion where obvious
       const toNum = (v) => (/^-?\d+(\.\d+)?$/.test(String(v||''))) ? Number(v) : v;
       ['gp','w','l','otl','sol','pts','rw','otw','sow','gf','ga','diff'].forEach(k=>{

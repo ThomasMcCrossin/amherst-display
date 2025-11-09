@@ -1,17 +1,10 @@
 {
-  "generated_at": "2025-11-08T06:44:49Z",
+  "generated_at": "2025-11-09T03:58:08Z",
   "timezone": "America/Halifax",
   "teams": [
     {
       "team_slug": "amherst-ramblers",
       "games": [
-        {
-          "opponent_slug": "pictou-county-weeks-crushers",
-          "home": true,
-          "start": "2025-11-08T19:00:00-04:00",
-          "venue": "Amherst Stadium",
-          "city": ""
-        },
         {
           "opponent_slug": "valley-wildcats",
           "home": true,
@@ -25,6 +18,13 @@
           "start": "2025-11-14T19:00:00-04:00",
           "venue": "Campbellton Memorial Civic Centre",
           "city": ""
+        },
+        {
+          "opponent_slug": "chaleur-lightning",
+          "home": false,
+          "start": "2025-11-15T19:00:00-04:00",
+          "venue": "KC Irving Regional Centre",
+          "city": ""
         }
       ]
     },
@@ -32,17 +32,17 @@
       "team_slug": "amherst-ducks",
       "games": [
         {
-          "opponent_slug": "fredericton",
-          "home": false,
-          "start": "2025-11-08T19:00:00-04:00",
-          "venue": "LBR",
-          "city": ""
-        },
-        {
           "opponent_slug": "miramichi-bshl",
           "home": false,
           "start": "2025-11-14T20:15:00-04:00",
           "venue": "Civic",
+          "city": ""
+        },
+        {
+          "opponent_slug": "belle-baie",
+          "home": true,
+          "start": "2025-11-15T19:00:00-04:00",
+          "venue": "Amherst Stadium",
           "city": ""
         },
         {
