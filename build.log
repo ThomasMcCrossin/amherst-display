@@ -11,3 +11,9 @@
 [CCMHA] API returned 185 total schedule items
 [CCMHA] Found 3 games at Amherst Stadium
 [ccmha] games=3
+[roster] Building roster data...
+[roster/MHL] Starting Amherst Ramblers roster scrape...
+[roster/MHL] Navigating to https://www.themhl.ca/stats/roster/1/41
+[roster/MHL] Table found, waiting for data to load...
+[roster/MHL] Found 28 players
+[roster] amherst-ramblers players=28
