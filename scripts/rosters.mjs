@@ -92,7 +92,8 @@ async function downloadImage(url, outputPath) {
  * Normalize player name to create a safe file/reference ID
  */
 function normalizeNameForId(name) {
-  return name
+  if (!name) return 'unknown';
+  return String(name)
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
@@ -141,7 +142,8 @@ async function processRoster(teamSlug, teamName, rawPlayers) {
   for (const rawPlayer of rawPlayers) {
     const playerId = generatePlayerId(rawPlayer);
     const jerseyNum = rawPlayer.tp_jersey_number || rawPlayer.jersey || '';
-    const fileId = `${jerseyNum}-${normalizeNameForId(rawPlayer.name || rawPlayer.last_name)}`;
+    const playerName = rawPlayer.name || `${rawPlayer.first_name || ''} ${rawPlayer.last_name || ''}`.trim() || 'Unknown Player';
+    const fileId = `${jerseyNum}-${normalizeNameForId(playerName)}`;
 
     // Download headshot if available
     let headshotPath = null;
@@ -161,7 +163,7 @@ async function processRoster(teamSlug, teamName, rawPlayers) {
       number: jerseyNum,
       first_name: rawPlayer.first_name,
       last_name: rawPlayer.last_name,
-      name: rawPlayer.name || `${rawPlayer.first_name} ${rawPlayer.last_name}`,
+      name: playerName,
       position: rawPlayer.position,
       height: rawPlayer.height,
       height_inches: parseHeight(rawPlayer.height),
