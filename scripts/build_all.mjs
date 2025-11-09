@@ -10,6 +10,7 @@ import { fetchRamblersFromICS, fetchDucksFromBSHL } from './schedules.mjs';
 import { buildMHLStandings, buildBSHLStandings } from './standings.mjs';
 import { fetchCCMHAGames } from './ccmha.mjs';
 import { buildRosters } from './rosters.mjs';
+import { buildRamblersGames } from './games.mjs';
 
 const TZ = 'America/Halifax';
 
@@ -184,26 +185,52 @@ async function buildRostersWrapper() {
   }
 }
 
+async function buildGamesWrapper() {
+  try {
+    const gamesData = await buildRamblersGames();
+    console.log(`[games] Complete! Games=${gamesData.games.length}`);
+  } catch(e) {
+    console.warn('[games] failed:', e.message);
+    // Write empty games file as fallback
+    const gamesDir = 'games';
+    try {
+      mkdirSync(gamesDir, { recursive: true });
+    } catch {}
+    writeJson('games/amherst-ramblers.json', {
+      generated_at: nowISO(),
+      team_slug: 'amherst-ramblers',
+      team_name: 'Amherst Ramblers',
+      season: '2024-25',
+      summary: {},
+      games: []
+    });
+  }
+}
+
 async function main(){
   // 1) Rosters (can take time, but good to do early)
   await buildRostersWrapper();
 
-  // 2) Standings (fast feedback if selectors change)
+  // 2) Ramblers game summaries
+  await buildGamesWrapper();
+
+  // 3) Standings (fast feedback if selectors change)
   await buildStandings();
 
-  // 3) Schedules
+  // 4) Schedules
   await buildSchedules();
 
-  // 4) CCMHA minor hockey games
+  // 5) CCMHA minor hockey games
   await buildCCMHA();
 
-  // 5) Ensure base files exist (first run safety)
-  if (!existsSync('rosters/index.json'))  writeJson('rosters/index.json',  { generated_at: nowISO(), league: 'MHL', team_count: 0, teams: [] });
-  if (!existsSync('games.json'))          writeJson('games.json',          { generated_at: nowISO(), timezone: TZ, events: [] });
-  if (!existsSync('next_games.json'))     writeJson('next_games.json',     { generated_at: nowISO(), timezone: TZ, teams: [] });
-  if (!existsSync('standings_mhl.json'))  writeJson('standings_mhl.json',  { generated_at: nowISO(), season: '', league: 'MHL',  rows: [] });
-  if (!existsSync('standings_bshl.json')) writeJson('standings_bshl.json', { generated_at: nowISO(), season: '', league: 'BSHL', rows: [] });
-  if (!existsSync('ccmha_games.json'))    writeJson('ccmha_games.json',    { generated_at: nowISO(), timezone: TZ, games: [] });
+  // 6) Ensure base files exist (first run safety)
+  if (!existsSync('rosters/index.json'))          writeJson('rosters/index.json',          { generated_at: nowISO(), league: 'MHL', team_count: 0, teams: [] });
+  if (!existsSync('games/amherst-ramblers.json')) writeJson('games/amherst-ramblers.json', { generated_at: nowISO(), team_slug: 'amherst-ramblers', season: '2024-25', summary: {}, games: [] });
+  if (!existsSync('games.json'))                  writeJson('games.json',                  { generated_at: nowISO(), timezone: TZ, events: [] });
+  if (!existsSync('next_games.json'))             writeJson('next_games.json',             { generated_at: nowISO(), timezone: TZ, teams: [] });
+  if (!existsSync('standings_mhl.json'))          writeJson('standings_mhl.json',          { generated_at: nowISO(), season: '', league: 'MHL',  rows: [] });
+  if (!existsSync('standings_bshl.json'))         writeJson('standings_bshl.json',         { generated_at: nowISO(), season: '', league: 'BSHL', rows: [] });
+  if (!existsSync('ccmha_games.json'))            writeJson('ccmha_games.json',            { generated_at: nowISO(), timezone: TZ, games: [] });
 }
 
 main().catch(e => { console.error(e); process.exit(1); });
