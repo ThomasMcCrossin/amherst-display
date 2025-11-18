@@ -26,6 +26,7 @@
       "birthplace": "Stroudsburg, PA USA, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Miramichi-Timberwolves/6-lorenzo-tita.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3494.jpg",
       "stats": {
         "games_played": 19,
@@ -68,6 +69,7 @@
       "birthplace": "Québec, QC, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Miramichi-Timberwolves/7-olivier-th-berge.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3817.jpg",
       "stats": {
         "games_played": 20,
@@ -111,6 +113,7 @@
       "birthplace": "Rogersville, NB, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Miramichi-Timberwolves/8-cameron-leblanc.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3349.jpg",
       "stats": {
         "games_played": 19,
@@ -153,6 +156,7 @@
       "birthplace": "Trois-Rivières, QC, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Miramichi-Timberwolves/9-alexis-doucet.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3791.jpg",
       "stats": {
         "games_played": 21,
@@ -196,6 +200,7 @@
       "birthplace": "Trois-Rivières, QC, QC",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Miramichi-Timberwolves/10-eliott-robert.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3278.jpg",
       "stats": {
         "games_played": 21,
@@ -238,6 +243,7 @@
       "birthplace": "St-Boniface, QC, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Miramichi-Timberwolves/11-thomas-gu-rard.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3777.jpg",
       "stats": {
         "games_played": 9,
@@ -281,6 +287,7 @@
       "birthplace": "Miramichi. NB, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Miramichi-Timberwolves/12-grady-burns.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3338.jpg",
       "stats": {
         "games_played": 19,
@@ -323,6 +330,7 @@
       "birthplace": "Beaver Bank, NS, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Miramichi-Timberwolves/14-mitchell-wagner.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2442.jpg",
       "stats": {},
       "hockeytech_id": "2442",
@@ -349,6 +357,7 @@
       "birthplace": "Barnaby River, NB, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Miramichi-Timberwolves/17-ryan-hackett.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3223.jpg",
       "stats": {
         "games_played": 20,
@@ -391,6 +400,7 @@
       "birthplace": "Middle Sackville, NS, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Miramichi-Timberwolves/18-aiden-clowater.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3709.jpg",
       "stats": {
         "games_played": 21,
@@ -473,6 +483,7 @@
       "birthplace": "Hampton, NB, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Miramichi-Timberwolves/20-nolan-ryan.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2797.jpg",
       "stats": {
         "games_played": 20,
@@ -513,6 +524,7 @@
       "birthplace": "Lévis, QC, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Miramichi-Timberwolves/22-benoit-arsenault.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3792.jpg",
       "stats": {},
       "hockeytech_id": "3792",
@@ -540,6 +552,7 @@
       "birthplace": "Port Hawkesbury, NS, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Miramichi-Timberwolves/23-ryan-hayes.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3207.jpg",
       "stats": {
         "games_played": 19,
@@ -580,6 +593,7 @@
       "birthplace": "Bridgewater, NS, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Miramichi-Timberwolves/24-dawson-peverelle.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3342.jpg",
       "stats": {
         "games_played": 21,
@@ -622,6 +636,7 @@
       "birthplace": "Renous, NB, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Miramichi-Timberwolves/26-kaden-mcneil.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2900.jpg",
       "stats": {
         "games_played": 21,
@@ -662,6 +677,7 @@
       "birthplace": "Riverview, NB, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Miramichi-Timberwolves/27-harlan-eustace.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3173.jpg",
       "stats": {
         "games_played": 20,
@@ -704,6 +720,7 @@
       "birthplace": "Victoriaville, QC, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Miramichi-Timberwolves/28-charles-olivier-gigu-re.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3790.jpg",
       "stats": {
         "games_played": 21,
@@ -747,6 +764,7 @@
       "birthplace": "Trois-Rivieres, QC, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Miramichi-Timberwolves/31-mathis-lafontaine.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3334.jpg",
       "stats": {
         "games_played": 6,
@@ -785,6 +803,7 @@
       "birthplace": "Saint John, NB, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Miramichi-Timberwolves/33-jack-flanagan.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2953.jpg",
       "stats": {
         "games_played": 17,
@@ -823,6 +842,7 @@
       "birthplace": "Charlottetown, PE, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Miramichi-Timberwolves/37-thatcher-hughes.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3178.jpg",
       "stats": {
         "games_played": 21,
@@ -863,6 +883,7 @@
       "birthplace": "Quispamsis, NB, NB",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Miramichi-Timberwolves/71-jacob-kaine.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2635.jpg",
       "stats": {
         "games_played": 21,

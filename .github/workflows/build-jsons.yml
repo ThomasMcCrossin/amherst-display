@@ -2,8 +2,12 @@ name: Build display JSONs & standings snapshots
 
 on:
   schedule:
-    - cron: '30 6 * * *'   # 06:30 UTC ≈ 3:30am Atlantic
+    # Run once daily at 6:30 AM UTC (3:30 AM Atlantic / 2:30 AM Atlantic DST)
+    # This updates all data: schedules, standings, rosters, game summaries
+    - cron: '30 6 * * *'
+  # Allow manual trigger from Actions tab
   workflow_dispatch: {}
+  # Auto-run on script/data changes for testing
   push:
     paths:
       - 'scripts/**'
@@ -19,7 +23,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      # Optional: set this secret in repo settings if you prefer a hosted ICS URL
+      # IMPORTANT: Set RAMBLERS_ICS_URL secret with fresh ICS calendar URL
+      # Without this, schedule data will be stale (uses data/ramblers.ics fallback)
       RAMBLERS_ICS_URL: ${{ secrets.RAMBLERS_ICS_URL }}
 
     steps:

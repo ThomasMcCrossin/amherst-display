@@ -36,7 +36,31 @@
 [rosters/edmundston-blizzard] Fetching roster for Edmundston-Blizzard...
 [rosters] Fetching from API: team_id=2
 [rosters] Fetching stats from API: team_id=2
-[rosters/edmundston-blizzard] Processing 25 players
+[rosters/edmundston-blizzard] Processing 25 players (downloading headshots)
+[rosters] Downloaded: 1-rylan-benner.jpg
+[rosters] Downloaded: 7-will-carroll.jpg
+[rosters] Downloaded: 8-samuel-cloutier.jpg
+[rosters] Downloaded: 9-darien-thomson.jpg
+[rosters] Downloaded: 10-nicolas-dub.jpg
+[rosters] Downloaded: 11-alex-thibault.jpg
+[rosters] Downloaded: 12-justin-bouchard-trottier.jpg
+[rosters] Downloaded: 14-nathan-crane.jpg
+[rosters] Downloaded: 16-noah-breau.jpg
+[rosters] Downloaded: 17-zachary-robichaud.jpg
+[rosters] Downloaded: 18-alexis-ch-nard.jpg
+[rosters] Downloaded: 19-neka-jean.jpg
+[rosters] Downloaded: 20-eliott-guenette.jpg
+[rosters] Downloaded: 22-benjamin-damphousse.jpg
+[rosters] Downloaded: 24-mathieu-boucher.jpg
+[rosters] Downloaded: 27-fran-ois-xavier-mercier.jpg
+[rosters] Downloaded: 28-charles-ric-tremblay.jpg
+[rosters] Downloaded: 31-cedric-mass.jpg
+[rosters] Downloaded: 55-jake-macdonald.jpg
+[rosters] Downloaded: 77-lucas-fortin.jpg
+[rosters] Downloaded: 79-william-labranche.jpg
+[rosters] Downloaded: 81-mile-fournier.jpg
+[rosters] Downloaded: 93-maddox-thisdelle.jpg
+[rosters] Downloaded: 99-brayden-waterhouse.jpg
 [rosters/edmundston-blizzard] Wrote rosters/edmundston-blizzard.json (25 players)
 [rosters/truro-bearcats] Fetching roster for Truro-Bearcats...
 [rosters] Fetching from API: team_id=3
@@ -46,7 +70,30 @@
 [rosters/valley-wildcats] Fetching roster for Valley-Wildcats...
 [rosters] Fetching from API: team_id=4
 [rosters] Fetching stats from API: team_id=4
-[rosters/valley-wildcats] Processing 24 players
+[rosters/valley-wildcats] Processing 24 players (downloading headshots)
+[rosters] Downloaded: 5-ben-manos.jpg
+[rosters] Skipping placeholder image
+[rosters] Downloaded: 7-keegan-o-neill.jpg
+[rosters] Downloaded: 8-louis-carl-tremblay.jpg
+[rosters] Downloaded: 9-felix-belanger.jpg
+[rosters] Downloaded: 10-jude-campbell.jpg
+[rosters] Skipping placeholder image
+[rosters] Downloaded: 12-luke-scheck.jpg
+[rosters] Downloaded: 14-caleb-macdonald.jpg
+[rosters] Downloaded: 15-arnaud-lucier.jpg
+[rosters] Downloaded: 17-brady-burke.jpg
+[rosters] Skipping placeholder image
+[rosters] Downloaded: 20-drew-lutz.jpg
+[rosters] Downloaded: 21-dylan-maclean.jpg
+[rosters] Downloaded: 22-aidan-bent.jpg
+[rosters] Downloaded: 23-josh-vincent.jpg
+[rosters] Downloaded: 25-jack-flanagan.jpg
+[rosters] Downloaded: 26-ryan-fletcher.jpg
+[rosters] Downloaded: 27-jacob-denomme.jpg
+[rosters] Downloaded: 28-andrew-thompson.jpg
+[rosters] Downloaded: 29-cohen-stoddard.jpg
+[rosters] Downloaded: 32-brody-ford.jpg
+[rosters] Downloaded: 70-sean-hogan.jpg
 [rosters/valley-wildcats] Wrote rosters/valley-wildcats.json (24 players)
 [rosters/yarmouth-mariners] Fetching roster for Yarmouth-Mariners...
 [rosters] Fetching from API: team_id=5
@@ -66,7 +113,32 @@
 [rosters/campbellton-tigers] Fetching roster for Campbellton-Tigers...
 [rosters] Fetching from API: team_id=8
 [rosters] Fetching stats from API: team_id=8
-[rosters/campbellton-tigers] Processing 26 players
+[rosters/campbellton-tigers] Processing 26 players (downloading headshots)
+[rosters] Downloaded: 1-samuel-quimper.jpg
+[rosters] Downloaded: 7-alex-lavoie.jpg
+[rosters] Downloaded: 8-adam-v-ronneau.jpg
+[rosters] Downloaded: 11-nathan-lebrasseur.jpg
+[rosters] Downloaded: 12-samuel-deveau.jpg
+[rosters] Downloaded: 14-liam-duquette.jpg
+[rosters] Downloaded: 16-lucas-bremshey.jpg
+[rosters] Downloaded: 17-nathan-rhodes.jpg
+[rosters] Downloaded: 18-edouard-dion.jpg
+[rosters] Downloaded: 19-samuel-ouellet.jpg
+[rosters] Downloaded: 20-eliot-arseneault.jpg
+[rosters] Downloaded: 21-alexi-parent.jpg
+[rosters] Downloaded: 22-thierry-demers.jpg
+[rosters] Downloaded: 23-brett-woodard.jpg
+[rosters] Downloaded: 26-sawyer-harvey.jpg
+[rosters] Downloaded: 27-marco-leblanc.jpg
+[rosters] Downloaded: 31-niko-boudreau.jpg
+[rosters] Downloaded: 39-logan-mallaley.jpg
+[rosters] Downloaded: 45-jacob-singer.jpg
+[rosters] Downloaded: 48-carter-morrison.jpg
+[rosters] Downloaded: 55-luke-orr.jpg
+[rosters] Downloaded: 84-nash-coffin.jpg
+[rosters] Downloaded: 98-sam-hope.jpg
+[rosters] Skipping placeholder image
+[rosters] Skipping placeholder image
 [rosters/campbellton-tigers] Wrote rosters/campbellton-tigers.json (26 players)
 [rosters/miramichi-timberwolves] Fetching roster for Miramichi-Timberwolves...
 [rosters] Fetching from API: team_id=9
@@ -81,12 +153,66 @@
 [rosters/grand-falls-rapids] Fetching roster for Grand-Falls-Rapids...
 [rosters] Fetching from API: team_id=12
 [rosters] Fetching stats from API: team_id=12
-[rosters/grand-falls-rapids] Processing 24 players
+[rosters/grand-falls-rapids] Processing 24 players (downloading headshots)
+[rosters] Downloaded: 4-loic-gallant.jpg
+[rosters] Downloaded: 5-anton-topilnyckyj.jpg
+[rosters] Downloaded: 6-nathan-dubreuil.jpg
+[rosters] Downloaded: 7-patrick-baxter.jpg
+[rosters] Downloaded: 8-carter-bellamy.jpg
+[rosters] Downloaded: 9-luc-marnell.jpg
+[rosters] Downloaded: 10-tristan-richard.jpg
+[rosters] Downloaded: 16-oliver-plante.jpg
+[rosters] Downloaded: 17-isaac-allard.jpg
+[rosters] Downloaded: 18-dereck-asselin.jpg
+[rosters] Downloaded: 19-zackarie-michaud.jpg
+[rosters] Downloaded: 21-jonah-leard.jpg
+[rosters] Downloaded: 27-mathis-cyr.jpg
+[rosters] Downloaded: 28-reid-calder.jpg
+[rosters] Downloaded: 30-jeremy-thibodeau-soucy.jpg
+[rosters] Downloaded: 35-adam-lecours.jpg
+[rosters] Downloaded: 40-brody-pare.jpg
+[rosters] Downloaded: 44-julien-avignon-bourque.jpg
+[rosters] Downloaded: 66-declan-kennedy.jpg
+[rosters] Downloaded: 77-nathan-plamondon-michaud.jpg
+[rosters] Downloaded: 81-jack-brown.jpg
+[rosters] Downloaded: 88-brayden-campbell.jpg
+[rosters] Downloaded: 91-loic-francoeur.jpg
 [rosters/grand-falls-rapids] Wrote rosters/grand-falls-rapids.json (24 players)
 [rosters/chaleur-lightning] Fetching roster for Chaleur-Lightning...
 [rosters] Fetching from API: team_id=21
 [rosters] Fetching stats from API: team_id=21
-[rosters/chaleur-lightning] Processing 32 players
+[rosters/chaleur-lightning] Processing 32 players (downloading headshots)
+[rosters] Downloaded: 2-jack-hayne.jpg
+[rosters] Downloaded: 4-jameson-george.jpg
+[rosters] Downloaded: 7-michael-pilgrim.jpg
+[rosters] Downloaded: 9-tyson-snow.jpg
+[rosters] Downloaded: 10-carter-bromley.jpg
+[rosters] Downloaded: 12-malcolm-macdonald.jpg
+[rosters] Downloaded: 13-zachary-rushton.jpg
+[rosters] Downloaded: 15-brett-yuzik.jpg
+[rosters] Downloaded: 16-will-clark.jpg
+[rosters] Downloaded: 19-cohen-mccallum.jpg
+[rosters] Downloaded: 20-isaac-arsenault.jpg
+[rosters] Downloaded: 22-nic-macisaac.jpg
+[rosters] Skipping placeholder image
+[rosters] Downloaded: 32-nolan-fowler.jpg
+[rosters] Downloaded: 33-will-morgan.jpg
+[rosters] Downloaded: 34-samuel-carreiras-pata.jpg
+[rosters] Downloaded: 55-josh-plourde.jpg
+[rosters] Downloaded: 66-ben-cross.jpg
+[rosters] Downloaded: 77-mason-cook.jpg
+[rosters] Downloaded: 88-jean-christophe-gemme.jpg
+[rosters] Downloaded: 90-william-cossette.jpg
+[rosters] Downloaded: 91-david-lebel.jpg
+[rosters] Downloaded: 92-jayden-burtt-munn.jpg
+[rosters] Downloaded: 120-isaak-berube.jpg
+[rosters] Downloaded: 120-louis-simon-boucher.jpg
+[rosters] Skipping placeholder image
+[rosters] Downloaded: 120-jesse-dunlap.jpg
+[rosters] Downloaded: 120-dax-fraser.jpg
+[rosters] Downloaded: 120-felix-sylvain-hache.jpg
+[rosters] Downloaded: 120-carter-mcillwraith.jpg
+[rosters] Downloaded: 120-isaiah-rogerson.jpg
 [rosters/chaleur-lightning] Wrote rosters/chaleur-lightning.json (32 players)
 [rosters] Wrote rosters/index.json with 12 team(s)
 [rosters] Complete! Teams=12

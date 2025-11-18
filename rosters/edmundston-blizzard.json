@@ -26,6 +26,7 @@
       "birthplace": "Moncton, NB, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Edmundston-Blizzard/1-rylan-benner.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3575.jpg",
       "stats": {
         "games_played": 8,
@@ -62,6 +63,7 @@
       "birthplace": "Conception Bay South, NL, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Edmundston-Blizzard/7-will-carroll.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3235.jpg",
       "stats": {},
       "hockeytech_id": "3235",
@@ -86,6 +88,7 @@
       "birthplace": "Lévis, QC, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Edmundston-Blizzard/8-samuel-cloutier.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3688.jpg",
       "stats": {
         "games_played": 21,
@@ -128,6 +131,7 @@
       "birthplace": "Fredericton, NB, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Edmundston-Blizzard/9-darien-thomson.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3108.jpg",
       "stats": {
         "games_played": 21,
@@ -168,6 +172,7 @@
       "birthplace": "St-Basile, NB, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Edmundston-Blizzard/10-nicolas-dub.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2833.jpg",
       "stats": {},
       "hockeytech_id": "2833",
@@ -192,6 +197,7 @@
       "birthplace": "Edmundston, NB, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Edmundston-Blizzard/11-alex-thibault.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3107.jpg",
       "stats": {
         "games_played": 20,
@@ -232,6 +238,7 @@
       "birthplace": "Mirabel, QC, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Edmundston-Blizzard/12-justin-bouchard-trottier.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3499.jpg",
       "stats": {
         "games_played": 21,
@@ -272,6 +279,7 @@
       "birthplace": "Paradise, NL, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Edmundston-Blizzard/14-nathan-crane.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3689.jpg",
       "stats": {
         "games_played": 19,
@@ -314,6 +322,7 @@
       "birthplace": "Aldouane, NB, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Edmundston-Blizzard/16-noah-breau.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2818.jpg",
       "stats": {
         "games_played": 20,
@@ -354,6 +363,7 @@
       "birthplace": "Edmundston, NB, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Edmundston-Blizzard/17-zachary-robichaud.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2836.jpg",
       "stats": {
         "games_played": 21,
@@ -396,6 +406,7 @@
       "birthplace": "Rimouski, QC, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Edmundston-Blizzard/18-alexis-ch-nard.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3483.jpg",
       "stats": {
         "games_played": 20,
@@ -436,6 +447,7 @@
       "birthplace": "Moncton, NB, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Edmundston-Blizzard/19-neka-jean.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3152.jpg",
       "stats": {
         "games_played": 8,
@@ -476,6 +488,7 @@
       "birthplace": "Donnacona, QC, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Edmundston-Blizzard/20-eliott-guenette.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3692.jpg",
       "stats": {
         "games_played": 17,
@@ -518,6 +531,7 @@
       "birthplace": "Trois-Ruisseaux, NB, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Edmundston-Blizzard/22-benjamin-damphousse.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3112.jpg",
       "stats": {},
       "hockeytech_id": "3112",
@@ -544,6 +558,7 @@
       "birthplace": "Ancienne-Lorette, QC, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Edmundston-Blizzard/24-mathieu-boucher.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3110.jpg",
       "stats": {
         "games_played": 20,
@@ -584,6 +599,7 @@
       "birthplace": "St-Joseph-de-Lepage, QC, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Edmundston-Blizzard/27-fran-ois-xavier-mercier.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3697.jpg",
       "stats": {
         "games_played": 19,
@@ -626,6 +642,7 @@
       "birthplace": "Saguenay, QC, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Edmundston-Blizzard/28-charles-ric-tremblay.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3839.jpg",
       "stats": {
         "games_played": 21,
@@ -668,6 +685,7 @@
       "birthplace": "Rimouski, QC, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Edmundston-Blizzard/31-cedric-mass.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3693.jpg",
       "stats": {
         "games_played": 16,
@@ -706,6 +724,7 @@
       "birthplace": "Halifax, NS, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Edmundston-Blizzard/55-jake-macdonald.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2744.jpg",
       "stats": {
         "games_played": 21,
@@ -746,6 +765,7 @@
       "birthplace": "Repentigny, QC,  ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Edmundston-Blizzard/77-lucas-fortin.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3690.jpg",
       "stats": {
         "games_played": 21,
@@ -788,6 +808,7 @@
       "birthplace": "St-Augustin-de-Desmaures, Quebec",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Edmundston-Blizzard/79-william-labranche.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3569.jpg",
       "stats": {
         "games_played": 13,
@@ -830,6 +851,7 @@
       "birthplace": "Ste-Luce, QC, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Edmundston-Blizzard/81-mile-fournier.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3468.jpg",
       "stats": {
         "games_played": 21,
@@ -870,6 +892,7 @@
       "birthplace": "Gatineau, QC, QC",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Edmundston-Blizzard/93-maddox-thisdelle.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3864.jpg",
       "stats": {
         "games_played": 6,
@@ -910,6 +933,7 @@
       "birthplace": "Fredericton, NB, NB",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Edmundston-Blizzard/99-brayden-waterhouse.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3704.jpg",
       "stats": {},
       "hockeytech_id": "3704",

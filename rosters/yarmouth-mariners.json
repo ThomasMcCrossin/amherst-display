@@ -26,6 +26,7 @@
       "birthplace": "Chambly, QC, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Yarmouth-Mariners/4-loic-mburanumwe.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3491.jpg",
       "stats": {
         "games_played": 20,
@@ -69,6 +70,7 @@
       "birthplace": "Wedgeport, NS, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Yarmouth-Mariners/6-lucien-doucette.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3301.jpg",
       "stats": {},
       "hockeytech_id": "3301",
@@ -95,6 +97,7 @@
       "birthplace": "West Pubnico, NS, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Yarmouth-Mariners/9-dawson-o-connell.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3302.jpg",
       "stats": {
         "games_played": 21,
@@ -137,6 +140,7 @@
       "birthplace": "Stephenville, NL, NL",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Yarmouth-Mariners/10-liam-dutcher.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3035.jpg",
       "stats": {
         "games_played": 16,
@@ -177,6 +181,7 @@
       "birthplace": "Lévis, QC,, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Yarmouth-Mariners/12-justin-garneau.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3488.jpg",
       "stats": {
         "games_played": 21,
@@ -219,6 +224,7 @@
       "birthplace": "Blainville, QC,, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Yarmouth-Mariners/14-thomas-dandurand.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3860.jpg",
       "stats": {
         "games_played": 10,
@@ -261,6 +267,7 @@
       "birthplace": "St. John's, NL, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Yarmouth-Mariners/15-ewan-cleary.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3810.jpg",
       "stats": {
         "games_played": 21,
@@ -342,6 +349,7 @@
       "birthplace": "Cole Harbour,NS, NS",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Yarmouth-Mariners/16-cole-bent.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3460.jpg",
       "stats": {},
       "hockeytech_id": "3460",
@@ -368,6 +376,7 @@
       "birthplace": "Yarmouth, NS, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Yarmouth-Mariners/16-jared-pitman.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2656.jpg",
       "stats": {
         "games_played": 21,
@@ -407,6 +416,7 @@
       "birthplace": "Grand Falls-Windsor, NL, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Yarmouth-Mariners/19-grayson-pardy.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3809.jpg",
       "stats": {
         "games_played": 21,
@@ -447,6 +457,7 @@
       "birthplace": "Vancouver, BC, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Yarmouth-Mariners/20-james-lin.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3811.jpg",
       "stats": {},
       "hockeytech_id": "3811",
@@ -474,6 +485,7 @@
       "birthplace": "Darmouth, NS, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Yarmouth-Mariners/21-ryder-macqueen.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3386.jpg",
       "stats": {
         "games_played": 21,
@@ -515,6 +527,7 @@
       "birthplace": "Cole Harbour, NS,, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Yarmouth-Mariners/22-owen-o-donnell.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3527.jpg",
       "stats": {
         "games_played": 21,
@@ -557,6 +570,7 @@
       "birthplace": "Porters Lake, NS, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Yarmouth-Mariners/23-cole-macleod.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3512.jpg",
       "stats": {
         "games_played": 21,
@@ -600,6 +614,7 @@
       "birthplace": "Bedford, NS, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Yarmouth-Mariners/24-tucker-makinen.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3592.jpg",
       "stats": {
         "games_played": 18,
@@ -642,6 +657,7 @@
       "birthplace": "Paradise, NL, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Yarmouth-Mariners/26-ryan-loveless.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3104.jpg",
       "stats": {
         "games_played": 18,
@@ -682,6 +698,7 @@
       "birthplace": "Portugal Cove, NL, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Yarmouth-Mariners/29-carter-arnold.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3486.jpg",
       "stats": {
         "games_played": 3,
@@ -718,6 +735,7 @@
       "birthplace": "Conception Bay South, NL, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Yarmouth-Mariners/30-keegan-warren.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2651.jpg",
       "stats": {
         "games_played": 20,
@@ -756,6 +774,7 @@
       "birthplace": "Yarmouth, NS, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Yarmouth-Mariners/31-noah-muise.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3587.jpg",
       "stats": {
         "games_played": 1,
@@ -834,6 +853,7 @@
       "birthplace": "Laval, QC, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Yarmouth-Mariners/37-jano-zambakdjian.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3534.jpg",
       "stats": {
         "games_played": 21,
@@ -876,6 +896,7 @@
       "birthplace": "Berwick, NS, NS",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Yarmouth-Mariners/46-luke-foley.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3030.jpg",
       "stats": {
         "games_played": 19,
@@ -916,6 +937,7 @@
       "birthplace": "Charlottetown, PE, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Yarmouth-Mariners/47-seamus-maceachern.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3025.jpg",
       "stats": {
         "games_played": 20,

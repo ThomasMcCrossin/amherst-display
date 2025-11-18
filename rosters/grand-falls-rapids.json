@@ -26,6 +26,7 @@
       "birthplace": "Rimouski, QC, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Grand-Falls-Rapids/4-loic-gallant.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3806.jpg",
       "stats": {
         "games_played": 19,
@@ -68,6 +69,7 @@
       "birthplace": "Oromocto, NB, NB",
       "rookie": false,
       "veteran": true,
+      "headshot": "assets/headshots/Grand-Falls-Rapids/5-anton-topilnyckyj.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3571.jpg",
       "stats": {
         "games_played": 18,
@@ -150,6 +152,7 @@
       "birthplace": "Moncton, NB, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Grand-Falls-Rapids/7-patrick-baxter.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3399.jpg",
       "stats": {
         "games_played": 22,
@@ -190,6 +193,7 @@
       "birthplace": "Hampton, NB, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Grand-Falls-Rapids/8-carter-bellamy.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3391.jpg",
       "stats": {},
       "hockeytech_id": "3391",
@@ -216,6 +220,7 @@
       "birthplace": "St. Johns, NL, NL",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Grand-Falls-Rapids/9-luc-marnell.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3421.jpg",
       "stats": {
         "games_played": 14,
@@ -256,6 +261,7 @@
       "birthplace": "Dieppe, NB, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Grand-Falls-Rapids/10-tristan-richard.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3318.jpg",
       "stats": {
         "games_played": 13,
@@ -298,6 +304,7 @@
       "birthplace": "Ottawa, ON, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Grand-Falls-Rapids/16-oliver-plante.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3784.jpg",
       "stats": {
         "games_played": 21,
@@ -341,6 +348,7 @@
       "birthplace": "Dieppe, NB, ",
       "rookie": false,
       "veteran": true,
+      "headshot": "assets/headshots/Grand-Falls-Rapids/17-isaac-allard.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3040.jpg",
       "stats": {
         "games_played": 21,
@@ -381,6 +389,7 @@
       "birthplace": "Lévis, QC, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Grand-Falls-Rapids/18-dereck-asselin.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3783.jpg",
       "stats": {
         "games_played": 21,
@@ -424,6 +433,7 @@
       "birthplace": "Grand Falls, NB, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Grand-Falls-Rapids/19-zackarie-michaud.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3149.jpg",
       "stats": {
         "games_played": 20,
@@ -464,6 +474,7 @@
       "birthplace": "Riverview, NB, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Grand-Falls-Rapids/21-jonah-leard.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3150.jpg",
       "stats": {
         "games_played": 22,
@@ -504,6 +515,7 @@
       "birthplace": "Chambly, QC, ",
       "rookie": false,
       "veteran": true,
+      "headshot": "assets/headshots/Grand-Falls-Rapids/27-mathis-cyr.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3807.jpg",
       "stats": {
         "games_played": 22,
@@ -546,6 +558,7 @@
       "birthplace": "Saint John, NB, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Grand-Falls-Rapids/28-reid-calder.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2853.jpg",
       "stats": {
         "games_played": 20,
@@ -588,6 +601,7 @@
       "birthplace": "Ste-Sophie, QC, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Grand-Falls-Rapids/30-jeremy-thibodeau-soucy.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3780.jpg",
       "stats": {
         "games_played": 6,
@@ -627,6 +641,7 @@
       "birthplace": "Sherbrooke, QC, ",
       "rookie": false,
       "veteran": true,
+      "headshot": "assets/headshots/Grand-Falls-Rapids/35-adam-lecours.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3133.jpg",
       "stats": {
         "games_played": 16,
@@ -663,6 +678,7 @@
       "birthplace": "Oromocto, NB, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Grand-Falls-Rapids/40-brody-pare.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2821.jpg",
       "stats": {
         "games_played": 19,
@@ -703,6 +719,7 @@
       "birthplace": "Melbourne, QC, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Grand-Falls-Rapids/44-julien-avignon-bourque.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3475.jpg",
       "stats": {
         "games_played": 19,
@@ -745,6 +762,7 @@
       "birthplace": "Conception Bay South NL, Conseption Bay South",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Grand-Falls-Rapids/66-declan-kennedy.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3151.jpg",
       "stats": {
         "games_played": 17,
@@ -787,6 +805,7 @@
       "birthplace": "Québec, QC, ",
       "rookie": false,
       "veteran": true,
+      "headshot": "assets/headshots/Grand-Falls-Rapids/77-nathan-plamondon-michaud.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3481.jpg",
       "stats": {
         "games_played": 22,
@@ -830,6 +849,7 @@
       "birthplace": "Sydney, NS, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Grand-Falls-Rapids/81-jack-brown.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2492.jpg",
       "stats": {},
       "hockeytech_id": "2492",
@@ -854,6 +874,7 @@
       "birthplace": "Saint John, NB, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Grand-Falls-Rapids/88-brayden-campbell.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3237.jpg",
       "stats": {
         "games_played": 21,
@@ -894,6 +915,7 @@
       "birthplace": "St-Jean-sur-Richelieu, QC, ",
       "rookie": false,
       "veteran": true,
+      "headshot": "assets/headshots/Grand-Falls-Rapids/91-loic-francoeur.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3805.jpg",
       "stats": {
         "games_played": 20,

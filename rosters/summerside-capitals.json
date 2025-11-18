@@ -26,6 +26,7 @@
       "birthplace": "Summerside, PE, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/1-george-gallant.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2773.jpg",
       "stats": {
         "games_played": 13,
@@ -64,6 +65,7 @@
       "birthplace": "Rice Point, PE, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/2-luke-inman.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3184.jpg",
       "stats": {},
       "hockeytech_id": "3184",
@@ -90,6 +92,7 @@
       "birthplace": "St. John's, NL, NL",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/3-conor-ryan.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3856.jpg",
       "stats": {
         "games_played": 14,
@@ -130,6 +133,7 @@
       "birthplace": "Shortts Lake, NS, Nova Scotia",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/4-elliott-mullen.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3407.jpg",
       "stats": {
         "games_played": 5,
@@ -209,6 +213,7 @@
       "birthplace": "Summerside, PE, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/6-andrew-thompson.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2705.jpg",
       "stats": {
         "games_played": 19,
@@ -249,6 +254,7 @@
       "birthplace": "Summerside, PE, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/8-ethan-dickson.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2712.jpg",
       "stats": {
         "games_played": 20,
@@ -291,6 +297,7 @@
       "birthplace": "Summerside, PE, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/9-carson-griffin.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2695.jpg",
       "stats": {
         "games_played": 20,
@@ -333,6 +340,7 @@
       "birthplace": "Gaspereaux, PE, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/10-austin-walker.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3020.jpg",
       "stats": {
         "games_played": 19,
@@ -375,6 +383,7 @@
       "birthplace": "Blainville, QC, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/11-alexandre-guy.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3843.jpg",
       "stats": {
         "games_played": 18,
@@ -417,6 +426,7 @@
       "birthplace": "Coleman, PE, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/12-jordan-shaw.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3007.jpg",
       "stats": {
         "games_played": 20,
@@ -459,6 +469,7 @@
       "birthplace": "Stratford, PE, Prince Edward Island",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/14-owen-macpherson.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2717.jpg",
       "stats": {
         "games_played": 20,
@@ -499,6 +510,7 @@
       "birthplace": "Cow Head, NL, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/15-william-patey.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3552.jpg",
       "stats": {
         "games_played": 20,
@@ -539,6 +551,7 @@
       "birthplace": "Bedford, NS, NS",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/18-coen-miller.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2794.jpg",
       "stats": {
         "games_played": 18,
@@ -581,6 +594,7 @@
       "birthplace": "Charlottetown, PE, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/19-brennan-murphy.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2768.jpg",
       "stats": {
         "games_played": 7,
@@ -621,6 +635,7 @@
       "birthplace": "Cape Traverse, PE, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/21-ryder-howatt.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2709.jpg",
       "stats": {
         "games_played": 20,
@@ -661,6 +676,7 @@
       "birthplace": "Hunter River, PE, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/24-isaac-taweel.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3365.jpg",
       "stats": {
         "games_played": 14,
@@ -703,6 +719,7 @@
       "birthplace": "Halifax, NS, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/28-james-martin.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3849.jpg",
       "stats": {},
       "hockeytech_id": "3849",
@@ -763,6 +780,7 @@
       "birthplace": "Alexandra, PE, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/44-matthew-maclean.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2704.jpg",
       "stats": {
         "games_played": 20,
@@ -831,6 +849,7 @@
       "birthplace": "Truro, NS, Nova Scotia ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/55-simon-mullen.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2513.jpg",
       "stats": {
         "games_played": 20,
@@ -873,6 +892,7 @@
       "birthplace": "Milton, ON, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/79-alex-hendry.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3858.jpg",
       "stats": {
         "games_played": 12,
@@ -915,6 +935,7 @@
       "birthplace": "Charlottetown, PE, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/81-brett-arsenault.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2610.jpg",
       "stats": {
         "games_played": 19,
