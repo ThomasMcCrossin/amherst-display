@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-11-18T14:54:06.470Z",
+  "generated_at": "2025-11-18T15:33:01.693Z",
   "season": "2024-25",
   "season_id": 41,
   "api_source": "HockeyTech",
@@ -11,108 +11,96 @@
       "team_name": "Amherst-Ramblers",
       "league": "MHL",
       "team_id": 1,
-      "player_count": 0,
-      "file": "rosters/amherst-ramblers.json",
-      "error": "fetch failed"
+      "player_count": 30,
+      "file": "rosters/amherst-ramblers.json"
     },
     {
       "team_slug": "edmundston-blizzard",
       "team_name": "Edmundston-Blizzard",
       "league": "MHL",
       "team_id": 2,
-      "player_count": 0,
-      "file": "rosters/edmundston-blizzard.json",
-      "error": "fetch failed"
+      "player_count": 25,
+      "file": "rosters/edmundston-blizzard.json"
     },
     {
       "team_slug": "truro-bearcats",
       "team_name": "Truro-Bearcats",
       "league": "MHL",
       "team_id": 3,
-      "player_count": 0,
-      "file": "rosters/truro-bearcats.json",
-      "error": "fetch failed"
+      "player_count": 31,
+      "file": "rosters/truro-bearcats.json"
     },
     {
       "team_slug": "valley-wildcats",
       "team_name": "Valley-Wildcats",
       "league": "MHL",
       "team_id": 4,
-      "player_count": 0,
-      "file": "rosters/valley-wildcats.json",
-      "error": "fetch failed"
+      "player_count": 24,
+      "file": "rosters/valley-wildcats.json"
     },
     {
       "team_slug": "yarmouth-mariners",
       "team_name": "Yarmouth-Mariners",
       "league": "MHL",
       "team_id": 5,
-      "player_count": 0,
-      "file": "rosters/yarmouth-mariners.json",
-      "error": "fetch failed"
+      "player_count": 25,
+      "file": "rosters/yarmouth-mariners.json"
     },
     {
       "team_slug": "west-kent-steamers",
       "team_name": "West-Kent-Steamers",
       "league": "MHL",
       "team_id": 6,
-      "player_count": 0,
-      "file": "rosters/west-kent-steamers.json",
-      "error": "fetch failed"
+      "player_count": 28,
+      "file": "rosters/west-kent-steamers.json"
     },
     {
       "team_slug": "pictou-county-crushers",
       "team_name": "Pictou-County-Crushers",
       "league": "MHL",
       "team_id": 7,
-      "player_count": 0,
-      "file": "rosters/pictou-county-crushers.json",
-      "error": "fetch failed"
+      "player_count": 31,
+      "file": "rosters/pictou-county-crushers.json"
     },
     {
       "team_slug": "campbellton-tigers",
       "team_name": "Campbellton-Tigers",
       "league": "MHL",
       "team_id": 8,
-      "player_count": 0,
-      "file": "rosters/campbellton-tigers.json",
-      "error": "fetch failed"
+      "player_count": 26,
+      "file": "rosters/campbellton-tigers.json"
     },
     {
       "team_slug": "miramichi-timberwolves",
       "team_name": "Miramichi-Timberwolves",
       "league": "MHL",
       "team_id": 9,
-      "player_count": 0,
-      "file": "rosters/miramichi-timberwolves.json",
-      "error": "fetch failed"
+      "player_count": 25,
+      "file": "rosters/miramichi-timberwolves.json"
     },
     {
       "team_slug": "summerside-capitals",
       "team_name": "Summerside-Capitals",
       "league": "MHL",
       "team_id": 10,
-      "player_count": 0,
-      "file": "rosters/summerside-capitals.json",
-      "error": "fetch failed"
+      "player_count": 25,
+      "file": "rosters/summerside-capitals.json"
     },
     {
       "team_slug": "grand-falls-rapids",
       "team_name": "Grand-Falls-Rapids",
       "league": "MHL",
       "team_id": 12,
-      "player_count": 0,
-      "file": "rosters/grand-falls-rapids.json",
-      "error": "fetch failed"
+      "player_count": 24,
+      "file": "rosters/grand-falls-rapids.json"
     },
     {
       "team_slug": "chaleur-lightning",
       "team_name": "Chaleur-Lightning",
       "league": "MHL",
       "team_id": 21,
-      "player_count": 0,
-      "file": "rosters/chaleur-lightning.json",
-      "error": "fetch failed"
+      "player_count": 32,
+      "file": "rosters/chaleur-lightning.json"
     }
   ]
 }
