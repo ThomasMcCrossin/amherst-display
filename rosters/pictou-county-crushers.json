@@ -5,8 +5,8 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 7,
-  "updated_at": "2025-11-18T15:01:23.719Z",
-  "player_count": 32,
+  "updated_at": "2025-11-18T15:33:00.046Z",
+  "player_count": 31,
   "players": [
     {
       "player_id": "mhl-2671",
@@ -497,33 +497,6 @@
       "flags": []
     },
     {
-      "player_id": "mhl-3109",
-      "number": "21",
-      "first_name": "Owen",
-      "last_name": "Arnold",
-      "name": "Owen Arnold",
-      "position": "D",
-      "height": "6'6",
-      "height_inches": 78,
-      "weight": 225,
-      "shoots": "R",
-      "birthdate": "2005-04-08",
-      "birth_year": "'05",
-      "age": 20,
-      "hometown": "Quispamsis, NB",
-      "birthplace": "Quispamsis, NB, ",
-      "rookie": false,
-      "veteran": false,
-      "headshot": "assets/headshots/Pictou-County-Crushers/21-owen-arnold.jpg",
-      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3109.jpg",
-      "stats": {},
-      "hockeytech_id": "3109",
-      "person_id": "3627",
-      "flags": [
-        "ht-played-major-junior"
-      ]
-    },
-    {
       "player_id": "mhl-3470",
       "number": "26",
       "first_name": "Owen",
@@ -865,7 +838,7 @@
       "age": 18,
       "hometown": "Hammonds Plains, NS",
       "birthplace": "Hammonds Plains, NS, ",
-      "rookie": false,
+      "rookie": true,
       "veteran": false,
       "headshot": "assets/headshots/Pictou-County-Crushers/77-ryan-walsh.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3548.jpg",
@@ -888,7 +861,9 @@
       },
       "hockeytech_id": "3548",
       "person_id": "4130",
-      "flags": []
+      "flags": [
+        "ht-rookie"
+      ]
     },
     {
       "player_id": "mhl-2742",

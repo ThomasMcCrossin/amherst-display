@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 3,
-  "updated_at": "2025-11-18T15:01:13.785Z",
+  "updated_at": "2025-11-18T15:32:58.832Z",
   "player_count": 31,
   "players": [
     {
@@ -603,7 +603,6 @@
       "birthplace": "Toronto, ON, ",
       "rookie": false,
       "veteran": false,
-      "headshot": "assets/headshots/Truro-Bearcats/44-jayden-connors.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3893.jpg",
       "stats": {
         "games_played": 4,

@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 6,
-  "updated_at": "2025-11-18T15:01:20.793Z",
+  "updated_at": "2025-11-18T15:32:59.749Z",
   "player_count": 28,
   "players": [
     {
@@ -267,7 +267,6 @@
       "birthplace": "Clyde River, PE, ",
       "rookie": false,
       "veteran": false,
-      "headshot": "assets/headshots/West-Kent-Steamers/7-sam-bowness.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3579.jpg",
       "stats": {
         "games_played": 18,

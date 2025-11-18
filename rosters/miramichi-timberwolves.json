@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 9,
-  "updated_at": "2025-11-18T15:01:28.324Z",
+  "updated_at": "2025-11-18T15:33:00.690Z",
   "player_count": 25,
   "players": [
     {
@@ -443,7 +443,6 @@
       "birthplace": "Quispamsis, NB, NB",
       "rookie": false,
       "veteran": false,
-      "headshot": "assets/headshots/Miramichi-Timberwolves/19-nick-beatty.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2848.jpg",
       "stats": {
         "games_played": 20,

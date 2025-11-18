@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 5,
-  "updated_at": "2025-11-18T15:01:18.278Z",
+  "updated_at": "2025-11-18T15:32:59.433Z",
   "player_count": 25,
   "players": [
     {
@@ -813,7 +813,6 @@
       "birthplace": "Cornwall, PE, ",
       "rookie": false,
       "veteran": false,
-      "headshot": "assets/headshots/Yarmouth-Mariners/34-michael-arsenault.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3022.jpg",
       "stats": {
         "games_played": 17,
