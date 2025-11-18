@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 8,
-  "updated_at": "2025-11-18T15:33:00.334Z",
+  "updated_at": "2025-11-18T15:57:33.400Z",
   "player_count": 26,
   "players": [
     {
@@ -507,6 +507,7 @@
       "birthplace": "Kanata, Ont, ",
       "rookie": false,
       "veteran": true,
+      "headshot": "assets/headshots/Campbellton-Tigers/22-thierry-demers.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3894.jpg",
       "stats": {
         "games_played": 4,

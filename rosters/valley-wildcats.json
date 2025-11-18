@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 4,
-  "updated_at": "2025-11-18T15:32:59.141Z",
+  "updated_at": "2025-11-18T15:57:30.690Z",
   "player_count": 24,
   "players": [
     {
@@ -26,6 +26,7 @@
       "birthplace": " New Glasgow, NS, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Valley-Wildcats/5-ben-manos.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3192.jpg",
       "stats": {
         "games_played": 18,
@@ -115,6 +116,7 @@
       "birthplace": "Cowansville, QC, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Valley-Wildcats/8-louis-carl-tremblay.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3813.jpg",
       "stats": {
         "games_played": 20,
