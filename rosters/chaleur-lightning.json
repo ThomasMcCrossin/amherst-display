@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 21,
-  "updated_at": "2025-11-18T15:33:01.693Z",
+  "updated_at": "2025-11-18T15:01:36.344Z",
   "player_count": 32,
   "players": [
     {
@@ -26,6 +26,7 @@
       "birthplace": "Antigonish, NS, NS",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Chaleur-Lightning/2-jack-hayne.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3495.jpg",
       "stats": {
         "games_played": 22,
@@ -68,6 +69,7 @@
       "birthplace": "Rothesay, NB, NB",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Chaleur-Lightning/4-jameson-george.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3296.jpg",
       "stats": {},
       "hockeytech_id": "3296",
@@ -92,6 +94,7 @@
       "birthplace": "St. John's, NL, NL",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Chaleur-Lightning/7-michael-pilgrim.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3369.jpg",
       "stats": {
         "games_played": 14,
@@ -132,6 +135,7 @@
       "birthplace": "Paradise, NL, NL",
       "rookie": false,
       "veteran": true,
+      "headshot": "assets/headshots/Chaleur-Lightning/9-tyson-snow.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2378.jpg",
       "stats": {
         "games_played": 21,
@@ -172,6 +176,7 @@
       "birthplace": "Hughes Brook, NL, NL",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Chaleur-Lightning/10-carter-bromley.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3718.jpg",
       "stats": {
         "games_played": 21,
@@ -214,6 +219,7 @@
       "birthplace": "Coxheath, NS, NS",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Chaleur-Lightning/12-malcolm-macdonald.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3801.jpg",
       "stats": {
         "games_played": 19,
@@ -256,6 +262,7 @@
       "birthplace": "Fredericton, NB, NB",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Chaleur-Lightning/13-zachary-rushton.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3070.jpg",
       "stats": {
         "games_played": 22,
@@ -298,6 +305,7 @@
       "birthplace": "Candiac, QC, QC",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Chaleur-Lightning/15-brett-yuzik.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3802.jpg",
       "stats": {
         "games_played": 21,
@@ -341,6 +349,7 @@
       "birthplace": "Rothesay, NB, NB",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Chaleur-Lightning/16-will-clark.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3458.jpg",
       "stats": {
         "games_played": 21,
@@ -383,6 +392,7 @@
       "birthplace": "Rothesay, NB, NB",
       "rookie": false,
       "veteran": true,
+      "headshot": "assets/headshots/Chaleur-Lightning/19-cohen-mccallum.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2407.jpg",
       "stats": {
         "games_played": 22,
@@ -423,6 +433,7 @@
       "birthplace": "Richmond, PE, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Chaleur-Lightning/20-isaac-arsenault.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3174.jpg",
       "stats": {},
       "hockeytech_id": "3174",
@@ -447,6 +458,7 @@
       "birthplace": "Barrie, ON, ON",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Chaleur-Lightning/22-nic-macisaac.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3722.jpg",
       "stats": {
         "games_played": 21,
@@ -526,6 +538,7 @@
       "birthplace": "Windsor, NS, NS",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Chaleur-Lightning/32-nolan-fowler.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3129.jpg",
       "stats": {
         "games_played": 7,
@@ -566,6 +579,7 @@
       "birthplace": "Holyrood, NL, NL",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Chaleur-Lightning/33-will-morgan.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3716.jpg",
       "stats": {
         "games_played": 4,
@@ -604,6 +618,7 @@
       "birthplace": "Laval, QC, QC",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Chaleur-Lightning/34-samuel-carreiras-pata.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3804.jpg",
       "stats": {
         "games_played": 16,
@@ -644,6 +659,7 @@
       "birthplace": "St-Quentin NB, NB",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Chaleur-Lightning/55-josh-plourde.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3004.jpg",
       "stats": {
         "games_played": 17,
@@ -686,6 +702,7 @@
       "birthplace": "Fredericton, NB, NB",
       "rookie": false,
       "veteran": true,
+      "headshot": "assets/headshots/Chaleur-Lightning/66-ben-cross.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2844.jpg",
       "stats": {
         "games_played": 22,
@@ -728,6 +745,7 @@
       "birthplace": "Summerside, PE, PE",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Chaleur-Lightning/77-mason-cook.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3361.jpg",
       "stats": {
         "games_played": 21,
@@ -770,6 +788,7 @@
       "birthplace": "Granby, QC, QC",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Chaleur-Lightning/88-jean-christophe-gemme.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3682.jpg",
       "stats": {
         "games_played": 22,
@@ -812,6 +831,7 @@
       "birthplace": "Laval, QC, QC",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Chaleur-Lightning/90-william-cossette.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3803.jpg",
       "stats": {},
       "hockeytech_id": "3803",
@@ -839,6 +859,7 @@
       "birthplace": "St-Maurice, QC, QC",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Chaleur-Lightning/91-david-lebel.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3313.jpg",
       "stats": {
         "games_played": 22,
@@ -881,6 +902,7 @@
       "birthplace": "Fredericton, NB, NB",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Chaleur-Lightning/92-jayden-burtt-munn.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2937.jpg",
       "stats": {
         "games_played": 19,
@@ -921,6 +943,7 @@
       "birthplace": "Moncton, NB",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Chaleur-Lightning/120-isaak-berube.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3723.jpg",
       "stats": {},
       "hockeytech_id": "3723",
@@ -947,6 +970,7 @@
       "birthplace": "Cap-aux-Mueles, QC",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Chaleur-Lightning/120-louis-simon-boucher.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3724.jpg",
       "stats": {},
       "hockeytech_id": "3724",
@@ -998,6 +1022,7 @@
       "birthplace": "Quispamsis, NB",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Chaleur-Lightning/120-jesse-dunlap.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3680.jpg",
       "stats": {},
       "hockeytech_id": "3680",
@@ -1024,6 +1049,7 @@
       "birthplace": "Quispamsis, NB",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Chaleur-Lightning/120-dax-fraser.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3857.jpg",
       "stats": {},
       "hockeytech_id": "3857",
@@ -1050,6 +1076,7 @@
       "birthplace": "Le Goulet, NB",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Chaleur-Lightning/120-felix-sylvain-hache.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3720.jpg",
       "stats": {},
       "hockeytech_id": "3720",
@@ -1076,6 +1103,7 @@
       "birthplace": "Fredericton, NB",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Chaleur-Lightning/120-carter-mcillwraith.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3451.jpg",
       "stats": {},
       "hockeytech_id": "3451",
@@ -1102,6 +1130,7 @@
       "birthplace": "Saint John, NB",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Chaleur-Lightning/120-isaiah-rogerson.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3459.jpg",
       "stats": {},
       "hockeytech_id": "3459",

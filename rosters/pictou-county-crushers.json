@@ -5,8 +5,8 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 7,
-  "updated_at": "2025-11-18T15:33:00.046Z",
-  "player_count": 31,
+  "updated_at": "2025-11-18T15:01:23.719Z",
+  "player_count": 32,
   "players": [
     {
       "player_id": "mhl-2671",
@@ -26,6 +26,7 @@
       "birthplace": "Westville, NS, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Pictou-County-Crushers/4-brendan-avery.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2671.jpg",
       "stats": {},
       "hockeytech_id": "2671",
@@ -50,6 +51,7 @@
       "birthplace": "Calgary, AB, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Pictou-County-Crushers/5-christian-luke.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3835.jpg",
       "stats": {
         "games_played": 17,
@@ -90,6 +92,7 @@
       "birthplace": "Cole Harbour, NS, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Pictou-County-Crushers/7-brennan-o-donnell.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3293.jpg",
       "stats": {
         "games_played": 20,
@@ -132,6 +135,7 @@
       "birthplace": "Cornwall,PE, PEI",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Pictou-County-Crushers/8-matthew-mcdonald.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3320.jpg",
       "stats": {
         "games_played": 19,
@@ -172,6 +176,7 @@
       "birthplace": "Stellarton, NS, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Pictou-County-Crushers/11-dominic-mackenzie.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2692.jpg",
       "stats": {
         "games_played": 15,
@@ -214,6 +219,7 @@
       "birthplace": "New Glasgow, NS, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Pictou-County-Crushers/12-kingsley-austin.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3074.jpg",
       "stats": {
         "games_played": 18,
@@ -254,6 +260,7 @@
       "birthplace": "New Glasgow, NS, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Pictou-County-Crushers/14-logan-crosby.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3797.jpg",
       "stats": {
         "games_played": 19,
@@ -296,6 +303,7 @@
       "birthplace": "Linacy, NS, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Pictou-County-Crushers/15-cade-moser.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3796.jpg",
       "stats": {
         "games_played": 20,
@@ -338,6 +346,7 @@
       "birthplace": "Belnan, NS, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Pictou-County-Crushers/16-ian-ramsay.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3795.jpg",
       "stats": {
         "games_played": 12,
@@ -378,6 +387,7 @@
       "birthplace": "New Glasgow, NS, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Pictou-County-Crushers/17-cory-macgillivray.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2466.jpg",
       "stats": {
         "games_played": 20,
@@ -420,6 +430,7 @@
       "birthplace": "Moncton, NB, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Pictou-County-Crushers/18-will-allen.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2600.jpg",
       "stats": {
         "games_played": 17,
@@ -462,6 +473,7 @@
       "birthplace": "New Glasgow, NS, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Pictou-County-Crushers/19-clint-maclaughlin.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2689.jpg",
       "stats": {
         "games_played": 20,
@@ -485,6 +497,33 @@
       "flags": []
     },
     {
+      "player_id": "mhl-3109",
+      "number": "21",
+      "first_name": "Owen",
+      "last_name": "Arnold",
+      "name": "Owen Arnold",
+      "position": "D",
+      "height": "6'6",
+      "height_inches": 78,
+      "weight": 225,
+      "shoots": "R",
+      "birthdate": "2005-04-08",
+      "birth_year": "'05",
+      "age": 20,
+      "hometown": "Quispamsis, NB",
+      "birthplace": "Quispamsis, NB, ",
+      "rookie": false,
+      "veteran": false,
+      "headshot": "assets/headshots/Pictou-County-Crushers/21-owen-arnold.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3109.jpg",
+      "stats": {},
+      "hockeytech_id": "3109",
+      "person_id": "3627",
+      "flags": [
+        "ht-played-major-junior"
+      ]
+    },
+    {
       "player_id": "mhl-3470",
       "number": "26",
       "first_name": "Owen",
@@ -502,6 +541,7 @@
       "birthplace": "Antigonish, NS, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Pictou-County-Crushers/26-owen-bell.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3470.jpg",
       "stats": {
         "games_played": 20,
@@ -544,6 +584,7 @@
       "birthplace": "Kawartha Lakes, ON, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Pictou-County-Crushers/31-yianni-karkoulas.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3509.jpg",
       "stats": {
         "games_played": 15,
@@ -580,6 +621,7 @@
       "birthplace": "Cheticamp, NS, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Pictou-County-Crushers/35-jake-poirier.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3794.jpg",
       "stats": {
         "games_played": 6,
@@ -618,6 +660,7 @@
       "birthplace": "Antigonish, NS, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Pictou-County-Crushers/47-trent-stewart.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3166.jpg",
       "stats": {
         "games_played": 13,
@@ -660,6 +703,7 @@
       "birthplace": "New Glasgow, NS, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Pictou-County-Crushers/49-kaden-smith.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2652.jpg",
       "stats": {
         "games_played": 16,
@@ -699,6 +743,7 @@
       "hometown": "Antigonish, NS",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Pictou-County-Crushers/55-campbell-barrett.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3167.jpg",
       "stats": {
         "games_played": 8,
@@ -741,6 +786,7 @@
       "birthplace": "New Glasgow, NS, Nova Scotia",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Pictou-County-Crushers/63-ben-wallace.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2979.jpg",
       "stats": {
         "games_played": 17,
@@ -780,6 +826,7 @@
       "birthplace": "Sydney, NS, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Pictou-County-Crushers/67-braylan-fitzgerald.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3202.jpg",
       "stats": {
         "games_played": 20,
@@ -818,8 +865,9 @@
       "age": 18,
       "hometown": "Hammonds Plains, NS",
       "birthplace": "Hammonds Plains, NS, ",
-      "rookie": true,
+      "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Pictou-County-Crushers/77-ryan-walsh.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3548.jpg",
       "stats": {
         "games_played": 18,
@@ -840,9 +888,7 @@
       },
       "hockeytech_id": "3548",
       "person_id": "4130",
-      "flags": [
-        "ht-rookie"
-      ]
+      "flags": []
     },
     {
       "player_id": "mhl-2742",
@@ -862,6 +908,7 @@
       "birthplace": "Membertou, NS, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Pictou-County-Crushers/91-alex-christmas.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2742.jpg",
       "stats": {
         "games_played": 7,
@@ -902,6 +949,7 @@
       "birthplace": "New Glasgow, NS, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Pictou-County-Crushers/93-mac-wallace.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2859.jpg",
       "stats": {
         "games_played": 18,

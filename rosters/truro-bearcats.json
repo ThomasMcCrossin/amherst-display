@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 3,
-  "updated_at": "2025-11-18T15:32:58.832Z",
+  "updated_at": "2025-11-18T15:01:13.785Z",
   "player_count": 31,
   "players": [
     {
@@ -26,6 +26,7 @@
       "birthplace": "Stellarton, NS, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Truro-Bearcats/1-sam-berthiaume.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3846.jpg",
       "stats": {
         "games_played": 1,
@@ -64,6 +65,7 @@
       "birthplace": "Bible Hill, NS,  ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Truro-Bearcats/3-logan-quinn.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3092.jpg",
       "stats": {
         "games_played": 8,
@@ -106,6 +108,7 @@
       "birthplace": "Beaverbank, NS, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Truro-Bearcats/9-jake-todd.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3576.jpg",
       "stats": {
         "games_played": 21,
@@ -148,6 +151,7 @@
       "birthplace": "Waterloo, QC, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Truro-Bearcats/10-julien-roy.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3033.jpg",
       "stats": {
         "games_played": 22,
@@ -188,6 +192,7 @@
       "birthplace": "Hammonds Plains, NS, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Truro-Bearcats/11-callum-aucoin.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3814.jpg",
       "stats": {
         "games_played": 22,
@@ -230,6 +235,7 @@
       "birthplace": "Dartmouth, NS, ",
       "rookie": true,
       "veteran": true,
+      "headshot": "assets/headshots/Truro-Bearcats/15-drew-keiver.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3834.jpg",
       "stats": {
         "games_played": 18,
@@ -272,6 +278,7 @@
       "birthplace": "Mallorytown, ON, ",
       "rookie": true,
       "veteran": true,
+      "headshot": "assets/headshots/Truro-Bearcats/16-nathan-curson.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3760.jpg",
       "stats": {
         "games_played": 22,
@@ -315,6 +322,7 @@
       "birthplace": "Middle Sackville, NS, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Truro-Bearcats/18-ben-lindsay.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3508.jpg",
       "stats": {
         "games_played": 22,
@@ -355,6 +363,7 @@
       "birthplace": "Hilden,NS, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Truro-Bearcats/19-matthew-merryweather.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3414.jpg",
       "stats": {
         "games_played": 19,
@@ -397,6 +406,7 @@
       "birthplace": "Valley, NS, ",
       "rookie": true,
       "veteran": true,
+      "headshot": "assets/headshots/Truro-Bearcats/20-austin-hoyt.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3653.jpg",
       "stats": {
         "games_played": 22,
@@ -439,6 +449,7 @@
       "birthplace": "Sainte-Marie, QC, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Truro-Bearcats/21-samuel-vachon.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3768.jpg",
       "stats": {
         "games_played": 20,
@@ -482,6 +493,7 @@
       "birthplace": "Bible Hill, NS, ",
       "rookie": true,
       "veteran": true,
+      "headshot": "assets/headshots/Truro-Bearcats/24-seth-mackenzie.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3093.jpg",
       "stats": {},
       "hockeytech_id": "3093",
@@ -508,6 +520,7 @@
       "birthplace": "Hammonds Plains, NS, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Truro-Bearcats/28-eric-halliday.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3288.jpg",
       "stats": {
         "games_played": 22,
@@ -550,6 +563,7 @@
       "birthplace": "Mercier, QC, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Truro-Bearcats/35-louca-connolly.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3767.jpg",
       "stats": {
         "games_played": 13,
@@ -589,6 +603,7 @@
       "birthplace": "Toronto, ON, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Truro-Bearcats/44-jayden-connors.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3893.jpg",
       "stats": {
         "games_played": 4,
@@ -632,6 +647,7 @@
       "birthplace": "Brookfield, NS, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Truro-Bearcats/55-wyatt-countway.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3091.jpg",
       "stats": {
         "games_played": 9,
@@ -672,6 +688,7 @@
       "birthplace": "Frelighsburg, QC, Quebec",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Truro-Bearcats/73-tristan-st-gelais.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3513.jpg",
       "stats": {
         "games_played": 22,
@@ -714,6 +731,7 @@
       "birthplace": "Halifax, NS, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Truro-Bearcats/81-liam-welsh.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3199.jpg",
       "stats": {
         "games_played": 22,
@@ -756,6 +774,7 @@
       "birthplace": "Shefford, QC, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Truro-Bearcats/89-eli-baillargeon.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3577.jpg",
       "stats": {
         "games_played": 19,
@@ -799,6 +818,7 @@
       "birthplace": "Val-D'Or, QC, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Truro-Bearcats/91-matthew-bolduc.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3404.jpg",
       "stats": {
         "games_played": 21,
@@ -842,6 +862,7 @@
       "birthplace": "Brookfield, NS, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Truro-Bearcats/96-rylan-sutherland.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3547.jpg",
       "stats": {
         "games_played": 14,

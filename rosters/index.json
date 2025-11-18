@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-11-18T15:33:01.693Z",
+  "generated_at": "2025-11-18T15:01:36.345Z",
   "season": "2024-25",
   "season_id": 41,
   "api_source": "HockeyTech",
@@ -59,7 +59,7 @@
       "team_name": "Pictou-County-Crushers",
       "league": "MHL",
       "team_id": 7,
-      "player_count": 31,
+      "player_count": 32,
       "file": "rosters/pictou-county-crushers.json"
     },
     {

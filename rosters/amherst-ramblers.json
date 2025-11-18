@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 1,
-  "updated_at": "2025-11-18T15:32:58.131Z",
+  "updated_at": "2025-11-18T15:01:07.847Z",
   "player_count": 30,
   "players": [
     {
@@ -26,7 +26,6 @@
       "birthplace": "Ottawa, ON, ",
       "rookie": false,
       "veteran": false,
-      "headshot": "assets/headshots/Amherst-Ramblers/4-christian-white.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3545.jpg",
       "stats": {
         "games_played": 19,
@@ -70,7 +69,6 @@
       "birthplace": "St. John's, NL, ",
       "rookie": false,
       "veteran": false,
-      "headshot": "assets/headshots/Amherst-Ramblers/7-ty-peddigrew.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3848.jpg",
       "stats": {
         "games_played": 17,
@@ -113,7 +111,6 @@
       "birthplace": "La Salle, MB, ",
       "rookie": false,
       "veteran": false,
-      "headshot": "assets/headshots/Amherst-Ramblers/9-tyler-moroz.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3530.jpg",
       "stats": {},
       "hockeytech_id": "3530",
@@ -140,7 +137,6 @@
       "birthplace": "St-Igace, NB, ",
       "rookie": false,
       "veteran": false,
-      "headshot": "assets/headshots/Amherst-Ramblers/11-anthony-gaudet.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2799.jpg",
       "stats": {
         "games_played": 21,
@@ -183,7 +179,6 @@
       "birthplace": "Charlottetown, PE, ",
       "rookie": true,
       "veteran": false,
-      "headshot": "assets/headshots/Amherst-Ramblers/12-aidan-silvaggio.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3402.jpg",
       "stats": {
         "games_played": 10,
@@ -226,7 +221,6 @@
       "birthplace": "St. John's, NL, ",
       "rookie": false,
       "veteran": false,
-      "headshot": "assets/headshots/Amherst-Ramblers/13-elliot-wright.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3562.jpg",
       "stats": {
         "games_played": 21,
@@ -269,7 +263,6 @@
       "birthplace": "Pownal, PEI, ",
       "rookie": false,
       "veteran": false,
-      "headshot": "assets/headshots/Amherst-Ramblers/15-evan-nicholson.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3243.jpg",
       "stats": {
         "games_played": 17,
@@ -310,7 +303,6 @@
       "birthplace": "Salisbury, NB, ",
       "rookie": false,
       "veteran": false,
-      "headshot": "assets/headshots/Amherst-Ramblers/16-jack-o-blenis.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2933.jpg",
       "stats": {
         "games_played": 21,
@@ -351,7 +343,6 @@
       "birthplace": "Bay Roberts, NL, ",
       "rookie": false,
       "veteran": false,
-      "headshot": "assets/headshots/Amherst-Ramblers/17-patrick-lambe.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3808.jpg",
       "stats": {
         "games_played": 12,
@@ -392,7 +383,6 @@
       "birthplace": "Sydney, NS, ",
       "rookie": false,
       "veteran": false,
-      "headshot": "assets/headshots/Amherst-Ramblers/18-darien-reynolds.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2760.jpg",
       "stats": {
         "games_played": 16,
@@ -435,7 +425,6 @@
       "birthplace": "Moncton, NB, ",
       "rookie": false,
       "veteran": false,
-      "headshot": "assets/headshots/Amherst-Ramblers/19-zach-wheeler.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3756.jpg",
       "stats": {
         "games_played": 21,
@@ -478,7 +467,6 @@
       "birthplace": "Plessisville, QC, ",
       "rookie": false,
       "veteran": false,
-      "headshot": "assets/headshots/Amherst-Ramblers/21-thomas-gagnon.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3759.jpg",
       "stats": {
         "games_played": 21,
@@ -522,7 +510,6 @@
       "birthplace": "Halifax, NS, ",
       "rookie": false,
       "veteran": false,
-      "headshot": "assets/headshots/Amherst-Ramblers/22-bailey-shortall.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2910.jpg",
       "stats": {
         "games_played": 21,
@@ -563,7 +550,6 @@
       "birthplace": "Sherbrooke, QC, ",
       "rookie": true,
       "veteran": false,
-      "headshot": "assets/headshots/Amherst-Ramblers/24-anthony-morin.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3799.jpg",
       "stats": {
         "games_played": 15,
@@ -608,7 +594,6 @@
       "birthplace": "Kamloops, BC, ",
       "rookie": false,
       "veteran": false,
-      "headshot": "assets/headshots/Amherst-Ramblers/25-owen-aura.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3038.jpg",
       "stats": {
         "games_played": 21,
@@ -649,7 +634,6 @@
       "birthplace": "Harbour Main, NL, ",
       "rookie": false,
       "veteran": true,
-      "headshot": "assets/headshots/Amherst-Ramblers/27-mark-corbett.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3250.jpg",
       "stats": {
         "games_played": 19,
@@ -690,7 +674,6 @@
       "birthplace": "Lower Sackville, NS, ",
       "rookie": false,
       "veteran": false,
-      "headshot": "assets/headshots/Amherst-Ramblers/29-brandon-lavoie.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3766.jpg",
       "stats": {
         "games_played": 10,
@@ -729,7 +712,6 @@
       "birthplace": "Charlottetown, PE, ",
       "rookie": true,
       "veteran": false,
-      "headshot": "assets/headshots/Amherst-Ramblers/30-hudson-bradley.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3187.jpg",
       "stats": {
         "games_played": 9,
@@ -768,7 +750,6 @@
       "birthplace": "Dieppe, NB, ",
       "rookie": false,
       "veteran": false,
-      "headshot": "assets/headshots/Amherst-Ramblers/37-cooper-cormier.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2943.jpg",
       "stats": {
         "games_played": 21,
@@ -811,7 +792,6 @@
       "birthplace": "Summerside, PEI, ",
       "rookie": false,
       "veteran": false,
-      "headshot": "assets/headshots/Amherst-Ramblers/39-cole-echlin.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3041.jpg",
       "stats": {
         "games_played": 1,
@@ -850,7 +830,6 @@
       "birthplace": "Moncton, NB, ",
       "rookie": false,
       "veteran": false,
-      "headshot": "assets/headshots/Amherst-Ramblers/77-jeremie-richard.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3226.jpg",
       "stats": {
         "games_played": 19,
@@ -893,7 +872,6 @@
       "birthplace": "Spaniards Bay, NL, ",
       "rookie": true,
       "veteran": false,
-      "headshot": "assets/headshots/Amherst-Ramblers/82-owen-dyke.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3833.jpg",
       "stats": {},
       "hockeytech_id": "3833",
@@ -920,7 +898,6 @@
       "birthplace": "Porters Lake, NS, ",
       "rookie": true,
       "veteran": false,
-      "headshot": "assets/headshots/Amherst-Ramblers/91-luke-jardine.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3086.jpg",
       "stats": {
         "games_played": 16,
@@ -963,7 +940,6 @@
       "birthplace": "Stillwater Lake, NS, NS",
       "rookie": false,
       "veteran": false,
-      "headshot": "assets/headshots/Amherst-Ramblers/99-chandler-bell.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3551.jpg",
       "stats": {
         "games_played": 0,
@@ -1039,7 +1015,6 @@
       "birthplace": "Amherst, NS, ",
       "rookie": false,
       "veteran": false,
-      "headshot": "assets/headshots/Amherst-Ramblers/99-ethan-fraser.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3647.jpg",
       "stats": {},
       "hockeytech_id": "3647",
@@ -1116,7 +1091,6 @@
       "birthplace": "Oromocto, NB, ",
       "rookie": false,
       "veteran": false,
-      "headshot": "assets/headshots/Amherst-Ramblers/99-jack-white.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3868.jpg",
       "stats": {},
       "hockeytech_id": "3868",

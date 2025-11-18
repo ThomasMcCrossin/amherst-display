@@ -5,140 +5,132 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Amherst GameBoard</title>
   <style>
+    /* Optimized for 42" 1080p TV (1920x1080) - Viewing distance: 5-10 feet */
     :root{
       --bg:#0b0c10; --bg2:#0f1118; --bg3:#14161e; --muted:#a7b0ba; --ink:#f5f7fb;
       --accent:#f28c18; --mhl:#2d74ff; --bshl:#19c37d; --win:#4ade80; --loss:#f87171;
-      --maxw:1920px; --radius:16px;
+      --radius:20px;
       --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial;
     }
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0}
+    html,body{height:100%;margin:0;overflow:hidden}
     body{color:var(--ink);font-family:var(--font);display:flex;flex-direction:column;
       background: radial-gradient(1400px 800px at 15% 10%, #1a1f2a 0%, #0f1219 60%, #0b0c10 100%);}
     .bg::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.08;
       background-image:url('assets/bg/ice-texture.jpg');background-size:cover;background-position:center;mix-blend-mode:screen;}
 
-    /* Main Layout */
-    .container{width:100%;max-width:var(--maxw);padding:24px 32px;margin:0 auto}
-    .grid{display:grid;grid-template-columns:2fr 1fr;gap:24px}
+    /* Main Layout - Fixed for 1920x1080 */
+    .container{width:1920px;height:1080px;padding:32px 40px;display:flex;flex-direction:column}
+    .grid{display:grid;grid-template-columns:1180px 680px;gap:28px;flex:1;min-height:0}
 
-    /* Header */
-    header{margin-bottom:24px}
-    .title{font-weight:900;font-size:56px;letter-spacing:0.3px;margin:0;background:linear-gradient(135deg,#f5f7fb,#a7b0ba);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    .subtitle{color:var(--muted);font-size:18px;margin-top:8px}
-    .legend{margin-top:12px;display:flex;gap:12px;color:var(--muted);font-size:14px;flex-wrap:wrap}
-    .pill{padding:4px 10px;border-radius:999px;background:#1b1f27;color:#cfd6df;border:1px solid #2a2f37}
+    /* Header - Larger for TV viewing */
+    header{margin-bottom:20px}
+    .title{font-weight:900;font-size:64px;letter-spacing:0.5px;margin:0;background:linear-gradient(135deg,#f5f7fb,#a7b0ba);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .subtitle{color:var(--muted);font-size:22px;margin-top:8px}
+    .legend{margin-top:12px;display:flex;gap:14px;color:var(--muted);font-size:16px;flex-wrap:wrap}
+    .pill{padding:6px 12px;border-radius:999px;background:#1b1f27;color:#cfd6df;border:1px solid #2a2f37;font-size:15px}
 
-    /* Cards */
+    /* Cards - Larger padding and content for TV */
     .card{background:linear-gradient(180deg,var(--bg3),var(--bg2));border:1px solid #232730;
-      border-radius:var(--radius);padding:20px;position:relative;overflow:hidden}
+      border-radius:var(--radius);padding:24px;position:relative;overflow:hidden;display:flex;flex-direction:column}
     .card::after{content:"";position:absolute;inset:0;
       background:radial-gradient(600px 240px at 10% 10%, rgba(255,255,255,.04), transparent 60%);pointer-events:none}
-    .card-title{font-size:20px;font-weight:800;margin:0 0 16px 0;display:flex;align-items:center;gap:10px}
-    .card-title .badge{background:var(--accent);color:#000;padding:4px 8px;border-radius:6px;font-size:12px;font-weight:900}
+    .card-title{font-size:26px;font-weight:800;margin:0 0 18px 0;display:flex;align-items:center;gap:12px}
+    .card-title .badge{background:var(--accent);color:#000;padding:6px 12px;border-radius:8px;font-size:15px;font-weight:900}
 
-    /* Upcoming Games Section */
-    .games-grid{display:grid;gap:12px}
+    /* Upcoming Games Section - Larger for TV readability */
+    .games-grid{display:grid;gap:14px;overflow-y:auto;flex:1}
     .game-card{background:linear-gradient(135deg,#171b23,#12151d);border:1px solid #232730;
-      border-radius:12px;padding:16px;display:grid;grid-template-columns:80px 1fr 160px;align-items:center;gap:14px;min-height:90px}
-    .game-time{font-size:32px;font-weight:900}
-    .game-date{font-size:12px;color:var(--muted);margin-top:2px}
-    .game-matchup{display:flex;align-items:center;gap:12px}
-    .game-logos{display:flex;gap:10px;align-items:center}
-    .game-logos img{height:50px;width:auto;max-width:110px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5))}
+      border-radius:14px;padding:18px;display:grid;grid-template-columns:100px 1fr 180px;align-items:center;gap:16px;min-height:100px}
+    .game-time{font-size:38px;font-weight:900}
+    .game-date{font-size:15px;color:var(--muted);margin-top:4px}
+    .game-matchup{display:flex;align-items:center;gap:14px}
+    .game-logos{display:flex;gap:12px;align-items:center}
+    .game-logos img{height:60px;width:auto;max-width:130px;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,.6))}
     .game-vs{display:flex;flex-direction:column;gap:4px}
-    .game-teams{font-size:24px;font-weight:800;line-height:1.2}
-    .game-location{font-size:13px;color:var(--muted);margin-top:4px}
-    .game-league{display:flex;align-items:center;justify-content:center;gap:8px}
-    .game-league img{height:20px}
-    .tag{font-size:13px;font-weight:800;padding:6px 10px;border-radius:999px;background:#1a1f2a;border:1px solid #2c3341}
+    .game-teams{font-size:28px;font-weight:800;line-height:1.2}
+    .game-location{font-size:16px;color:var(--muted);margin-top:4px}
+    .game-league{display:flex;align-items:center;justify-content:center;gap:10px}
+    .game-league img{height:24px}
+    .tag{font-size:16px;font-weight:800;padding:8px 12px;border-radius:999px;background:#1a1f2a;border:1px solid #2c3341}
     .tag.mhl{border-color:#2d74ff55}
     .tag.bshl{border-color:#19c37d66}
     .tag.live{background:crimson;color:white;border-color:#000}
     .badge-day{background:#f5c451;color:#0a0a0a;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:800}
 
-    /* Standings Table */
-    .standings-table{width:100%;border-collapse:collapse;font-size:14px}
-    .standings-table thead th{text-align:left;padding:10px 8px;border-bottom:2px solid #2c3341;
-      font-weight:800;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px}
+    /* Standings Table - Larger for TV */
+    .standings-table{width:100%;border-collapse:collapse;font-size:17px}
+    .standings-table thead th{text-align:left;padding:12px 10px;border-bottom:2px solid #2c3341;
+      font-weight:800;font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px}
     .standings-table tbody tr{border-bottom:1px solid #232730}
-    .standings-table tbody tr:hover{background:rgba(255,255,255,.02)}
-    .standings-table tbody tr.highlight{background:rgba(242,140,24,.08);border-color:var(--accent)}
-    .standings-table td{padding:12px 8px}
-    .team-name{font-weight:700;color:var(--ink)}
+    .standings-table tbody tr.highlight{background:rgba(242,140,24,.10);border-left:4px solid var(--accent)}
+    .standings-table td{padding:14px 10px}
+    .team-name{font-weight:700;color:var(--ink);font-size:17px}
     .team-name.home{color:var(--accent)}
-    .stat-num{font-variant-numeric:tabular-nums;text-align:center}
+    .stat-num{font-variant-numeric:tabular-nums;text-align:center;font-size:17px}
     .stat-bold{font-weight:800}
 
-    /* Top Scorers */
-    .scorers-list{display:grid;gap:10px}
-    .scorer-item{display:grid;grid-template-columns:40px 60px 1fr 80px;align-items:center;gap:12px;
-      padding:12px;background:linear-gradient(135deg,#1a1f2a,#14161e);border:1px solid #232730;border-radius:10px}
-    .scorer-rank{font-size:24px;font-weight:900;color:var(--muted);text-align:center}
+    /* Top Scorers - Larger for TV */
+    .scorers-list{display:grid;gap:12px;overflow-y:auto}
+    .scorer-item{display:grid;grid-template-columns:50px 70px 1fr 90px;align-items:center;gap:14px;
+      padding:14px;background:linear-gradient(135deg,#1a1f2a,#14161e);border:1px solid #232730;border-radius:12px}
+    .scorer-rank{font-size:30px;font-weight:900;color:var(--muted);text-align:center}
     .scorer-rank.top{color:var(--accent)}
-    .scorer-photo{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid #2c3341}
-    .scorer-photo.placeholder{background:linear-gradient(135deg,#2c3341,#1a1f2a);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:var(--muted)}
+    .scorer-photo{width:66px;height:66px;border-radius:50%;object-fit:cover;border:2px solid #2c3341}
+    .scorer-photo.placeholder{background:linear-gradient(135deg,#2c3341,#1a1f2a);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;color:var(--muted)}
     .scorer-info{min-width:0}
-    .scorer-name{font-size:16px;font-weight:800;color:var(--ink)}
-    .scorer-position{font-size:12px;color:var(--muted)}
+    .scorer-name{font-size:19px;font-weight:800;color:var(--ink)}
+    .scorer-position{font-size:15px;color:var(--muted);margin-top:2px}
     .scorer-stats{text-align:right}
-    .scorer-points{font-size:28px;font-weight:900;color:var(--accent)}
-    .scorer-breakdown{font-size:11px;color:var(--muted);margin-top:2px}
+    .scorer-points{font-size:34px;font-weight:900;color:var(--accent)}
+    .scorer-breakdown{font-size:14px;color:var(--muted);margin-top:2px}
 
-    /* Recent Results */
-    .results-list{display:grid;gap:12px}
+    /* Recent Results - Larger for TV */
+    .results-list{display:grid;gap:14px;overflow-y:auto}
     .result-card{background:linear-gradient(135deg,#14161e,#0f1118);border:1px solid #232730;
-      border-radius:12px;padding:14px;border-left:4px solid transparent}
+      border-radius:14px;padding:16px;border-left:5px solid transparent}
     .result-card.win{border-left-color:var(--win)}
     .result-card.loss{border-left-color:var(--loss)}
-    .result-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-    .result-date{font-size:13px;color:var(--muted)}
-    .result-score{display:flex;align-items:center;gap:8px}
-    .result-outcome{font-size:11px;font-weight:800;padding:4px 8px;border-radius:6px}
+    .result-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    .result-date{font-size:16px;color:var(--muted)}
+    .result-score{display:flex;align-items:center;gap:10px}
+    .result-outcome{font-size:14px;font-weight:800;padding:6px 10px;border-radius:8px}
     .result-outcome.win{background:var(--win);color:#000}
     .result-outcome.loss{background:var(--loss);color:#fff}
-    .result-matchup{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-    .result-team{display:flex;align-items:center;gap:8px}
-    .result-logo{height:36px;width:auto;max-width:80px}
-    .result-team-name{font-size:16px;font-weight:700}
-    .result-score-display{font-size:32px;font-weight:900;text-align:center;min-width:60px}
+    .result-matchup{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+    .result-team{display:flex;align-items:center;gap:10px}
+    .result-logo{height:42px;width:auto;max-width:90px}
+    .result-team-name{font-size:19px;font-weight:700}
+    .result-score-display{font-size:38px;font-weight:900;text-align:center;min-width:70px}
     .result-score-display.winner{color:var(--win)}
-    .result-scorers{font-size:12px;color:var(--muted);margin-top:8px;padding-top:8px;border-top:1px solid #232730}
+    .result-scorers{font-size:15px;color:var(--muted);margin-top:10px;padding-top:10px;border-top:1px solid #232730}
 
-    /* Team Stats */
-    .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
-    .stat-box{text-align:center;padding:12px;background:rgba(255,255,255,.02);border-radius:8px;border:1px solid #232730}
-    .stat-value{font-size:32px;font-weight:900;color:var(--accent)}
-    .stat-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:4px}
+    /* Team Stats - Larger for TV */
+    .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+    .stat-box{text-align:center;padding:16px;background:rgba(255,255,255,.02);border-radius:10px;border:1px solid #232730}
+    .stat-value{font-size:38px;font-weight:900;color:var(--accent)}
+    .stat-label{font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-top:6px}
 
-    /* CCMHA Minor Hockey */
-    .ccmha-section{margin-top:32px;padding-top:24px;border-top:2px solid #232730}
-    .ccmha-header{display:flex;align-items:center;gap:16px;margin-bottom:16px}
-    .ccmha-logo{height:64px;width:auto}
-    .ccmha-title{font-size:24px;font-weight:900}
-    .ccmha-sub{font-size:12px;color:var(--muted)}
-    .ccmha-games{display:grid;gap:10px}
+    /* CCMHA Minor Hockey - Larger for TV */
+    .ccmha-section{margin-top:36px;padding-top:28px;border-top:2px solid #232730}
+    .ccmha-header{display:flex;align-items:center;gap:18px;margin-bottom:18px}
+    .ccmha-logo{height:72px;width:auto}
+    .ccmha-title{font-size:28px;font-weight:900}
+    .ccmha-sub{font-size:15px;color:var(--muted)}
+    .ccmha-games{display:grid;gap:12px}
     .ccmha-card{background:linear-gradient(135deg,#14161e,#0f1118);border:1px solid #1f2229;
-      border-radius:10px;padding:12px 16px;display:grid;grid-template-columns:70px 1fr 80px;align-items:center;gap:10px}
-    .ccmha-time{font-size:18px;font-weight:800}
-    .ccmha-matchup{font-size:16px;font-weight:700}
-    .ccmha-vs{opacity:.5;font-size:14px;margin:0 4px}
-    .ccmha-division{color:var(--muted);font-size:12px;margin-top:2px}
-    .ccmha-league{font-size:12px;font-weight:800;text-align:center;padding:4px 8px;
+      border-radius:12px;padding:14px 18px;display:grid;grid-template-columns:85px 1fr 100px;align-items:center;gap:12px}
+    .ccmha-time{font-size:22px;font-weight:800}
+    .ccmha-matchup{font-size:19px;font-weight:700}
+    .ccmha-vs{opacity:.5;font-size:17px;margin:0 6px}
+    .ccmha-division{color:var(--muted);font-size:15px;margin-top:2px}
+    .ccmha-league{font-size:15px;font-weight:800;text-align:center;padding:6px 10px;
       background:#1a1f2a;border:1px solid #2c3341;border-radius:999px}
 
-    /* Footer */
-    footer{max-width:var(--maxw);width:100%;display:flex;justify-content:space-between;align-items:center;
-      color:var(--muted);font-size:14px;padding:16px 32px;margin:0 auto}
-    .clock{font-variant-numeric:tabular-nums;font-weight:700}
-
-    /* Responsive */
-    @media (max-width:1400px){
-      .grid{grid-template-columns:1fr}
-      .title{font-size:42px}
-      .game-card{grid-template-columns:70px 1fr 140px}
-      .game-teams{font-size:20px}
-    }
+    /* Footer - Larger for TV */
+    footer{width:1920px;display:flex;justify-content:space-between;align-items:center;
+      color:var(--muted);font-size:17px;padding:18px 40px}
+    .clock{font-variant-numeric:tabular-nums;font-weight:700;font-size:18px}
   </style>
 </head>
 <body class="bg">

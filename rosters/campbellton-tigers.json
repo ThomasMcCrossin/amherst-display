@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 8,
-  "updated_at": "2025-11-18T15:33:00.334Z",
+  "updated_at": "2025-11-18T15:01:26.135Z",
   "player_count": 26,
   "players": [
     {
@@ -26,6 +26,7 @@
       "birthplace": "St-Quentin, NB, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Campbellton-Tigers/1-samuel-quimper.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3000.jpg",
       "stats": {
         "games_played": 5,
@@ -64,6 +65,7 @@
       "birthplace": "Dalhousie. NB, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Campbellton-Tigers/7-alex-lavoie.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3010.jpg",
       "stats": {
         "games_played": 17,
@@ -104,6 +106,7 @@
       "birthplace": "Ste-Catherine-De-Hatl, QC, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Campbellton-Tigers/8-adam-v-ronneau.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3432.jpg",
       "stats": {
         "games_played": 20,
@@ -143,6 +146,7 @@
       "birthplace": "Sept-Iles, Qc, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Campbellton-Tigers/11-nathan-lebrasseur.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3854.jpg",
       "stats": {
         "games_played": 12,
@@ -183,6 +187,7 @@
       "birthplace": "Dieppe, NB, NB",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Campbellton-Tigers/12-samuel-deveau.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3315.jpg",
       "stats": {
         "games_played": 18,
@@ -225,6 +230,7 @@
       "birthplace": "Middle Sackville, NS, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Campbellton-Tigers/14-liam-duquette.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3005.jpg",
       "stats": {
         "games_played": 19,
@@ -265,6 +271,7 @@
       "birthplace": "Mont-Royal, Qc, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Campbellton-Tigers/16-lucas-bremshey.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3637.jpg",
       "stats": {
         "games_played": 20,
@@ -305,6 +312,7 @@
       "birthplace": "Varennes, QC, Quebec",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Campbellton-Tigers/17-nathan-rhodes.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3403.jpg",
       "stats": {
         "games_played": 19,
@@ -345,6 +353,7 @@
       "birthplace": "Quebec,Qc, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Campbellton-Tigers/18-edouard-dion.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3632.jpg",
       "stats": {},
       "hockeytech_id": "3632",
@@ -371,6 +380,7 @@
       "birthplace": "Kedgwick, NB, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Campbellton-Tigers/19-samuel-ouellet.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3317.jpg",
       "stats": {
         "games_played": 17,
@@ -413,6 +423,7 @@
       "birthplace": "Victoriaville, Qc, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Campbellton-Tigers/20-eliot-arseneault.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3628.jpg",
       "stats": {
         "games_played": 20,
@@ -455,6 +466,7 @@
       "birthplace": "Dieppe, NB, ",
       "rookie": false,
       "veteran": true,
+      "headshot": "assets/headshots/Campbellton-Tigers/21-alexi-parent.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3493.jpg",
       "stats": {
         "games_played": 18,
@@ -495,6 +507,7 @@
       "birthplace": "Kanata, Ont, ",
       "rookie": false,
       "veteran": true,
+      "headshot": "assets/headshots/Campbellton-Tigers/22-thierry-demers.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3894.jpg",
       "stats": {
         "games_played": 4,
@@ -537,6 +550,7 @@
       "birthplace": "Squamish, BC, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Campbellton-Tigers/23-brett-woodard.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3855.jpg",
       "stats": {
         "games_played": 12,
@@ -577,6 +591,7 @@
       "birthplace": "Amherst, NS, NS",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Campbellton-Tigers/26-sawyer-harvey.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3322.jpg",
       "stats": {
         "games_played": 20,
@@ -617,6 +632,7 @@
       "birthplace": "Sainte-Marie-de-Kent, NB, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Campbellton-Tigers/27-marco-leblanc.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2815.jpg",
       "stats": {},
       "hockeytech_id": "2815",
@@ -641,6 +657,7 @@
       "birthplace": "Shediac, NB, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Campbellton-Tigers/31-niko-boudreau.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3231.jpg",
       "stats": {
         "games_played": 14,
@@ -679,6 +696,7 @@
       "birthplace": "Charlo, NB, NB",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Campbellton-Tigers/39-logan-mallaley.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2993.jpg",
       "stats": {
         "games_played": 19,
@@ -719,6 +737,7 @@
       "birthplace": "Bedford, NS, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Campbellton-Tigers/45-jacob-singer.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3311.jpg",
       "stats": {},
       "hockeytech_id": "3311",
@@ -744,6 +763,7 @@
       "birthplace": "Beaver Bank, NS, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Campbellton-Tigers/48-carter-morrison.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3507.jpg",
       "stats": {
         "games_played": 3,
@@ -786,6 +806,7 @@
       "birthplace": "Berwick, NS, NS",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Campbellton-Tigers/55-luke-orr.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2521.jpg",
       "stats": {
         "games_played": 20,
@@ -826,6 +847,7 @@
       "birthplace": "Charlottetown, PE, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Campbellton-Tigers/84-nash-coffin.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3566.jpg",
       "stats": {
         "games_played": 17,
@@ -866,6 +888,7 @@
       "birthplace": "Yarmouth, NS,, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Campbellton-Tigers/98-sam-hope.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2655.jpg",
       "stats": {
         "games_played": 20,

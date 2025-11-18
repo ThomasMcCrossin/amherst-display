@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 6,
-  "updated_at": "2025-11-18T15:32:59.749Z",
+  "updated_at": "2025-11-18T15:01:20.793Z",
   "player_count": 28,
   "players": [
     {
@@ -92,6 +92,7 @@
       "birthplace": "Dieppe, NB, NB",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/West-Kent-Steamers/1-loic-nadeau.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2631.jpg",
       "stats": {
         "games_played": 0,
@@ -130,6 +131,7 @@
       "birthplace": "Boischatel, QC, QC",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/West-Kent-Steamers/2-natan-grenier.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3793.jpg",
       "stats": {
         "games_played": 21,
@@ -195,6 +197,7 @@
       "birthplace": "Riverview, NB, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/West-Kent-Steamers/5-jacob-pineau.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3072.jpg",
       "stats": {},
       "hockeytech_id": "3072",
@@ -221,6 +224,7 @@
       "birthplace": "Dieppe, NB, NB",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/West-Kent-Steamers/6-malik-bourque-vigneault.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3607.jpg",
       "stats": {
         "games_played": 22,
@@ -263,6 +267,7 @@
       "birthplace": "Clyde River, PE, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/West-Kent-Steamers/7-sam-bowness.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3579.jpg",
       "stats": {
         "games_played": 18,
@@ -305,6 +310,7 @@
       "birthplace": "Quebec City, QC, QC",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/West-Kent-Steamers/8-noah-larochelle.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3597.jpg",
       "stats": {
         "games_played": 22,
@@ -348,6 +354,7 @@
       "birthplace": "Bouctouche, NB, NB",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/West-Kent-Steamers/9-noah-collette.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3752.jpg",
       "stats": {
         "games_played": 13,
@@ -390,6 +397,7 @@
       "birthplace": "Moncton, NB, NB",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/West-Kent-Steamers/10-cam-white.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2388.jpg",
       "stats": {
         "games_played": 14,
@@ -430,6 +438,7 @@
       "birthplace": "Pasadena, NL, NL",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/West-Kent-Steamers/11-spencer-caines.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3225.jpg",
       "stats": {
         "games_played": 21,
@@ -472,6 +481,7 @@
       "birthplace": "Saint John, NB, NB",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/West-Kent-Steamers/12-dawson-grandy.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2817.jpg",
       "stats": {
         "games_played": 22,
@@ -512,6 +522,7 @@
       "birthplace": "La Prairie, QC, QC",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/West-Kent-Steamers/15-victor-lanoue.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3599.jpg",
       "stats": {
         "games_played": 22,
@@ -554,6 +565,7 @@
       "birthplace": "Bouctouche, NB, NB",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/West-Kent-Steamers/16-olivier-o-brien.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3051.jpg",
       "stats": {
         "games_played": 22,
@@ -596,6 +608,7 @@
       "birthplace": "Shediac, NB, NB",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/West-Kent-Steamers/18-thomas-hendrickson.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3046.jpg",
       "stats": {
         "games_played": 21,
@@ -636,6 +649,7 @@
       "birthplace": "St-Liboire, QC, QC",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/West-Kent-Steamers/19-zachary-paulhus.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3602.jpg",
       "stats": {
         "games_played": 22,
@@ -679,6 +693,7 @@
       "birthplace": "Riverview, NB, NB",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/West-Kent-Steamers/23-nathan-weber.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3433.jpg",
       "stats": {
         "games_played": 22,
@@ -721,6 +736,7 @@
       "birthplace": "Notre Dame, NB, NB",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/West-Kent-Steamers/27-olivier-leblanc.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3049.jpg",
       "stats": {
         "games_played": 22,
@@ -763,6 +779,7 @@
       "birthplace": "Shawinigan, QC, QC",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/West-Kent-Steamers/30-victor-r-gis.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3578.jpg",
       "stats": {
         "games_played": 6,
@@ -801,6 +818,7 @@
       "birthplace": "Moncton, NB, NB",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/West-Kent-Steamers/31-xavier-farrah.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2839.jpg",
       "stats": {
         "games_played": 19,
@@ -837,6 +855,7 @@
       "birthplace": "Fredericton, NB, NB",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/West-Kent-Steamers/44-cody-macloon.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3443.jpg",
       "stats": {
         "games_played": 15,
@@ -879,6 +898,7 @@
       "birthplace": "Irishtown, NB, NB",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/West-Kent-Steamers/61-zachary-boudreau.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3042.jpg",
       "stats": {
         "games_played": 22,
@@ -919,6 +939,7 @@
       "birthplace": "Moncton, NB, NB",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/West-Kent-Steamers/77-austin-sanchez.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2845.jpg",
       "stats": {
         "games_played": 22,
@@ -959,6 +980,7 @@
       "birthplace": "St-Jean-Sur-Richelieu, QC, QC",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/West-Kent-Steamers/88-pierre-marc-minville.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3429.jpg",
       "stats": {
         "games_played": 20,
@@ -1002,6 +1024,7 @@
       "birthplace": "St-Hyacinthe, QC, QC",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/West-Kent-Steamers/91-victor-lalibert.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3601.jpg",
       "stats": {
         "games_played": 17,
@@ -1044,6 +1067,7 @@
       "birthplace": "Cocagne, NB, NB",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/West-Kent-Steamers/96-brody-breau.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3424.jpg",
       "stats": {},
       "hockeytech_id": "3424",

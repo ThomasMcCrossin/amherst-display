@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 4,
-  "updated_at": "2025-11-18T15:32:59.141Z",
+  "updated_at": "2025-11-18T15:01:15.882Z",
   "player_count": 24,
   "players": [
     {
@@ -26,6 +26,7 @@
       "birthplace": " New Glasgow, NS, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Valley-Wildcats/5-ben-manos.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3192.jpg",
       "stats": {
         "games_played": 18,
@@ -90,6 +91,7 @@
       "birthplace": "Glace Bay, NS, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Valley-Wildcats/7-keegan-o-neill.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2761.jpg",
       "stats": {},
       "hockeytech_id": "2761",
@@ -114,6 +116,7 @@
       "birthplace": "Cowansville, QC, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Valley-Wildcats/8-louis-carl-tremblay.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3813.jpg",
       "stats": {
         "games_played": 20,
@@ -156,6 +159,7 @@
       "birthplace": "Drummondville,QC, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Valley-Wildcats/9-felix-belanger.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3615.jpg",
       "stats": {
         "games_played": 21,
@@ -199,6 +203,7 @@
       "birthplace": "Mermaid, PE, ",
       "rookie": false,
       "veteran": true,
+      "headshot": "assets/headshots/Valley-Wildcats/10-jude-campbell.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2533.jpg",
       "stats": {
         "games_played": 19,
@@ -281,6 +286,7 @@
       "hometown": "Grand Prairie, AB",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Valley-Wildcats/12-luke-scheck.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3863.jpg",
       "stats": {
         "games_played": 6,
@@ -323,6 +329,7 @@
       "birthplace": "Cardigan, PE, PEI",
       "rookie": false,
       "veteran": true,
+      "headshot": "assets/headshots/Valley-Wildcats/14-caleb-macdonald.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2703.jpg",
       "stats": {
         "games_played": 22,
@@ -365,6 +372,7 @@
       "birthplace": "Ste-Julie, QC, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Valley-Wildcats/15-arnaud-lucier.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3600.jpg",
       "stats": {
         "games_played": 22,
@@ -409,6 +417,7 @@
       "birthplace": "Halifax, NS, NS",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Valley-Wildcats/17-brady-burke.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2995.jpg",
       "stats": {
         "games_played": 15,
@@ -490,6 +499,7 @@
       "birthplace": "Kentville, NS, NS",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Valley-Wildcats/20-drew-lutz.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2778.jpg",
       "stats": {
         "games_played": 22,
@@ -532,6 +542,7 @@
       "birthplace": "New Haven, PE, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Valley-Wildcats/21-dylan-maclean.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3465.jpg",
       "stats": {},
       "hockeytech_id": "3465",
@@ -558,6 +569,7 @@
       "birthplace": "Berwick,NS, NS",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Valley-Wildcats/22-aidan-bent.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3043.jpg",
       "stats": {
         "games_played": 20,
@@ -599,6 +611,7 @@
       "hometown": "Drummondville,QC",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Valley-Wildcats/23-josh-vincent.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3852.jpg",
       "stats": {
         "games_played": 16,
@@ -641,6 +654,7 @@
       "birthplace": "Stratford,PE, ",
       "rookie": false,
       "veteran": true,
+      "headshot": "assets/headshots/Valley-Wildcats/25-jack-flanagan.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3608.jpg",
       "stats": {},
       "hockeytech_id": "3608",
@@ -665,6 +679,7 @@
       "birthplace": "Woodville, NS, NS",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Valley-Wildcats/26-ryan-fletcher.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2987.jpg",
       "stats": {
         "games_played": 22,
@@ -707,6 +722,7 @@
       "birthplace": "Stratford, PE, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Valley-Wildcats/27-jacob-denomme.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3186.jpg",
       "stats": {},
       "hockeytech_id": "3186",
@@ -732,6 +748,7 @@
       "hometown": "Oshawa,ON",
       "rookie": false,
       "veteran": true,
+      "headshot": "assets/headshots/Valley-Wildcats/28-andrew-thompson.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3853.jpg",
       "stats": {
         "games_played": 15,
@@ -772,6 +789,7 @@
       "birthplace": "Clarke's Harbour, NS, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Valley-Wildcats/29-cohen-stoddard.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3612.jpg",
       "stats": {
         "games_played": 12,
@@ -811,6 +829,7 @@
       "birthplace": "Sydney Mines, NS, NS",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Valley-Wildcats/32-brody-ford.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3376.jpg",
       "stats": {
         "games_played": 19,
@@ -853,6 +872,7 @@
       "birthplace": "St John, NL, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Valley-Wildcats/70-sean-hogan.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3618.jpg",
       "stats": {
         "games_played": 12,
