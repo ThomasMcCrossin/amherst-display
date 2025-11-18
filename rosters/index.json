@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-11-09T06:47:03.038Z",
+  "generated_at": "2025-11-18T15:33:01.693Z",
   "season": "2024-25",
   "season_id": 41,
   "api_source": "HockeyTech",
@@ -11,7 +11,7 @@
       "team_name": "Amherst-Ramblers",
       "league": "MHL",
       "team_id": 1,
-      "player_count": 32,
+      "player_count": 30,
       "file": "rosters/amherst-ramblers.json"
     },
     {
@@ -27,7 +27,7 @@
       "team_name": "Truro-Bearcats",
       "league": "MHL",
       "team_id": 3,
-      "player_count": 33,
+      "player_count": 31,
       "file": "rosters/truro-bearcats.json"
     },
     {
@@ -43,7 +43,7 @@
       "team_name": "Yarmouth-Mariners",
       "league": "MHL",
       "team_id": 5,
-      "player_count": 26,
+      "player_count": 25,
       "file": "rosters/yarmouth-mariners.json"
     },
     {
@@ -51,7 +51,7 @@
       "team_name": "West-Kent-Steamers",
       "league": "MHL",
       "team_id": 6,
-      "player_count": 27,
+      "player_count": 28,
       "file": "rosters/west-kent-steamers.json"
     },
     {
@@ -59,7 +59,7 @@
       "team_name": "Pictou-County-Crushers",
       "league": "MHL",
       "team_id": 7,
-      "player_count": 32,
+      "player_count": 31,
       "file": "rosters/pictou-county-crushers.json"
     },
     {
@@ -75,7 +75,7 @@
       "team_name": "Miramichi-Timberwolves",
       "league": "MHL",
       "team_id": 9,
-      "player_count": 24,
+      "player_count": 25,
       "file": "rosters/miramichi-timberwolves.json"
     },
     {
@@ -83,7 +83,7 @@
       "team_name": "Summerside-Capitals",
       "league": "MHL",
       "team_id": 10,
-      "player_count": 26,
+      "player_count": 25,
       "file": "rosters/summerside-capitals.json"
     },
     {

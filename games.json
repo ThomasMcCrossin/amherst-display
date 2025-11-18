@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-11-09T06:47:15Z",
+  "generated_at": "2025-11-18T15:33:15Z",
   "timezone": "America/Halifax",
   "events": [
     {
@@ -183,15 +183,6 @@
       "location": "Amherst Stadium"
     },
     {
-      "league": "BSHL",
-      "home_team": "Elsipogtog",
-      "away_team": "Miramichi",
-      "home_slug": "elsipogtog",
-      "away_slug": "miramichi-bshl",
-      "start": "2025-11-09T17:30:00-04:00",
-      "location": "Kent North"
-    },
-    {
       "league": "MHL",
       "home_team": "Amherst Ramblers",
       "away_team": "Valley Wildcats",
@@ -212,24 +203,6 @@
       "location": "Campbellton Memorial Civic Centre"
     },
     {
-      "league": "BSHL",
-      "home_team": "Belle-Baie",
-      "away_team": "Dalhousie",
-      "home_slug": "belle-baie",
-      "away_slug": "dalhousie",
-      "start": "2025-11-14T20:00:00-04:00",
-      "location": "Arena Petit-Rocher"
-    },
-    {
-      "league": "BSHL",
-      "home_team": "Miramichi",
-      "away_team": "Amherst",
-      "home_slug": "miramichi-bshl",
-      "away_slug": "amherst-ducks",
-      "start": "2025-11-14T20:15:00-04:00",
-      "location": "Civic"
-    },
-    {
       "league": "MHL",
       "home_team": "Chaleur Lightning",
       "away_team": "Amherst Ramblers",
@@ -238,33 +211,6 @@
       "start": "2025-11-15T19:00:00-04:00",
       "end": "2025-11-15T22:00:00-04:00",
       "location": "KC Irving Regional Centre"
-    },
-    {
-      "league": "BSHL",
-      "home_team": "Amherst",
-      "away_team": "Belle-Baie",
-      "home_slug": "amherst-ducks",
-      "away_slug": "belle-baie",
-      "start": "2025-11-15T19:00:00-04:00",
-      "location": "Amherst Stadium"
-    },
-    {
-      "league": "BSHL",
-      "home_team": "Dalhousie",
-      "away_team": "Fredericton",
-      "home_slug": "dalhousie",
-      "away_slug": "fredericton",
-      "start": "2025-11-15T19:30:00-04:00",
-      "location": "Dalhousie Arena"
-    },
-    {
-      "league": "BSHL",
-      "home_team": "Bouctouche",
-      "away_team": "Elsipogtog",
-      "home_slug": "bouctouche",
-      "away_slug": "elsipogtog",
-      "start": "2025-11-16T18:45:00-04:00",
-      "location": "J. K."
     },
     {
       "league": "MHL",
@@ -333,21 +279,21 @@
     },
     {
       "league": "BSHL",
-      "home_team": "Amherst",
-      "away_team": "Dalhousie",
-      "home_slug": "amherst-ducks",
-      "away_slug": "dalhousie",
-      "start": "2025-11-29T19:00:00-04:00",
-      "location": "Amherst Stadium"
-    },
-    {
-      "league": "BSHL",
       "home_team": "Fredericton",
       "away_team": "Miramichi",
       "home_slug": "fredericton",
       "away_slug": "miramichi-bshl",
       "start": "2025-11-29T19:00:00-04:00",
       "location": "Grant - Harvey"
+    },
+    {
+      "league": "BSHL",
+      "home_team": "Amherst",
+      "away_team": "Dalhousie",
+      "home_slug": "amherst-ducks",
+      "away_slug": "dalhousie",
+      "start": "2025-11-29T19:00:00-04:00",
+      "location": "Amherst Stadium"
     },
     {
       "league": "MHL",
@@ -724,9 +670,9 @@
     {
       "league": "BSHL",
       "home_team": "Amherst",
-      "away_team": "Elsipogtog",
+      "away_team": "Belle-Baie",
       "home_slug": "amherst-ducks",
-      "away_slug": "elsipogtog",
+      "away_slug": "belle-baie",
       "start": "2026-01-11T14:00:00-04:00",
       "location": "Amherst Stadium"
     },
@@ -801,6 +747,15 @@
       "away_team": "Miramichi",
       "home_slug": "belle-baie",
       "away_slug": "miramichi-bshl",
+      "start": "2026-01-19T20:00:00-04:00",
+      "location": "Arena Petit-Rocher"
+    },
+    {
+      "league": "BSHL",
+      "home_team": "Belle-Baie",
+      "away_team": "Dalhousie",
+      "home_slug": "belle-baie",
+      "away_slug": "dalhousie",
       "start": "2026-01-19T20:00:00-04:00",
       "location": "Arena Petit-Rocher Home | Contacts | Login All content contained on this website is copyright &copy; 2019 Beausejour Senior Hockey League Website Design and Development by Sun Web Solutions var _gaq = _gaq || []; _gaq.push(['_setAccount', 'UA-10318801-10']); _gaq.push(['_trackPageview']); (function() { var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s); })();"
     },
