@@ -220,18 +220,20 @@ function parseWeight(weightStr) {
 }
 
 /**
- * Process roster: normalize data and download headshots (only for Amherst Ramblers)
+ * Process roster: normalize data and download headshots
+ * Note: Amherst Ramblers headshots are served directly from API (not downloaded)
  */
 async function processRoster(teamSlug, teamName, rawPlayers, statsMap) {
   const players = [];
-  const downloadHeadshots = teamSlug === 'amherst-ramblers'; // Only download for Amherst
+  // Never download headshots for Amherst Ramblers - serve from API to avoid storing player photos in GitHub
+  const downloadHeadshots = teamSlug !== 'amherst-ramblers';
 
   if (downloadHeadshots) {
     const headshotDir = path.join(ROOT_DIR, 'assets', 'headshots', teamName);
     await ensureDir(headshotDir);
   }
 
-  console.log(`[rosters/${teamSlug}] Processing ${rawPlayers.length} players${downloadHeadshots ? ' (downloading headshots)' : ''}`);
+  console.log(`[rosters/${teamSlug}] Processing ${rawPlayers.length} players${downloadHeadshots ? ' (downloading headshots)' : ' (using API URLs for headshots)'}`);
 
   for (const rawPlayer of rawPlayers) {
     const playerId = generatePlayerId(rawPlayer);
@@ -239,7 +241,7 @@ async function processRoster(teamSlug, teamName, rawPlayers, statsMap) {
     const playerName = rawPlayer.name || `${rawPlayer.first_name || ''} ${rawPlayer.last_name || ''}`.trim() || 'Unknown Player';
     const fileId = `${jerseyNum}-${normalizeNameForId(playerName)}`;
 
-    // Download headshot only for Amherst Ramblers, keep URL for others
+    // Download headshots for other teams, but use API URLs for Amherst Ramblers
     let headshotPath = null;
     if (rawPlayer.player_image && downloadHeadshots) {
       const ext = rawPlayer.player_image.match(/\.(jpg|jpeg|png|gif)(\?|$)/i)?.[1] || 'jpg';

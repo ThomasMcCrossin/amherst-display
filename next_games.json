@@ -1,58 +1,36 @@
 {
-  "generated_at": "2025-11-09T06:47:15Z",
+  "generated_at": "2025-11-18T14:54:06Z",
   "timezone": "America/Halifax",
   "teams": [
     {
       "team_slug": "amherst-ramblers",
       "games": [
         {
-          "opponent_slug": "valley-wildcats",
+          "opponent_slug": "grand-falls-rapids",
           "home": true,
-          "start": "2025-11-11T15:00:00-04:00",
+          "start": "2025-11-20T19:00:00-04:00",
           "venue": "Amherst Stadium",
           "city": ""
         },
         {
-          "opponent_slug": "campbellton-tigers",
+          "opponent_slug": "pictou-county-weeks-crushers",
           "home": false,
-          "start": "2025-11-14T19:00:00-04:00",
-          "venue": "Campbellton Memorial Civic Centre",
+          "start": "2025-11-27T19:00:00-04:00",
+          "venue": "Pictou County Wellness Centre",
           "city": ""
         },
         {
-          "opponent_slug": "chaleur-lightning",
+          "opponent_slug": "summerside-western-capitals",
           "home": false,
-          "start": "2025-11-15T19:00:00-04:00",
-          "venue": "KC Irving Regional Centre",
+          "start": "2025-11-29T20:00:00-04:00",
+          "venue": "Credit Union Place",
           "city": ""
         }
       ]
     },
     {
       "team_slug": "amherst-ducks",
-      "games": [
-        {
-          "opponent_slug": "miramichi-bshl",
-          "home": false,
-          "start": "2025-11-14T20:15:00-04:00",
-          "venue": "Civic",
-          "city": ""
-        },
-        {
-          "opponent_slug": "belle-baie",
-          "home": true,
-          "start": "2025-11-15T19:00:00-04:00",
-          "venue": "Amherst Stadium",
-          "city": ""
-        },
-        {
-          "opponent_slug": "bouctouche",
-          "home": true,
-          "start": "2025-11-22T19:00:00-04:00",
-          "venue": "Amherst Stadium",
-          "city": ""
-        }
-      ]
+      "games": []
     }
   ]
 }
