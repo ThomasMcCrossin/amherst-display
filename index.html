@@ -123,7 +123,7 @@
     <!-- CCMHA Minor Hockey Section -->
     <section class="ccmha-section" id="ccmha-section" style="display:none;">
       <div class="ccmha-header">
-        <img src="https://thomasmccrossin.github.io/amherst-display/assets/logos/ccmha/cumberland-ramblers.png" alt="Cumberland Ramblers" class="ccmha-logo">
+        <img src="/assets/logos/ccmha/cumberland-ramblers.png" alt="Cumberland Ramblers" class="ccmha-logo">
         <div class="ccmha-title">
           <div class="ccmha-main">Cumberland Ramblers Minor Hockey</div>
           <div class="ccmha-sub">Schedule data from GrayJay Leagues</div>
@@ -145,10 +145,10 @@
 <script>
 // ========= CONFIG =========
 const CONFIG = {
-  DATA_URL: "https://thomasmccrossin.github.io/amherst-display/games.json",
-  TEAMS_URL: "https://thomasmccrossin.github.io/amherst-display/teams.json",
-  OVERRIDES_URL: "https://thomasmccrossin.github.io/amherst-display/overrides.json", // optional (welcome/ticker)
-  CCMHA_URL: "https://thomasmccrossin.github.io/amherst-display/ccmha_games.json",
+  DATA_URL: "/games.json",
+  TEAMS_URL: "/teams.json",
+  OVERRIDES_URL: "/overrides.json", // optional (welcome/ticker)
+  CCMHA_URL: "/ccmha_games.json",
   DAYS_AHEAD: 7,
   HOME_ONLY: true,
   HOME_VENUES: ["Amherst Stadium"],
@@ -160,8 +160,8 @@ const CONFIG = {
   MAX_RAMBLERS_DUCKS_PER_PAGE: 3,   // max main games per page
   MAX_CCMHA_PER_PAGE: 6,            // max minor hockey games per page
   LEAGUE: {
-    MHL: { tagClass: "mhl", icon: "assets/league/mhl.png" },
-    BSHL:{ tagClass: "bshl", icon: "assets/league/bshl.png" }
+    MHL: { tagClass: "mhl", icon: "assets/logos/league-mhl.png" },
+    BSHL:{ tagClass: "bshl", icon: "assets/logos/league-bshl.png" }
   }
 };
 // ==========================
@@ -254,7 +254,7 @@ function render(data){
       $cards.innerHTML = countdownHTML(next, msTo, withinPre);
       startCountdownTick(next);
       $pageIndicator.style.display = 'none';
-      document.getElementById('ccmha-section').style.display = 'none';
+      // Note: Don't hide CCMHA section - let renderCCMHA() handle display
       return; // do not render weekly list while in countdown
     }
   }
@@ -430,21 +430,29 @@ function ccmhaCardHTML(game){
 async function renderCCMHA(){
   const games = await loadCCMHA();
 
+  // Filter for future games only (next 7 days)
+  const now = new Date();
+  const futureGames = games.filter(g => {
+    const gameTime = new Date(g.start);
+    return gameTime >= now;
+  });
+
   // Sort by start time
-  games.sort((a,b)=> new Date(a.start) - new Date(b.start));
+  futureGames.sort((a,b)=> new Date(a.start) - new Date(b.start));
 
   // Store in pagination state
-  PAGINATION.ccmhaGames = games;
+  PAGINATION.ccmhaGames = futureGames;
 
-  // Calculate total pages and start pagination
-  PAGINATION.totalPages = calculatePages(PAGINATION.mainGames, PAGINATION.ccmhaGames);
-  PAGINATION.currentPage = 0;
+  // Only show CCMHA section if there are games
+  const $ccmhaSection = document.getElementById('ccmha-section');
+  const $ccmhaGames = document.getElementById('ccmha-games');
 
-  // Show first page
-  showPage(0);
-
-  // Start auto-rotation if multiple pages
-  startPageRotation();
+  if (futureGames.length > 0) {
+    $ccmhaGames.innerHTML = futureGames.map(ccmhaCardHTML).join('');
+    $ccmhaSection.style.display = 'block';
+  } else {
+    $ccmhaSection.style.display = 'none';
+  }
 }
 
 async function bootstrap(){
