@@ -71,8 +71,9 @@
 [rosters/valley-wildcats] Fetching roster for Valley-Wildcats...
 [rosters] Fetching from API: team_id=4
 [rosters] Fetching stats from API: team_id=4
-[rosters/valley-wildcats] Processing 24 players (downloading headshots)
-[rosters] Downloaded: 5-ben-manos.jpg
+[rosters/valley-wildcats] Processing 25 players (downloading headshots)
+[rosters] Downloaded: 0-ben-manos.jpg
+[rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
 [rosters] Downloaded: 7-keegan-o-neill.jpg
 [rosters] Downloaded: 8-louis-carl-tremblay.jpg
@@ -84,6 +85,7 @@
 [rosters] Downloaded: 15-arnaud-lucier.jpg
 [rosters] Downloaded: 17-brady-burke.jpg
 [rosters] Skipping placeholder image
+[rosters] Skipping placeholder image
 [rosters] Downloaded: 20-drew-lutz.jpg
 [rosters] Downloaded: 21-dylan-maclean.jpg
 [rosters] Downloaded: 22-aidan-bent.jpg
@@ -91,11 +93,10 @@
 [rosters] Downloaded: 25-jack-flanagan.jpg
 [rosters] Downloaded: 26-ryan-fletcher.jpg
 [rosters] Downloaded: 27-jacob-denomme.jpg
-[rosters] Downloaded: 28-andrew-thompson.jpg
 [rosters] Downloaded: 29-cohen-stoddard.jpg
 [rosters] Downloaded: 32-brody-ford.jpg
 [rosters] Downloaded: 70-sean-hogan.jpg
-[rosters/valley-wildcats] Wrote rosters/valley-wildcats.json (24 players)
+[rosters/valley-wildcats] Wrote rosters/valley-wildcats.json (25 players)
 [rosters/yarmouth-mariners] Fetching roster for Yarmouth-Mariners...
 [rosters] Fetching from API: team_id=5
 [rosters] Fetching stats from API: team_id=5
@@ -225,7 +226,7 @@
 [rosters/miramichi-timberwolves] Fetching roster for Miramichi-Timberwolves...
 [rosters] Fetching from API: team_id=9
 [rosters] Fetching stats from API: team_id=9
-[rosters/miramichi-timberwolves] Processing 25 players (downloading headshots)
+[rosters/miramichi-timberwolves] Processing 27 players (downloading headshots)
 [rosters] Downloaded: 6-lorenzo-tita.jpg
 [rosters] Downloaded: 7-olivier-th-berge.jpg
 [rosters] Downloaded: 8-cameron-leblanc.jpg
@@ -250,7 +251,9 @@
 [rosters] Downloaded: 71-jacob-kaine.jpg
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
-[rosters/miramichi-timberwolves] Wrote rosters/miramichi-timberwolves.json (25 players)
+[rosters] Skipping placeholder image
+[rosters] Skipping placeholder image
+[rosters/miramichi-timberwolves] Wrote rosters/miramichi-timberwolves.json (27 players)
 [rosters/summerside-capitals] Fetching roster for Summerside-Capitals...
 [rosters] Fetching from API: team_id=10
 [rosters] Fetching stats from API: team_id=10
@@ -383,6 +386,6 @@
 [schedules/BSHL] parsed=43
 [schedules] events=95  ramblers=52  ducks=43
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 200 total schedule items
-[CCMHA] Found 3 games at Amherst Stadium
-[ccmha] games=3
+[CCMHA] API returned 202 total schedule items
+[CCMHA] Found 4 games at Amherst Stadium
+[ccmha] games=4

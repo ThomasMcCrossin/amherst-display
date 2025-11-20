@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-11-19T06:51:11.160Z",
+  "generated_at": "2025-11-20T06:51:21.207Z",
   "season": "2024-25",
   "season_id": 41,
   "api_source": "HockeyTech",
@@ -35,7 +35,7 @@
       "team_name": "Valley-Wildcats",
       "league": "MHL",
       "team_id": 4,
-      "player_count": 24,
+      "player_count": 25,
       "file": "rosters/valley-wildcats.json"
     },
     {
@@ -75,7 +75,7 @@
       "team_name": "Miramichi-Timberwolves",
       "league": "MHL",
       "team_id": 9,
-      "player_count": 25,
+      "player_count": 27,
       "file": "rosters/miramichi-timberwolves.json"
     },
     {
