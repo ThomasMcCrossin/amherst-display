@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cumberland Ramblers Minor Hockey</title>
+  <style>
+    /* Optimized for 42" 1080p TV (1920x1080) - Viewing distance: 5-10 feet */
+    :root{
+      --bg:#0b0c10; --bg2:#0f1118; --bg3:#14161e; --muted:#a7b0ba; --ink:#f5f7fb;
+      --accent:#2d74ff; --win:#4ade80; --loss:#f87171;
+      --radius:20px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;overflow:hidden}
+    body{color:var(--ink);font-family:var(--font);display:flex;flex-direction:column;
+      background: radial-gradient(1400px 800px at 15% 10%, #1a1f2a 0%, #0f1219 60%, #0b0c10 100%);}
+    .bg::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.08;
+      background-image:url('https://thomasmccrossin.github.io/amherst-display/assets/bg/ice-texture.jpg');background-size:cover;background-position:center;mix-blend-mode:screen;}
+
+    /* Main Layout - Fixed for 1920x1080 */
+    .container{width:1920px;height:1080px;padding:32px 40px;display:flex;flex-direction:column}
+
+    /* Header - Larger for TV viewing */
+    header{margin-bottom:24px;display:flex;align-items:center;gap:24px}
+    .header-logo{height:100px;width:auto}
+    .header-text{}
+    .title{font-weight:900;font-size:56px;letter-spacing:0.5px;margin:0;background:linear-gradient(135deg,#f5f7fb,#a7b0ba);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .subtitle{color:var(--muted);font-size:22px;margin-top:8px}
+    .legend{margin-top:12px;display:flex;gap:14px;color:var(--muted);font-size:16px;flex-wrap:wrap}
+    .pill{padding:6px 12px;border-radius:999px;background:#1b1f27;color:#cfd6df;border:1px solid #2a2f37;font-size:15px}
+
+    /* Games Grid */
+    .games-container{flex:1;overflow-y:auto}
+    .games-grid{display:grid;grid-template-columns:repeat(2, 1fr);gap:18px}
+    .game-card{background:linear-gradient(135deg,#171b23,#12151d);border:1px solid #232730;
+      border-radius:14px;padding:20px;display:grid;grid-template-columns:100px 1fr 120px;align-items:center;gap:16px;min-height:110px}
+    .game-time{font-size:36px;font-weight:900}
+    .game-date{font-size:15px;color:var(--muted);margin-top:4px}
+    .game-matchup{display:flex;flex-direction:column;gap:4px}
+    .game-teams{font-size:24px;font-weight:800;line-height:1.3}
+    .game-vs{opacity:.5;font-size:18px;margin:0 8px}
+    .game-location{font-size:15px;color:var(--muted);margin-top:6px}
+    .game-league{display:flex;align-items:center;justify-content:center}
+    .tag{font-size:15px;font-weight:800;padding:8px 14px;border-radius:999px;background:#1a1f2a;border:1px solid #2d74ff55;color:var(--accent)}
+
+    /* Empty state */
+    .empty-state{text-align:center;padding:80px;color:var(--muted);font-size:24px}
+
+    /* Footer - Larger for TV */
+    footer{display:flex;justify-content:space-between;align-items:center;
+      color:var(--muted);font-size:17px;padding:18px 0;margin-top:20px}
+    .clock{font-variant-numeric:tabular-nums;font-weight:700;font-size:18px}
+  </style>
+</head>
+<body class="bg">
+  <div class="container">
+    <header>
+      <img src="https://thomasmccrossin.github.io/amherst-display/assets/logos/ccmha/cumberland-ramblers.png" alt="Cumberland Ramblers" class="header-logo">
+      <div class="header-text">
+        <h1 class="title">Cumberland Ramblers Minor Hockey</h1>
+        <div class="subtitle" id="date-range">Upcoming games at Amherst Stadium</div>
+        <div class="legend">
+          <span class="pill">Auto-updates every 10 min</span>
+          <span class="pill">Atlantic Time</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="games-container">
+      <div class="games-grid" id="games-grid"></div>
+    </div>
+
+    <footer>
+      <div>Cumberland County Minor Hockey Association</div>
+      <div class="clock" id="clock"></div>
+    </footer>
+  </div>
+
+<script>
+// ========= CONFIG =========
+const CONFIG = {
+  BASE_URL: "https://thomasmccrossin.github.io/amherst-display",
+  CCMHA_URL: "https://thomasmccrossin.github.io/amherst-display/ccmha_games.json",
+  DAYS_AHEAD: 7,
+  HOME_VENUES: ["Amherst Stadium"],
+  TIMEZONE: "America/Halifax",
+  REFRESH_MINUTES: 10
+};
+
+// Utility functions
+function fmtDate(d){ return new Intl.DateTimeFormat('en-CA',{weekday:'short',month:'short',day:'numeric'}).format(d); }
+function fmtTime(d){ return new Intl.DateTimeFormat('en-CA',{hour:'numeric',minute:'2-digit',hour12:true,timeZone:CONFIG.TIMEZONE}).format(d); }
+function startOfDay(d){ return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+function addDays(d,n){ const x=new Date(d); x.setDate(x.getDate()+n); return x; }
+
+async function fetchJSON(url){
+  const res=await fetch(url+`?t=${Date.now()}`,{cache:'no-store'});
+  if(!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
+// Render games
+async function loadGames() {
+  try {
+    const data = await fetchJSON(CONFIG.CCMHA_URL);
+    const games = data.games || [];
+    const now = new Date();
+    const end = addDays(now, CONFIG.DAYS_AHEAD);
+
+    const futureGames = games
+      .filter(g => {
+        const dt = new Date(g.start);
+        const atAmherst = CONFIG.HOME_VENUES.some(v => (g.location || '').toLowerCase().includes(v.toLowerCase()));
+        return dt >= now && dt < end && atAmherst;
+      })
+      .sort((a,b) => new Date(a.start) - new Date(b.start))
+      .slice(0, 12);
+
+    const $grid = document.getElementById('games-grid');
+
+    if (futureGames.length === 0) {
+      $grid.innerHTML = '<div class="empty-state">No upcoming games in the next 7 days</div>';
+      return;
+    }
+
+    $grid.innerHTML = futureGames.map(g => {
+      const dt = new Date(g.start);
+      const dayLabel = Math.floor((dt - now) / 86400000) === 0 ? 'TODAY' : fmtDate(dt).toUpperCase();
+
+      return `
+        <div class="game-card">
+          <div>
+            <div class="game-time">${fmtTime(dt)}</div>
+            <div class="game-date">${dayLabel}</div>
+          </div>
+          <div class="game-matchup">
+            <div class="game-teams">
+              <span>${g.home_team}</span>
+              <span class="game-vs">vs</span>
+              <span>${g.away_team}</span>
+            </div>
+            <div class="game-location">${g.location || 'Amherst Stadium'}</div>
+          </div>
+          <div class="game-league">
+            <div class="tag">${g.league || 'CCMHA'}</div>
+          </div>
+        </div>`;
+    }).join('');
+
+    // Update date range
+    const s = startOfDay(now), t = addDays(s, CONFIG.DAYS_AHEAD-1);
+    document.getElementById('date-range').textContent = `${fmtDate(s)} → ${fmtDate(t)} at Amherst Stadium`;
+
+  } catch(e) {
+    console.error('[CCMHA] Error loading data:', e);
+    document.getElementById('games-grid').innerHTML = '<div class="empty-state">Unable to load games</div>';
+  }
+}
+
+// Initialize
+function bootstrap() {
+  // Update clock every second
+  setInterval(() => {
+    document.getElementById('clock').textContent = new Intl.DateTimeFormat('en-CA', {
+      hour:'numeric', minute:'2-digit', second:'2-digit', hour12:true, timeZone:CONFIG.TIMEZONE
+    }).format(new Date());
+  }, 1000);
+
+  // Load data now and every 10 minutes
+  loadGames();
+  setInterval(loadGames, CONFIG.REFRESH_MINUTES * 60 * 1000);
+}
+
+bootstrap();
+</script>
+</body>
+</html>
