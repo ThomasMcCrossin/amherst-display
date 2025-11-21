@@ -267,7 +267,7 @@ function renderUpcomingGames(events) {
 
   const upcoming = events
     .map(e=> ({...e, start:new Date(e.start), end: e.end? new Date(e.end): null}))
-    .filter(e=> e.start >= now && withinWindow(e.start))
+    .filter(e=> e.start >= now && withinWindow(e.start) && isHome(e))
     .sort((a,b)=> a.start-b.start)
     .slice(0, 6);
 
@@ -502,7 +502,11 @@ async function renderCCMHA() {
     const games = data.games || [];
     const now = new Date();
     const futureGames = games
-      .filter(g => new Date(g.start) >= now)
+      .filter(g => {
+        const dt = new Date(g.start);
+        const atAmherst = CONFIG.HOME_VENUES.some(v => (g.location || '').toLowerCase().includes(v.toLowerCase()));
+        return dt >= now && atAmherst;
+      })
       .sort((a,b) => new Date(a.start) - new Date(b.start))
       .slice(0, 6);
 
