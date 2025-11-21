@@ -111,22 +111,6 @@
     .stat-value{font-size:38px;font-weight:900;color:var(--accent)}
     .stat-label{font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-top:6px}
 
-    /* CCMHA Minor Hockey - Larger for TV */
-    .ccmha-section{margin-top:36px;padding-top:28px;border-top:2px solid #232730}
-    .ccmha-header{display:flex;align-items:center;gap:18px;margin-bottom:18px}
-    .ccmha-logo{height:72px;width:auto}
-    .ccmha-title{font-size:28px;font-weight:900}
-    .ccmha-sub{font-size:15px;color:var(--muted)}
-    .ccmha-games{display:grid;gap:12px}
-    .ccmha-card{background:linear-gradient(135deg,#14161e,#0f1118);border:1px solid #1f2229;
-      border-radius:12px;padding:14px 18px;display:grid;grid-template-columns:85px 1fr 100px;align-items:center;gap:12px}
-    .ccmha-time{font-size:22px;font-weight:800}
-    .ccmha-matchup{font-size:19px;font-weight:700}
-    .ccmha-vs{opacity:.5;font-size:17px;margin:0 6px}
-    .ccmha-division{color:var(--muted);font-size:15px;margin-top:2px}
-    .ccmha-league{font-size:15px;font-weight:800;text-align:center;padding:6px 10px;
-      background:#1a1f2a;border:1px solid #2c3341;border-radius:999px}
-
     /* Footer - Larger for TV */
     footer{width:1920px;display:flex;justify-content:space-between;align-items:center;
       color:var(--muted);font-size:17px;padding:18px 40px}
@@ -164,19 +148,7 @@
             <span class="badge">AMHERST RAMBLERS</span>
           </h2>
           <div class="results-list" id="recent-results"></div>
-        </section>
-
-        <!-- CCMHA Minor Hockey -->
-        <section class="ccmha-section" id="ccmha-section" style="display:none">
-          <div class="ccmha-header">
-            <img src="https://thomasmccrossin.github.io/amherst-display/assets/logos/ccmha/cumberland-ramblers.png" alt="Cumberland Ramblers" class="ccmha-logo">
-            <div>
-              <div class="ccmha-title">Cumberland Ramblers Minor Hockey</div>
-              <div class="ccmha-sub">Next 7 days at Amherst Stadium</div>
-            </div>
-          </div>
-          <div class="ccmha-games" id="ccmha-games"></div>
-        </section>
+      </section>
       </div>
 
       <!-- Right Column: Standings & Top Scorers -->
@@ -226,7 +198,6 @@ const CONFIG = {
   ROSTER_URL: "https://thomasmccrossin.github.io/amherst-display/rosters/amherst-ramblers.json",
   GAMES_URL: "https://thomasmccrossin.github.io/amherst-display/games/amherst-ramblers.json",
   STANDINGS_URL: "https://thomasmccrossin.github.io/amherst-display/standings_mhl.json",
-  CCMHA_URL: "https://thomasmccrossin.github.io/amherst-display/ccmha_games.json",
   DAYS_AHEAD: 7,
   HOME_ONLY: true,
   HOME_VENUES: ["Amherst Stadium"],
@@ -267,7 +238,7 @@ function renderUpcomingGames(events) {
 
   const upcoming = events
     .map(e=> ({...e, start:new Date(e.start), end: e.end? new Date(e.end): null}))
-    .filter(e=> e.start >= now && withinWindow(e.start))
+    .filter(e=> e.start >= now && withinWindow(e.start) && isHome(e))
     .sort((a,b)=> a.start-b.start)
     .slice(0, 6);
 
@@ -495,46 +466,6 @@ function renderStandings(standingsData) {
   $section.style.display = 'block';
 }
 
-// Render CCMHA minor hockey
-async function renderCCMHA() {
-  try {
-    const data = await fetchJSON(CONFIG.CCMHA_URL);
-    const games = data.games || [];
-    const now = new Date();
-    const futureGames = games
-      .filter(g => new Date(g.start) >= now)
-      .sort((a,b) => new Date(a.start) - new Date(b.start))
-      .slice(0, 6);
-
-    if (futureGames.length === 0) {
-      document.getElementById('ccmha-section').style.display = 'none';
-      return;
-    }
-
-    const $section = document.getElementById('ccmha-section');
-    const $games = document.getElementById('ccmha-games');
-
-    $games.innerHTML = futureGames.map(g => `
-      <div class="ccmha-card">
-        <div class="ccmha-time">${fmtTime(new Date(g.start))}</div>
-        <div>
-          <div class="ccmha-matchup">
-            <span>${g.home_team}</span>
-            <span class="ccmha-vs">vs</span>
-            <span>${g.away_team}</span>
-          </div>
-          <div class="ccmha-division">${fmtDate(new Date(g.start))}</div>
-        </div>
-        <div class="ccmha-league">${g.league}</div>
-      </div>`).join('');
-
-    $section.style.display = 'block';
-  } catch(e) {
-    console.warn('[CCMHA] Failed to load:', e.message);
-    document.getElementById('ccmha-section').style.display = 'none';
-  }
-}
-
 // Load all data
 async function loadAll() {
   try {
@@ -561,7 +492,6 @@ async function loadAll() {
     renderTeamStats(gamesData);
     renderRecentResults(gamesData);
     renderStandings(standingsData);
-    await renderCCMHA();
 
   } catch(e) {
     console.error('[Display] Error loading data:', e);
