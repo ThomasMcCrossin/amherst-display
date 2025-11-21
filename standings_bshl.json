@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-11-20T06:51:34.655Z",
+  "generated_at": "2025-11-21T06:53:19.163Z",
   "season": "",
   "league": "BSHL",
   "rows": [
@@ -56,6 +56,19 @@
       "slug": "amherst-ducks"
     },
     {
+      "team": "Dalhousie Marauders",
+      "gp": 7,
+      "w": 6,
+      "l": 1,
+      "otl": 0,
+      "sol": 0,
+      "pts": 12,
+      "gf": 38,
+      "ga": 14,
+      "diff": 24,
+      "slug": null
+    },
+    {
       "team": "Miramichi Northmen",
       "gp": 8,
       "w": 5,
@@ -69,29 +82,16 @@
       "slug": null
     },
     {
-      "team": "Dalhousie Marauders",
-      "gp": 6,
-      "w": 5,
-      "l": 1,
-      "otl": 0,
-      "sol": 0,
-      "pts": 10,
-      "gf": 37,
-      "ga": 14,
-      "diff": 23,
-      "slug": null
-    },
-    {
       "team": "Belle-Baie Rocs",
-      "gp": 7,
+      "gp": 8,
       "w": 1,
-      "l": 5,
+      "l": 6,
       "otl": 1,
       "sol": 0,
       "pts": 3,
       "gf": 21,
-      "ga": 46,
-      "diff": -25,
+      "ga": 47,
+      "diff": -26,
       "slug": null
     }
   ]
