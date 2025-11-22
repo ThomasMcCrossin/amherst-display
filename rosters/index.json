@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-11-21T06:53:03.927Z",
+  "generated_at": "2025-11-22T06:48:05.559Z",
   "season": "2024-25",
   "season_id": 41,
   "api_source": "HockeyTech",
@@ -35,7 +35,7 @@
       "team_name": "Valley-Wildcats",
       "league": "MHL",
       "team_id": 4,
-      "player_count": 25,
+      "player_count": 24,
       "file": "rosters/valley-wildcats.json"
     },
     {
@@ -43,7 +43,7 @@
       "team_name": "Yarmouth-Mariners",
       "league": "MHL",
       "team_id": 5,
-      "player_count": 25,
+      "player_count": 26,
       "file": "rosters/yarmouth-mariners.json"
     },
     {
@@ -91,7 +91,7 @@
       "team_name": "Grand-Falls-Rapids",
       "league": "MHL",
       "team_id": 12,
-      "player_count": 24,
+      "player_count": 25,
       "file": "rosters/grand-falls-rapids.json"
     },
     {
@@ -99,7 +99,7 @@
       "team_name": "Chaleur-Lightning",
       "league": "MHL",
       "team_id": 21,
-      "player_count": 32,
+      "player_count": 33,
       "file": "rosters/chaleur-lightning.json"
     }
   ]

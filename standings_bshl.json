@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-11-21T06:53:19.163Z",
+  "generated_at": "2025-11-22T06:48:24.694Z",
   "season": "",
   "league": "BSHL",
   "rows": [
@@ -17,6 +17,19 @@
       "slug": null
     },
     {
+      "team": "Fredericton Express",
+      "gp": 10,
+      "w": 6,
+      "l": 4,
+      "otl": 0,
+      "sol": 0,
+      "pts": 12,
+      "gf": 52,
+      "ga": 47,
+      "diff": 5,
+      "slug": null
+    },
+    {
       "team": "Elsipogtog Hawks",
       "gp": 9,
       "w": 5,
@@ -28,19 +41,6 @@
       "ga": 40,
       "diff": 8,
       "slug": "elsipogtog"
-    },
-    {
-      "team": "Fredericton Express",
-      "gp": 9,
-      "w": 5,
-      "l": 4,
-      "otl": 0,
-      "sol": 0,
-      "pts": 10,
-      "gf": 46,
-      "ga": 45,
-      "diff": 1,
-      "slug": null
     },
     {
       "team": "Amherst Ducks",
@@ -70,15 +70,15 @@
     },
     {
       "team": "Miramichi Northmen",
-      "gp": 8,
+      "gp": 9,
       "w": 5,
-      "l": 1,
+      "l": 2,
       "otl": 2,
       "sol": 0,
       "pts": 12,
-      "gf": 34,
-      "ga": 30,
-      "diff": 4,
+      "gf": 36,
+      "ga": 36,
+      "diff": 0,
       "slug": null
     },
     {

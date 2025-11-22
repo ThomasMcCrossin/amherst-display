@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-11-21T06:53:19Z",
+  "generated_at": "2025-11-22T06:48:25Z",
   "timezone": "America/Halifax",
   "events": [
     {
@@ -224,30 +224,12 @@
     },
     {
       "league": "BSHL",
-      "home_team": "Miramichi",
-      "away_team": "Fredericton",
-      "home_slug": "miramichi-bshl",
-      "away_slug": "fredericton",
-      "start": "2025-11-21T20:15:00-04:00",
-      "location": "Civic"
-    },
-    {
-      "league": "BSHL",
       "home_team": "Amherst",
       "away_team": "Bouctouche",
       "home_slug": "amherst-ducks",
       "away_slug": "bouctouche",
       "start": "2025-11-22T19:00:00-04:00",
       "location": "Amherst Stadium"
-    },
-    {
-      "league": "BSHL",
-      "home_team": "Dalhousie",
-      "away_team": "Belle-Baie",
-      "home_slug": "dalhousie",
-      "away_slug": "belle-baie",
-      "start": "2025-11-22T19:30:00-04:00",
-      "location": "Dalhousie Arena"
     },
     {
       "league": "BSHL",
@@ -749,6 +731,15 @@
       "away_slug": "dalhousie",
       "start": "2026-01-18T14:00:00-04:00",
       "location": "Amherst Stadium"
+    },
+    {
+      "league": "BSHL",
+      "home_team": "Dalhousie",
+      "away_team": "Belle-Baie",
+      "home_slug": "dalhousie",
+      "away_slug": "belle-baie",
+      "start": "2026-01-19T19:30:00-04:00",
+      "location": "Dalhousie Arena"
     },
     {
       "league": "BSHL",

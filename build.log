@@ -71,8 +71,7 @@
 [rosters/valley-wildcats] Fetching roster for Valley-Wildcats...
 [rosters] Fetching from API: team_id=4
 [rosters] Fetching stats from API: team_id=4
-[rosters/valley-wildcats] Processing 25 players (downloading headshots)
-[rosters] Downloaded: 0-ben-manos.jpg
+[rosters/valley-wildcats] Processing 24 players (downloading headshots)
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
 [rosters] Downloaded: 7-keegan-o-neill.jpg
@@ -96,11 +95,11 @@
 [rosters] Downloaded: 29-cohen-stoddard.jpg
 [rosters] Downloaded: 32-brody-ford.jpg
 [rosters] Downloaded: 70-sean-hogan.jpg
-[rosters/valley-wildcats] Wrote rosters/valley-wildcats.json (25 players)
+[rosters/valley-wildcats] Wrote rosters/valley-wildcats.json (24 players)
 [rosters/yarmouth-mariners] Fetching roster for Yarmouth-Mariners...
 [rosters] Fetching from API: team_id=5
 [rosters] Fetching stats from API: team_id=5
-[rosters/yarmouth-mariners] Processing 25 players (downloading headshots)
+[rosters/yarmouth-mariners] Processing 26 players (downloading headshots)
 [rosters] Downloaded: 4-loic-mburanumwe.jpg
 [rosters] Downloaded: 6-lucien-doucette.jpg
 [rosters] Downloaded: 9-dawson-o-connell.jpg
@@ -112,8 +111,8 @@
 [rosters] Downloaded: 16-cole-bent.jpg
 [rosters] Downloaded: 16-jared-pitman.jpg
 [rosters] Downloaded: 19-grayson-pardy.jpg
-[rosters] Downloaded: 20-james-lin.jpg
 [rosters] Downloaded: 21-ryder-macqueen.jpg
+[rosters] Downloaded: 22-kananga-mangala.jpg
 [rosters] Downloaded: 22-owen-o-donnell.jpg
 [rosters] Downloaded: 23-cole-macleod.jpg
 [rosters] Downloaded: 24-tucker-makinen.jpg
@@ -125,7 +124,8 @@
 [rosters] Downloaded: 37-jano-zambakdjian.jpg
 [rosters] Downloaded: 46-luke-foley.jpg
 [rosters] Downloaded: 47-seamus-maceachern.jpg
-[rosters/yarmouth-mariners] Wrote rosters/yarmouth-mariners.json (25 players)
+[rosters] Skipping placeholder image
+[rosters/yarmouth-mariners] Wrote rosters/yarmouth-mariners.json (26 players)
 [rosters/west-kent-steamers] Fetching roster for West-Kent-Steamers...
 [rosters] Fetching from API: team_id=6
 [rosters] Fetching stats from API: team_id=6
@@ -286,7 +286,7 @@
 [rosters/grand-falls-rapids] Fetching roster for Grand-Falls-Rapids...
 [rosters] Fetching from API: team_id=12
 [rosters] Fetching stats from API: team_id=12
-[rosters/grand-falls-rapids] Processing 24 players (downloading headshots)
+[rosters/grand-falls-rapids] Processing 25 players (downloading headshots)
 [rosters] Downloaded: 4-loic-gallant.jpg
 [rosters] Downloaded: 5-anton-topilnyckyj.jpg
 [rosters] Downloaded: 6-nathan-dubreuil.jpg
@@ -294,6 +294,7 @@
 [rosters] Downloaded: 8-carter-bellamy.jpg
 [rosters] Downloaded: 9-luc-marnell.jpg
 [rosters] Downloaded: 10-tristan-richard.jpg
+[rosters] Skipping placeholder image
 [rosters] Downloaded: 16-oliver-plante.jpg
 [rosters] Downloaded: 17-isaac-allard.jpg
 [rosters] Downloaded: 18-dereck-asselin.jpg
@@ -310,11 +311,11 @@
 [rosters] Downloaded: 81-jack-brown.jpg
 [rosters] Downloaded: 88-brayden-campbell.jpg
 [rosters] Downloaded: 91-loic-francoeur.jpg
-[rosters/grand-falls-rapids] Wrote rosters/grand-falls-rapids.json (24 players)
+[rosters/grand-falls-rapids] Wrote rosters/grand-falls-rapids.json (25 players)
 [rosters/chaleur-lightning] Fetching roster for Chaleur-Lightning...
 [rosters] Fetching from API: team_id=21
 [rosters] Fetching stats from API: team_id=21
-[rosters/chaleur-lightning] Processing 32 players (downloading headshots)
+[rosters/chaleur-lightning] Processing 33 players (downloading headshots)
 [rosters] Downloaded: 2-jack-hayne.jpg
 [rosters] Downloaded: 4-jameson-george.jpg
 [rosters] Downloaded: 7-michael-pilgrim.jpg
@@ -327,6 +328,7 @@
 [rosters] Downloaded: 19-cohen-mccallum.jpg
 [rosters] Downloaded: 20-isaac-arsenault.jpg
 [rosters] Downloaded: 22-nic-macisaac.jpg
+[rosters] Downloaded: 25-owen-arnold.jpg
 [rosters] Skipping placeholder image
 [rosters] Downloaded: 32-nolan-fowler.jpg
 [rosters] Downloaded: 33-will-morgan.jpg
@@ -346,7 +348,7 @@
 [rosters] Downloaded: 120-felix-sylvain-hache.jpg
 [rosters] Downloaded: 120-carter-mcillwraith.jpg
 [rosters] Downloaded: 120-isaiah-rogerson.jpg
-[rosters/chaleur-lightning] Wrote rosters/chaleur-lightning.json (32 players)
+[rosters/chaleur-lightning] Wrote rosters/chaleur-lightning.json (33 players)
 [rosters] Wrote rosters/index.json with 12 team(s)
 [rosters] Complete! Teams=12
 [games] Starting Ramblers games build...
@@ -384,8 +386,8 @@
 [standings/BSHL] example={"team":"Bouctouche JCs","gp":9,"w":6,"l":2,"otl":1,"sol":0,"pts":13,"gf":44,"ga":27,"diff":17,"slug":null}
 [standings] mhlRows=12  bshlRows=7
 [schedules/ICS] parsed=52
-[schedules/BSHL] parsed=43
-[schedules] events=95  ramblers=52  ducks=43
+[schedules/BSHL] parsed=42
+[schedules] events=94  ramblers=52  ducks=42
 [CCMHA] Fetching games for next 7 days
 [CCMHA] API returned 202 total schedule items
 [CCMHA] Found 4 games at Amherst Stadium
