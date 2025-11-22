@@ -303,7 +303,9 @@ function renderRecentResults(gamesData) {
 
   const $section = document.getElementById('recent-results-section');
   const $results = document.getElementById('recent-results');
-  const recentGames = gamesData.games.slice(-5).reverse(); // Last 5 games
+  // Sort games by date and get 5 most recent
+  const sortedGames = [...gamesData.games].sort((a, b) => new Date(b.date) - new Date(a.date));
+  const recentGames = sortedGames.slice(0, 5); // 5 most recent games
 
   $results.innerHTML = recentGames.map(g => {
     const won = g.result?.won;
