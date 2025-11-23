@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-11-22T06:48:05.559Z",
+  "generated_at": "2025-11-23T06:49:19.846Z",
   "season": "2024-25",
   "season_id": 41,
   "api_source": "HockeyTech",
@@ -99,7 +99,7 @@
       "team_name": "Chaleur-Lightning",
       "league": "MHL",
       "team_id": 21,
-      "player_count": 33,
+      "player_count": 34,
       "file": "rosters/chaleur-lightning.json"
     }
   ]

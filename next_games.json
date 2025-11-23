@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-11-22T06:48:25Z",
+  "generated_at": "2025-11-23T06:49:33Z",
   "timezone": "America/Halifax",
   "teams": [
     {
@@ -30,29 +30,7 @@
     },
     {
       "team_slug": "amherst-ducks",
-      "games": [
-        {
-          "opponent_slug": "bouctouche",
-          "home": true,
-          "start": "2025-11-22T19:00:00-04:00",
-          "venue": "Amherst Stadium",
-          "city": ""
-        },
-        {
-          "opponent_slug": "elsipogtog",
-          "home": false,
-          "start": "2025-11-23T17:30:00-04:00",
-          "venue": "Kent North",
-          "city": ""
-        },
-        {
-          "opponent_slug": "dalhousie",
-          "home": true,
-          "start": "2025-11-29T19:00:00-04:00",
-          "venue": "Amherst Stadium",
-          "city": ""
-        }
-      ]
+      "games": []
     }
   ]
 }
