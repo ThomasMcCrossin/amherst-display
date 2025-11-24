@@ -1,6 +1,98 @@
 {
-  "generated_at": "2025-11-23T06:49:33.493Z",
-  "league": "BSHL",
+  "generated_at": "2025-11-24T06:53:03.269Z",
   "season": "",
-  "rows": []
+  "league": "BSHL",
+  "rows": [
+    {
+      "team": "Bouctouche JCs",
+      "gp": 10,
+      "w": 6,
+      "l": 2,
+      "otl": 2,
+      "sol": 0,
+      "pts": 14,
+      "gf": 48,
+      "ga": 32,
+      "diff": 16,
+      "slug": null
+    },
+    {
+      "team": "Elsipogtog Hawks",
+      "gp": 10,
+      "w": 6,
+      "l": 4,
+      "otl": 0,
+      "sol": 0,
+      "pts": 12,
+      "gf": 58,
+      "ga": 44,
+      "diff": 14,
+      "slug": "elsipogtog"
+    },
+    {
+      "team": "Fredericton Express",
+      "gp": 10,
+      "w": 6,
+      "l": 4,
+      "otl": 0,
+      "sol": 0,
+      "pts": 12,
+      "gf": 52,
+      "ga": 47,
+      "diff": 5,
+      "slug": null
+    },
+    {
+      "team": "Amherst Ducks",
+      "gp": 8,
+      "w": 1,
+      "l": 6,
+      "otl": 1,
+      "sol": 0,
+      "pts": 3,
+      "gf": 34,
+      "ga": 67,
+      "diff": -33,
+      "slug": "amherst-ducks"
+    },
+    {
+      "team": "Dalhousie Marauders",
+      "gp": 7,
+      "w": 6,
+      "l": 1,
+      "otl": 0,
+      "sol": 0,
+      "pts": 12,
+      "gf": 38,
+      "ga": 14,
+      "diff": 24,
+      "slug": null
+    },
+    {
+      "team": "Miramichi Northmen",
+      "gp": 9,
+      "w": 5,
+      "l": 2,
+      "otl": 2,
+      "sol": 0,
+      "pts": 12,
+      "gf": 36,
+      "ga": 36,
+      "diff": 0,
+      "slug": null
+    },
+    {
+      "team": "Belle-Baie Rocs",
+      "gp": 8,
+      "w": 1,
+      "l": 6,
+      "otl": 1,
+      "sol": 0,
+      "pts": 3,
+      "gf": 21,
+      "ga": 47,
+      "diff": -26,
+      "slug": null
+    }
+  ]
 }
