@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 7,
-  "updated_at": "2025-11-24T06:52:37.462Z",
+  "updated_at": "2025-11-25T06:53:53.770Z",
   "player_count": 31,
   "players": [
     {
@@ -256,7 +256,7 @@
       "birthdate": "2005-12-14",
       "birth_year": "'05",
       "age": 20,
-      "hometown": "New Glasgow, NS",
+      "hometown": "Salt Springs, NS",
       "birthplace": "Salt Springs, NS, ",
       "rookie": false,
       "veteran": false,

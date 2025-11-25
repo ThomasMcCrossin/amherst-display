@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-11-24T06:53:04Z",
+  "generated_at": "2025-11-25T06:54:20Z",
   "timezone": "America/Halifax",
   "games": [
     {
@@ -24,8 +24,8 @@
       "league": "U18-A",
       "home_team": "Strait Richmond Pirates",
       "away_team": "Cumberland Ramblers",
-      "start": "2025-11-30T15:30:00-04:00",
-      "end": "2025-11-30T17:00:00-04:00",
+      "start": "2025-11-30T13:45:00-04:00",
+      "end": "2025-11-30T15:15:00-04:00",
       "location": "Amherst Stadium",
       "source": "ccmha"
     }

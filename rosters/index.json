@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-11-24T06:52:48.959Z",
+  "generated_at": "2025-11-25T06:54:05.678Z",
   "season": "2024-25",
   "season_id": 41,
   "api_source": "HockeyTech",
@@ -35,7 +35,7 @@
       "team_name": "Valley-Wildcats",
       "league": "MHL",
       "team_id": 4,
-      "player_count": 24,
+      "player_count": 25,
       "file": "rosters/valley-wildcats.json"
     },
     {
@@ -51,7 +51,7 @@
       "team_name": "West-Kent-Steamers",
       "league": "MHL",
       "team_id": 6,
-      "player_count": 28,
+      "player_count": 27,
       "file": "rosters/west-kent-steamers.json"
     },
     {
