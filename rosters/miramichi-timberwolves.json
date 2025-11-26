@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 9,
-  "updated_at": "2025-11-25T06:53:58.224Z",
+  "updated_at": "2025-11-26T06:53:23.195Z",
   "player_count": 26,
   "players": [
     {
@@ -31,8 +31,8 @@
       "stats": {
         "games_played": 21,
         "goals": 6,
-        "assists": 9,
-        "points": 15,
+        "assists": 10,
+        "points": 16,
         "plus_minus": 0,
         "penalty_minutes": 2,
         "power_play_goals": 0,
@@ -43,7 +43,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.71
+        "points_per_game": 0.76
       },
       "hockeytech_id": "3494",
       "person_id": "4057",
@@ -768,11 +768,11 @@
         "losses": 7,
         "ot_losses": 1,
         "minutes_played": 1076,
-        "saves": 568,
-        "shots": 629,
+        "saves": 588,
+        "shots": 649,
         "goals_against": 61,
         "shutouts": 2,
-        "save_percentage": 0.903,
+        "save_percentage": 0.906,
         "goals_against_average": 3.4
       },
       "hockeytech_id": "2953",
@@ -1015,11 +1015,11 @@
         "losses": 11,
         "ot_losses": 1,
         "minutes_played": 1396,
-        "saves": 705,
-        "shots": 785,
+        "saves": 725,
+        "shots": 805,
         "goals_against": 80,
         "shutouts": 4,
-        "save_percentage": 0.898,
+        "save_percentage": 0.901,
         "goals_against_average": 3.44
       },
       "flags": []

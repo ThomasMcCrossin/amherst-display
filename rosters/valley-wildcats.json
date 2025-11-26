@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 4,
-  "updated_at": "2025-11-25T06:53:46.870Z",
+  "updated_at": "2025-11-26T06:53:13.659Z",
   "player_count": 25,
   "players": [
     {
@@ -174,8 +174,8 @@
       "stats": {
         "games_played": 23,
         "goals": 8,
-        "assists": 5,
-        "points": 13,
+        "assists": 6,
+        "points": 14,
         "plus_minus": 0,
         "penalty_minutes": 24,
         "power_play_goals": 1,
@@ -186,7 +186,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.57
+        "points_per_game": 0.61
       },
       "hockeytech_id": "3615",
       "person_id": "4230",
@@ -649,8 +649,8 @@
       "stats": {
         "games_played": 18,
         "goals": 3,
-        "assists": 8,
-        "points": 11,
+        "assists": 9,
+        "points": 12,
         "plus_minus": 0,
         "penalty_minutes": 10,
         "power_play_goals": 1,
@@ -661,7 +661,7 @@
         "short_handed_points": 1,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.61
+        "points_per_game": 0.67
       },
       "hockeytech_id": "3852",
       "person_id": "4480",
@@ -790,11 +790,11 @@
         "losses": 8,
         "ot_losses": 0,
         "minutes_played": 611,
-        "saves": 372,
-        "shots": 437,
+        "saves": 374,
+        "shots": 439,
         "goals_against": 65,
         "shutouts": 0,
-        "save_percentage": 0.851,
+        "save_percentage": 0.852,
         "goals_against_average": 6.38
       },
       "hockeytech_id": "3612",
@@ -873,11 +873,11 @@
         "losses": 10,
         "ot_losses": 0,
         "minutes_played": 701,
-        "saves": 451,
-        "shots": 505,
+        "saves": 454,
+        "shots": 508,
         "goals_against": 54,
         "shutouts": 0,
-        "save_percentage": 0.893,
+        "save_percentage": 0.894,
         "goals_against_average": 4.62
       },
       "hockeytech_id": "3618",
@@ -895,11 +895,11 @@
         "losses": 19,
         "ot_losses": 0,
         "minutes_played": 1439,
-        "saves": 889,
-        "shots": 1024,
+        "saves": 894,
+        "shots": 1029,
         "goals_against": 135,
         "shutouts": 0,
-        "save_percentage": 0.868,
+        "save_percentage": 0.869,
         "goals_against_average": 5.63
       },
       "flags": []

@@ -4,7 +4,7 @@
   "team_id": 1,
   "season": "2024-25",
   "season_id": 41,
-  "updated_at": "2025-11-25T06:54:16.055Z",
+  "updated_at": "2025-11-26T06:53:38.679Z",
   "summary": {
     "games_played": 22,
     "wins": 14,
@@ -286,8 +286,9 @@
               "number": 77
             },
             {
-              "name": "Reid Calder",
-              "number": 28
+              "player_id": "mhl-3759",
+              "name": "Jonah Leard",
+              "number": 21
             }
           ],
           "power_play": true,
@@ -534,8 +535,8 @@
         },
         "mhl-3766": {
           "position": "G",
-          "saves": 39,
-          "shots_against": 43,
+          "saves": 38,
+          "shots_against": 42,
           "goals_against": 4,
           "save_percentage": "0.000",
           "time_on_ice": "60:00"
