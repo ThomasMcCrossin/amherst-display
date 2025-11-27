@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-11-26T06:53:44Z",
+  "generated_at": "2025-11-27T06:53:50Z",
   "timezone": "America/Halifax",
   "games": [
     {
@@ -26,6 +26,15 @@
       "away_team": "Cumberland Ramblers",
       "start": "2025-11-30T13:45:00-04:00",
       "end": "2025-11-30T15:15:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U18-C",
+      "home_team": "Petitcodiac Flyers",
+      "away_team": "Cumberland U18C Ramblers",
+      "start": "2025-12-04T20:00:00-04:00",
+      "end": "2025-12-04T21:00:00-04:00",
       "location": "Amherst Stadium",
       "source": "ccmha"
     }

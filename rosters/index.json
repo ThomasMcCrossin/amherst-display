@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-11-26T06:53:28.632Z",
+  "generated_at": "2025-11-27T06:53:31.443Z",
   "season": "2024-25",
   "season_id": 41,
   "api_source": "HockeyTech",
@@ -51,7 +51,7 @@
       "team_name": "West-Kent-Steamers",
       "league": "MHL",
       "team_id": 6,
-      "player_count": 27,
+      "player_count": 25,
       "file": "rosters/west-kent-steamers.json"
     },
     {
@@ -67,7 +67,7 @@
       "team_name": "Campbellton-Tigers",
       "league": "MHL",
       "team_id": 8,
-      "player_count": 26,
+      "player_count": 27,
       "file": "rosters/campbellton-tigers.json"
     },
     {
@@ -83,7 +83,7 @@
       "team_name": "Summerside-Capitals",
       "league": "MHL",
       "team_id": 10,
-      "player_count": 26,
+      "player_count": 25,
       "file": "rosters/summerside-capitals.json"
     },
     {
