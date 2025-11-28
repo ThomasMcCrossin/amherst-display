@@ -5,8 +5,8 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 4,
-  "updated_at": "2025-11-27T06:53:27.444Z",
-  "player_count": 25,
+  "updated_at": "2025-11-28T06:53:17.077Z",
+  "player_count": 23,
   "players": [
     {
       "player_id": "mhl-3902",
@@ -31,82 +31,6 @@
       "flags": [
         "ht-import"
       ]
-    },
-    {
-      "player_id": "mhl-3072",
-      "number": "5",
-      "first_name": "Jacob",
-      "last_name": "Pineau",
-      "name": "Jacob Pineau",
-      "position": "LW",
-      "height": "6'02",
-      "height_inches": 74,
-      "weight": 175,
-      "shoots": "L",
-      "birthdate": "2007-05-18",
-      "birth_year": "'07",
-      "age": 18,
-      "hometown": "Riverview, NB",
-      "birthplace": "Riverview, NB, ",
-      "rookie": true,
-      "veteran": false,
-      "headshot": "assets/headshots/Valley-Wildcats/5-jacob-pineau.jpg",
-      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3072.jpg",
-      "stats": {},
-      "hockeytech_id": "3072",
-      "person_id": "3590",
-      "flags": [
-        "ht-rookie"
-      ]
-    },
-    {
-      "player_id": "mhl-3870",
-      "number": "6",
-      "first_name": "Dexter",
-      "last_name": "Materi",
-      "name": "Dexter Materi",
-      "position": "LW",
-      "height": "5'7",
-      "height_inches": 67,
-      "weight": 179,
-      "shoots": "L",
-      "birthdate": "2007-10-07",
-      "birth_year": "'07",
-      "age": 18,
-      "hometown": "Penticton,BC",
-      "rookie": false,
-      "veteran": false,
-      "stats": {},
-      "hockeytech_id": "3870",
-      "person_id": "4509",
-      "flags": [
-        "ht-import"
-      ]
-    },
-    {
-      "player_id": "mhl-2761",
-      "number": "7",
-      "first_name": "Keegan",
-      "last_name": "O'Neill",
-      "name": "Keegan O'Neill",
-      "position": "RW",
-      "height": "5'10",
-      "height_inches": 70,
-      "weight": 184,
-      "shoots": "R",
-      "birthdate": "2006-12-16",
-      "birth_year": "'06",
-      "age": 19,
-      "hometown": "Glace Bay, NS",
-      "birthplace": "Glace Bay, NS, ",
-      "rookie": false,
-      "veteran": false,
-      "headshot": "assets/headshots/Valley-Wildcats/7-keegan-o-neill.jpg",
-      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2761.jpg",
-      "stats": {},
-      "hockeytech_id": "2761",
-      "person_id": "3188",
-      "flags": []
     },
     {
       "player_id": "mhl-3813",
@@ -192,6 +116,7 @@
       "person_id": "4230",
       "flags": [
         "ht-rookie",
+        "ht-import",
         "ht-played-major-junior"
       ]
     },
@@ -279,6 +204,49 @@
       ]
     },
     {
+      "player_id": "mhl-3599",
+      "number": "13",
+      "first_name": "Victor",
+      "last_name": "Lanoue",
+      "name": "Victor Lanoue",
+      "position": "LW",
+      "height": "5'10",
+      "height_inches": 70,
+      "weight": 183,
+      "shoots": "L",
+      "birthdate": "2006-08-18",
+      "birth_year": "'06",
+      "age": 19,
+      "hometown": "La Prairie, QC",
+      "birthplace": "La Prairie, QC, QC",
+      "rookie": false,
+      "veteran": false,
+      "headshot": "assets/headshots/Valley-Wildcats/13-victor-lanoue.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3599.jpg",
+      "stats": {
+        "games_played": 24,
+        "goals": 4,
+        "assists": 14,
+        "points": 18,
+        "plus_minus": 0,
+        "penalty_minutes": 6,
+        "power_play_goals": 2,
+        "power_play_assists": 3,
+        "power_play_points": 5,
+        "short_handed_goals": 0,
+        "short_handed_assists": 0,
+        "short_handed_points": 0,
+        "game_winning_goals": 1,
+        "overtime_goals": 0,
+        "points_per_game": 0.75
+      },
+      "hockeytech_id": "3599",
+      "person_id": "4214",
+      "flags": [
+        "ht-import"
+      ]
+    },
+    {
       "player_id": "mhl-2703",
       "number": "14",
       "first_name": "Caleb",
@@ -320,47 +288,6 @@
       "flags": [
         "ht-played-major-junior"
       ]
-    },
-    {
-      "player_id": "mhl-3599",
-      "number": "15",
-      "first_name": "Victor",
-      "last_name": "Lanoue",
-      "name": "Victor Lanoue",
-      "position": "LW",
-      "height": "5'10",
-      "height_inches": 70,
-      "weight": 183,
-      "shoots": "L",
-      "birthdate": "2006-08-18",
-      "birth_year": "'06",
-      "age": 19,
-      "hometown": "La Prairie, QC",
-      "birthplace": "La Prairie, QC, QC",
-      "rookie": false,
-      "veteran": false,
-      "headshot": "assets/headshots/Valley-Wildcats/15-victor-lanoue.jpg",
-      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3599.jpg",
-      "stats": {
-        "games_played": 24,
-        "goals": 4,
-        "assists": 14,
-        "points": 18,
-        "plus_minus": 0,
-        "penalty_minutes": 6,
-        "power_play_goals": 2,
-        "power_play_assists": 3,
-        "power_play_points": 5,
-        "short_handed_goals": 0,
-        "short_handed_assists": 0,
-        "short_handed_points": 0,
-        "game_winning_goals": 1,
-        "overtime_goals": 0,
-        "points_per_game": 0.75
-      },
-      "hockeytech_id": "3599",
-      "person_id": "4214",
-      "flags": []
     },
     {
       "player_id": "mhl-3600",
@@ -405,6 +332,30 @@
         "ht-rookie",
         "ht-import",
         "ht-played-major-junior"
+      ]
+    },
+    {
+      "player_id": "mhl-3908",
+      "number": "16",
+      "first_name": "Victor",
+      "last_name": "Proulx",
+      "name": "Victor Proulx",
+      "position": "LW",
+      "height": "5'11",
+      "height_inches": 71,
+      "weight": 165,
+      "shoots": "L",
+      "birthdate": "2006-10-19",
+      "birth_year": "'06",
+      "age": 19,
+      "hometown": "Trois-Rivieres, QC",
+      "rookie": false,
+      "veteran": false,
+      "stats": {},
+      "hockeytech_id": "3908",
+      "person_id": "4561",
+      "flags": [
+        "ht-import"
       ]
     },
     {
@@ -490,28 +441,30 @@
       ]
     },
     {
-      "player_id": "mhl-3731",
+      "player_id": "mhl-3072",
       "number": "19",
-      "first_name": "Max",
-      "last_name": "MacKenzie",
-      "name": "Max MacKenzie",
-      "position": "D",
-      "height": "6'0",
-      "height_inches": 72,
-      "weight": 165,
+      "first_name": "Jacob",
+      "last_name": "Pineau",
+      "name": "Jacob Pineau",
+      "position": "LW",
+      "height": "6'02",
+      "height_inches": 74,
+      "weight": 175,
       "shoots": "L",
-      "birthdate": "2009-01-13",
-      "birth_year": "'09",
-      "age": 16,
-      "hometown": "Stratford, PE",
-      "birthplace": "Stratford, PE, ",
-      "rookie": false,
+      "birthdate": "2007-05-18",
+      "birth_year": "'07",
+      "age": 18,
+      "hometown": "Riverview, NB",
+      "birthplace": "Riverview, NB, ",
+      "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Valley-Wildcats/19-jacob-pineau.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3072.jpg",
       "stats": {},
-      "hockeytech_id": "3731",
-      "person_id": "4346",
+      "hockeytech_id": "3072",
+      "person_id": "3590",
       "flags": [
-        "ht-affiliate"
+        "ht-rookie"
       ]
     },
     {

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-11-27T06:53:31.443Z",
+  "generated_at": "2025-11-28T06:53:32.055Z",
   "season": "2024-25",
   "season_id": 41,
   "api_source": "HockeyTech",
@@ -19,7 +19,7 @@
       "team_name": "Edmundston-Blizzard",
       "league": "MHL",
       "team_id": 2,
-      "player_count": 25,
+      "player_count": 24,
       "file": "rosters/edmundston-blizzard.json"
     },
     {
@@ -35,7 +35,7 @@
       "team_name": "Valley-Wildcats",
       "league": "MHL",
       "team_id": 4,
-      "player_count": 25,
+      "player_count": 23,
       "file": "rosters/valley-wildcats.json"
     },
     {
@@ -75,7 +75,7 @@
       "team_name": "Miramichi-Timberwolves",
       "league": "MHL",
       "team_id": 9,
-      "player_count": 26,
+      "player_count": 27,
       "file": "rosters/miramichi-timberwolves.json"
     },
     {
@@ -99,7 +99,7 @@
       "team_name": "Chaleur-Lightning",
       "league": "MHL",
       "team_id": 21,
-      "player_count": 34,
+      "player_count": 31,
       "file": "rosters/chaleur-lightning.json"
     }
   ]
