@@ -70,8 +70,10 @@
 [rosters/valley-wildcats] Fetching roster for Valley-Wildcats...
 [rosters] Fetching from API: team_id=4
 [rosters] Fetching stats from API: team_id=4
-[rosters/valley-wildcats] Processing 23 players (downloading headshots)
+[rosters/valley-wildcats] Processing 24 players (downloading headshots)
 [rosters] Skipping placeholder image
+[rosters] Downloaded: 4-joshua-plourde.jpg
+[rosters] Downloaded: 5-marek-dubuc.jpg
 [rosters] Downloaded: 8-louis-carl-tremblay.jpg
 [rosters] Downloaded: 9-felix-belanger.jpg
 [rosters] Skipping placeholder image
@@ -80,7 +82,6 @@
 [rosters] Downloaded: 14-caleb-macdonald.jpg
 [rosters] Downloaded: 15-arnaud-lucier.jpg
 [rosters] Skipping placeholder image
-[rosters] Downloaded: 17-brady-burke.jpg
 [rosters] Skipping placeholder image
 [rosters] Downloaded: 19-jacob-pineau.jpg
 [rosters] Downloaded: 20-drew-lutz.jpg
@@ -93,7 +94,7 @@
 [rosters] Downloaded: 29-cohen-stoddard.jpg
 [rosters] Downloaded: 32-brody-ford.jpg
 [rosters] Downloaded: 70-sean-hogan.jpg
-[rosters/valley-wildcats] Wrote rosters/valley-wildcats.json (23 players)
+[rosters/valley-wildcats] Wrote rosters/valley-wildcats.json (24 players)
 [rosters/yarmouth-mariners] Fetching roster for Yarmouth-Mariners...
 [rosters] Fetching from API: team_id=5
 [rosters] Fetching stats from API: team_id=5
@@ -191,10 +192,11 @@
 [rosters/campbellton-tigers] Fetching roster for Campbellton-Tigers...
 [rosters] Fetching from API: team_id=8
 [rosters] Fetching stats from API: team_id=8
-[rosters/campbellton-tigers] Processing 27 players (downloading headshots)
+[rosters/campbellton-tigers] Processing 28 players (downloading headshots)
 [rosters] Downloaded: 1-samuel-quimper.jpg
 [rosters] Skipping placeholder image
 [rosters] Downloaded: 7-alex-lavoie.jpg
+[rosters] Downloaded: 7-keegan-o-neill.jpg
 [rosters] Downloaded: 8-adam-v-ronneau.jpg
 [rosters] Downloaded: 11-nathan-lebrasseur.jpg
 [rosters] Downloaded: 12-samuel-deveau.jpg
@@ -218,7 +220,7 @@
 [rosters] Downloaded: 98-sam-hope.jpg
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
-[rosters/campbellton-tigers] Wrote rosters/campbellton-tigers.json (27 players)
+[rosters/campbellton-tigers] Wrote rosters/campbellton-tigers.json (28 players)
 [rosters/miramichi-timberwolves] Fetching roster for Miramichi-Timberwolves...
 [rosters] Fetching from API: team_id=9
 [rosters] Fetching stats from API: team_id=9
@@ -228,11 +230,11 @@
 [rosters] Downloaded: 8-cameron-leblanc.jpg
 [rosters] Downloaded: 9-alexis-doucet.jpg
 [rosters] Downloaded: 10-eliott-robert.jpg
+[rosters] Downloaded: 11-coen-miller.jpg
 [rosters] Downloaded: 12-grady-burns.jpg
 [rosters] Downloaded: 14-mitchell-wagner.jpg
 [rosters] Downloaded: 17-ryan-hackett.jpg
 [rosters] Downloaded: 18-aiden-clowater.jpg
-[rosters] Downloaded: 18-coen-miller.jpg
 [rosters] Downloaded: 19-nick-beatty.jpg
 [rosters] Downloaded: 20-nolan-ryan.jpg
 [rosters] Downloaded: 22-benoit-arsenault.jpg
@@ -322,8 +324,8 @@
 [rosters] Downloaded: 15-brett-yuzik.jpg
 [rosters] Downloaded: 16-will-clark.jpg
 [rosters] Downloaded: 19-cohen-mccallum.jpg
-[rosters] Downloaded: 20-isaac-arsenault.jpg
 [rosters] Downloaded: 25-owen-arnold.jpg
+[rosters] Downloaded: 29-isaac-arsenault.jpg
 [rosters] Skipping placeholder image
 [rosters] Downloaded: 32-nolan-fowler.jpg
 [rosters] Downloaded: 33-will-morgan.jpg

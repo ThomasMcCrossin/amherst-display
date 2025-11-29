@@ -4,7 +4,7 @@
   "team_id": 1,
   "season": "2024-25",
   "season_id": 41,
-  "updated_at": "2025-11-28T06:53:42.878Z",
+  "updated_at": "2025-11-29T06:50:12.623Z",
   "summary": {
     "games_played": 23,
     "wins": 14,
@@ -2963,9 +2963,9 @@
           },
           "assists": [
             {
-              "player_id": "mhl-3545",
-              "name": "Christian White",
-              "number": 4
+              "player_id": "mhl-3250",
+              "name": "Mark Corbett",
+              "number": 27
             },
             {
               "player_id": "mhl-3562",
@@ -3067,8 +3067,8 @@
         "mhl-3545": {
           "position": "D",
           "goals": 0,
-          "assists": 1,
-          "points": 1,
+          "assists": 0,
+          "points": 0,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -3249,8 +3249,8 @@
         "mhl-3250": {
           "position": "C",
           "goals": 1,
-          "assists": 1,
-          "points": 2,
+          "assists": 2,
+          "points": 3,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
