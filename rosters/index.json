@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-11-29T06:50:02.965Z",
+  "generated_at": "2025-11-30T06:50:54.117Z",
   "season": "2024-25",
   "season_id": 41,
   "api_source": "HockeyTech",
@@ -43,7 +43,7 @@
       "team_name": "Yarmouth-Mariners",
       "league": "MHL",
       "team_id": 5,
-      "player_count": 26,
+      "player_count": 28,
       "file": "rosters/yarmouth-mariners.json"
     },
     {
@@ -75,7 +75,7 @@
       "team_name": "Miramichi-Timberwolves",
       "league": "MHL",
       "team_id": 9,
-      "player_count": 27,
+      "player_count": 29,
       "file": "rosters/miramichi-timberwolves.json"
     },
     {

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-11-29T06:50:16Z",
+  "generated_at": "2025-11-30T06:51:08Z",
   "timezone": "America/Halifax",
   "events": [
     {
@@ -231,24 +231,6 @@
       "start": "2025-11-27T19:00:00-04:00",
       "end": "2025-11-27T22:00:00-04:00",
       "location": "Pictou County Wellness Centre"
-    },
-    {
-      "league": "BSHL",
-      "home_team": "Fredericton",
-      "away_team": "Miramichi",
-      "home_slug": "fredericton",
-      "away_slug": "miramichi-bshl",
-      "start": "2025-11-29T19:00:00-04:00",
-      "location": "Grant - Harvey"
-    },
-    {
-      "league": "BSHL",
-      "home_team": "Amherst",
-      "away_team": "Dalhousie",
-      "home_slug": "amherst-ducks",
-      "away_slug": "dalhousie",
-      "start": "2025-11-29T19:00:00-04:00",
-      "location": "Amherst Stadium"
     },
     {
       "league": "MHL",

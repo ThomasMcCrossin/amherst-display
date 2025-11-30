@@ -1,17 +1,10 @@
 {
-  "generated_at": "2025-11-29T06:50:16Z",
+  "generated_at": "2025-11-30T06:51:08Z",
   "timezone": "America/Halifax",
   "teams": [
     {
       "team_slug": "amherst-ramblers",
       "games": [
-        {
-          "opponent_slug": "summerside-western-capitals",
-          "home": false,
-          "start": "2025-11-29T20:00:00-04:00",
-          "venue": "Credit Union Place",
-          "city": ""
-        },
         {
           "opponent_slug": "miramichi-timberwolves",
           "home": false,
@@ -25,19 +18,19 @@
           "start": "2025-12-06T19:30:00-04:00",
           "venue": "Amherst Stadium",
           "city": ""
+        },
+        {
+          "opponent_slug": "yarmouth-mariners",
+          "home": true,
+          "start": "2025-12-13T19:00:00-04:00",
+          "venue": "Amherst Stadium",
+          "city": ""
         }
       ]
     },
     {
       "team_slug": "amherst-ducks",
       "games": [
-        {
-          "opponent_slug": "dalhousie",
-          "home": true,
-          "start": "2025-11-29T19:00:00-04:00",
-          "venue": "Amherst Stadium",
-          "city": ""
-        },
         {
           "opponent_slug": "bouctouche",
           "home": false,
@@ -50,6 +43,13 @@
           "home": false,
           "start": "2025-12-06T19:30:00-04:00",
           "venue": "Dalhousie Arena",
+          "city": ""
+        },
+        {
+          "opponent_slug": "belle-baie",
+          "home": false,
+          "start": "2025-12-19T20:00:00-04:00",
+          "venue": "Arena Petit-Rocher",
           "city": ""
         }
       ]
