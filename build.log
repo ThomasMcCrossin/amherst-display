@@ -2,8 +2,8 @@
 [rosters/amherst-ramblers] Fetching roster for Amherst-Ramblers...
 [rosters] Fetching from API: team_id=1
 [rosters] Fetching stats from API: team_id=1
-[rosters/amherst-ramblers] Processing 31 players (using API URLs for headshots)
-[rosters/amherst-ramblers] Wrote rosters/amherst-ramblers.json (31 players)
+[rosters/amherst-ramblers] Processing 32 players (using API URLs for headshots)
+[rosters/amherst-ramblers] Wrote rosters/amherst-ramblers.json (32 players)
 [rosters/edmundston-blizzard] Fetching roster for Edmundston-Blizzard...
 [rosters] Fetching from API: team_id=2
 [rosters] Fetching stats from API: team_id=2
@@ -194,7 +194,7 @@
 [rosters/campbellton-tigers] Fetching roster for Campbellton-Tigers...
 [rosters] Fetching from API: team_id=8
 [rosters] Fetching stats from API: team_id=8
-[rosters/campbellton-tigers] Processing 28 players (downloading headshots)
+[rosters/campbellton-tigers] Processing 29 players (downloading headshots)
 [rosters] Downloaded: 1-samuel-quimper.jpg
 [rosters] Skipping placeholder image
 [rosters] Downloaded: 7-alex-lavoie.jpg
@@ -222,7 +222,8 @@
 [rosters] Downloaded: 98-sam-hope.jpg
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
-[rosters/campbellton-tigers] Wrote rosters/campbellton-tigers.json (28 players)
+[rosters] Skipping placeholder image
+[rosters/campbellton-tigers] Wrote rosters/campbellton-tigers.json (29 players)
 [rosters/miramichi-timberwolves] Fetching roster for Miramichi-Timberwolves...
 [rosters] Fetching from API: team_id=9
 [rosters] Fetching stats from API: team_id=9
@@ -352,9 +353,9 @@
 [rosters] Wrote rosters/index.json with 12 team(s)
 [rosters] Complete! Teams=12
 [games] Starting Ramblers games build...
-[games] Loaded roster with 25 players
+[games] Loaded roster with 26 players
 [games] Fetching Ramblers schedule...
-[games] Processing 24 completed games...
+[games] Processing 25 completed games...
 [games] Fetched summary for game 4612 (7 goals, 0 penalties)
 [games] Fetched summary for game 4619 (12 goals, 0 penalties)
 [games] Fetched summary for game 4624 (7 goals, 0 penalties)
@@ -379,18 +380,19 @@
 [games] Fetched summary for game 4738 (9 goals, 0 penalties)
 [games] Fetched summary for game 4751 (9 goals, 0 penalties)
 [games] Fetched summary for game 4760 (5 goals, 0 penalties)
-[games] Wrote games/amherst-ramblers.json (24 completed games)
-[games] Complete! Games=24
+[games] Fetched summary for game 4763 (8 goals, 0 penalties)
+[games] Wrote games/amherst-ramblers.json (25 completed games)
+[games] Complete! Games=25
 [standings/MHL] table rows found
 [standings/MHL] tables=1 chosen=1306x378 rows=12
 [standings/MHL] example={"col":"1","eastlink south eastlink south":"Summerside Western Capitals","south south":"SWC","gp":24,"w":16,"l":3,"otl":3,"sol":2,"pts":37,"pct pct":"0.771","rw":14,"otw":2,"sow":0,"gf":124,"ga":77,"diff":47,"pim pim":"662","streak":"6-0-0-1","p10":"7-2-0-1","team":"Summerside Western Capitals","slug":"summerside-western-capitals"}
 [standings/BSHL] table rows=7
-[standings/BSHL] example={"team":"Bouctouche JCs","gp":10,"w":6,"l":2,"otl":2,"sol":0,"pts":14,"gf":48,"ga":32,"diff":16,"slug":null}
+[standings/BSHL] example={"team":"Bouctouche JCs","gp":11,"w":7,"l":2,"otl":2,"sol":0,"pts":16,"gf":51,"ga":34,"diff":17,"slug":null}
 [standings] mhlRows=12  bshlRows=7
 [schedules/ICS] parsed=52
-[schedules/BSHL] parsed=34
-[schedules] events=86  ramblers=52  ducks=34
+[schedules/BSHL] parsed=33
+[schedules] events=85  ramblers=52  ducks=33
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 175 total schedule items
-[CCMHA] Found 4 games at Amherst Stadium
-[ccmha] games=4
+[CCMHA] API returned 167 total schedule items
+[CCMHA] Found 2 games at Amherst Stadium
+[ccmha] games=2

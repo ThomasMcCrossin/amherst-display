@@ -1,17 +1,10 @@
 {
-  "generated_at": "2025-11-30T06:51:08Z",
+  "generated_at": "2025-12-01T06:56:05Z",
   "timezone": "America/Halifax",
   "teams": [
     {
       "team_slug": "amherst-ramblers",
       "games": [
-        {
-          "opponent_slug": "miramichi-timberwolves",
-          "home": false,
-          "start": "2025-11-30T16:00:00-04:00",
-          "venue": "Miramichi Civic Centre",
-          "city": ""
-        },
         {
           "opponent_slug": "truro-bearcats",
           "home": true,
@@ -23,6 +16,13 @@
           "opponent_slug": "yarmouth-mariners",
           "home": true,
           "start": "2025-12-13T19:00:00-04:00",
+          "venue": "Amherst Stadium",
+          "city": ""
+        },
+        {
+          "opponent_slug": "summerside-western-capitals",
+          "home": true,
+          "start": "2025-12-14T14:00:00-04:00",
           "venue": "Amherst Stadium",
           "city": ""
         }

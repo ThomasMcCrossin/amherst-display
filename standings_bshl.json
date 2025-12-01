@@ -1,19 +1,19 @@
 {
-  "generated_at": "2025-11-30T06:51:08.016Z",
+  "generated_at": "2025-12-01T06:56:04.734Z",
   "season": "",
   "league": "BSHL",
   "rows": [
     {
       "team": "Bouctouche JCs",
-      "gp": 10,
-      "w": 6,
+      "gp": 11,
+      "w": 7,
       "l": 2,
       "otl": 2,
       "sol": 0,
-      "pts": 14,
-      "gf": 48,
-      "ga": 32,
-      "diff": 16,
+      "pts": 16,
+      "gf": 51,
+      "ga": 34,
+      "diff": 17,
       "slug": null
     },
     {
@@ -31,15 +31,15 @@
     },
     {
       "team": "Fredericton Express",
-      "gp": 11,
+      "gp": 12,
       "w": 6,
-      "l": 5,
+      "l": 6,
       "otl": 0,
       "sol": 0,
       "pts": 12,
-      "gf": 54,
-      "ga": 53,
-      "diff": 1,
+      "gf": 56,
+      "ga": 56,
+      "diff": 0,
       "slug": null
     },
     {
