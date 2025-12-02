@@ -4,7 +4,7 @@
   "team_id": 1,
   "season": "2024-25",
   "season_id": 41,
-  "updated_at": "2025-12-01T06:56:00.233Z",
+  "updated_at": "2025-12-02T06:55:06.250Z",
   "summary": {
     "games_played": 25,
     "wins": 15,
@@ -93,6 +93,11 @@
               "player_id": "mhl-3250",
               "name": "Mark Corbett",
               "number": 27
+            },
+            {
+              "player_id": "mhl-2799",
+              "name": "Anthony Gaudet",
+              "number": 11
             }
           ],
           "power_play": true,
@@ -118,9 +123,8 @@
               "number": 19
             },
             {
-              "player_id": "mhl-3808",
-              "name": "Ryan Hackett",
-              "number": 17
+              "name": "Kaden McNeil",
+              "number": 26
             }
           ],
           "power_play": false,
@@ -141,14 +145,14 @@
           },
           "assists": [
             {
-              "player_id": "mhl-2799",
-              "name": "Anthony Gaudet",
-              "number": 11
-            },
-            {
               "player_id": "mhl-2760",
               "name": "Darien Reynolds",
               "number": 18
+            },
+            {
+              "player_id": "mhl-3038",
+              "name": "Owen Aura",
+              "number": 25
             }
           ],
           "power_play": true,
@@ -172,6 +176,11 @@
               "player_id": "mhl-3903",
               "name": "Jacob Kaine",
               "number": 71
+            },
+            {
+              "player_id": "mhl-2943",
+              "name": "Thatcher Hughes",
+              "number": 37
             }
           ],
           "power_play": true,
@@ -236,6 +245,11 @@
             "position": "RW"
           },
           "assists": [
+            {
+              "player_id": "mhl-3562",
+              "name": "Elliot Wright",
+              "number": 13
+            },
             {
               "player_id": "mhl-3799",
               "name": "Anthony Morin",
@@ -318,8 +332,8 @@
         "mhl-3562": {
           "position": "C",
           "goals": 0,
-          "assists": 0,
-          "points": 0,
+          "assists": 1,
+          "points": 1,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -409,8 +423,8 @@
         "mhl-3038": {
           "position": "D",
           "goals": 0,
-          "assists": 0,
-          "points": 0,
+          "assists": 1,
+          "points": 1,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -486,8 +500,8 @@
         },
         "mhl-3766": {
           "position": "G",
-          "saves": 33,
-          "shots_against": 35,
+          "saves": 41,
+          "shots_against": 43,
           "goals_against": 2,
           "save_percentage": "0.000",
           "time_on_ice": "60:00"
@@ -884,8 +898,8 @@
         },
         "mhl-3766": {
           "position": "G",
-          "saves": 31,
-          "shots_against": 35,
+          "saves": 30,
+          "shots_against": 34,
           "goals_against": 4,
           "save_percentage": "0.000",
           "time_on_ice": "60:00"
@@ -959,6 +973,11 @@
             {
               "name": "Logan Crosby",
               "number": 14
+            },
+            {
+              "player_id": "mhl-3808",
+              "name": "Cory MacGillivray",
+              "number": 17
             }
           ],
           "power_play": true,
@@ -983,8 +1002,9 @@
               "number": 15
             },
             {
-              "name": "Trent Stewart",
-              "number": 47
+              "player_id": "mhl-3808",
+              "name": "Cory MacGillivray",
+              "number": 17
             }
           ],
           "power_play": false,
@@ -1062,8 +1082,9 @@
               "number": 17
             },
             {
-              "name": "Ben Wallace",
-              "number": 63
+              "player_id": "mhl-3402",
+              "name": "Kingsley Austin",
+              "number": 12
             }
           ],
           "power_play": false,
@@ -1380,16 +1401,16 @@
         },
         "mhl-3766": {
           "position": "G",
-          "saves": 16,
-          "shots_against": 19,
+          "saves": 27,
+          "shots_against": 30,
           "goals_against": 3,
           "save_percentage": "0.000",
           "time_on_ice": "44:27"
         },
         "mhl-3187": {
           "position": "G",
-          "saves": 6,
-          "shots_against": 10,
+          "saves": 10,
+          "shots_against": 14,
           "goals_against": 4,
           "save_percentage": "0.000",
           "time_on_ice": "15:33"

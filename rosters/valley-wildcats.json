@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 4,
-  "updated_at": "2025-12-01T06:55:34.284Z",
+  "updated_at": "2025-12-02T06:54:41.908Z",
   "player_count": 24,
   "players": [
     {
@@ -200,8 +200,8 @@
       "stats": {
         "games_played": 21,
         "goals": 1,
-        "assists": 10,
-        "points": 11,
+        "assists": 11,
+        "points": 12,
         "plus_minus": 0,
         "penalty_minutes": 26,
         "power_play_goals": 0,
@@ -212,7 +212,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.52
+        "points_per_game": 0.57
       },
       "hockeytech_id": "3851",
       "person_id": "4479",
@@ -242,8 +242,8 @@
       "stats": {
         "games_played": 10,
         "goals": 0,
-        "assists": 8,
-        "points": 8,
+        "assists": 7,
+        "points": 7,
         "plus_minus": 0,
         "penalty_minutes": 12,
         "power_play_goals": 0,
@@ -254,7 +254,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.8
+        "points_per_game": 0.7
       },
       "hockeytech_id": "3863",
       "person_id": "4501",
@@ -478,7 +478,23 @@
       "veteran": false,
       "headshot": "assets/headshots/Valley-Wildcats/19-jacob-pineau.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3072.jpg",
-      "stats": {},
+      "stats": {
+        "games_played": 20,
+        "goals": 1,
+        "assists": 2,
+        "points": 3,
+        "plus_minus": 0,
+        "penalty_minutes": 0,
+        "power_play_goals": 0,
+        "power_play_assists": 0,
+        "power_play_points": 0,
+        "short_handed_goals": 0,
+        "short_handed_assists": 0,
+        "short_handed_points": 0,
+        "game_winning_goals": 0,
+        "overtime_goals": 0,
+        "points_per_game": 0.15
+      },
       "hockeytech_id": "3072",
       "person_id": "3590",
       "flags": [
@@ -548,23 +564,7 @@
       "veteran": false,
       "headshot": "assets/headshots/Valley-Wildcats/21-dylan-maclean.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3465.jpg",
-      "stats": {
-        "games_played": 15,
-        "goals": 0,
-        "assists": 3,
-        "points": 3,
-        "plus_minus": 0,
-        "penalty_minutes": 23,
-        "power_play_goals": 0,
-        "power_play_assists": 0,
-        "power_play_points": 0,
-        "short_handed_goals": 0,
-        "short_handed_assists": 0,
-        "short_handed_points": 0,
-        "game_winning_goals": 0,
-        "overtime_goals": 0,
-        "points_per_game": 0.2
-      },
+      "stats": {},
       "hockeytech_id": "3465",
       "person_id": "4028",
       "flags": [
@@ -704,8 +704,8 @@
       "stats": {
         "games_played": 24,
         "goals": 1,
-        "assists": 11,
-        "points": 12,
+        "assists": 10,
+        "points": 11,
         "plus_minus": 0,
         "penalty_minutes": 6,
         "power_play_goals": 0,
@@ -716,7 +716,7 @@
         "short_handed_points": 1,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.5
+        "points_per_game": 0.46
       },
       "hockeytech_id": "2987",
       "person_id": "3465",
@@ -860,11 +860,11 @@
         "losses": 11,
         "ot_losses": 0,
         "minutes_played": 826,
-        "saves": 544,
-        "shots": 608,
+        "saves": 527,
+        "shots": 591,
         "goals_against": 64,
         "shutouts": 0,
-        "save_percentage": 0.895,
+        "save_percentage": 0.892,
         "goals_against_average": 4.65
       },
       "hockeytech_id": "3618",
@@ -882,11 +882,11 @@
         "losses": 20,
         "ot_losses": 0,
         "minutes_played": 1564,
-        "saves": 984,
-        "shots": 1129,
+        "saves": 967,
+        "shots": 1112,
         "goals_against": 145,
         "shutouts": 0,
-        "save_percentage": 0.872,
+        "save_percentage": 0.87,
         "goals_against_average": 5.56
       },
       "flags": []

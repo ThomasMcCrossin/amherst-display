@@ -318,7 +318,7 @@
 [rosters/chaleur-lightning] Fetching roster for Chaleur-Lightning...
 [rosters] Fetching from API: team_id=21
 [rosters] Fetching stats from API: team_id=21
-[rosters/chaleur-lightning] Processing 31 players (downloading headshots)
+[rosters/chaleur-lightning] Processing 32 players (downloading headshots)
 [rosters] Downloaded: 2-jack-hayne.jpg
 [rosters] Downloaded: 3-lynden-donald-gorman.jpg
 [rosters] Downloaded: 4-jameson-george.jpg
@@ -329,6 +329,7 @@
 [rosters] Downloaded: 15-brett-yuzik.jpg
 [rosters] Downloaded: 16-will-clark.jpg
 [rosters] Downloaded: 19-cohen-mccallum.jpg
+[rosters] Skipping placeholder image
 [rosters] Downloaded: 25-owen-arnold.jpg
 [rosters] Downloaded: 29-isaac-arsenault.jpg
 [rosters] Downloaded: 30-george-foti.jpg
@@ -349,7 +350,7 @@
 [rosters] Downloaded: 120-felix-sylvain-hache.jpg
 [rosters] Downloaded: 120-carter-mcillwraith.jpg
 [rosters] Downloaded: 120-isaiah-rogerson.jpg
-[rosters/chaleur-lightning] Wrote rosters/chaleur-lightning.json (31 players)
+[rosters/chaleur-lightning] Wrote rosters/chaleur-lightning.json (32 players)
 [rosters] Wrote rosters/index.json with 12 team(s)
 [rosters] Complete! Teams=12
 [games] Starting Ramblers games build...
@@ -393,6 +394,6 @@
 [schedules/BSHL] parsed=33
 [schedules] events=85  ramblers=52  ducks=33
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 167 total schedule items
-[CCMHA] Found 2 games at Amherst Stadium
-[ccmha] games=2
+[CCMHA] API returned 169 total schedule items
+[CCMHA] Found 1 games at Amherst Stadium
+[ccmha] games=1
