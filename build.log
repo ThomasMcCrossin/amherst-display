@@ -394,6 +394,6 @@
 [schedules/BSHL] parsed=33
 [schedules] events=85  ramblers=52  ducks=33
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 169 total schedule items
-[CCMHA] Found 1 games at Amherst Stadium
-[ccmha] games=1
+[CCMHA] API returned 168 total schedule items
+[CCMHA] Found 2 games at Amherst Stadium
+[ccmha] games=2

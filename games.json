@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-12-02T06:55:10Z",
+  "generated_at": "2025-12-03T06:54:10Z",
   "timezone": "America/Halifax",
   "events": [
     {
@@ -251,15 +251,6 @@
       "start": "2025-11-30T16:00:00-04:00",
       "end": "2025-11-30T19:00:00-04:00",
       "location": "Miramichi Civic Centre"
-    },
-    {
-      "league": "BSHL",
-      "home_team": "Bouctouche",
-      "away_team": "Amherst",
-      "home_slug": "bouctouche",
-      "away_slug": "amherst-ducks",
-      "start": "2025-12-05T20:00:00-04:00",
-      "location": "CP"
     },
     {
       "league": "BSHL",
@@ -659,6 +650,15 @@
       "away_slug": "belle-baie",
       "start": "2026-01-19T19:30:00-04:00",
       "location": "Dalhousie Arena"
+    },
+    {
+      "league": "BSHL",
+      "home_team": "Bouctouche",
+      "away_team": "Amherst",
+      "home_slug": "bouctouche",
+      "away_slug": "amherst-ducks",
+      "start": "2026-01-19T20:00:00-04:00",
+      "location": "CP"
     },
     {
       "league": "BSHL",

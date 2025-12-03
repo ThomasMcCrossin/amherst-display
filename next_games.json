@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-12-02T06:55:10Z",
+  "generated_at": "2025-12-03T06:54:10Z",
   "timezone": "America/Halifax",
   "teams": [
     {
@@ -32,13 +32,6 @@
       "team_slug": "amherst-ducks",
       "games": [
         {
-          "opponent_slug": "bouctouche",
-          "home": false,
-          "start": "2025-12-05T20:00:00-04:00",
-          "venue": "CP",
-          "city": ""
-        },
-        {
           "opponent_slug": "dalhousie",
           "home": false,
           "start": "2025-12-06T19:30:00-04:00",
@@ -50,6 +43,13 @@
           "home": false,
           "start": "2025-12-19T20:00:00-04:00",
           "venue": "Arena Petit-Rocher",
+          "city": ""
+        },
+        {
+          "opponent_slug": "bouctouche",
+          "home": true,
+          "start": "2025-12-20T19:00:00-04:00",
+          "venue": "Amherst Stadium",
           "city": ""
         }
       ]
