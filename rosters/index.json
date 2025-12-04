@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-12-03T06:53:56.406Z",
+  "generated_at": "2025-12-04T06:54:27.462Z",
   "season": "2024-25",
   "season_id": 41,
   "api_source": "HockeyTech",
@@ -35,7 +35,7 @@
       "team_name": "Valley-Wildcats",
       "league": "MHL",
       "team_id": 4,
-      "player_count": 24,
+      "player_count": 23,
       "file": "rosters/valley-wildcats.json"
     },
     {
@@ -67,7 +67,7 @@
       "team_name": "Campbellton-Tigers",
       "league": "MHL",
       "team_id": 8,
-      "player_count": 29,
+      "player_count": 27,
       "file": "rosters/campbellton-tigers.json"
     },
     {
@@ -75,7 +75,7 @@
       "team_name": "Miramichi-Timberwolves",
       "league": "MHL",
       "team_id": 9,
-      "player_count": 29,
+      "player_count": 30,
       "file": "rosters/miramichi-timberwolves.json"
     },
     {

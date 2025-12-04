@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-12-03T06:54:10.207Z",
+  "generated_at": "2025-12-04T06:54:40.988Z",
   "season": "",
   "league": "BSHL",
   "rows": [
@@ -14,6 +14,32 @@
       "gf": 51,
       "ga": 34,
       "diff": 17,
+      "slug": null
+    },
+    {
+      "team": "Dalhousie Marauders",
+      "gp": 8,
+      "w": 7,
+      "l": 1,
+      "otl": 0,
+      "sol": 0,
+      "pts": 14,
+      "gf": 48,
+      "ga": 15,
+      "diff": 33,
+      "slug": null
+    },
+    {
+      "team": "Miramichi Northmen",
+      "gp": 10,
+      "w": 6,
+      "l": 2,
+      "otl": 2,
+      "sol": 0,
+      "pts": 14,
+      "gf": 42,
+      "ga": 38,
+      "diff": 4,
       "slug": null
     },
     {
@@ -43,45 +69,6 @@
       "slug": null
     },
     {
-      "team": "Amherst Ducks",
-      "gp": 9,
-      "w": 1,
-      "l": 7,
-      "otl": 1,
-      "sol": 0,
-      "pts": 3,
-      "gf": 35,
-      "ga": 77,
-      "diff": -42,
-      "slug": "amherst-ducks"
-    },
-    {
-      "team": "Dalhousie Marauders",
-      "gp": 8,
-      "w": 7,
-      "l": 1,
-      "otl": 0,
-      "sol": 0,
-      "pts": 14,
-      "gf": 48,
-      "ga": 15,
-      "diff": 33,
-      "slug": null
-    },
-    {
-      "team": "Miramichi Northmen",
-      "gp": 10,
-      "w": 6,
-      "l": 2,
-      "otl": 2,
-      "sol": 0,
-      "pts": 14,
-      "gf": 42,
-      "ga": 38,
-      "diff": 4,
-      "slug": null
-    },
-    {
       "team": "Belle-Baie Rocs",
       "gp": 8,
       "w": 1,
@@ -93,6 +80,19 @@
       "ga": 47,
       "diff": -26,
       "slug": null
+    },
+    {
+      "team": "Amherst Ducks",
+      "gp": 9,
+      "w": 1,
+      "l": 7,
+      "otl": 1,
+      "sol": 0,
+      "pts": 3,
+      "gf": 35,
+      "ga": 77,
+      "diff": -42,
+      "slug": "amherst-ducks"
     }
   ]
 }

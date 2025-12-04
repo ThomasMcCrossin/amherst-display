@@ -5,9 +5,46 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 9,
-  "updated_at": "2025-12-03T06:53:54.577Z",
-  "player_count": 29,
+  "updated_at": "2025-12-04T06:54:25.775Z",
+  "player_count": 30,
   "players": [
+    {
+      "player_id": "mhl-3914",
+      "number": "1",
+      "first_name": "Zach",
+      "last_name": "Ericson",
+      "name": "Zach Ericson",
+      "position": "G",
+      "height": "6'0",
+      "height_inches": 72,
+      "weight": 185,
+      "shoots": "R",
+      "birthdate": "2006-07-15",
+      "birth_year": "'06",
+      "age": 19,
+      "hometown": "Berkeley, CA, USA",
+      "birthplace": "Berkeley, CA, USA, ",
+      "rookie": false,
+      "veteran": false,
+      "stats": {
+        "games_played": 0,
+        "wins": 0,
+        "losses": 0,
+        "ot_losses": 0,
+        "minutes_played": 0,
+        "saves": 0,
+        "shots": 0,
+        "goals_against": 0,
+        "shutouts": 0,
+        "save_percentage": 0,
+        "goals_against_average": 0
+      },
+      "hockeytech_id": "3914",
+      "person_id": "4567",
+      "flags": [
+        "ht-import"
+      ]
+    },
     {
       "player_id": "mhl-3494",
       "number": "6",
@@ -505,34 +542,6 @@
       "flags": []
     },
     {
-      "player_id": "mhl-3792",
-      "number": "22",
-      "first_name": "Benoit",
-      "last_name": "Arsenault",
-      "name": "Benoit Arsenault",
-      "position": "D",
-      "height": "6'2",
-      "height_inches": 74,
-      "weight": 198,
-      "shoots": "L",
-      "birthdate": "2006-04-27",
-      "birth_year": "'06",
-      "age": 19,
-      "hometown": "Lévis, QC",
-      "birthplace": "Lévis, QC, ",
-      "rookie": true,
-      "veteran": false,
-      "headshot": "assets/headshots/Miramichi-Timberwolves/22-benoit-arsenault.jpg",
-      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3792.jpg",
-      "stats": {},
-      "hockeytech_id": "3792",
-      "person_id": "4410",
-      "flags": [
-        "ht-rookie",
-        "ht-import"
-      ]
-    },
-    {
       "player_id": "mhl-3207",
       "number": "23",
       "first_name": "Ryan",
@@ -741,45 +750,6 @@
       "person_id": "4408",
       "flags": [
         "ht-rookie",
-        "ht-import"
-      ]
-    },
-    {
-      "player_id": "mhl-3334",
-      "number": "31",
-      "first_name": "Mathis",
-      "last_name": "Lafontaine",
-      "name": "Mathis Lafontaine",
-      "position": "G",
-      "height": "5'10",
-      "height_inches": 70,
-      "weight": 170,
-      "shoots": "L",
-      "birthdate": "2006-06-12",
-      "birth_year": "'06",
-      "age": 19,
-      "hometown": "Trois-Rivieres, QC",
-      "birthplace": "Trois-Rivieres, QC, ",
-      "rookie": false,
-      "veteran": false,
-      "headshot": "assets/headshots/Miramichi-Timberwolves/31-mathis-lafontaine.jpg",
-      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3334.jpg",
-      "stats": {
-        "games_played": 6,
-        "wins": 2,
-        "losses": 4,
-        "ot_losses": 0,
-        "minutes_played": 310,
-        "saves": 137,
-        "shots": 151,
-        "goals_against": 14,
-        "shutouts": 1,
-        "save_percentage": 0.907,
-        "goals_against_average": 2.71
-      },
-      "hockeytech_id": "3334",
-      "person_id": "3896",
-      "flags": [
         "ht-import"
       ]
     },
@@ -1049,6 +1019,31 @@
       ]
     },
     {
+      "player_id": "mhl-3350",
+      "number": "99",
+      "first_name": "Connor",
+      "last_name": "LeBlanc",
+      "name": "Connor LeBlanc",
+      "position": "D",
+      "height": "5'8",
+      "height_inches": 68,
+      "weight": 143,
+      "shoots": "L",
+      "birthdate": "2008-05-13",
+      "birth_year": "'08",
+      "age": 17,
+      "hometown": "Saint John, NB",
+      "birthplace": "Saint John, NB, ",
+      "rookie": false,
+      "veteran": false,
+      "stats": {},
+      "hockeytech_id": "3350",
+      "person_id": "3912",
+      "flags": [
+        "ht-affiliate"
+      ]
+    },
+    {
       "player_id": "mhl-3239",
       "number": "99",
       "first_name": "Brock",
@@ -1108,6 +1103,31 @@
       "person_id": "3908",
       "flags": [
         "ht-rookie",
+        "ht-affiliate"
+      ]
+    },
+    {
+      "player_id": "mhl-3713",
+      "number": "99",
+      "first_name": "Hudson",
+      "last_name": "Sisk",
+      "name": "Hudson Sisk",
+      "position": "D",
+      "height": "5'11",
+      "height_inches": 71,
+      "weight": 162,
+      "shoots": "R",
+      "birthdate": "2009-04-06",
+      "birth_year": "'09",
+      "age": 16,
+      "hometown": "Strathadam, NB",
+      "birthplace": "Strathadam, NB, ",
+      "rookie": false,
+      "veteran": false,
+      "stats": {},
+      "hockeytech_id": "3713",
+      "person_id": "4328",
+      "flags": [
         "ht-affiliate"
       ]
     },

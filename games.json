@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-12-03T06:54:10Z",
+  "generated_at": "2025-12-04T06:54:41Z",
   "timezone": "America/Halifax",
   "events": [
     {
@@ -653,21 +653,21 @@
     },
     {
       "league": "BSHL",
-      "home_team": "Bouctouche",
-      "away_team": "Amherst",
-      "home_slug": "bouctouche",
-      "away_slug": "amherst-ducks",
-      "start": "2026-01-19T20:00:00-04:00",
-      "location": "CP"
-    },
-    {
-      "league": "BSHL",
       "home_team": "Belle-Baie",
       "away_team": "Miramichi",
       "home_slug": "belle-baie",
       "away_slug": "miramichi-bshl",
       "start": "2026-01-19T20:00:00-04:00",
-      "location": "Arena Petit-Rocher Home | Contacts | Login All content contained on this website is copyright &copy; 2019 Beausejour Senior Hockey League Website Design and Development by Sun Web Solutions var _gaq = _gaq || []; _gaq.push(['_setAccount', 'UA-10318801-10']); _gaq.push(['_trackPageview']); (function() { var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s); })();"
+      "location": "Arena Petit-Rocher"
+    },
+    {
+      "league": "BSHL",
+      "home_team": "Bouctouche",
+      "away_team": "Amherst",
+      "home_slug": "bouctouche",
+      "away_slug": "amherst-ducks",
+      "start": "2026-01-19T20:00:00-04:00",
+      "location": "CP Home | Contacts | Login All content contained on this website is copyright &copy; 2026 Beausejour Senior Hockey League Website Design and Development by Sun Web Solutions var _gaq = _gaq || []; _gaq.push(['_setAccount', 'UA-10318801-10']); _gaq.push(['_trackPageview']); (function() { var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s); })();"
     },
     {
       "league": "MHL",
