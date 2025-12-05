@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-12-04T06:54:27.462Z",
+  "generated_at": "2025-12-05T06:54:16.962Z",
   "season": "2024-25",
   "season_id": 41,
   "api_source": "HockeyTech",
@@ -75,7 +75,7 @@
       "team_name": "Miramichi-Timberwolves",
       "league": "MHL",
       "team_id": 9,
-      "player_count": 30,
+      "player_count": 31,
       "file": "rosters/miramichi-timberwolves.json"
     },
     {
@@ -91,7 +91,7 @@
       "team_name": "Grand-Falls-Rapids",
       "league": "MHL",
       "team_id": 12,
-      "player_count": 25,
+      "player_count": 23,
       "file": "rosters/grand-falls-rapids.json"
     },
     {
@@ -99,7 +99,7 @@
       "team_name": "Chaleur-Lightning",
       "league": "MHL",
       "team_id": 21,
-      "player_count": 32,
+      "player_count": 33,
       "file": "rosters/chaleur-lightning.json"
     }
   ]
