@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-12-05T06:54:16.962Z",
+  "generated_at": "2025-12-06T06:49:26.925Z",
   "season": "2024-25",
   "season_id": 41,
   "api_source": "HockeyTech",
@@ -19,7 +19,7 @@
       "team_name": "Edmundston-Blizzard",
       "league": "MHL",
       "team_id": 2,
-      "player_count": 24,
+      "player_count": 26,
       "file": "rosters/edmundston-blizzard.json"
     },
     {
@@ -91,7 +91,7 @@
       "team_name": "Grand-Falls-Rapids",
       "league": "MHL",
       "team_id": 12,
-      "player_count": 23,
+      "player_count": 24,
       "file": "rosters/grand-falls-rapids.json"
     },
     {

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-12-05T06:54:33Z",
+  "generated_at": "2025-12-06T06:49:40Z",
   "timezone": "America/Halifax",
   "teams": [
     {
@@ -39,17 +39,17 @@
           "city": ""
         },
         {
-          "opponent_slug": "miramichi-bshl",
-          "home": false,
-          "start": "2025-12-12T20:15:00-04:00",
-          "venue": "Civic",
-          "city": ""
-        },
-        {
           "opponent_slug": "bouctouche",
           "home": true,
           "start": "2025-12-20T19:00:00-04:00",
           "venue": "Community Centre",
+          "city": ""
+        },
+        {
+          "opponent_slug": "fredericton",
+          "home": false,
+          "start": "2025-12-27T19:00:00-04:00",
+          "venue": "LBR",
           "city": ""
         }
       ]

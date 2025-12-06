@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-12-05T06:54:33Z",
+  "generated_at": "2025-12-06T06:49:40Z",
   "timezone": "America/Halifax",
   "events": [
     {
@@ -253,15 +253,6 @@
       "location": "Miramichi Civic Centre"
     },
     {
-      "league": "BSHL",
-      "home_team": "Miramichi",
-      "away_team": "Fredericton",
-      "home_slug": "miramichi-bshl",
-      "away_slug": "fredericton",
-      "start": "2025-12-05T20:15:00-04:00",
-      "location": "Civic"
-    },
-    {
       "league": "MHL",
       "home_team": "Amherst Ramblers",
       "away_team": "Truro Bearcats",
@@ -301,9 +292,9 @@
     {
       "league": "BSHL",
       "home_team": "Miramichi",
-      "away_team": "Amherst",
+      "away_team": "Dalhousie",
       "home_slug": "miramichi-bshl",
-      "away_slug": "amherst-ducks",
+      "away_slug": "dalhousie",
       "start": "2025-12-12T20:15:00-04:00",
       "location": "Civic"
     },
@@ -422,18 +413,18 @@
     {
       "league": "BSHL",
       "home_team": "Dalhousie",
-      "away_team": "Elsipogtog",
+      "away_team": "Miramichi",
       "home_slug": "dalhousie",
-      "away_slug": "elsipogtog",
+      "away_slug": "miramichi-bshl",
       "start": "2025-12-27T19:30:00-04:00",
       "location": "Dalhousie Arena"
     },
     {
       "league": "BSHL",
       "home_team": "Bouctouche",
-      "away_team": "Dalhousie",
+      "away_team": "Elsipogtog",
       "home_slug": "bouctouche",
-      "away_slug": "dalhousie",
+      "away_slug": "elsipogtog",
       "start": "2025-12-28T18:45:00-04:00",
       "location": "J. K."
     },
@@ -468,6 +459,15 @@
     },
     {
       "league": "BSHL",
+      "home_team": "Fredericton",
+      "away_team": "Amherst",
+      "home_slug": "fredericton",
+      "away_slug": "amherst-ducks",
+      "start": "2026-01-02T19:30:00-04:00",
+      "location": ""
+    },
+    {
+      "league": "BSHL",
       "home_team": "Miramichi",
       "away_team": "Dalhousie",
       "home_slug": "miramichi-bshl",
@@ -488,9 +488,9 @@
     {
       "league": "BSHL",
       "home_team": "Amherst",
-      "away_team": "Fredericton",
+      "away_team": "Miramichi",
       "home_slug": "amherst-ducks",
-      "away_slug": "fredericton",
+      "away_slug": "miramichi-bshl",
       "start": "2026-01-03T19:00:00-04:00",
       "location": "Amherst Stadium"
     },
@@ -534,9 +534,9 @@
     {
       "league": "BSHL",
       "home_team": "Miramichi",
-      "away_team": "Dalhousie",
+      "away_team": "Amherst",
       "home_slug": "miramichi-bshl",
-      "away_slug": "dalhousie",
+      "away_slug": "amherst-ducks",
       "start": "2026-01-09T20:15:00-04:00",
       "location": "Civic"
     },
@@ -631,16 +631,7 @@
       "home_slug": "amherst-ducks",
       "away_slug": "dalhousie",
       "start": "2026-01-18T14:00:00-04:00",
-      "location": "Amherst Stadium"
-    },
-    {
-      "league": "BSHL",
-      "home_team": "Bouctouche",
-      "away_team": "Amherst",
-      "home_slug": "bouctouche",
-      "away_slug": "amherst-ducks",
-      "start": "2026-01-19T20:00:00-04:00",
-      "location": "CP Home | Contacts | Login All content contained on this website is copyright &copy; 2026 Beausejour Senior Hockey League Website Design and Development by Sun Web Solutions var _gaq = _gaq || []; _gaq.push(['_setAccount', 'UA-10318801-10']); _gaq.push(['_trackPageview']); (function() { var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s); })();"
+      "location": "Amherst Stadium Home | Contacts | Login All content contained on this website is copyright &copy; 2026 Beausejour Senior Hockey League Website Design and Development by Sun Web Solutions var _gaq = _gaq || []; _gaq.push(['_setAccount', 'UA-10318801-10']); _gaq.push(['_trackPageview']); (function() { var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s); })();"
     },
     {
       "league": "MHL",
