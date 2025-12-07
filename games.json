@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-12-06T06:49:40Z",
+  "generated_at": "2025-12-07T06:49:08Z",
   "timezone": "America/Halifax",
   "events": [
     {
@@ -264,15 +264,6 @@
     },
     {
       "league": "BSHL",
-      "home_team": "Dalhousie",
-      "away_team": "Amherst",
-      "home_slug": "dalhousie",
-      "away_slug": "amherst-ducks",
-      "start": "2025-12-06T19:30:00-04:00",
-      "location": "Dalhousie Arena"
-    },
-    {
-      "league": "BSHL",
       "home_team": "Elsipogtog",
       "away_team": "Dalhousie",
       "home_slug": "elsipogtog",
@@ -377,9 +368,9 @@
     {
       "league": "BSHL",
       "home_team": "Dalhousie",
-      "away_team": "Fredericton",
+      "away_team": "Elsipogtog",
       "home_slug": "dalhousie",
-      "away_slug": "fredericton",
+      "away_slug": "elsipogtog",
       "start": "2025-12-20T19:30:00-04:00",
       "location": "Dalhousie Arena"
     },
@@ -497,9 +488,9 @@
     {
       "league": "BSHL",
       "home_team": "Dalhousie",
-      "away_team": "Elsipogtog",
+      "away_team": "Fredericton",
       "home_slug": "dalhousie",
-      "away_slug": "elsipogtog",
+      "away_slug": "fredericton",
       "start": "2026-01-03T19:30:00-04:00",
       "location": "Dalhousie Arena"
     },
