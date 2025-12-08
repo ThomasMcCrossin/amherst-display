@@ -390,12 +390,12 @@
 [standings/MHL] tables=1 chosen=1306x378 rows=12
 [standings/MHL] example={"col":"1","eastlink south eastlink south":"Summerside Western Capitals","south south":"SWC","gp":26,"w":18,"l":3,"otl":3,"sol":2,"pts":41,"pct pct":"0.788","rw":16,"otw":2,"sow":0,"gf":136,"ga":84,"diff":52,"pim pim":"711","streak":"8-0-0-1","p10":"8-1-0-1","team":"Summerside Western Capitals","slug":"summerside-western-capitals"}
 [standings/BSHL] table rows=7
-[standings/BSHL] example={"team":"Bouctouche JCs","gp":12,"w":8,"l":2,"otl":2,"sol":0,"pts":18,"gf":52,"ga":34,"diff":18,"slug":null}
+[standings/BSHL] example={"team":"Bouctouche JCs","gp":13,"w":8,"l":2,"otl":3,"sol":0,"pts":19,"gf":54,"ga":37,"diff":17,"slug":null}
 [standings] mhlRows=12  bshlRows=7
 [schedules/ICS] parsed=52
-[schedules/BSHL] parsed=28
-[schedules] events=80  ramblers=52  ducks=28
+[schedules/BSHL] parsed=26
+[schedules] events=78  ramblers=52  ducks=26
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 169 total schedule items
+[CCMHA] API returned 157 total schedule items
 [CCMHA] Found 6 games at Amherst Stadium
 [ccmha] games=6

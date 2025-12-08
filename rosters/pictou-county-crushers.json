@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 7,
-  "updated_at": "2025-12-07T06:48:51.486Z",
+  "updated_at": "2025-12-08T06:57:02.385Z",
   "player_count": 31,
   "players": [
     {
@@ -54,7 +54,7 @@
       "headshot": "assets/headshots/Pictou-County-Crushers/5-christian-luke.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3835.jpg",
       "stats": {
-        "games_played": 23,
+        "games_played": 24,
         "goals": 4,
         "assists": 7,
         "points": 11,
@@ -68,7 +68,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.48
+        "points_per_game": 0.46
       },
       "hockeytech_id": "3835",
       "person_id": "4453",
@@ -95,7 +95,7 @@
       "headshot": "assets/headshots/Pictou-County-Crushers/7-brennan-o-donnell.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3293.jpg",
       "stats": {
-        "games_played": 25,
+        "games_played": 26,
         "goals": 4,
         "assists": 13,
         "points": 17,
@@ -109,7 +109,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.68
+        "points_per_game": 0.65
       },
       "hockeytech_id": "3293",
       "person_id": "3848",
@@ -179,7 +179,7 @@
       "headshot": "assets/headshots/Pictou-County-Crushers/11-dominic-mackenzie.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2692.jpg",
       "stats": {
-        "games_played": 20,
+        "games_played": 21,
         "goals": 0,
         "assists": 14,
         "points": 14,
@@ -193,7 +193,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.7
+        "points_per_game": 0.67
       },
       "hockeytech_id": "2692",
       "person_id": "3117",
@@ -263,7 +263,7 @@
       "headshot": "assets/headshots/Pictou-County-Crushers/14-logan-crosby.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3797.jpg",
       "stats": {
-        "games_played": 25,
+        "games_played": 26,
         "goals": 21,
         "assists": 18,
         "points": 39,
@@ -277,7 +277,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 3,
         "overtime_goals": 0,
-        "points_per_game": 1.56
+        "points_per_game": 1.5
       },
       "hockeytech_id": "3797",
       "person_id": "4415",
@@ -306,7 +306,7 @@
       "headshot": "assets/headshots/Pictou-County-Crushers/15-cade-moser.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3796.jpg",
       "stats": {
-        "games_played": 26,
+        "games_played": 27,
         "goals": 8,
         "assists": 20,
         "points": 28,
@@ -320,7 +320,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 1.08
+        "points_per_game": 1.04
       },
       "hockeytech_id": "3796",
       "person_id": "4414",
@@ -349,7 +349,7 @@
       "headshot": "assets/headshots/Pictou-County-Crushers/16-ian-ramsay.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3795.jpg",
       "stats": {
-        "games_played": 15,
+        "games_played": 16,
         "goals": 0,
         "assists": 2,
         "points": 2,
@@ -390,7 +390,7 @@
       "headshot": "assets/headshots/Pictou-County-Crushers/17-cory-macgillivray.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2466.jpg",
       "stats": {
-        "games_played": 26,
+        "games_played": 27,
         "goals": 5,
         "assists": 24,
         "points": 29,
@@ -404,7 +404,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 1.12
+        "points_per_game": 1.07
       },
       "hockeytech_id": "2466",
       "person_id": "2858",
@@ -433,10 +433,10 @@
       "headshot": "assets/headshots/Pictou-County-Crushers/18-will-allen.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2600.jpg",
       "stats": {
-        "games_played": 23,
-        "goals": 9,
+        "games_played": 24,
+        "goals": 10,
         "assists": 12,
-        "points": 21,
+        "points": 22,
         "plus_minus": 0,
         "penalty_minutes": 32,
         "power_play_goals": 2,
@@ -447,7 +447,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.91
+        "points_per_game": 0.92
       },
       "hockeytech_id": "2600",
       "person_id": "3017",
@@ -476,7 +476,7 @@
       "headshot": "assets/headshots/Pictou-County-Crushers/19-clint-maclaughlin.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2689.jpg",
       "stats": {
-        "games_played": 26,
+        "games_played": 27,
         "goals": 7,
         "assists": 9,
         "points": 16,
@@ -490,7 +490,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.62
+        "points_per_game": 0.59
       },
       "hockeytech_id": "2689",
       "person_id": "3114",
@@ -517,10 +517,10 @@
       "headshot": "assets/headshots/Pictou-County-Crushers/26-owen-bell.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3470.jpg",
       "stats": {
-        "games_played": 26,
+        "games_played": 27,
         "goals": 4,
-        "assists": 5,
-        "points": 9,
+        "assists": 6,
+        "points": 10,
         "plus_minus": 0,
         "penalty_minutes": 4,
         "power_play_goals": 0,
@@ -531,7 +531,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.35
+        "points_per_game": 0.37
       },
       "hockeytech_id": "3470",
       "person_id": "4033",
@@ -560,17 +560,17 @@
       "headshot": "assets/headshots/Pictou-County-Crushers/31-yianni-karkoulas.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3509.jpg",
       "stats": {
-        "games_played": 19,
-        "wins": 9,
+        "games_played": 20,
+        "wins": 10,
         "losses": 6,
         "ot_losses": 3,
-        "minutes_played": 1097,
-        "saves": 514,
-        "shots": 573,
-        "goals_against": 59,
+        "minutes_played": 1162,
+        "saves": 523,
+        "shots": 584,
+        "goals_against": 61,
         "shutouts": 0,
-        "save_percentage": 0.897,
-        "goals_against_average": 3.23
+        "save_percentage": 0.896,
+        "goals_against_average": 3.15
       },
       "hockeytech_id": "3509",
       "person_id": "4072",
@@ -636,12 +636,12 @@
       "headshot": "assets/headshots/Pictou-County-Crushers/47-trent-stewart.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3166.jpg",
       "stats": {
-        "games_played": 19,
+        "games_played": 20,
         "goals": 3,
         "assists": 6,
         "points": 9,
         "plus_minus": 0,
-        "penalty_minutes": 10,
+        "penalty_minutes": 12,
         "power_play_goals": 0,
         "power_play_assists": 0,
         "power_play_points": 0,
@@ -650,7 +650,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.47
+        "points_per_game": 0.45
       },
       "hockeytech_id": "3166",
       "person_id": "3686",
@@ -679,7 +679,7 @@
       "headshot": "assets/headshots/Pictou-County-Crushers/49-kaden-smith.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2652.jpg",
       "stats": {
-        "games_played": 22,
+        "games_played": 23,
         "goals": 7,
         "assists": 2,
         "points": 9,
@@ -693,7 +693,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.41
+        "points_per_game": 0.39
       },
       "hockeytech_id": "2652",
       "person_id": "3077",
@@ -719,12 +719,12 @@
       "headshot": "assets/headshots/Pictou-County-Crushers/55-campbell-barrett.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3167.jpg",
       "stats": {
-        "games_played": 10,
+        "games_played": 11,
         "goals": 2,
-        "assists": 1,
-        "points": 3,
+        "assists": 2,
+        "points": 4,
         "plus_minus": 0,
-        "penalty_minutes": 43,
+        "penalty_minutes": 60,
         "power_play_goals": 0,
         "power_play_assists": 0,
         "power_play_points": 0,
@@ -733,7 +733,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.3
+        "points_per_game": 0.36
       },
       "hockeytech_id": "3167",
       "person_id": "3687",
@@ -802,7 +802,7 @@
       "headshot": "assets/headshots/Pictou-County-Crushers/67-braylan-fitzgerald.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3202.jpg",
       "stats": {
-        "games_played": 24,
+        "games_played": 25,
         "goals": 11,
         "assists": 10,
         "points": 21,
@@ -816,7 +816,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 2,
         "overtime_goals": 0,
-        "points_per_game": 0.88
+        "points_per_game": 0.84
       },
       "hockeytech_id": "3202",
       "person_id": "3723",
@@ -843,12 +843,12 @@
       "headshot": "assets/headshots/Pictou-County-Crushers/77-ryan-walsh.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3548.jpg",
       "stats": {
-        "games_played": 23,
+        "games_played": 24,
         "goals": 4,
         "assists": 6,
         "points": 10,
         "plus_minus": 0,
-        "penalty_minutes": 10,
+        "penalty_minutes": 12,
         "power_play_goals": 0,
         "power_play_assists": 1,
         "power_play_points": 1,
@@ -857,7 +857,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.43
+        "points_per_game": 0.42
       },
       "hockeytech_id": "3548",
       "person_id": "4130",
@@ -886,7 +886,7 @@
       "headshot": "assets/headshots/Pictou-County-Crushers/91-alex-christmas.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2742.jpg",
       "stats": {
-        "games_played": 13,
+        "games_played": 14,
         "goals": 5,
         "assists": 7,
         "points": 12,
@@ -900,7 +900,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.92
+        "points_per_game": 0.86
       },
       "hockeytech_id": "2742",
       "person_id": "3169",
@@ -927,10 +927,10 @@
       "headshot": "assets/headshots/Pictou-County-Crushers/93-mac-wallace.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2859.jpg",
       "stats": {
-        "games_played": 21,
-        "goals": 2,
+        "games_played": 22,
+        "goals": 3,
         "assists": 3,
-        "points": 5,
+        "points": 6,
         "plus_minus": 0,
         "penalty_minutes": 26,
         "power_play_goals": 0,
@@ -941,7 +941,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.24
+        "points_per_game": 0.27
       },
       "hockeytech_id": "2859",
       "person_id": "3286",
@@ -1158,17 +1158,17 @@
       "rookie": false,
       "veteran": false,
       "stats": {
-        "games_played": 26,
-        "wins": 14,
+        "games_played": 27,
+        "wins": 15,
         "losses": 9,
         "ot_losses": 3,
-        "minutes_played": 1566,
-        "saves": 684,
-        "shots": 772,
-        "goals_against": 88,
+        "minutes_played": 1631,
+        "saves": 693,
+        "shots": 783,
+        "goals_against": 90,
         "shutouts": 1,
-        "save_percentage": 0.886,
-        "goals_against_average": 3.37
+        "save_percentage": 0.885,
+        "goals_against_average": 3.31
       },
       "flags": []
     }
