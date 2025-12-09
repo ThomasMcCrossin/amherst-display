@@ -4,7 +4,7 @@
   "team_id": 1,
   "season": "2024-25",
   "season_id": 41,
-  "updated_at": "2025-12-08T06:57:17.624Z",
+  "updated_at": "2025-12-09T06:55:17.532Z",
   "summary": {
     "games_played": 26,
     "wins": 15,
@@ -67,9 +67,9 @@
               "number": 27
             },
             {
-              "player_id": "mhl-3545",
-              "name": "Christian White",
-              "number": 4
+              "player_id": "mhl-2799",
+              "name": "Anthony Gaudet",
+              "number": 11
             }
           ],
           "power_play": false,
@@ -131,8 +131,8 @@
         "mhl-3545": {
           "position": "D",
           "goals": 0,
-          "assists": 1,
-          "points": 1,
+          "assists": 0,
+          "points": 0,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -183,8 +183,8 @@
         "mhl-2799": {
           "position": "C",
           "goals": 0,
-          "assists": 0,
-          "points": 0,
+          "assists": 1,
+          "points": 1,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -497,9 +497,9 @@
           },
           "assists": [
             {
-              "player_id": "mhl-2760",
-              "name": "Darien Reynolds",
-              "number": 18
+              "player_id": "mhl-2799",
+              "name": "Anthony Gaudet",
+              "number": 11
             },
             {
               "player_id": "mhl-3038",
@@ -657,8 +657,8 @@
         "mhl-2799": {
           "position": "C",
           "goals": 0,
-          "assists": 2,
-          "points": 2,
+          "assists": 3,
+          "points": 3,
           "penalty_minutes": 2,
           "shots": 0,
           "plus_minus": "0",
@@ -709,8 +709,8 @@
         "mhl-2760": {
           "position": "RW",
           "goals": 1,
-          "assists": 2,
-          "points": 3,
+          "assists": 1,
+          "points": 2,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
