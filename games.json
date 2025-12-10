@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-12-09T06:55:21Z",
+  "generated_at": "2025-12-10T06:55:52Z",
   "timezone": "America/Halifax",
   "events": [
     {
@@ -349,19 +349,10 @@
     },
     {
       "league": "BSHL",
-      "home_team": "Dalhousie",
-      "away_team": "Elsipogtog",
-      "home_slug": "dalhousie",
-      "away_slug": "elsipogtog",
-      "start": "2025-12-20T19:30:00-04:00",
-      "location": "Dalhousie Arena"
-    },
-    {
-      "league": "BSHL",
       "home_team": "Elsipogtog",
-      "away_team": "Miramichi",
+      "away_team": "Amherst",
       "home_slug": "elsipogtog",
-      "away_slug": "miramichi-bshl",
+      "away_slug": "amherst-ducks",
       "start": "2025-12-21T17:30:00-04:00",
       "location": "Kent North"
     },
@@ -404,9 +395,9 @@
     {
       "league": "BSHL",
       "home_team": "Amherst",
-      "away_team": "Miramichi",
+      "away_team": "Dalhousie",
       "home_slug": "amherst-ducks",
-      "away_slug": "miramichi-bshl",
+      "away_slug": "dalhousie",
       "start": "2025-12-28T19:00:00-04:00",
       "location": "Amherst Stadium"
     },
@@ -604,7 +595,7 @@
       "home_slug": "amherst-ducks",
       "away_slug": "dalhousie",
       "start": "2026-01-18T14:00:00-04:00",
-      "location": "Amherst Stadium Home | Contacts | Login All content contained on this website is copyright &copy; 2026 Beausejour Senior Hockey League Website Design and Development by Sun Web Solutions var _gaq = _gaq || []; _gaq.push(['_setAccount', 'UA-10318801-10']); _gaq.push(['_trackPageview']); (function() { var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s); })();"
+      "location": "Amherst Stadium"
     },
     {
       "league": "MHL",
@@ -625,6 +616,15 @@
       "start": "2026-01-24T19:00:00-04:00",
       "end": "2026-01-24T22:00:00-04:00",
       "location": "Amherst Stadium"
+    },
+    {
+      "league": "BSHL",
+      "home_team": "Dalhousie",
+      "away_team": "Elsipogtog",
+      "home_slug": "dalhousie",
+      "away_slug": "elsipogtog",
+      "start": "2026-01-24T19:30:00-04:00",
+      "location": "Dalhousie Arena Home | Contacts | Login All content contained on this website is copyright &copy; 2026 Beausejour Senior Hockey League Website Design and Development by Sun Web Solutions var _gaq = _gaq || []; _gaq.push(['_setAccount', 'UA-10318801-10']); _gaq.push(['_trackPageview']); (function() { var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s); })();"
     },
     {
       "league": "MHL",

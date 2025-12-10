@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-12-09T06:55:21.282Z",
+  "generated_at": "2025-12-10T06:55:52.248Z",
   "season": "",
   "league": "BSHL",
   "rows": [
@@ -17,19 +17,6 @@
       "slug": null
     },
     {
-      "team": "Dalhousie Marauders",
-      "gp": 10,
-      "w": 8,
-      "l": 2,
-      "otl": 0,
-      "sol": 0,
-      "pts": 16,
-      "gf": 59,
-      "ga": 23,
-      "diff": 36,
-      "slug": null
-    },
-    {
       "team": "Miramichi Northmen",
       "gp": 12,
       "w": 7,
@@ -40,6 +27,19 @@
       "gf": 50,
       "ga": 48,
       "diff": 2,
+      "slug": null
+    },
+    {
+      "team": "Dalhousie Marauders",
+      "gp": 9,
+      "w": 7,
+      "l": 2,
+      "otl": 0,
+      "sol": 0,
+      "pts": 14,
+      "gf": 58,
+      "ga": 23,
+      "diff": 35,
       "slug": null
     },
     {
@@ -70,15 +70,15 @@
     },
     {
       "team": "Belle-Baie Rocs",
-      "gp": 8,
+      "gp": 7,
       "w": 1,
-      "l": 6,
+      "l": 5,
       "otl": 1,
       "sol": 0,
       "pts": 3,
       "gf": 21,
-      "ga": 47,
-      "diff": -26,
+      "ga": 46,
+      "diff": -25,
       "slug": null
     },
     {
