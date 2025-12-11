@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-12-11T06:57:24.624Z",
+  "generated_at": "2025-12-11T17:38:36.077Z",
   "season": "",
   "league": "BSHL",
   "rows": [
@@ -14,7 +14,7 @@
       "gf": 54,
       "ga": 37,
       "diff": 17,
-      "slug": null
+      "slug": "bouctouche"
     },
     {
       "team": "Miramichi Northmen",
@@ -27,7 +27,7 @@
       "gf": 50,
       "ga": 48,
       "diff": 2,
-      "slug": null
+      "slug": "miramichi-bshl"
     },
     {
       "team": "Dalhousie Marauders",
@@ -40,7 +40,7 @@
       "gf": 58,
       "ga": 23,
       "diff": 35,
-      "slug": null
+      "slug": "dalhousie"
     },
     {
       "team": "Elsipogtog Hawks",
@@ -66,7 +66,7 @@
       "gf": 64,
       "ga": 61,
       "diff": 3,
-      "slug": null
+      "slug": "fredericton"
     },
     {
       "team": "Belle-Baie Rocs",
@@ -79,7 +79,7 @@
       "gf": 21,
       "ga": 46,
       "diff": -25,
-      "slug": null
+      "slug": "belle-baie"
     },
     {
       "team": "Amherst Ducks",
