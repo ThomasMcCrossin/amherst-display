@@ -18,12 +18,11 @@
     { "slug": "chaleur-lightning","league": "MHL", "name": "Chaleur Lightning","aliases": ["Chaleur","Lightning"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/mhl/chaleur-lightning.png" },
 
     { "slug": "amherst-ducks",     "league": "BSHL", "name": "Amherst Ducks",     "aliases": ["Ducks","Amherst"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/bshl/amherst-ducks.png" },
-    { "slug": "bouctouche",        "league": "BSHL", "name": "Bouctouche",        "aliases": ["Bouctouche JC","Bouctouche Ducks Opp"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/bshl/bouctouche.png" },
+    { "slug": "bouctouche",        "league": "BSHL", "name": "Bouctouche",        "aliases": ["Bouctouche JC","Bouctouche JCs","Bouctouche Ducks Opp"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/bshl/bouctouche.png" },
     { "slug": "elsipogtog",        "league": "BSHL", "name": "Elsipogtog",        "aliases": ["Elsipogtog Hawks","Elsipogtog Eagles","Elsipogtog JC"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/bshl/elsipogtog.png" },
-    { "slug": "dalhousie",         "league": "BSHL", "name": "Dalhousie",         "aliases": ["Dalhousie Mariners","Dalhousie JC"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/bshl/dalhousie.png" },
-    { "slug": "fredericton",       "league": "BSHL", "name": "Fredericton",       "aliases": ["Fredericton Caps","Fredericton JC"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/bshl/fredericton.png" },
-    { "slug": "miramichi-bshl",    "league": "BSHL", "name": "Miramichi",         "aliases": ["Miramichi JC"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/bshl/miramichi.png" },
-    { "slug": "belle-baie",        "league": "BSHL", "name": "Belle‑Baie",        "aliases": ["Belle Baie", "Belle-Baie"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/bshl/belle-baie.png" },
-    { "slug": "peninsule",         "league": "BSHL", "name": "Péninsule",         "aliases": ["Peninsule"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/bshl/peninsule.png" }
+    { "slug": "dalhousie",         "league": "BSHL", "name": "Dalhousie",         "aliases": ["Dalhousie Marauders","Dalhousie Mariners","Dalhousie JC"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/bshl/dalhousie.png" },
+    { "slug": "fredericton",       "league": "BSHL", "name": "Fredericton",       "aliases": ["Fredericton Express","Fredericton Caps","Fredericton JC"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/bshl/fredericton.png" },
+    { "slug": "miramichi-bshl",    "league": "BSHL", "name": "Miramichi",         "aliases": ["Miramichi Northmen","Miramichi JC"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/bshl/miramichi.png" },
+    { "slug": "belle-baie",        "league": "BSHL", "name": "Belle‑Baie",        "aliases": ["Belle Baie", "Belle-Baie", "Belle-Baie Rocs"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/bshl/belle-baie.png" }
   ]
 }
