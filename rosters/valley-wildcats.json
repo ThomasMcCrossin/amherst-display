@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 4,
-  "updated_at": "2025-12-11T17:38:06.192Z",
+  "updated_at": "2025-12-12T06:55:57.201Z",
   "player_count": 23,
   "players": [
     {
@@ -314,6 +314,8 @@
       "hometown": "Trois-Rivieres, QC",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Valley-Wildcats/16-victor-proulx.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3908.jpg",
       "stats": {
         "games_played": 2,
         "goals": 1,
