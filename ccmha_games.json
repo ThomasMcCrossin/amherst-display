@@ -1,16 +1,7 @@
 {
-  "generated_at": "2025-12-12T06:56:20Z",
+  "generated_at": "2025-12-13T06:52:01Z",
   "timezone": "America/Halifax",
   "games": [
-    {
-      "league": "U15-AA",
-      "home_team": "Pictou County Crushers",
-      "away_team": "Cumberland Ramblers",
-      "start": "2025-12-12T20:00:00-04:00",
-      "end": "2025-12-12T21:30:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
     {
       "league": "U9-INT",
       "home_team": "West Colchester Cobras",
@@ -44,6 +35,33 @@
       "away_team": "Cumberland U18C Ramblers",
       "start": "2025-12-18T20:00:00-04:00",
       "end": "2025-12-18T21:00:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U9-INT",
+      "home_team": "Truro Bearcats",
+      "away_team": "Cumberland Ramblers",
+      "start": "2025-12-20T11:00:00-04:00",
+      "end": "2025-12-20T11:50:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U9-ADV",
+      "home_team": "Antigonish Bulldogs",
+      "away_team": "Cumberland Ramblers",
+      "start": "2025-12-20T12:15:00-04:00",
+      "end": "2025-12-20T13:15:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U11-AA",
+      "home_team": "Pictou County Crushers White",
+      "away_team": "Cumberland Ramblers",
+      "start": "2025-12-20T13:45:00-04:00",
+      "end": "2025-12-20T15:15:00-04:00",
       "location": "Amherst Stadium",
       "source": "ccmha"
     }

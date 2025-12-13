@@ -393,9 +393,9 @@
 [standings/BSHL] example={"team":"Bouctouche JCs","gp":13,"w":8,"l":2,"otl":3,"sol":0,"pts":19,"gf":54,"ga":37,"diff":17,"slug":"bouctouche"}
 [standings] mhlRows=12  bshlRows=7
 [schedules/ICS] parsed=52
-[schedules/BSHL] parsed=26
-[schedules] events=78  ramblers=52  ducks=26
+[schedules/BSHL] parsed=25
+[schedules] events=77  ramblers=52  ducks=25
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 173 total schedule items
-[CCMHA] Found 5 games at Amherst Stadium
-[ccmha] games=5
+[CCMHA] API returned 170 total schedule items
+[CCMHA] Found 7 games at Amherst Stadium
+[ccmha] games=7

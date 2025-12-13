@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-12-12T06:56:20.363Z",
+  "generated_at": "2025-12-13T06:52:00.590Z",
   "season": "",
   "league": "BSHL",
   "rows": [
@@ -17,30 +17,30 @@
       "slug": "bouctouche"
     },
     {
-      "team": "Miramichi Northmen",
-      "gp": 12,
-      "w": 7,
-      "l": 3,
-      "otl": 2,
-      "sol": 0,
-      "pts": 16,
-      "gf": 50,
-      "ga": 48,
-      "diff": 2,
-      "slug": "miramichi-bshl"
-    },
-    {
       "team": "Dalhousie Marauders",
-      "gp": 9,
-      "w": 7,
+      "gp": 10,
+      "w": 8,
       "l": 2,
       "otl": 0,
       "sol": 0,
-      "pts": 14,
-      "gf": 58,
-      "ga": 23,
-      "diff": 35,
+      "pts": 16,
+      "gf": 61,
+      "ga": 25,
+      "diff": 36,
       "slug": "dalhousie"
+    },
+    {
+      "team": "Miramichi Northmen",
+      "gp": 13,
+      "w": 7,
+      "l": 4,
+      "otl": 2,
+      "sol": 0,
+      "pts": 16,
+      "gf": 52,
+      "ga": 51,
+      "diff": 1,
+      "slug": "miramichi-bshl"
     },
     {
       "team": "Elsipogtog Hawks",

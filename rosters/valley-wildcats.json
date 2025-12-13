@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 4,
-  "updated_at": "2025-12-12T06:55:57.201Z",
+  "updated_at": "2025-12-13T06:51:27.447Z",
   "player_count": 23,
   "players": [
     {
@@ -102,7 +102,7 @@
       "headshot": "assets/headshots/Valley-Wildcats/8-louis-carl-tremblay.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3813.jpg",
       "stats": {
-        "games_played": 26,
+        "games_played": 27,
         "goals": 7,
         "assists": 7,
         "points": 14,
@@ -116,7 +116,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.54
+        "points_per_game": 0.52
       },
       "hockeytech_id": "3813",
       "person_id": "4431",
@@ -145,7 +145,7 @@
       "headshot": "assets/headshots/Valley-Wildcats/9-felix-belanger.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3615.jpg",
       "stats": {
-        "games_played": 27,
+        "games_played": 28,
         "goals": 10,
         "assists": 8,
         "points": 18,
@@ -159,7 +159,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.67
+        "points_per_game": 0.64
       },
       "hockeytech_id": "3615",
       "person_id": "4230",
@@ -188,21 +188,21 @@
       "rookie": true,
       "veteran": false,
       "stats": {
-        "games_played": 23,
-        "goals": 1,
+        "games_played": 24,
+        "goals": 2,
         "assists": 13,
-        "points": 14,
+        "points": 15,
         "plus_minus": 0,
         "penalty_minutes": 26,
-        "power_play_goals": 0,
+        "power_play_goals": 1,
         "power_play_assists": 2,
-        "power_play_points": 2,
+        "power_play_points": 3,
         "short_handed_goals": 0,
         "short_handed_assists": 0,
         "short_handed_points": 0,
-        "game_winning_goals": 1,
+        "game_winning_goals": 2,
         "overtime_goals": 0,
-        "points_per_game": 0.61
+        "points_per_game": 0.63
       },
       "hockeytech_id": "3851",
       "person_id": "4479",
@@ -273,7 +273,7 @@
       "headshot": "assets/headshots/Valley-Wildcats/15-arnaud-lucier.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3600.jpg",
       "stats": {
-        "games_played": 25,
+        "games_played": 26,
         "goals": 3,
         "assists": 2,
         "points": 5,
@@ -287,7 +287,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.2
+        "points_per_game": 0.19
       },
       "hockeytech_id": "3600",
       "person_id": "4215",
@@ -316,23 +316,7 @@
       "veteran": false,
       "headshot": "assets/headshots/Valley-Wildcats/16-victor-proulx.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3908.jpg",
-      "stats": {
-        "games_played": 2,
-        "goals": 1,
-        "assists": 2,
-        "points": 3,
-        "plus_minus": 0,
-        "penalty_minutes": 0,
-        "power_play_goals": 0,
-        "power_play_assists": 0,
-        "power_play_points": 0,
-        "short_handed_goals": 0,
-        "short_handed_assists": 0,
-        "short_handed_points": 0,
-        "game_winning_goals": 0,
-        "overtime_goals": 0,
-        "points_per_game": 1.5
-      },
+      "stats": {},
       "hockeytech_id": "3908",
       "person_id": "4561",
       "flags": [
@@ -358,21 +342,21 @@
       "rookie": false,
       "veteran": false,
       "stats": {
-        "games_played": 23,
+        "games_played": 24,
         "goals": 11,
-        "assists": 5,
-        "points": 16,
+        "assists": 6,
+        "points": 17,
         "plus_minus": 0,
         "penalty_minutes": 4,
         "power_play_goals": 2,
-        "power_play_assists": 2,
-        "power_play_points": 4,
+        "power_play_assists": 3,
+        "power_play_points": 5,
         "short_handed_goals": 0,
         "short_handed_assists": 0,
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.7
+        "points_per_game": 0.71
       },
       "hockeytech_id": "3844",
       "person_id": "4471",
@@ -400,7 +384,23 @@
       "veteran": false,
       "headshot": "assets/headshots/Valley-Wildcats/19-jacob-pineau.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3072.jpg",
-      "stats": {},
+      "stats": {
+        "games_played": 23,
+        "goals": 1,
+        "assists": 3,
+        "points": 4,
+        "plus_minus": 0,
+        "penalty_minutes": 0,
+        "power_play_goals": 0,
+        "power_play_assists": 0,
+        "power_play_points": 0,
+        "short_handed_goals": 0,
+        "short_handed_assists": 0,
+        "short_handed_points": 0,
+        "game_winning_goals": 0,
+        "overtime_goals": 0,
+        "points_per_game": 0.17
+      },
       "hockeytech_id": "3072",
       "person_id": "3590",
       "flags": [
@@ -428,12 +428,12 @@
       "headshot": "assets/headshots/Valley-Wildcats/20-drew-lutz.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2778.jpg",
       "stats": {
-        "games_played": 28,
-        "goals": 11,
+        "games_played": 29,
+        "goals": 12,
         "assists": 16,
-        "points": 27,
+        "points": 28,
         "plus_minus": 0,
-        "penalty_minutes": 16,
+        "penalty_minutes": 18,
         "power_play_goals": 1,
         "power_play_assists": 3,
         "power_play_points": 4,
@@ -442,7 +442,7 @@
         "short_handed_points": 2,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.96
+        "points_per_game": 0.97
       },
       "hockeytech_id": "2778",
       "person_id": "3205",
@@ -471,7 +471,7 @@
       "headshot": "assets/headshots/Valley-Wildcats/21-dylan-maclean.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3465.jpg",
       "stats": {
-        "games_played": 17,
+        "games_played": 18,
         "goals": 0,
         "assists": 4,
         "points": 4,
@@ -485,7 +485,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.24
+        "points_per_game": 0.22
       },
       "hockeytech_id": "3465",
       "person_id": "4028",
@@ -514,12 +514,12 @@
       "headshot": "assets/headshots/Valley-Wildcats/22-aidan-bent.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3043.jpg",
       "stats": {
-        "games_played": 26,
+        "games_played": 27,
         "goals": 10,
         "assists": 17,
         "points": 27,
         "plus_minus": 0,
-        "penalty_minutes": 38,
+        "penalty_minutes": 40,
         "power_play_goals": 3,
         "power_play_assists": 2,
         "power_play_points": 5,
@@ -528,7 +528,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 1.04
+        "points_per_game": 1
       },
       "hockeytech_id": "3043",
       "person_id": "3561",
@@ -556,21 +556,21 @@
       "headshot": "assets/headshots/Valley-Wildcats/23-josh-vincent.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3852.jpg",
       "stats": {
-        "games_played": 22,
-        "goals": 4,
-        "assists": 10,
-        "points": 14,
+        "games_played": 23,
+        "goals": 5,
+        "assists": 11,
+        "points": 16,
         "plus_minus": 0,
-        "penalty_minutes": 12,
+        "penalty_minutes": 14,
         "power_play_goals": 1,
-        "power_play_assists": 1,
-        "power_play_points": 2,
+        "power_play_assists": 2,
+        "power_play_points": 3,
         "short_handed_goals": 1,
         "short_handed_assists": 0,
         "short_handed_points": 1,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.64
+        "points_per_game": 0.7
       },
       "hockeytech_id": "3852",
       "person_id": "4480",
@@ -624,12 +624,12 @@
       "headshot": "assets/headshots/Valley-Wildcats/26-ryan-fletcher.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2987.jpg",
       "stats": {
-        "games_played": 26,
+        "games_played": 27,
         "goals": 1,
-        "assists": 12,
-        "points": 13,
+        "assists": 14,
+        "points": 15,
         "plus_minus": 0,
-        "penalty_minutes": 10,
+        "penalty_minutes": 12,
         "power_play_goals": 0,
         "power_play_assists": 3,
         "power_play_points": 3,
@@ -638,7 +638,7 @@
         "short_handed_points": 1,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.5
+        "points_per_game": 0.56
       },
       "hockeytech_id": "2987",
       "person_id": "3465",
@@ -694,7 +694,7 @@
       "headshot": "assets/headshots/Valley-Wildcats/28-sam-hope.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2655.jpg",
       "stats": {
-        "games_played": 22,
+        "games_played": 23,
         "goals": 5,
         "assists": 13,
         "points": 18,
@@ -708,7 +708,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.82
+        "points_per_game": 0.78
       },
       "hockeytech_id": "2655",
       "person_id": "3080",
@@ -775,7 +775,7 @@
       "headshot": "assets/headshots/Valley-Wildcats/32-brody-ford.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3376.jpg",
       "stats": {
-        "games_played": 25,
+        "games_played": 26,
         "goals": 1,
         "assists": 8,
         "points": 9,
@@ -789,7 +789,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.36
+        "points_per_game": 0.35
       },
       "hockeytech_id": "3376",
       "person_id": "3938",
@@ -818,17 +818,17 @@
       "headshot": "assets/headshots/Valley-Wildcats/70-sean-hogan.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3618.jpg",
       "stats": {
-        "games_played": 16,
-        "wins": 3,
+        "games_played": 17,
+        "wins": 4,
         "losses": 12,
         "ot_losses": 0,
-        "minutes_played": 886,
-        "saves": 566,
-        "shots": 632,
-        "goals_against": 66,
+        "minutes_played": 946,
+        "saves": 602,
+        "shots": 670,
+        "goals_against": 68,
         "shutouts": 0,
-        "save_percentage": 0.896,
-        "goals_against_average": 4.47
+        "save_percentage": 0.899,
+        "goals_against_average": 4.31
       },
       "hockeytech_id": "3618",
       "person_id": "4233",
@@ -840,17 +840,17 @@
       "rookie": false,
       "veteran": false,
       "stats": {
-        "games_played": 28,
-        "wins": 7,
+        "games_played": 29,
+        "wins": 8,
         "losses": 21,
         "ot_losses": 0,
-        "minutes_played": 1685,
-        "saves": 1051,
-        "shots": 1199,
-        "goals_against": 148,
+        "minutes_played": 1745,
+        "saves": 1087,
+        "shots": 1237,
+        "goals_against": 150,
         "shutouts": 0,
-        "save_percentage": 0.877,
-        "goals_against_average": 5.27
+        "save_percentage": 0.879,
+        "goals_against_average": 5.16
       },
       "flags": []
     }
