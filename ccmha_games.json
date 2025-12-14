@@ -1,34 +1,7 @@
 {
-  "generated_at": "2025-12-13T06:52:01Z",
+  "generated_at": "2025-12-14T06:52:06Z",
   "timezone": "America/Halifax",
   "games": [
-    {
-      "league": "U9-INT",
-      "home_team": "West Colchester Cobras",
-      "away_team": "Cumberland Ramblers",
-      "start": "2025-12-13T11:00:00-04:00",
-      "end": "2025-12-13T11:50:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
-    {
-      "league": "U9-ADV",
-      "home_team": "Truro Bearcats",
-      "away_team": "Cumberland Ramblers",
-      "start": "2025-12-13T12:15:00-04:00",
-      "end": "2025-12-13T13:15:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
-    {
-      "league": "U11-AA",
-      "home_team": "Pictou County Crushers Red",
-      "away_team": "Cumberland Ramblers",
-      "start": "2025-12-13T13:45:00-04:00",
-      "end": "2025-12-13T15:15:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
     {
       "league": "U18-C",
       "home_team": "Moncton Hawkes",
@@ -62,6 +35,33 @@
       "away_team": "Cumberland Ramblers",
       "start": "2025-12-20T13:45:00-04:00",
       "end": "2025-12-20T15:15:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U9-DEV",
+      "home_team": "Truro Bearcats [Maroon]",
+      "away_team": "Cumberland Ramblers - Development",
+      "start": "2025-12-21T09:15:00-04:00",
+      "end": "2025-12-21T10:15:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U15-AA",
+      "home_team": "Cape Breton County Islanders",
+      "away_team": "Cumberland Ramblers",
+      "start": "2025-12-21T13:45:00-04:00",
+      "end": "2025-12-21T15:15:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U18-A",
+      "home_team": "Antigonish Bulldogs",
+      "away_team": "Cumberland Ramblers",
+      "start": "2025-12-21T15:30:00-04:00",
+      "end": "2025-12-21T17:00:00-04:00",
       "location": "Amherst Stadium",
       "source": "ccmha"
     }
