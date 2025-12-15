@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-12-14T06:52:05.295Z",
+  "generated_at": "2025-12-15T06:58:13.111Z",
   "season": "",
   "league": "BSHL",
   "rows": [
@@ -31,16 +31,29 @@
     },
     {
       "team": "Fredericton Express",
-      "gp": 14,
+      "gp": 15,
       "w": 8,
       "l": 6,
+      "otl": 1,
+      "sol": 0,
+      "pts": 17,
+      "gf": 72,
+      "ga": 68,
+      "diff": 4,
+      "slug": "fredericton"
+    },
+    {
+      "team": "Elsipogtog Hawks",
+      "gp": 12,
+      "w": 8,
+      "l": 4,
       "otl": 0,
       "sol": 0,
       "pts": 16,
       "gf": 68,
-      "ga": 63,
-      "diff": 5,
-      "slug": "fredericton"
+      "ga": 52,
+      "diff": 16,
+      "slug": "elsipogtog"
     },
     {
       "team": "Miramichi Northmen",
@@ -54,19 +67,6 @@
       "ga": 57,
       "diff": -2,
       "slug": "miramichi-bshl"
-    },
-    {
-      "team": "Elsipogtog Hawks",
-      "gp": 11,
-      "w": 7,
-      "l": 4,
-      "otl": 0,
-      "sol": 0,
-      "pts": 14,
-      "gf": 63,
-      "ga": 48,
-      "diff": 15,
-      "slug": "elsipogtog"
     },
     {
       "team": "Belle-Baie Rocs",

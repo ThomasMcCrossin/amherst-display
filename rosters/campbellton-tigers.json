@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 8,
-  "updated_at": "2025-12-14T06:51:41.636Z",
+  "updated_at": "2025-12-15T06:57:47.033Z",
   "player_count": 27,
   "players": [
     {
@@ -83,10 +83,10 @@
       "headshot": "assets/headshots/Campbellton-Tigers/7-alex-lavoie.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3010.jpg",
       "stats": {
-        "games_played": 22,
+        "games_played": 23,
         "goals": 9,
-        "assists": 5,
-        "points": 14,
+        "assists": 6,
+        "points": 15,
         "plus_minus": 0,
         "penalty_minutes": 4,
         "power_play_goals": 4,
@@ -97,7 +97,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.64
+        "points_per_game": 0.65
       },
       "hockeytech_id": "3010",
       "person_id": "3516",
@@ -165,10 +165,10 @@
       "headshot": "assets/headshots/Campbellton-Tigers/9-caleb-macdonald.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2703.jpg",
       "stats": {
-        "games_played": 29,
+        "games_played": 30,
         "goals": 17,
-        "assists": 18,
-        "points": 35,
+        "assists": 19,
+        "points": 36,
         "plus_minus": 0,
         "penalty_minutes": 2,
         "power_play_goals": 3,
@@ -179,7 +179,7 @@
         "short_handed_points": 2,
         "game_winning_goals": 2,
         "overtime_goals": 1,
-        "points_per_game": 1.21
+        "points_per_game": 1.2
       },
       "hockeytech_id": "2703",
       "person_id": "3130",
@@ -206,21 +206,21 @@
       "headshot": "assets/headshots/Campbellton-Tigers/10-victor-lanoue.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3599.jpg",
       "stats": {
-        "games_played": 29,
-        "goals": 5,
-        "assists": 15,
-        "points": 20,
+        "games_played": 30,
+        "goals": 7,
+        "assists": 17,
+        "points": 24,
         "plus_minus": 0,
         "penalty_minutes": 12,
         "power_play_goals": 2,
-        "power_play_assists": 3,
-        "power_play_points": 5,
+        "power_play_assists": 4,
+        "power_play_points": 6,
         "short_handed_goals": 0,
         "short_handed_assists": 0,
         "short_handed_points": 0,
-        "game_winning_goals": 1,
-        "overtime_goals": 0,
-        "points_per_game": 0.69
+        "game_winning_goals": 2,
+        "overtime_goals": 1,
+        "points_per_game": 0.8
       },
       "hockeytech_id": "3599",
       "person_id": "4214",
@@ -246,10 +246,10 @@
       "headshot": "assets/headshots/Campbellton-Tigers/11-nathan-lebrasseur.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3854.jpg",
       "stats": {
-        "games_played": 20,
-        "goals": 5,
+        "games_played": 21,
+        "goals": 6,
         "assists": 9,
-        "points": 14,
+        "points": 15,
         "plus_minus": 0,
         "penalty_minutes": 36,
         "power_play_goals": 0,
@@ -260,7 +260,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.7
+        "points_per_game": 0.71
       },
       "hockeytech_id": "3854",
       "person_id": "4482",
@@ -287,7 +287,7 @@
       "headshot": "assets/headshots/Campbellton-Tigers/12-samuel-deveau.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3315.jpg",
       "stats": {
-        "games_played": 26,
+        "games_played": 27,
         "goals": 4,
         "assists": 6,
         "points": 10,
@@ -301,7 +301,7 @@
         "short_handed_points": 1,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.38
+        "points_per_game": 0.37
       },
       "hockeytech_id": "3315",
       "person_id": "3877",
@@ -330,21 +330,21 @@
       "headshot": "assets/headshots/Campbellton-Tigers/14-liam-duquette.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3005.jpg",
       "stats": {
-        "games_played": 27,
-        "goals": 7,
+        "games_played": 28,
+        "goals": 8,
         "assists": 4,
-        "points": 11,
+        "points": 12,
         "plus_minus": 0,
         "penalty_minutes": 33,
-        "power_play_goals": 1,
+        "power_play_goals": 2,
         "power_play_assists": 1,
-        "power_play_points": 2,
+        "power_play_points": 3,
         "short_handed_goals": 0,
         "short_handed_assists": 0,
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.41
+        "points_per_game": 0.43
       },
       "hockeytech_id": "3005",
       "person_id": "3511",
@@ -396,12 +396,12 @@
       "headshot": "assets/headshots/Campbellton-Tigers/17-nathan-rhodes.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3403.jpg",
       "stats": {
-        "games_played": 27,
+        "games_played": 28,
         "goals": 8,
-        "assists": 19,
-        "points": 27,
+        "assists": 18,
+        "points": 26,
         "plus_minus": 0,
-        "penalty_minutes": 18,
+        "penalty_minutes": 20,
         "power_play_goals": 2,
         "power_play_assists": 4,
         "power_play_points": 6,
@@ -410,7 +410,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 1,
-        "points_per_game": 1
+        "points_per_game": 0.93
       },
       "hockeytech_id": "3403",
       "person_id": "3965",
@@ -507,12 +507,12 @@
       "headshot": "assets/headshots/Campbellton-Tigers/20-eliot-arseneault.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3628.jpg",
       "stats": {
-        "games_played": 28,
+        "games_played": 29,
         "goals": 5,
-        "assists": 4,
-        "points": 9,
+        "assists": 5,
+        "points": 10,
         "plus_minus": 0,
-        "penalty_minutes": 16,
+        "penalty_minutes": 18,
         "power_play_goals": 0,
         "power_play_assists": 0,
         "power_play_points": 0,
@@ -521,7 +521,7 @@
         "short_handed_points": 1,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.32
+        "points_per_game": 0.34
       },
       "hockeytech_id": "3628",
       "person_id": "4243",
@@ -550,10 +550,10 @@
       "headshot": "assets/headshots/Campbellton-Tigers/21-alexi-parent.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3493.jpg",
       "stats": {
-        "games_played": 26,
+        "games_played": 27,
         "goals": 8,
-        "assists": 10,
-        "points": 18,
+        "assists": 9,
+        "points": 17,
         "plus_minus": 0,
         "penalty_minutes": 33,
         "power_play_goals": 1,
@@ -564,7 +564,7 @@
         "short_handed_points": 2,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.69
+        "points_per_game": 0.63
       },
       "hockeytech_id": "3493",
       "person_id": "4056",
@@ -591,10 +591,10 @@
       "headshot": "assets/headshots/Campbellton-Tigers/22-thierry-demers.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3894.jpg",
       "stats": {
-        "games_played": 10,
+        "games_played": 11,
         "goals": 5,
-        "assists": 5,
-        "points": 10,
+        "assists": 6,
+        "points": 11,
         "plus_minus": 0,
         "penalty_minutes": 18,
         "power_play_goals": 0,
@@ -634,7 +634,7 @@
       "headshot": "assets/headshots/Campbellton-Tigers/23-brett-woodard.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3855.jpg",
       "stats": {
-        "games_played": 20,
+        "games_played": 21,
         "goals": 0,
         "assists": 3,
         "points": 3,
@@ -648,7 +648,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.15
+        "points_per_game": 0.14
       },
       "hockeytech_id": "3855",
       "person_id": "4483",
@@ -675,12 +675,12 @@
       "headshot": "assets/headshots/Campbellton-Tigers/26-sawyer-harvey.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3322.jpg",
       "stats": {
-        "games_played": 28,
+        "games_played": 29,
         "goals": 0,
         "assists": 5,
         "points": 5,
         "plus_minus": 0,
-        "penalty_minutes": 8,
+        "penalty_minutes": 10,
         "power_play_goals": 0,
         "power_play_assists": 0,
         "power_play_points": 0,
@@ -689,7 +689,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.18
+        "points_per_game": 0.17
       },
       "hockeytech_id": "3322",
       "person_id": "3884",
@@ -741,17 +741,17 @@
       "headshot": "assets/headshots/Campbellton-Tigers/31-niko-boudreau.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3231.jpg",
       "stats": {
-        "games_played": 18,
-        "wins": 10,
+        "games_played": 19,
+        "wins": 11,
         "losses": 7,
         "ot_losses": 1,
-        "minutes_played": 1098,
-        "saves": 681,
-        "shots": 751,
-        "goals_against": 70,
+        "minutes_played": 1161,
+        "saves": 712,
+        "shots": 785,
+        "goals_against": 73,
         "shutouts": 0,
         "save_percentage": 0.907,
-        "goals_against_average": 3.83
+        "goals_against_average": 3.77
       },
       "hockeytech_id": "3231",
       "person_id": "3764",
@@ -780,12 +780,12 @@
       "headshot": "assets/headshots/Campbellton-Tigers/39-logan-mallaley.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2993.jpg",
       "stats": {
-        "games_played": 27,
+        "games_played": 28,
         "goals": 8,
         "assists": 14,
         "points": 22,
         "plus_minus": 0,
-        "penalty_minutes": 10,
+        "penalty_minutes": 25,
         "power_play_goals": 2,
         "power_play_assists": 4,
         "power_play_points": 6,
@@ -794,7 +794,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.81
+        "points_per_game": 0.79
       },
       "hockeytech_id": "2993",
       "person_id": "3499",
@@ -821,7 +821,7 @@
       "headshot": "assets/headshots/Campbellton-Tigers/45-jacob-singer.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3311.jpg",
       "stats": {
-        "games_played": 24,
+        "games_played": 25,
         "goals": 1,
         "assists": 2,
         "points": 3,
@@ -835,7 +835,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.13
+        "points_per_game": 0.12
       },
       "hockeytech_id": "3311",
       "person_id": "3873",
@@ -864,21 +864,21 @@
       "headshot": "assets/headshots/Campbellton-Tigers/55-luke-orr.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2521.jpg",
       "stats": {
-        "games_played": 26,
+        "games_played": 27,
         "goals": 6,
-        "assists": 10,
-        "points": 16,
+        "assists": 12,
+        "points": 18,
         "plus_minus": 0,
-        "penalty_minutes": 24,
+        "penalty_minutes": 28,
         "power_play_goals": 2,
-        "power_play_assists": 3,
-        "power_play_points": 5,
+        "power_play_assists": 4,
+        "power_play_points": 6,
         "short_handed_goals": 0,
         "short_handed_assists": 0,
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.62
+        "points_per_game": 0.67
       },
       "hockeytech_id": "2521",
       "person_id": "2916",
@@ -980,17 +980,17 @@
       "rookie": false,
       "veteran": false,
       "stats": {
-        "games_played": 28,
-        "wins": 14,
+        "games_played": 29,
+        "wins": 15,
         "losses": 11,
         "ot_losses": 2,
-        "minutes_played": 1709,
-        "saves": 1027,
-        "shots": 1138,
-        "goals_against": 111,
+        "minutes_played": 1772,
+        "saves": 1058,
+        "shots": 1172,
+        "goals_against": 114,
         "shutouts": 0,
-        "save_percentage": 0.902,
-        "goals_against_average": 3.9
+        "save_percentage": 0.903,
+        "goals_against_average": 3.86
       },
       "flags": []
     }
