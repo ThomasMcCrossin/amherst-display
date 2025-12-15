@@ -16,8 +16,6 @@
     html,body{height:100%;margin:0;overflow:hidden}
     body{color:var(--ink);font-family:var(--font);display:flex;flex-direction:column;
       background: linear-gradient(135deg, #1a1f2a 0%, #0f1219 50%, #0b0c10 100%);}
-    .bg::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.06;
-      background-image:url('https://thomasmccrossin.github.io/amherst-display/assets/bg/ice-texture.jpg');background-size:cover;background-position:center;}
 
     /* Main Layout - Fixed for 1920x1080 */
     .container{width:1920px;height:1080px;padding:32px 40px;display:flex;flex-direction:column}
@@ -115,7 +113,7 @@
     .clock{font-variant-numeric:tabular-nums;font-weight:700;font-size:18px}
   </style>
 </head>
-<body class="bg">
+<body>
   <div class="container">
     <header>
       <h1 class="title">Amherst Stadium GameBoard</h1>
@@ -274,8 +272,8 @@ function renderUpcomingGames(events) {
         </div>
         <div class="game-matchup">
           <div class="game-logos">
-            ${hLogo ? `<img src="${hLogo}" alt="${h}">` : ''}
-            ${aLogo ? `<img src="${aLogo}" alt="${a}">` : ''}
+            ${hLogo ? `<img src="${hLogo}" alt="${h}" width="130" height="60" loading="lazy">` : ''}
+            ${aLogo ? `<img src="${aLogo}" alt="${a}" width="130" height="60" loading="lazy">` : ''}
           </div>
           <div class="game-vs">
             <div class="game-teams">${h} vs ${a}</div>
@@ -414,7 +412,7 @@ function renderTopScorers(rosterData) {
       <div class="scorer-item">
         <div class="scorer-rank ${i < 3 ? 'top' : ''}">${i + 1}</div>
         ${photo ?
-          `<img src="${photo}" alt="${p.name}" class="scorer-photo" onerror="this.style.display='none'">` :
+          `<img src="${photo}" alt="${p.name}" class="scorer-photo" loading="lazy" onerror="this.remove()">` :
           `<div class="scorer-photo placeholder">#${p.number}</div>`
         }
         <div class="scorer-info">
@@ -526,15 +524,17 @@ async function loadAll() {
 
 // Initialize
 function bootstrap() {
-  // Cache formatter for clock (avoid creating new one every second)
+  // Cache formatter and element refs for clock
   const clockFormatter = new Intl.DateTimeFormat('en-CA', {
     hour:'numeric', minute:'2-digit', second:'2-digit', hour12:true, timeZone:CONFIG.TIMEZONE
   });
   const $clock = document.getElementById('clock');
 
-  // Update clock every second
+  // Update clock - reuse date object
+  let clockDate = new Date();
   setInterval(() => {
-    $clock.textContent = clockFormatter.format(new Date());
+    clockDate.setTime(Date.now());
+    $clock.textContent = clockFormatter.format(clockDate);
   }, 1000);
 
   // Load data now and every 10 minutes
