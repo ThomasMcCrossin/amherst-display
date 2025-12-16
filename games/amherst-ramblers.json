@@ -4,7 +4,7 @@
   "team_id": 1,
   "season": "2024-25",
   "season_id": 41,
-  "updated_at": "2025-12-15T06:58:07.604Z",
+  "updated_at": "2025-12-16T06:57:05.059Z",
   "summary": {
     "games_played": 28,
     "wins": 16,
@@ -65,9 +65,8 @@
               "number": 55
             },
             {
-              "player_id": "mhl-3759",
-              "name": "Ryder Howatt",
-              "number": 21
+              "name": "George Gallant",
+              "number": 1
             }
           ],
           "power_play": false,
@@ -119,6 +118,11 @@
               "player_id": "mhl-3545",
               "name": "Christian White",
               "number": 4
+            },
+            {
+              "player_id": "mhl-3226",
+              "name": "Jeremie Richard",
+              "number": 77
             }
           ],
           "power_play": false,
@@ -139,8 +143,8 @@
           },
           "assists": [
             {
-              "name": "Brett Arsenault",
-              "number": 81
+              "name": "Henry Ouellet",
+              "number": 5
             },
             {
               "name": "Simon Mullen",
@@ -429,8 +433,8 @@
         "mhl-3226": {
           "position": "D",
           "goals": 0,
-          "assists": 0,
-          "points": 0,
+          "assists": 1,
+          "points": 1,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -462,8 +466,8 @@
         },
         "mhl-3187": {
           "position": "G",
-          "saves": 40,
-          "shots_against": 42,
+          "saves": 42,
+          "shots_against": 44,
           "goals_against": 2,
           "save_percentage": "0.000",
           "time_on_ice": "60:00"
@@ -494,7 +498,7 @@
         {
           "period": 1,
           "period_name": "1st",
-          "time": "12:16",
+          "time": "7:44",
           "team": "opponent",
           "scorer": {
             "player_id": "mhl-2933",
@@ -528,7 +532,18 @@
             "number": 4,
             "position": "D"
           },
-          "assists": [],
+          "assists": [
+            {
+              "player_id": "mhl-2933",
+              "name": "Jared Pitman",
+              "number": 16
+            },
+            {
+              "player_id": "mhl-2943",
+              "name": "Jano Zambakdjian",
+              "number": 37
+            }
+          ],
           "power_play": false,
           "short_handed": false,
           "game_winning": false,
@@ -550,11 +565,6 @@
               "player_id": "mhl-2910",
               "name": "Bailey Shortall",
               "number": 22
-            },
-            {
-              "player_id": "mhl-3759",
-              "name": "Thomas Gagnon",
-              "number": 21
             }
           ],
           "power_play": false,
@@ -573,7 +583,13 @@
             "number": 11,
             "position": "C"
           },
-          "assists": [],
+          "assists": [
+            {
+              "player_id": "mhl-2943",
+              "name": "Cooper Cormier",
+              "number": 37
+            }
+          ],
           "power_play": false,
           "short_handed": true,
           "game_winning": false,
@@ -618,7 +634,13 @@
             "number": 10,
             "position": "C"
           },
-          "assists": [],
+          "assists": [
+            {
+              "player_id": "mhl-2910",
+              "name": "Owen O’Donnell",
+              "number": 22
+            }
+          ],
           "power_play": false,
           "short_handed": false,
           "game_winning": false,
@@ -760,8 +782,8 @@
         "mhl-3759": {
           "position": "C",
           "goals": 0,
-          "assists": 1,
-          "points": 1,
+          "assists": 0,
+          "points": 0,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -812,8 +834,8 @@
         "mhl-2943": {
           "position": "LW",
           "goals": 0,
-          "assists": 0,
-          "points": 0,
+          "assists": 1,
+          "points": 1,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -863,8 +885,8 @@
         },
         "mhl-3766": {
           "position": "G",
-          "saves": 35,
-          "shots_against": 39,
+          "saves": 19,
+          "shots_against": 23,
           "goals_against": 4,
           "save_percentage": "0.000",
           "time_on_ice": "60:00"

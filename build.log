@@ -280,6 +280,7 @@
 [rosters] Downloaded: 21-ryder-howatt.jpg
 [rosters] Downloaded: 24-isaac-taweel.jpg
 [rosters] Downloaded: 28-james-martin.jpg
+[rosters] Skipping placeholder image
 [rosters] Downloaded: 33-kolton-bourret.jpg
 [rosters] Downloaded: 44-matthew-maclean.jpg
 [rosters] Downloaded: 47-ryker-rougeau.jpg
@@ -287,7 +288,6 @@
 [rosters] Downloaded: 77-justin-ouellette.jpg
 [rosters] Downloaded: 79-alex-hendry.jpg
 [rosters] Downloaded: 81-brett-arsenault.jpg
-[rosters] Skipping placeholder image
 [rosters/summerside-capitals] Wrote rosters/summerside-capitals.json (26 players)
 [rosters/grand-falls-rapids] Fetching roster for Grand-Falls-Rapids...
 [rosters] Fetching from API: team_id=12
@@ -400,6 +400,6 @@
 [schedules/BSHL] parsed=22
 [schedules] events=74  ramblers=52  ducks=22
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 163 total schedule items
+[CCMHA] API returned 165 total schedule items
 [CCMHA] Found 7 games at Amherst Stadium
 [ccmha] games=7
