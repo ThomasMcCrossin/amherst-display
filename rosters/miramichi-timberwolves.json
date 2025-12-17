@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 9,
-  "updated_at": "2025-12-16T06:56:44.637Z",
+  "updated_at": "2025-12-17T06:55:43.728Z",
   "player_count": 31,
   "players": [
     {
@@ -487,7 +487,7 @@
         "assists": 3,
         "points": 3,
         "plus_minus": 0,
-        "penalty_minutes": 80,
+        "penalty_minutes": 95,
         "power_play_goals": 0,
         "power_play_assists": 0,
         "power_play_points": 0,
