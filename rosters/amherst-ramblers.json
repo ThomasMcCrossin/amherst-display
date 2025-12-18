@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 1,
-  "updated_at": "2025-12-17T06:55:38.203Z",
+  "updated_at": "2025-12-18T06:55:08.036Z",
   "player_count": 32,
   "players": [
     {
@@ -759,11 +759,11 @@
         "losses": 4,
         "ot_losses": 1,
         "minutes_played": 645,
-        "saves": 360,
-        "shots": 404,
+        "saves": 347,
+        "shots": 391,
         "goals_against": 44,
         "shutouts": 0,
-        "save_percentage": 0.891,
+        "save_percentage": 0.887,
         "goals_against_average": 4.09
       },
       "hockeytech_id": "3187",
@@ -1175,11 +1175,11 @@
         "losses": 12,
         "ot_losses": 1,
         "minutes_played": 1746,
-        "saves": 953,
-        "shots": 1057,
+        "saves": 940,
+        "shots": 1044,
         "goals_against": 104,
         "shutouts": 0,
-        "save_percentage": 0.902,
+        "save_percentage": 0.9,
         "goals_against_average": 3.57
       },
       "flags": []
