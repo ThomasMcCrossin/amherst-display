@@ -132,7 +132,7 @@
 [rosters/west-kent-steamers] Fetching roster for West-Kent-Steamers...
 [rosters] Fetching from API: team_id=6
 [rosters] Fetching stats from API: team_id=6
-[rosters/west-kent-steamers] Processing 25 players (downloading headshots)
+[rosters/west-kent-steamers] Processing 26 players (downloading headshots)
 [rosters] Skipping placeholder image
 [rosters] Downloaded: 6-th-o-lebrun.jpg
 [rosters] Downloaded: 7-sam-bowness.jpg
@@ -157,7 +157,8 @@
 [rosters] Downloaded: 88-pierre-marc-minville.jpg
 [rosters] Downloaded: 91-victor-lalibert.jpg
 [rosters] Downloaded: 96-brody-breau.jpg
-[rosters/west-kent-steamers] Wrote rosters/west-kent-steamers.json (25 players)
+[rosters] Skipping placeholder image
+[rosters/west-kent-steamers] Wrote rosters/west-kent-steamers.json (26 players)
 [rosters/pictou-county-crushers] Fetching roster for Pictou-County-Crushers...
 [rosters] Fetching from API: team_id=7
 [rosters] Fetching stats from API: team_id=7
@@ -198,7 +199,6 @@
 [rosters] Fetching stats from API: team_id=8
 [rosters/campbellton-tigers] Processing 27 players (downloading headshots)
 [rosters] Downloaded: 1-samuel-quimper.jpg
-[rosters] Skipping placeholder image
 [rosters] Downloaded: 7-alex-lavoie.jpg
 [rosters] Downloaded: 8-adam-v-ronneau.jpg
 [rosters] Downloaded: 9-caleb-macdonald.jpg
@@ -221,6 +221,7 @@
 [rosters] Downloaded: 45-jacob-singer.jpg
 [rosters] Downloaded: 55-luke-orr.jpg
 [rosters] Downloaded: 84-nash-coffin.jpg
+[rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
 [rosters/campbellton-tigers] Wrote rosters/campbellton-tigers.json (27 players)
@@ -401,6 +402,6 @@
 [schedules/BSHL] parsed=22
 [schedules] events=74  ramblers=52  ducks=22
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 165 total schedule items
+[CCMHA] API returned 163 total schedule items
 [CCMHA] Found 6 games at Amherst Stadium
 [ccmha] games=6
