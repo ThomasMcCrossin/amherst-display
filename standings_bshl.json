@@ -1,19 +1,19 @@
 {
-  "generated_at": "2025-12-20T06:52:06.804Z",
+  "generated_at": "2025-12-21T06:52:15.546Z",
   "season": "",
   "league": "BSHL",
   "rows": [
     {
       "team": "Bouctouche JCs",
-      "gp": 14,
-      "w": 8,
+      "gp": 15,
+      "w": 9,
       "l": 3,
       "otl": 3,
       "sol": 0,
-      "pts": 19,
-      "gf": 56,
-      "ga": 41,
-      "diff": 15,
+      "pts": 21,
+      "gf": 60,
+      "ga": 42,
+      "diff": 18,
       "slug": "bouctouche"
     },
     {
@@ -83,15 +83,15 @@
     },
     {
       "team": "Amherst Ducks",
-      "gp": 11,
+      "gp": 12,
       "w": 1,
-      "l": 9,
+      "l": 10,
       "otl": 1,
       "sol": 0,
       "pts": 3,
-      "gf": 38,
-      "ga": 85,
-      "diff": -47,
+      "gf": 39,
+      "ga": 89,
+      "diff": -50,
       "slug": "amherst-ducks"
     }
   ]
