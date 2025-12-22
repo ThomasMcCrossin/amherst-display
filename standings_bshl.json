@@ -1,33 +1,46 @@
 {
-  "generated_at": "2025-12-21T06:52:15.546Z",
+  "generated_at": "2025-12-22T06:57:42.535Z",
   "season": "",
   "league": "BSHL",
   "rows": [
     {
       "team": "Bouctouche JCs",
-      "gp": 15,
+      "gp": 16,
       "w": 9,
-      "l": 3,
+      "l": 4,
       "otl": 3,
       "sol": 0,
       "pts": 21,
-      "gf": 60,
-      "ga": 42,
-      "diff": 18,
+      "gf": 62,
+      "ga": 47,
+      "diff": 15,
       "slug": "bouctouche"
     },
     {
       "team": "Dalhousie Marauders",
-      "gp": 11,
-      "w": 9,
+      "gp": 12,
+      "w": 10,
       "l": 2,
       "otl": 0,
       "sol": 0,
-      "pts": 18,
-      "gf": 67,
-      "ga": 28,
-      "diff": 39,
+      "pts": 20,
+      "gf": 72,
+      "ga": 30,
+      "diff": 42,
       "slug": "dalhousie"
+    },
+    {
+      "team": "Elsipogtog Hawks",
+      "gp": 13,
+      "w": 9,
+      "l": 4,
+      "otl": 0,
+      "sol": 0,
+      "pts": 18,
+      "gf": 75,
+      "ga": 55,
+      "diff": 20,
+      "slug": "elsipogtog"
     },
     {
       "team": "Fredericton Express",
@@ -41,19 +54,6 @@
       "ga": 68,
       "diff": 4,
       "slug": "fredericton"
-    },
-    {
-      "team": "Elsipogtog Hawks",
-      "gp": 12,
-      "w": 8,
-      "l": 4,
-      "otl": 0,
-      "sol": 0,
-      "pts": 16,
-      "gf": 68,
-      "ga": 52,
-      "diff": 16,
-      "slug": "elsipogtog"
     },
     {
       "team": "Miramichi Northmen",
@@ -83,15 +83,15 @@
     },
     {
       "team": "Amherst Ducks",
-      "gp": 12,
+      "gp": 13,
       "w": 1,
-      "l": 10,
+      "l": 11,
       "otl": 1,
       "sol": 0,
       "pts": 3,
-      "gf": 39,
-      "ga": 89,
-      "diff": -50,
+      "gf": 42,
+      "ga": 96,
+      "diff": -54,
       "slug": "amherst-ducks"
     }
   ]

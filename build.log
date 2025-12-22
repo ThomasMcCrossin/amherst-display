@@ -132,7 +132,8 @@
 [rosters/west-kent-steamers] Fetching roster for West-Kent-Steamers...
 [rosters] Fetching from API: team_id=6
 [rosters] Fetching stats from API: team_id=6
-[rosters/west-kent-steamers] Processing 26 players (downloading headshots)
+[rosters/west-kent-steamers] Processing 27 players (downloading headshots)
+[rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
 [rosters] Downloaded: 6-th-o-lebrun.jpg
 [rosters] Downloaded: 7-sam-bowness.jpg
@@ -158,7 +159,7 @@
 [rosters] Downloaded: 91-victor-lalibert.jpg
 [rosters] Downloaded: 96-brody-breau.jpg
 [rosters] Skipping placeholder image
-[rosters/west-kent-steamers] Wrote rosters/west-kent-steamers.json (26 players)
+[rosters/west-kent-steamers] Wrote rosters/west-kent-steamers.json (27 players)
 [rosters/pictou-county-crushers] Fetching roster for Pictou-County-Crushers...
 [rosters] Fetching from API: team_id=7
 [rosters] Fetching stats from API: team_id=7
@@ -397,12 +398,12 @@
 [standings/MHL] tables=1 chosen=1306x378 rows=12
 [standings/MHL] example={"col":"1","eastlink south eastlink south":"Truro Bearcats","south south":"TRU","gp":34,"w":23,"l":8,"otl":3,"sol":0,"pts":49,"pct pct":"0.721","rw":17,"otw":4,"sow":2,"gf":128,"ga":96,"diff":32,"pim pim":"420","streak":"4-0-0-0","p10":"9-1-0-0","team":"Truro Bearcats","slug":"truro-bearcats"}
 [standings/BSHL] table rows=7
-[standings/BSHL] example={"team":"Bouctouche JCs","gp":15,"w":9,"l":3,"otl":3,"sol":0,"pts":21,"gf":60,"ga":42,"diff":18,"slug":"bouctouche"}
+[standings/BSHL] example={"team":"Bouctouche JCs","gp":16,"w":9,"l":4,"otl":3,"sol":0,"pts":21,"gf":62,"ga":47,"diff":15,"slug":"bouctouche"}
 [standings] mhlRows=12  bshlRows=7
 [schedules/ICS] parsed=52
-[schedules/BSHL] parsed=21
-[schedules] events=73  ramblers=52  ducks=21
+[schedules/BSHL] parsed=19
+[schedules] events=71  ramblers=52  ducks=19
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 153 total schedule items
-[CCMHA] Found 3 games at Amherst Stadium
-[ccmha] games=3
+[CCMHA] API returned 139 total schedule items
+[CCMHA] Found 0 games at Amherst Stadium
+[ccmha] games=0
