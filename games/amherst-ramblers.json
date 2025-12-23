@@ -4,7 +4,7 @@
   "team_id": 1,
   "season": "2024-25",
   "season_id": 41,
-  "updated_at": "2025-12-22T06:57:38.162Z",
+  "updated_at": "2025-12-23T06:56:56.733Z",
   "summary": {
     "games_played": 30,
     "wins": 17,
@@ -65,11 +65,6 @@
               "player_id": "mhl-3038",
               "name": "Owen Aura",
               "number": 25
-            },
-            {
-              "player_id": "mhl-3250",
-              "name": "Mark Corbett",
-              "number": 27
             }
           ],
           "power_play": false,
@@ -141,8 +136,8 @@
           },
           "assists": [
             {
-              "name": "Louis-Carl Tremblay",
-              "number": 8
+              "name": "Drew Lutz",
+              "number": 20
             }
           ],
           "power_play": false,
@@ -184,7 +179,13 @@
             "number": 13,
             "position": "C"
           },
-          "assists": [],
+          "assists": [
+            {
+              "player_id": "mhl-3402",
+              "name": "Aidan Silvaggio",
+              "number": 12
+            }
+          ],
           "power_play": false,
           "short_handed": false,
           "game_winning": false,
@@ -261,8 +262,8 @@
         "mhl-3402": {
           "position": "LW",
           "goals": 0,
-          "assists": 0,
-          "points": 0,
+          "assists": 1,
+          "points": 1,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -365,8 +366,8 @@
         "mhl-3250": {
           "position": "C",
           "goals": 1,
-          "assists": 2,
-          "points": 3,
+          "assists": 1,
+          "points": 2,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -416,8 +417,8 @@
         },
         "mhl-3766": {
           "position": "G",
-          "saves": 35,
-          "shots_against": 36,
+          "saves": 39,
+          "shots_against": 40,
           "goals_against": 1,
           "save_percentage": "0.000",
           "time_on_ice": "60:00"

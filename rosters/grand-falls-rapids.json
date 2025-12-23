@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 12,
-  "updated_at": "2025-12-22T06:57:21.668Z",
+  "updated_at": "2025-12-23T06:56:42.367Z",
   "player_count": 24,
   "players": [
     {
@@ -114,23 +114,7 @@
       "veteran": false,
       "headshot": "assets/headshots/Grand-Falls-Rapids/6-nathan-dubreuil.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3411.jpg",
-      "stats": {
-        "games_played": 34,
-        "goals": 0,
-        "assists": 4,
-        "points": 4,
-        "plus_minus": 0,
-        "penalty_minutes": 12,
-        "power_play_goals": 0,
-        "power_play_assists": 0,
-        "power_play_points": 0,
-        "short_handed_goals": 0,
-        "short_handed_assists": 0,
-        "short_handed_points": 0,
-        "game_winning_goals": 0,
-        "overtime_goals": 0,
-        "points_per_game": 0.12
-      },
+      "stats": {},
       "hockeytech_id": "3411",
       "person_id": "3973",
       "flags": [
@@ -494,8 +478,8 @@
       "stats": {
         "games_played": 32,
         "goals": 15,
-        "assists": 20,
-        "points": 35,
+        "assists": 19,
+        "points": 34,
         "plus_minus": 0,
         "penalty_minutes": 16,
         "power_play_goals": 3,
@@ -506,7 +490,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 1.09
+        "points_per_game": 1.06
       },
       "hockeytech_id": "3149",
       "person_id": "3668",
@@ -705,8 +689,8 @@
         "losses": 8,
         "ot_losses": 1,
         "minutes_played": 1395,
-        "saves": 697,
-        "shots": 773,
+        "saves": 700,
+        "shots": 776,
         "goals_against": 76,
         "shutouts": 2,
         "save_percentage": 0.902,
@@ -823,8 +807,8 @@
       "stats": {
         "games_played": 34,
         "goals": 18,
-        "assists": 18,
-        "points": 36,
+        "assists": 17,
+        "points": 35,
         "plus_minus": 0,
         "penalty_minutes": 30,
         "power_play_goals": 4,
@@ -835,7 +819,7 @@
         "short_handed_points": 1,
         "game_winning_goals": 3,
         "overtime_goals": 1,
-        "points_per_game": 1.06
+        "points_per_game": 1.03
       },
       "hockeytech_id": "3481",
       "person_id": "4044",
@@ -940,8 +924,8 @@
         "losses": 12,
         "ot_losses": 4,
         "minutes_played": 2064,
-        "saves": 997,
-        "shots": 1115,
+        "saves": 1000,
+        "shots": 1118,
         "goals_against": 118,
         "shutouts": 2,
         "save_percentage": 0.894,
