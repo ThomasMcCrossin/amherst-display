@@ -1,5 +1,69 @@
 {
-  "generated_at": "2025-12-27T06:53:29Z",
+  "generated_at": "2025-12-28T06:54:04Z",
   "timezone": "America/Halifax",
-  "games": []
+  "games": [
+    {
+      "league": "U9-INT",
+      "home_team": "SCMHA U9 INTERMEDIATE WHITE",
+      "away_team": "Cumberland Ramblers",
+      "start": "2026-01-03T11:00:00-04:00",
+      "end": "2026-01-03T11:50:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U15-AA",
+      "home_team": "Strait Richmond Pirates",
+      "away_team": "Cumberland Ramblers",
+      "start": "2026-01-03T13:45:00-04:00",
+      "end": "2026-01-03T15:15:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U11-AA",
+      "home_team": "Riverview Blues",
+      "away_team": "Cumberland Ramblers",
+      "start": "2026-01-03T13:45:00-04:00",
+      "end": "2026-01-03T15:15:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U9-DEV",
+      "home_team": "Truro Bearcats [Maroon]",
+      "away_team": "Cumberland Ramblers - Development",
+      "start": "2026-01-04T09:15:00-04:00",
+      "end": "2026-01-04T10:15:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U13-AA",
+      "home_team": "Truro Bearcats",
+      "away_team": "Cumberland Ramblers",
+      "start": "2026-01-04T12:00:00-04:00",
+      "end": "2026-01-04T13:30:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U15-AA",
+      "home_team": "Cape Breton West Islanders",
+      "away_team": "Cumberland Ramblers",
+      "start": "2026-01-04T13:45:00-04:00",
+      "end": "2026-01-04T15:15:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U18-A",
+      "home_team": "West Colchester Cobras",
+      "away_team": "Cumberland Ramblers",
+      "start": "2026-01-04T15:30:00-04:00",
+      "end": "2026-01-04T17:00:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    }
+  ]
 }

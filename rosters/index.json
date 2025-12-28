@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-12-27T06:53:13.928Z",
+  "generated_at": "2025-12-28T06:53:45.901Z",
   "season": "2024-25",
   "season_id": 41,
   "api_source": "HockeyTech",
@@ -43,7 +43,7 @@
       "team_name": "Yarmouth-Mariners",
       "league": "MHL",
       "team_id": 5,
-      "player_count": 28,
+      "player_count": 27,
       "file": "rosters/yarmouth-mariners.json"
     },
     {

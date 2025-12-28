@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-12-27T06:53:29Z",
+  "generated_at": "2025-12-28T06:54:04Z",
   "timezone": "America/Halifax",
   "events": [
     {
@@ -301,24 +301,6 @@
       "start": "2025-12-20T19:00:00-04:00",
       "end": "2025-12-20T22:00:00-04:00",
       "location": "Kings Mutual Century Centre"
-    },
-    {
-      "league": "BSHL",
-      "home_team": "Fredericton",
-      "away_team": "Amherst",
-      "home_slug": "fredericton",
-      "away_slug": "amherst-ducks",
-      "start": "2025-12-27T19:00:00-04:00",
-      "location": "LBR"
-    },
-    {
-      "league": "BSHL",
-      "home_team": "Dalhousie",
-      "away_team": "Miramichi",
-      "home_slug": "dalhousie",
-      "away_slug": "miramichi-bshl",
-      "start": "2025-12-27T19:30:00-04:00",
-      "location": "Dalhousie Arena"
     },
     {
       "league": "BSHL",

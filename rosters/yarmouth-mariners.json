@@ -5,8 +5,8 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 5,
-  "updated_at": "2025-12-27T06:53:06.022Z",
-  "player_count": 28,
+  "updated_at": "2025-12-28T06:53:29.394Z",
+  "player_count": 27,
   "players": [
     {
       "player_id": "mhl-3491",
@@ -356,33 +356,8 @@
       "stats": {},
       "hockeytech_id": "3330",
       "person_id": "3892",
-      "flags": []
-    },
-    {
-      "player_id": "mhl-3460",
-      "number": "16",
-      "first_name": "Cole",
-      "last_name": "Bent",
-      "name": "Cole Bent",
-      "position": "D",
-      "height": "6'0",
-      "height_inches": 72,
-      "weight": 174,
-      "shoots": "R",
-      "birthdate": "2008-02-29",
-      "birth_year": "'08",
-      "age": 17,
-      "hometown": "Cole Harbour, NS",
-      "birthplace": "Cole Harbour,NS, NS",
-      "rookie": true,
-      "veteran": false,
-      "headshot": "assets/headshots/Yarmouth-Mariners/16-cole-bent.jpg",
-      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3460.jpg",
-      "stats": {},
-      "hockeytech_id": "3460",
-      "person_id": "4023",
       "flags": [
-        "ht-rookie"
+        "ht-affiliate"
       ]
     },
     {
@@ -863,6 +838,33 @@
       "flags": []
     },
     {
+      "player_id": "mhl-3460",
+      "number": "34",
+      "first_name": "Cole",
+      "last_name": "Bent",
+      "name": "Cole Bent",
+      "position": "D",
+      "height": "6'0",
+      "height_inches": 72,
+      "weight": 174,
+      "shoots": "R",
+      "birthdate": "2008-02-29",
+      "birth_year": "'08",
+      "age": 17,
+      "hometown": "Cole Harbour, NS",
+      "birthplace": "Cole Harbour,NS, NS",
+      "rookie": true,
+      "veteran": false,
+      "headshot": "assets/headshots/Yarmouth-Mariners/34-cole-bent.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3460.jpg",
+      "stats": {},
+      "hockeytech_id": "3460",
+      "person_id": "4023",
+      "flags": [
+        "ht-rookie"
+      ]
+    },
+    {
       "player_id": "mhl-3534",
       "number": "37",
       "first_name": "Jano",
@@ -1028,20 +1030,6 @@
         "ht-rookie",
         "ht-import"
       ]
-    },
-    {
-      "player_id": "mhl-3911",
-      "number": "50",
-      "first_name": "Malcolm",
-      "last_name": "MacDonald",
-      "name": "Malcolm MacDonald",
-      "shoots": "R",
-      "rookie": false,
-      "veteran": false,
-      "stats": {},
-      "hockeytech_id": "3911",
-      "person_id": "4564",
-      "flags": []
     },
     {
       "player_id": "mhl-undefined",

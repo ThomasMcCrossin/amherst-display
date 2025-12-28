@@ -100,7 +100,7 @@
 [rosters/yarmouth-mariners] Fetching roster for Yarmouth-Mariners...
 [rosters] Fetching from API: team_id=5
 [rosters] Fetching stats from API: team_id=5
-[rosters/yarmouth-mariners] Processing 28 players (downloading headshots)
+[rosters/yarmouth-mariners] Processing 27 players (downloading headshots)
 [rosters] Downloaded: 4-loic-mburanumwe.jpg
 [rosters] Downloaded: 5-nic-macisaac.jpg
 [rosters] Downloaded: 6-lucien-doucette.jpg
@@ -110,7 +110,6 @@
 [rosters] Downloaded: 14-thomas-dandurand.jpg
 [rosters] Downloaded: 15-ewan-cleary.jpg
 [rosters] Skipping placeholder image
-[rosters] Downloaded: 16-cole-bent.jpg
 [rosters] Downloaded: 16-jared-pitman.jpg
 [rosters] Downloaded: 18-malcolm-macdonald.jpg
 [rosters] Downloaded: 19-grayson-pardy.jpg
@@ -123,12 +122,12 @@
 [rosters] Downloaded: 30-keegan-warren.jpg
 [rosters] Downloaded: 31-noah-muise.jpg
 [rosters] Downloaded: 34-michael-arsenault.jpg
+[rosters] Downloaded: 34-cole-bent.jpg
 [rosters] Downloaded: 37-jano-zambakdjian.jpg
 [rosters] Downloaded: 46-luke-foley.jpg
 [rosters] Downloaded: 47-seamus-maceachern.jpg
 [rosters] Downloaded: 49-maxime-gigu-re.jpg
-[rosters] Skipping placeholder image
-[rosters/yarmouth-mariners] Wrote rosters/yarmouth-mariners.json (28 players)
+[rosters/yarmouth-mariners] Wrote rosters/yarmouth-mariners.json (27 players)
 [rosters/west-kent-steamers] Fetching roster for West-Kent-Steamers...
 [rosters] Fetching from API: team_id=6
 [rosters] Fetching stats from API: team_id=6
@@ -398,11 +397,12 @@
 [standings/MHL] tables=1 chosen=1306x378 rows=12
 [standings/MHL] example={"col":"1","eastlink south eastlink south":"Truro Bearcats","south south":"TRU","gp":34,"w":23,"l":8,"otl":3,"sol":0,"pts":49,"pct pct":"0.721","rw":17,"otw":4,"sow":2,"gf":128,"ga":96,"diff":32,"pim pim":"420","streak":"4-0-0-0","p10":"9-1-0-0","team":"Truro Bearcats","slug":"truro-bearcats"}
 [standings/BSHL] table rows=7
-[standings/BSHL] example={"team":"Bouctouche JCs","gp":16,"w":9,"l":4,"otl":3,"sol":0,"pts":21,"gf":62,"ga":47,"diff":15,"slug":"bouctouche"}
+[standings/BSHL] example={"team":"Dalhousie Marauders","gp":13,"w":11,"l":2,"otl":0,"sol":0,"pts":22,"gf":79,"ga":31,"diff":48,"slug":"dalhousie"}
 [standings] mhlRows=12  bshlRows=7
 [schedules/ICS] parsed=52
-[schedules/BSHL] parsed=19
-[schedules] events=71  ramblers=52  ducks=19
+[schedules/BSHL] parsed=17
+[schedules] events=69  ramblers=52  ducks=17
 [CCMHA] Fetching games for next 7 days
-[CCMHA] Failed to fetch schedule: HTTP 503
-[ccmha] games=0
+[CCMHA] API returned 161 total schedule items
+[CCMHA] Found 7 games at Amherst Stadium
+[ccmha] games=7
