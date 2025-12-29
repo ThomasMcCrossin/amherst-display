@@ -185,6 +185,26 @@
   </footer>
 
 <script>
+// ========= ERROR LOGGING (for Pi crash debugging) =========
+window.onerror = function(msg, url, line, col, error) {
+  try {
+    const log = JSON.parse(localStorage.getItem('error_log') || '[]');
+    log.push({ time: new Date().toISOString(), msg, url, line, col, stack: error?.stack });
+    if(log.length > 50) log.shift();
+    localStorage.setItem('error_log', JSON.stringify(log));
+  } catch(e) {}
+  console.error('CAUGHT:', msg, 'at', line, col);
+  return false;
+};
+window.addEventListener('unhandledrejection', function(e) {
+  try {
+    const log = JSON.parse(localStorage.getItem('error_log') || '[]');
+    log.push({ time: new Date().toISOString(), type: 'promise', reason: String(e.reason) });
+    if(log.length > 50) log.shift();
+    localStorage.setItem('error_log', JSON.stringify(log));
+  } catch(err) {}
+});
+
 // ========= CONFIG =========
 const CONFIG = {
   // Use absolute URLs for Yodeck upload (fetches data from GitHub Pages)
@@ -208,6 +228,16 @@ const CONFIG = {
 let TEAM_DIR = {};
 let ROSTER_DATA = null;
 let GAMES_DATA = null;
+
+// Track intervals for cleanup (prevents memory leaks on Pi)
+let CLOCK_TIMER = null;
+let REFRESH_TIMER = null;
+
+// Cleanup on page unload
+window.addEventListener('beforeunload', () => {
+  if(CLOCK_TIMER) clearInterval(CLOCK_TIMER);
+  if(REFRESH_TIMER) clearInterval(REFRESH_TIMER);
+});
 
 // Utility functions
 function fmtDate(d){ return new Intl.DateTimeFormat('en-CA',{weekday:'short',month:'short',day:'numeric'}).format(d); }
@@ -524,22 +554,28 @@ async function loadAll() {
 
 // Initialize
 function bootstrap() {
+  // Clear any existing timers first (prevents accumulation on page refresh)
+  if(CLOCK_TIMER) clearInterval(CLOCK_TIMER);
+  if(REFRESH_TIMER) clearInterval(REFRESH_TIMER);
+
   // Cache formatter and element refs for clock
   const clockFormatter = new Intl.DateTimeFormat('en-CA', {
     hour:'numeric', minute:'2-digit', second:'2-digit', hour12:true, timeZone:CONFIG.TIMEZONE
   });
   const $clock = document.getElementById('clock');
 
-  // Update clock - reuse date object
+  // Update clock - reuse date object (tracked for cleanup)
   let clockDate = new Date();
-  setInterval(() => {
-    clockDate.setTime(Date.now());
-    $clock.textContent = clockFormatter.format(clockDate);
+  CLOCK_TIMER = setInterval(() => {
+    try {
+      clockDate.setTime(Date.now());
+      $clock.textContent = clockFormatter.format(clockDate);
+    } catch(e) { /* ignore clock errors */ }
   }, 1000);
 
-  // Load data now and every 10 minutes
+  // Load data now and every 10 minutes (tracked for cleanup)
   loadAll();
-  setInterval(loadAll, CONFIG.REFRESH_MINUTES * 60 * 1000);
+  REFRESH_TIMER = setInterval(loadAll, CONFIG.REFRESH_MINUTES * 60 * 1000);
 }
 
 bootstrap();
