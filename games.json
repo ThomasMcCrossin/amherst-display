@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-12-28T06:54:04Z",
+  "generated_at": "2025-12-29T06:59:20Z",
   "timezone": "America/Halifax",
   "events": [
     {
@@ -301,24 +301,6 @@
       "start": "2025-12-20T19:00:00-04:00",
       "end": "2025-12-20T22:00:00-04:00",
       "location": "Kings Mutual Century Centre"
-    },
-    {
-      "league": "BSHL",
-      "home_team": "Bouctouche",
-      "away_team": "Elsipogtog",
-      "home_slug": "bouctouche",
-      "away_slug": "elsipogtog",
-      "start": "2025-12-28T18:45:00-04:00",
-      "location": "J. K."
-    },
-    {
-      "league": "BSHL",
-      "home_team": "Amherst",
-      "away_team": "Dalhousie",
-      "home_slug": "amherst-ducks",
-      "away_slug": "dalhousie",
-      "start": "2025-12-28T19:00:00-04:00",
-      "location": "Amherst Stadium"
     },
     {
       "league": "MHL",

@@ -397,12 +397,12 @@
 [standings/MHL] tables=1 chosen=1306x378 rows=12
 [standings/MHL] example={"col":"1","eastlink south eastlink south":"Truro Bearcats","south south":"TRU","gp":34,"w":23,"l":8,"otl":3,"sol":0,"pts":49,"pct pct":"0.721","rw":17,"otw":4,"sow":2,"gf":128,"ga":96,"diff":32,"pim pim":"420","streak":"4-0-0-0","p10":"9-1-0-0","team":"Truro Bearcats","slug":"truro-bearcats"}
 [standings/BSHL] table rows=7
-[standings/BSHL] example={"team":"Dalhousie Marauders","gp":13,"w":11,"l":2,"otl":0,"sol":0,"pts":22,"gf":79,"ga":31,"diff":48,"slug":"dalhousie"}
+[standings/BSHL] example={"team":"Dalhousie Marauders","gp":14,"w":12,"l":2,"otl":0,"sol":0,"pts":24,"gf":90,"ga":36,"diff":54,"slug":"dalhousie"}
 [standings] mhlRows=12  bshlRows=7
 [schedules/ICS] parsed=52
-[schedules/BSHL] parsed=17
-[schedules] events=69  ramblers=52  ducks=17
+[schedules/BSHL] parsed=15
+[schedules] events=67  ramblers=52  ducks=15
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 161 total schedule items
-[CCMHA] Found 7 games at Amherst Stadium
-[ccmha] games=7
+[CCMHA] API returned 163 total schedule items
+[CCMHA] Found 6 games at Amherst Stadium
+[ccmha] games=6

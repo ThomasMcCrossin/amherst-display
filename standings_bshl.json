@@ -1,32 +1,32 @@
 {
-  "generated_at": "2025-12-28T06:54:03.705Z",
+  "generated_at": "2025-12-29T06:59:20.560Z",
   "season": "",
   "league": "BSHL",
   "rows": [
     {
       "team": "Dalhousie Marauders",
-      "gp": 13,
-      "w": 11,
+      "gp": 14,
+      "w": 12,
       "l": 2,
       "otl": 0,
       "sol": 0,
-      "pts": 22,
-      "gf": 79,
-      "ga": 31,
-      "diff": 48,
+      "pts": 24,
+      "gf": 90,
+      "ga": 36,
+      "diff": 54,
       "slug": "dalhousie"
     },
     {
       "team": "Bouctouche JCs",
-      "gp": 16,
-      "w": 9,
+      "gp": 17,
+      "w": 10,
       "l": 4,
       "otl": 3,
       "sol": 0,
-      "pts": 21,
-      "gf": 62,
-      "ga": 47,
-      "diff": 15,
+      "pts": 23,
+      "gf": 70,
+      "ga": 50,
+      "diff": 20,
       "slug": "bouctouche"
     },
     {
@@ -44,15 +44,15 @@
     },
     {
       "team": "Elsipogtog Hawks",
-      "gp": 13,
+      "gp": 14,
       "w": 9,
-      "l": 4,
+      "l": 5,
       "otl": 0,
       "sol": 0,
       "pts": 18,
-      "gf": 75,
-      "ga": 55,
-      "diff": 20,
+      "gf": 78,
+      "ga": 63,
+      "diff": 15,
       "slug": "elsipogtog"
     },
     {
@@ -83,15 +83,15 @@
     },
     {
       "team": "Amherst Ducks",
-      "gp": 14,
+      "gp": 15,
       "w": 1,
-      "l": 12,
+      "l": 13,
       "otl": 1,
       "sol": 0,
       "pts": 3,
-      "gf": 44,
-      "ga": 103,
-      "diff": -59,
+      "gf": 49,
+      "ga": 114,
+      "diff": -65,
       "slug": "amherst-ducks"
     }
   ]

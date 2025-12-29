@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-12-28T06:54:04Z",
+  "generated_at": "2025-12-29T06:59:20Z",
   "timezone": "America/Halifax",
   "teams": [
     {
@@ -32,13 +32,6 @@
       "team_slug": "amherst-ducks",
       "games": [
         {
-          "opponent_slug": "dalhousie",
-          "home": true,
-          "start": "2025-12-28T19:00:00-04:00",
-          "venue": "Amherst Stadium",
-          "city": ""
-        },
-        {
           "opponent_slug": "fredericton",
           "home": false,
           "start": "2026-01-02T19:30:00-04:00",
@@ -50,6 +43,13 @@
           "home": true,
           "start": "2026-01-03T19:00:00-04:00",
           "venue": "Amherst Stadium",
+          "city": ""
+        },
+        {
+          "opponent_slug": "miramichi-bshl",
+          "home": false,
+          "start": "2026-01-09T20:15:00-04:00",
+          "venue": "Civic",
           "city": ""
         }
       ]

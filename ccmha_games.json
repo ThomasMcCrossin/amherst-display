@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-12-28T06:54:04Z",
+  "generated_at": "2025-12-29T06:59:21Z",
   "timezone": "America/Halifax",
   "games": [
     {
@@ -8,15 +8,6 @@
       "away_team": "Cumberland Ramblers",
       "start": "2026-01-03T11:00:00-04:00",
       "end": "2026-01-03T11:50:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
-    {
-      "league": "U15-AA",
-      "home_team": "Strait Richmond Pirates",
-      "away_team": "Cumberland Ramblers",
-      "start": "2026-01-03T13:45:00-04:00",
-      "end": "2026-01-03T15:15:00-04:00",
       "location": "Amherst Stadium",
       "source": "ccmha"
     },
