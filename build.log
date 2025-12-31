@@ -263,9 +263,8 @@
 [rosters/summerside-capitals] Fetching roster for Summerside-Capitals...
 [rosters] Fetching from API: team_id=10
 [rosters] Fetching stats from API: team_id=10
-[rosters/summerside-capitals] Processing 26 players (downloading headshots)
+[rosters/summerside-capitals] Processing 24 players (downloading headshots)
 [rosters] Downloaded: 1-george-gallant.jpg
-[rosters] Downloaded: 2-luke-inman.jpg
 [rosters] Downloaded: 3-conor-ryan.jpg
 [rosters] Downloaded: 4-elliott-mullen.jpg
 [rosters] Downloaded: 5-henry-ouellet.jpg
@@ -279,7 +278,6 @@
 [rosters] Downloaded: 15-william-patey.jpg
 [rosters] Downloaded: 19-brennan-murphy.jpg
 [rosters] Downloaded: 21-ryder-howatt.jpg
-[rosters] Downloaded: 24-isaac-taweel.jpg
 [rosters] Downloaded: 28-james-martin.jpg
 [rosters] Skipping placeholder image
 [rosters] Downloaded: 33-kolton-bourret.jpg
@@ -289,7 +287,7 @@
 [rosters] Downloaded: 77-justin-ouellette.jpg
 [rosters] Downloaded: 79-alex-hendry.jpg
 [rosters] Downloaded: 81-brett-arsenault.jpg
-[rosters/summerside-capitals] Wrote rosters/summerside-capitals.json (26 players)
+[rosters/summerside-capitals] Wrote rosters/summerside-capitals.json (24 players)
 [rosters/grand-falls-rapids] Fetching roster for Grand-Falls-Rapids...
 [rosters] Fetching from API: team_id=12
 [rosters] Fetching stats from API: team_id=12
@@ -403,6 +401,6 @@
 [schedules/BSHL] parsed=15
 [schedules] events=67  ramblers=52  ducks=15
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 161 total schedule items
+[CCMHA] API returned 163 total schedule items
 [CCMHA] Found 6 games at Amherst Stadium
 [ccmha] games=6

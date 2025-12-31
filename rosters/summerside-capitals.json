@@ -5,8 +5,8 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 10,
-  "updated_at": "2025-12-30T06:55:47.732Z",
-  "player_count": 26,
+  "updated_at": "2025-12-31T06:55:58.999Z",
+  "player_count": 24,
   "players": [
     {
       "player_id": "mhl-2773",
@@ -45,33 +45,6 @@
       "person_id": "3200",
       "flags": [
         "ht-played-major-junior"
-      ]
-    },
-    {
-      "player_id": "mhl-3184",
-      "number": "2",
-      "first_name": "Luke",
-      "last_name": "Inman",
-      "name": "Luke Inman",
-      "position": "D",
-      "height": "5'9",
-      "height_inches": 69,
-      "weight": 170,
-      "shoots": "L",
-      "birthdate": "2007-06-14",
-      "birth_year": "'07",
-      "age": 18,
-      "hometown": "Rice Point, PE",
-      "birthplace": "Rice Point, PE, ",
-      "rookie": true,
-      "veteran": false,
-      "headshot": "assets/headshots/Summerside-Capitals/2-luke-inman.jpg",
-      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3184.jpg",
-      "stats": {},
-      "hockeytech_id": "3184",
-      "person_id": "3704",
-      "flags": [
-        "ht-rookie"
       ]
     },
     {
@@ -599,33 +572,6 @@
       "hockeytech_id": "2709",
       "person_id": "3136",
       "flags": []
-    },
-    {
-      "player_id": "mhl-3365",
-      "number": "24",
-      "first_name": "Isaac",
-      "last_name": "Taweel",
-      "name": "Isaac Taweel",
-      "position": "LW",
-      "height": "5'10",
-      "height_inches": 70,
-      "weight": 163,
-      "shoots": "R",
-      "birthdate": "2007-02-01",
-      "birth_year": "'07",
-      "age": 18,
-      "hometown": "Hunter River, PE",
-      "birthplace": "Hunter River, PE, ",
-      "rookie": true,
-      "veteran": false,
-      "headshot": "assets/headshots/Summerside-Capitals/24-isaac-taweel.jpg",
-      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3365.jpg",
-      "stats": {},
-      "hockeytech_id": "3365",
-      "person_id": "3927",
-      "flags": [
-        "ht-rookie"
-      ]
     },
     {
       "player_id": "mhl-3849",
