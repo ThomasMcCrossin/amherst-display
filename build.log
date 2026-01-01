@@ -73,7 +73,8 @@
 [rosters/valley-wildcats] Fetching roster for Valley-Wildcats...
 [rosters] Fetching from API: team_id=4
 [rosters] Fetching stats from API: team_id=4
-[rosters/valley-wildcats] Processing 23 players (downloading headshots)
+[rosters/valley-wildcats] Processing 24 players (downloading headshots)
+[rosters] Skipping placeholder image
 [rosters] Downloaded: 4-joshua-plourde.jpg
 [rosters] Downloaded: 5-marek-dubuc.jpg
 [rosters] Downloaded: 7-carter-morrison.jpg
@@ -96,7 +97,7 @@
 [rosters] Downloaded: 29-cohen-stoddard.jpg
 [rosters] Downloaded: 32-brody-ford.jpg
 [rosters] Downloaded: 70-sean-hogan.jpg
-[rosters/valley-wildcats] Wrote rosters/valley-wildcats.json (23 players)
+[rosters/valley-wildcats] Wrote rosters/valley-wildcats.json (24 players)
 [rosters/yarmouth-mariners] Fetching roster for Yarmouth-Mariners...
 [rosters] Fetching from API: team_id=5
 [rosters] Fetching stats from API: team_id=5
@@ -263,7 +264,7 @@
 [rosters/summerside-capitals] Fetching roster for Summerside-Capitals...
 [rosters] Fetching from API: team_id=10
 [rosters] Fetching stats from API: team_id=10
-[rosters/summerside-capitals] Processing 24 players (downloading headshots)
+[rosters/summerside-capitals] Processing 25 players (downloading headshots)
 [rosters] Downloaded: 1-george-gallant.jpg
 [rosters] Downloaded: 3-conor-ryan.jpg
 [rosters] Downloaded: 4-elliott-mullen.jpg
@@ -278,6 +279,7 @@
 [rosters] Downloaded: 15-william-patey.jpg
 [rosters] Downloaded: 19-brennan-murphy.jpg
 [rosters] Downloaded: 21-ryder-howatt.jpg
+[rosters] Downloaded: 24-isaac-taweel.jpg
 [rosters] Downloaded: 28-james-martin.jpg
 [rosters] Skipping placeholder image
 [rosters] Downloaded: 33-kolton-bourret.jpg
@@ -287,7 +289,7 @@
 [rosters] Downloaded: 77-justin-ouellette.jpg
 [rosters] Downloaded: 79-alex-hendry.jpg
 [rosters] Downloaded: 81-brett-arsenault.jpg
-[rosters/summerside-capitals] Wrote rosters/summerside-capitals.json (24 players)
+[rosters/summerside-capitals] Wrote rosters/summerside-capitals.json (25 players)
 [rosters/grand-falls-rapids] Fetching roster for Grand-Falls-Rapids...
 [rosters] Fetching from API: team_id=12
 [rosters] Fetching stats from API: team_id=12
@@ -358,7 +360,7 @@
 [games] Starting Ramblers games build...
 [games] Loaded roster with 25 players
 [games] Fetching Ramblers schedule...
-[games] Processing 30 completed games...
+[games] Processing 31 completed games...
 [games] Fetched summary for game 4612 (7 goals, 0 penalties)
 [games] Fetched summary for game 4619 (12 goals, 0 penalties)
 [games] Fetched summary for game 4624 (7 goals, 0 penalties)
@@ -389,8 +391,9 @@
 [games] Fetched summary for game 4787 (7 goals, 0 penalties)
 [games] Fetched summary for game 4791 (5 goals, 0 penalties)
 [games] Fetched summary for game 4799 (6 goals, 0 penalties)
-[games] Wrote games/amherst-ramblers.json (30 completed games)
-[games] Complete! Games=30
+[games] Fetched summary for game 4801 (6 goals, 0 penalties)
+[games] Wrote games/amherst-ramblers.json (31 completed games)
+[games] Complete! Games=31
 [standings/MHL] table rows found
 [standings/MHL] tables=1 chosen=1306x378 rows=12
 [standings/MHL] example={"col":"1","eastlink south eastlink south":"Truro Bearcats","south south":"TRU","gp":34,"w":23,"l":8,"otl":3,"sol":0,"pts":49,"pct pct":"0.721","rw":17,"otw":4,"sow":2,"gf":128,"ga":96,"diff":32,"pim pim":"420","streak":"4-0-0-0","p10":"9-1-0-0","team":"Truro Bearcats","slug":"truro-bearcats"}
