@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-01T06:56:59Z",
+  "generated_at": "2026-01-02T06:56:42Z",
   "timezone": "America/Halifax",
   "teams": [
     {
@@ -42,7 +42,7 @@
           "opponent_slug": "miramichi-bshl",
           "home": true,
           "start": "2026-01-03T19:00:00-04:00",
-          "venue": "Amherst Stadium",
+          "venue": "Community Centre",
           "city": ""
         },
         {

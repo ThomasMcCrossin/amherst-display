@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-01T06:56:59Z",
+  "generated_at": "2026-01-02T06:56:42Z",
   "timezone": "America/Halifax",
   "events": [
     {
@@ -357,7 +357,7 @@
       "home_slug": "amherst-ducks",
       "away_slug": "miramichi-bshl",
       "start": "2026-01-03T19:00:00-04:00",
-      "location": "Amherst Stadium"
+      "location": "Community Centre"
     },
     {
       "league": "BSHL",
@@ -426,21 +426,21 @@
     },
     {
       "league": "BSHL",
-      "home_team": "Amherst",
-      "away_team": "Elsipogtog",
-      "home_slug": "amherst-ducks",
-      "away_slug": "elsipogtog",
-      "start": "2026-01-11T14:00:00-04:00",
-      "location": "Amherst Stadium"
-    },
-    {
-      "league": "BSHL",
       "home_team": "Bouctouche",
       "away_team": "Miramichi",
       "home_slug": "bouctouche",
       "away_slug": "miramichi-bshl",
       "start": "2026-01-11T18:45:00-04:00",
       "location": "J. K."
+    },
+    {
+      "league": "BSHL",
+      "home_team": "Amherst",
+      "away_team": "Elsipogtog",
+      "home_slug": "amherst-ducks",
+      "away_slug": "elsipogtog",
+      "start": "2026-01-11T19:00:00-04:00",
+      "location": "Community Centre"
     },
     {
       "league": "MHL",

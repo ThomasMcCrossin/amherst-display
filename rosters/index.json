@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-01T06:56:40.130Z",
+  "generated_at": "2026-01-02T06:56:26.324Z",
   "season": "2024-25",
   "season_id": 41,
   "api_source": "HockeyTech",
@@ -75,7 +75,7 @@
       "team_name": "Miramichi-Timberwolves",
       "league": "MHL",
       "team_id": 9,
-      "player_count": 31,
+      "player_count": 32,
       "file": "rosters/miramichi-timberwolves.json"
     },
     {
@@ -83,7 +83,7 @@
       "team_name": "Summerside-Capitals",
       "league": "MHL",
       "team_id": 10,
-      "player_count": 25,
+      "player_count": 21,
       "file": "rosters/summerside-capitals.json"
     },
     {
@@ -91,7 +91,7 @@
       "team_name": "Grand-Falls-Rapids",
       "league": "MHL",
       "team_id": 12,
-      "player_count": 24,
+      "player_count": 26,
       "file": "rosters/grand-falls-rapids.json"
     },
     {

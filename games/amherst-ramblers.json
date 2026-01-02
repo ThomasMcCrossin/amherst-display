@@ -4,7 +4,7 @@
   "team_id": 1,
   "season": "2024-25",
   "season_id": 41,
-  "updated_at": "2026-01-01T06:56:54.541Z",
+  "updated_at": "2026-01-02T06:56:38.409Z",
   "summary": {
     "games_played": 31,
     "wins": 18,
@@ -3433,7 +3433,7 @@
           "assists": [
             {
               "player_id": "mhl-3243",
-              "name": "Cade Moser",
+              "name": "",
               "number": 15
             },
             {
@@ -3573,7 +3573,7 @@
             },
             {
               "player_id": "mhl-3243",
-              "name": "Cade Moser",
+              "name": "",
               "number": 15
             }
           ],
@@ -7116,7 +7116,7 @@
           "assists": [
             {
               "player_id": "mhl-3243",
-              "name": "Cade Moser",
+              "name": "",
               "number": 15
             },
             {
@@ -7209,7 +7209,7 @@
           "team": "opponent",
           "scorer": {
             "player_id": "mhl-3243",
-            "name": "Cade Moser",
+            "name": "",
             "number": 15,
             "position": "C"
           },
@@ -7494,7 +7494,7 @@
           "team": "opponent",
           "scorer": {
             "player_id": "mhl-3243",
-            "name": "Cade Moser",
+            "name": "",
             "number": 15,
             "position": "C"
           },
