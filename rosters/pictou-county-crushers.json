@@ -5,8 +5,8 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 7,
-  "updated_at": "2026-01-02T06:56:23.968Z",
-  "player_count": 31,
+  "updated_at": "2026-01-02T16:54:09.570Z",
+  "player_count": 32,
   "players": [
     {
       "player_id": "mhl-2671",
@@ -284,6 +284,31 @@
       "flags": [
         "ht-played-major-junior"
       ]
+    },
+    {
+      "player_id": "mhl-2442",
+      "number": "15",
+      "first_name": "Mitchell",
+      "last_name": "Wagner",
+      "name": "Mitchell Wagner",
+      "position": "RW",
+      "height": "6'5",
+      "height_inches": 77,
+      "weight": 205,
+      "shoots": "R",
+      "birthdate": "2005-03-01",
+      "birth_year": "'05",
+      "age": 21,
+      "hometown": "Beaver Bank, NS",
+      "birthplace": "Beaver Bank, NS, ",
+      "rookie": false,
+      "veteran": false,
+      "headshot": "assets/headshots/Pictou-County-Crushers/15-mitchell-wagner.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2442.jpg",
+      "stats": {},
+      "hockeytech_id": "2442",
+      "person_id": "2834",
+      "flags": []
     },
     {
       "player_id": "mhl-3795",

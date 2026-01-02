@@ -4,7 +4,7 @@
   "team_id": 1,
   "season": "2024-25",
   "season_id": 41,
-  "updated_at": "2026-01-02T06:56:38.409Z",
+  "updated_at": "2026-01-02T16:54:38.055Z",
   "summary": {
     "games_played": 31,
     "wins": 18,
@@ -83,7 +83,13 @@
             "number": 11,
             "position": "C"
           },
-          "assists": [],
+          "assists": [
+            {
+              "player_id": "mhl-3545",
+              "name": "Christian White",
+              "number": 4
+            }
+          ],
           "power_play": false,
           "short_handed": true,
           "game_winning": true,
@@ -169,9 +175,9 @@
               "number": 27
             },
             {
-              "player_id": "mhl-3562",
-              "name": "Elliot Wright",
-              "number": 13
+              "player_id": "mhl-2799",
+              "name": "Anthony Gaudet",
+              "number": 11
             }
           ],
           "power_play": false,
@@ -185,8 +191,8 @@
         "mhl-3545": {
           "position": "D",
           "goals": 0,
-          "assists": 1,
-          "points": 1,
+          "assists": 2,
+          "points": 2,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -237,8 +243,8 @@
         "mhl-2799": {
           "position": "C",
           "goals": 1,
-          "assists": 2,
-          "points": 3,
+          "assists": 3,
+          "points": 4,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -250,8 +256,8 @@
         "mhl-3562": {
           "position": "C",
           "goals": 0,
-          "assists": 1,
-          "points": 1,
+          "assists": 0,
+          "points": 0,
           "penalty_minutes": 2,
           "shots": 0,
           "plus_minus": "0",
@@ -418,8 +424,8 @@
         },
         "mhl-3766": {
           "position": "G",
-          "saves": 51,
-          "shots_against": 52,
+          "saves": 47,
+          "shots_against": 48,
           "goals_against": 1,
           "save_percentage": "0.000",
           "time_on_ice": "60:00"

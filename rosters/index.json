@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-02T06:56:26.324Z",
+  "generated_at": "2026-01-02T16:54:23.455Z",
   "season": "2024-25",
   "season_id": 41,
   "api_source": "HockeyTech",
@@ -19,7 +19,7 @@
       "team_name": "Edmundston-Blizzard",
       "league": "MHL",
       "team_id": 2,
-      "player_count": 27,
+      "player_count": 25,
       "file": "rosters/edmundston-blizzard.json"
     },
     {
@@ -59,7 +59,7 @@
       "team_name": "Pictou-County-Crushers",
       "league": "MHL",
       "team_id": 7,
-      "player_count": 31,
+      "player_count": 32,
       "file": "rosters/pictou-county-crushers.json"
     },
     {
@@ -83,7 +83,7 @@
       "team_name": "Summerside-Capitals",
       "league": "MHL",
       "team_id": 10,
-      "player_count": 21,
+      "player_count": 24,
       "file": "rosters/summerside-capitals.json"
     },
     {

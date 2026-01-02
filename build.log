@@ -7,7 +7,7 @@
 [rosters/edmundston-blizzard] Fetching roster for Edmundston-Blizzard...
 [rosters] Fetching from API: team_id=2
 [rosters] Fetching stats from API: team_id=2
-[rosters/edmundston-blizzard] Processing 27 players (downloading headshots)
+[rosters/edmundston-blizzard] Processing 25 players (downloading headshots)
 [rosters] Downloaded: 1-rylan-benner.jpg
 [rosters] Downloaded: 7-will-carroll.jpg
 [rosters] Downloaded: 8-samuel-cloutier.jpg
@@ -22,11 +22,9 @@
 [rosters] Downloaded: 19-neka-jean.jpg
 [rosters] Downloaded: 20-eliott-guenette.jpg
 [rosters] Downloaded: 22-benjamin-damphousse.jpg
-[rosters] Downloaded: 24-mathieu-boucher.jpg
 [rosters] Downloaded: 27-fran-ois-xavier-mercier.jpg
 [rosters] Downloaded: 28-charles-ric-tremblay.jpg
 [rosters] Downloaded: 31-cedric-mass.jpg
-[rosters] Downloaded: 55-jake-macdonald.jpg
 [rosters] Downloaded: 77-lucas-fortin.jpg
 [rosters] Downloaded: 79-william-labranche.jpg
 [rosters] Downloaded: 81-mile-fournier.jpg
@@ -34,7 +32,7 @@
 [rosters] Downloaded: 99-hayden-aubin.jpg
 [rosters] Skipping placeholder image
 [rosters] Downloaded: 99-brayden-waterhouse.jpg
-[rosters/edmundston-blizzard] Wrote rosters/edmundston-blizzard.json (27 players)
+[rosters/edmundston-blizzard] Wrote rosters/edmundston-blizzard.json (25 players)
 [rosters/truro-bearcats] Fetching roster for Truro-Bearcats...
 [rosters] Fetching from API: team_id=3
 [rosters] Fetching stats from API: team_id=3
@@ -163,7 +161,7 @@
 [rosters/pictou-county-crushers] Fetching roster for Pictou-County-Crushers...
 [rosters] Fetching from API: team_id=7
 [rosters] Fetching stats from API: team_id=7
-[rosters/pictou-county-crushers] Processing 31 players (downloading headshots)
+[rosters/pictou-county-crushers] Processing 32 players (downloading headshots)
 [rosters] Downloaded: 4-brendan-avery.jpg
 [rosters] Downloaded: 5-christian-luke.jpg
 [rosters] Downloaded: 7-brennan-o-donnell.jpg
@@ -171,6 +169,7 @@
 [rosters] Downloaded: 11-dominic-mackenzie.jpg
 [rosters] Downloaded: 12-kingsley-austin.jpg
 [rosters] Downloaded: 14-logan-crosby.jpg
+[rosters] Downloaded: 15-mitchell-wagner.jpg
 [rosters] Downloaded: 16-ian-ramsay.jpg
 [rosters] Downloaded: 17-cory-macgillivray.jpg
 [rosters] Downloaded: 18-will-allen.jpg
@@ -194,7 +193,7 @@
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
-[rosters/pictou-county-crushers] Wrote rosters/pictou-county-crushers.json (31 players)
+[rosters/pictou-county-crushers] Wrote rosters/pictou-county-crushers.json (32 players)
 [rosters/campbellton-tigers] Fetching roster for Campbellton-Tigers...
 [rosters] Fetching from API: team_id=8
 [rosters] Fetching stats from API: team_id=8
@@ -265,8 +264,10 @@
 [rosters/summerside-capitals] Fetching roster for Summerside-Capitals...
 [rosters] Fetching from API: team_id=10
 [rosters] Fetching stats from API: team_id=10
-[rosters/summerside-capitals] Processing 21 players (downloading headshots)
+[rosters/summerside-capitals] Processing 24 players (downloading headshots)
 [rosters] Downloaded: 1-george-gallant.jpg
+[rosters] Downloaded: 2-max-jardine.jpg
+[rosters] Downloaded: 3-isaac-taweel.jpg
 [rosters] Downloaded: 4-elliott-mullen.jpg
 [rosters] Downloaded: 5-henry-ouellet.jpg
 [rosters] Downloaded: 6-andrew-thompson.jpg
@@ -275,9 +276,10 @@
 [rosters] Downloaded: 11-alexandre-guy.jpg
 [rosters] Downloaded: 12-jordan-shaw.jpg
 [rosters] Downloaded: 14-owen-macpherson.jpg
+[rosters] Skipping placeholder image
 [rosters] Downloaded: 19-brennan-murphy.jpg
 [rosters] Downloaded: 21-ryder-howatt.jpg
-[rosters] Downloaded: 24-isaac-taweel.jpg
+[rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
 [rosters] Downloaded: 33-kolton-bourret.jpg
 [rosters] Downloaded: 44-matthew-maclean.jpg
@@ -286,7 +288,7 @@
 [rosters] Downloaded: 77-justin-ouellette.jpg
 [rosters] Downloaded: 79-alex-hendry.jpg
 [rosters] Downloaded: 81-brett-arsenault.jpg
-[rosters/summerside-capitals] Wrote rosters/summerside-capitals.json (21 players)
+[rosters/summerside-capitals] Wrote rosters/summerside-capitals.json (24 players)
 [rosters/grand-falls-rapids] Fetching roster for Grand-Falls-Rapids...
 [rosters] Fetching from API: team_id=12
 [rosters] Fetching stats from API: team_id=12
@@ -396,12 +398,9 @@
 [standings/MHL] table rows found
 [standings/MHL] tables=1 chosen=1306x378 rows=12
 [standings/MHL] example={"col":"1","eastlink south eastlink south":"Truro Bearcats","south south":"TRU","gp":34,"w":23,"l":8,"otl":3,"sol":0,"pts":49,"pct pct":"0.721","rw":17,"otw":4,"sow":2,"gf":128,"ga":96,"diff":32,"pim pim":"420","streak":"4-0-0-0","p10":"9-1-0-0","team":"Truro Bearcats","slug":"truro-bearcats"}
-[standings/BSHL] table rows=7
-[standings/BSHL] example={"team":"Dalhousie Marauders","gp":14,"w":12,"l":2,"otl":0,"sol":0,"pts":24,"gf":90,"ga":36,"diff":54,"slug":"dalhousie"}
-[standings] mhlRows=12  bshlRows=7
+[standings] mhlRows=12
 [schedules/ICS] parsed=52
-[schedules/BSHL] parsed=15
-[schedules] events=67  ramblers=52  ducks=15
+[schedules] events=52  ramblers=52
 [CCMHA] Fetching games for next 7 days
 [CCMHA] API returned 163 total schedule items
 [CCMHA] Found 7 games at Amherst Stadium
