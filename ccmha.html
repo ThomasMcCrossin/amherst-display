@@ -28,12 +28,15 @@
     .header-text{}
     .title{font-weight:900;font-size:56px;letter-spacing:0.5px;margin:0;background:linear-gradient(135deg,#f5f7fb,#a7b0ba);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
     .subtitle{color:var(--muted);font-size:22px;margin-top:8px}
+    .status{color:var(--muted);font-size:16px;margin-top:6px}
+    .status .stale{color:#f5c451;font-weight:700}
     .legend{margin-top:12px;display:flex;gap:14px;color:var(--muted);font-size:16px;flex-wrap:wrap}
     .pill{padding:6px 12px;border-radius:999px;background:#1b1f27;color:#cfd6df;border:1px solid #2a2f37;font-size:15px}
 
     /* Games Grid */
     .games-container{flex:1;overflow-y:auto}
     .games-grid{display:grid;grid-template-columns:repeat(2, 1fr);gap:18px}
+    .day-header{grid-column:1 / -1;font-size:22px;font-weight:800;letter-spacing:0.5px;color:var(--ink);margin:4px 0 2px 0}
     .game-card{background:linear-gradient(135deg,#171b23,#12151d);border:1px solid #232730;
       border-radius:14px;padding:20px;display:grid;grid-template-columns:100px 1fr 120px;align-items:center;gap:16px;min-height:110px}
     .game-time{font-size:36px;font-weight:900}
@@ -42,8 +45,12 @@
     .game-teams{font-size:24px;font-weight:800;line-height:1.3}
     .game-vs{opacity:.5;font-size:18px;margin:0 8px}
     .game-location{font-size:15px;color:var(--muted);margin-top:6px}
-    .game-league{display:flex;align-items:center;justify-content:center}
-    .tag{font-size:15px;font-weight:800;padding:8px 14px;border-radius:999px;background:#1a1f2a;border:1px solid #2d74ff55;color:var(--accent)}
+    .game-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+    .game-league{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+    .tag{font-size:13px;font-weight:800;padding:6px 10px;border-radius:999px;background:#1a1f2a;border:1px solid #2d74ff55;color:var(--accent)}
+    .tag.type-game{border-color:#f28c1855;color:#f5c451}
+    .tag.type-practice{border-color:#2d74ff55;color:#9cc8ff}
+    .tag.type-other{border-color:#a7b0ba55;color:#a7b0ba}
 
     /* Empty state */
     .empty-state{text-align:center;padding:80px;color:var(--muted);font-size:24px}
@@ -61,6 +68,7 @@
       <div class="header-text">
         <h1 class="title">Cumberland Ramblers Minor Hockey</h1>
         <div class="subtitle" id="date-range">Upcoming games at Amherst Stadium</div>
+        <div class="status" id="status">Loading schedule...</div>
         <div class="legend">
           <span class="pill">Auto-updates every 10 min</span>
           <span class="pill">Atlantic Time</span>
@@ -81,96 +89,367 @@
 <script>
 // ========= CONFIG =========
 const CONFIG = {
-  BASE_URL: "https://thomasmccrossin.github.io/amherst-display",
-  CCMHA_URL: "https://thomasmccrossin.github.io/amherst-display/ccmha_games.json",
-  DAYS_AHEAD: 7,
+  DATA_JSON_URL: "https://raw.githubusercontent.com/ThomasMcCrossin/ccmha-schedule-monitor/main/data/amherst_stadium_schedule.json",
+  DATA_CSV_URL: "https://raw.githubusercontent.com/ThomasMcCrossin/ccmha-schedule-monitor/main/data/amherst_stadium_schedule.csv",
+  LEGACY_URL: "https://thomasmccrossin.github.io/amherst-display/ccmha_games.json",
+  DAYS_AHEAD: 14,
   HOME_VENUES: ["Amherst Stadium"],
   TIMEZONE: "America/Halifax",
-  REFRESH_MINUTES: 10
+  REFRESH_MINUTES: 10,
+  SHOW_TYPES: ["Game", "Practice", "Evaluation", "Meeting", "Tournament", "Other"]
 };
+
+const CACHE_KEY = 'ccmha_schedule_cache_v2';
+const CACHE_TTL_MS = 6 * 60 * 60 * 1000;
+let CLOCK_TIMER = null;
+let REFRESH_TIMER = null;
+let RETRY_TIMER = null;
+let IS_ACTIVE = true;
 
 // Utility functions
 function fmtDate(d){ return new Intl.DateTimeFormat('en-CA',{weekday:'short',month:'short',day:'numeric'}).format(d); }
+function fmtLong(d){ return new Intl.DateTimeFormat('en-CA',{weekday:'long',month:'long',day:'numeric'}).format(d); }
 function fmtTime(d){ return new Intl.DateTimeFormat('en-CA',{hour:'numeric',minute:'2-digit',hour12:true,timeZone:CONFIG.TIMEZONE}).format(d); }
 function startOfDay(d){ return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
 function addDays(d,n){ const x=new Date(d); x.setDate(x.getDate()+n); return x; }
+function withinWindow(dt){ const now=new Date(), end=addDays(now, CONFIG.DAYS_AHEAD); return dt>=now&&dt<end; }
 
-async function fetchJSON(url){
-  const res=await fetch(url+`?t=${Date.now()}`,{cache:'no-store'});
-  if(!res.ok) throw new Error(`HTTP ${res.status}`);
-  return res.json();
+function normalizeType(type){
+  const t = String(type || '').toLowerCase();
+  if (t.includes('game')) return 'Game';
+  if (t.includes('practice')) return 'Practice';
+  if (t.includes('evaluation')) return 'Evaluation';
+  if (t.includes('tournament')) return 'Tournament';
+  if (t.includes('meeting')) return 'Meeting';
+  return 'Other';
 }
 
-// Render games
-async function loadGames() {
-  try {
-    const data = await fetchJSON(CONFIG.CCMHA_URL);
-    const games = data.games || [];
-    const now = new Date();
-    const end = addDays(now, CONFIG.DAYS_AHEAD);
+function buildDate(dateStr, timeStr){
+  if (!dateStr || !timeStr) return null;
+  const iso = `${dateStr}T${timeStr}`;
+  const dt = new Date(iso);
+  return Number.isNaN(dt.getTime()) ? null : dt;
+}
 
-    const futureGames = games
-      .filter(g => {
-        const dt = new Date(g.start);
-        const atAmherst = CONFIG.HOME_VENUES.some(v => (g.location || '').toLowerCase().includes(v.toLowerCase()));
-        return dt >= now && dt < end && atAmherst;
-      })
-      .sort((a,b) => new Date(a.start) - new Date(b.start))
-      .slice(0, 12);
+function parseCSV(text){
+  const rows = [];
+  let row = [];
+  let field = '';
+  let inQuotes = false;
 
-    const $grid = document.getElementById('games-grid');
-
-    if (futureGames.length === 0) {
-      $grid.innerHTML = '<div class="empty-state">No upcoming games in the next 7 days</div>';
-      return;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (c === '"') {
+      if (inQuotes && text[i + 1] === '"') {
+        field += '"';
+        i++;
+      } else {
+        inQuotes = !inQuotes;
+      }
+      continue;
     }
+    if (c === ',' && !inQuotes) {
+      row.push(field);
+      field = '';
+      continue;
+    }
+    if ((c === '\n' || c === '\r') && !inQuotes) {
+      if (c === '\r' && text[i + 1] === '\n') i++;
+      row.push(field);
+      field = '';
+      if (row.length > 1 || row[0]) rows.push(row);
+      row = [];
+      continue;
+    }
+    field += c;
+  }
+  if (field.length || row.length) {
+    row.push(field);
+    rows.push(row);
+  }
+  return rows;
+}
 
-    $grid.innerHTML = futureGames.map(g => {
-      const dt = new Date(g.start);
-      const dayLabel = Math.floor((dt - now) / 86400000) === 0 ? 'TODAY' : fmtDate(dt).toUpperCase();
+function parseCSVToItems(text){
+  const rows = parseCSV(text);
+  if (!rows.length) return [];
+  const headers = rows.shift().map(h => h.trim());
+  return rows.map(row => {
+    const item = {};
+    headers.forEach((h, idx) => {
+      item[h] = (row[idx] || '').trim();
+    });
+    return item;
+  });
+}
+
+async function fetchText(url, timeoutMs = 15000){
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const res = await fetch(url + `?t=${Date.now()}`, { cache: 'no-store', signal: controller.signal });
+    clearTimeout(timeoutId);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.text();
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
+async function fetchJSON(url, timeoutMs = 15000){
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const res = await fetch(url + `?t=${Date.now()}`, { cache: 'no-store', signal: controller.signal });
+    clearTimeout(timeoutId);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.json();
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
+function saveCache(payload){
+  try { localStorage.setItem(CACHE_KEY, JSON.stringify(payload)); } catch(e) {}
+}
+
+function loadCache(){
+  try {
+    const raw = localStorage.getItem(CACHE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (!parsed || !parsed.fetchedAt) return null;
+    return parsed;
+  } catch(e) {
+    return null;
+  }
+}
+
+function updateStatus(fetchedAt, isCached){
+  const $status = document.getElementById('status');
+  if (!$status) return;
+  if (!fetchedAt) {
+    $status.textContent = 'Waiting for data...';
+    return;
+  }
+  const dt = new Date(fetchedAt);
+  if (Number.isNaN(dt.getTime())) {
+    $status.textContent = 'Updated recently';
+    return;
+  }
+  const ageMs = Date.now() - dt.getTime();
+  const stale = ageMs > CACHE_TTL_MS;
+  const timeStr = new Intl.DateTimeFormat('en-CA', {
+    hour:'numeric', minute:'2-digit', hour12:true, timeZone:CONFIG.TIMEZONE
+  }).format(dt);
+  const label = isCached ? 'Cached' : 'Updated';
+  $status.innerHTML = `${label} ${timeStr}${stale ? ' <span class="stale">stale</span>' : ''}`;
+}
+
+function normalizeItems(items){
+  return (items || []).map(item => {
+    const dateStr = item.date || item.game_date || item.team_schedule_date || '';
+    const startStr = item.start_time || item.game_start_time || item.team_schedule_start_time || '';
+    const endStr = item.end_time || item.game_end_time || item.team_schedule_end_time || '';
+    const start = buildDate(dateStr, startStr);
+    const end = endStr ? buildDate(dateStr, endStr) : null;
+    return {
+      start,
+      end,
+      type: normalizeType(item.type || item.type_name || 'Other'),
+      league: item.league || item.league_name || '',
+      team: item.team || item.team_name || '',
+      venue: item.venue || item.venue_name || ''
+    };
+  }).filter(item => item.start);
+}
+
+function normalizeLegacyGames(games){
+  return (games || []).map(game => {
+    const start = game.start ? new Date(game.start) : null;
+    const end = game.end ? new Date(game.end) : null;
+    const team = game.home_team && game.away_team ? `${game.home_team} vs ${game.away_team}` : (game.team || 'TBA');
+    return {
+      start,
+      end,
+      type: 'Game',
+      league: game.league || '',
+      team,
+      venue: game.location || ''
+    };
+  }).filter(item => item.start && !Number.isNaN(item.start.getTime()));
+}
+
+async function fetchSchedule(){
+  const fetchedAt = new Date().toISOString();
+  try {
+    const data = await fetchJSON(CONFIG.DATA_JSON_URL);
+    if (data && Array.isArray(data.items)) {
+      return {
+        items: normalizeItems(data.items),
+        generatedAt: data.generated_at || data.generatedAt || null,
+        fetchedAt
+      };
+    }
+  } catch(e) {}
+
+  try {
+    const csvText = await fetchText(CONFIG.DATA_CSV_URL);
+    return {
+      items: normalizeItems(parseCSVToItems(csvText)),
+      generatedAt: null,
+      fetchedAt
+    };
+  } catch(e) {}
+
+  const legacy = await fetchJSON(CONFIG.LEGACY_URL);
+  if (legacy && Array.isArray(legacy.games)) {
+    return {
+      items: normalizeLegacyGames(legacy.games),
+      generatedAt: legacy.generated_at || null,
+      fetchedAt
+    };
+  }
+  throw new Error('No schedule data available');
+}
+
+function renderSchedule(items, generatedAt, fetchedAt, isCached){
+  const now = new Date();
+  const allowedTypes = new Set(CONFIG.SHOW_TYPES.map(t => t.toLowerCase()));
+  const filtered = (items || [])
+    .filter(item => {
+      const venueOk = !CONFIG.HOME_VENUES.length || CONFIG.HOME_VENUES.some(v => (item.venue || '').toLowerCase().includes(v.toLowerCase()));
+      const typeOk = !CONFIG.SHOW_TYPES.length || allowedTypes.has(item.type.toLowerCase());
+      return item.start && withinWindow(item.start) && venueOk && typeOk;
+    })
+    .sort((a,b) => a.start - b.start)
+    .slice(0, 18);
+
+  const $grid = document.getElementById('games-grid');
+
+  if (filtered.length === 0) {
+    $grid.innerHTML = '<div class="empty-state">No upcoming ice times in the next 14 days</div>';
+    updateStatus(fetchedAt || generatedAt, isCached);
+    return;
+  }
+
+  const groups = new Map();
+  for (const item of filtered) {
+    const key = item.start.toISOString().slice(0, 10);
+    if (!groups.has(key)) {
+      groups.set(key, { date: item.start, items: [] });
+    }
+    groups.get(key).items.push(item);
+  }
+
+  const dayBlocks = Array.from(groups.values()).sort((a,b) => a.date - b.date).map(group => {
+    const dayOffset = Math.floor((startOfDay(group.date) - startOfDay(now)) / 86400000);
+    const relative = dayOffset === 0 ? 'Today' : (dayOffset === 1 ? 'Tomorrow' : '');
+    const header = `${fmtLong(group.date)}${relative ? ' - ' + relative : ''}`;
+
+    const cards = group.items.map(item => {
+      const startLabel = fmtTime(item.start);
+      const endLabel = item.end && !Number.isNaN(item.end.getTime()) ? fmtTime(item.end) : '';
+      const timeSub = endLabel ? `Ends ${endLabel}` : fmtDate(item.start).toUpperCase();
+      const typeClass = item.type === 'Game' ? 'type-game' : (item.type === 'Practice' ? 'type-practice' : 'type-other');
+      const leagueLabel = item.league || 'CCMHA';
+      const teamLabel = item.team || 'Cumberland Hockey';
 
       return `
         <div class="game-card">
           <div>
-            <div class="game-time">${fmtTime(dt)}</div>
-            <div class="game-date">${dayLabel}</div>
+            <div class="game-time">${startLabel}</div>
+            <div class="game-date">${timeSub}</div>
           </div>
           <div class="game-matchup">
-            <div class="game-teams">
-              <span>${g.home_team}</span>
-              <span class="game-vs">vs</span>
-              <span>${g.away_team}</span>
+            <div class="game-teams">${teamLabel}</div>
+            <div class="game-location">${item.venue || 'Amherst Stadium'}</div>
+            <div class="game-meta">
+              <span class="tag ${typeClass}">${item.type}</span>
+              <span class="tag">${leagueLabel}</span>
             </div>
-            <div class="game-location">${g.location || 'Amherst Stadium'}</div>
           </div>
           <div class="game-league">
-            <div class="tag">${g.league || 'CCMHA'}</div>
+            <span class="tag ${typeClass}">${item.type}</span>
           </div>
         </div>`;
     }).join('');
 
-    // Update date range
-    const s = startOfDay(now), t = addDays(s, CONFIG.DAYS_AHEAD-1);
-    document.getElementById('date-range').textContent = `${fmtDate(s)} → ${fmtDate(t)} at Amherst Stadium`;
+    return `<div class="day-header">${header}</div>${cards}`;
+  }).join('');
 
+  $grid.innerHTML = dayBlocks;
+
+  const s = startOfDay(now), t = addDays(s, CONFIG.DAYS_AHEAD - 1);
+  document.getElementById('date-range').textContent = `Schedule from ${fmtDate(s)} to ${fmtDate(t)} at Amherst Stadium`;
+  updateStatus(fetchedAt || generatedAt, isCached);
+}
+
+async function loadSchedule() {
+  if (!IS_ACTIVE) return;
+  try {
+    const payload = await fetchSchedule();
+    saveCache(payload);
+    renderSchedule(payload.items, payload.generatedAt, payload.fetchedAt, false);
   } catch(e) {
     console.error('[CCMHA] Error loading data:', e);
-    document.getElementById('games-grid').innerHTML = '<div class="empty-state">Unable to load games</div>';
+    const cached = loadCache();
+    if (cached) {
+      renderSchedule(cached.items, cached.generatedAt, cached.fetchedAt, true);
+    } else {
+      document.getElementById('games-grid').innerHTML = '<div class="empty-state">Unable to load schedule</div>';
+      updateStatus(null, false);
+    }
+    if (RETRY_TIMER) clearTimeout(RETRY_TIMER);
+    RETRY_TIMER = setTimeout(loadSchedule, 15000);
   }
 }
 
-// Initialize
-function bootstrap() {
-  // Update clock every second
-  setInterval(() => {
-    document.getElementById('clock').textContent = new Intl.DateTimeFormat('en-CA', {
-      hour:'numeric', minute:'2-digit', second:'2-digit', hour12:true, timeZone:CONFIG.TIMEZONE
-    }).format(new Date());
+function startTimers() {
+  const clockFormatter = new Intl.DateTimeFormat('en-CA', {
+    hour:'numeric', minute:'2-digit', second:'2-digit', hour12:true, timeZone:CONFIG.TIMEZONE
+  });
+  const $clock = document.getElementById('clock');
+  let clockDate = new Date();
+
+  if (CLOCK_TIMER) clearInterval(CLOCK_TIMER);
+  CLOCK_TIMER = setInterval(() => {
+    clockDate.setTime(Date.now());
+    $clock.textContent = clockFormatter.format(clockDate);
   }, 1000);
 
-  // Load data now and every 10 minutes
-  loadGames();
-  setInterval(loadGames, CONFIG.REFRESH_MINUTES * 60 * 1000);
+  loadSchedule();
+  if (REFRESH_TIMER) clearInterval(REFRESH_TIMER);
+  REFRESH_TIMER = setInterval(loadSchedule, CONFIG.REFRESH_MINUTES * 60 * 1000);
+}
+
+function stopTimers() {
+  if (CLOCK_TIMER) clearInterval(CLOCK_TIMER);
+  if (REFRESH_TIMER) clearInterval(REFRESH_TIMER);
+  if (RETRY_TIMER) clearTimeout(RETRY_TIMER);
+  CLOCK_TIMER = null;
+  REFRESH_TIMER = null;
+  RETRY_TIMER = null;
+}
+
+function setActive(active) {
+  IS_ACTIVE = active;
+  if (active) {
+    startTimers();
+  } else {
+    stopTimers();
+  }
+}
+
+function bootstrap() {
+  const cached = loadCache();
+  if (cached) renderSchedule(cached.items, cached.generatedAt, cached.fetchedAt, true);
+  startTimers();
+
+  if (window.parent && window.parent.YodeckAPI) {
+    window.parent.YodeckAPI.onShown = function() { setActive(true); };
+    window.parent.YodeckAPI.onHidden = function() { setActive(false); };
+  }
 }
 
 bootstrap();

@@ -10,7 +10,7 @@
       "away_slug": "amherst-ramblers",
       "start": "2025-09-12T19:00:00-03:00",
       "end": "2025-09-12T22:00:00-03:00",
-      "location": "E. & P. Sénéchal Centre"
+      "location": "E. & P. S\u00e9n\u00e9chal Centre"
     },
     {
       "league": "MHL",
@@ -323,24 +323,6 @@
       "location": "Amherst Stadium"
     },
     {
-      "league": "BSHL",
-      "home_team": "Fredericton",
-      "away_team": "Amherst",
-      "home_slug": "fredericton",
-      "away_slug": "amherst-ducks",
-      "start": "2026-01-02T19:30:00-04:00",
-      "location": ""
-    },
-    {
-      "league": "BSHL",
-      "home_team": "Miramichi",
-      "away_team": "Dalhousie",
-      "home_slug": "miramichi-bshl",
-      "away_slug": "dalhousie",
-      "start": "2026-01-02T20:15:00-04:00",
-      "location": "Civic"
-    },
-    {
       "league": "MHL",
       "home_team": "Pictou County Weeks Crushers",
       "away_team": "Amherst Ramblers",
@@ -349,33 +331,6 @@
       "start": "2026-01-03T19:00:00-04:00",
       "end": "2026-01-03T22:00:00-04:00",
       "location": "Pictou County Wellness Centre"
-    },
-    {
-      "league": "BSHL",
-      "home_team": "Amherst",
-      "away_team": "Miramichi",
-      "home_slug": "amherst-ducks",
-      "away_slug": "miramichi-bshl",
-      "start": "2026-01-03T19:00:00-04:00",
-      "location": "Community Centre"
-    },
-    {
-      "league": "BSHL",
-      "home_team": "Dalhousie",
-      "away_team": "Fredericton",
-      "home_slug": "dalhousie",
-      "away_slug": "fredericton",
-      "start": "2026-01-03T19:30:00-04:00",
-      "location": "Dalhousie Arena"
-    },
-    {
-      "league": "BSHL",
-      "home_team": "Elsipogtog",
-      "away_team": "Bouctouche",
-      "home_slug": "elsipogtog",
-      "away_slug": "bouctouche",
-      "start": "2026-01-04T17:30:00-04:00",
-      "location": "Kent North"
     },
     {
       "league": "MHL",
@@ -388,24 +343,6 @@
       "location": "Amherst Stadium"
     },
     {
-      "league": "BSHL",
-      "home_team": "Fredericton",
-      "away_team": "Elsipogtog",
-      "home_slug": "fredericton",
-      "away_slug": "elsipogtog",
-      "start": "2026-01-09T19:45:00-04:00",
-      "location": "LBR"
-    },
-    {
-      "league": "BSHL",
-      "home_team": "Miramichi",
-      "away_team": "Amherst",
-      "home_slug": "miramichi-bshl",
-      "away_slug": "amherst-ducks",
-      "start": "2026-01-09T20:15:00-04:00",
-      "location": "Civic"
-    },
-    {
       "league": "MHL",
       "home_team": "Amherst Ramblers",
       "away_team": "Miramichi Timberwolves",
@@ -414,33 +351,6 @@
       "start": "2026-01-10T19:00:00-04:00",
       "end": "2026-01-10T22:00:00-04:00",
       "location": "Amherst Stadium"
-    },
-    {
-      "league": "BSHL",
-      "home_team": "Fredericton",
-      "away_team": "Dalhousie",
-      "home_slug": "fredericton",
-      "away_slug": "dalhousie",
-      "start": "2026-01-10T19:00:00-04:00",
-      "location": "LBR"
-    },
-    {
-      "league": "BSHL",
-      "home_team": "Bouctouche",
-      "away_team": "Miramichi",
-      "home_slug": "bouctouche",
-      "away_slug": "miramichi-bshl",
-      "start": "2026-01-11T18:45:00-04:00",
-      "location": "J. K."
-    },
-    {
-      "league": "BSHL",
-      "home_team": "Amherst",
-      "away_team": "Elsipogtog",
-      "home_slug": "amherst-ducks",
-      "away_slug": "elsipogtog",
-      "start": "2026-01-11T19:00:00-04:00",
-      "location": "Community Centre"
     },
     {
       "league": "MHL",
@@ -453,24 +363,6 @@
       "location": "Mariners Centre"
     },
     {
-      "league": "BSHL",
-      "home_team": "Elsipogtog",
-      "away_team": "Amherst",
-      "home_slug": "elsipogtog",
-      "away_slug": "amherst-ducks",
-      "start": "2026-01-16T20:00:00-04:00",
-      "location": "Kent North"
-    },
-    {
-      "league": "BSHL",
-      "home_team": "Miramichi",
-      "away_team": "Bouctouche",
-      "home_slug": "miramichi-bshl",
-      "away_slug": "bouctouche",
-      "start": "2026-01-16T20:15:00-04:00",
-      "location": "Civic"
-    },
-    {
       "league": "MHL",
       "home_team": "Amherst Ramblers",
       "away_team": "Truro Bearcats",
@@ -478,24 +370,6 @@
       "away_slug": "truro-bearcats",
       "start": "2026-01-17T19:00:00-04:00",
       "end": "2026-01-17T22:00:00-04:00",
-      "location": "Amherst Stadium"
-    },
-    {
-      "league": "BSHL",
-      "home_team": "Dalhousie",
-      "away_team": "Elsipogtog",
-      "home_slug": "dalhousie",
-      "away_slug": "elsipogtog",
-      "start": "2026-01-17T19:30:00-04:00",
-      "location": "Dalhousie Arena"
-    },
-    {
-      "league": "BSHL",
-      "home_team": "Amherst",
-      "away_team": "Dalhousie",
-      "home_slug": "amherst-ducks",
-      "away_slug": "dalhousie",
-      "start": "2026-01-18T14:00:00-04:00",
       "location": "Amherst Stadium"
     },
     {
@@ -517,15 +391,6 @@
       "start": "2026-01-24T19:00:00-04:00",
       "end": "2026-01-24T22:00:00-04:00",
       "location": "Amherst Stadium"
-    },
-    {
-      "league": "BSHL",
-      "home_team": "Dalhousie",
-      "away_team": "Elsipogtog",
-      "home_slug": "dalhousie",
-      "away_slug": "elsipogtog",
-      "start": "2026-01-24T19:30:00-04:00",
-      "location": "Dalhousie Arena Home | Contacts | Login All content contained on this website is copyright &copy; 2026 Beausejour Senior Hockey League Website Design and Development by Sun Web Solutions var _gaq = _gaq || []; _gaq.push(['_setAccount', 'UA-10318801-10']); _gaq.push(['_trackPageview']); (function() { var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s); })();"
     },
     {
       "league": "MHL",

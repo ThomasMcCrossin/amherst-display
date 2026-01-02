@@ -8,7 +8,7 @@
     /* Optimized for 42" 1080p TV (1920x1080) - Viewing distance: 5-10 feet */
     :root{
       --bg:#0b0c10; --bg2:#0f1118; --bg3:#14161e; --muted:#a7b0ba; --ink:#f5f7fb;
-      --accent:#f28c18; --mhl:#2d74ff; --bshl:#19c37d; --win:#4ade80; --loss:#f87171;
+      --accent:#f28c18; --mhl:#2d74ff; --win:#4ade80; --loss:#f87171;
       --radius:20px;
       --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial;
     }
@@ -25,6 +25,8 @@
     header{margin-bottom:20px}
     .title{font-weight:900;font-size:64px;letter-spacing:0.5px;margin:0;background:linear-gradient(135deg,#f5f7fb,#a7b0ba);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
     .subtitle{color:var(--muted);font-size:22px;margin-top:8px}
+    .status{color:var(--muted);font-size:16px;margin-top:6px}
+    .status .stale{color:#f5c451;font-weight:700}
     .legend{margin-top:12px;display:flex;gap:14px;color:var(--muted);font-size:16px;flex-wrap:wrap}
     .pill{padding:6px 12px;border-radius:999px;background:#1b1f27;color:#cfd6df;border:1px solid #2a2f37;font-size:15px}
 
@@ -42,7 +44,7 @@
     .game-date{font-size:15px;color:var(--muted);margin-top:4px}
     .game-matchup{display:flex;align-items:center;gap:14px}
     .game-logos{display:flex;gap:12px;align-items:center}
-    .game-logos img{height:60px;width:auto;max-width:130px;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,.6))}
+    .game-logos img{height:60px;width:auto;max-width:130px;object-fit:contain}
     .game-vs{display:flex;flex-direction:column;gap:4px}
     .game-teams{font-size:28px;font-weight:800;line-height:1.2}
     .game-location{font-size:16px;color:var(--muted);margin-top:4px}
@@ -50,7 +52,6 @@
     .game-league img{height:24px}
     .tag{font-size:16px;font-weight:800;padding:8px 12px;border-radius:999px;background:#1a1f2a;border:1px solid #2c3341}
     .tag.mhl{border-color:#2d74ff55}
-    .tag.bshl{border-color:#19c37d66}
     .tag.live{background:crimson;color:white;border-color:#000}
     .badge-day{background:#f5c451;color:#0a0a0a;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:800}
 
@@ -118,6 +119,7 @@
     <header>
       <h1 class="title">Amherst Stadium GameBoard</h1>
       <div class="subtitle" id="date-range"></div>
+      <div class="status" id="status">Loading schedule...</div>
       <div class="legend">
         <span class="pill">Auto-updates every 10 min</span>
         <span class="pill">Atlantic Time</span>
@@ -180,7 +182,7 @@
   </div>
 
   <footer>
-    <div>Ramblers • Ducks • Community events welcome</div>
+    <div>Ramblers • Community events welcome</div>
     <div class="clock" id="clock"></div>
   </footer>
 
@@ -219,15 +221,25 @@ const CONFIG = {
   HOME_VENUES: ["Amherst Stadium"],
   TIMEZONE: "America/Halifax",
   REFRESH_MINUTES: 10,
+  PRIMARY_TEAM_SLUG: "amherst-ramblers",
+  PRIMARY_TEAM_ONLY: true,
+  ALLOWED_LEAGUES: ["MHL"],
+  EXCLUDE_TEAM_SLUGS: ["amherst-ducks"],
   LEAGUE: {
-    MHL: { tagClass: "mhl", icon: "https://thomasmccrossin.github.io/amherst-display/assets/logos/league-mhl.png" },
-    BSHL:{ tagClass: "bshl", icon: "https://thomasmccrossin.github.io/amherst-display/assets/logos/league-bshl.png" }
+    MHL: { tagClass: "mhl", icon: "https://thomasmccrossin.github.io/amherst-display/assets/logos/league-mhl.png" }
   }
 };
 
 let TEAM_DIR = {};
 let ROSTER_DATA = null;
 let GAMES_DATA = null;
+let CLOCK_TIMER = null;
+let REFRESH_TIMER = null;
+let RETRY_TIMER = null;
+let IS_ACTIVE = true;
+
+const CACHE_KEY = 'amherst_display_cache_v2';
+const CACHE_TTL_MS = 6 * 60 * 60 * 1000;
 
 // Track intervals for cleanup (prevents memory leaks on Pi)
 let CLOCK_TIMER = null;
@@ -248,8 +260,71 @@ function startOfDay(d){ return new Date(d.getFullYear(), d.getMonth(), d.getDate
 function addDays(d,n){ const x=new Date(d); x.setDate(x.getDate()+n); return x; }
 function withinWindow(dt){ const now=new Date(), end=addDays(now, CONFIG.DAYS_AHEAD); return dt>=now&&dt<end; }
 function isHome(evt){ if(!CONFIG.HOME_ONLY) return true; return CONFIG.HOME_VENUES.some(v=> (evt.location||'').toLowerCase().includes(v.toLowerCase())); }
-function leagueKey(evt){ const k=(evt.league||'').toUpperCase(); return k.includes('MHL') ? 'MHL' : (k.includes('BSHL') ? 'BSHL' : 'MHL'); }
+function isAllowedEvent(evt){
+  const league = (evt.league || '').toUpperCase();
+  const allowedLeague = !CONFIG.ALLOWED_LEAGUES.length || CONFIG.ALLOWED_LEAGUES.includes(league);
+  const excludedTeam = CONFIG.EXCLUDE_TEAM_SLUGS.includes(evt.home_slug) || CONFIG.EXCLUDE_TEAM_SLUGS.includes(evt.away_slug);
+  const primaryOK = !CONFIG.PRIMARY_TEAM_ONLY || [evt.home_slug, evt.away_slug].includes(CONFIG.PRIMARY_TEAM_SLUG);
+  return allowedLeague && !excludedTeam && primaryOK;
+}
+function leagueKey(evt){ const k=(evt.league||'').toUpperCase(); return CONFIG.ALLOWED_LEAGUES.includes(k) ? k : CONFIG.ALLOWED_LEAGUES[0]; }
 function logo(slug){ const t=TEAM_DIR[slug]; return t?.logo_url || null; }
+
+function saveCache(payload){
+  try { localStorage.setItem(CACHE_KEY, JSON.stringify(payload)); } catch(e) {}
+}
+
+function loadCache(){
+  try {
+    const raw = localStorage.getItem(CACHE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (!parsed || !parsed.fetchedAt) return null;
+    return parsed;
+  } catch(e) {
+    return null;
+  }
+}
+
+function updateStatus(fetchedAt, isCached){
+  const $status = document.getElementById('status');
+  if (!$status) return;
+  if (!fetchedAt) {
+    $status.textContent = 'Waiting for data...';
+    return;
+  }
+  const dt = new Date(fetchedAt);
+  if (Number.isNaN(dt.getTime())) {
+    $status.textContent = 'Updated recently';
+    return;
+  }
+  const ageMs = Date.now() - dt.getTime();
+  const stale = ageMs > CACHE_TTL_MS;
+  const timeStr = new Intl.DateTimeFormat('en-CA', {
+    hour:'numeric', minute:'2-digit', hour12:true, timeZone:CONFIG.TIMEZONE
+  }).format(dt);
+  const label = isCached ? 'Cached' : 'Updated';
+  $status.innerHTML = `${label} ${timeStr}${stale ? ' <span class="stale">stale</span>' : ''}`;
+}
+
+function applyData(payload, isCached){
+  const { scheduleData, teamsData, rosterData, gamesData, standingsData, fetchedAt } = payload || {};
+
+  if (teamsData && Array.isArray(teamsData.teams)) {
+    TEAM_DIR = Object.fromEntries(teamsData.teams.map(t => [t.slug, t]));
+  }
+
+  ROSTER_DATA = rosterData;
+  GAMES_DATA = gamesData;
+
+  renderUpcomingGames(scheduleData?.events || []);
+  renderTopScorers(rosterData);
+  renderTeamStats(gamesData);
+  renderRecentResults(gamesData);
+  renderStandings(standingsData);
+
+  updateStatus(fetchedAt, isCached);
+}
 
 // Fetch with timeout for Pi stability
 async function fetchJSON(url, timeoutMs = 15000){
@@ -276,7 +351,7 @@ function renderUpcomingGames(events) {
 
   const upcoming = events
     .map(e=> ({...e, start:new Date(e.start), end: e.end? new Date(e.end): null}))
-    .filter(e=> e.start >= now && withinWindow(e.start) && isHome(e))
+    .filter(e=> e.start >= now && withinWindow(e.start) && isHome(e) && isAllowedEvent(e))
     .sort((a,b)=> a.start-b.start)
     .slice(0, 6);
 
@@ -291,11 +366,11 @@ function renderUpcomingGames(events) {
     const hLogo = e.home_slug ? logo(e.home_slug) : null;
     const aLogo = e.away_slug ? logo(e.away_slug) : null;
     const keyL = leagueKey(e);
-    const isAmherstHome = /amherst/i.test(h);
+    const isPrimaryHome = e.home_slug === CONFIG.PRIMARY_TEAM_SLUG;
     const dayLabel = Math.floor((e.start - now) / 86400000) === 0 ? 'TODAY' : fmtDate(e.start).toUpperCase();
 
     return `
-      <div class="game-card" style="${isAmherstHome?'border-left:4px solid var(--accent)':''}">
+      <div class="game-card" style="${isPrimaryHome?'border-left:4px solid var(--accent)':''}">
         <div>
           <div class="game-time">${fmtTime(e.start)}</div>
           <div class="game-date">${dayLabel}</div>
@@ -511,6 +586,7 @@ let loadRetryCount = 0;
 const MAX_RETRIES = 3;
 
 async function loadAll() {
+  if (!IS_ACTIVE) return;
   try {
     const [scheduleData, teamsData, rosterData, gamesData, standingsData] = await Promise.all([
       fetchJSON(CONFIG.DATA_URL),
@@ -523,59 +599,84 @@ async function loadAll() {
     // Reset retry count on success
     loadRetryCount = 0;
 
-    // Store teams directory
-    if (teamsData && Array.isArray(teamsData.teams)) {
-      TEAM_DIR = Object.fromEntries(teamsData.teams.map(t => [t.slug, t]));
-    }
-
-    // Store roster and games data globally
-    ROSTER_DATA = rosterData;
-    GAMES_DATA = gamesData;
-
-    // Render all sections
-    renderUpcomingGames(scheduleData?.events || []);
-    renderTopScorers(rosterData);
-    renderTeamStats(gamesData);
-    renderRecentResults(gamesData);
-    renderStandings(standingsData);
+    const payload = {
+      scheduleData,
+      teamsData,
+      rosterData,
+      gamesData,
+      standingsData,
+      fetchedAt: new Date().toISOString()
+    };
+    saveCache(payload);
+    applyData(payload, false);
 
   } catch(e) {
     console.error('[Display] Error loading data:', e);
     loadRetryCount++;
 
+    const cached = loadCache();
+    if (cached) {
+      applyData(cached, true);
+    }
+
     // Auto-retry with backoff if we haven't exceeded max retries
     if (loadRetryCount <= MAX_RETRIES) {
       const delay = Math.min(loadRetryCount * 5000, 15000);
       console.log(`[Display] Retrying in ${delay/1000}s (attempt ${loadRetryCount}/${MAX_RETRIES})`);
-      setTimeout(loadAll, delay);
+      if (RETRY_TIMER) clearTimeout(RETRY_TIMER);
+      RETRY_TIMER = setTimeout(loadAll, delay);
     }
   }
 }
 
 // Initialize
-function bootstrap() {
-  // Clear any existing timers first (prevents accumulation on page refresh)
-  if(CLOCK_TIMER) clearInterval(CLOCK_TIMER);
-  if(REFRESH_TIMER) clearInterval(REFRESH_TIMER);
-
+function startTimers() {
   // Cache formatter and element refs for clock
   const clockFormatter = new Intl.DateTimeFormat('en-CA', {
     hour:'numeric', minute:'2-digit', second:'2-digit', hour12:true, timeZone:CONFIG.TIMEZONE
   });
   const $clock = document.getElementById('clock');
-
-  // Update clock - reuse date object (tracked for cleanup)
+  // Update clock - reuse date object
   let clockDate = new Date();
+  if (CLOCK_TIMER) clearInterval(CLOCK_TIMER);
   CLOCK_TIMER = setInterval(() => {
-    try {
-      clockDate.setTime(Date.now());
-      $clock.textContent = clockFormatter.format(clockDate);
-    } catch(e) { /* ignore clock errors */ }
+    clockDate.setTime(Date.now());
+    $clock.textContent = clockFormatter.format(clockDate);
   }, 1000);
 
-  // Load data now and every 10 minutes (tracked for cleanup)
+  // Load data now and every 10 minutes
   loadAll();
+  if (REFRESH_TIMER) clearInterval(REFRESH_TIMER);
   REFRESH_TIMER = setInterval(loadAll, CONFIG.REFRESH_MINUTES * 60 * 1000);
+}
+
+function stopTimers() {
+  if (CLOCK_TIMER) clearInterval(CLOCK_TIMER);
+  if (REFRESH_TIMER) clearInterval(REFRESH_TIMER);
+  if (RETRY_TIMER) clearTimeout(RETRY_TIMER);
+  CLOCK_TIMER = null;
+  REFRESH_TIMER = null;
+  RETRY_TIMER = null;
+}
+
+function setActive(active) {
+  IS_ACTIVE = active;
+  if (active) {
+    startTimers();
+  } else {
+    stopTimers();
+  }
+}
+
+function bootstrap() {
+  const cached = loadCache();
+  if (cached) applyData(cached, true);
+  startTimers();
+
+  if (window.parent && window.parent.YodeckAPI) {
+    window.parent.YodeckAPI.onShown = function() { setActive(true); };
+    window.parent.YodeckAPI.onHidden = function() { setActive(false); };
+  }
 }
 
 bootstrap();

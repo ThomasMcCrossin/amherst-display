@@ -6,8 +6,8 @@
 // - Writes sane fallbacks if any stage fails
 
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
-import { fetchRamblersFromICS, fetchDucksFromBSHL } from './schedules.mjs';
-import { buildMHLStandings, buildBSHLStandings } from './standings.mjs';
+import { fetchRamblersFromICS } from './schedules.mjs';
+import { buildMHLStandings } from './standings.mjs';
 import { fetchCCMHAGames } from './ccmha.mjs';
 import { buildRosters } from './rosters.mjs';
 import { buildRamblersGames } from './games.mjs';
@@ -71,7 +71,7 @@ function sanitizeEvents(list){
 
 async function buildSchedules() {
   const nameToSlug = loadTeamDirectory();
-  let ramblers = [], ducks = [];
+  let ramblers = [];
 
   try{
     ramblers = await fetchRamblersFromICS({ nameToSlug });
@@ -79,13 +79,7 @@ async function buildSchedules() {
     console.warn('[schedules/ICS] failed:', e.message);
   }
 
-  try{
-    ducks = await fetchDucksFromBSHL({ nameToSlug });
-  }catch(e){
-    console.warn('[schedules/BSHL] failed:', e.message);
-  }
-
-  let events = sanitizeEvents([ ...ramblers, ...ducks ]);
+  let events = sanitizeEvents([ ...ramblers ]);
 
   writeJson('games.json', {
     generated_at: nowISO(),
@@ -113,19 +107,17 @@ async function buildSchedules() {
     generated_at: nowISO(),
     timezone: TZ,
     teams: [
-      { team_slug: 'amherst-ramblers', games: nextN('amherst-ramblers', 3) },
-      { team_slug: 'amherst-ducks',    games: nextN('amherst-ducks', 3) }
+      { team_slug: 'amherst-ramblers', games: nextN('amherst-ramblers', 3) }
     ]
   });
 
-  console.log(`[schedules] events=${events.length}  ramblers=${ramblers.length}  ducks=${ducks.length}`);
+  console.log(`[schedules] events=${events.length}  ramblers=${ramblers.length}`);
 }
 
 async function buildStandings() {
   const nameToSlug = loadTeamDirectory();
 
   let mhl = { generated_at: nowISO(), league: 'MHL', season: '', rows: [] };
-  let bshl = { generated_at: nowISO(), league: 'BSHL', season: '', rows: [] };
 
   try{
     const res = await buildMHLStandings({ nameToSlug });
@@ -134,17 +126,9 @@ async function buildStandings() {
     console.warn('[standings/MHL] failed:', e.message);
   }
 
-  try{
-    const res = await buildBSHLStandings({ nameToSlug });
-    if (res && Array.isArray(res.rows)) bshl = res;
-  }catch(e){
-    console.warn('[standings/BSHL] failed:', e.message);
-  }
-
   writeJson('standings_mhl.json',  mhl);
-  writeJson('standings_bshl.json', bshl);
 
-  console.log(`[standings] mhlRows=${mhl.rows?.length||0}  bshlRows=${bshl.rows?.length||0}`);
+  console.log(`[standings] mhlRows=${mhl.rows?.length||0}`);
 }
 
 async function buildCCMHA() {
@@ -229,7 +213,6 @@ async function main(){
   if (!existsSync('games.json'))                  writeJson('games.json',                  { generated_at: nowISO(), timezone: TZ, events: [] });
   if (!existsSync('next_games.json'))             writeJson('next_games.json',             { generated_at: nowISO(), timezone: TZ, teams: [] });
   if (!existsSync('standings_mhl.json'))          writeJson('standings_mhl.json',          { generated_at: nowISO(), season: '', league: 'MHL',  rows: [] });
-  if (!existsSync('standings_bshl.json'))         writeJson('standings_bshl.json',         { generated_at: nowISO(), season: '', league: 'BSHL', rows: [] });
   if (!existsSync('ccmha_games.json'))            writeJson('ccmha_games.json',            { generated_at: nowISO(), timezone: TZ, games: [] });
 }
 
