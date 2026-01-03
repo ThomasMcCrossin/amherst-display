@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-02T16:54:42Z",
+  "generated_at": "2026-01-03T06:53:51Z",
   "timezone": "America/Halifax",
   "games": [
     {
@@ -8,6 +8,15 @@
       "away_team": "Cumberland Ramblers",
       "start": "2026-01-03T11:00:00-04:00",
       "end": "2026-01-03T11:50:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U9-ADV",
+      "home_team": "Pictou County White",
+      "away_team": "Cumberland Ramblers",
+      "start": "2026-01-03T12:15:00-04:00",
+      "end": "2026-01-03T13:15:00-04:00",
       "location": "Amherst Stadium",
       "source": "ccmha"
     },
@@ -62,6 +71,15 @@
       "away_team": "Cumberland Ramblers",
       "start": "2026-01-09T20:00:00-04:00",
       "end": "2026-01-09T21:30:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U9-INT",
+      "home_team": "SCMHA U9 INTERMEDIATE WHITE",
+      "away_team": "Cumberland Ramblers",
+      "start": "2026-01-10T11:00:00-04:00",
+      "end": "2026-01-10T11:50:00-04:00",
       "location": "Amherst Stadium",
       "source": "ccmha"
     }

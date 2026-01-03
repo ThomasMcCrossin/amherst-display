@@ -5,8 +5,8 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 8,
-  "updated_at": "2026-01-02T16:54:12.242Z",
-  "player_count": 27,
+  "updated_at": "2026-01-03T06:53:29.549Z",
+  "player_count": 28,
   "players": [
     {
       "player_id": "mhl-3000",
@@ -984,6 +984,28 @@
       "flags": [
         "ht-affiliate"
       ]
+    },
+    {
+      "player_id": "mhl-3922",
+      "number": "101",
+      "first_name": "Thierry",
+      "last_name": "Laliberte",
+      "name": "Thierry Laliberte",
+      "position": "D",
+      "height": "6",
+      "weight": 187,
+      "shoots": "L",
+      "birthdate": "2005-11-15",
+      "birth_year": "'05",
+      "age": 21,
+      "hometown": "Montreal, Qc",
+      "birthplace": "Montreal, Qc, ",
+      "rookie": false,
+      "veteran": false,
+      "stats": {},
+      "hockeytech_id": "3922",
+      "person_id": "4584",
+      "flags": []
     },
     {
       "player_id": "mhl-undefined",

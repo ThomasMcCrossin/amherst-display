@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-02T16:54:23.455Z",
+  "generated_at": "2026-01-03T06:53:34.969Z",
   "season": "2024-25",
   "season_id": 41,
   "api_source": "HockeyTech",
@@ -19,7 +19,7 @@
       "team_name": "Edmundston-Blizzard",
       "league": "MHL",
       "team_id": 2,
-      "player_count": 25,
+      "player_count": 27,
       "file": "rosters/edmundston-blizzard.json"
     },
     {
@@ -35,7 +35,7 @@
       "team_name": "Valley-Wildcats",
       "league": "MHL",
       "team_id": 4,
-      "player_count": 24,
+      "player_count": 25,
       "file": "rosters/valley-wildcats.json"
     },
     {
@@ -51,7 +51,7 @@
       "team_name": "West-Kent-Steamers",
       "league": "MHL",
       "team_id": 6,
-      "player_count": 27,
+      "player_count": 26,
       "file": "rosters/west-kent-steamers.json"
     },
     {
@@ -67,7 +67,7 @@
       "team_name": "Campbellton-Tigers",
       "league": "MHL",
       "team_id": 8,
-      "player_count": 27,
+      "player_count": 28,
       "file": "rosters/campbellton-tigers.json"
     },
     {
@@ -75,7 +75,7 @@
       "team_name": "Miramichi-Timberwolves",
       "league": "MHL",
       "team_id": 9,
-      "player_count": 32,
+      "player_count": 31,
       "file": "rosters/miramichi-timberwolves.json"
     },
     {
@@ -91,7 +91,7 @@
       "team_name": "Grand-Falls-Rapids",
       "league": "MHL",
       "team_id": 12,
-      "player_count": 26,
+      "player_count": 25,
       "file": "rosters/grand-falls-rapids.json"
     },
     {
