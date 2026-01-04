@@ -38,9 +38,10 @@
 [rosters/truro-bearcats] Fetching roster for Truro-Bearcats...
 [rosters] Fetching from API: team_id=3
 [rosters] Fetching stats from API: team_id=3
-[rosters/truro-bearcats] Processing 31 players (downloading headshots)
+[rosters/truro-bearcats] Processing 32 players (downloading headshots)
 [rosters] Downloaded: 1-sam-berthiaume.jpg
 [rosters] Downloaded: 3-logan-quinn.jpg
+[rosters] Skipping placeholder image
 [rosters] Downloaded: 9-jake-todd.jpg
 [rosters] Downloaded: 10-julien-roy.jpg
 [rosters] Downloaded: 11-callum-aucoin.jpg
@@ -69,7 +70,7 @@
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
-[rosters/truro-bearcats] Wrote rosters/truro-bearcats.json (31 players)
+[rosters/truro-bearcats] Wrote rosters/truro-bearcats.json (32 players)
 [rosters/valley-wildcats] Fetching roster for Valley-Wildcats...
 [rosters] Fetching from API: team_id=4
 [rosters] Fetching stats from API: team_id=4
@@ -218,12 +219,12 @@
 [rosters] Downloaded: 23-brett-woodard.jpg
 [rosters] Downloaded: 26-sawyer-harvey.jpg
 [rosters] Downloaded: 27-marco-leblanc.jpg
-[rosters] Downloaded: 31-niko-boudreau.jpg
+[rosters] Downloaded: 29-niko-boudreau.jpg
 [rosters] Downloaded: 39-logan-mallaley.jpg
 [rosters] Downloaded: 45-jacob-singer.jpg
+[rosters] Skipping placeholder image
 [rosters] Downloaded: 55-luke-orr.jpg
 [rosters] Downloaded: 84-nash-coffin.jpg
-[rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
@@ -296,12 +297,12 @@
 [rosters] Fetching stats from API: team_id=12
 [rosters/grand-falls-rapids] Processing 25 players (downloading headshots)
 [rosters] Downloaded: 2-william-patey.jpg
-[rosters] Downloaded: 3-conor-ryan.jpg
 [rosters] Downloaded: 4-loic-gallant.jpg
 [rosters] Downloaded: 5-anton-topilnyckyj.jpg
 [rosters] Downloaded: 6-nathan-dubreuil.jpg
 [rosters] Downloaded: 7-patrick-baxter.jpg
 [rosters] Downloaded: 8-carter-bellamy.jpg
+[rosters] Downloaded: 9-conor-ryan.jpg
 [rosters] Downloaded: 10-tristan-richard.jpg
 [rosters] Downloaded: 12-coen-miller.jpg
 [rosters] Downloaded: 16-oliver-plante.jpg
@@ -362,7 +363,7 @@
 [games] Starting Ramblers games build...
 [games] Loaded roster with 25 players
 [games] Fetching Ramblers schedule...
-[games] Processing 32 completed games...
+[games] Processing 33 completed games...
 [games] Fetched summary for game 4612 (7 goals, 0 penalties)
 [games] Fetched summary for game 4619 (12 goals, 0 penalties)
 [games] Fetched summary for game 4624 (7 goals, 0 penalties)
@@ -395,8 +396,9 @@
 [games] Fetched summary for game 4799 (6 goals, 0 penalties)
 [games] Fetched summary for game 4801 (6 goals, 0 penalties)
 [games] Fetched summary for game 4803 (12 goals, 0 penalties)
-[games] Wrote games/amherst-ramblers.json (32 completed games)
-[games] Complete! Games=32
+[games] Fetched summary for game 4809 (10 goals, 0 penalties)
+[games] Wrote games/amherst-ramblers.json (33 completed games)
+[games] Complete! Games=33
 [standings/MHL] table rows found
 [standings/MHL] tables=1 chosen=1306x378 rows=12
 [standings/MHL] example={"col":"1","eastlink south eastlink south":"Truro Bearcats","south south":"TRU","gp":35,"w":23,"l":9,"otl":3,"sol":0,"pts":49,"pct pct":"0.700","rw":17,"otw":4,"sow":2,"gf":129,"ga":102,"diff":27,"pim pim":"422","streak":"0-1-0-0","p10":"8-2-0-0","team":"Truro Bearcats","slug":"truro-bearcats"}
@@ -404,6 +406,6 @@
 [schedules/ICS] parsed=52
 [schedules] events=52  ramblers=52
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 167 total schedule items
-[CCMHA] Found 9 games at Amherst Stadium
-[ccmha] games=9
+[CCMHA] API returned 156 total schedule items
+[CCMHA] Found 7 games at Amherst Stadium
+[ccmha] games=7

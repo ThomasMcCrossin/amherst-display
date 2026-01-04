@@ -1,34 +1,7 @@
 {
-  "generated_at": "2026-01-03T06:53:51Z",
+  "generated_at": "2026-01-04T06:54:48Z",
   "timezone": "America/Halifax",
   "games": [
-    {
-      "league": "U9-INT",
-      "home_team": "SCMHA U9 INTERMEDIATE WHITE",
-      "away_team": "Cumberland Ramblers",
-      "start": "2026-01-03T11:00:00-04:00",
-      "end": "2026-01-03T11:50:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
-    {
-      "league": "U9-ADV",
-      "home_team": "Pictou County White",
-      "away_team": "Cumberland Ramblers",
-      "start": "2026-01-03T12:15:00-04:00",
-      "end": "2026-01-03T13:15:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
-    {
-      "league": "U11-AA",
-      "home_team": "Riverview Blues",
-      "away_team": "Cumberland Ramblers",
-      "start": "2026-01-03T13:45:00-04:00",
-      "end": "2026-01-03T15:15:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
     {
       "league": "U9-DEV",
       "home_team": "Truro Bearcats [Maroon]",
@@ -80,6 +53,15 @@
       "away_team": "Cumberland Ramblers",
       "start": "2026-01-10T11:00:00-04:00",
       "end": "2026-01-10T11:50:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U9-DEV",
+      "home_team": "U9 Red Rangers",
+      "away_team": "Cumberland Ramblers - Development",
+      "start": "2026-01-11T09:15:00-04:00",
+      "end": "2026-01-11T10:15:00-04:00",
       "location": "Amherst Stadium",
       "source": "ccmha"
     }

@@ -5,8 +5,8 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 3,
-  "updated_at": "2026-01-03T06:53:22.829Z",
-  "player_count": 31,
+  "updated_at": "2026-01-04T06:54:27.668Z",
+  "player_count": 32,
   "players": [
     {
       "player_id": "mhl-3846",
@@ -87,6 +87,32 @@
       "hockeytech_id": "3092",
       "person_id": "3610",
       "flags": [
+        "ht-played-major-junior"
+      ]
+    },
+    {
+      "player_id": "mhl-3593",
+      "number": "5",
+      "first_name": "Jace",
+      "last_name": "Evans",
+      "name": "Jace Evans",
+      "position": "C",
+      "height": "5'11",
+      "height_inches": 71,
+      "weight": 182,
+      "shoots": "L",
+      "birthdate": "2008-10-09",
+      "birth_year": "'08",
+      "age": 18,
+      "hometown": "Dartmouth, NS",
+      "birthplace": "Dartmouth, NS, ",
+      "rookie": true,
+      "veteran": false,
+      "stats": {},
+      "hockeytech_id": "3593",
+      "person_id": "4197",
+      "flags": [
+        "ht-rookie",
         "ht-played-major-junior"
       ]
     },

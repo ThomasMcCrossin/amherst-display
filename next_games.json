@@ -1,17 +1,10 @@
 {
-  "generated_at": "2026-01-03T06:53:51Z",
+  "generated_at": "2026-01-04T06:54:48Z",
   "timezone": "America/Halifax",
   "teams": [
     {
       "team_slug": "amherst-ramblers",
       "games": [
-        {
-          "opponent_slug": "pictou-county-weeks-crushers",
-          "home": false,
-          "start": "2026-01-03T19:00:00-04:00",
-          "venue": "Pictou County Wellness Centre",
-          "city": ""
-        },
         {
           "opponent_slug": "edmundston-blizzard",
           "home": true,
@@ -24,6 +17,13 @@
           "home": true,
           "start": "2026-01-10T19:00:00-04:00",
           "venue": "Amherst Stadium",
+          "city": ""
+        },
+        {
+          "opponent_slug": "yarmouth-mariners",
+          "home": false,
+          "start": "2026-01-16T19:00:00-04:00",
+          "venue": "Mariners Centre",
           "city": ""
         }
       ]
