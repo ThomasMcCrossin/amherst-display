@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 3,
-  "updated_at": "2026-01-04T06:54:27.668Z",
+  "updated_at": "2026-01-05T07:02:35.527Z",
   "player_count": 32,
   "players": [
     {
@@ -29,17 +29,17 @@
       "headshot": "assets/headshots/Truro-Bearcats/1-sam-berthiaume.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3846.jpg",
       "stats": {
-        "games_played": 7,
-        "wins": 6,
+        "games_played": 8,
+        "wins": 7,
         "losses": 1,
         "ot_losses": 0,
-        "minutes_played": 421,
-        "saves": 218,
-        "shots": 236,
-        "goals_against": 18,
+        "minutes_played": 485,
+        "saves": 241,
+        "shots": 262,
+        "goals_against": 21,
         "shutouts": 0,
-        "save_percentage": 0.924,
-        "goals_against_average": 2.57
+        "save_percentage": 0.92,
+        "goals_against_average": 2.6
       },
       "hockeytech_id": "3846",
       "person_id": "4473",
@@ -68,7 +68,7 @@
       "headshot": "assets/headshots/Truro-Bearcats/3-logan-quinn.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3092.jpg",
       "stats": {
-        "games_played": 21,
+        "games_played": 22,
         "goals": 1,
         "assists": 3,
         "points": 4,
@@ -82,7 +82,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.19
+        "points_per_game": 0.18
       },
       "hockeytech_id": "3092",
       "person_id": "3610",
@@ -137,10 +137,10 @@
       "headshot": "assets/headshots/Truro-Bearcats/9-jake-todd.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3576.jpg",
       "stats": {
-        "games_played": 33,
+        "games_played": 34,
         "goals": 10,
-        "assists": 31,
-        "points": 41,
+        "assists": 32,
+        "points": 42,
         "plus_minus": 0,
         "penalty_minutes": 24,
         "power_play_goals": 0,
@@ -180,7 +180,7 @@
       "headshot": "assets/headshots/Truro-Bearcats/10-julien-roy.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3033.jpg",
       "stats": {
-        "games_played": 34,
+        "games_played": 35,
         "goals": 5,
         "assists": 2,
         "points": 7,
@@ -194,7 +194,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.21
+        "points_per_game": 0.2
       },
       "hockeytech_id": "3033",
       "person_id": "3539",
@@ -221,10 +221,10 @@
       "headshot": "assets/headshots/Truro-Bearcats/11-callum-aucoin.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3814.jpg",
       "stats": {
-        "games_played": 34,
+        "games_played": 35,
         "goals": 20,
-        "assists": 13,
-        "points": 33,
+        "assists": 14,
+        "points": 34,
         "plus_minus": 0,
         "penalty_minutes": 14,
         "power_play_goals": 9,
@@ -264,10 +264,10 @@
       "headshot": "assets/headshots/Truro-Bearcats/15-drew-keiver.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3834.jpg",
       "stats": {
-        "games_played": 22,
+        "games_played": 23,
         "goals": 9,
-        "assists": 8,
-        "points": 17,
+        "assists": 9,
+        "points": 18,
         "plus_minus": 0,
         "penalty_minutes": 8,
         "power_play_goals": 2,
@@ -278,7 +278,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.77
+        "points_per_game": 0.78
       },
       "hockeytech_id": "3834",
       "person_id": "4452",
@@ -307,12 +307,12 @@
       "headshot": "assets/headshots/Truro-Bearcats/16-nathan-curson.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3760.jpg",
       "stats": {
-        "games_played": 35,
+        "games_played": 36,
         "goals": 11,
         "assists": 16,
         "points": 27,
         "plus_minus": 0,
-        "penalty_minutes": 4,
+        "penalty_minutes": 6,
         "power_play_goals": 0,
         "power_play_assists": 5,
         "power_play_points": 5,
@@ -321,7 +321,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 3,
         "overtime_goals": 1,
-        "points_per_game": 0.77
+        "points_per_game": 0.75
       },
       "hockeytech_id": "3760",
       "person_id": "4376",
@@ -351,7 +351,7 @@
       "headshot": "assets/headshots/Truro-Bearcats/18-ben-lindsay.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3508.jpg",
       "stats": {
-        "games_played": 35,
+        "games_played": 36,
         "goals": 3,
         "assists": 7,
         "points": 10,
@@ -365,7 +365,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 1,
-        "points_per_game": 0.29
+        "points_per_game": 0.28
       },
       "hockeytech_id": "3508",
       "person_id": "4071",
@@ -435,7 +435,7 @@
       "headshot": "assets/headshots/Truro-Bearcats/20-austin-hoyt.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3653.jpg",
       "stats": {
-        "games_played": 35,
+        "games_played": 36,
         "goals": 6,
         "assists": 9,
         "points": 15,
@@ -449,7 +449,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 2,
         "overtime_goals": 0,
-        "points_per_game": 0.43
+        "points_per_game": 0.42
       },
       "hockeytech_id": "3653",
       "person_id": "4268",
@@ -478,21 +478,21 @@
       "headshot": "assets/headshots/Truro-Bearcats/21-samuel-vachon.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3768.jpg",
       "stats": {
-        "games_played": 30,
+        "games_played": 31,
         "goals": 4,
-        "assists": 10,
-        "points": 14,
+        "assists": 11,
+        "points": 15,
         "plus_minus": 0,
         "penalty_minutes": 28,
         "power_play_goals": 1,
-        "power_play_assists": 2,
-        "power_play_points": 3,
+        "power_play_assists": 3,
+        "power_play_points": 4,
         "short_handed_goals": 0,
         "short_handed_assists": 0,
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.47
+        "points_per_game": 0.48
       },
       "hockeytech_id": "3768",
       "person_id": "4384",
@@ -565,10 +565,10 @@
       "headshot": "assets/headshots/Truro-Bearcats/28-eric-halliday.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3288.jpg",
       "stats": {
-        "games_played": 34,
-        "goals": 1,
+        "games_played": 35,
+        "goals": 2,
         "assists": 12,
-        "points": 13,
+        "points": 14,
         "plus_minus": 0,
         "penalty_minutes": 12,
         "power_play_goals": 0,
@@ -579,7 +579,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.38
+        "points_per_game": 0.4
       },
       "hockeytech_id": "3288",
       "person_id": "3843",
@@ -648,21 +648,21 @@
       "headshot": "assets/headshots/Truro-Bearcats/44-jayden-connors.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3893.jpg",
       "stats": {
-        "games_played": 17,
-        "goals": 4,
+        "games_played": 18,
+        "goals": 5,
         "assists": 9,
-        "points": 13,
+        "points": 14,
         "plus_minus": 0,
         "penalty_minutes": 6,
-        "power_play_goals": 2,
+        "power_play_goals": 3,
         "power_play_assists": 4,
-        "power_play_points": 6,
+        "power_play_points": 7,
         "short_handed_goals": 0,
         "short_handed_assists": 0,
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.76
+        "points_per_game": 0.78
       },
       "hockeytech_id": "3893",
       "person_id": "4539",
@@ -692,7 +692,7 @@
       "headshot": "assets/headshots/Truro-Bearcats/55-wyatt-countway.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3091.jpg",
       "stats": {
-        "games_played": 22,
+        "games_played": 23,
         "goals": 0,
         "assists": 7,
         "points": 7,
@@ -706,7 +706,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.32
+        "points_per_game": 0.3
       },
       "hockeytech_id": "3091",
       "person_id": "3609",
@@ -733,10 +733,10 @@
       "headshot": "assets/headshots/Truro-Bearcats/73-tristan-st-gelais.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3513.jpg",
       "stats": {
-        "games_played": 35,
-        "goals": 2,
+        "games_played": 36,
+        "goals": 3,
         "assists": 17,
-        "points": 19,
+        "points": 20,
         "plus_minus": 0,
         "penalty_minutes": 4,
         "power_play_goals": 2,
@@ -745,9 +745,9 @@
         "short_handed_goals": 0,
         "short_handed_assists": 0,
         "short_handed_points": 0,
-        "game_winning_goals": 0,
-        "overtime_goals": 0,
-        "points_per_game": 0.54
+        "game_winning_goals": 1,
+        "overtime_goals": 1,
+        "points_per_game": 0.56
       },
       "hockeytech_id": "3513",
       "person_id": "4079",
@@ -776,12 +776,12 @@
       "headshot": "assets/headshots/Truro-Bearcats/81-liam-welsh.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3199.jpg",
       "stats": {
-        "games_played": 34,
-        "goals": 8,
-        "assists": 20,
-        "points": 28,
+        "games_played": 35,
+        "goals": 9,
+        "assists": 21,
+        "points": 30,
         "plus_minus": 0,
-        "penalty_minutes": 36,
+        "penalty_minutes": 40,
         "power_play_goals": 2,
         "power_play_assists": 9,
         "power_play_points": 11,
@@ -790,7 +790,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 4,
         "overtime_goals": 1,
-        "points_per_game": 0.82
+        "points_per_game": 0.86
       },
       "hockeytech_id": "3199",
       "person_id": "3720",
@@ -819,12 +819,12 @@
       "headshot": "assets/headshots/Truro-Bearcats/89-li-baillargeon.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3577.jpg",
       "stats": {
-        "games_played": 32,
+        "games_played": 33,
         "goals": 26,
-        "assists": 16,
-        "points": 42,
+        "assists": 17,
+        "points": 43,
         "plus_minus": 0,
-        "penalty_minutes": 94,
+        "penalty_minutes": 96,
         "power_play_goals": 12,
         "power_play_assists": 3,
         "power_play_points": 15,
@@ -833,7 +833,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 3,
         "overtime_goals": 0,
-        "points_per_game": 1.31
+        "points_per_game": 1.3
       },
       "hockeytech_id": "3577",
       "person_id": "4164",
@@ -863,21 +863,21 @@
       "headshot": "assets/headshots/Truro-Bearcats/91-matthew-bolduc.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3404.jpg",
       "stats": {
-        "games_played": 31,
+        "games_played": 32,
         "goals": 9,
-        "assists": 10,
-        "points": 19,
+        "assists": 11,
+        "points": 20,
         "plus_minus": 0,
         "penalty_minutes": 2,
         "power_play_goals": 2,
-        "power_play_assists": 6,
-        "power_play_points": 8,
+        "power_play_assists": 7,
+        "power_play_points": 9,
         "short_handed_goals": 0,
         "short_handed_assists": 0,
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.61
+        "points_per_game": 0.63
       },
       "hockeytech_id": "3404",
       "person_id": "3966",
@@ -907,7 +907,7 @@
       "headshot": "assets/headshots/Truro-Bearcats/96-rylan-sutherland.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3547.jpg",
       "stats": {
-        "games_played": 27,
+        "games_played": 28,
         "goals": 5,
         "assists": 6,
         "points": 11,
@@ -921,7 +921,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.41
+        "points_per_game": 0.39
       },
       "hockeytech_id": "3547",
       "person_id": "4128",
@@ -1172,14 +1172,14 @@
       "rookie": false,
       "veteran": false,
       "stats": {
-        "games_played": 35,
-        "wins": 23,
+        "games_played": 36,
+        "wins": 24,
         "losses": 9,
         "ot_losses": 3,
-        "minutes_played": 2129,
-        "saves": 974,
-        "shots": 1076,
-        "goals_against": 102,
+        "minutes_played": 2193,
+        "saves": 997,
+        "shots": 1102,
+        "goals_against": 105,
         "shutouts": 1,
         "save_percentage": 0.905,
         "goals_against_average": 2.87

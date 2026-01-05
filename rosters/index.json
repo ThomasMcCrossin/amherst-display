@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-04T06:54:32.813Z",
+  "generated_at": "2026-01-05T07:02:55.332Z",
   "season": "2024-25",
   "season_id": 41,
   "api_source": "HockeyTech",
@@ -51,7 +51,7 @@
       "team_name": "West-Kent-Steamers",
       "league": "MHL",
       "team_id": 6,
-      "player_count": 26,
+      "player_count": 28,
       "file": "rosters/west-kent-steamers.json"
     },
     {
@@ -99,7 +99,7 @@
       "team_name": "Chaleur-Lightning",
       "league": "MHL",
       "team_id": 21,
-      "player_count": 33,
+      "player_count": 32,
       "file": "rosters/chaleur-lightning.json"
     }
   ]

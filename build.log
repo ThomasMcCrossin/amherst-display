@@ -134,17 +134,17 @@
 [rosters/west-kent-steamers] Fetching roster for West-Kent-Steamers...
 [rosters] Fetching from API: team_id=6
 [rosters] Fetching stats from API: team_id=6
-[rosters/west-kent-steamers] Processing 26 players (downloading headshots)
+[rosters/west-kent-steamers] Processing 28 players (downloading headshots)
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
 [rosters] Downloaded: 6-th-o-lebrun.jpg
 [rosters] Downloaded: 7-sam-bowness.jpg
+[rosters] Skipping placeholder image
 [rosters] Downloaded: 9-noah-collette.jpg
 [rosters] Downloaded: 10-cam-white.jpg
 [rosters] Downloaded: 11-jude-campbell.jpg
 [rosters] Downloaded: 12-dawson-grandy.jpg
 [rosters] Downloaded: 16-olivier-o-brien.jpg
-[rosters] Downloaded: 18-thomas-hendrickson.jpg
 [rosters] Downloaded: 19-zachary-paulhus.jpg
 [rosters] Downloaded: 21-natan-grenier.jpg
 [rosters] Downloaded: 23-nathan-weber.jpg
@@ -152,6 +152,7 @@
 [rosters] Downloaded: 30-victor-r-gis.jpg
 [rosters] Downloaded: 31-xavier-farrah.jpg
 [rosters] Downloaded: 34-spencer-caines.jpg
+[rosters] Downloaded: 44-jean-christophe-gemme.jpg
 [rosters] Downloaded: 44-cody-macloon.jpg
 [rosters] Downloaded: 61-zachary-boudreau.jpg
 [rosters] Downloaded: 63-malik-bourque-vigneault.jpg
@@ -160,7 +161,8 @@
 [rosters] Downloaded: 91-victor-lalibert.jpg
 [rosters] Downloaded: 96-brody-breau.jpg
 [rosters] Skipping placeholder image
-[rosters/west-kent-steamers] Wrote rosters/west-kent-steamers.json (26 players)
+[rosters] Downloaded: 120-louis-simon-boucher.jpg
+[rosters/west-kent-steamers] Wrote rosters/west-kent-steamers.json (28 players)
 [rosters/pictou-county-crushers] Fetching roster for Pictou-County-Crushers...
 [rosters] Fetching from API: team_id=7
 [rosters] Fetching stats from API: team_id=7
@@ -324,7 +326,7 @@
 [rosters/chaleur-lightning] Fetching roster for Chaleur-Lightning...
 [rosters] Fetching from API: team_id=21
 [rosters] Fetching stats from API: team_id=21
-[rosters/chaleur-lightning] Processing 33 players (downloading headshots)
+[rosters/chaleur-lightning] Processing 32 players (downloading headshots)
 [rosters] Downloaded: 2-jack-hayne.jpg
 [rosters] Downloaded: 3-lynden-donald-gorman.jpg
 [rosters] Downloaded: 4-jameson-george.jpg
@@ -335,6 +337,7 @@
 [rosters] Downloaded: 13-zachary-rushton.jpg
 [rosters] Downloaded: 15-brett-yuzik.jpg
 [rosters] Downloaded: 16-will-clark.jpg
+[rosters] Downloaded: 18-thomas-hendrickson.jpg
 [rosters] Downloaded: 19-cohen-mccallum.jpg
 [rosters] Skipping placeholder image
 [rosters] Downloaded: 25-owen-arnold.jpg
@@ -346,18 +349,16 @@
 [rosters] Downloaded: 55-william-cossette.jpg
 [rosters] Downloaded: 66-ben-cross.jpg
 [rosters] Downloaded: 77-mason-cook.jpg
-[rosters] Downloaded: 88-jean-christophe-gemme.jpg
 [rosters] Downloaded: 91-david-lebel.jpg
 [rosters] Downloaded: 92-jayden-burtt-munn.jpg
 [rosters] Downloaded: 120-isaak-berube.jpg
-[rosters] Downloaded: 120-louis-simon-boucher.jpg
 [rosters] Skipping placeholder image
 [rosters] Downloaded: 120-jesse-dunlap.jpg
 [rosters] Downloaded: 120-dax-fraser.jpg
 [rosters] Downloaded: 120-felix-sylvain-hache.jpg
 [rosters] Downloaded: 120-carter-mcillwraith.jpg
 [rosters] Downloaded: 120-isaiah-rogerson.jpg
-[rosters/chaleur-lightning] Wrote rosters/chaleur-lightning.json (33 players)
+[rosters/chaleur-lightning] Wrote rosters/chaleur-lightning.json (32 players)
 [rosters] Wrote rosters/index.json with 12 team(s)
 [rosters] Complete! Teams=12
 [games] Starting Ramblers games build...
@@ -401,11 +402,11 @@
 [games] Complete! Games=33
 [standings/MHL] table rows found
 [standings/MHL] tables=1 chosen=1306x378 rows=12
-[standings/MHL] example={"col":"1","eastlink south eastlink south":"Truro Bearcats","south south":"TRU","gp":35,"w":23,"l":9,"otl":3,"sol":0,"pts":49,"pct pct":"0.700","rw":17,"otw":4,"sow":2,"gf":129,"ga":102,"diff":27,"pim pim":"422","streak":"0-1-0-0","p10":"8-2-0-0","team":"Truro Bearcats","slug":"truro-bearcats"}
+[standings/MHL] example={"col":"1","eastlink south eastlink south":"Truro Bearcats","south south":"TRU","gp":36,"w":24,"l":9,"otl":3,"sol":0,"pts":51,"pct pct":"0.708","rw":17,"otw":5,"sow":2,"gf":133,"ga":105,"diff":28,"pim pim":"432","streak":"1-0-0-0","p10":"8-2-0-0","team":"Truro Bearcats","slug":"truro-bearcats"}
 [standings] mhlRows=12
 [schedules/ICS] parsed=52
 [schedules] events=52  ramblers=52
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 156 total schedule items
-[CCMHA] Found 7 games at Amherst Stadium
-[ccmha] games=7
+[CCMHA] API returned 144 total schedule items
+[CCMHA] Found 3 games at Amherst Stadium
+[ccmha] games=3

@@ -1,43 +1,7 @@
 {
-  "generated_at": "2026-01-04T06:54:48Z",
+  "generated_at": "2026-01-05T07:03:14Z",
   "timezone": "America/Halifax",
   "games": [
-    {
-      "league": "U9-DEV",
-      "home_team": "Truro Bearcats [Maroon]",
-      "away_team": "Cumberland Ramblers - Development",
-      "start": "2026-01-04T09:15:00-04:00",
-      "end": "2026-01-04T10:15:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
-    {
-      "league": "U13-AA",
-      "home_team": "Truro Bearcats",
-      "away_team": "Cumberland Ramblers",
-      "start": "2026-01-04T12:00:00-04:00",
-      "end": "2026-01-04T13:30:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
-    {
-      "league": "U15-AA",
-      "home_team": "Cape Breton West Islanders",
-      "away_team": "Cumberland Ramblers",
-      "start": "2026-01-04T13:45:00-04:00",
-      "end": "2026-01-04T15:15:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
-    {
-      "league": "U18-A",
-      "home_team": "West Colchester Cobras",
-      "away_team": "Cumberland Ramblers",
-      "start": "2026-01-04T15:30:00-04:00",
-      "end": "2026-01-04T17:00:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
     {
       "league": "U15-AA",
       "home_team": "Truro Bearcats",
