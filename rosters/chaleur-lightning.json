@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 21,
-  "updated_at": "2026-01-06T06:58:45.715Z",
+  "updated_at": "2026-01-07T06:57:39.205Z",
   "player_count": 32,
   "players": [
     {
@@ -448,9 +448,9 @@
       "last_name": "McCallum",
       "name": "Cohen McCallum",
       "position": "D",
-      "height": "5'09",
-      "height_inches": 69,
-      "weight": 160,
+      "height": "5'10",
+      "height_inches": 70,
+      "weight": 180,
       "shoots": "L",
       "birthdate": "2005-08-08",
       "birth_year": "'05",

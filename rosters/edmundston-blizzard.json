@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 2,
-  "updated_at": "2026-01-06T06:58:34.177Z",
+  "updated_at": "2026-01-07T06:57:30.943Z",
   "player_count": 27,
   "players": [
     {
@@ -493,8 +493,8 @@
       "stats": {
         "games_played": 29,
         "goals": 9,
-        "assists": 12,
-        "points": 21,
+        "assists": 11,
+        "points": 20,
         "plus_minus": 0,
         "penalty_minutes": 16,
         "power_play_goals": 2,
@@ -505,7 +505,7 @@
         "short_handed_points": 1,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.72
+        "points_per_game": 0.69
       },
       "hockeytech_id": "3692",
       "person_id": "4307",
@@ -652,8 +652,8 @@
         "losses": 8,
         "ot_losses": 1,
         "minutes_played": 1563,
-        "saves": 696,
-        "shots": 765,
+        "saves": 695,
+        "shots": 764,
         "goals_against": 69,
         "shutouts": 4,
         "save_percentage": 0.91,
@@ -731,8 +731,8 @@
       "stats": {
         "games_played": 19,
         "goals": 19,
-        "assists": 11,
-        "points": 30,
+        "assists": 12,
+        "points": 31,
         "plus_minus": 0,
         "penalty_minutes": 4,
         "power_play_goals": 4,
@@ -743,7 +743,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 3,
         "overtime_goals": 0,
-        "points_per_game": 1.58
+        "points_per_game": 1.63
       },
       "hockeytech_id": "3569",
       "person_id": "4156",
@@ -856,8 +856,8 @@
       "stats": {
         "games_played": 6,
         "goals": 3,
-        "assists": 6,
-        "points": 9,
+        "assists": 5,
+        "points": 8,
         "plus_minus": 0,
         "penalty_minutes": 6,
         "power_play_goals": 1,
@@ -868,7 +868,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 1.5
+        "points_per_game": 1.33
       },
       "hockeytech_id": "3915",
       "person_id": "4568",
@@ -1005,8 +1005,8 @@
         "losses": 14,
         "ot_losses": 1,
         "minutes_played": 2002,
-        "saves": 874,
-        "shots": 984,
+        "saves": 873,
+        "shots": 983,
         "goals_against": 110,
         "shutouts": 4,
         "save_percentage": 0.888,

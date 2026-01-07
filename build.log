@@ -38,7 +38,7 @@
 [rosters/truro-bearcats] Fetching roster for Truro-Bearcats...
 [rosters] Fetching from API: team_id=3
 [rosters] Fetching stats from API: team_id=3
-[rosters/truro-bearcats] Processing 32 players (downloading headshots)
+[rosters/truro-bearcats] Processing 33 players (downloading headshots)
 [rosters] Downloaded: 1-sam-berthiaume.jpg
 [rosters] Downloaded: 3-logan-quinn.jpg
 [rosters] Skipping placeholder image
@@ -52,6 +52,7 @@
 [rosters] Downloaded: 20-austin-hoyt.jpg
 [rosters] Downloaded: 21-samuel-vachon.jpg
 [rosters] Downloaded: 24-seth-mackenzie.jpg
+[rosters] Skipping placeholder image
 [rosters] Downloaded: 28-eric-halliday.jpg
 [rosters] Downloaded: 35-louca-connolly.jpg
 [rosters] Downloaded: 44-jayden-connors.jpg
@@ -70,7 +71,7 @@
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
-[rosters/truro-bearcats] Wrote rosters/truro-bearcats.json (32 players)
+[rosters/truro-bearcats] Wrote rosters/truro-bearcats.json (33 players)
 [rosters/valley-wildcats] Fetching roster for Valley-Wildcats...
 [rosters] Fetching from API: team_id=4
 [rosters] Fetching stats from API: team_id=4
@@ -234,7 +235,7 @@
 [rosters/miramichi-timberwolves] Fetching roster for Miramichi-Timberwolves...
 [rosters] Fetching from API: team_id=9
 [rosters] Fetching stats from API: team_id=9
-[rosters/miramichi-timberwolves] Processing 31 players (downloading headshots)
+[rosters/miramichi-timberwolves] Processing 30 players (downloading headshots)
 [rosters] Downloaded: 1-zach-ericson.jpg
 [rosters] Downloaded: 6-lorenzo-tita.jpg
 [rosters] Downloaded: 7-olivier-th-berge.jpg
@@ -247,7 +248,6 @@
 [rosters] Downloaded: 19-nick-beatty.jpg
 [rosters] Downloaded: 20-nolan-ryan.jpg
 [rosters] Downloaded: 22-austin-walker.jpg
-[rosters] Downloaded: 23-ryan-hayes.jpg
 [rosters] Downloaded: 24-dawson-peverelle.jpg
 [rosters] Downloaded: 26-kaden-mcneil.jpg
 [rosters] Downloaded: 27-harlan-eustace.jpg
@@ -255,8 +255,8 @@
 [rosters] Downloaded: 33-jack-flanagan.jpg
 [rosters] Downloaded: 37-thatcher-hughes.jpg
 [rosters] Downloaded: 54-julien-avignon-bourque.jpg
-[rosters] Downloaded: 71-jacob-kaine.jpg
 [rosters] Downloaded: 86-brayden-campbell.jpg
+[rosters] Downloaded: 91-luke-jardine.jpg
 [rosters] Downloaded: 91-f-lix-tremblay.jpg
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
@@ -265,7 +265,7 @@
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
-[rosters/miramichi-timberwolves] Wrote rosters/miramichi-timberwolves.json (31 players)
+[rosters/miramichi-timberwolves] Wrote rosters/miramichi-timberwolves.json (30 players)
 [rosters/summerside-capitals] Fetching roster for Summerside-Capitals...
 [rosters] Fetching from API: team_id=10
 [rosters] Fetching stats from API: team_id=10
@@ -297,7 +297,7 @@
 [rosters/grand-falls-rapids] Fetching roster for Grand-Falls-Rapids...
 [rosters] Fetching from API: team_id=12
 [rosters] Fetching stats from API: team_id=12
-[rosters/grand-falls-rapids] Processing 25 players (downloading headshots)
+[rosters/grand-falls-rapids] Processing 26 players (downloading headshots)
 [rosters] Downloaded: 2-william-patey.jpg
 [rosters] Downloaded: 4-loic-gallant.jpg
 [rosters] Downloaded: 5-anton-topilnyckyj.jpg
@@ -312,6 +312,7 @@
 [rosters] Downloaded: 18-dereck-asselin.jpg
 [rosters] Downloaded: 19-zackarie-michaud.jpg
 [rosters] Downloaded: 21-jonah-leard.jpg
+[rosters] Downloaded: 22-bailey-shortall.jpg
 [rosters] Downloaded: 27-mathis-cyr.jpg
 [rosters] Downloaded: 28-reid-calder.jpg
 [rosters] Downloaded: 30-jeremy-thibodeau-soucy.jpg
@@ -322,7 +323,7 @@
 [rosters] Downloaded: 77-nathan-plamondon-michaud.jpg
 [rosters] Downloaded: 91-loic-francoeur.jpg
 [rosters] Skipping placeholder image
-[rosters/grand-falls-rapids] Wrote rosters/grand-falls-rapids.json (25 players)
+[rosters/grand-falls-rapids] Wrote rosters/grand-falls-rapids.json (26 players)
 [rosters/chaleur-lightning] Fetching roster for Chaleur-Lightning...
 [rosters] Fetching from API: team_id=21
 [rosters] Fetching stats from API: team_id=21

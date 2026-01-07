@@ -5,8 +5,8 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 3,
-  "updated_at": "2026-01-06T06:58:35.237Z",
-  "player_count": 32,
+  "updated_at": "2026-01-07T06:57:31.834Z",
+  "player_count": 33,
   "players": [
     {
       "player_id": "mhl-3846",
@@ -34,11 +34,11 @@
         "losses": 1,
         "ot_losses": 0,
         "minutes_played": 485,
-        "saves": 241,
-        "shots": 262,
+        "saves": 239,
+        "shots": 260,
         "goals_against": 21,
         "shutouts": 0,
-        "save_percentage": 0.92,
+        "save_percentage": 0.919,
         "goals_against_average": 2.6
       },
       "hockeytech_id": "3846",
@@ -260,7 +260,7 @@
       "hometown": "Dartmouth, NS",
       "birthplace": "Dartmouth, NS, ",
       "rookie": true,
-      "veteran": true,
+      "veteran": false,
       "headshot": "assets/headshots/Truro-Bearcats/15-drew-keiver.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3834.jpg",
       "stats": {
@@ -303,7 +303,7 @@
       "hometown": "Mallorytown, ON",
       "birthplace": "Mallorytown, ON, ",
       "rookie": true,
-      "veteran": true,
+      "veteran": false,
       "headshot": "assets/headshots/Truro-Bearcats/16-nathan-curson.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3760.jpg",
       "stats": {
@@ -431,7 +431,7 @@
       "hometown": "Valley, NS",
       "birthplace": "Valley, NS, ",
       "rookie": true,
-      "veteran": true,
+      "veteran": false,
       "headshot": "assets/headshots/Truro-Bearcats/20-austin-hoyt.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3653.jpg",
       "stats": {
@@ -518,7 +518,7 @@
       "hometown": "Bible Hill, NS",
       "birthplace": "Bible Hill, NS, ",
       "rookie": true,
-      "veteran": true,
+      "veteran": false,
       "headshot": "assets/headshots/Truro-Bearcats/24-seth-mackenzie.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3093.jpg",
       "stats": {
@@ -542,6 +542,32 @@
       "person_id": "3611",
       "flags": [
         "ht-rookie"
+      ]
+    },
+    {
+      "player_id": "mhl-3924",
+      "number": "27",
+      "first_name": "Antoine",
+      "last_name": "Fontaine",
+      "name": "Antoine Fontaine",
+      "position": "RW",
+      "height": "5'9",
+      "height_inches": 69,
+      "weight": 163,
+      "shoots": "R",
+      "birthdate": "2006-07-10",
+      "birth_year": "'06",
+      "age": 20,
+      "hometown": "Granby, QC",
+      "birthplace": "Granby, QC, ",
+      "rookie": false,
+      "veteran": false,
+      "stats": {},
+      "hockeytech_id": "3924",
+      "person_id": "4587",
+      "flags": [
+        "ht-import",
+        "ht-played-major-junior"
       ]
     },
     {
@@ -1177,8 +1203,8 @@
         "losses": 9,
         "ot_losses": 3,
         "minutes_played": 2193,
-        "saves": 993,
-        "shots": 1098,
+        "saves": 991,
+        "shots": 1096,
         "goals_against": 105,
         "shutouts": 1,
         "save_percentage": 0.904,

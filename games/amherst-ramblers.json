@@ -4,7 +4,7 @@
   "team_id": 1,
   "season": "2024-25",
   "season_id": 41,
-  "updated_at": "2026-01-06T06:58:59.000Z",
+  "updated_at": "2026-01-07T06:57:53.289Z",
   "summary": {
     "games_played": 33,
     "wins": 19,
@@ -55,7 +55,6 @@
           "time": "11:37",
           "team": "opponent",
           "scorer": {
-            "player_id": "mhl-3086",
             "name": "Alex Christmas",
             "number": 91,
             "position": "C"
@@ -88,18 +87,7 @@
             "number": 37,
             "position": "LW"
           },
-          "assists": [
-            {
-              "player_id": "mhl-3250",
-              "name": "Mark Corbett",
-              "number": 27
-            },
-            {
-              "player_id": "mhl-2799",
-              "name": "Anthony Gaudet",
-              "number": 11
-            }
-          ],
+          "assists": [],
           "power_play": false,
           "short_handed": false,
           "game_winning": false,
@@ -256,13 +244,8 @@
           },
           "assists": [
             {
-              "name": "Logan Crosby",
-              "number": 14
-            },
-            {
-              "player_id": "mhl-3545",
-              "name": "Brendan Avery",
-              "number": 4
+              "name": "Ben Wallace",
+              "number": 63
             }
           ],
           "power_play": false,
@@ -288,9 +271,9 @@
               "number": 18
             },
             {
-              "player_id": "mhl-3250",
-              "name": "Mark Corbett",
-              "number": 27
+              "player_id": "mhl-3038",
+              "name": "Owen Aura",
+              "number": 25
             }
           ],
           "power_play": false,
@@ -313,6 +296,11 @@
             {
               "name": "Logan Crosby",
               "number": 14
+            },
+            {
+              "player_id": "mhl-2799",
+              "name": "Dominic MacKenzie",
+              "number": 11
             }
           ],
           "power_play": false,
@@ -378,8 +366,8 @@
         "mhl-2799": {
           "position": "C",
           "goals": 1,
-          "assists": 1,
-          "points": 2,
+          "assists": 0,
+          "points": 1,
           "penalty_minutes": 2,
           "shots": 0,
           "plus_minus": "0",
@@ -466,19 +454,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-2910": {
-          "position": "RW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3799": {
           "position": "LW",
           "goals": 0,
@@ -495,8 +470,8 @@
         "mhl-3038": {
           "position": "D",
           "goals": 0,
-          "assists": 0,
-          "points": 0,
+          "assists": 1,
+          "points": 1,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -508,8 +483,8 @@
         "mhl-3250": {
           "position": "C",
           "goals": 0,
-          "assists": 2,
-          "points": 2,
+          "assists": 0,
+          "points": 0,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -559,8 +534,8 @@
         },
         "mhl-3766": {
           "position": "G",
-          "saves": 27,
-          "shots_against": 32,
+          "saves": 26,
+          "shots_against": 31,
           "goals_against": 5,
           "save_percentage": "0.000",
           "time_on_ice": "58:13"
@@ -609,9 +584,9 @@
           },
           "assists": [
             {
-              "player_id": "mhl-3833",
-              "name": "Owen Dyke",
-              "number": 82
+              "player_id": "mhl-3250",
+              "name": "Mark Corbett",
+              "number": 27
             },
             {
               "player_id": "mhl-2943",
@@ -636,11 +611,11 @@
           },
           "assists": [
             {
-              "player_id": "mhl-2760",
-              "name": "Antoine Pilotte",
-              "number": 18
+              "name": "Aidan Bent",
+              "number": 22
             },
             {
+              "player_id": "mhl-3207",
               "name": "Josh Vincent",
               "number": 23
             }
@@ -766,7 +741,6 @@
           "time": "0:49",
           "team": "opponent",
           "scorer": {
-            "player_id": "mhl-2910",
             "name": "Aidan Bent",
             "number": 22,
             "position": "C"
@@ -826,7 +800,6 @@
           },
           "assists": [
             {
-              "player_id": "mhl-2910",
               "name": "Aidan Bent",
               "number": 22
             }
@@ -854,9 +827,9 @@
               "number": 11
             },
             {
-              "player_id": "mhl-3250",
-              "name": "Mark Corbett",
-              "number": 27
+              "player_id": "mhl-2943",
+              "name": "Cooper Cormier",
+              "number": 37
             }
           ],
           "power_play": true,
@@ -910,9 +883,9 @@
               "number": 25
             },
             {
-              "player_id": "mhl-2933",
-              "name": "Jack O'Blenis",
-              "number": 16
+              "player_id": "mhl-3545",
+              "name": "Christian White",
+              "number": 4
             }
           ],
           "power_play": true,
@@ -926,8 +899,8 @@
         "mhl-3545": {
           "position": "D",
           "goals": 0,
-          "assists": 2,
-          "points": 2,
+          "assists": 3,
+          "points": 3,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -1017,8 +990,8 @@
         "mhl-2933": {
           "position": "LW",
           "goals": 0,
-          "assists": 1,
-          "points": 1,
+          "assists": 0,
+          "points": 0,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -1055,19 +1028,6 @@
         },
         "mhl-3759": {
           "position": "C",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-2910": {
-          "position": "RW",
           "goals": 0,
           "assists": 0,
           "points": 0,
@@ -1121,8 +1081,8 @@
         "mhl-2943": {
           "position": "LW",
           "goals": 1,
-          "assists": 2,
-          "points": 3,
+          "assists": 3,
+          "points": 4,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -1147,8 +1107,8 @@
         "mhl-3833": {
           "position": "D",
           "goals": 0,
-          "assists": 1,
-          "points": 1,
+          "assists": 0,
+          "points": 0,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -1478,19 +1438,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-2910": {
-          "position": "RW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3799": {
           "position": "LW",
           "goals": 1,
@@ -1688,7 +1635,6 @@
           "time": "10:20",
           "team": "opponent",
           "scorer": {
-            "player_id": "mhl-2910",
             "name": "Aidan Bent",
             "number": 22,
             "position": "C"
@@ -1883,19 +1829,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-2910": {
-          "position": "RW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3799": {
           "position": "LW",
           "goals": 0,
@@ -1954,19 +1887,6 @@
           "assists": 0,
           "points": 0,
           "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3086": {
-          "position": "D",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 4,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -2266,19 +2186,6 @@
         },
         "mhl-3759": {
           "position": "C",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-2910": {
-          "position": "RW",
           "goals": 0,
           "assists": 0,
           "points": 0,
@@ -2729,19 +2636,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-2910": {
-          "position": "RW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3799": {
           "position": "LW",
           "goals": 0,
@@ -2872,6 +2766,7 @@
           },
           "assists": [
             {
+              "player_id": "mhl-3207",
               "name": "Cole MacLeod",
               "number": 23
             },
@@ -2926,7 +2821,6 @@
           },
           "assists": [
             {
-              "player_id": "mhl-2910",
               "name": "Bailey Shortall",
               "number": 22
             }
@@ -3000,7 +2894,6 @@
           },
           "assists": [
             {
-              "player_id": "mhl-2910",
               "name": "Owen O’Donnell",
               "number": 22
             }
@@ -3156,19 +3049,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-2910": {
-          "position": "RW",
-          "goals": 0,
-          "assists": 1,
-          "points": 1,
-          "penalty_minutes": 2,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3799": {
           "position": "LW",
           "goals": 0,
@@ -3227,19 +3107,6 @@
           "assists": 0,
           "points": 0,
           "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3086": {
-          "position": "D",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 2,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -3508,19 +3375,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-2910": {
-          "position": "RW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3799": {
           "position": "LW",
           "goals": 0,
@@ -3762,6 +3616,7 @@
           },
           "assists": [
             {
+              "player_id": "mhl-2635",
               "name": "Jacob Kaine",
               "number": 71
             },
@@ -3827,7 +3682,6 @@
           "time": "19:59",
           "team": "opponent",
           "scorer": {
-            "player_id": "mhl-2910",
             "name": "Bailey Shortall",
             "number": 22,
             "position": "RW"
@@ -3982,19 +3836,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-2910": {
-          "position": "RW",
-          "goals": 1,
-          "assists": 0,
-          "points": 1,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3799": {
           "position": "LW",
           "goals": 1,
@@ -4061,19 +3902,6 @@
           "faceoff_losses": 0
         },
         "mhl-3833": {
-          "position": "D",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 4,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3086": {
           "position": "D",
           "goals": 0,
           "assists": 0,
@@ -4393,19 +4221,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-2910": {
-          "position": "RW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3038": {
           "position": "D",
           "goals": 0,
@@ -4471,19 +4286,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-3086": {
-          "position": "D",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 2,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3766": {
           "position": "G",
           "saves": 30,
@@ -4529,7 +4331,6 @@
           "time": "0:15",
           "team": "opponent",
           "scorer": {
-            "player_id": "mhl-3086",
             "name": "Alex Christmas",
             "number": 91,
             "position": "C"
@@ -4612,7 +4413,6 @@
           },
           "assists": [
             {
-              "player_id": "mhl-3086",
               "name": "Alex Christmas",
               "number": 91
             },
@@ -4686,7 +4486,6 @@
           "time": "2:07",
           "team": "opponent",
           "scorer": {
-            "player_id": "mhl-2910",
             "name": "Bailey Shortall",
             "number": 22,
             "position": "RW"
@@ -4883,19 +4682,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-2910": {
-          "position": "RW",
-          "goals": 1,
-          "assists": 0,
-          "points": 1,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3799": {
           "position": "LW",
           "goals": 0,
@@ -4966,19 +4752,6 @@
           "goals": 0,
           "assists": 1,
           "points": 1,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3086": {
-          "position": "D",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -5167,7 +4940,6 @@
           "time": "8:14",
           "team": "opponent",
           "scorer": {
-            "player_id": "mhl-3086",
             "name": "Loic Francoeur",
             "number": 91,
             "position": "C"
@@ -5202,7 +4974,6 @@
           },
           "assists": [
             {
-              "player_id": "mhl-3086",
               "name": "Loic Francoeur",
               "number": 91
             },
@@ -5251,7 +5022,6 @@
           "time": "18:23",
           "team": "opponent",
           "scorer": {
-            "player_id": "mhl-3086",
             "name": "Loic Francoeur",
             "number": 91,
             "position": "C"
@@ -5406,19 +5176,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-2910": {
-          "position": "RW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3799": {
           "position": "LW",
           "goals": 1,
@@ -5463,6 +5220,19 @@
           "goals": 1,
           "assists": 1,
           "points": 2,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-2635": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -5554,7 +5324,6 @@
               "number": 16
             },
             {
-              "player_id": "mhl-2910",
               "name": "Bailey Shortall",
               "number": 22
             }
@@ -5582,7 +5351,6 @@
               "number": 9
             },
             {
-              "player_id": "mhl-3086",
               "name": "David Lebel",
               "number": 91
             }
@@ -5797,19 +5565,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-2910": {
-          "position": "RW",
-          "goals": 0,
-          "assists": 1,
-          "points": 1,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3799": {
           "position": "LW",
           "goals": 1,
@@ -5881,19 +5636,6 @@
           "assists": 0,
           "points": 0,
           "penalty_minutes": 4,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3086": {
-          "position": "D",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -6044,7 +5786,6 @@
           },
           "assists": [
             {
-              "player_id": "mhl-2910",
               "name": "Thierry Demers",
               "number": 22
             }
@@ -6060,7 +5801,6 @@
           "time": "18:32",
           "team": "opponent",
           "scorer": {
-            "player_id": "mhl-3086",
             "name": "Luke Jardine",
             "number": 91,
             "position": "D"
@@ -6202,19 +5942,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-2910": {
-          "position": "RW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3799": {
           "position": "LW",
           "goals": 1,
@@ -6286,19 +6013,6 @@
           "assists": 0,
           "points": 0,
           "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3086": {
-          "position": "D",
-          "goals": 1,
-          "assists": 0,
-          "points": 1,
-          "penalty_minutes": 4,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -6414,6 +6128,7 @@
           },
           "assists": [
             {
+              "player_id": "mhl-3207",
               "name": "Josh Vincent",
               "number": 23
             }
@@ -6518,6 +6233,7 @@
           },
           "assists": [
             {
+              "player_id": "mhl-3207",
               "name": "Josh Vincent",
               "number": 23
             },
@@ -6646,7 +6362,6 @@
               "number": 25
             },
             {
-              "player_id": "mhl-3086",
               "name": "Luke Jardine",
               "number": 91
             }
@@ -6690,7 +6405,6 @@
           "time": "19:50",
           "team": "opponent",
           "scorer": {
-            "player_id": "mhl-2910",
             "name": "Bailey Shortall",
             "number": 22,
             "position": "RW"
@@ -6845,19 +6559,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-2910": {
-          "position": "RW",
-          "goals": 1,
-          "assists": 0,
-          "points": 1,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3799": {
           "position": "LW",
           "goals": 0,
@@ -6929,19 +6630,6 @@
           "assists": 0,
           "points": 0,
           "penalty_minutes": 2,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3086": {
-          "position": "D",
-          "goals": 0,
-          "assists": 1,
-          "points": 1,
-          "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -7056,7 +6744,6 @@
           },
           "assists": [
             {
-              "player_id": "mhl-3086",
               "name": "Luke Jardine",
               "number": 91
             }
@@ -7199,19 +6886,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-2910": {
-          "position": "RW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3799": {
           "position": "LW",
           "goals": 0,
@@ -7283,19 +6957,6 @@
           "assists": 0,
           "points": 0,
           "penalty_minutes": 2,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3086": {
-          "position": "D",
-          "goals": 0,
-          "assists": 1,
-          "points": 1,
-          "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -7689,19 +7350,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-2910": {
-          "position": "RW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3038": {
           "position": "D",
           "goals": 0,
@@ -7734,19 +7382,6 @@
           "assists": 1,
           "points": 2,
           "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3086": {
-          "position": "D",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 2,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -8137,19 +7772,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-2910": {
-          "position": "RW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3038": {
           "position": "D",
           "goals": 0,
@@ -8333,7 +7955,6 @@
           "time": "11:06",
           "team": "opponent",
           "scorer": {
-            "player_id": "mhl-2910",
             "name": "Bailey Shortall",
             "number": 22,
             "position": "RW"
@@ -8536,19 +8157,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-2910": {
-          "position": "RW",
-          "goals": 1,
-          "assists": 0,
-          "points": 1,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3038": {
           "position": "D",
           "goals": 0,
@@ -8581,19 +8189,6 @@
           "assists": 0,
           "points": 0,
           "penalty_minutes": 35,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3086": {
-          "position": "D",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 25,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -8751,7 +8346,6 @@
           },
           "assists": [
             {
-              "player_id": "mhl-2910",
               "name": "Bailey Shortall",
               "number": 22
             },
@@ -8957,19 +8551,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-2910": {
-          "position": "RW",
-          "goals": 0,
-          "assists": 1,
-          "points": 1,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3799": {
           "position": "LW",
           "goals": 0,
@@ -9028,19 +8609,6 @@
           "assists": 0,
           "points": 0,
           "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3086": {
-          "position": "D",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 2,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -9187,7 +8755,6 @@
               "number": 11
             },
             {
-              "player_id": "mhl-2910",
               "name": "Bailey Shortall",
               "number": 22
             }
@@ -9371,19 +8938,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-2910": {
-          "position": "RW",
-          "goals": 0,
-          "assists": 1,
-          "points": 1,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3038": {
           "position": "D",
           "goals": 1,
@@ -9423,8 +8977,8 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-3226": {
-          "position": "D",
+        "mhl-2635": {
+          "position": "C",
           "goals": 0,
           "assists": 0,
           "points": 0,
@@ -9436,12 +8990,12 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-3086": {
+        "mhl-3226": {
           "position": "D",
           "goals": 0,
           "assists": 0,
           "points": 0,
-          "penalty_minutes": 2,
+          "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -9851,19 +9405,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-2910": {
-          "position": "RW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3799": {
           "position": "LW",
           "goals": 0,
@@ -9922,19 +9463,6 @@
           "assists": 0,
           "points": 0,
           "penalty_minutes": 2,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3086": {
-          "position": "D",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -10038,6 +9566,7 @@
           "time": "12:14",
           "team": "opponent",
           "scorer": {
+            "player_id": "mhl-3207",
             "name": "Cole MacLeod",
             "number": 23,
             "position": "C"
@@ -10215,19 +9744,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-2910": {
-          "position": "RW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3799": {
           "position": "LW",
           "goals": 0,
@@ -10299,19 +9815,6 @@
           "assists": 0,
           "points": 0,
           "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3086": {
-          "position": "D",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 2,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -10468,7 +9971,6 @@
           "time": "1:16",
           "team": "opponent",
           "scorer": {
-            "player_id": "mhl-2910",
             "name": "Bailey Shortall",
             "number": 22,
             "position": "RW"
@@ -10651,19 +10153,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-2910": {
-          "position": "RW",
-          "goals": 1,
-          "assists": 0,
-          "points": 1,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3799": {
           "position": "LW",
           "goals": 0,
@@ -10730,19 +10219,6 @@
           "faceoff_losses": 0
         },
         "mhl-3833": {
-          "position": "D",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3086": {
           "position": "D",
           "goals": 0,
           "assists": 0,
@@ -11159,19 +10635,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-2910": {
-          "position": "RW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3799": {
           "position": "LW",
           "goals": 0,
@@ -11224,8 +10687,8 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-3226": {
-          "position": "D",
+        "mhl-2635": {
+          "position": "C",
           "goals": 0,
           "assists": 0,
           "points": 0,
@@ -11237,7 +10700,7 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-3086": {
+        "mhl-3226": {
           "position": "D",
           "goals": 0,
           "assists": 0,
@@ -11511,7 +10974,6 @@
           "time": "18:40",
           "team": "opponent",
           "scorer": {
-            "player_id": "mhl-2910",
             "name": "Bailey Shortall",
             "number": 22,
             "position": "RW"
@@ -11666,19 +11128,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-2910": {
-          "position": "RW",
-          "goals": 1,
-          "assists": 0,
-          "points": 1,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3799": {
           "position": "LW",
           "goals": 0,
@@ -11750,19 +11199,6 @@
           "assists": 0,
           "points": 0,
           "penalty_minutes": 4,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3086": {
-          "position": "D",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -12034,19 +11470,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-2910": {
-          "position": "RW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3038": {
           "position": "D",
           "goals": 0,
@@ -12105,19 +11528,6 @@
           "assists": 0,
           "points": 0,
           "penalty_minutes": 2,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3086": {
-          "position": "D",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -12226,7 +11636,6 @@
           "time": "13:53",
           "team": "opponent",
           "scorer": {
-            "player_id": "mhl-2910",
             "name": "Bailey Shortall",
             "number": 22,
             "position": "RW"
@@ -12260,7 +11669,6 @@
           },
           "assists": [
             {
-              "player_id": "mhl-2910",
               "name": "Aidan Bent",
               "number": 22
             }
@@ -12316,7 +11724,6 @@
               "number": 7
             },
             {
-              "player_id": "mhl-2910",
               "name": "Bailey Shortall",
               "number": 22
             }
@@ -12572,19 +11979,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-2910": {
-          "position": "RW",
-          "goals": 1,
-          "assists": 1,
-          "points": 2,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3038": {
           "position": "D",
           "goals": 0,
@@ -12638,19 +12032,6 @@
           "faceoff_losses": 0
         },
         "mhl-3833": {
-          "position": "D",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3086": {
           "position": "D",
           "goals": 0,
           "assists": 0,
@@ -13001,19 +12382,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-2910": {
-          "position": "RW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3799": {
           "position": "LW",
           "goals": 0,
@@ -13066,6 +12434,19 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
+        "mhl-2635": {
+          "position": "C",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 17,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
         "mhl-3226": {
           "position": "D",
           "goals": 0,
@@ -13080,19 +12461,6 @@
           "faceoff_losses": 0
         },
         "mhl-3833": {
-          "position": "D",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3086": {
           "position": "D",
           "goals": 0,
           "assists": 0,
@@ -13162,7 +12530,6 @@
               "number": 13
             },
             {
-              "player_id": "mhl-2910",
               "name": "Bailey Shortall",
               "number": 22
             }
@@ -13277,7 +12644,6 @@
           "time": "2:09",
           "team": "opponent",
           "scorer": {
-            "player_id": "mhl-3086",
             "name": "Matthew Bolduc",
             "number": 91,
             "position": "C"
@@ -13333,7 +12699,6 @@
           },
           "assists": [
             {
-              "player_id": "mhl-3086",
               "name": "Matthew Bolduc",
               "number": 91
             },
@@ -13523,19 +12888,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-2910": {
-          "position": "RW",
-          "goals": 0,
-          "assists": 1,
-          "points": 1,
-          "penalty_minutes": 6,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3799": {
           "position": "LW",
           "goals": 1,
@@ -13580,6 +12932,19 @@
           "goals": 2,
           "assists": 0,
           "points": 2,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-2635": {
+          "position": "C",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -13666,7 +13031,6 @@
           },
           "assists": [
             {
-              "player_id": "mhl-3086",
               "name": "Alex Christmas",
               "number": 91
             },
@@ -13976,19 +13340,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-2910": {
-          "position": "RW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3799": {
           "position": "LW",
           "goals": 0,
@@ -14033,6 +13384,19 @@
           "goals": 2,
           "assists": 0,
           "points": 2,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-2635": {
+          "position": "C",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -14516,19 +13880,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-2910": {
-          "position": "RW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3799": {
           "position": "LW",
           "goals": 1,
@@ -14570,6 +13921,19 @@
         },
         "mhl-2943": {
           "position": "LW",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-2635": {
+          "position": "C",
           "goals": 0,
           "assists": 0,
           "points": 0,
@@ -14940,19 +14304,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-2910": {
-          "position": "RW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3799": {
           "position": "LW",
           "goals": 0,
@@ -14998,6 +14349,19 @@
           "assists": 1,
           "points": 1,
           "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-2635": {
+          "position": "C",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 15,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
