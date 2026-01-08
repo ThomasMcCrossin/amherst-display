@@ -1,6 +1,6 @@
 # Amherst Stadium GameBoard
 
-A modern, automated sports display system for showcasing Amherst Ramblers (MHL) and Amherst Ducks (BSHL) games at Amherst Stadium. Designed for Yodeck digital signage players.
+A modern, automated sports display system for showcasing Amherst Ramblers (MHL) games at Amherst Stadium. Designed for Yodeck digital signage players.
 
 ## Features
 
@@ -9,7 +9,6 @@ A modern, automated sports display system for showcasing Amherst Ramblers (MHL) 
 - Amherst home games highlighted with accent border
 - Real-time countdown for game times
 - Team logos and venue information
-- Support for MHL and BSHL leagues
 - Minor hockey (CCMHA) games included
 
 ### 📊 **Team Statistics**
@@ -42,12 +41,10 @@ A modern, automated sports display system for showcasing Amherst Ramblers (MHL) 
 | Data Type | Source | Update Frequency |
 |-----------|--------|------------------|
 | **Ramblers Schedule** | HockeyTech ICS Calendar | Daily |
-| **Ducks Schedule** | BSHL Website Scraping | Daily |
 | **MHL Rosters** | HockeyTech API | Daily |
 | **Player Stats** | HockeyTech API | Daily |
 | **Game Summaries** | HockeyTech API | Daily |
 | **MHL Standings** | MHL Website (Puppeteer) | Daily |
-| **BSHL Standings** | BSHL Website | Daily |
 | **Minor Hockey** | GrayJay Leagues API | Daily |
 
 ## Quick Start
@@ -127,7 +124,6 @@ amherst-display/
 ├── teams.json                 # Team registry (logos, names, slugs)
 ├── games.json                 # All upcoming games (generated)
 ├── standings_mhl.json         # MHL standings (generated)
-├── standings_bshl.json        # BSHL standings (generated)
 ├── rosters/*.json             # Player rosters for all MHL teams (generated)
 ├── games/amherst-ramblers.json  # Detailed game summaries (generated)
 ├── ccmha_games.json           # Minor hockey games (generated)
@@ -137,8 +133,8 @@ amherst-display/
 │   └── bg/                    # Background images
 ├── scripts/
 │   ├── build_all.mjs          # Main orchestrator
-│   ├── schedules.mjs          # ICS parsing + BSHL scraping
-│   ├── standings.mjs          # MHL/BSHL standings scraping
+│   ├── schedules.mjs          # ICS parsing
+│   ├── standings.mjs          # MHL standings scraping
 │   ├── rosters.mjs            # HockeyTech roster fetching
 │   ├── games.mjs              # Game summaries & box scores
 │   └── ccmha.mjs              # GrayJay API integration
@@ -151,7 +147,6 @@ amherst-display/
 ```
 Data Sources
     ├── HockeyTech ICS (Ramblers schedule)
-    ├── BSHL Website (Ducks schedule)
     ├── HockeyTech API (rosters, stats, game summaries)
     ├── MHL Website (standings)
     ├── GrayJay API (minor hockey)
@@ -290,7 +285,6 @@ All CSS is inline in `index.html` for easy customization. Look for the `<style>`
 This project is for personal use at Amherst Stadium. Hockey data is sourced from:
 - **HockeyTech** (rosters, stats, game summaries)
 - **MHL** (standings)
-- **BSHL** (standings, schedules)
 - **GrayJay Leagues** (minor hockey)
 
 Logos and team names are property of their respective organizations.
@@ -321,5 +315,5 @@ For issues, bugs, or feature requests:
 
 ### October 2024 - Initial Release
 - 🎉 Initial release with schedules and standings
-- 🏒 Support for MHL and BSHL leagues
+- 🏒 Support for MHL league
 - 🎨 Dark theme optimized for Yodeck displays

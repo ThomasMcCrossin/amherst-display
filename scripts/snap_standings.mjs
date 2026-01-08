@@ -1,5 +1,5 @@
 // Snap just the standings table into PNGs for clean display (no page chrome).
-// Saves: assets/standings/standings_mhl.png and standings_bshl.png
+// Saves: assets/standings/standings_mhl.png
 
 import fs from 'fs/promises';
 import path from 'path';
@@ -16,18 +16,6 @@ const TARGETS = [
     darkCSS: `
       html,body { background:#0b0c10 !important; }
       header,nav,footer,.cookie,.cookies,.ad,[role="banner"],[role="contentinfo"] { display:none !important; }
-      table { background:#11151e !important; color:#f5f7fb !important; border-collapse:collapse; }
-      th,td { border:1px solid #2a2f37 !important; padding:6px 10px !important; font-size:14px !important; }
-      thead th { background:#171b23 !important; font-weight:800 !important; }
-    `
-  },
-  {
-    league: 'bshl',
-    url: 'https://www.beausejourseniorhockeyleague.ca/standings.php',
-    selector: 'table',
-    darkCSS: `
-      html,body { background:#0b0c10 !important; }
-      header,nav,footer,.ad,.ads,.cookie,.cookies,[role="banner"],[role="contentinfo"] { display:none !important; }
       table { background:#11151e !important; color:#f5f7fb !important; border-collapse:collapse; }
       th,td { border:1px solid #2a2f37 !important; padding:6px 10px !important; font-size:14px !important; }
       thead th { background:#171b23 !important; font-weight:800 !important; }

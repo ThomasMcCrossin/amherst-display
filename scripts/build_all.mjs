@@ -1,7 +1,7 @@
 // scripts/build_all.mjs
 // Orchestrates: standings → schedules → JSON outputs
 // - Reads teams.json (aliases -> slug map)
-// - Builds MHL/BSHL standings via ./standings.mjs
+// - Builds MHL standings via ./standings.mjs
 // - Builds games.json + next_games.json via ./schedules.mjs
 // - Writes sane fallbacks if any stage fails
 

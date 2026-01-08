@@ -1,0 +1,2750 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Ramblers • MHL Display</title>
+  <style>
+    :root{
+      /* Ramblers theme (purple/black/white) */
+      --bg0:#05060B;
+      --bg1:#090B16;
+      --surface:rgba(255,255,255,.06);
+      --surface2:rgba(255,255,255,.10);
+      --stroke:rgba(255,255,255,.14);
+      --text:#F4F6FF;
+      --muted:rgba(244,246,255,.74);
+      --faint:rgba(244,246,255,.54);
+
+      /* Ramblers purple theme (bold) */
+      --accent:#4B2E83;
+      --accent2:#8E6BFF; /* highlight */
+      --accent-rgb: 75,46,131;
+      --accent-soft: rgba(var(--accent-rgb), .18);
+      --accent-wash: rgba(var(--accent-rgb), .10);
+      --accent-border: rgba(var(--accent-rgb), .36);
+      --good:#37E08A;
+      --warn:#FFD166;
+      --bad:#FF5C7C;
+
+      --topbar-h: 92px;
+      --ticker-h: 68px;
+      --pad: 28px;
+      --r: 18px;
+    }
+
+    *{ box-sizing:border-box; margin:0; padding:0; }
+    html,body{ height:100%; }
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      overflow:hidden;
+      background:
+        radial-gradient(1200px 680px at 18% 6%, rgba(var(--accent-rgb), .32), transparent 60%),
+        radial-gradient(980px 720px at 84% 18%, rgba(var(--accent-rgb), .18), transparent 62%),
+        radial-gradient(900px 700px at 50% 110%, rgba(var(--accent-rgb), .14), transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg0));
+    }
+    body:before{
+      content:"";
+      position:fixed; inset:0;
+      background:
+        radial-gradient(circle at 2px 2px, rgba(255,255,255,.06) 1px, transparent 0) 0 0 / 18px 18px,
+        repeating-linear-gradient(135deg, rgba(255,255,255,.03) 0px, rgba(255,255,255,.03) 2px, transparent 2px, transparent 12px);
+      opacity:.22;
+      pointer-events:none;
+      mix-blend-mode: overlay;
+    }
+
+    .app{ height:100%; display:flex; flex-direction:column; }
+
+    /* ===== Top bar ===== */
+    .topbar{
+      height: var(--topbar-h);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 18px var(--pad);
+      border-bottom:  2px solid rgba(var(--accent-rgb), .45);
+      background: linear-gradient(90deg, rgba(var(--accent-rgb), .22), rgba(10,12,24,.86) 40%, rgba(10,12,24,.60));
+      backdrop-filter: blur(8px);
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      min-width: 520px;
+    }
+    .brand-logo{
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(var(--accent-rgb), .98), rgba(var(--accent-rgb), .55));
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: 0 12px 34px rgba(0,0,0,.42);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      position:relative;
+    }
+    .brand-logo img{ width: 86%; height: 86%; object-fit:contain; filter: drop-shadow(0 8px 14px rgba(0,0,0,.35)); }
+    .brand-logo .fallback{
+      font-weight: 950;
+      font-size: 26px;
+      letter-spacing: 1px;
+      color: rgba(8,10,18,.92);
+      text-transform:uppercase;
+    }
+    .brand-title{
+      font-size: 22px;
+      font-weight: 950;
+      letter-spacing: .7px;
+      line-height: 1.05;
+    }
+    .brand-sub{
+      margin-top: 5px;
+      font-size: 12px;
+      letter-spacing: 2.2px;
+      text-transform:uppercase;
+      color: var(--muted);
+    }
+
+    .topbar-mid{
+      flex: 1;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+    .status-pill{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      max-width: 720px;
+    }
+    .dot{
+      width: 10px; height: 10px;
+      border-radius: 999px;
+      background: var(--good);
+      box-shadow: 0 0 0 6px rgba(55,224,138,.12);
+      flex: 0 0 auto;
+    }
+    .status-text{
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: .3px;
+      overflow:hidden;
+      white-space:nowrap;
+      text-overflow:ellipsis;
+    }
+    .status-text b{ color: var(--text); }
+
+    .topbar-right{
+      display:flex;
+      align-items:flex-end;
+      gap: 18px;
+      text-align:right;
+      min-width: 360px;
+    }
+    .clock{
+      font-variant-numeric: tabular-nums;
+      font-size: 34px;
+      font-weight: 950;
+      letter-spacing: .6px;
+      line-height: 1;
+    }
+    .date{
+      font-size: 12px;
+      letter-spacing: 2.3px;
+      text-transform:uppercase;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+    .mini{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      align-items:flex-end;
+      padding-left: 10px;
+      border-left: 1px solid rgba(255,255,255,.10);
+    }
+    .mini .k{ color: var(--faint); font-size: 11px; letter-spacing: 1.8px; text-transform:uppercase; }
+    .mini .v{ font-size: 14px; font-weight: 850; color: var(--text); }
+
+    /* ===== Main stage ===== */
+    .stage{
+      height: calc(100% - var(--topbar-h) - var(--ticker-h));
+      padding: var(--pad);
+      display:flex;
+      flex-direction:column;
+      gap: 18px;
+    }
+
+    .slides{
+      flex: 1;
+      position:relative;
+      border-radius: 22px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow: 0 40px 120px rgba(0,0,0,.55);
+    }
+
+    .watermark{
+      position:absolute;
+      inset:-6%;
+      background-repeat:no-repeat;
+      background-position: 80% 55%;
+      background-size: 720px 720px;
+      opacity: .040;
+      filter: grayscale(1) contrast(1.12) brightness(.95);
+      pointer-events:none;
+      z-index:0;
+      transform: rotate(-8deg) scale(1.04);
+      /* soft fade so it never competes with text */
+      mask-image: radial-gradient(closest-side at 80% 55%, rgba(0,0,0,1), rgba(0,0,0,0));
+    }
+    .slides .slide{ z-index:1; }
+
+
+    .slide{
+      position:absolute;
+      inset:0;
+      opacity:0;
+      transform: translateY(10px) scale(.99);
+      transition: opacity .65s ease, transform .65s ease;
+      padding: 22px;
+      display:flex;
+      flex-direction:column;
+      gap: 16px;
+    }
+    .slide.active{
+      opacity:1;
+      transform: translateY(0) scale(1);
+    }
+    @media (prefers-reduced-motion: reduce){
+      .slide{ transition:none; }
+    }
+
+    .slide-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 18px;
+      padding: 6px 6px 0 6px;
+    }
+    .slide-title{
+      font-size: 28px;
+      font-weight: 950;
+      letter-spacing: .6px;
+      display:flex;
+      align-items:baseline;
+      gap:12px;
+    }
+    .slide-title .tag{
+      font-size: 12px;
+      letter-spacing: 2.4px;
+      text-transform:uppercase;
+      color: rgba(255,255,255,.96);
+      background: rgba(var(--accent-rgb), .92);
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: 0 10px 26px rgba(var(--accent-rgb), .22);
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-weight: 950;
+    }
+    .slide-sub{
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: .3px;
+      max-width: 50%;
+      text-align:right;
+    }
+
+    .grid{
+      flex: 1;
+      display:grid;
+      gap: 16px;
+    }
+    .panel{
+      border-radius: var(--r);
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.10);
+      overflow:hidden;
+      position:relative;
+    }
+    .panel:before{
+      content:"";
+      position:absolute; inset:0;
+      background: radial-gradient(900px 300px at 10% 0%, rgba(var(--accent-rgb), .22), transparent 55%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .panel .inner{
+      position:relative;
+      padding: 16px;
+      height:100%;
+    }
+    .panel h3{
+      font-size: 14px;
+      text-transform:uppercase;
+      letter-spacing: 2px;
+      color: var(--faint);
+      margin-bottom: 10px;
+      font-weight: 950;
+    }
+
+    /* ===== Common bits ===== */
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing:.2px;
+      max-width: 100%;
+    }
+    .pill b{ color: var(--text); }
+    .pill .ic{
+      width: 22px; height: 22px; border-radius: 999px;
+      display:flex; align-items:center; justify-content:center;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.12);
+      flex: 0 0 auto;
+    }
+
+    .team{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      min-width: 0;
+    }
+    .logo{
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      display:flex; align-items:center; justify-content:center;
+      overflow:hidden;
+      flex: 0 0 auto;
+    }
+    .logo img{ width: 85%; height: 85%; object-fit:contain; }
+    .team .nm{
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: .2px;
+      line-height: 1.1;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+    .team .sub{
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: .2px;
+      margin-top: 2px;
+    }
+
+    .scoreBig{
+      font-variant-numeric: tabular-nums;
+      font-size: 52px;
+      font-weight: 950;
+      letter-spacing: .5px;
+      line-height: 1;
+    }
+    .scoreBig .sep{ opacity:.35; padding:0 10px; }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 950;
+      letter-spacing: 1px;
+      text-transform:uppercase;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+    }
+    .badge.good{ color: rgba(55,224,138,1); border-color: rgba(55,224,138,.38); background: rgba(55,224,138,.10); }
+    .badge.bad{ color: rgba(255,92,124,1); border-color: rgba(255,92,124,.38); background: rgba(255,92,124,.10); }
+    .badge.warn{ color: rgba(255,209,102,1); border-color: rgba(255,209,102,.40); background: rgba(255,209,102,.10); }
+
+    .list{
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+    }
+
+    .row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(0,0,0,.18);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+
+    .meta{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing:.2px;
+      flex-wrap: wrap;
+    }
+    .meta .dotSep{
+      opacity:.4;
+    }
+
+    /* ===== Headshots ===== */
+    .hs{
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      flex: 0 0 auto;
+      position:relative;
+    }
+    .hs img{ width:100%; height:100%; object-fit:cover; }
+    .hs .ini{
+      position:absolute; inset:0;
+      display:flex; align-items:center; justify-content:center;
+      font-weight: 950;
+      color: rgba(244,246,255,.88);
+      letter-spacing:.8px;
+      background: radial-gradient(120px 80px at 20% 10%, rgba(var(--accent-rgb), .42), rgba(0,0,0,.22));
+    }
+
+    .playerLine{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      min-width: 0;
+    }
+    .playerName{
+      font-size: 14px;
+      font-weight: 950;
+      letter-spacing: .2px;
+      line-height: 1.1;
+      min-width: 0;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+    .playerSub{
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 3px;
+      letter-spacing:.2px;
+    }
+    .statBox{
+      display:flex;
+      align-items:baseline;
+      gap: 8px;
+      font-variant-numeric: tabular-nums;
+    }
+    .statBox .big{
+      font-size: 22px;
+      font-weight: 950;
+      letter-spacing:.2px;
+    }
+    .statBox .lbl{
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 2px;
+      text-transform:uppercase;
+      font-weight: 900;
+    }
+
+    /* ===== Slide layouts ===== */
+
+    /* Slide: Next up */
+    #s-next .grid{
+      grid-template-columns: 1.35fr 1fr;
+      grid-template-rows: 1fr 1fr;
+    }
+    #s-next .panel:nth-child(1){ grid-column: 1; grid-row: 1 / span 2; }
+    #s-next .panel:nth-child(2){ grid-column: 2; grid-row: 1; }
+    #s-next .panel:nth-child(3){ grid-column: 2; grid-row: 2; }
+
+    .matchHero{
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+      justify-content:space-between;
+    }
+    .matchTop{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 16px;
+    }
+    .matchTop .bigTitle{
+      font-size: 22px;
+      font-weight: 950;
+      letter-spacing: .4px;
+      line-height: 1.1;
+    }
+    .matchTop .bigSub{
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing:.2px;
+    }
+    .countdown{
+      text-align:right;
+    }
+    .countdown .t{
+      font-size: 28px;
+      font-weight: 950;
+      font-variant-numeric: tabular-nums;
+    }
+    .countdown .l{
+      margin-top: 6px;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 2px;
+      text-transform:uppercase;
+    }
+
+    .matchMid{
+      display:grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items:center;
+      gap: 18px;
+      padding: 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.20);
+    }
+    .matchMid .vs{
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform:uppercase;
+      font-weight: 950;
+      color: var(--faint);
+    }
+    .bigTeam{
+      display:flex;
+      align-items:center;
+      gap: 14px;
+      min-width: 0;
+    }
+    .bigTeam .logo{
+      width: 66px;
+      height: 66px;
+      border-radius: 20px;
+    }
+    .bigTeam .nm{
+      font-size: 20px;
+      font-weight: 950;
+      letter-spacing:.2px;
+    }
+    .bigTeam .sub{
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .matchBottom{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      flex-wrap:wrap;
+    }
+
+    .miniMetrics{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      flex-wrap:wrap;
+    }
+
+    .metric{
+      padding: 8px 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      min-width: 128px;
+    }
+    .metric .k{
+      color: var(--faint);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform:uppercase;
+      font-weight: 950;
+    }
+    .metric .v{
+      margin-top: 4px;
+      font-size: 16px;
+      font-weight: 950;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Slide: Faces */
+    #s-faces .grid{
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr;
+    }
+    .facesGrid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .faceCard{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      min-width:0;
+    }
+    .faceCard .who{ min-width:0; flex:1; }
+    .faceCard .who .playerName{ font-size: 15px; }
+    .faceCard .who .playerSub{ font-size: 11px; }
+    .faceCard .statBox .big{ font-size: 20px; }
+
+
+    /* Slide: Goalies */
+    #s-goalies .grid{
+      grid-template-columns: 1.35fr 1fr;
+      grid-template-rows: 1fr 1fr;
+    }
+    #s-goalies .panel:nth-child(1){ grid-column: 1; grid-row: 1 / span 2; }
+    #s-goalies .panel:nth-child(2){ grid-column: 2; grid-row: 1; }
+    #s-goalies .panel:nth-child(3){ grid-column: 2; grid-row: 2; }
+
+    .goalieDuel{
+      display:grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 14px;
+      align-items:center;
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.20);
+    }
+    .goalieDuel .vs{
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform:uppercase;
+      font-weight: 950;
+      color: var(--faint);
+      text-align:center;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.12);
+    }
+    .goalieCard{
+      display:flex;
+      align-items:center;
+      gap: 14px;
+      min-width:0;
+    }
+    .goalieCard .hs{
+      width: 86px;
+      height: 86px;
+      border-radius: 22px;
+    }
+    .goalieCard .who{ min-width:0; flex:1; }
+    .goalieCard .who .playerName{ font-size: 18px; }
+    .goalieCard .who .playerSub{ font-size: 12px; }
+    .goalieMini{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      margin-top: 10px;
+    }
+    .gmini{
+      padding: 8px 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      min-width: 104px;
+      text-align:center;
+      font-variant-numeric: tabular-nums;
+    }
+    .gmini .k{
+      color: var(--faint);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform:uppercase;
+      font-weight: 950;
+    }
+    .gmini .v{
+      margin-top: 4px;
+      font-size: 16px;
+      font-weight: 950;
+    }
+
+    /* Slide: Recap */
+    #s-recap .grid{
+      grid-template-columns: 1.2fr 1fr;
+      grid-template-rows: 1fr 1fr;
+    }
+    #s-recap .panel:nth-child(1){ grid-column: 1; grid-row: 1 / span 2; }
+    #s-recap .panel:nth-child(2){ grid-column: 2; grid-row: 1; }
+    #s-recap .panel:nth-child(3){ grid-column: 2; grid-row: 2; }
+
+    .recapHero{
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+    }
+    .recapScore{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 16px;
+      padding: 10px 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.20);
+    }
+    .recapScore .teams{
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      min-width: 0;
+    }
+    .recapScore .teams .team .logo{ width: 42px; height: 42px; border-radius: 14px; }
+    .recapScore .teams .team .nm{ font-size: 16px; }
+    .recapScore .scoreBig{ font-size: 56px; }
+
+    .story{
+      padding: 12px 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.16);
+      color: rgba(244,246,255,.88);
+      font-size: 14px;
+      line-height: 1.35;
+      letter-spacing: .15px;
+      max-height: 220px;
+      overflow:hidden;
+    }
+    .story p{ margin-bottom: 10px; }
+    .story p:last-child{ margin-bottom: 0; }
+    .story .faint{ color: var(--muted); }
+
+    /* Slide: Standings */
+    #s-standings .grid{
+      grid-template-columns: 1.6fr 1fr;
+      grid-template-rows: 1fr;
+    }
+    .table{
+      display:flex;
+      flex-direction:column;
+      gap: 8px;
+    }
+    .table .hdr, .table .r{
+      display:grid;
+      grid-template-columns: 38px 1.4fr 70px 70px 70px 80px 80px;
+      align-items:center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+    }
+    .table .hdr{
+      color: var(--faint);
+      text-transform:uppercase;
+      letter-spacing: 2px;
+      font-size: 10px;
+      font-weight: 950;
+      background: rgba(0,0,0,.18);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .table .r{
+      background: rgba(0,0,0,.16);
+      border: 1px solid rgba(255,255,255,.10);
+      font-variant-numeric: tabular-nums;
+      font-size: 13px;
+      color: rgba(244,246,255,.92);
+    }
+    .table .r.me{
+      background: rgba(var(--accent-rgb), .20);
+      border-color: rgba(var(--accent-rgb), .45);
+      box-shadow: 0 16px 44px rgba(var(--accent-rgb), .18);
+    }
+    .table .r .pos{
+      font-weight: 950;
+      color: rgba(244,246,255,.92);
+      text-align:center;
+    }
+    .table .r .tn{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      min-width: 0;
+    }
+    .table .r .tn .logo{ width: 32px; height: 32px; border-radius: 12px; }
+    .table .r .tn .nm{
+      font-weight: 950;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+    .table .r .num{ text-align:right; font-weight: 850; }
+    .table .r.cut{
+      position:relative;
+    }
+    .table .r.cut:before{
+      content:"PLAYOFF LINE";
+      position:absolute;
+      left: 14px;
+      top: -8px;
+      font-size: 10px;
+      letter-spacing: 2.4px;
+      text-transform:uppercase;
+      color: rgba(255,209,102,.85);
+      font-weight: 950;
+      background: rgba(10,12,24,.9);
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,209,102,.25);
+    }
+
+    /* Slide: League leaders */
+    #s-league .grid{
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr;
+    }
+    .leaders{
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+    }
+    .leaderRow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.16);
+    }
+    .leaderRow .rank{
+      width: 30px;
+      height: 30px;
+      border-radius: 12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight: 950;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      color: rgba(244,246,255,.92);
+      flex: 0 0 auto;
+    }
+    .leaderRow .who{
+      min-width: 0;
+      flex: 1;
+      padding-right: 10px;
+    }
+    .leaderRow .who .playerName{ font-size: 14px; }
+    .leaderRow .who .playerSub{ font-size: 11px; }
+    .leaderRow .statBox .big{ font-size: 20px; }
+
+    /* ===== Footer ticker ===== */
+    .ticker{
+      height: var(--ticker-h);
+      display:flex;
+      align-items:center;
+      border-top: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(10,12,24,.40), rgba(10,12,24,.86));
+      overflow:hidden;
+      position:relative;
+    }
+    .ticker:before{
+      content:"";
+      position:absolute;
+      left:0; top:0; bottom:0;
+      width: 140px;
+      background: linear-gradient(90deg, rgba(10,12,24,1), rgba(10,12,24,0));
+      z-index:2;
+      pointer-events:none;
+    }
+    .ticker:after{
+      content:"";
+      position:absolute;
+      right:0; top:0; bottom:0;
+      width: 140px;
+      background: linear-gradient(270deg, rgba(10,12,24,1), rgba(10,12,24,0));
+      z-index:2;
+      pointer-events:none;
+    }
+
+    .ticker-track{
+      display:flex;
+      align-items:center;
+      gap: 36px;
+      padding-left: 140px;
+      white-space:nowrap;
+      will-change: transform;
+      animation: scroll 46s linear infinite;
+    }
+    @keyframes scroll{
+      from{ transform: translateX(0); }
+      to{ transform: translateX(-50%); }
+    }
+    @media (prefers-reduced-motion: reduce){
+      .ticker-track{ animation:none; }
+    }
+
+    .tick-item{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      color: rgba(244,246,255,.88);
+      font-size: 14px;
+      letter-spacing:.2px;
+    }
+    .tick-item .b{
+      font-weight: 950;
+      color: var(--text);
+    }
+    .tick-item .sep{
+      opacity:.45;
+      margin: 0 8px;
+    }
+
+    /* Small-screen tightening (for shorter displays) */
+    @media (max-height: 800px){
+      :root{ --topbar-h: 82px; --ticker-h: 58px; --pad: 22px; }
+      .slide-title{ font-size: 24px; }
+      .scoreBig{ font-size: 46px; }
+      .facesGrid{ grid-template-columns: repeat(3, 1fr); gap: 10px; }
+      .hs{ width: 50px; height: 50px; border-radius: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-logo" id="brandLogo">
+          <div class="fallback">A</div>
+        </div>
+        <div>
+          <div class="brand-title" id="brandTitle">Amherst Ramblers</div>
+          <div class="brand-sub" id="brandSub">Maritime Hockey League • Amherst Stadium</div>
+        </div>
+      </div>
+
+      <div class="topbar-mid">
+        <div class="status-pill">
+          <div class="dot" id="statusDot"></div>
+          <div class="status-text" id="statusText">Loading…</div>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div>
+          <div class="clock" id="clock">--:--</div>
+          <div class="date" id="date">---</div>
+        </div>
+        <div class="mini">
+          <div class="k">Ramblers</div>
+          <div class="v" id="ramblersMeta">—</div>
+          <div class="k">MHL rank</div>
+          <div class="v" id="rankMeta">—</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="stage">
+      <div class="slides" id="slides">
+        <div class="watermark" id="watermark" aria-hidden="true"></div>
+        <!-- Slide 1: Next up -->
+        <section class="slide" id="s-next" data-seconds="18">
+          <div class="slide-head">
+            <div class="slide-title"><span id="nextTitle">Next Up</span> <span class="tag" id="nextTag">RAMBLERS</span></div>
+            <div class="slide-sub" id="nextSub">Loading schedule…</div>
+          </div>
+
+          <div class="grid">
+            <div class="panel">
+              <div class="inner">
+                <h3 id="heroTitle">Next Game</h3>
+                <div class="matchHero" id="nextHero"></div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="inner">
+                <h3>Last 5</h3>
+                <div class="list" id="lastFive"></div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="inner">
+                <h3>At Amherst Stadium</h3>
+                <div class="list" id="stadiumNext"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 2: Faces of the Ramblers -->
+        <section class="slide" id="s-faces" data-seconds="18">
+          <div class="slide-head">
+            <div class="slide-title">Faces of the Ramblers <span class="tag">SPOTLIGHT</span></div>
+            <div class="slide-sub">Rotates through the roster so everyone gets featured.</div>
+          </div>
+
+          <div class="grid">
+            <div class="panel">
+              <div class="inner">
+                <h3 id="facesNote">Tonight’s Faces</h3>
+                <div class="facesGrid" id="facesGrid"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        
+        <!-- Slide 3: Goalies -->
+        <section class="slide" id="s-goalies" data-seconds="18">
+          <div class="slide-head">
+            <div class="slide-title">In the Crease <span class="tag">GOALIES</span></div>
+            <div class="slide-sub" id="goalieSub">Loading goalie stats…</div>
+          </div>
+
+          <div class="grid">
+            <div class="panel">
+              <div class="inner">
+                <h3>Matchup Spotlight</h3>
+                <div id="goalieMatchup"></div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="inner">
+                <h3>Ramblers Goalies</h3>
+                <div class="list" id="goalieList"></div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="inner">
+                <h3>Storyline</h3>
+                <div class="story" id="goalieStory"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+<!-- Slide 4: Recap -->
+        <section class="slide" id="s-recap" data-seconds="20">
+          <div class="slide-head">
+            <div class="slide-title"><span id="recapTitle">Last Game</span> <span class="tag">RECAP</span></div>
+            <div class="slide-sub" id="recapSub">Loading box score…</div>
+          </div>
+
+          <div class="grid">
+            <div class="panel">
+              <div class="inner">
+                <h3 id="recapHdr">Final</h3>
+                <div class="recapHero">
+                  <div class="recapScore" id="recapScore"></div>
+                  <div class="story" id="recapStory"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="inner">
+                <h3>3 Stars</h3>
+                <div class="leaders" id="threeStars"></div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="inner">
+                <h3>Scoring Summary</h3>
+                <div class="list" id="scoringSummary"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 5: Standings -->
+        <section class="slide" id="s-standings" data-seconds="18">
+          <div class="slide-head">
+            <div class="slide-title">MHL Standings <span class="tag">RACE</span></div>
+            <div class="slide-sub" id="standingsSub">Updated daily • Ramblers highlighted</div>
+          </div>
+
+          <div class="grid">
+            <div class="panel">
+              <div class="inner">
+                <h3>Table</h3>
+                <div class="table" id="standingsTable"></div>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="inner">
+                <h3>Storylines</h3>
+                <div class="list" id="storylines"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 6: League leaders -->
+        <section class="slide" id="s-league" data-seconds="18">
+          <div class="slide-head">
+            <div class="slide-title">Around the MHL <span class="tag">LEAGUE</span></div>
+            <div class="slide-sub" id="leagueSub">Leaders + next matchups</div>
+          </div>
+
+          <div class="grid">
+            <div class="panel">
+              <div class="inner">
+                <h3>League Leaders</h3>
+                <div class="leaders" id="leagueLeaders"></div>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="inner">
+                <h3>Next MHL Games</h3>
+                <div class="list" id="leagueNextGames"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="ticker">
+      <div class="ticker-track" id="tickerTrack"></div>
+    </footer>
+  </div>
+
+<script>
+(() => {
+  // ============================
+  // Config
+  // ============================
+  const CONFIG = {
+    HOME_TEAM_SLUG: "amherst-ramblers",
+    HOME_TEAM_NAME: "Amherst Ramblers",
+    PRIMARY_LEAGUE: "MHL",
+    HOME_ARENA_HINTS: ["Amherst Stadium"],
+    PLAYOFF_SEEDS: 4,                 // adjust if your format differs
+    SHOW_STADIUM_GAMES_DAYS: 7,        // how many days ahead in "At Amherst Stadium"
+    LEAGUE_NEXT_GAMES: 6,             // how many MHL games to show on league slide
+    LEAGUE_LEADERS: 5,                // how many league leaders rows
+    FACE_CARDS: 6,                    // number of rotating player cards
+    REFRESH_MINUTES: 10,              // Yodeck refresh is usually handled, but this keeps the display fresh
+    DATA_TTL_MINUTES: 60,             // cache TTL for JSON
+    SLIDE_DEFAULT_SECONDS: 18,
+    DEBUG: false,
+    ENABLE_WATERMARK: true,
+    WATERMARK_OPACITY: 0.04,
+  };
+
+  // Data URLs
+// By default, we fetch JSON from raw.githubusercontent.com because it is CORS-friendly
+// even when this HTML is hosted inside Yodeck (different origin).
+const qs = new URLSearchParams(location.search);
+const DEFAULT_DATA_BASE = "https://raw.githubusercontent.com/ThomasMcCrossin/amherst-display/main/";
+const DEFAULT_ASSET_BASE = "https://thomasmccrossin.github.io/amherst-display/";
+
+const DATA_BASE = String(window.DATA_BASE || qs.get("dataBase") || qs.get("base") || DEFAULT_DATA_BASE).replace(/\/?$/, "/");
+const ASSET_BASE = String(window.ASSET_BASE || qs.get("assetBase") || DEFAULT_ASSET_BASE).replace(/\/?$/, "/");
+
+const dataUrl = (p) => new URL(p.replace(/^\.\//,""), DATA_BASE).href;
+const assetUrl = (p) => {
+  const v = safeStr(p, "");
+  if(!v) return "";
+  if(/^https?:\/\//i.test(v)) return v;
+  return new URL(v.replace(/^\.\//,""), ASSET_BASE).href;
+};
+
+const PATHS = {
+  teams: dataUrl("teams.json"),
+  games: dataUrl("games.json"),
+  standingsMHL: dataUrl("standings_mhl.json"),
+  standingsBSHL: dataUrl("standings_bshl.json"),
+  ccmha: dataUrl("ccmha_games.json"),
+  overrides: dataUrl("overrides.json"),
+  ramblersRoster: dataUrl("rosters/amherst-ramblers.json"),
+  ramblersGames: dataUrl("games/amherst-ramblers.json"),
+};
+
+
+  // ============================
+  // DOM helpers
+  // ============================
+  const $ = (id) => document.getElementById(id);
+  const dom = {
+    brandLogo: $("brandLogo"),
+    brandTitle: $("brandTitle"),
+    brandSub: $("brandSub"),
+    watermark: $("watermark"),
+    statusDot: $("statusDot"),
+    statusText: $("statusText"),
+    clock: $("clock"),
+    date: $("date"),
+    ramblersMeta: $("ramblersMeta"),
+    rankMeta: $("rankMeta"),
+
+    // slide 1
+    nextTitle: $("nextTitle"),
+    nextTag: $("nextTag"),
+    nextSub: $("nextSub"),
+    heroTitle: $("heroTitle"),
+    nextHero: $("nextHero"),
+    lastFive: $("lastFive"),
+    stadiumNext: $("stadiumNext"),
+
+    // faces
+    facesNote: $("facesNote"),
+    facesGrid: $("facesGrid"),
+
+    // goalies
+    goalieSub: $("goalieSub"),
+    goalieMatchup: $("goalieMatchup"),
+    goalieList: $("goalieList"),
+    goalieStory: $("goalieStory"),
+
+    // recap
+    recapTitle: $("recapTitle"),
+    recapSub: $("recapSub"),
+    recapHdr: $("recapHdr"),
+    recapScore: $("recapScore"),
+    recapStory: $("recapStory"),
+    threeStars: $("threeStars"),
+    scoringSummary: $("scoringSummary"),
+
+    // standings
+    standingsTable: $("standingsTable"),
+    storylines: $("storylines"),
+    standingsSub: $("standingsSub"),
+
+    // league
+    leagueLeaders: $("leagueLeaders"),
+    leagueNextGames: $("leagueNextGames"),
+    leagueSub: $("leagueSub"),
+
+    // ticker
+    tickerTrack: $("tickerTrack"),
+  };
+
+  // ============================
+  // Utilities
+  // ============================
+  const safeStr = (v, fb="") => (v===0 ? "0" : (v ? String(v) : fb));
+  const safeNum = (v, fb=0) => {
+    const n = Number(v);
+    return Number.isFinite(n) ? n : fb;
+  };
+  const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
+  const uniq = (arr) => Array.from(new Set(arr));
+
+  function nowLocal(){
+    return new Date();
+  }
+
+  function toDate(x){
+    if(!x) return null;
+    if(x instanceof Date) return x;
+    const d = new Date(x);
+    return isNaN(d.getTime()) ? null : d;
+  }
+
+  function fmtClock(d){
+    return d.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
+  }
+  function fmtDate(d){
+    return d.toLocaleDateString([], {weekday:"short", month:"short", day:"numeric", year:"numeric"});
+  }
+  function fmtShortDayTime(d){
+    return d.toLocaleString([], {weekday:"short", hour:"numeric", minute:"2-digit"});
+  }
+  function fmtShort(d){
+    return d.toLocaleString([], {month:"short", day:"numeric"});
+  }
+
+  function relCountdown(target){
+    const t = toDate(target);
+    if(!t) return null;
+    const ms = t - nowLocal();
+    const sign = ms >= 0 ? 1 : -1;
+    const abs = Math.abs(ms);
+    const m = Math.floor(abs/60000);
+    const h = Math.floor(m/60);
+    const d = Math.floor(h/24);
+    const hh = h % 24;
+    const mm = m % 60;
+
+    if(d >= 2) return { label: sign>0 ? "days" : "days ago", value: `${d}d ${hh}h` };
+    if(h >= 1) return { label: sign>0 ? "until puck drop" : "since final", value: `${h}h ${mm}m` };
+    return { label: sign>0 ? "until puck drop" : "since final", value: `${m}m` };
+  }
+
+  function initClock(){
+    const tick = () => {
+      const d = nowLocal();
+      dom.clock.textContent = fmtClock(d);
+      dom.date.textContent = fmtDate(d).toUpperCase();
+    };
+    tick();
+    setInterval(tick, 1000);
+  }
+
+  function setStatus(ok, msg){
+    dom.statusDot.style.background = ok ? "var(--good)" : "var(--warn)";
+    dom.statusDot.style.boxShadow = ok ? "0 0 0 6px rgba(55,224,138,.12)" : "0 0 0 6px rgba(255,209,102,.14)";
+    dom.statusText.innerHTML = msg;
+  }
+
+  // ============================
+  // Cached fetch (robust for flaky network)
+  // ============================
+  function cacheKey(url){ return "mhl_cache::" + url; }
+
+  function loadCache(url){
+    try{
+      const raw = localStorage.getItem(cacheKey(url));
+      if(!raw) return null;
+      return JSON.parse(raw);
+    }catch(e){
+      return null;
+    }
+  }
+
+  function saveCache(url, data){
+    try{
+      localStorage.setItem(cacheKey(url), JSON.stringify({ t: Date.now(), data }));
+    }catch(e){}
+  }
+
+  async function fetchJson(url, ttlMin=CONFIG.DATA_TTL_MINUTES){
+    const cached = loadCache(url);
+    const ttl = ttlMin * 60 * 1000;
+    const now = Date.now();
+
+    if(cached && (now - cached.t) < ttl){
+      return { data: cached.data, fromCache: true };
+    }
+
+    try{
+      const res = await fetch(url, { cache: "no-store" });
+      if(!res.ok) throw new Error("HTTP " + res.status);
+      const data = await res.json();
+      saveCache(url, data);
+      return { data, fromCache: false };
+    }catch(err){
+      if(cached){
+        return { data: cached.data, fromCache: true, stale: true, error: err };
+      }
+      throw err;
+    }
+  }
+
+  // ============================
+  // Data normalization
+  // ============================
+  function normalizeTeams(raw){
+    const arr = Array.isArray(raw) ? raw : (raw && Array.isArray(raw.teams) ? raw.teams : []);
+    const bySlug = new Map();
+    const byName = new Map();
+    arr.forEach(t => {
+      const slug = safeStr(t.slug || t.id || t.team_slug || t.teamId).trim();
+      if(!slug) return;
+      const name = safeStr(t.name || t.team_name || t.full_name || slug);
+      const league = safeStr(t.league || t.league_name || "");
+      const logo = safeStr(t.logo_url || t.logo || t.logoUrl || "");
+      const aliases = Array.isArray(t.aliases) ? t.aliases : [];
+      const obj = { slug, name, league, logo_url: logo, aliases };
+      bySlug.set(slug, obj);
+      byName.set(name.toLowerCase(), obj);
+      aliases.forEach(a => byName.set(String(a).toLowerCase(), obj));
+    });
+    return { list: arr, bySlug, byName };
+  }
+
+  function teamLookup(teamMap, maybe){
+    if(!maybe) return null;
+    if(typeof maybe === "object"){
+      const slug = safeStr(maybe.slug || maybe.id || maybe.team_slug || maybe.teamId);
+      if(slug && teamMap.bySlug.has(slug)) return teamMap.bySlug.get(slug);
+      const name = safeStr(maybe.name || maybe.team || maybe.team_name);
+      if(name && teamMap.byName.has(name.toLowerCase())) return teamMap.byName.get(name.toLowerCase());
+      return { slug: slug || name || "team", name: name || slug || "Team", league: "", logo_url: safeStr(maybe.logo_url || maybe.logo || "") };
+    }
+    const s = String(maybe);
+    if(teamMap.bySlug.has(s)) return teamMap.bySlug.get(s);
+    if(teamMap.byName.has(s.toLowerCase())) return teamMap.byName.get(s.toLowerCase());
+    return { slug: s.toLowerCase().replace(/\s+/g,"-"), name: s, league:"", logo_url:"" };
+  }
+
+  function normalizeGames(raw, teamMap){
+    const arr =
+      Array.isArray(raw) ? raw :
+      (raw && Array.isArray(raw.events) ? raw.events :
+      (raw && Array.isArray(raw.games) ? raw.games :
+      (raw && Array.isArray(raw.items) ? raw.items : [])));
+return arr.map(g => {
+      const dt = toDate(g.start || g.start_time || g.datetime || g.date || g.game_date || g.gameDate);
+      const league = safeStr(g.league || g.league_name || g.leagueName || "");
+      const venue = safeStr(g.venue || g.location || g.rink || g.arena || "");
+      const status = safeStr(g.status || g.state || g.game_status || "");
+      const home = teamLookup(teamMap, g.home_slug || g.home_team_slug || g.homeTeamSlug || g.home_team || g.home || g.home_team_name || g.homeTeam || g.home_name);
+      const away = teamLookup(teamMap, g.away_slug || g.away_team_slug || g.awayTeamSlug || g.away_team || g.away || g.away_team_name || g.awayTeam || g.away_name);
+      const hs = safeNum(g.home_score ?? g.homeScore ?? g.home_goals ?? g.homeGoals, null);
+      const as = safeNum(g.away_score ?? g.awayScore ?? g.away_goals ?? g.awayGoals, null);
+      return { raw:g, dt, league, venue, status, home, away, home_score: hs, away_score: as };
+    }).filter(x => x.home && x.away);
+  }
+
+  function normalizeStandings(raw, teamMap){
+    const arr =
+      Array.isArray(raw) ? raw :
+      (raw && Array.isArray(raw.teams) ? raw.teams :
+      (raw && Array.isArray(raw.standings) ? raw.standings :
+      (raw && Array.isArray(raw.rows) ? raw.rows : [])));
+
+    // Some scrapers include divisions; flatten if needed
+    const flat = [];
+    arr.forEach(r => {
+      if(r && Array.isArray(r.teams)) r.teams.forEach(t => flat.push(t));
+      else flat.push(r);
+    });
+
+    const rows = flat.map(r => {
+      const team = teamLookup(teamMap, r.slug || r.team_slug || r.team || r.team_name || r.name);
+      const gp = safeNum(r.gp ?? r.GP ?? r.games_played ?? r.played ?? r.games, null);
+      const w  = safeNum(r.w ?? r.W ?? r.wins, null);
+      const l  = safeNum(r.l ?? r.L ?? r.losses, null);
+      const ot = safeNum(r.ot ?? r.otl ?? r.OTL ?? r.ot_losses ?? r.overtime_losses ?? r.ol, 0);
+      const pts = safeNum(r.pts ?? r.PTS ?? r.points, null);
+      const gf = safeNum(r.gf ?? r.GF ?? r.goals_for ?? r.goalsFor, null);
+      const ga = safeNum(r.ga ?? r.GA ?? r.goals_against ?? r.goalsAgainst, null);
+      const div = safeStr(r.division || r.div || r.group || "");
+      const home = safeStr(r.home || r.home_record || "");
+      const away = safeStr(r.away || r.away_record || "");
+      const streak = safeStr(r.streak || r.str || "");
+      return { team, gp, w, l, ot, pts, gf, ga, gd: (gf!=null && ga!=null) ? (gf-ga) : null, div, home, away, streak };
+    }).filter(x => x.team);
+
+    // Sort by points then GD (best effort)
+    rows.sort((a,b) => (safeNum(b.pts) - safeNum(a.pts)) || (safeNum(b.gd) - safeNum(a.gd)) || a.team.name.localeCompare(b.team.name));
+    return rows;
+  }
+
+  function normalizeRoster(raw){
+    if(!raw) return [];
+    const arr =
+      Array.isArray(raw) ? raw :
+      (raw && Array.isArray(raw.players) ? raw.players :
+      (raw && Array.isArray(raw.roster) ? raw.roster :
+      (raw && Array.isArray(raw.items) ? raw.items : [])));
+
+    return arr.map(p => {
+      const name = safeStr(p.name || p.player_name || p.full_name || (p.first_name && p.last_name ? p.first_name + " " + p.last_name : ""), "Player");
+      const num = safeStr(p.number ?? p.jersey ?? p.jersey_number ?? p.sweater_number ?? "");
+      const pos = safeStr(p.pos || p.position || p.primary_position || "");
+      const shoots = safeStr(p.shoots || p.shoots_catches || "");
+      const hometown = safeStr(p.hometown || p.home_town || "");
+      const headshot = safeStr(p.headshot_url || p.headshot || p.photo || p.photo_url || "");
+      const gp = safeNum(p.gp ?? p.GP ?? p.games ?? p.games_played ?? p.stats?.games_played ?? p.stats?.gp ?? p.stats?.games, null);
+      const g  = safeNum(p.g ?? p.G ?? p.goals ?? p.stats?.g ?? p.stats?.goals, 0);
+      const a  = safeNum(p.a ?? p.A ?? p.assists ?? p.stats?.a ?? p.stats?.assists, 0);
+      const pts= safeNum(p.pts ?? p.PTS ?? p.points ?? p.stats?.pts ?? p.stats?.points, g + a);
+      const pim= safeNum(p.pim ?? p.PIM ?? p.penalty_minutes ?? p.stats?.pim, null);
+      const plusMinus = (p.plus_minus ?? p.plusMinus ?? p.stats?.plus_minus);
+      const pm = (plusMinus==null ? null : safeNum(plusMinus, null));
+      // goalie fields (best-effort; some feeds omit certain columns early season)
+      const svPctRaw = (p.sv_pct ?? p.svPct ?? p.save_pct ?? p.savePct ?? p.sv_percent ?? p.save_percent ??
+        p.stats?.sv_pct ?? p.stats?.save_pct ?? p.stats?.svPct ?? p.stats?.save_percentage ?? p.stats?.sv_percentage ?? p.stats?.savePercentage);
+      const gaaRaw = (p.gaa ?? p.GAA ?? p.stats?.gaa ?? p.stats?.GAA ?? p.stats?.goals_against_average ?? p.stats?.goalsAgainstAverage);
+      const winsRaw = (p.wins ?? p.W ?? p.stats?.wins ?? p.stats?.W);
+      const lossesRaw = (p.losses ?? p.L ?? p.stats?.losses ?? p.stats?.L);
+      const otlRaw = (p.otl ?? p.OTL ?? p.ot ?? p.ot_losses ?? p.stats?.otl ?? p.stats?.OTL ?? p.stats?.ot_losses ?? p.stats?.otLosses);
+      const soRaw = (p.so ?? p.SO ?? p.shutouts ?? p.stats?.so ?? p.stats?.SO ?? p.stats?.shutouts);
+      const gaRaw = (p.ga ?? p.GA ?? p.goals_against ?? p.stats?.ga ?? p.stats?.GA ?? p.stats?.goals_against);
+      const saRaw = (p.sa ?? p.SA ?? p.shots_against ?? p.stats?.sa ?? p.stats?.SA ?? p.stats?.shots_against ?? p.stats?.shots);
+      const savesRaw = (p.saves ?? p.SV ?? p.stats?.saves ?? p.stats?.SV);
+      return {
+        raw:p, name, num, pos, shoots, hometown, headshot_url: headshot,
+        gp, g, a, pts, pim, pm,
+        sv: (svPctRaw==null? null : safeNum(svPctRaw, null)),
+        gaa: (gaaRaw==null? null : safeNum(gaaRaw, null)),
+        wins: (winsRaw==null? null : safeNum(winsRaw, null)),
+        losses: (lossesRaw==null? null : safeNum(lossesRaw, null)),
+        otl: (otlRaw==null? null : safeNum(otlRaw, null)),
+        so: (soRaw==null? null : safeNum(soRaw, null)),
+        ga: (gaRaw==null? null : safeNum(gaRaw, null)),
+        sa: (saRaw==null? null : safeNum(saRaw, null)),
+        saves: (savesRaw==null? null : safeNum(savesRaw, null)),
+      };
+    }).filter(p => p.name);
+  }
+
+  function extractGameList(raw){
+    if(!raw) return [];
+    if(Array.isArray(raw)) return raw;
+    if(Array.isArray(raw.events)) return raw.events;
+    if(Array.isArray(raw.games)) return raw.games;
+    if(Array.isArray(raw.results)) return raw.results;
+    if(Array.isArray(raw.items)) return raw.items;
+    return [];
+  }
+
+  function normalizeRamblersGame(g, teamMap){
+    // HockeyTech game summaries can be wildly shaped; be flexible.
+    const dt = toDate(g.start || g.datetime || g.date || g.game_date || g.gameDate || g.played_on || g.playedOn);
+    const status = safeStr(g.status || g.state || g.game_status || "");
+    const home = teamLookup(teamMap, g.home_slug || g.home_team_slug || g.homeTeamSlug || g.home_team || g.homeTeam || g.home_name || g.home_team_name);
+    const away = teamLookup(teamMap, g.away_slug || g.away_team_slug || g.awayTeamSlug || g.away_team || g.awayTeam || g.away_name || g.away_team_name);
+
+    // some feeds use visitor/home
+    const home_score = safeNum(g.home_score ?? g.homeScore ?? g.home_goals ?? g.homeGoals ?? g.home?.score ?? g.homeTeamScore, null);
+    const away_score = safeNum(g.away_score ?? g.awayScore ?? g.away_goals ?? g.awayGoals ?? g.visitor_score ?? g.visitorScore ?? g.away?.score ?? g.visitorTeamScore, null);
+
+    const venue = safeStr(g.venue || g.location || g.rink || g.arena || "");
+    const recap = safeStr(
+      g.narrative || g.recap || g.summary || g.game_summary || g.gameSummary || g.story || g.report || ""
+    );
+    const headline = safeStr(g.headline || g.title || g.game_title || "");
+
+    // scoring summary (best effort)
+    const scoring = Array.isArray(g.scoring) ? g.scoring :
+      (g.scoring_summary && Array.isArray(g.scoring_summary) ? g.scoring_summary :
+      (g.goals && Array.isArray(g.goals) ? g.goals : []));
+
+    // stars (best effort)
+    const stars = Array.isArray(g.stars) ? g.stars :
+      (Array.isArray(g.three_stars) ? g.three_stars :
+      (Array.isArray(g.threeStars) ? g.threeStars : []));
+
+    return { raw:g, dt, status, home, away, home_score, away_score, venue, recap, headline, scoring, stars };
+  }
+
+  // ============================
+  // Rendering helpers
+  // ============================
+  function logoHtml(team){
+    const url = safeStr(team?.logo_url || "");
+    if(url){
+      return `<div class="logo"><img src="${url}" alt="${escapeHtml(team.name)} logo" loading="lazy"/></div>`;
+    }
+    const ini = initials(team?.name || "T");
+    return `<div class="logo"><div class="ini" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-weight:950;color:rgba(244,246,255,.85);background:rgba(255,255,255,.06);">${ini}</div></div>`;
+  }
+
+  function headshotHtml(player){
+    const url = safeStr(player?.headshot_url || "");
+    const ini = initials(player?.name || "P");
+    // We include both image and initials overlay; onerror hides the image.
+    return `
+      <div class="hs">
+        ${url ? `<img src="${url}" alt="${escapeHtml(player.name)}" loading="lazy" onerror="this.style.display='none'"/>` : ""}
+        <div class="ini">${ini}</div>
+      </div>
+    `;
+  }
+
+  function initials(name){
+    const parts = String(name).trim().split(/\s+/).filter(Boolean);
+    if(parts.length === 1) return parts[0].slice(0,2).toUpperCase();
+    return (parts[0][0] + parts[parts.length-1][0]).toUpperCase();
+  }
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  function badgeForResult(isWin){
+    if(isWin === null) return `<span class="badge warn">TBD</span>`;
+    return isWin ? `<span class="badge good">W</span>` : `<span class="badge bad">L</span>`;
+  }
+
+  // ============================
+  // Slide show
+  // ============================
+  let slides = [];
+  let slideIndex = 0;
+  let slideTimer = null;
+
+  function collectSlides(){
+    slides = Array.from(document.querySelectorAll(".slide"));
+  }
+
+  function showSlide(i){
+    slides.forEach((s, idx) => s.classList.toggle("active", idx === i));
+  }
+
+  function startShow(){
+    if(!slides.length) return;
+    showSlide(slideIndex);
+
+    if(slideTimer) clearTimeout(slideTimer);
+
+    const step = () => {
+      const current = slides[slideIndex];
+      const secs = safeNum(current?.dataset?.seconds, CONFIG.SLIDE_DEFAULT_SECONDS);
+      slideTimer = setTimeout(() => {
+        slideIndex = (slideIndex + 1) % slides.length;
+        showSlide(slideIndex);
+        step();
+      }, secs * 1000);
+    };
+    step();
+  }
+
+  function stopShow(){
+    if(slideTimer) clearTimeout(slideTimer);
+    slideTimer = null;
+  }
+
+  // ============================
+  // Main render
+  // ============================
+  async function loadAndRender(){
+    setStatus(true, "Loading data…");
+
+    const started = Date.now();
+
+    // Fetch core data
+    const [teamsRes, gamesRes, standingsRes, rosterRes, ramGamesRes, overridesRes, ccmhaRes] = await Promise.allSettled([
+      fetchJson(PATHS.teams, 24*60),
+      fetchJson(PATHS.games, CONFIG.DATA_TTL_MINUTES),
+      fetchJson(PATHS.standingsMHL, 24*60),
+      fetchJson(PATHS.ramblersRoster, 24*60),
+      fetchJson(PATHS.ramblersGames, 24*60),
+      fetchJson(PATHS.overrides, 24*60),
+      fetchJson(PATHS.ccmha, 24*60),
+    ]);
+
+    // Safely extract
+    const teamsRaw = teamsRes.status === "fulfilled" ? teamsRes.value.data : null;
+    const gamesRaw = gamesRes.status === "fulfilled" ? gamesRes.value.data : null;
+    const standingsRaw = standingsRes.status === "fulfilled" ? standingsRes.value.data : null;
+    const rosterRaw = rosterRes.status === "fulfilled" ? rosterRes.value.data : null;
+    const ramGamesRaw = ramGamesRes.status === "fulfilled" ? ramGamesRes.value.data : null;
+    const overridesRaw = overridesRes.status === "fulfilled" ? overridesRes.value.data : null;
+    const ccmhaRaw = ccmhaRes.status === "fulfilled" ? ccmhaRes.value.data : null;
+
+    const fromCache = [teamsRes, gamesRes, standingsRes, rosterRes, ramGamesRes].some(r => r.status === "fulfilled" && r.value.fromCache);
+
+    const teamMap = normalizeTeams(teamsRaw || []);
+    const games = normalizeGames(gamesRaw || [], teamMap);
+
+    const standings = normalizeStandings(standingsRaw || [], teamMap);
+    const roster = normalizeRoster(rosterRaw || []);
+    const ramGames = extractGameList(ramGamesRaw || []).map(g => normalizeRamblersGame(g, teamMap));
+
+    // Precompute next Ramblers game (used on multiple slides)
+    const now = nowLocal();
+    const nextRamGame = games
+      .filter(g => g.dt && g.dt >= new Date(now.getTime() - 2*60*60*1000))
+      .filter(g => g.home?.slug === CONFIG.HOME_TEAM_SLUG || g.away?.slug === CONFIG.HOME_TEAM_SLUG)
+      .sort((a,b) => a.dt - b.dt)[0] || null;
+
+    const nextOppTeam = nextRamGame
+      ? (nextRamGame.home?.slug === CONFIG.HOME_TEAM_SLUG ? nextRamGame.away : nextRamGame.home)
+      : null;
+
+    // Fetch opponent roster (for goalie matchup + richer story)
+    let oppRoster = [];
+    if(nextOppTeam?.slug){
+      try{
+        const oppRes = await fetchJson(dataUrl(`rosters/${nextOppTeam.slug}.json`), 24*60);
+        oppRoster = normalizeRoster(oppRes.data || []);
+      }catch(e){
+        oppRoster = [];
+      }
+    }
+
+    // Brand logo: prefer team logo from teams.json
+    const meTeam = teamMap.bySlug.get(CONFIG.HOME_TEAM_SLUG) || { name: CONFIG.HOME_TEAM_NAME, logo_url:"" };
+    dom.brandTitle.textContent = meTeam.name || CONFIG.HOME_TEAM_NAME;
+    dom.brandSub.textContent = "Maritime Hockey League • Amherst Stadium";
+
+    if(meTeam.logo_url){
+      dom.brandLogo.innerHTML = `<img src="${meTeam.logo_url}" alt="Ramblers logo" onerror="this.remove();"/>`;
+    }else{
+      dom.brandLogo.innerHTML = `<div class="fallback">A</div>`;
+    }
+
+    // Subtle watermark: only if it won't hurt readability (very low opacity behind panels)
+    if(dom.watermark){
+      if(CONFIG.ENABLE_WATERMARK && meTeam.logo_url){
+        dom.watermark.style.backgroundImage = `url(${meTeam.logo_url})`;
+        dom.watermark.style.opacity = String(CONFIG.WATERMARK_OPACITY ?? 0.055);
+      }else{
+        dom.watermark.style.backgroundImage = "none";
+      }
+    }
+
+    // Standings meta for top bar
+    const meRow = standings.find(r => r.team?.slug === CONFIG.HOME_TEAM_SLUG) || null;
+    if(meRow){
+      const rec = `${safeNum(meRow.w)}-${safeNum(meRow.l)}-${safeNum(meRow.ot)}`;
+      dom.ramblersMeta.textContent = `${rec} • ${safeNum(meRow.pts)} pts`;
+      dom.rankMeta.textContent = `#${standings.indexOf(meRow)+1}`;
+    }else{
+      dom.ramblersMeta.textContent = "—";
+      dom.rankMeta.textContent = "—";
+    }
+
+    // Slide 1: Next up
+    renderNextUp(games, ramGames, meTeam, teamMap, standings, ccmhaRaw);
+
+    // Slide 2: Faces
+    renderFaces(roster, meTeam);
+
+    // Slide 3: Goalies
+    renderGoalies(roster, oppRoster, meTeam, nextOppTeam, nextRamGame, standings);
+
+    // Slide 4: Recap
+    renderRecap(ramGames, roster, meTeam);
+
+    // Slide 4: Standings + storylines
+    renderStandings(standings, meTeam);
+
+    // Slide 5: League leaders + next games
+    await renderLeague(teamMap, games, meTeam, overridesRaw);
+
+    // Ticker
+    renderTicker({games, standings, ramGames, roster, overrides: overridesRaw, fromCache});
+
+    const ms = Date.now() - started;
+    const freshness = fromCache ? "cached" : "live";
+    const ok = true;
+
+    setStatus(ok, `<b>Display ready</b> • ${freshness} data • refreshed ${(ms/1000).toFixed(1)}s`);
+  }
+
+  function renderNextUp(games, ramGames, meTeam, teamMap, standings, ccmhaRaw){
+    const now = nowLocal();
+
+    const ramNext = games
+      .filter(g => g.dt && g.dt >= new Date(now.getTime() - 2*60*60*1000)) // include very recent in case of timezone
+      .filter(g => g.home?.slug === CONFIG.HOME_TEAM_SLUG || g.away?.slug === CONFIG.HOME_TEAM_SLUG)
+      .sort((a,b) => a.dt - b.dt);
+
+    const next = ramNext.find(g => g.dt >= now) || ramNext[0] || null;
+
+    // dynamic title
+    dom.nextTitle.textContent = next?.dt ? (isToday(next.dt) ? "Tonight" : (isTomorrow(next.dt) ? "Tomorrow" : "Next Up")) : "Next Up";
+    dom.nextTag.textContent = "RAMBLERS";
+    dom.nextSub.textContent = next?.dt ? `${fmtShortDayTime(next.dt)} • ${safeStr(next.venue, "Venue TBD")}` : "No upcoming Ramblers games found.";
+
+    dom.nextHero.innerHTML = next ? matchHero(next, teamMap, standings) : emptyState("No upcoming game listed yet.");
+
+    // last 5 results from ramGames (best effort)
+    const finals = ramGames
+      .filter(g => g.dt)
+      .sort((a,b) => b.dt - a.dt);
+
+    const last5 = finals.slice(0,5);
+
+    dom.lastFive.innerHTML = "";
+    if(!last5.length){
+      dom.lastFive.innerHTML = emptyState("No recent results yet.");
+    }else{
+      last5.forEach(g => {
+        const isHome = g.home?.slug === CONFIG.HOME_TEAM_SLUG;
+        const meScore = isHome ? g.home_score : g.away_score;
+        const oppScore = isHome ? g.away_score : g.home_score;
+        const opp = isHome ? g.away : g.home;
+        const win = (meScore!=null && oppScore!=null) ? (meScore > oppScore) : null;
+        const row = document.createElement("div");
+        row.className = "row";
+        row.innerHTML = `
+          <div class="team" style="min-width:0;">
+            ${logoHtml(opp)}
+            <div style="min-width:0;">
+              <div class="nm">${escapeHtml(opp?.name || "Opponent")}</div>
+              <div class="sub">${g.dt ? fmtShort(g.dt) : ""} <span style="opacity:.45;">•</span> ${isHome ? "Home" : "Away"}</div>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px;">
+            ${badgeForResult(win)}
+            <div style="font-variant-numeric:tabular-nums; font-weight:950; font-size:14px;">${meScore!=null && oppScore!=null ? `${meScore}-${oppScore}` : "—"}</div>
+          </div>
+        `;
+        dom.lastFive.appendChild(row);
+      });
+    }
+
+    // Stadium next games (from games.json + optional ccmha)
+    const stadium = [];
+
+    const stadiumFromGames = games
+      .filter(g => g.dt && g.dt >= now)
+      .filter(g => CONFIG.HOME_ARENA_HINTS.some(h => safeStr(g.venue).toLowerCase().includes(h.toLowerCase())))
+      .sort((a,b) => a.dt - b.dt);
+
+    stadium.push(...stadiumFromGames);
+
+    // CCMHA games, if provided
+    const cArr = extractGameList(ccmhaRaw || []);
+    if(cArr.length){
+      cArr.forEach(g => {
+        const dt = toDate(g.start || g.datetime || g.date || g.game_date || g.gameDate);
+        if(!dt || dt < now) return;
+        const homeName = safeStr(g.home_team || g.home || g.homeTeam || g.home_name || "Home");
+        const awayName = safeStr(g.away_team || g.away || g.awayTeam || g.away_name || "Away");
+        const venue = safeStr(g.venue || g.location || g.rink || "");
+        if(!CONFIG.HOME_ARENA_HINTS.some(h => venue.toLowerCase().includes(h.toLowerCase()))) return;
+        stadium.push({
+          dt, league: safeStr(g.league || "CCMHA"),
+          venue,
+          home: { name: homeName, slug: homeName.toLowerCase().replace(/\s+/g,'-'), logo_url:"" },
+          away: { name: awayName, slug: awayName.toLowerCase().replace(/\s+/g,'-'), logo_url:"" },
+          home_score: null, away_score:null, status:""
+        });
+      });
+    }
+
+    // De-dupe by time+teams
+    const uniqKey = (g) => `${g.dt?.toISOString()||""}|${g.home?.name||""}|${g.away?.name||""}|${g.league||""}`;
+    const uniqStadium = [];
+    const seen = new Set();
+    stadium.sort((a,b) => a.dt - b.dt).forEach(g => {
+      const k = uniqKey(g);
+      if(seen.has(k)) return;
+      seen.add(k);
+      uniqStadium.push(g);
+    });
+
+    const cutoff = new Date(now.getTime() + CONFIG.SHOW_STADIUM_GAMES_DAYS*24*60*60*1000);
+    const toShow = uniqStadium.filter(g => g.dt <= cutoff).slice(0,6);
+
+    dom.stadiumNext.innerHTML = "";
+    if(!toShow.length){
+      dom.stadiumNext.innerHTML = emptyState("No upcoming Amherst Stadium events found.");
+    }else{
+      toShow.forEach(g => {
+        const row = document.createElement("div");
+        row.className = "row";
+        const isRams = (g.home?.slug === CONFIG.HOME_TEAM_SLUG || g.away?.slug === CONFIG.HOME_TEAM_SLUG);
+        row.style.borderColor = isRams ? "rgba(var(--accent-rgb), .42)" : "";
+        row.style.background = isRams ? "rgba(var(--accent-rgb), .14)" : "";
+        row.innerHTML = `
+          <div class="team" style="min-width:0;">
+            ${logoHtml(g.away)}
+            <div style="min-width:0;">
+              <div class="nm">${escapeHtml(g.away?.name || "")} <span style="opacity:.4;">@</span> ${escapeHtml(g.home?.name || "")}</div>
+              <div class="sub">${g.dt ? fmtShortDayTime(g.dt) : ""} <span style="opacity:.45;">•</span> ${escapeHtml(g.league || "")}</div>
+            </div>
+          </div>
+          <div class="pill" title="${escapeHtml(g.venue||"")}"><span class="ic">🏟️</span><span>${truncate(g.venue || "Amherst Stadium", 20)}</span></div>
+        `;
+        dom.stadiumNext.appendChild(row);
+      });
+    }
+
+    dom.heroTitle.textContent = next?.dt ? (isToday(next.dt) ? "Tonight’s Game" : "Next Game") : "Next Game";
+  }
+
+  function isToday(d){
+    const now = nowLocal();
+    return d.toDateString() === now.toDateString();
+  }
+  function isTomorrow(d){
+    const now = nowLocal();
+    const t = new Date(now);
+    t.setDate(t.getDate()+1);
+    return d.toDateString() === t.toDateString();
+  }
+
+  function matchHero(g, teamMap, standings){
+    const away = g.away, home = g.home;
+    const dt = g.dt;
+    const cd = relCountdown(dt);
+    const cdLabel = cd ? cd.label : "";
+    const cdValue = cd ? cd.value : "—";
+
+    const homeRec = standings.find(r => r.team?.slug === home?.slug);
+    const awayRec = standings.find(r => r.team?.slug === away?.slug);
+
+    const chip = (t, r) => {
+      if(!r) return `<div class="sub">${escapeHtml(t?.name || "")}</div>`;
+      const rec = `${safeNum(r.w)}-${safeNum(r.l)}-${safeNum(r.ot)} • ${safeNum(r.pts)} pts`;
+      return `<div class="sub">${escapeHtml(t?.name || "")} <span style="opacity:.4;">•</span> ${rec}</div>`;
+    };
+
+    const venue = g.venue || "Venue TBD";
+
+    const pills = [];
+    if(g.league) pills.push(`<div class="pill"><span class="ic">🏒</span><b>${escapeHtml(g.league)}</b></div>`);
+    if(venue) pills.push(`<div class="pill"><span class="ic">📍</span><span>${escapeHtml(venue)}</span></div>`);
+    if(dt) pills.push(`<div class="pill"><span class="ic">⏱️</span><span>${escapeHtml(fmtShortDayTime(dt))}</span></div>`);
+
+    return `
+      <div class="matchHero">
+        <div class="matchTop">
+          <div>
+            <div class="bigTitle">${escapeHtml(away?.name || "Away")} <span style="opacity:.5;">at</span> ${escapeHtml(home?.name || "Home")}</div>
+            <div class="bigSub">${escapeHtml(venue)}</div>
+          </div>
+          <div class="countdown">
+            <div class="t">${escapeHtml(cdValue)}</div>
+            <div class="l">${escapeHtml(cdLabel || "countdown")}</div>
+          </div>
+        </div>
+
+        <div class="matchMid">
+          <div class="bigTeam">
+            ${logoHtml(away)}
+            <div style="min-width:0;">
+              <div class="nm">${escapeHtml(away?.name || "")}</div>
+              ${chip(away, awayRec)}
+            </div>
+          </div>
+          <div class="vs">VS</div>
+          <div class="bigTeam" style="justify-content:flex-end;">
+            <div style="min-width:0; text-align:right;">
+              <div class="nm">${escapeHtml(home?.name || "")}</div>
+              ${chip(home, homeRec)}
+            </div>
+            ${logoHtml(home)}
+          </div>
+        </div>
+
+        <div class="matchBottom">
+          <div class="miniMetrics">
+            ${pills.join("")}
+          </div>
+          <div class="pill"><span class="ic">🎟️</span><span>Welcome to <b>The Jungle</b></span></div>
+        </div>
+      </div>
+    `;
+  }
+
+  function truncate(s, n){
+    s = safeStr(s,"");
+    if(s.length <= n) return s;
+    return s.slice(0, Math.max(0,n-1)) + "…";
+  }
+
+  function emptyState(msg){
+    return `<div style="padding:24px; text-align:center; color: rgba(244,246,255,.75); font-weight:900;">${escapeHtml(msg)}</div>`;
+  }
+
+  // ============================
+  // Faces slide (rotation)
+  // ============================
+  function rotationKey(){ return "mhl_faces_rotation_v1"; }
+
+  function loadRotation(){
+    try{
+      return JSON.parse(localStorage.getItem(rotationKey()) || "{}");
+    }catch(e){
+      return {};
+    }
+  }
+  function saveRotation(obj){
+    try{ localStorage.setItem(rotationKey(), JSON.stringify(obj)); }catch(e){}
+  }
+
+  function pickRotatingPlayers(players, n){
+    if(!players.length) return [];
+    const st = loadRotation();
+    const seen = Array.isArray(st.seen) ? st.seen : [];
+    const now = Date.now();
+
+    // reset daily
+    const dayKey = new Date().toLocaleDateString("en-CA");
+    if(st.dayKey !== dayKey){
+      st.dayKey = dayKey;
+      st.seen = [];
+      st.i = 0;
+    }
+
+    const sorted = [...players].sort((a,b) => (b.pts - a.pts) || (b.g - a.g) || a.name.localeCompare(b.name));
+    // Rotate through the sorted list for "fair" exposure, but avoid repeats.
+    const picks = [];
+    let i = st.i || 0;
+    const maxLoops = sorted.length * 2;
+
+    for(let loops=0; loops<maxLoops && picks.length < n; loops++){
+      const p = sorted[i % sorted.length];
+      const key = p.name + "|" + p.num + "|" + p.pos;
+      if(!seen.includes(key)){
+        picks.push(p);
+        seen.push(key);
+      }
+      i++;
+      if(seen.length > sorted.length * 0.75){
+        // keep it from growing forever while still avoiding short repeats
+        seen.splice(0, Math.floor(sorted.length * 0.25));
+      }
+    }
+
+    st.i = i;
+    st.seen = seen;
+    st.t = now;
+    saveRotation(st);
+
+    if(picks.length < n){
+      // fallback random fill
+      while(picks.length < n){
+        const p = sorted[Math.floor(Math.random()*sorted.length)];
+        if(!picks.includes(p)) picks.push(p);
+        if(picks.length >= sorted.length) break;
+      }
+    }
+    return picks.slice(0,n);
+  }
+
+  function renderFaces(roster, meTeam){
+    const skaters = roster.filter(p => !String(p.pos).toLowerCase().includes("g")); // keep goalies out of faces by default
+    const goalies = roster.filter(p => String(p.pos).toLowerCase().includes("g"));
+    const topPts = [...skaters].sort((a,b) => b.pts - a.pts)[0];
+    const topG = [...skaters].sort((a,b) => b.g - a.g)[0];
+    const topA = [...skaters].sort((a,b) => b.a - a.a)[0];
+    const topPpg = [...skaters].sort((a,b) => (b.gp? b.pts/b.gp : 0) - (a.gp? a.pts/a.gp : 0))[0];
+    const topPIM = [...skaters].sort((a,b) => safeNum(b.pim,-1) - safeNum(a.pim,-1))[0];
+    const topGGoalie = [...goalies].sort((a,b) => (safeNum(b.sv,0) - safeNum(a.sv,0)))[0];
+
+    // 3 featured categories + rotating fill
+    const curated = uniq([topPts, topG, topA, topPpg, topPIM, topGGoalie]).filter(Boolean);
+    const needed = Math.max(0, CONFIG.FACE_CARDS - curated.length);
+    const rot = pickRotatingPlayers(roster, needed);
+
+    const picks = [...curated, ...rot].slice(0, CONFIG.FACE_CARDS);
+
+    dom.facesGrid.innerHTML = "";
+    if(!picks.length){
+      dom.facesGrid.innerHTML = emptyState("Roster not available yet.");
+      return;
+    }
+
+    const labelFor = (p) => {
+      if(p === topPts) return {k:"Points leader", v:`${p.pts} PTS`};
+      if(p === topG) return {k:"Top scorer", v:`${p.g} G`};
+      if(p === topA) return {k:"Top playmaker", v:`${p.a} A`};
+      if(p === topPpg) return {k:"Hot hand", v:`${(p.gp? (p.pts/p.gp).toFixed(2) : "—")} P/GP`};
+      if(p === topPIM) return {k:"Physical", v:`${p.pim ?? "—"} PIM`};
+      if(p === topGGoalie) return {k:"In goal", v:`${p.sv!=null ? (fmtSvPct(p.sv) + " SV%") : (p.wins!=null? p.wins+" W":"Goalie")}`};
+      return {k:"Spotlight", v:`${p.pts} PTS`};
+    };
+
+    picks.forEach(p => {
+      const lab = labelFor(p);
+      const el = document.createElement("div");
+      el.className = "faceCard";
+      el.innerHTML = `
+        ${headshotHtml(p)}
+        <div class="who">
+          <div class="playerName">${escapeHtml(p.name)}</div>
+          <div class="playerSub">${escapeHtml([p.num ? "#" + p.num : "", p.pos].filter(Boolean).join(" • "))}</div>
+        </div>
+        <div class="statBox" style="text-align:right;">
+          <div class="big">${escapeHtml(lab.v)}</div>
+          <div class="lbl">${escapeHtml(lab.k)}</div>
+        </div>
+      `;
+      dom.facesGrid.appendChild(el);
+    });
+
+    dom.facesNote.textContent = isToday(nowLocal()) ? "Tonight’s Faces" : "Faces of the Ramblers";
+  }
+
+  // ============================
+  // Recap slide
+  // ============================
+
+  // ============================
+  // Goalies slide (crease spotlight)
+  // ============================
+  function isGoalie(p){
+    const pos = String(p?.pos || "").toLowerCase();
+    return pos === "g" || pos.includes("goal");
+  }
+
+  function fmtSvPct(v){
+    if(v == null) return "—";
+    const n = Number(v);
+    if(!Number.isFinite(n)) return "—";
+    // HockeyTech-style feeds vary: some use .915, some use 91.5
+    const frac = (n > 1.2) ? (n / 100) : n;
+    // Display as ".915"
+    const s = frac.toFixed(3);
+    return s.startsWith("0") ? s.slice(1) : s;
+  }
+
+  function fmtGaa(v){
+    if(v == null) return "—";
+    const n = Number(v);
+    if(!Number.isFinite(n)) return "—";
+    return n.toFixed(2);
+  }
+
+  function fmtRecord(g){
+    const w = g?.wins;
+    const l = g?.losses;
+    const ot = g?.otl;
+    if(w == null && l == null && ot == null) return null;
+    const ww = (w==null? "—" : String(w));
+    const ll = (l==null? "—" : String(l));
+    const oo = (ot==null? "0" : String(ot));
+    return `${ww}-${ll}-${oo}`;
+  }
+
+  function pickLikelyStarter(goalies){
+    if(!goalies?.length) return null;
+    return [...goalies].sort((a,b) =>
+      (safeNum(b.gp,0) - safeNum(a.gp,0)) ||
+      (safeNum(b.wins,0) - safeNum(a.wins,0)) ||
+      (safeNum(b.sv,0) - safeNum(a.sv,0)) ||
+      a.name.localeCompare(b.name)
+    )[0];
+  }
+
+  function goalieKeyPills(g){
+    const rec = fmtRecord(g);
+    const pills = [];
+    if(rec) pills.push(`<div class="gmini"><div class="k">REC</div><div class="v">${escapeHtml(rec)}</div></div>`);
+    if(g?.gp != null) pills.push(`<div class="gmini"><div class="k">GP</div><div class="v">${escapeHtml(String(g.gp))}</div></div>`);
+    if(g?.gaa != null) pills.push(`<div class="gmini"><div class="k">GAA</div><div class="v">${escapeHtml(fmtGaa(g.gaa))}</div></div>`);
+    if(g?.sv != null) pills.push(`<div class="gmini"><div class="k">SV%</div><div class="v">${escapeHtml(fmtSvPct(g.sv))}</div></div>`);
+    if(g?.so != null) pills.push(`<div class="gmini"><div class="k">SO</div><div class="v">${escapeHtml(String(g.so))}</div></div>`);
+    return pills.join("");
+  }
+
+  function goalieCardHtml(goalie, team){
+    const sub = [goalie.num ? "#" + goalie.num : "", goalie.pos].filter(Boolean).join(" • ");
+    const pills = goalieKeyPills(goalie);
+    return `
+      <div class="goalieCard">
+        ${headshotHtml(goalie)}
+        <div class="who">
+          <div class="playerName">${escapeHtml(goalie.name)}</div>
+          <div class="playerSub">${escapeHtml(team?.name || "")}${sub ? " • " + escapeHtml(sub) : ""}</div>
+          <div class="goalieMini">${pills}</div>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderGoalies(homeRoster, oppRoster, meTeam, oppTeam, nextRamGame, standings){
+    const homeGoalies = (homeRoster || []).filter(isGoalie);
+    const oppGoalies = (oppRoster || []).filter(isGoalie);
+
+    const homeStarter = pickLikelyStarter(homeGoalies);
+    const oppStarter = pickLikelyStarter(oppGoalies);
+
+    // Subtitle
+    const parts = [];
+    if(nextRamGame?.dt && oppTeam?.name){
+      parts.push(`Next: vs ${oppTeam.name} • ${fmtShortDayTime(nextRamGame.dt)}`);
+    }else{
+      parts.push("Goalies + defensive snapshot");
+    }
+    parts.push("Updated daily");
+    if(dom.goalieSub) dom.goalieSub.textContent = parts.join(" • ");
+
+    // Matchup
+    if(!homeStarter){
+      dom.goalieMatchup.innerHTML = emptyState("Goalie stats not available yet.");
+    }else if(oppTeam && oppStarter){
+      dom.goalieMatchup.innerHTML = `
+        <div class="goalieDuel">
+          ${goalieCardHtml(homeStarter, meTeam)}
+          <div class="vs">VS</div>
+          ${goalieCardHtml(oppStarter, oppTeam)}
+        </div>
+      `;
+    }else{
+      // Opponent not available; show just Ramblers goalie
+      dom.goalieMatchup.innerHTML = `
+        <div class="goalieDuel" style="grid-template-columns: 1fr;">
+          ${goalieCardHtml(homeStarter, meTeam)}
+        </div>
+      `;
+    }
+
+    // Ramblers goalie list
+    if(!homeGoalies.length){
+      dom.goalieList.innerHTML = emptyState("No goalies found in roster feed.");
+    }else{
+      const rows = [...homeGoalies].sort((a,b) =>
+        (safeNum(b.gp,0) - safeNum(a.gp,0)) ||
+        (safeNum(b.wins,0) - safeNum(a.wins,0)) ||
+        (safeNum(b.sv,0) - safeNum(a.sv,0))
+      ).map(g => {
+        const rec = fmtRecord(g);
+        const right = [
+          rec ? `<span class="pill"><span class="ic">🧾</span><span><b>${escapeHtml(rec)}</b></span></span>` : "",
+          (g.gaa!=null) ? `<span class="pill"><span class="ic">🧮</span><span><b>${escapeHtml(fmtGaa(g.gaa))}</b> GAA</span></span>` : "",
+          (g.sv!=null) ? `<span class="pill"><span class="ic">🧤</span><span><b>${escapeHtml(fmtSvPct(g.sv))}</b> SV%</span></span>` : "",
+        ].filter(Boolean).join("");
+        return `
+          <div class="row">
+            <div class="playerLine">
+              ${headshotHtml(g)}
+              <div style="min-width:0;">
+                <div class="playerName">${escapeHtml(g.name)}</div>
+                <div class="playerSub">${escapeHtml([g.num? "#" + g.num : "", "G", g.gp!=null ? g.gp + " GP" : ""].filter(Boolean).join(" • "))}</div>
+              </div>
+            </div>
+            <div class="meta" style="justify-content:flex-end; text-align:right;">${right || `<span class="pill"><span class="ic">ℹ️</span><span>Stats pending</span></span>`}</div>
+          </div>
+        `;
+      }).join("");
+      dom.goalieList.innerHTML = rows;
+    }
+
+    // Storyline (standings-based, no “starting lineup” assumptions)
+    const meRow = (standings || []).find(r => r.team?.slug === CONFIG.HOME_TEAM_SLUG) || null;
+    const oppRow = oppTeam ? (standings || []).find(r => r.team?.slug === oppTeam.slug) : null;
+
+    const gaPer = (meRow?.ga != null && meRow?.gp) ? (meRow.ga / meRow.gp) : null;
+    const gfPerOpp = (oppRow?.gf != null && oppRow?.gp) ? (oppRow.gf / oppRow.gp) : null;
+
+    const bits = [];
+    if(homeStarter){
+      bits.push(`<p><b>Ramblers crease:</b> ${escapeHtml(homeStarter.name)} has ${homeStarter.gp!=null ? `<b>${homeStarter.gp}</b> GP` : "games logged"}${homeStarter.gaa!=null ? ` • <b>${escapeHtml(fmtGaa(homeStarter.gaa))}</b> GAA` : ""}${homeStarter.sv!=null ? ` • <b>${escapeHtml(fmtSvPct(homeStarter.sv))}</b> SV%` : ""}.</p>`);
+    }
+    if(gaPer != null){
+      bits.push(`<p class="faint">Team defense is allowing <b>${gaPer.toFixed(2)}</b> goals/game (from standings).</p>`);
+    }
+    if(oppTeam && gfPerOpp != null){
+      bits.push(`<p class="faint">${escapeHtml(oppTeam.name)} are scoring <b>${gfPerOpp.toFixed(2)}</b> goals/game — keep the first 10 minutes tight.</p>`);
+    }else if(oppTeam){
+      bits.push(`<p class="faint">Next opponent: <b>${escapeHtml(oppTeam.name)}</b>. We'll auto-fill their goalie once the roster file is available.</p>`);
+    }else{
+      bits.push(`<p class="faint">No upcoming opponent found yet — this panel will update when the schedule is posted.</p>`);
+    }
+
+    dom.goalieStory.innerHTML = bits.join("") || emptyState("Storyline loading…");
+  }
+
+  function renderRecap(ramGames, roster, meTeam){
+    const finals = ramGames
+      .filter(g => g.dt)
+      .sort((a,b) => b.dt - a.dt);
+
+    const g = finals[0] || null;
+
+    if(!g){
+      dom.recapSub.textContent = "No recent game data found yet.";
+      dom.recapScore.innerHTML = emptyState("No game recap available.");
+      dom.recapStory.innerHTML = "";
+      dom.threeStars.innerHTML = "";
+      dom.scoringSummary.innerHTML = "";
+      return;
+    }
+
+    dom.recapSub.textContent = `${g.dt ? fmtShortDayTime(g.dt) : ""}${g.venue ? " • " + g.venue : ""}`;
+
+    // Dynamic recap title
+    if(g.dt){
+      const dKey = g.dt.toLocaleDateString("en-CA");
+      const tKey = new Date().toLocaleDateString("en-CA");
+      const y = new Date(); y.setDate(y.getDate()-1);
+      const yKey = y.toLocaleDateString("en-CA");
+      dom.recapTitle.textContent = (dKey === tKey) ? "Earlier Today" : (dKey === yKey) ? "Last Night in Amherst" : "Last Game";
+    }else{
+      dom.recapTitle.textContent = "Last Game";
+    }
+
+    const home = g.home, away = g.away;
+    const hs = g.home_score, as = g.away_score;
+
+    dom.recapScore.innerHTML = `
+      <div class="teams" style="min-width:0;">
+        <div class="team">
+          ${logoHtml(away)}
+          <div style="min-width:0;">
+            <div class="nm">${escapeHtml(away?.name || "Away")}</div>
+            <div class="sub">${away?.slug === CONFIG.HOME_TEAM_SLUG ? "Ramblers" : ""}</div>
+          </div>
+        </div>
+        <div class="team">
+          ${logoHtml(home)}
+          <div style="min-width:0;">
+            <div class="nm">${escapeHtml(home?.name || "Home")}</div>
+            <div class="sub">${home?.slug === CONFIG.HOME_TEAM_SLUG ? "Ramblers" : ""}</div>
+          </div>
+        </div>
+      </div>
+      <div class="scoreBig">
+        ${as!=null && hs!=null ? `${as}<span class="sep">–</span>${hs}` : "—"}
+      </div>
+    `;
+
+    const story = buildStory(g);
+    dom.recapStory.innerHTML = story;
+
+    // Three stars
+    const stars = extractStars(g, roster, 3);
+    dom.threeStars.innerHTML = "";
+    if(!stars.length){
+      dom.threeStars.innerHTML = emptyState("Stars not available.");
+    }else{
+      stars.forEach((s, idx) => {
+        const el = document.createElement("div");
+        el.className = "leaderRow";
+        el.innerHTML = `
+          <div class="rank">${idx+1}</div>
+          <div class="playerLine" style="min-width:0;">
+            ${headshotHtml(s)}
+            <div style="min-width:0;">
+              <div class="playerName">${escapeHtml(s.name)}</div>
+              <div class="playerSub">${escapeHtml(s.team || "")}</div>
+            </div>
+          </div>
+          <div class="statBox" style="text-align:right;">
+            <div class="big">${escapeHtml(s.stat || "")}</div>
+            <div class="lbl">STAR</div>
+          </div>
+        `;
+        dom.threeStars.appendChild(el);
+      });
+    }
+
+    // Scoring summary
+    dom.scoringSummary.innerHTML = "";
+    const scorers = extractScoringSummary(g);
+    if(!scorers.length){
+      dom.scoringSummary.innerHTML = emptyState("No scoring breakdown.");
+    }else{
+      scorers.slice(0,6).forEach(line => {
+        const el = document.createElement("div");
+        el.className = "row";
+        el.innerHTML = `
+          <div style="min-width:0;">
+            <div style="font-weight:950; font-size:13px;">${escapeHtml(line.title)}</div>
+            <div class="meta">
+              <span>${escapeHtml(line.detail)}</span>
+            </div>
+          </div>
+          <div class="pill"><span class="ic">🏒</span><b>${escapeHtml(line.period || "")}</b></div>
+        `;
+        dom.scoringSummary.appendChild(el);
+      });
+    }
+  }
+
+  function buildStory(g){
+    // Prefer provided recap; otherwise generate a simple narrative.
+    const h = safeStr(g.headline || "");
+    const r = safeStr(g.recap || "");
+    const hasRecap = r && r.length > 40;
+    const hasHeadline = h && h.length > 0;
+
+    if(hasRecap){
+      const cleaned = r
+        .replace(/\r/g,"")
+        .replace(/\n\n+/g, "\n\n")
+        .trim();
+      const parts = cleaned.split(/\n\n+/).slice(0,3);
+      const p = parts.map(x => `<p>${escapeHtml(x)}</p>`).join("");
+      return `${hasHeadline ? `<p><span class="faint">${escapeHtml(h)}</span></p>` : ""}${p}`;
+    }
+
+    const hs = g.home_score, as = g.away_score;
+    const home = g.home?.name || "Home";
+    const away = g.away?.name || "Away";
+    let lead = (hs!=null && as!=null) ? `${away} ${as}, ${home} ${hs}.` : `${away} vs ${home}.`;
+
+    const hint = (g.venue ? ` at ${g.venue}` : "");
+    const when = g.dt ? ` on ${fmtShort(g.dt)}` : "";
+
+    const line2 = `Final${hint}${when}.`;
+    const line3 = `Check back daily for updated stats and the next matchup.`;
+
+    return `<p>${escapeHtml(lead)}</p><p class="faint">${escapeHtml(line2)}</p><p class="faint">${escapeHtml(line3)}</p>`;
+  }
+
+  function extractStars(g, roster, n=3){
+    // If g.stars is populated, use it
+    const rawStars = Array.isArray(g.stars) ? g.stars : [];
+    const out = [];
+
+    const rosterByName = new Map(roster.map(p => [p.name.toLowerCase(), p]));
+
+    rawStars.forEach(s => {
+      const name = safeStr(s.name || s.player || s.player_name || "");
+      if(!name) return;
+      const base = rosterByName.get(name.toLowerCase());
+      out.push({
+        name,
+        headshot_url: base?.headshot_url || safeStr(s.headshot_url || ""),
+        team: safeStr(s.team || s.team_name || ""),
+        stat: safeStr(s.stat || s.line || s.detail || "")
+      });
+    });
+
+    if(out.length >= n) return out.slice(0,n);
+
+    // Otherwise, attempt to infer from scoring list or top performers (fallback)
+    // This is intentionally simple: pick top scorers from roster.
+    const top = [...roster].sort((a,b) => (b.pts - a.pts) || (b.g - a.g)).slice(0,n-out.length);
+    top.forEach(p => {
+      out.push({ name: p.name, headshot_url: p.headshot_url, team: "Amherst", stat: `${p.pts} PTS` });
+    });
+
+    return out.slice(0,n);
+  }
+
+  function extractScoringSummary(g){
+    // If scoring entries exist, format them. Otherwise return empty.
+    const s = Array.isArray(g.scoring) ? g.scoring : [];
+    if(!s.length) return [];
+
+    const out = [];
+    s.forEach(ev => {
+      const period = safeStr(ev.period || ev.per || ev.p || ev.frame || "");
+      const time = safeStr(ev.time || ev.t || ev.clock || "");
+      const team = safeStr(ev.team || ev.team_name || ev.club || "");
+      const scorer = safeStr(ev.scorer || ev.player || ev.goal_scorer || ev.name || "");
+      const a1 = safeStr(ev.a1 || ev.assist1 || ev.primary_assist || "");
+      const a2 = safeStr(ev.a2 || ev.assist2 || ev.secondary_assist || "");
+      const detailParts = [];
+      if(time) detailParts.push(time);
+      if(team) detailParts.push(team);
+      if(scorer) detailParts.push(scorer);
+      if(a1 || a2) detailParts.push([a1,a2].filter(Boolean).join(", "));
+      const title = scorer ? scorer : (team ? team + " goal" : "Goal");
+      out.push({ period: period ? `P${period}` : "", title, detail: detailParts.join(" • ") });
+    });
+
+    return out;
+  }
+
+  // ============================
+  // Standings slide
+  // ============================
+  function renderStandings(standings, meTeam){
+    dom.standingsTable.innerHTML = "";
+    if(!standings.length){
+      dom.standingsTable.innerHTML = emptyState("Standings not available.");
+      dom.storylines.innerHTML = emptyState("No storylines yet.");
+      return;
+    }
+
+    const hdr = document.createElement("div");
+    hdr.className = "hdr";
+    hdr.innerHTML = `<div></div><div>Team</div><div style="text-align:right;">GP</div><div style="text-align:right;">W</div><div style="text-align:right;">L</div><div style="text-align:right;">OT</div><div style="text-align:right;">PTS</div>`;
+    dom.standingsTable.appendChild(hdr);
+
+    const topN = standings.slice(0, 10);
+
+    topN.forEach((r, idx) => {
+      const el = document.createElement("div");
+      el.className = "r" + (r.team?.slug === CONFIG.HOME_TEAM_SLUG ? " me" : "") + (idx === CONFIG.PLAYOFF_SEEDS ? " cut" : "");
+      el.innerHTML = `
+        <div class="pos">${idx+1}</div>
+        <div class="tn">
+          ${logoHtml(r.team)}
+          <div class="nm" title="${escapeHtml(r.team?.name||"")}">${escapeHtml(r.team?.name || "")}</div>
+        </div>
+        <div class="num">${r.gp ?? "—"}</div>
+        <div class="num">${r.w ?? "—"}</div>
+        <div class="num">${r.l ?? "—"}</div>
+        <div class="num">${r.ot ?? "—"}</div>
+        <div class="num">${r.pts ?? "—"}</div>
+      `;
+      dom.standingsTable.appendChild(el);
+    });
+
+    // Storylines
+    dom.storylines.innerHTML = "";
+    const lines = buildStandingsStorylines(standings);
+    if(!lines.length){
+      dom.storylines.innerHTML = emptyState("No storylines yet.");
+      return;
+    }
+    lines.slice(0,6).forEach(l => {
+      const el = document.createElement("div");
+      el.className = "row";
+      el.innerHTML = `
+        <div style="min-width:0;">
+          <div style="font-weight:950; font-size:13px;">${escapeHtml(l.title)}</div>
+          <div class="meta">
+            <span>${escapeHtml(l.detail)}</span>
+          </div>
+        </div>
+        <div class="pill"><span class="ic">${escapeHtml(l.icon)}</span><b>${escapeHtml(l.pill)}</b></div>
+      `;
+      dom.storylines.appendChild(el);
+    });
+  }
+
+  function buildStandingsStorylines(rows){
+    if(!rows.length) return [];
+    const out = [];
+    const top = rows[0];
+    const me = rows.find(r => r.team?.slug === CONFIG.HOME_TEAM_SLUG);
+
+    if(top?.team?.name && top.pts!=null){
+      out.push({ icon:"👑", pill:"LEAD", title:`${top.team.name} on top`, detail:`They lead the league with ${top.pts} points.`});
+    }
+
+    if(me){
+      const idx = rows.indexOf(me) + 1;
+      out.push({ icon:"🏁", pill:"RAMS", title:`Ramblers are #${idx}`, detail:`Record ${safeNum(me.w)}-${safeNum(me.l)}-${safeNum(me.ot)} • ${safeNum(me.pts)} points.`});
+      const above = rows[idx-2] || null;
+      const below = rows[idx] || null;
+      if(above && above.pts!=null && me.pts!=null){
+        const diff = safeNum(above.pts) - safeNum(me.pts);
+        out.push({ icon:"⬆️", pill:"CHASE", title:`Chasing ${above.team.name}`, detail:`Just ${diff} points back of the team ahead.`});
+      }
+      if(below && below.pts!=null && me.pts!=null){
+        const diff = safeNum(me.pts) - safeNum(below.pts);
+        out.push({ icon:"⬇️", pill:"BUFFER", title:`Ahead of ${below.team.name}`, detail:`A ${diff} point cushion over the next team.`});
+      }
+    }
+
+    // Tight top race
+    if(rows.length >= 3){
+      const pts1 = safeNum(rows[0].pts, 0);
+      const pts3 = safeNum(rows[2].pts, 0);
+      const spread = pts1 - pts3;
+      out.push({ icon:"🔥", pill:"TIGHT", title:"Top of the table is tight", detail:`1st to 3rd separated by ${spread} points.`});
+    }
+
+    // Playoff bubble (generic)
+    const cutIdx = clamp(CONFIG.PLAYOFF_SEEDS, 2, rows.length-1);
+    const seed = rows[cutIdx-1];
+    const firstOut = rows[cutIdx];
+    if(seed && firstOut && seed.pts!=null && firstOut.pts!=null){
+      const diff = safeNum(seed.pts) - safeNum(firstOut.pts);
+      out.push({ icon:"🎟️", pill:"BUBBLE", title:"Playoff line watch", detail:`${seed.team.name} holds the last spot by ${diff} points over ${firstOut.team.name}.`});
+    }
+
+    return out;
+  }
+
+  // ============================
+  // League slide
+  // ============================
+  async function renderLeague(teamMap, games, meTeam, overridesRaw){
+    // League next games: from games.json filtered to MHL (best effort)
+    const now = nowLocal();
+    const mhl = games
+      .filter(g => g.dt && g.dt >= now)
+      .filter(g => (g.league || "").toUpperCase().includes(CONFIG.PRIMARY_LEAGUE))
+      .sort((a,b) => a.dt - b.dt)
+      .slice(0, CONFIG.LEAGUE_NEXT_GAMES);
+
+    dom.leagueNextGames.innerHTML = "";
+    if(!mhl.length){
+      dom.leagueNextGames.innerHTML = emptyState("No MHL games found in schedule.");
+    }else{
+      mhl.forEach(g => {
+        const el = document.createElement("div");
+        el.className = "row";
+        const isRams = (g.home?.slug === CONFIG.HOME_TEAM_SLUG || g.away?.slug === CONFIG.HOME_TEAM_SLUG);
+        el.style.borderColor = isRams ? "rgba(var(--accent-rgb), .42)" : "";
+        el.style.background = isRams ? "rgba(var(--accent-rgb), .14)" : "";
+        el.innerHTML = `
+          <div class="team" style="min-width:0;">
+            ${logoHtml(g.away)}
+            <div style="min-width:0;">
+              <div class="nm">${escapeHtml(g.away?.name || "")} <span style="opacity:.4;">@</span> ${escapeHtml(g.home?.name || "")}</div>
+              <div class="sub">${g.dt ? fmtShortDayTime(g.dt) : ""}${g.venue ? " • " + escapeHtml(truncate(g.venue, 28)) : ""}</div>
+            </div>
+          </div>
+          <div class="pill"><span class="ic">🏒</span><b>MHL</b></div>
+        `;
+        dom.leagueNextGames.appendChild(el);
+      });
+    }
+
+    // League leaders: try to compute from rosters if available
+    const leaders = await computeLeagueLeaders(teamMap);
+
+    dom.leagueLeaders.innerHTML = "";
+    if(!leaders.length){
+      dom.leagueLeaders.innerHTML = emptyState("League leaders not available.");
+    }else{
+      leaders.slice(0, CONFIG.LEAGUE_LEADERS).forEach((p, idx) => {
+        const el = document.createElement("div");
+        el.className = "leaderRow";
+        el.innerHTML = `
+          <div class="rank">${idx+1}</div>
+          <div class="playerLine" style="min-width:0;">
+            ${headshotHtml(p)}
+            <div style="min-width:0;">
+              <div class="playerName">${escapeHtml(p.name)}</div>
+              <div class="playerSub">${escapeHtml(p.team || "")}</div>
+            </div>
+          </div>
+          <div class="statBox" style="text-align:right;">
+            <div class="big">${escapeHtml(p.stat)}</div>
+            <div class="lbl">${escapeHtml(p.lbl)}</div>
+          </div>
+        `;
+        dom.leagueLeaders.appendChild(el);
+      });
+    }
+
+    dom.leagueSub.textContent = leaders.length ? "League scoring leaders (computed from team rosters)" : "Schedule + standings snapshot";
+  }
+
+  async function computeLeagueLeaders(teamMap){
+    // Strategy:
+    // 1) Get all MHL team slugs from teams.json
+    // 2) Fetch each roster JSON (cached) and extract skaters points
+    const teams = Array.from(teamMap.bySlug.values())
+      .filter(t => (t.league || "").toUpperCase().includes(CONFIG.PRIMARY_LEAGUE));
+
+    // If teams.json doesn't have league fields, fallback to fetching known set might be risky;
+    // so we only proceed if we have a reasonable list.
+    if(!teams.length || teams.length > 40) return [];
+
+    const rosterUrls = teams.map(t => dataUrl(`rosters/${t.slug}.json`));
+
+    // Limit concurrency a bit for Raspberry Pi friendliness
+    const concurrency = 4;
+    const results = [];
+
+    for(let i=0; i<rosterUrls.length; i+=concurrency){
+      const slice = rosterUrls.slice(i, i+concurrency);
+      const res = await Promise.allSettled(slice.map(u => fetchJson(u, 24*60)));
+      res.forEach((r, idx) => {
+        if(r.status !== "fulfilled") return;
+        const url = slice[idx];
+        const slug = url.split("/").pop().replace(".json","");
+        const team = teamMap.bySlug.get(slug);
+        const players = normalizeRoster(r.value.data || []);
+        // keep skaters only for points leaders
+        players
+          .filter(p => !String(p.pos).toLowerCase().includes("g"))
+          .forEach(p => {
+            results.push({
+              name: p.name,
+              headshot_url: p.headshot_url || "",
+              team: team?.name || slug,
+              pts: p.pts,
+              g: p.g,
+              a: p.a,
+              gp: p.gp
+            });
+          });
+      });
+    }
+
+    // Remove empty stats
+    const filtered = results.filter(p => safeNum(p.pts, 0) > 0);
+
+    filtered.sort((a,b) => (b.pts - a.pts) || (b.g - a.g) || (a.name.localeCompare(b.name)));
+
+    const top = filtered.slice(0, CONFIG.LEAGUE_LEADERS).map(p => ({
+      name: p.name,
+      headshot_url: p.headshot_url,
+      team: p.team,
+      stat: `${p.pts}`,
+      lbl: "PTS"
+    }));
+
+    return top;
+  }
+
+  // ============================
+  // Ticker
+  // ============================
+  function renderTicker({games, standings, ramGames, roster, overrides, fromCache}){
+    const items = [];
+
+    // Overrides banner
+    const banner = safeStr(overrides?.banner || overrides?.ticker || overrides?.message || overrides?.announcement || "");
+    if(banner) items.push({ b:"Announcement", t: banner });
+
+    // Next Ramblers game
+    const now = nowLocal();
+    const nextR = games
+      .filter(g => g.dt && g.dt >= now)
+      .filter(g => g.home?.slug === CONFIG.HOME_TEAM_SLUG || g.away?.slug === CONFIG.HOME_TEAM_SLUG)
+      .sort((a,b) => a.dt - b.dt)[0];
+    if(nextR){
+      items.push({ b:"Next", t: `${nextR.away?.name} @ ${nextR.home?.name} • ${fmtShortDayTime(nextR.dt)} • ${nextR.venue || ""}` });
+    }
+
+    // Last game result
+    const last = ramGames.filter(g => g.dt).sort((a,b)=>b.dt-a.dt)[0];
+    if(last && last.home_score!=null && last.away_score!=null){
+      items.push({ b:"Last", t: `${last.away?.name} ${last.away_score} — ${last.home?.name} ${last.home_score}` });
+    }
+
+    // Standings note
+    const me = standings.find(r => r.team?.slug === CONFIG.HOME_TEAM_SLUG);
+    if(me){
+      const idx = standings.indexOf(me) + 1;
+      items.push({ b:"Standings", t: `Ramblers are #${idx} • ${safeNum(me.pts)} pts • ${safeNum(me.w)}-${safeNum(me.l)}-${safeNum(me.ot)}` });
+    }
+
+    // Player of the moment (random from roster)
+    if(roster && roster.length){
+      const p = roster[Math.floor(Math.random()*roster.length)];
+      items.push({ b:"Player", t: `${p.name}${p.num ? " #" + p.num : ""} • ${p.pts} pts (${p.g}G, ${p.a}A)` });
+    }
+
+    // Data note
+    items.push({ b:"Update", t: `Data refreshes daily • Screen refreshes every ${CONFIG.REFRESH_MINUTES} minutes` + (fromCache ? " • (cached mode)" : "") });
+
+    // Duplicate for seamless scroll
+    const doubled = items.concat(items);
+
+    dom.tickerTrack.innerHTML = doubled.map(it => `
+      <span class="tick-item"><span class="b">${escapeHtml(it.b)}:</span> ${escapeHtml(it.t)} <span class="sep">•</span></span>
+    `).join("");
+  }
+
+  // ============================
+  // Auto refresh
+  // ============================
+  function startAutoRefresh(){
+    const ms = CONFIG.REFRESH_MINUTES * 60 * 1000;
+    setInterval(() => {
+      loadAndRender().catch(err => {
+        console.error(err);
+        setStatus(false, `<b>Offline</b> • showing last cached data`);
+      });
+    }, ms);
+  }
+
+  // ============================
+  // Boot
+  // ============================
+  initClock();
+  collectSlides();
+  startShow();
+  startAutoRefresh();
+
+  loadAndRender().catch(err => {
+    console.error(err);
+    setStatus(false, `<b>Unable to load data</b> • check JSON paths`);
+  });
+
+})();
+</script>
+</body>
+</html>

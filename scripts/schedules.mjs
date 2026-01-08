@@ -1,7 +1,6 @@
 // scripts/schedules.mjs
 // Builds schedule events from:
 //  - Amherst Ramblers ICS (URL via env RAMBLERS_ICS_URL or local data/ramblers.ics)
-//  - BSHL schedule page (table-based parsing)
 // Emits normalized events used by build_all.mjs
 
 import fetch from 'node-fetch';
@@ -179,76 +178,3 @@ export async function fetchRamblersFromICS({ nameToSlug }){
   }
 }
 
-/* ========================= BSHL (Ducks) =========================
-   Table-driven parser to avoid stray weekday/month words leaking into venue. */
-// ================= BSHL (Ducks) — robust text parser =================
-const BSHL_SCHEDULE_URL = 'https://www.beausejourseniorhockeyleague.ca/schedule.php';
-
-export async function fetchDucksFromBSHL({ nameToSlug }){
-  try{
-    const html = await safeFetchText(BSHL_SCHEDULE_URL, 'BSHL');
-    if(!html){ console.warn('[BSHL] empty HTML'); return []; }
-
-    // Use plain text of the page; lines look like:
-    // "Friday, October 10th, 2025 Bouctouche  -- Miramichi  --  8:15 PM Civic"
-    const text = html.replace(/<[^>]+>/g,' ')
-                     .replace(/&nbsp;/g,' ')
-                     .replace(/\s+/g,' ')
-                     .trim();
-
-    // Split into likely rows on weekday markers
-    const rows = text.split(/(?=Sunday,|Monday,|Tuesday,|Wednesday,|Thursday,|Friday,|Saturday,)/g);
-
-    const monthIdx = m => ({january:0,february:1,march:2,april:3,may:4,june:5,july:6,august:7,september:8,october:9,november:10,december:11})[m.toLowerCase()] ?? null;
-    const norm = s => (s||'').replace(/\s+/g,' ').trim();
-    const lo = s => norm(s).toLowerCase();
-    const timeRe = /(\d{1,2}):(\d{2})\s*([AP]M)/i;
-    const dateRe = /(Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday),\s+([A-Za-z]+)\s+(\d{1,2})(?:st|nd|rd|th)?,\s+(\d{4})/i;
-
-    const events = [];
-    for(const raw of rows){
-      const line = norm(raw);
-      if(!dateRe.test(line) || !line.includes('--')) continue;
-
-      const dm = line.match(dateRe);
-      const mi = monthIdx(dm[2]); const day = +dm[3]; const year = +dm[4];
-      if(mi==null || !year) continue;
-
-      // Strip the date portion so we're left with "Away -- Home -- time venue"
-      const afterDate = line.slice(dm[0].length).trim();
-
-      const parts = afterDate.split('--').map(s=>norm(s));
-      if(parts.length < 3) continue;
-
-      const awayN = parts[0];
-      const homeN = parts[1];
-      const timeVenue = parts[2];
-
-      const tm = timeVenue.match(timeRe);
-      const HH = tm ? ((parseInt(tm[1],10) % 12) + (/p/i.test(tm[3]) ? 12 : 0)) : 19;
-      const MM = tm ? parseInt(tm[2],10) : 0;
-      const venue = tm ? norm(timeVenue.replace(tm[0], '')) : norm(timeVenue);
-
-      const homeSlug = nameToSlug.get(lo(homeN));
-      const awaySlug = nameToSlug.get(lo(awayN));
-      if(!homeSlug || !awaySlug) { /* unmapped team; skip */ continue; }
-
-      const startISO = atlanticISOFromLocalParts(year, mi, day, HH, MM, 0);
-
-      events.push({
-        league: 'BSHL',
-        home_team: homeN, away_team: awayN,
-        home_slug: homeSlug, away_slug: awaySlug,
-        start: startISO,
-        location: venue
-      });
-    }
-
-    events.sort((a,b)=> new Date(a.start)-new Date(b.start));
-    console.log(`[schedules/BSHL] parsed=${events.length}`);
-    return events;
-  }catch(e){
-    console.warn('[BSHL] fatal:', e.message);
-    return [];
-  }
-}
