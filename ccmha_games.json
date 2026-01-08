@@ -1,16 +1,7 @@
 {
-  "generated_at": "2026-01-07T06:57:56Z",
+  "generated_at": "2026-01-08T06:04:14Z",
   "timezone": "America/Halifax",
   "games": [
-    {
-      "league": "U15-AA",
-      "home_team": "Truro Bearcats",
-      "away_team": "Cumberland Ramblers",
-      "start": "2026-01-09T20:00:00-04:00",
-      "end": "2026-01-09T21:30:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
     {
       "league": "U9-INT",
       "home_team": "SCMHA U9 INTERMEDIATE WHITE",

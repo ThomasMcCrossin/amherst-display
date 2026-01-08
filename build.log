@@ -8,7 +8,6 @@
 [rosters] Fetching from API: team_id=2
 [rosters] Fetching stats from API: team_id=2
 [rosters/edmundston-blizzard] Processing 27 players (downloading headshots)
-[rosters] Downloaded: 0-noah-larochelle.jpg
 [rosters] Downloaded: 1-rylan-benner.jpg
 [rosters] Downloaded: 7-will-carroll.jpg
 [rosters] Downloaded: 8-samuel-cloutier.jpg
@@ -23,12 +22,13 @@
 [rosters] Downloaded: 19-neka-jean.jpg
 [rosters] Downloaded: 20-eliott-guenette.jpg
 [rosters] Downloaded: 22-benjamin-damphousse.jpg
+[rosters] Downloaded: 24-noah-larochelle.jpg
 [rosters] Downloaded: 27-fran-ois-xavier-mercier.jpg
 [rosters] Downloaded: 28-charles-ric-tremblay.jpg
 [rosters] Downloaded: 31-cedric-mass.jpg
+[rosters] Downloaded: 55-jack-brown.jpg
 [rosters] Downloaded: 77-lucas-fortin.jpg
 [rosters] Downloaded: 79-william-labranche.jpg
-[rosters] Downloaded: 81-jack-brown.jpg
 [rosters] Downloaded: 81-mile-fournier.jpg
 [rosters] Downloaded: 93-michael-derbidge.jpg
 [rosters] Downloaded: 99-hayden-aubin.jpg
@@ -136,11 +136,12 @@
 [rosters] Fetching from API: team_id=6
 [rosters] Fetching stats from API: team_id=6
 [rosters/west-kent-steamers] Processing 28 players (downloading headshots)
+[rosters] Downloaded: 1-olivier-bacon.jpg
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
 [rosters] Downloaded: 6-th-o-lebrun.jpg
 [rosters] Downloaded: 7-sam-bowness.jpg
-[rosters] Skipping placeholder image
+[rosters] Downloaded: 8-tyler-wood.jpg
 [rosters] Downloaded: 9-noah-collette.jpg
 [rosters] Downloaded: 10-cam-white.jpg
 [rosters] Downloaded: 11-jude-campbell.jpg
@@ -161,7 +162,6 @@
 [rosters] Downloaded: 88-pierre-marc-minville.jpg
 [rosters] Downloaded: 91-victor-lalibert.jpg
 [rosters] Downloaded: 96-brody-breau.jpg
-[rosters] Skipping placeholder image
 [rosters] Downloaded: 120-louis-simon-boucher.jpg
 [rosters/west-kent-steamers] Wrote rosters/west-kent-steamers.json (28 players)
 [rosters/pictou-county-crushers] Fetching roster for Pictou-County-Crushers...
@@ -408,6 +408,6 @@
 [schedules/ICS] parsed=52
 [schedules] events=52  ramblers=52
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 143 total schedule items
-[CCMHA] Found 3 games at Amherst Stadium
-[ccmha] games=3
+[CCMHA] API returned 151 total schedule items
+[CCMHA] Found 2 games at Amherst Stadium
+[ccmha] games=2

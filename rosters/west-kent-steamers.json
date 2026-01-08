@@ -5,9 +5,46 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 6,
-  "updated_at": "2026-01-07T06:57:34.250Z",
+  "updated_at": "2026-01-08T06:03:49.852Z",
   "player_count": 28,
   "players": [
+    {
+      "player_id": "mhl-3918",
+      "number": "1",
+      "first_name": "Olivier",
+      "last_name": "Bacon",
+      "name": "Olivier Bacon",
+      "position": "G",
+      "height": "6'0''",
+      "height_inches": 72,
+      "weight": 180,
+      "shoots": "R",
+      "birthdate": "2006-05-18",
+      "birth_year": "'06",
+      "age": 20,
+      "hometown": "Sainte-Julie, QC",
+      "birthplace": "Sainte-Julie, QC",
+      "rookie": false,
+      "veteran": false,
+      "headshot": "assets/headshots/West-Kent-Steamers/1-olivier-bacon.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3918.jpg",
+      "stats": {
+        "games_played": 1,
+        "wins": 0,
+        "losses": 0,
+        "ot_losses": 0,
+        "minutes_played": 40,
+        "saves": 38,
+        "shots": 42,
+        "goals_against": 4,
+        "shutouts": 0,
+        "save_percentage": 0.905,
+        "goals_against_average": 6
+      },
+      "hockeytech_id": "3918",
+      "person_id": "4578",
+      "flags": []
+    },
     {
       "player_id": "mhl-3850",
       "number": "1",
@@ -150,6 +187,8 @@
       "birthplace": "Cornwall, PE, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/West-Kent-Steamers/8-tyler-wood.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3923.jpg",
       "stats": {},
       "hockeytech_id": "3923",
       "person_id": "4586",
@@ -721,7 +760,8 @@
       "hockeytech_id": "3443",
       "person_id": "4006",
       "flags": [
-        "ht-rookie"
+        "ht-rookie",
+        "ht-affiliate"
       ]
     },
     {
@@ -964,41 +1004,6 @@
       ]
     },
     {
-      "player_id": "mhl-3918",
-      "number": "97",
-      "first_name": "Olivier",
-      "last_name": "Bacon",
-      "name": "Olivier Bacon",
-      "position": "G",
-      "height": "6'0''",
-      "height_inches": 72,
-      "weight": 180,
-      "shoots": "R",
-      "birthdate": "2006-05-18",
-      "birth_year": "'06",
-      "age": 20,
-      "hometown": "Sainte-Julie, QC",
-      "birthplace": "Sainte-Julie, QC",
-      "rookie": false,
-      "veteran": false,
-      "stats": {
-        "games_played": 1,
-        "wins": 0,
-        "losses": 0,
-        "ot_losses": 0,
-        "minutes_played": 40,
-        "saves": 38,
-        "shots": 42,
-        "goals_against": 4,
-        "shutouts": 0,
-        "save_percentage": 0.905,
-        "goals_against_average": 6
-      },
-      "hockeytech_id": "3918",
-      "person_id": "4578",
-      "flags": []
-    },
-    {
       "player_id": "mhl-3724",
       "number": "120",
       "first_name": "Louis-Simon",
@@ -1021,7 +1026,9 @@
       "stats": {},
       "hockeytech_id": "3724",
       "person_id": "4339",
-      "flags": []
+      "flags": [
+        "ht-affiliate"
+      ]
     },
     {
       "player_id": "mhl-undefined",
