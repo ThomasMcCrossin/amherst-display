@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 1,
-  "updated_at": "2026-01-08T12:49:49.754Z",
+  "updated_at": "2026-01-08T20:44:22.594Z",
   "player_count": 32,
   "players": [
     {
@@ -911,7 +911,7 @@
       "last_name": "Hayes",
       "name": "Ryan Hayes",
       "position": "D",
-      "height": "6'3",
+      "height": "6'03",
       "height_inches": 75,
       "weight": 195,
       "shoots": "L",
