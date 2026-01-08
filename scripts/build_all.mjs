@@ -11,6 +11,7 @@ import { buildMHLStandings } from './standings.mjs';
 import { fetchCCMHAGames } from './ccmha.mjs';
 import { buildRosters } from './rosters.mjs';
 import { buildRamblersGames } from './games.mjs';
+import { buildLeagueStats } from './league_stats.mjs';
 
 const TZ = 'America/Halifax';
 
@@ -191,6 +192,26 @@ async function buildGamesWrapper() {
   }
 }
 
+async function buildLeagueStatsWrapper() {
+  try {
+    const stats = await buildLeagueStats();
+    console.log(`[league] Complete! Leaders=${stats.leaders?.points?.length || 0}`);
+  } catch(e) {
+    console.warn('[league] failed:', e.message);
+    // Write empty league stats as fallback
+    writeJson('league_stats.json', {
+      generated_at: nowISO(),
+      season: '2024-25',
+      league: 'MHL',
+      leaders: { points: [], goals: [], assists: [], ppg: [], rookies: [] },
+      goalies: { sv_pct: [], gaa: [], wins: [], shutouts: [] },
+      streaks: { goals: [], points: [] },
+      standings: [],
+      special_teams: { powerplay: [], penaltykill: [] }
+    });
+  }
+}
+
 async function main(){
   // 1) Rosters (can take time, but good to do early)
   await buildRostersWrapper();
@@ -207,13 +228,17 @@ async function main(){
   // 5) CCMHA minor hockey games
   await buildCCMHA();
 
-  // 6) Ensure base files exist (first run safety)
+  // 6) League-wide stats (leaders, streaks, special teams)
+  await buildLeagueStatsWrapper();
+
+  // 7) Ensure base files exist (first run safety)
   if (!existsSync('rosters/index.json'))          writeJson('rosters/index.json',          { generated_at: nowISO(), league: 'MHL', team_count: 0, teams: [] });
   if (!existsSync('games/amherst-ramblers.json')) writeJson('games/amherst-ramblers.json', { generated_at: nowISO(), team_slug: 'amherst-ramblers', season: '2024-25', summary: {}, games: [] });
   if (!existsSync('games.json'))                  writeJson('games.json',                  { generated_at: nowISO(), timezone: TZ, events: [] });
   if (!existsSync('next_games.json'))             writeJson('next_games.json',             { generated_at: nowISO(), timezone: TZ, teams: [] });
   if (!existsSync('standings_mhl.json'))          writeJson('standings_mhl.json',          { generated_at: nowISO(), season: '', league: 'MHL',  rows: [] });
   if (!existsSync('ccmha_games.json'))            writeJson('ccmha_games.json',            { generated_at: nowISO(), timezone: TZ, games: [] });
+  if (!existsSync('league_stats.json'))           writeJson('league_stats.json',           { generated_at: nowISO(), season: '2024-25', league: 'MHL', leaders: {}, goalies: {}, streaks: {}, standings: [], special_teams: {} });
 }
 
 main().catch(e => { console.error(e); process.exit(1); });

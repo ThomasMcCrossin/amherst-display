@@ -36,6 +36,7 @@
     roster: [],
     standings: null,
     schedule: [],
+    leagueStats: null, // P1: League-wide stats, leaders, streaks
     currentSlide: 0,
     slideTimer: null,
     dataError: false,
@@ -245,9 +246,10 @@
       fetchJson(`rosters/${CONFIG.team}.json`),
       fetchJson('standings_mhl.json'),
       fetchJson('schedule/schedule_mhl.json'),
+      fetchJson('league_stats.json'), // P1: League-wide stats
     ]);
 
-    const [gamesRes, rosterRes, standingsRes, scheduleRes] = results;
+    const [gamesRes, rosterRes, standingsRes, scheduleRes, leagueRes] = results;
 
     if (gamesRes.status === 'fulfilled') {
       STATE.games = gamesRes.value?.games || gamesRes.value || [];
@@ -261,6 +263,9 @@
     if (scheduleRes.status === 'fulfilled') {
       STATE.schedule = scheduleRes.value?.games || scheduleRes.value || [];
     }
+    if (leagueRes.status === 'fulfilled') {
+      STATE.leagueStats = leagueRes.value;
+    }
 
     STATE.lastUpdate = new Date();
     STATE.dataError = results.every(r => r.status === 'rejected');
@@ -270,6 +275,7 @@
       roster: STATE.roster.length,
       standings: STATE.standings?.rows?.length || 0,
       schedule: STATE.schedule.length,
+      leagueLeaders: STATE.leagueStats?.leaders?.points?.length || 0,
     });
   }
 
@@ -969,7 +975,7 @@
   }
 
   // ===========================================================================
-  // SLIDE: LEAGUE
+  // SLIDE: LEAGUE (P1: Enhanced with player scoring leaders & special teams)
   // ===========================================================================
 
   function renderLeague() {
@@ -978,45 +984,107 @@
 
     if (!leaders || !nextGames) return;
 
-    // League leaders - get from standings sorted by points
-    const standings = STATE.standings?.rows || [];
-    const topTeams = [...standings].sort((a, b) => (b.pts || 0) - (a.pts || 0)).slice(0, 5);
+    // P1: Use actual player scoring leaders from league_stats.json
+    const scoringLeaders = STATE.leagueStats?.leaders?.points || [];
 
-    leaders.innerHTML = topTeams.map((team, i) => {
-      const isUs = team.slug === CONFIG.team || (team.team || '').toLowerCase().includes('amherst');
-      return `
-        <div class="leaderRow" ${isUs ? 'style="background:rgba(var(--accent-rgb),.18)"' : ''}>
-          <div class="rank">${i + 1}</div>
-          <div class="logo"><img src="${esc(logoUrl(team.slug))}" alt="" onerror="this.style.display='none'"></div>
-          <div class="who">
-            <div class="playerName">${esc(team.team)}</div>
-            <div class="playerSub">${team.w || 0}-${team.l || 0}-${team.otl || 0}</div>
+    if (scoringLeaders.length > 0) {
+      leaders.innerHTML = scoringLeaders.slice(0, 5).map((player, i) => {
+        const isAmherst = player.team === 'AMH' || (player.team || '').toLowerCase().includes('amherst');
+        return `
+          <div class="leaderRow" ${isAmherst ? 'style="background:rgba(var(--accent-rgb),.18)"' : ''}>
+            <div class="rank">${i + 1}</div>
+            <div class="who">
+              <div class="playerName">${esc(player.name)}${isAmherst ? ' <span style="color:var(--accent)">★</span>' : ''}</div>
+              <div class="playerSub">${esc(player.team)} • ${player.goals || 0}G ${player.assists || 0}A</div>
+            </div>
+            <div class="statBox">
+              <div class="big">${player.points || 0}</div>
+              <div class="lbl">PTS</div>
+            </div>
           </div>
-          <div class="statBox">
-            <div class="big">${team.pts || 0}</div>
-            <div class="lbl">PTS</div>
+        `;
+      }).join('');
+    } else {
+      // Fallback to team standings if no player stats
+      const standings = STATE.standings?.rows || [];
+      const topTeams = [...standings].sort((a, b) => (b.pts || 0) - (a.pts || 0)).slice(0, 5);
+      leaders.innerHTML = topTeams.map((team, i) => {
+        const isUs = team.slug === CONFIG.team || (team.team || '').toLowerCase().includes('amherst');
+        return `
+          <div class="leaderRow" ${isUs ? 'style="background:rgba(var(--accent-rgb),.18)"' : ''}>
+            <div class="rank">${i + 1}</div>
+            <div class="logo"><img src="${esc(logoUrl(team.slug))}" alt="" onerror="this.style.display='none'"></div>
+            <div class="who">
+              <div class="playerName">${esc(team.team)}</div>
+              <div class="playerSub">${team.w || 0}-${team.l || 0}-${team.otl || 0}</div>
+            </div>
+            <div class="statBox">
+              <div class="big">${team.pts || 0}</div>
+              <div class="lbl">PTS</div>
+            </div>
+          </div>
+        `;
+      }).join('') || '<div class="leaderRow">No standings data</div>';
+    }
+
+    // P1: Show special teams rankings for Amherst
+    const specialTeams = STATE.leagueStats?.special_teams;
+    const ppRanking = specialTeams?.powerplay?.findIndex(t => t.code === 'AMH') + 1;
+    const pkRanking = specialTeams?.penaltykill?.findIndex(t => t.code === 'AMH') + 1;
+    const amherstPP = specialTeams?.powerplay?.find(t => t.code === 'AMH');
+    const amherstPK = specialTeams?.penaltykill?.find(t => t.code === 'AMH');
+
+    let specialTeamsHtml = '';
+    if (amherstPP || amherstPK) {
+      specialTeamsHtml = `
+        <div class="row" style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">
+          <div class="meta" style="flex:1">
+            <span class="b">Ramblers Special Teams</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="meta" style="gap:24px">
+            ${amherstPP ? `<span>PP: <b>${amherstPP.pp_pct}%</b> (#${ppRanking})</span>` : ''}
+            ${amherstPK ? `<span>PK: <b>${amherstPK.pk_pct}%</b> (#${pkRanking})</span>` : ''}
           </div>
         </div>
       `;
-    }).join('') || '<div class="leaderRow">No standings data</div>';
+    }
 
-    // Next MHL games (from schedule)
+    // Next MHL games (from schedule) - or show goalie leaders if no schedule
     const now = new Date();
     const upcoming = (STATE.schedule || [])
       .filter(g => new Date(g.date || g.game_date) > now)
       .sort((a, b) => new Date(a.date || a.game_date) - new Date(b.date || b.game_date))
-      .slice(0, 5);
+      .slice(0, 3);
 
-    nextGames.innerHTML = upcoming.map(g => `
-      <div class="row">
-        <div class="meta">
-          <span>${esc(g.away_team || g.awayTeam?.name || 'TBD')}</span>
-          <span>@</span>
-          <span>${esc(g.home_team || g.homeTeam?.name || 'TBD')}</span>
+    if (upcoming.length > 0) {
+      nextGames.innerHTML = upcoming.map(g => `
+        <div class="row">
+          <div class="meta">
+            <span>${esc(g.away_team || g.awayTeam?.name || 'TBD')}</span>
+            <span>@</span>
+            <span>${esc(g.home_team || g.homeTeam?.name || 'TBD')}</span>
+          </div>
+          <div class="pill">${esc(fmtDateTime(g.date || g.game_date))}</div>
         </div>
-        <div class="pill">${esc(fmtDateTime(g.date || g.game_date))}</div>
-      </div>
-    `).join('') || '<div class="row">No upcoming games</div>';
+      `).join('') + specialTeamsHtml;
+    } else {
+      // Show goalie leaders instead
+      const goalieLeaders = STATE.leagueStats?.goalies?.sv_pct || [];
+      nextGames.innerHTML = goalieLeaders.slice(0, 3).map((goalie, i) => {
+        const isAmherst = goalie.team === 'AMH';
+        return `
+          <div class="row" ${isAmherst ? 'style="background:rgba(var(--accent-rgb),.12)"' : ''}>
+            <div class="meta">
+              <span class="b">${i + 1}.</span>
+              <span>${esc(goalie.name)} (${esc(goalie.team)})</span>
+            </div>
+            <div class="pill">${(goalie.sv_pct || 0).toFixed(3).slice(1)} SV%</div>
+          </div>
+        `;
+      }).join('') + specialTeamsHtml || '<div class="row">No data</div>';
+    }
   }
 
   // ===========================================================================
@@ -1062,6 +1130,51 @@
       const ourScore = getOurScore(last);
       const theirScore = getTheirScore(last);
       items.push(`<span class="b">Last Game</span> ${won ? 'W' : 'L'} ${ourScore}-${theirScore} vs ${shortName(opponent.name)}`);
+    }
+
+    // P1: Add league scoring leader
+    const scoringLeader = STATE.leagueStats?.leaders?.points?.[0];
+    if (scoringLeader) {
+      const isAmherst = scoringLeader.team === 'AMH';
+      items.push(`<span class="b">MHL Points Leader</span> ${scoringLeader.name} (${scoringLeader.team}) ${scoringLeader.points} PTS${isAmherst ? ' ★' : ''}`);
+    }
+
+    // P1: Add Amherst players in top 10 scoring (if any besides leader)
+    const top10 = STATE.leagueStats?.leaders?.points?.slice(0, 10) || [];
+    const amherstInTop10 = top10.filter(p => p.team === 'AMH');
+    amherstInTop10.forEach((p, idx) => {
+      const rank = top10.findIndex(x => x.player_id === p.player_id) + 1;
+      if (rank > 1) { // Skip leader, already shown
+        items.push(`<span class="b">${p.name}</span> #${rank} in MHL scoring • ${p.points} PTS (${p.goals}G ${p.assists}A)`);
+      }
+    });
+
+    // P1: Add hot streaks for Amherst players
+    const goalStreaks = STATE.leagueStats?.streaks?.goals || [];
+    const pointStreaks = STATE.leagueStats?.streaks?.points || [];
+    const amherstGoalStreak = goalStreaks.find(s => s.team === 'AMH' && s.active);
+    const amherstPointStreak = pointStreaks.find(s => s.team === 'AMH' && s.active);
+
+    if (amherstGoalStreak) {
+      items.push(`<span class="b">🔥 Hot Streak</span> ${amherstGoalStreak.name} has scored in ${amherstGoalStreak.streak_length} straight games`);
+    }
+    if (amherstPointStreak && amherstPointStreak.player_id !== amherstGoalStreak?.player_id) {
+      items.push(`<span class="b">🔥 Point Streak</span> ${amherstPointStreak.name} has ${amherstPointStreak.streak_length} games with a point`);
+    }
+
+    // P1: Special teams rankings
+    const ppTeams = STATE.leagueStats?.special_teams?.powerplay || [];
+    const pkTeams = STATE.leagueStats?.special_teams?.penaltykill || [];
+    const amherstPP = ppTeams.find(t => t.code === 'AMH');
+    const amherstPK = pkTeams.find(t => t.code === 'AMH');
+    const ppRank = ppTeams.findIndex(t => t.code === 'AMH') + 1;
+    const pkRank = pkTeams.findIndex(t => t.code === 'AMH') + 1;
+
+    if (amherstPP && ppRank <= 3) {
+      items.push(`<span class="b">Power Play</span> Ramblers #${ppRank} in MHL at ${amherstPP.pp_pct}%`);
+    }
+    if (amherstPK && pkRank <= 3) {
+      items.push(`<span class="b">Penalty Kill</span> Ramblers #${pkRank} in MHL at ${amherstPK.pk_pct}%`);
     }
 
     // Add promos/announcements HERE (not in slides!)
