@@ -7,9 +7,8 @@
 [rosters/edmundston-blizzard] Fetching roster for Edmundston-Blizzard...
 [rosters] Fetching from API: team_id=2
 [rosters] Fetching stats from API: team_id=2
-[rosters/edmundston-blizzard] Processing 27 players (downloading headshots)
+[rosters/edmundston-blizzard] Processing 28 players (downloading headshots)
 [rosters] Downloaded: 1-rylan-benner.jpg
-[rosters] Downloaded: 7-will-carroll.jpg
 [rosters] Downloaded: 8-samuel-cloutier.jpg
 [rosters] Downloaded: 9-darien-thomson.jpg
 [rosters] Downloaded: 10-nicolas-dub.jpg
@@ -32,9 +31,11 @@
 [rosters] Downloaded: 81-mile-fournier.jpg
 [rosters] Downloaded: 93-michael-derbidge.jpg
 [rosters] Downloaded: 99-hayden-aubin.jpg
+[rosters] Downloaded: 99-felix-sylvain-hache.jpg
+[rosters] Downloaded: 99-olivier-st-onge.jpg
 [rosters] Skipping placeholder image
 [rosters] Downloaded: 99-brayden-waterhouse.jpg
-[rosters/edmundston-blizzard] Wrote rosters/edmundston-blizzard.json (27 players)
+[rosters/edmundston-blizzard] Wrote rosters/edmundston-blizzard.json (28 players)
 [rosters/truro-bearcats] Fetching roster for Truro-Bearcats...
 [rosters] Fetching from API: team_id=3
 [rosters] Fetching stats from API: team_id=3
@@ -284,7 +285,7 @@
 [rosters] Downloaded: 18-cade-moser.jpg
 [rosters] Downloaded: 19-brennan-murphy.jpg
 [rosters] Downloaded: 21-ryder-howatt.jpg
-[rosters] Skipping placeholder image
+[rosters] Downloaded: 24-aidan-souligny.jpg
 [rosters] Skipping placeholder image
 [rosters] Downloaded: 33-kolton-bourret.jpg
 [rosters] Downloaded: 44-matthew-maclean.jpg
@@ -332,6 +333,7 @@
 [rosters] Downloaded: 3-lynden-donald-gorman.jpg
 [rosters] Downloaded: 4-jameson-george.jpg
 [rosters] Downloaded: 7-sam-rocca.jpg
+[rosters] Downloaded: 8-will-carroll.jpg
 [rosters] Downloaded: 9-tyson-snow.jpg
 [rosters] Downloaded: 10-carter-bromley.jpg
 [rosters] Skipping placeholder image
@@ -356,7 +358,6 @@
 [rosters] Skipping placeholder image
 [rosters] Downloaded: 120-jesse-dunlap.jpg
 [rosters] Downloaded: 120-dax-fraser.jpg
-[rosters] Downloaded: 120-felix-sylvain-hache.jpg
 [rosters] Downloaded: 120-carter-mcillwraith.jpg
 [rosters] Downloaded: 120-isaiah-rogerson.jpg
 [rosters/chaleur-lightning] Wrote rosters/chaleur-lightning.json (32 players)
@@ -409,9 +410,9 @@
 [schedules/ICS] parsed=52
 [schedules] events=52  ramblers=52
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 151 total schedule items
-[CCMHA] Found 2 games at Amherst Stadium
-[ccmha] games=2
+[CCMHA] API returned 150 total schedule items
+[CCMHA] Found 1 games at Amherst Stadium
+[ccmha] games=1
 [league] Building league-wide statistics...
 
 [league] Fetching skater leaders...
@@ -420,7 +421,7 @@
 
 [league] Fetching goalie leaders...
 [league] Fetching players...
-[league] Found 14 qualified goalies
+[league] Found 15 qualified goalies
 
 [league] Fetching player streaks...
 [league] Fetching streaks_player...

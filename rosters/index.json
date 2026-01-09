@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-08T20:44:29.573Z",
+  "generated_at": "2026-01-09T06:57:59.498Z",
   "season": "2024-25",
   "season_id": 41,
   "api_source": "HockeyTech",
@@ -19,7 +19,7 @@
       "team_name": "Edmundston-Blizzard",
       "league": "MHL",
       "team_id": 2,
-      "player_count": 27,
+      "player_count": 28,
       "file": "rosters/edmundston-blizzard.json"
     },
     {

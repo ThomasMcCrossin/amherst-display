@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 21,
-  "updated_at": "2026-01-08T20:44:29.572Z",
+  "updated_at": "2026-01-09T06:57:59.497Z",
   "player_count": 32,
   "players": [
     {
@@ -162,6 +162,31 @@
         "ht-rookie",
         "ht-played-major-junior"
       ]
+    },
+    {
+      "player_id": "mhl-3235",
+      "number": "8",
+      "first_name": "Will",
+      "last_name": "Carroll",
+      "name": "Will Carroll",
+      "position": "C",
+      "height": "6'0",
+      "height_inches": 72,
+      "weight": 185,
+      "shoots": "L",
+      "birthdate": "2007-01-06",
+      "birth_year": "'07",
+      "age": 19,
+      "hometown": "Conception Bay South, NL",
+      "birthplace": "Conception Bay South, NL, ",
+      "rookie": false,
+      "veteran": false,
+      "headshot": "assets/headshots/Chaleur-Lightning/8-will-carroll.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3235.jpg",
+      "stats": {},
+      "hockeytech_id": "3235",
+      "person_id": "3771",
+      "flags": []
     },
     {
       "player_id": "mhl-2378",
@@ -1033,33 +1058,6 @@
       "stats": {},
       "hockeytech_id": "3857",
       "person_id": "4486",
-      "flags": [
-        "ht-affiliate"
-      ]
-    },
-    {
-      "player_id": "mhl-3720",
-      "number": "120",
-      "first_name": "Felix-Sylvain",
-      "last_name": "Hache",
-      "name": "Felix-Sylvain Hache",
-      "position": "RW",
-      "height": "5'11",
-      "height_inches": 71,
-      "weight": 155,
-      "shoots": "L",
-      "birthdate": "2009-05-05",
-      "birth_year": "'09",
-      "age": 17,
-      "hometown": "Le Goulet, NB",
-      "birthplace": "Le Goulet, NB",
-      "rookie": false,
-      "veteran": false,
-      "headshot": "assets/headshots/Chaleur-Lightning/120-felix-sylvain-hache.jpg",
-      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3720.jpg",
-      "stats": {},
-      "hockeytech_id": "3720",
-      "person_id": "4335",
       "flags": [
         "ht-affiliate"
       ]

@@ -1,16 +1,7 @@
 {
-  "generated_at": "2026-01-08T20:44:46Z",
+  "generated_at": "2026-01-09T06:58:18Z",
   "timezone": "America/Halifax",
   "games": [
-    {
-      "league": "U9-INT",
-      "home_team": "SCMHA U9 INTERMEDIATE WHITE",
-      "away_team": "Cumberland Ramblers",
-      "start": "2026-01-10T11:00:00-04:00",
-      "end": "2026-01-10T11:50:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
     {
       "league": "U9-DEV",
       "home_team": "U9 Red Rangers",
