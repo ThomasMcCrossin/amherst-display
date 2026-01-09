@@ -5,8 +5,8 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 6,
-  "updated_at": "2026-01-09T06:57:46.161Z",
-  "player_count": 28,
+  "updated_at": "2026-01-09T19:04:02.921Z",
+  "player_count": 29,
   "players": [
     {
       "player_id": "mhl-3918",
@@ -573,6 +573,31 @@
       "flags": [
         "ht-rookie"
       ]
+    },
+    {
+      "player_id": "mhl-3174",
+      "number": "29",
+      "first_name": "Isaac",
+      "last_name": "Arsenault",
+      "name": "Isaac Arsenault",
+      "position": "C",
+      "height": "5'11",
+      "height_inches": 71,
+      "weight": 175,
+      "shoots": "L",
+      "birthdate": "2006-05-05",
+      "birth_year": "'06",
+      "age": 20,
+      "hometown": "Richmond, PE",
+      "birthplace": "Richmond, PE, PE",
+      "rookie": false,
+      "veteran": false,
+      "headshot": "assets/headshots/West-Kent-Steamers/29-isaac-arsenault.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3174.jpg",
+      "stats": {},
+      "hockeytech_id": "3174",
+      "person_id": "3694",
+      "flags": []
     },
     {
       "player_id": "mhl-3578",

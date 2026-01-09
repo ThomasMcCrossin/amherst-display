@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-09T06:57:59.498Z",
+  "generated_at": "2026-01-09T19:04:06.608Z",
   "season": "2024-25",
   "season_id": 41,
   "api_source": "HockeyTech",
@@ -43,7 +43,7 @@
       "team_name": "Yarmouth-Mariners",
       "league": "MHL",
       "team_id": 5,
-      "player_count": 27,
+      "player_count": 26,
       "file": "rosters/yarmouth-mariners.json"
     },
     {
@@ -51,7 +51,7 @@
       "team_name": "West-Kent-Steamers",
       "league": "MHL",
       "team_id": 6,
-      "player_count": 28,
+      "player_count": 29,
       "file": "rosters/west-kent-steamers.json"
     },
     {
@@ -75,7 +75,7 @@
       "team_name": "Miramichi-Timberwolves",
       "league": "MHL",
       "team_id": 9,
-      "player_count": 30,
+      "player_count": 31,
       "file": "rosters/miramichi-timberwolves.json"
     },
     {
@@ -83,7 +83,7 @@
       "team_name": "Summerside-Capitals",
       "league": "MHL",
       "team_id": 10,
-      "player_count": 24,
+      "player_count": 25,
       "file": "rosters/summerside-capitals.json"
     },
     {
@@ -99,7 +99,7 @@
       "team_name": "Chaleur-Lightning",
       "league": "MHL",
       "team_id": 21,
-      "player_count": 32,
+      "player_count": 29,
       "file": "rosters/chaleur-lightning.json"
     }
   ]

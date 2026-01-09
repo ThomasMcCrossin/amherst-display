@@ -5,8 +5,8 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 10,
-  "updated_at": "2026-01-09T06:57:54.794Z",
-  "player_count": 24,
+  "updated_at": "2026-01-09T19:04:05.402Z",
+  "player_count": 25,
   "players": [
     {
       "player_id": "mhl-2773",
@@ -222,6 +222,32 @@
       "hockeytech_id": "2705",
       "person_id": "3132",
       "flags": []
+    },
+    {
+      "player_id": "mhl-3925",
+      "number": "7",
+      "first_name": "Lane",
+      "last_name": "Sim",
+      "name": "Lane Sim",
+      "position": "LW",
+      "height": "5'8",
+      "height_inches": 68,
+      "weight": 165,
+      "shoots": "L",
+      "birthdate": "2007-05-09",
+      "birth_year": "'07",
+      "age": 19,
+      "hometown": "New Glasgow, NS",
+      "rookie": false,
+      "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/7-lane-sim.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3925.jpg",
+      "stats": {},
+      "hockeytech_id": "3925",
+      "person_id": "4588",
+      "flags": [
+        "ht-played-major-junior"
+      ]
     },
     {
       "player_id": "mhl-2695",
