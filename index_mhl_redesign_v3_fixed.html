@@ -422,13 +422,14 @@
       flex: 0 0 auto;
       position:relative;
     }
-    .hs img{ width:100%; height:100%; object-fit:cover; }
-    .hs .ini{
-      position:absolute; inset:0;
-      display:flex; align-items:center; justify-content:center;
-      font-weight: 950;
-      color: rgba(244,246,255,.88);
-      letter-spacing:.8px;
+	    .hs img{ width:100%; height:100%; object-fit:cover; position:absolute; inset:0; z-index:1; }
+	    .hs .ini{
+	      position:absolute; inset:0;
+	      z-index:0;
+	      display:flex; align-items:center; justify-content:center;
+	      font-weight: 950;
+	      color: rgba(244,246,255,.88);
+	      letter-spacing:.8px;
       background: radial-gradient(120px 80px at 20% 10%, rgba(var(--accent-rgb), .42), rgba(0,0,0,.22));
     }
 
@@ -1261,11 +1262,23 @@ const PATHS = {
   // ============================
   // Utilities
   // ============================
-  const safeStr = (v, fb="") => (v===0 ? "0" : (v ? String(v) : fb));
-  const safeNum = (v, fb=0) => {
-    const n = Number(v);
-    return Number.isFinite(n) ? n : fb;
-  };
+	  const safeStr = (v, fb="") => {
+	    if(v === 0) return "0";
+	    if(v == null) return fb;
+	    if(typeof v === "string") return v ? v : fb;
+	    if(typeof v === "number") return Number.isFinite(v) ? String(v) : fb;
+	    if(typeof v === "boolean") return v ? "true" : fb;
+	    if(typeof v === "object"){
+	      const n = v?.name || v?.player_name || v?.team_name;
+	      if(typeof n === "string" && n) return n;
+	    }
+	    return fb;
+	  };
+	  const safeNum = (v, fb=0) => {
+	    if(v == null || v === "") return fb;
+	    const n = Number(v);
+	    return Number.isFinite(n) ? n : fb;
+	  };
   const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
   const uniq = (arr) => Array.from(new Set(arr));
 
@@ -1461,20 +1474,21 @@ return arr.map(g => {
     return rows;
   }
 
-  function normalizeRoster(raw){
-    if(!raw) return [];
-    const arr =
-      Array.isArray(raw) ? raw :
-      (raw && Array.isArray(raw.players) ? raw.players :
-      (raw && Array.isArray(raw.roster) ? raw.roster :
-      (raw && Array.isArray(raw.items) ? raw.items : [])));
+	  function normalizeRoster(raw){
+	    if(!raw) return [];
+	    const arr =
+	      Array.isArray(raw) ? raw :
+	      (raw && Array.isArray(raw.players) ? raw.players :
+	      (raw && Array.isArray(raw.roster) ? raw.roster :
+	      (raw && Array.isArray(raw.items) ? raw.items : [])));
 
-    return arr.map(p => {
-      const name = safeStr(p.name || p.player_name || p.full_name || (p.first_name && p.last_name ? p.first_name + " " + p.last_name : ""), "Player");
-      const num = safeStr(p.number ?? p.jersey ?? p.jersey_number ?? p.sweater_number ?? "");
-      const pos = safeStr(p.pos || p.position || p.primary_position || "");
-      const shoots = safeStr(p.shoots || p.shoots_catches || "");
-      const hometown = safeStr(p.hometown || p.home_town || "");
+	    return arr.map(p => {
+	      const player_id = safeStr(p.player_id || p.playerId || p.id || p.playerID || "");
+	      const name = safeStr(p.name || p.player_name || p.full_name || (p.first_name && p.last_name ? p.first_name + " " + p.last_name : ""), "Player");
+	      const num = safeStr(p.number ?? p.jersey ?? p.jersey_number ?? p.sweater_number ?? "");
+	      const pos = safeStr(p.pos || p.position || p.primary_position || "");
+	      const shoots = safeStr(p.shoots || p.shoots_catches || "");
+	      const hometown = safeStr(p.hometown || p.home_town || "");
       const headshot = safeStr(p.headshot_url || p.headshot || p.photo || p.photo_url || "");
       const gp = safeNum(p.gp ?? p.GP ?? p.games ?? p.games_played ?? p.stats?.games_played ?? p.stats?.gp ?? p.stats?.games, null);
       const g  = safeNum(p.g ?? p.G ?? p.goals ?? p.stats?.g ?? p.stats?.goals, 0);
@@ -1493,13 +1507,13 @@ return arr.map(g => {
       const soRaw = (p.so ?? p.SO ?? p.shutouts ?? p.stats?.so ?? p.stats?.SO ?? p.stats?.shutouts);
       const gaRaw = (p.ga ?? p.GA ?? p.goals_against ?? p.stats?.ga ?? p.stats?.GA ?? p.stats?.goals_against);
       const saRaw = (p.sa ?? p.SA ?? p.shots_against ?? p.stats?.sa ?? p.stats?.SA ?? p.stats?.shots_against ?? p.stats?.shots);
-      const savesRaw = (p.saves ?? p.SV ?? p.stats?.saves ?? p.stats?.SV);
-      return {
-        raw:p, name, num, pos, shoots, hometown, headshot_url: headshot,
-        gp, g, a, pts, pim, pm,
-        sv: (svPctRaw==null? null : safeNum(svPctRaw, null)),
-        gaa: (gaaRaw==null? null : safeNum(gaaRaw, null)),
-        wins: (winsRaw==null? null : safeNum(winsRaw, null)),
+	      const savesRaw = (p.saves ?? p.SV ?? p.stats?.saves ?? p.stats?.SV);
+	      return {
+	        raw:p, player_id, name, num, pos, shoots, hometown, headshot_url: headshot,
+	        gp, g, a, pts, pim, pm,
+	        sv: (svPctRaw==null? null : safeNum(svPctRaw, null)),
+	        gaa: (gaaRaw==null? null : safeNum(gaaRaw, null)),
+	        wins: (winsRaw==null? null : safeNum(winsRaw, null)),
         losses: (lossesRaw==null? null : safeNum(lossesRaw, null)),
         otl: (otlRaw==null? null : safeNum(otlRaw, null)),
         so: (soRaw==null? null : safeNum(soRaw, null)),
@@ -1520,35 +1534,79 @@ return arr.map(g => {
     return [];
   }
 
-  function normalizeRamblersGame(g, teamMap){
-    // HockeyTech game summaries can be wildly shaped; be flexible.
-    const dt = toDate(g.start || g.datetime || g.date || g.game_date || g.gameDate || g.played_on || g.playedOn);
-    const status = safeStr(g.status || g.state || g.game_status || "");
-    const home = teamLookup(teamMap, g.home_slug || g.home_team_slug || g.homeTeamSlug || g.home_team || g.homeTeam || g.home_name || g.home_team_name);
-    const away = teamLookup(teamMap, g.away_slug || g.away_team_slug || g.awayTeamSlug || g.away_team || g.awayTeam || g.away_name || g.away_team_name);
+	  function normalizeRamblersGame(g, teamMap){
+	    // HockeyTech game summaries can be wildly shaped; be flexible.
+	    const dt = toDate(g.start || g.datetime || g.date_time || g.date || g.game_date || g.gameDate || g.played_on || g.playedOn);
+	    let status = safeStr(g.status || g.state || g.game_status || "");
 
-    // some feeds use visitor/home
-    const home_score = safeNum(g.home_score ?? g.homeScore ?? g.home_goals ?? g.homeGoals ?? g.home?.score ?? g.homeTeamScore, null);
-    const away_score = safeNum(g.away_score ?? g.awayScore ?? g.away_goals ?? g.awayGoals ?? g.visitor_score ?? g.visitorScore ?? g.away?.score ?? g.visitorTeamScore, null);
+	    // Common fields
+	    const venue = safeStr(g.venue || g.location || g.rink || g.arena || "");
+	    const recap = safeStr(
+	      g.narrative || g.recap || g.summary || g.game_summary || g.gameSummary || g.story || g.report || ""
+	    );
+	    const headline = safeStr(g.headline || g.title || g.game_title || "");
 
-    const venue = safeStr(g.venue || g.location || g.rink || g.arena || "");
-    const recap = safeStr(
-      g.narrative || g.recap || g.summary || g.game_summary || g.gameSummary || g.story || g.report || ""
-    );
-    const headline = safeStr(g.headline || g.title || g.game_title || "");
+	    // scoring summary (best effort)
+	    const scoring = Array.isArray(g.scoring) ? g.scoring :
+	      (g.scoring_summary && Array.isArray(g.scoring_summary) ? g.scoring_summary :
+	      (g.goals && Array.isArray(g.goals) ? g.goals : []));
 
-    // scoring summary (best effort)
-    const scoring = Array.isArray(g.scoring) ? g.scoring :
-      (g.scoring_summary && Array.isArray(g.scoring_summary) ? g.scoring_summary :
-      (g.goals && Array.isArray(g.goals) ? g.goals : []));
+	    const penalties = Array.isArray(g.penalties) ? g.penalties :
+	      (g.penalty_summary && Array.isArray(g.penalty_summary) ? g.penalty_summary : []);
 
-    // stars (best effort)
-    const stars = Array.isArray(g.stars) ? g.stars :
-      (Array.isArray(g.three_stars) ? g.three_stars :
-      (Array.isArray(g.threeStars) ? g.threeStars : []));
+	    const player_stats = (g.player_stats && typeof g.player_stats === "object") ? g.player_stats :
+	      ((g.playerStats && typeof g.playerStats === "object") ? g.playerStats : null);
 
-    return { raw:g, dt, status, home, away, home_score, away_score, venue, recap, headline, scoring, stars };
-  }
+	    // Home/away normalization
+	    let home = null, away = null, home_score = null, away_score = null;
+
+	    const isNewFormat = !!(g && g.opponent && typeof g.home_game === "boolean");
+	    if(isNewFormat){
+	      // games/amherst-ramblers.json format: opponent + home_game + result scores
+	      const meTeam = teamMap?.bySlug?.get(CONFIG.HOME_TEAM_SLUG) || { slug: CONFIG.HOME_TEAM_SLUG, name: CONFIG.HOME_TEAM_NAME, league: CONFIG.PRIMARY_LEAGUE, logo_url:"", aliases: [] };
+	      const oppNameOrCode =
+	        (typeof g.opponent === "object" && g.opponent)
+	          ? (g.opponent.team_name || g.opponent.name || g.opponent.team_code)
+	          : g.opponent;
+	      const oppTeam = teamLookup(teamMap, oppNameOrCode || "Opponent");
+
+	      const r = g.result || {};
+	      const ramsScore = safeNum(r.ramblers_score ?? g.ramblers_score, null);
+	      const oppScore  = safeNum(r.opponent_score ?? g.opponent_score, null);
+
+	      if(g.home_game){
+	        home = meTeam;
+	        away = oppTeam;
+	        home_score = ramsScore;
+	        away_score = oppScore;
+	      }else{
+	        home = oppTeam;
+	        away = meTeam;
+	        home_score = oppScore;
+	        away_score = ramsScore;
+	      }
+
+	      if(!status){
+	        if(r.final_score || ramsScore != null || oppScore != null){
+	          status = r.shootout ? "Final/SO" : (r.overtime ? "Final/OT" : "Final");
+	        }
+	      }
+	    }else{
+	      home = teamLookup(teamMap, g.home_slug || g.home_team_slug || g.homeTeamSlug || g.home_team || g.homeTeam || g.home_name || g.home_team_name);
+	      away = teamLookup(teamMap, g.away_slug || g.away_team_slug || g.awayTeamSlug || g.away_team || g.awayTeam || g.away_name || g.away_team_name);
+
+	      // some feeds use visitor/home
+	      home_score = safeNum(g.home_score ?? g.homeScore ?? g.home_goals ?? g.homeGoals ?? g.home?.score ?? g.homeTeamScore, null);
+	      away_score = safeNum(g.away_score ?? g.awayScore ?? g.away_goals ?? g.awayGoals ?? g.visitor_score ?? g.visitorScore ?? g.away?.score ?? g.visitorTeamScore, null);
+	    }
+
+	    // stars (best effort)
+	    const stars = Array.isArray(g.stars) ? g.stars :
+	      (Array.isArray(g.three_stars) ? g.three_stars :
+	      (Array.isArray(g.threeStars) ? g.threeStars : []));
+
+	    return { raw:g, dt, status, home, away, home_score, away_score, venue, recap, headline, scoring, penalties, player_stats, stars };
+	  }
 
   // ============================
   // Rendering helpers
@@ -2023,22 +2081,33 @@ return arr.map(g => {
     return picks.slice(0,n);
   }
 
-  function renderFaces(roster, meTeam){
-    const skaters = roster.filter(p => !String(p.pos).toLowerCase().includes("g")); // keep goalies out of faces by default
-    const goalies = roster.filter(p => String(p.pos).toLowerCase().includes("g"));
-    const topPts = [...skaters].sort((a,b) => b.pts - a.pts)[0];
-    const topG = [...skaters].sort((a,b) => b.g - a.g)[0];
-    const topA = [...skaters].sort((a,b) => b.a - a.a)[0];
-    const topPpg = [...skaters].sort((a,b) => (b.gp? b.pts/b.gp : 0) - (a.gp? a.pts/a.gp : 0))[0];
-    const topPIM = [...skaters].sort((a,b) => safeNum(b.pim,-1) - safeNum(a.pim,-1))[0];
-    const topGGoalie = [...goalies].sort((a,b) => (safeNum(b.sv,0) - safeNum(a.sv,0)))[0];
+	  function renderFaces(roster, meTeam){
+	    const isGoalie = (p) => String(p?.pos || "").toLowerCase().includes("g");
+	    const skatersAll = roster.filter(p => !isGoalie(p));
+	    const goaliesAll = roster.filter(p => isGoalie(p));
 
-    // 3 featured categories + rotating fill
-    const curated = uniq([topPts, topG, topA, topPpg, topPIM, topGGoalie]).filter(Boolean);
-    const needed = Math.max(0, CONFIG.FACE_CARDS - curated.length);
-    const rot = pickRotatingPlayers(roster, needed);
+	    // Prefer players with actual stats (avoid showing 0 GP cards if we can).
+	    const skaters = skatersAll.filter(p => safeNum(p.gp, 0) > 0);
+	    const goalies = goaliesAll.filter(p => safeNum(p.gp, 0) > 0 || safeNum(p.wins, 0) > 0 || p.sv != null || p.gaa != null);
 
-    const picks = [...curated, ...rot].slice(0, CONFIG.FACE_CARDS);
+	    const skatersUse = skaters.length ? skaters : skatersAll;
+	    const goaliesUse = goalies.length ? goalies : goaliesAll;
+
+	    const topPts = skatersUse.length ? [...skatersUse].sort((a,b) => safeNum(b.pts,0) - safeNum(a.pts,0))[0] : null;
+	    const topG = skatersUse.length ? [...skatersUse].sort((a,b) => safeNum(b.g,0) - safeNum(a.g,0))[0] : null;
+	    const topA = skatersUse.length ? [...skatersUse].sort((a,b) => safeNum(b.a,0) - safeNum(a.a,0))[0] : null;
+	    const topPpg = skatersUse.length ? [...skatersUse].sort((a,b) => (safeNum(b.gp,0) ? safeNum(b.pts,0)/safeNum(b.gp,0) : 0) - (safeNum(a.gp,0) ? safeNum(a.pts,0)/safeNum(a.gp,0) : 0))[0] : null;
+	    const topPIM = skatersUse.length ? [...skatersUse].sort((a,b) => safeNum(b.pim,-1) - safeNum(a.pim,-1))[0] : null;
+	    const topGGoalie = goaliesUse.length ? [...goaliesUse].sort((a,b) => (safeNum(b.sv,0) - safeNum(a.sv,0)))[0] : null;
+
+	    // 3 featured categories + rotating fill
+	    const curated = uniq([topPts, topG, topA, topPpg, topPIM, topGGoalie]).filter(Boolean);
+	    const needed = Math.max(0, CONFIG.FACE_CARDS - curated.length);
+	    const pool = (skatersUse.length || goaliesUse.length) ? uniq([...skatersUse, ...goaliesUse]) : roster;
+	    const rotPool = pool.filter(p => !curated.includes(p));
+	    const rot = pickRotatingPlayers(rotPool.length ? rotPool : pool, needed);
+
+	    const picks = [...curated, ...rot].slice(0, CONFIG.FACE_CARDS);
 
     dom.facesGrid.innerHTML = "";
     if(!picks.length){
@@ -2333,7 +2402,7 @@ return arr.map(g => {
 
     // Scoring summary
     dom.scoringSummary.innerHTML = "";
-    const scorers = extractScoringSummary(g);
+	    const scorers = extractScoringSummary(g, roster);
     if(!scorers.length){
       dom.scoringSummary.innerHTML = emptyState("No scoring breakdown.");
     }else{
@@ -2385,124 +2454,248 @@ return arr.map(g => {
     return `<p>${escapeHtml(lead)}</p><p class="faint">${escapeHtml(line2)}</p><p class="faint">${escapeHtml(line3)}</p>`;
   }
 
-  function extractStars(g, roster, n=3){
-    // P0: Use GAME stats from the stars data, not season totals
-    const rawStars = Array.isArray(g.stars) ? g.stars : [];
-    const out = [];
+	  function extractStars(g, roster, n=3){
+	    const out = [];
 
-    const rosterByName = new Map(roster.map(p => [p.name.toLowerCase(), p]));
+	    const rosterById = new Map();
+	    const rosterByName = new Map();
+	    roster.forEach(p => {
+	      if(p?.name) rosterByName.set(p.name.toLowerCase(), p);
+	      const id = safeStr(p?.player_id || p?.raw?.player_id || "");
+	      if(id) rosterById.set(String(id), p);
+	    });
 
-    rawStars.forEach(s => {
-      const name = safeStr(s.name || s.player || s.player_name || "");
-      if(!name) return;
-      const base = rosterByName.get(name.toLowerCase());
+	    const fmtPlayerSub = (p, posOverride="") => {
+	      const num = safeStr(p?.num || "");
+	      const pos = safeStr(posOverride || p?.pos || "");
+	      return [num ? "#" + num : "", pos].filter(Boolean).join(" • ");
+	    };
 
-      // P0: Build stat string from game stats, not season stats
-      let gameStat = safeStr(s.stat || s.line || s.detail || "");
+	    // 1) If an upstream feed provides explicit stars, normalize them (best effort).
+	    const rawStars = Array.isArray(g.stars) ? g.stars : [];
+	    rawStars.forEach(s => {
+	      const name = safeStr(s.name || s.player || s.player_name || "");
+	      if(!name) return;
+	      const base = rosterByName.get(name.toLowerCase());
 
-      // If we have individual game stats, use those
-      const gameG = safeNum(s.game_goals ?? s.goals_in_game ?? s.g, null);
-      const gameA = safeNum(s.game_assists ?? s.assists_in_game ?? s.a, null);
-      const gamePts = safeNum(s.game_points ?? s.points_in_game ?? s.pts, null);
+	      let gameStat = safeStr(s.stat || s.line || s.detail || "");
+	      const gameG = safeNum(s.game_goals ?? s.goals_in_game ?? s.g, null);
+	      const gameA = safeNum(s.game_assists ?? s.assists_in_game ?? s.a, null);
+	      const gamePts = safeNum(s.game_points ?? s.points_in_game ?? s.pts, null);
 
-      if(gameG !== null || gameA !== null){
-        const parts = [];
-        if(gameG !== null && gameG > 0) parts.push(`${gameG}G`);
-        if(gameA !== null && gameA > 0) parts.push(`${gameA}A`);
-        if(parts.length > 0){
-          gameStat = parts.join(' ');
-        }else if(gamePts !== null){
-          gameStat = `${gamePts} PTS`;
-        }
-      }
+	      if(gameG != null || gameA != null){
+	        const parts = [];
+	        if(gameG != null && gameG > 0) parts.push(`${gameG}G`);
+	        if(gameA != null && gameA > 0) parts.push(`${gameA}A`);
+	        if(parts.length) gameStat = parts.join(" ");
+	        else if(gamePts != null) gameStat = `${gamePts} PTS`;
+	      }
 
-      out.push({
-        name,
-        headshot_url: base?.headshot_url || safeStr(s.headshot_url || ""),
-        team: safeStr(s.team || s.team_name || "Amherst"),
-        stat: gameStat || "Star"
-      });
-    });
+	      out.push({
+	        name,
+	        headshot_url: base?.headshot_url || safeStr(s.headshot_url || ""),
+	        team: base ? fmtPlayerSub(base) : safeStr(s.team || s.team_name || "Amherst"),
+	        stat: gameStat || "Star"
+	      });
+	    });
 
-    if(out.length >= n) return out.slice(0,n);
+	    if(out.length >= n) return out.slice(0,n);
 
-    // P0: If no stars data, try to infer from scoring summary for THIS GAME
-    const scoring = Array.isArray(g.scoring) ? g.scoring : [];
-    if(scoring.length > 0 && out.length < n){
-      // Count goals/assists per player in this game
-      const gameStats = new Map();
-      scoring.forEach(ev => {
-        const scorer = safeStr(ev.scorer || ev.player || ev.goal_scorer || ev.name || "");
-        const a1 = safeStr(ev.a1 || ev.assist1 || ev.primary_assist || "");
-        const a2 = safeStr(ev.a2 || ev.assist2 || ev.secondary_assist || "");
+	    // 2) P0: Compute from THIS GAME's player_stats (Ramblers-only, but uses real game stats).
+	    const ps = g.player_stats || g.raw?.player_stats || g.playerStats || g.raw?.playerStats;
+	    if(ps && typeof ps === "object" && out.length < n){
+	      const candidates = [];
+	      Object.entries(ps).forEach(([playerId, stats]) => {
+	        if(!stats || typeof stats !== "object") return;
+	        const base = rosterById.get(String(playerId));
+	        const name = base?.name || safeStr(stats.name || stats.player_name || "", "") || `Player ${playerId}`;
+	        const pos = safeStr(stats.position || stats.pos || base?.pos || "", "");
+	        const num = safeStr(base?.num || stats.number || stats.jersey || "");
+	        const isGoalie = String(pos).toUpperCase() === "G";
 
-        if(scorer){
-          const key = scorer.toLowerCase();
-          if(!gameStats.has(key)) gameStats.set(key, { name: scorer, g: 0, a: 0 });
-          gameStats.get(key).g++;
-        }
-        [a1, a2].filter(Boolean).forEach(assist => {
-          const key = assist.toLowerCase();
-          if(!gameStats.has(key)) gameStats.set(key, { name: assist, g: 0, a: 0 });
-          gameStats.get(key).a++;
-        });
-      });
+	        if(isGoalie){
+	          const saves = safeNum(stats.saves ?? stats.SV, null);
+	          const shotsAgainst = safeNum(stats.shots_against ?? stats.shotsAgainst ?? stats.shotsAgainstTotal ?? stats.sa ?? stats.SA, null);
+	          const ga = safeNum(stats.goals_against ?? stats.goalsAgainst ?? stats.ga ?? stats.GA, null);
 
-      // Sort by points in this game
-      const gamePlayers = Array.from(gameStats.values())
-        .map(p => ({ ...p, pts: p.g + p.a }))
-        .sort((a,b) => (b.pts - a.pts) || (b.g - a.g));
+	          if(shotsAgainst != null && shotsAgainst > 0 && saves != null){
+	            const svPct = saves / shotsAgainst;
+	            const score = (saves * 2) + (ga === 0 ? 50 : 0) + (svPct * 100);
+	            candidates.push({
+	              name,
+	              headshot_url: base?.headshot_url || "",
+	              team: [num ? "#" + num : "", "G"].filter(Boolean).join(" • "),
+	              stat: `${saves} SV`,
+	              score
+	            });
+	          }
+	          return;
+	        }
 
-      const needed = n - out.length;
-      gamePlayers.slice(0, needed).forEach(p => {
-        const base = rosterByName.get(p.name.toLowerCase());
-        const statParts = [];
-        if(p.g > 0) statParts.push(`${p.g}G`);
-        if(p.a > 0) statParts.push(`${p.a}A`);
-        out.push({
-          name: p.name,
-          headshot_url: base?.headshot_url || "",
-          team: "Amherst",
-          stat: statParts.join(' ') || `${p.pts} PTS`
-        });
-      });
-    }
+	        const goals = safeNum(stats.goals ?? stats.g, 0);
+	        const assists = safeNum(stats.assists ?? stats.a, 0);
+	        const points = goals + assists;
+	        if(points <= 0) return;
 
-    // Last resort fallback - but clearly indicate these are season stats
-    if(out.length < n){
-      const top = [...roster].sort((a,b) => (b.pts - a.pts) || (b.g - a.g)).slice(0,n-out.length);
-      top.forEach(p => {
-        out.push({ name: p.name, headshot_url: p.headshot_url, team: "Amherst", stat: `(Season: ${p.pts} PTS)` });
-      });
-    }
+	        const parts = [];
+	        if(goals > 0) parts.push(`${goals}G`);
+	        if(assists > 0) parts.push(`${assists}A`);
+	        const stat = parts.join(" ") || `${points} PTS`;
+	        candidates.push({
+	          name,
+	          headshot_url: base?.headshot_url || "",
+	          team: fmtPlayerSub({ num, pos }),
+	          stat,
+	          score: goals * 3 + assists * 2
+	        });
+	      });
 
-    return out.slice(0,n);
-  }
+	      candidates.sort((a,b) => b.score - a.score);
+	      const needed = n - out.length;
+	      candidates.slice(0, needed).forEach(c => {
+	        out.push({ name: c.name, headshot_url: c.headshot_url, team: c.team, stat: c.stat });
+	      });
+	    }
 
-  function extractScoringSummary(g){
-    // If scoring entries exist, format them. Otherwise return empty.
-    const s = Array.isArray(g.scoring) ? g.scoring : [];
-    if(!s.length) return [];
+	    if(out.length >= n) return out.slice(0,n);
 
-    const out = [];
-    s.forEach(ev => {
-      const period = safeStr(ev.period || ev.per || ev.p || ev.frame || "");
-      const time = safeStr(ev.time || ev.t || ev.clock || "");
-      const team = safeStr(ev.team || ev.team_name || ev.club || "");
-      const scorer = safeStr(ev.scorer || ev.player || ev.goal_scorer || ev.name || "");
-      const a1 = safeStr(ev.a1 || ev.assist1 || ev.primary_assist || "");
-      const a2 = safeStr(ev.a2 || ev.assist2 || ev.secondary_assist || "");
-      const detailParts = [];
-      if(time) detailParts.push(time);
-      if(team) detailParts.push(team);
-      if(scorer) detailParts.push(scorer);
-      if(a1 || a2) detailParts.push([a1,a2].filter(Boolean).join(", "));
-      const title = scorer ? scorer : (team ? team + " goal" : "Goal");
-      out.push({ period: period ? `P${period}` : "", title, detail: detailParts.join(" • ") });
-    });
+	    // 3) Fallback: infer from scoring events (handles scorer/assists as objects).
+	    const scoring = Array.isArray(g.scoring) ? g.scoring : [];
+	    if(scoring.length > 0 && out.length < n){
+	      const gameStats = new Map();
 
-    return out;
-  }
+	      const nameFromPerson = (x) => {
+	        if(!x) return "";
+	        if(typeof x === "string") return x;
+	        if(typeof x === "object"){
+	          const pid = safeStr(x.player_id || x.playerId || "");
+	          const byId = pid ? rosterById.get(String(pid)) : null;
+	          if(byId?.name) return byId.name;
+	          return safeStr(x.name || x.player_name || "");
+	        }
+	        return "";
+	      };
+
+	      scoring.forEach(ev => {
+	        const scorerRaw = ev.scorer || ev.player || ev.goal_scorer || ev.name || "";
+	        const scorer = nameFromPerson(scorerRaw);
+	        if(scorer){
+	          const key = scorer.toLowerCase();
+	          if(!gameStats.has(key)) gameStats.set(key, { name: scorer, g: 0, a: 0 });
+	          gameStats.get(key).g++;
+	        }
+
+	        const assistsArr = Array.isArray(ev.assists) ? ev.assists : [];
+	        const assists = assistsArr.map(a => nameFromPerson(a)).filter(Boolean);
+	        const a1 = assists[0] || safeStr(ev.a1 || ev.assist1 || ev.primary_assist || "");
+	        const a2 = assists[1] || safeStr(ev.a2 || ev.assist2 || ev.secondary_assist || "");
+
+	        [a1, a2].filter(Boolean).forEach(assist => {
+	          const key = assist.toLowerCase();
+	          if(!gameStats.has(key)) gameStats.set(key, { name: assist, g: 0, a: 0 });
+	          gameStats.get(key).a++;
+	        });
+	      });
+
+	      const gamePlayers = Array.from(gameStats.values())
+	        .map(p => ({ ...p, pts: p.g + p.a }))
+	        .sort((a,b) => (b.pts - a.pts) || (b.g - a.g));
+
+	      const needed = n - out.length;
+	      gamePlayers.slice(0, needed).forEach(p => {
+	        const base = rosterByName.get(p.name.toLowerCase());
+	        const statParts = [];
+	        if(p.g > 0) statParts.push(`${p.g}G`);
+	        if(p.a > 0) statParts.push(`${p.a}A`);
+	        out.push({
+	          name: p.name,
+	          headshot_url: base?.headshot_url || "",
+	          team: base ? fmtPlayerSub(base) : "",
+	          stat: statParts.join(" ") || `${p.pts} PTS`
+	        });
+	      });
+	    }
+
+	    // 4) Last resort fallback: season stats (clearly marked).
+	    if(out.length < n){
+	      const top = [...roster]
+	        .sort((a,b) => (safeNum(b.pts,0) - safeNum(a.pts,0)) || (safeNum(b.g,0) - safeNum(a.g,0)) || a.name.localeCompare(b.name))
+	        .slice(0, n - out.length);
+
+	      top.forEach(p => {
+	        out.push({ name: p.name, headshot_url: p.headshot_url, team: fmtPlayerSub(p), stat: `(Season: ${safeNum(p.pts,0)} PTS)` });
+	      });
+	    }
+
+	    return out.slice(0,n);
+	  }
+
+	  function extractScoringSummary(g, roster){
+	    const s = Array.isArray(g.scoring) ? g.scoring : [];
+	    if(!s.length) return [];
+
+	    const rosterById = new Map();
+	    (roster || []).forEach(p => {
+	      const id = safeStr(p?.player_id || p?.raw?.player_id || "");
+	      if(id) rosterById.set(String(id), p);
+	    });
+
+	    const oppName = (g.home?.slug === CONFIG.HOME_TEAM_SLUG) ? (g.away?.name || "Opponent") : (g.home?.name || "Opponent");
+
+	    const nameFromPerson = (x) => {
+	      if(!x) return "";
+	      if(typeof x === "string") return x;
+	      if(typeof x === "object"){
+	        const pid = safeStr(x.player_id || x.playerId || "");
+	        const byId = pid ? rosterById.get(String(pid)) : null;
+	        if(byId?.name) return byId.name;
+	        return safeStr(x.name || x.player_name || "");
+	      }
+	      return "";
+	    };
+
+	    const out = [];
+	    s.forEach(ev => {
+	      const period = safeStr(ev.period_name || "", safeStr(ev.period || ev.per || ev.p || ev.frame || ""));
+	      const time = safeStr(ev.time || ev.t || ev.clock || "");
+
+	      const teamRaw = safeStr(ev.team || ev.team_name || ev.club || "");
+	      const teamLabel = (() => {
+	        const t = String(teamRaw || "").toLowerCase();
+	        if(!t) return "";
+	        if(t === "opponent") return oppName;
+	        if(t.includes(CONFIG.HOME_TEAM_SLUG) || t.includes("amherst") || t.includes("ramblers")) return CONFIG.HOME_TEAM_NAME;
+	        return teamRaw;
+	      })();
+
+	      const scorerRaw = ev.scorer || ev.player || ev.goal_scorer || ev.name || "";
+	      const scorer = nameFromPerson(scorerRaw);
+
+	      const assistsArr = Array.isArray(ev.assists) ? ev.assists : [];
+	      const assists = assistsArr.map(a => nameFromPerson(a)).filter(Boolean);
+
+	      const tags = [];
+	      if(!!ev.power_play) tags.push("PP");
+	      if(!!ev.short_handed) tags.push("SH");
+	      if(!!ev.empty_net) tags.push("EN");
+	      if(!!ev.game_winning) tags.push("GWG");
+
+	      const title = scorer ? `${scorer}${tags.length ? ` (${tags.join(",")})` : ""}` : (teamLabel ? `${teamLabel} goal` : "Goal");
+
+	      const detailParts = [];
+	      if(time) detailParts.push(time);
+	      if(teamLabel) detailParts.push(teamLabel);
+	      if(assists.length) detailParts.push(`Ast: ${assists.join(", ")}`);
+
+	      out.push({
+	        period: period ? (String(period).toLowerCase().includes("ot") ? "OT" : period) : "",
+	        title,
+	        detail: detailParts.join(" • ")
+	      });
+	    });
+
+	    return out;
+	  }
 
   // ============================
   // Standings slide (P0: Division-first - top 4 per division make playoffs)
@@ -2549,13 +2742,13 @@ return arr.map(g => {
       hdr.innerHTML = `<div></div><div>Team</div><div style="text-align:right;">GP</div><div style="text-align:right;">W</div><div style="text-align:right;">L</div><div style="text-align:right;">OT</div><div style="text-align:right;">PTS</div>`;
       dom.standingsTable.appendChild(hdr);
 
-      south.forEach((r, idx) => {
-        const el = document.createElement("div");
-        const isPlayoffLine = idx === CONFIG.PLAYOFF_SEEDS - 1;
-        el.className = "r" + (r.team?.slug === CONFIG.HOME_TEAM_SLUG ? " me" : "") + (isPlayoffLine ? " cut" : "");
-        el.innerHTML = `
-          <div class="pos">${idx+1}</div>
-          <div class="tn">
+	      south.forEach((r, idx) => {
+	        const el = document.createElement("div");
+	        const isPlayoffLine = (south.length > CONFIG.PLAYOFF_SEEDS) && idx === CONFIG.PLAYOFF_SEEDS;
+	        el.className = "r" + (r.team?.slug === CONFIG.HOME_TEAM_SLUG ? " me" : "") + (isPlayoffLine ? " cut" : "");
+	        el.innerHTML = `
+	          <div class="pos">${idx+1}</div>
+	          <div class="tn">
             ${logoHtml(r.team)}
             <div class="nm" title="${escapeHtml(r.team?.name||"")}">${escapeHtml(r.team?.name || "")}</div>
           </div>
@@ -2577,13 +2770,13 @@ return arr.map(g => {
       divHdr.textContent = "EASTLINK NORTH";
       dom.standingsTable.appendChild(divHdr);
 
-      north.slice(0, 5).forEach((r, idx) => {
-        const el = document.createElement("div");
-        const isPlayoffLine = idx === CONFIG.PLAYOFF_SEEDS - 1;
-        el.className = "r" + (r.team?.slug === CONFIG.HOME_TEAM_SLUG ? " me" : "") + (isPlayoffLine ? " cut" : "");
-        el.innerHTML = `
-          <div class="pos">${idx+1}</div>
-          <div class="tn">
+	      north.slice(0, 5).forEach((r, idx) => {
+	        const el = document.createElement("div");
+	        const isPlayoffLine = (north.length > CONFIG.PLAYOFF_SEEDS) && idx === CONFIG.PLAYOFF_SEEDS;
+	        el.className = "r" + (r.team?.slug === CONFIG.HOME_TEAM_SLUG ? " me" : "") + (isPlayoffLine ? " cut" : "");
+	        el.innerHTML = `
+	          <div class="pos">${idx+1}</div>
+	          <div class="tn">
             ${logoHtml(r.team)}
             <div class="nm" title="${escapeHtml(r.team?.name||"")}">${escapeHtml(r.team?.name || "")}</div>
           </div>
@@ -2857,19 +3050,22 @@ return arr.map(g => {
   // ============================
   // Ticker (P1: Include league stats, streaks, special teams)
   // ============================
-  function renderTicker({games, standings, ramGames, roster, overrides, fromCache, leagueStats}){
-    const items = [];
+	  function renderTicker({games, standings, ramGames, roster, overrides, fromCache, leagueStats}){
+	    const items = [];
 
-    // Overrides banner
-    const banner = safeStr(overrides?.banner || overrides?.ticker || overrides?.message || overrides?.announcement || "");
-    if(banner) items.push({ b:"Announcement", t: banner });
+	    const now = nowLocal();
 
-    // Next Ramblers game
-    const now = nowLocal();
-    const nextR = games
-      .filter(g => g.dt && g.dt >= now)
-      .filter(g => g.home?.slug === CONFIG.HOME_TEAM_SLUG || g.away?.slug === CONFIG.HOME_TEAM_SLUG)
-      .sort((a,b) => a.dt - b.dt)[0];
+	    // Overrides banner
+	    const overrideUntil = toDate(overrides?.until || "");
+	    const overrideActive = (overrides && overrides.active === true) && (!overrideUntil || overrideUntil >= now);
+	    const banner = overrideActive ? safeStr(overrides?.banner || overrides?.ticker || overrides?.message || overrides?.announcement || overrides?.text || "") : "";
+	    if(banner) items.push({ b:"Announcement", t: banner });
+
+	    // Next Ramblers game
+	    const nextR = games
+	      .filter(g => g.dt && g.dt >= now)
+	      .filter(g => g.home?.slug === CONFIG.HOME_TEAM_SLUG || g.away?.slug === CONFIG.HOME_TEAM_SLUG)
+	      .sort((a,b) => a.dt - b.dt)[0];
     if(nextR){
       items.push({ b:"Next Game", t: `${nextR.away?.name} @ ${nextR.home?.name} • ${fmtShortDayTime(nextR.dt)}` });
     }
@@ -2941,13 +3137,13 @@ return arr.map(g => {
       items.push({ b:"South Division", t: `Ramblers #${idx} • ${safeNum(me.pts)} pts • ${safeNum(me.w)}-${safeNum(me.l)}-${safeNum(me.ot)}` });
     }
 
-    // Promos (P0: Only in ticker, not in slides)
-    const promos = [
-      'Season tickets available at ramblershockey.ca',
-      'Follow us @AmherstRamblers',
-      'Home games at Amherst Stadium',
-    ];
-    promos.forEach(p => items.push({ b:"", t: p }));
+	    // Promos (P0: Only in ticker, not in slides)
+	    const promos = [
+	      { b:"Tickets", t:"Season tickets available at ramblershockey.ca" },
+	      { b:"Social", t:"Follow us @AmherstRamblers" },
+	      { b:"Home Ice", t:"Home games at Amherst Stadium" },
+	    ];
+	    promos.forEach(p => items.push(p));
 
     // Data note
     items.push({ b:"Info", t: `Data refreshes daily` + (fromCache ? " • cached mode" : "") });
