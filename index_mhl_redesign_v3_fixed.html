@@ -118,7 +118,7 @@
       align-items:center;
     }
     .status-pill{
-      display:flex;
+      display:none;
       align-items:center;
       gap:10px;
       padding: 10px 14px;
@@ -128,6 +128,7 @@
       box-shadow: 0 10px 30px rgba(0,0,0,.35);
       max-width: 720px;
     }
+    html.debug .status-pill{ display:flex; }
     .dot{
       width: 10px; height: 10px;
       border-radius: 999px;
@@ -1038,7 +1039,7 @@
           <div class="grid">
             <div class="panel">
               <div class="inner">
-                <h3>Matchup Spotlight</h3>
+                <h3>Crease Snapshot</h3>
                 <div id="goalieMatchup"></div>
               </div>
             </div>
@@ -1174,6 +1175,8 @@
 // By default, we fetch JSON from raw.githubusercontent.com because it is CORS-friendly
 // even when this HTML is hosted inside Yodeck (different origin).
 const qs = new URLSearchParams(location.search);
+CONFIG.DEBUG = CONFIG.DEBUG || ["1","true","yes"].includes(String(qs.get("debug") || "").toLowerCase());
+if(CONFIG.DEBUG) document.documentElement.classList.add("debug");
 const DEFAULT_DATA_BASE = "https://raw.githubusercontent.com/ThomasMcCrossin/amherst-display/main/";
 const DEFAULT_ASSET_BASE = "https://thomasmccrossin.github.io/amherst-display/";
 
@@ -1295,6 +1298,9 @@ const PATHS = {
 
   function fmtClock(d){
     return d.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
+  }
+  function fmtTime(d){
+    return d.toLocaleTimeString([], {hour:"numeric", minute:"2-digit"});
   }
   function fmtDate(d){
     return d.toLocaleDateString([], {weekday:"short", month:"short", day:"numeric", year:"numeric"});
@@ -1463,10 +1469,11 @@ return arr.map(g => {
       const gf = safeNum(r.gf ?? r.GF ?? r.goals_for ?? r.goalsFor, null);
       const ga = safeNum(r.ga ?? r.GA ?? r.goals_against ?? r.goalsAgainst, null);
       const div = safeStr(r.division || r.div || r.group || "");
+      const divRank = safeNum(r.division_rank ?? r.divisionRank ?? r.div_rank ?? r.divRank, null);
       const home = safeStr(r.home || r.home_record || "");
       const away = safeStr(r.away || r.away_record || "");
       const streak = safeStr(r.streak || r.str || "");
-      return { team, gp, w, l, ot, pts, gf, ga, gd: (gf!=null && ga!=null) ? (gf-ga) : null, div, home, away, streak };
+      return { team, gp, w, l, ot, pts, gf, ga, gd: (gf!=null && ga!=null) ? (gf-ga) : null, div, divRank, home, away, streak };
     }).filter(x => x.team);
 
     // Sort by points then GD (best effort)
@@ -2187,7 +2194,7 @@ return arr.map(g => {
     return `${ww}-${ll}-${oo}`;
   }
 
-  function pickLikelyStarter(goalies){
+  function pickFeaturedGoalie(goalies){
     if(!goalies?.length) return null;
     return [...goalies].sort((a,b) =>
       (safeNum(b.gp,0) - safeNum(a.gp,0)) ||
@@ -2227,8 +2234,9 @@ return arr.map(g => {
     const homeGoalies = (homeRoster || []).filter(isGoalie);
     const oppGoalies = (oppRoster || []).filter(isGoalie);
 
-    const homeStarter = pickLikelyStarter(homeGoalies);
-    const oppStarter = pickLikelyStarter(oppGoalies);
+    // We do NOT know who is starting; pick a featured goalie (most-used) for a season snapshot.
+    const homeFeatured = pickFeaturedGoalie(homeGoalies);
+    const oppFeatured = pickFeaturedGoalie(oppGoalies);
 
     // Subtitle
     const parts = [];
@@ -2241,21 +2249,21 @@ return arr.map(g => {
     if(dom.goalieSub) dom.goalieSub.textContent = parts.join(" • ");
 
     // Matchup
-    if(!homeStarter){
+    if(!homeFeatured){
       dom.goalieMatchup.innerHTML = emptyState("Goalie stats not available yet.");
-    }else if(oppTeam && oppStarter){
+    }else if(oppTeam && oppFeatured){
       dom.goalieMatchup.innerHTML = `
         <div class="goalieDuel">
-          ${goalieCardHtml(homeStarter, meTeam)}
-          <div class="vs">VS</div>
-          ${goalieCardHtml(oppStarter, oppTeam)}
+          ${goalieCardHtml(homeFeatured, meTeam)}
+          <div class="vs">SNAPSHOT</div>
+          ${goalieCardHtml(oppFeatured, oppTeam)}
         </div>
       `;
     }else{
       // Opponent not available; show just Ramblers goalie
       dom.goalieMatchup.innerHTML = `
         <div class="goalieDuel" style="grid-template-columns: 1fr;">
-          ${goalieCardHtml(homeStarter, meTeam)}
+          ${goalieCardHtml(homeFeatured, meTeam)}
         </div>
       `;
     }
@@ -2299,8 +2307,8 @@ return arr.map(g => {
     const gfPerOpp = (oppRow?.gf != null && oppRow?.gp) ? (oppRow.gf / oppRow.gp) : null;
 
     const bits = [];
-    if(homeStarter){
-      bits.push(`<p><b>Ramblers crease:</b> ${escapeHtml(homeStarter.name)} has ${homeStarter.gp!=null ? `<b>${homeStarter.gp}</b> GP` : "games logged"}${homeStarter.gaa!=null ? ` • <b>${escapeHtml(fmtGaa(homeStarter.gaa))}</b> GAA` : ""}${homeStarter.sv!=null ? ` • <b>${escapeHtml(fmtSvPct(homeStarter.sv))}</b> SV%` : ""}.</p>`);
+    if(homeFeatured){
+      bits.push(`<p><b>Ramblers goalie snapshot:</b> ${escapeHtml(homeFeatured.name)} has ${homeFeatured.gp!=null ? `<b>${homeFeatured.gp}</b> GP` : "games logged"}${homeFeatured.gaa!=null ? ` • <b>${escapeHtml(fmtGaa(homeFeatured.gaa))}</b> GAA` : ""}${homeFeatured.sv!=null ? ` • <b>${escapeHtml(fmtSvPct(homeFeatured.sv))}</b> SV%` : ""}.</p>`);
     }
     if(gaPer != null){
       bits.push(`<p class="faint">Team defense is allowing <b>${gaPer.toFixed(2)}</b> goals/game (from standings).</p>`);
@@ -2700,8 +2708,8 @@ return arr.map(g => {
   // ============================
   // Standings slide (P0: Division-first - top 4 per division make playoffs)
   // ============================
-  const SOUTH_TEAMS = ['amherst', 'yarmouth', 'truro', 'valley', 'pictou', 'south shore'];
-  const NORTH_TEAMS = ['miramichi', 'campbellton', 'grand falls', 'edmundston', 'summerside', 'west kent', 'chaleur'];
+  const SOUTH_TEAMS = ['amherst', 'yarmouth', 'truro', 'valley', 'pictou', 'summerside'];
+  const NORTH_TEAMS = ['miramichi', 'campbellton', 'grand falls', 'edmundston', 'west kent', 'chaleur'];
 
   function detectDivision(teamName) {
     const lower = (teamName || '').toLowerCase();
@@ -2722,12 +2730,18 @@ return arr.map(g => {
     const south = standings.filter(r => {
       const div = r.div || detectDivision(r.team?.name);
       return div.toLowerCase().includes('south');
-    }).sort((a,b) => (safeNum(b.pts) - safeNum(a.pts)) || (safeNum(b.gd) - safeNum(a.gd)));
+    }).sort((a,b) => {
+      if(a.divRank != null && b.divRank != null) return a.divRank - b.divRank;
+      return (safeNum(b.pts) - safeNum(a.pts)) || (safeNum(b.gd) - safeNum(a.gd));
+    });
 
     const north = standings.filter(r => {
       const div = r.div || detectDivision(r.team?.name);
       return div.toLowerCase().includes('north');
-    }).sort((a,b) => (safeNum(b.pts) - safeNum(a.pts)) || (safeNum(b.gd) - safeNum(a.gd)));
+    }).sort((a,b) => {
+      if(a.divRank != null && b.divRank != null) return a.divRank - b.divRank;
+      return (safeNum(b.pts) - safeNum(a.pts)) || (safeNum(b.gd) - safeNum(a.gd));
+    });
 
     // Render South division first
     if(south.length > 0) {
@@ -2747,7 +2761,7 @@ return arr.map(g => {
 	        const isPlayoffLine = (south.length > CONFIG.PLAYOFF_SEEDS) && idx === CONFIG.PLAYOFF_SEEDS;
 	        el.className = "r" + (r.team?.slug === CONFIG.HOME_TEAM_SLUG ? " me" : "") + (isPlayoffLine ? " cut" : "");
 	        el.innerHTML = `
-	          <div class="pos">${idx+1}</div>
+	          <div class="pos">${r.divRank != null ? r.divRank : (idx+1)}</div>
 	          <div class="tn">
             ${logoHtml(r.team)}
             <div class="nm" title="${escapeHtml(r.team?.name||"")}">${escapeHtml(r.team?.name || "")}</div>
@@ -2770,12 +2784,12 @@ return arr.map(g => {
       divHdr.textContent = "EASTLINK NORTH";
       dom.standingsTable.appendChild(divHdr);
 
-	      north.slice(0, 5).forEach((r, idx) => {
+	      north.forEach((r, idx) => {
 	        const el = document.createElement("div");
 	        const isPlayoffLine = (north.length > CONFIG.PLAYOFF_SEEDS) && idx === CONFIG.PLAYOFF_SEEDS;
 	        el.className = "r" + (r.team?.slug === CONFIG.HOME_TEAM_SLUG ? " me" : "") + (isPlayoffLine ? " cut" : "");
 	        el.innerHTML = `
-	          <div class="pos">${idx+1}</div>
+	          <div class="pos">${r.divRank != null ? r.divRank : (idx+1)}</div>
 	          <div class="tn">
             ${logoHtml(r.team)}
             <div class="nm" title="${escapeHtml(r.team?.name||"")}">${escapeHtml(r.team?.name || "")}</div>
@@ -2826,25 +2840,26 @@ return arr.map(g => {
     // Ramblers position in their division (South)
     const me = divSouth.find(r => r.team?.slug === CONFIG.HOME_TEAM_SLUG);
     if(me){
-      const idx = divSouth.indexOf(me) + 1;
-      const inPlayoffs = idx <= CONFIG.PLAYOFF_SEEDS;
+      const meIndex = divSouth.indexOf(me);
+      const rank = me.divRank != null ? me.divRank : (meIndex + 1);
+      const inPlayoffs = rank <= CONFIG.PLAYOFF_SEEDS;
       out.push({
         icon: inPlayoffs ? "✅" : "⚠️",
         pill:"SOUTH",
-        title:`Ramblers #${idx} in Eastlink South`,
+        title:`Ramblers #${rank} in Eastlink South`,
         detail:`Record ${safeNum(me.w)}-${safeNum(me.l)}-${safeNum(me.ot)} • ${safeNum(me.pts)} points${inPlayoffs ? " (playoff spot)" : ""}.`
       });
 
       // Chase/buffer within division
-      if(idx > 1){
-        const above = divSouth[idx-2];
+      if(meIndex > 0){
+        const above = divSouth[meIndex - 1];
         if(above && above.pts!=null && me.pts!=null){
           const diff = safeNum(above.pts) - safeNum(me.pts);
           out.push({ icon:"⬆️", pill:"CHASE", title:`Chasing ${above.team.name}`, detail:`${diff} points back in South division.`});
         }
       }
-      if(idx <= divSouth.length - 1){
-        const below = divSouth[idx];
+      if(meIndex >= 0 && meIndex <= divSouth.length - 2){
+        const below = divSouth[meIndex + 1];
         if(below && below.pts!=null && me.pts!=null){
           const diff = safeNum(me.pts) - safeNum(below.pts);
           out.push({ icon:"⬇️", pill:"BUFFER", title:`Ahead of ${below.team.name}`, detail:`${diff} point cushion in South.`});
@@ -3061,14 +3076,19 @@ return arr.map(g => {
 	    const banner = overrideActive ? safeStr(overrides?.banner || overrides?.ticker || overrides?.message || overrides?.announcement || overrides?.text || "") : "";
 	    if(banner) items.push({ b:"Announcement", t: banner });
 
-	    // Next Ramblers game
-	    const nextR = games
+	    // Next Ramblers games (show multiple when they are close together)
+	    const nextRams = games
 	      .filter(g => g.dt && g.dt >= now)
 	      .filter(g => g.home?.slug === CONFIG.HOME_TEAM_SLUG || g.away?.slug === CONFIG.HOME_TEAM_SLUG)
-	      .sort((a,b) => a.dt - b.dt)[0];
-    if(nextR){
-      items.push({ b:"Next Game", t: `${nextR.away?.name} @ ${nextR.home?.name} • ${fmtShortDayTime(nextR.dt)}` });
-    }
+	      .sort((a,b) => a.dt - b.dt)
+	      .slice(0, 2);
+	    nextRams.forEach((g, idx) => {
+	      const label = isToday(g.dt) ? "Tonight" : (isTomorrow(g.dt) ? "Tomorrow" : (idx === 0 ? "Next Game" : "Upcoming"));
+	      const isHome = g.home?.slug === CONFIG.HOME_TEAM_SLUG;
+	      const venuePart = isHome ? ` • ${truncate(g.venue || "Amherst", 26)}` : "";
+	      const timePart = (isToday(g.dt) || isTomorrow(g.dt)) ? fmtTime(g.dt) : fmtShortDayTime(g.dt);
+	      items.push({ b: label, t: `${g.away?.name} @ ${g.home?.name} • ${timePart}${venuePart}` });
+	    });
 
     // Last game result
     const last = ramGames.filter(g => g.dt).sort((a,b)=>b.dt-a.dt)[0];
@@ -3129,24 +3149,16 @@ return arr.map(g => {
     const south = standings.filter(r => {
       const div = r.div || detectDivision(r.team?.name);
       return div.toLowerCase().includes('south');
-    }).sort((a,b) => (safeNum(b.pts) - safeNum(a.pts)));
+    }).sort((a,b) => {
+      if(a.divRank != null && b.divRank != null) return a.divRank - b.divRank;
+      return (safeNum(b.pts) - safeNum(a.pts));
+    });
 
     const me = south.find(r => r.team?.slug === CONFIG.HOME_TEAM_SLUG);
     if(me){
-      const idx = south.indexOf(me) + 1;
-      items.push({ b:"South Division", t: `Ramblers #${idx} • ${safeNum(me.pts)} pts • ${safeNum(me.w)}-${safeNum(me.l)}-${safeNum(me.ot)}` });
+      const rank = me.divRank != null ? me.divRank : (south.indexOf(me) + 1);
+      items.push({ b:"Eastlink South", t: `Ramblers #${rank} • ${safeNum(me.pts)} pts • ${safeNum(me.w)}-${safeNum(me.l)}-${safeNum(me.ot)}` });
     }
-
-	    // Promos (P0: Only in ticker, not in slides)
-	    const promos = [
-	      { b:"Tickets", t:"Season tickets available at ramblershockey.ca" },
-	      { b:"Social", t:"Follow us @AmherstRamblers" },
-	      { b:"Home Ice", t:"Home games at Amherst Stadium" },
-	    ];
-	    promos.forEach(p => items.push(p));
-
-    // Data note
-    items.push({ b:"Info", t: `Data refreshes daily` + (fromCache ? " • cached mode" : "") });
 
     // Duplicate for seamless scroll
     const doubled = items.concat(items);

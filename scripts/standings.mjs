@@ -7,10 +7,10 @@
  *
  * MHL Divisions (2024-25):
  *   Eastlink South: Amherst Ramblers, Truro Bearcats, Pictou County Weeks Crushers,
- *                   Yarmouth Mariners, Valley Wildcats, South Shore Lumberjacks
+ *                   Yarmouth Mariners, Valley Wildcats, Summerside Western Capitals
  *   Eastlink North: Grand Falls Rapids, West Kent Steamers, Chaleur Lightning,
  *                   Edmundston Blizzard, Campbellton Tigers, Miramichi Timberwolves,
- *                   Summerside Western Capitals
+ *                   (Division membership should be derived from the standings table)
  *
  * Requires in package.json: "puppeteer", "cheerio"
  * Workflow must install Chrome:  npx puppeteer browsers install chrome
@@ -38,13 +38,13 @@ const MHL_DIVISIONS = {
   'yarmouth-mariners': 'Eastlink South',
   'valley-wildcats': 'Eastlink South',
   'south-shore-lumberjacks': 'Eastlink South',
+  'summerside-western-capitals': 'Eastlink South',
   'grand-falls-rapids': 'Eastlink North',
   'west-kent-steamers': 'Eastlink North',
   'chaleur-lightning': 'Eastlink North',
   'edmundston-blizzard': 'Eastlink North',
   'campbellton-tigers': 'Eastlink North',
   'miramichi-timberwolves': 'Eastlink North',
-  'summerside-western-capitals': 'Eastlink North',
 };
 
 // Team name to division mapping (for cases where slug isn't available yet)
@@ -56,13 +56,13 @@ const TEAM_NAME_TO_DIVISION = {
   'yarmouth mariners': 'Eastlink South',
   'valley wildcats': 'Eastlink South',
   'south shore lumberjacks': 'Eastlink South',
+  'summerside western capitals': 'Eastlink South',
   'grand falls rapids': 'Eastlink North',
   'west kent steamers': 'Eastlink North',
   'chaleur lightning': 'Eastlink North',
   'edmundston blizzard': 'Eastlink North',
   'campbellton tigers': 'Eastlink North',
   'miramichi timberwolves': 'Eastlink North',
-  'summerside western capitals': 'Eastlink North',
 };
 
 // ------------ slug mapping helpers (use map passed in from build_all) -----------
@@ -74,15 +74,7 @@ function slugFor(name, nameToSlug){
 }
 function attachSlugAndDivision(row, nameToSlug){
   const slug = slugFor(row.team, nameToSlug);
-  // Get division from slug or team name
-  let division = null;
-  if (slug && MHL_DIVISIONS[slug]) {
-    division = MHL_DIVISIONS[slug];
-  } else {
-    const teamLower = norm(row.team);
-    division = TEAM_NAME_TO_DIVISION[teamLower] || null;
-  }
-  return { ...row, slug, division };
+  return { ...row, slug };
 }
 
 // ------------ MHL ------------
@@ -247,6 +239,11 @@ export async function buildMHLStandings({ nameToSlug }){
         }
       }
 
+      // First cell is commonly the within-division rank.
+      const rankCell = String(arr[0] ?? '').trim();
+      const rank = (/^\d+$/.test(rankCell)) ? Number(rankCell) : null;
+      if (rank != null) obj.division_rank = rank;
+
       // Find team name: look for first non-numeric cell with length > 2
       if (!obj.team || /^\d+$/.test(obj.team)) {
         obj.team = arr.find(cell => cell && cell.length > 2 && !/^[\d.]+$/.test(cell)) || arr[1] || arr[0] || '';
@@ -267,18 +264,47 @@ export async function buildMHLStandings({ nameToSlug }){
       rows.push(obj);
     }
 
-    // Attach slug and division
+    // Division assignment:
+    // - Prefer explicit division headers when they exist and include both divisions.
+    // - Fallback: detect a rank reset (e.g., 6 → 1) which themhl.ca uses to separate divisions.
+    const detected = Array.from(new Set(rows.map(r => (r.division_detected || '').toLowerCase()).filter(Boolean)));
+    const detectedHasSouth = detected.some(d => d.includes('south'));
+    const detectedHasNorth = detected.some(d => d.includes('north'));
+
+    let switchIndex = -1;
+    if (!(detectedHasSouth && detectedHasNorth)) {
+      let sawGT1 = false;
+      for (let i = 0; i < rows.length; i++) {
+        const rk = rows[i].division_rank;
+        if (rk == null) continue;
+        if (rk > 1) sawGT1 = true;
+        if (rk === 1 && sawGT1) { switchIndex = i; break; }
+      }
+    }
+
+    rows.forEach((r, idx) => {
+      if (detectedHasSouth && detectedHasNorth) {
+        r.division = r.division_detected || null;
+      } else if (switchIndex !== -1) {
+        r.division = (idx < switchIndex) ? 'Eastlink South' : 'Eastlink North';
+      } else {
+        // Last resort: static mapping (keep it updated, but don't prefer it).
+        const slugGuess = slugFor(r.team, nameToSlug);
+        const teamLower = norm(r.team);
+        r.division = (slugGuess && MHL_DIVISIONS[slugGuess]) ? MHL_DIVISIONS[slugGuess] : (TEAM_NAME_TO_DIVISION[teamLower] || null);
+      }
+      delete r.division_detected;
+    });
+
+    // Attach slug
     const withSlugAndDivision = rows
       .filter(r => r.team && (r.gp!=null || r.pts!=null)) // drop empty/footer rows
       .map(r => {
         const enhanced = attachSlugAndDivision(r, nameToSlug);
-        // Use detected division if available, otherwise use our mapping
-        enhanced.division = enhanced.division || r.division_detected;
-        delete enhanced.division_detected;
         return enhanced;
       });
 
-    // Sort by points within each division
+    // Sort by division then within-division rank (fallback to points/diff if rank missing)
     withSlugAndDivision.sort((a, b) => {
       // First by division (South first for Ramblers focus)
       if (a.division !== b.division) {
@@ -286,21 +312,23 @@ export async function buildMHLStandings({ nameToSlug }){
         if (b.division === 'Eastlink South') return 1;
         return 0;
       }
-      // Then by points, then goal diff
+      // Then by within-division rank if present
+      if (a.division_rank != null && b.division_rank != null) return a.division_rank - b.division_rank;
+      // Fallback by points, then goal diff
       const ptsDiff = (b.pts || 0) - (a.pts || 0);
       if (ptsDiff !== 0) return ptsDiff;
       return (b.diff || 0) - (a.diff || 0);
     });
 
-    // Add division rank
+    // Ensure division rank exists (in case the table doesn't include it)
     let southRank = 0, northRank = 0;
     for (const row of withSlugAndDivision) {
       if (row.division === 'Eastlink South') {
         southRank++;
-        row.division_rank = southRank;
+        if (row.division_rank == null) row.division_rank = southRank;
       } else if (row.division === 'Eastlink North') {
         northRank++;
-        row.division_rank = northRank;
+        if (row.division_rank == null) row.division_rank = northRank;
       }
     }
 
