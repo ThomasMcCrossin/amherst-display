@@ -1348,13 +1348,17 @@ const PATHS = {
   // ============================
   // Cached fetch (robust for flaky network)
   // ============================
+  // Bump this when cached JSON needs to be invalidated (e.g., schema changes or critical data fixes).
+  const CACHE_VERSION = "v3-2026-01-10-standings-division-fix";
   function cacheKey(url){ return "mhl_cache::" + url; }
 
   function loadCache(url){
     try{
       const raw = localStorage.getItem(cacheKey(url));
       if(!raw) return null;
-      return JSON.parse(raw);
+      const parsed = JSON.parse(raw);
+      if(!parsed || typeof parsed !== "object") return null;
+      return parsed;
     }catch(e){
       return null;
     }
@@ -1362,7 +1366,7 @@ const PATHS = {
 
   function saveCache(url, data){
     try{
-      localStorage.setItem(cacheKey(url), JSON.stringify({ t: Date.now(), data }));
+      localStorage.setItem(cacheKey(url), JSON.stringify({ t: Date.now(), v: CACHE_VERSION, data }));
     }catch(e){}
   }
 
@@ -1371,7 +1375,8 @@ const PATHS = {
     const ttl = ttlMin * 60 * 1000;
     const now = Date.now();
 
-    if(cached && (now - cached.t) < ttl){
+    const schemaOk = !!(cached && cached.v === CACHE_VERSION);
+    if(schemaOk && (now - cached.t) < ttl){
       return { data: cached.data, fromCache: true };
     }
 
@@ -1383,7 +1388,7 @@ const PATHS = {
       return { data, fromCache: false };
     }catch(err){
       if(cached){
-        return { data: cached.data, fromCache: true, stale: true, error: err };
+        return { data: cached.data, fromCache: true, stale: true, staleSchema: !schemaOk, error: err };
       }
       throw err;
     }
