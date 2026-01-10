@@ -12,6 +12,7 @@ import { fetchCCMHAGames } from './ccmha.mjs';
 import { buildRosters } from './rosters.mjs';
 import { buildRamblersGames } from './games.mjs';
 import { buildLeagueStats } from './league_stats.mjs';
+import { scrapeRamblersBoxScores } from './boxscores.mjs';
 
 const TZ = 'America/Halifax';
 
@@ -212,26 +213,42 @@ async function buildLeagueStatsWrapper() {
   }
 }
 
+async function buildBoxScoresWrapper() {
+  try {
+    // BOXSCORE_LIMIT env var controls how many games to scrape (0 = all)
+    const limit = parseInt(process.env.BOXSCORE_LIMIT || '0') || 0;
+    const data = await scrapeRamblersBoxScores({ limit });
+    const gamesWithBoxScore = data.games.filter(g => g.box_score).length;
+    console.log(`[boxscores] Complete! Enhanced ${gamesWithBoxScore} games with box score data`);
+  } catch(e) {
+    console.warn('[boxscores] failed:', e.message);
+    // Box scores are optional - games.json still has base data
+  }
+}
+
 async function main(){
   // 1) Rosters (can take time, but good to do early)
   await buildRostersWrapper();
 
-  // 2) Ramblers game summaries
+  // 2) Ramblers game summaries (from API)
   await buildGamesWrapper();
 
-  // 3) Standings (fast feedback if selectors change)
+  // 3) Enhanced box scores (from Playwright scraping)
+  await buildBoxScoresWrapper();
+
+  // 4) Standings (fast feedback if selectors change)
   await buildStandings();
 
-  // 4) Schedules
+  // 5) Schedules
   await buildSchedules();
 
-  // 5) CCMHA minor hockey games
+  // 6) CCMHA minor hockey games
   await buildCCMHA();
 
-  // 6) League-wide stats (leaders, streaks, special teams)
+  // 7) League-wide stats (leaders, streaks, special teams)
   await buildLeagueStatsWrapper();
 
-  // 7) Ensure base files exist (first run safety)
+  // 8) Ensure base files exist (first run safety)
   if (!existsSync('rosters/index.json'))          writeJson('rosters/index.json',          { generated_at: nowISO(), league: 'MHL', team_count: 0, teams: [] });
   if (!existsSync('games/amherst-ramblers.json')) writeJson('games/amherst-ramblers.json', { generated_at: nowISO(), team_slug: 'amherst-ramblers', season: '2024-25', summary: {}, games: [] });
   if (!existsSync('games.json'))                  writeJson('games.json',                  { generated_at: nowISO(), timezone: TZ, events: [] });
