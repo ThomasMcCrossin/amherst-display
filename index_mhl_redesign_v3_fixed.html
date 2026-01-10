@@ -1527,7 +1527,11 @@ return arr.map(g => {
       const g  = safeNum(p.g ?? p.G ?? p.goals ?? p.stats?.g ?? p.stats?.goals, 0);
       const a  = safeNum(p.a ?? p.A ?? p.assists ?? p.stats?.a ?? p.stats?.assists, 0);
       const pts= safeNum(p.pts ?? p.PTS ?? p.points ?? p.stats?.pts ?? p.stats?.points, g + a);
-      const pim= safeNum(p.pim ?? p.PIM ?? p.penalty_minutes ?? p.stats?.pim, null);
+      const pim= safeNum(
+        p.pim ?? p.PIM ?? p.penalty_minutes ?? p.penaltyMinutes ??
+        p.stats?.pim ?? p.stats?.PIM ?? p.stats?.penalty_minutes ?? p.stats?.penaltyMinutes,
+        null
+      );
       const plusMinus = (p.plus_minus ?? p.plusMinus ?? p.stats?.plus_minus);
       const pm = (plusMinus==null ? null : safeNum(plusMinus, null));
       // goalie fields (best-effort; some feeds omit certain columns early season)
