@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-09T19:04:23Z",
+  "generated_at": "2026-01-10T06:07:20Z",
   "timezone": "America/Halifax",
   "games": [
     {
@@ -8,6 +8,15 @@
       "away_team": "Cumberland Ramblers - Development",
       "start": "2026-01-11T09:15:00-04:00",
       "end": "2026-01-11T10:15:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U9-ADV",
+      "home_team": "Cape Breton West",
+      "away_team": "Cumberland Ramblers",
+      "start": "2026-01-17T12:15:00-04:00",
+      "end": "2026-01-17T13:15:00-04:00",
       "location": "Amherst Stadium",
       "source": "ccmha"
     }

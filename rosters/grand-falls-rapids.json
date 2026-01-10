@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 12,
-  "updated_at": "2026-01-09T19:04:05.942Z",
+  "updated_at": "2026-01-10T06:06:59.756Z",
   "player_count": 26,
   "players": [
     {
@@ -97,7 +97,7 @@
       "headshot": "assets/headshots/Grand-Falls-Rapids/5-anton-topilnyckyj.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3571.jpg",
       "stats": {
-        "games_played": 31,
+        "games_played": 32,
         "goals": 2,
         "assists": 10,
         "points": 12,
@@ -111,7 +111,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.39
+        "points_per_game": 0.38
       },
       "hockeytech_id": "3571",
       "person_id": "4158",
@@ -168,10 +168,10 @@
       "headshot": "assets/headshots/Grand-Falls-Rapids/7-patrick-baxter.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3399.jpg",
       "stats": {
-        "games_played": 35,
+        "games_played": 36,
         "goals": 10,
-        "assists": 8,
-        "points": 18,
+        "assists": 9,
+        "points": 19,
         "plus_minus": 0,
         "penalty_minutes": 30,
         "power_play_goals": 0,
@@ -182,7 +182,7 @@
         "short_handed_points": 2,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.51
+        "points_per_game": 0.53
       },
       "hockeytech_id": "3399",
       "person_id": "3961",
@@ -236,21 +236,21 @@
       "headshot": "assets/headshots/Grand-Falls-Rapids/9-conor-ryan.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3856.jpg",
       "stats": {
-        "games_played": 27,
+        "games_played": 28,
         "goals": 1,
-        "assists": 10,
-        "points": 11,
+        "assists": 11,
+        "points": 12,
         "plus_minus": 0,
         "penalty_minutes": 10,
         "power_play_goals": 0,
-        "power_play_assists": 2,
-        "power_play_points": 2,
+        "power_play_assists": 3,
+        "power_play_points": 3,
         "short_handed_goals": 0,
         "short_handed_assists": 1,
         "short_handed_points": 1,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.41
+        "points_per_game": 0.43
       },
       "hockeytech_id": "3856",
       "person_id": "4484",
@@ -277,7 +277,7 @@
       "headshot": "assets/headshots/Grand-Falls-Rapids/10-tristan-richard.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3318.jpg",
       "stats": {
-        "games_played": 26,
+        "games_played": 27,
         "goals": 3,
         "assists": 6,
         "points": 9,
@@ -291,7 +291,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.35
+        "points_per_game": 0.33
       },
       "hockeytech_id": "3318",
       "person_id": "3880",
@@ -320,21 +320,21 @@
       "headshot": "assets/headshots/Grand-Falls-Rapids/12-coen-miller.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2794.jpg",
       "stats": {
-        "games_played": 25,
-        "goals": 18,
-        "assists": 21,
-        "points": 39,
+        "games_played": 26,
+        "goals": 19,
+        "assists": 23,
+        "points": 42,
         "plus_minus": 0,
         "penalty_minutes": 64,
         "power_play_goals": 9,
-        "power_play_assists": 11,
-        "power_play_points": 20,
+        "power_play_assists": 12,
+        "power_play_points": 21,
         "short_handed_goals": 1,
         "short_handed_assists": 0,
         "short_handed_points": 1,
-        "game_winning_goals": 3,
+        "game_winning_goals": 4,
         "overtime_goals": 1,
-        "points_per_game": 1.56
+        "points_per_game": 1.62
       },
       "hockeytech_id": "2794",
       "person_id": "3221",
@@ -363,7 +363,7 @@
       "headshot": "assets/headshots/Grand-Falls-Rapids/16-oliver-plante.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3784.jpg",
       "stats": {
-        "games_played": 32,
+        "games_played": 33,
         "goals": 8,
         "assists": 8,
         "points": 16,
@@ -377,7 +377,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 2,
         "overtime_goals": 0,
-        "points_per_game": 0.5
+        "points_per_game": 0.48
       },
       "hockeytech_id": "3784",
       "person_id": "4400",
@@ -407,12 +407,12 @@
       "headshot": "assets/headshots/Grand-Falls-Rapids/17-isaac-allard.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3040.jpg",
       "stats": {
-        "games_played": 34,
-        "goals": 6,
+        "games_played": 35,
+        "goals": 7,
         "assists": 13,
-        "points": 19,
+        "points": 20,
         "plus_minus": 0,
-        "penalty_minutes": 36,
+        "penalty_minutes": 38,
         "power_play_goals": 1,
         "power_play_assists": 2,
         "power_play_points": 3,
@@ -421,7 +421,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.56
+        "points_per_game": 0.57
       },
       "hockeytech_id": "3040",
       "person_id": "3558",
@@ -448,12 +448,12 @@
       "headshot": "assets/headshots/Grand-Falls-Rapids/18-dereck-asselin.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3783.jpg",
       "stats": {
-        "games_played": 33,
+        "games_played": 34,
         "goals": 4,
         "assists": 9,
         "points": 13,
         "plus_minus": 0,
-        "penalty_minutes": 39,
+        "penalty_minutes": 41,
         "power_play_goals": 0,
         "power_play_assists": 0,
         "power_play_points": 0,
@@ -462,7 +462,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.39
+        "points_per_game": 0.38
       },
       "hockeytech_id": "3783",
       "person_id": "4399",
@@ -533,21 +533,21 @@
       "headshot": "assets/headshots/Grand-Falls-Rapids/21-jonah-leard.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3150.jpg",
       "stats": {
-        "games_played": 35,
-        "goals": 13,
-        "assists": 28,
-        "points": 41,
+        "games_played": 36,
+        "goals": 15,
+        "assists": 29,
+        "points": 44,
         "plus_minus": 0,
         "penalty_minutes": 10,
-        "power_play_goals": 2,
+        "power_play_goals": 3,
         "power_play_assists": 11,
-        "power_play_points": 13,
+        "power_play_points": 14,
         "short_handed_goals": 0,
         "short_handed_assists": 0,
         "short_handed_points": 0,
         "game_winning_goals": 4,
         "overtime_goals": 1,
-        "points_per_game": 1.17
+        "points_per_game": 1.22
       },
       "hockeytech_id": "3150",
       "person_id": "3669",
@@ -574,10 +574,10 @@
       "headshot": "assets/headshots/Grand-Falls-Rapids/22-bailey-shortall.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2910.jpg",
       "stats": {
-        "games_played": 33,
+        "games_played": 34,
         "goals": 7,
-        "assists": 6,
-        "points": 13,
+        "assists": 7,
+        "points": 14,
         "plus_minus": 0,
         "penalty_minutes": 8,
         "power_play_goals": 2,
@@ -588,7 +588,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.39
+        "points_per_game": 0.41
       },
       "hockeytech_id": "2910",
       "person_id": "3365",
@@ -615,7 +615,7 @@
       "headshot": "assets/headshots/Grand-Falls-Rapids/27-mathis-cyr.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3807.jpg",
       "stats": {
-        "games_played": 28,
+        "games_played": 29,
         "goals": 6,
         "assists": 11,
         "points": 17,
@@ -629,7 +629,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 1,
-        "points_per_game": 0.61
+        "points_per_game": 0.59
       },
       "hockeytech_id": "3807",
       "person_id": "4425",
@@ -658,12 +658,12 @@
       "headshot": "assets/headshots/Grand-Falls-Rapids/28-reid-calder.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2853.jpg",
       "stats": {
-        "games_played": 31,
+        "games_played": 32,
         "goals": 7,
         "assists": 8,
         "points": 15,
         "plus_minus": 0,
-        "penalty_minutes": 112,
+        "penalty_minutes": 116,
         "power_play_goals": 1,
         "power_play_assists": 0,
         "power_play_points": 1,
@@ -672,7 +672,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.48
+        "points_per_game": 0.47
       },
       "hockeytech_id": "2853",
       "person_id": "3280",
@@ -741,17 +741,17 @@
       "headshot": "assets/headshots/Grand-Falls-Rapids/35-adam-lecours.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3133.jpg",
       "stats": {
-        "games_played": 25,
-        "wins": 14,
+        "games_played": 26,
+        "wins": 15,
         "losses": 8,
         "ot_losses": 1,
-        "minutes_played": 1460,
-        "saves": 731,
-        "shots": 808,
-        "goals_against": 77,
+        "minutes_played": 1520,
+        "saves": 763,
+        "shots": 842,
+        "goals_against": 79,
         "shutouts": 2,
-        "save_percentage": 0.905,
-        "goals_against_average": 3.16
+        "save_percentage": 0.906,
+        "goals_against_average": 3.12
       },
       "hockeytech_id": "3133",
       "person_id": "3652",
@@ -778,12 +778,12 @@
       "headshot": "assets/headshots/Grand-Falls-Rapids/40-brody-pare.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2821.jpg",
       "stats": {
-        "games_played": 32,
+        "games_played": 33,
         "goals": 6,
         "assists": 8,
         "points": 14,
         "plus_minus": 0,
-        "penalty_minutes": 53,
+        "penalty_minutes": 55,
         "power_play_goals": 0,
         "power_play_assists": 0,
         "power_play_points": 0,
@@ -792,7 +792,7 @@
         "short_handed_points": 1,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.44
+        "points_per_game": 0.42
       },
       "hockeytech_id": "2821",
       "person_id": "3248",
@@ -870,12 +870,12 @@
       "headshot": "assets/headshots/Grand-Falls-Rapids/77-nathan-plamondon-michaud.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3481.jpg",
       "stats": {
-        "games_played": 35,
+        "games_played": 36,
         "goals": 18,
-        "assists": 17,
-        "points": 35,
+        "assists": 18,
+        "points": 36,
         "plus_minus": 0,
-        "penalty_minutes": 40,
+        "penalty_minutes": 42,
         "power_play_goals": 4,
         "power_play_assists": 6,
         "power_play_points": 10,
@@ -914,7 +914,7 @@
       "headshot": "assets/headshots/Grand-Falls-Rapids/91-loic-francoeur.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3805.jpg",
       "stats": {
-        "games_played": 33,
+        "games_played": 34,
         "goals": 15,
         "assists": 24,
         "points": 39,
@@ -928,7 +928,7 @@
         "short_handed_points": 1,
         "game_winning_goals": 2,
         "overtime_goals": 0,
-        "points_per_game": 1.18
+        "points_per_game": 1.15
       },
       "hockeytech_id": "3805",
       "person_id": "4423",
@@ -968,17 +968,17 @@
       "rookie": false,
       "veteran": false,
       "stats": {
-        "games_played": 35,
-        "wins": 18,
+        "games_played": 36,
+        "wins": 19,
         "losses": 12,
         "ot_losses": 4,
-        "minutes_played": 2129,
-        "saves": 1031,
-        "shots": 1150,
-        "goals_against": 119,
+        "minutes_played": 2189,
+        "saves": 1063,
+        "shots": 1184,
+        "goals_against": 121,
         "shutouts": 2,
-        "save_percentage": 0.897,
-        "goals_against_average": 3.35
+        "save_percentage": 0.898,
+        "goals_against_average": 3.32
       },
       "flags": []
     }

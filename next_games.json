@@ -1,17 +1,10 @@
 {
-  "generated_at": "2026-01-09T19:04:22Z",
+  "generated_at": "2026-01-10T06:07:19Z",
   "timezone": "America/Halifax",
   "teams": [
     {
       "team_slug": "amherst-ramblers",
       "games": [
-        {
-          "opponent_slug": "edmundston-blizzard",
-          "home": true,
-          "start": "2026-01-09T19:00:00-04:00",
-          "venue": "Amherst Stadium",
-          "city": ""
-        },
         {
           "opponent_slug": "miramichi-timberwolves",
           "home": true,
@@ -24,6 +17,13 @@
           "home": false,
           "start": "2026-01-16T19:00:00-04:00",
           "venue": "Mariners Centre",
+          "city": ""
+        },
+        {
+          "opponent_slug": "truro-bearcats",
+          "home": true,
+          "start": "2026-01-17T19:00:00-04:00",
+          "venue": "Amherst Stadium",
           "city": ""
         }
       ]
