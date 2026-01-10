@@ -1,0 +1,41 @@
+# Core dependencies for Hockey Highlight Extractor v2.0
+# Box-score-based detection with OCR time matching
+
+# Video processing
+moviepy==2.2.1
+imageio==2.37.0
+imageio-ffmpeg==0.6.0
+
+# OCR for scoreboard time extraction
+pytesseract==0.3.10
+opencv-python==4.12.0.88
+Pillow==11.3.0
+
+# Numerical and data processing
+numpy==2.2.6
+pandas==2.3.2
+
+# HTTP requests for API calls
+requests==2.32.5
+urllib3==2.5.0
+certifi==2025.8.3
+
+# File watching for automation
+watchdog==6.0.0
+
+# Utilities
+python-dateutil==2.9.0.post0
+tqdm==4.67.1
+
+# Optional: Audio processing (if you want to keep audio-based features as fallback)
+# Commented out to reduce dependencies - uncomment if needed
+# librosa==0.11.0
+# soundfile==0.13.1
+# noisereduce==3.0.3
+
+# Development/debugging
+colorama==0.4.6
+
+# Testing
+pytest==8.3.4
+pytest-cov==6.0.0

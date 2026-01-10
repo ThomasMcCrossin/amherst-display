@@ -1,0 +1,29 @@
+{
+  "league_meta": {
+    "MHL": { "badge": "assets/league/mhl.png", "color": "#2d74ff" },
+    "BSHL": { "badge": "assets/league/bshl.png", "color": "#19c37d" }
+  },
+  "teams": [
+    { "slug": "amherst-ramblers", "league": "MHL",  "name": "Amherst Ramblers",  "aliases": ["Ramblers","Amherst"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/mhl/amherst-ramblers.png" },
+    { "slug": "truro-bearcats",   "league": "MHL",  "name": "Truro Bearcats",    "aliases": ["Truro","Bearcats","Truro Jr A"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/mhl/truro-bearcats.png" },
+    { "slug": "pictou-county-weeks-crushers", "league": "MHL", "name": "Pictou County Weeks Crushers", "aliases": ["Pictou County","Crushers","Weeks Crushers"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/mhl/pictou-county-weeks-crushers.png" },
+    { "slug": "yarmouth-mariners", "league": "MHL", "name": "Yarmouth Mariners", "aliases": ["Yarmouth","Mariners"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/mhl/yarmouth-mariners.png" },
+    { "slug": "valley-wildcats",   "league": "MHL", "name": "Valley Wildcats",   "aliases": ["Valley","Wildcats"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/mhl/valley-wildcats.png" },
+    { "slug": "west-kent-steamers","league": "MHL", "name": "West Kent Steamers","aliases": ["West Kent","Steamers"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/mhl/west-kent-steamers.png" },
+    { "slug": "summerside-western-capitals", "league": "MHL", "name": "Summerside Western Capitals", "aliases": ["Summerside","Western Capitals","Caps"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/mhl/summerside-western-capitals.png" },
+    { "slug": "edmundston-blizzard","league": "MHL", "name": "Edmundston Blizzard","aliases": ["Edmundston","Blizzard"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/mhl/edmundston-blizzard.png" },
+    { "slug": "grand-falls-rapids","league": "MHL", "name": "Grand Falls Rapids","aliases": ["Grand Falls","Rapids"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/mhl/grand-falls-rapids.png" },
+    { "slug": "miramichi-timberwolves","league": "MHL", "name": "Miramichi Timberwolves","aliases": ["Miramichi","Timberwolves"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/mhl/miramichi-timberwolves.png" },
+    { "slug": "campbellton-tigers","league": "MHL", "name": "Campbellton Tigers","aliases": ["Campbellton","Tigers"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/mhl/campbellton-tigers.png" },
+    { "slug": "chaleur-lightning","league": "MHL", "name": "Chaleur Lightning","aliases": ["Chaleur","Lightning"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/mhl/chaleur-lightning.png" },
+
+    { "slug": "amherst-ducks",     "league": "BSHL", "name": "Amherst Ducks",     "aliases": ["Ducks","Amherst"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/bshl/amherst-ducks.png" },
+    { "slug": "bouctouche",        "league": "BSHL", "name": "Bouctouche",        "aliases": ["Bouctouche JC","Bouctouche Ducks Opp"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/bshl/bouctouche.png" },
+    { "slug": "elsipogtog",        "league": "BSHL", "name": "Elsipogtog",        "aliases": ["Elsipogtog Hawks","Elsipogtog Eagles","Elsipogtog JC"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/bshl/elsipogtog.png" },
+    { "slug": "dalhousie",         "league": "BSHL", "name": "Dalhousie",         "aliases": ["Dalhousie Mariners","Dalhousie JC"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/bshl/dalhousie.png" },
+    { "slug": "fredericton",       "league": "BSHL", "name": "Fredericton",       "aliases": ["Fredericton Caps","Fredericton JC"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/bshl/fredericton.png" },
+    { "slug": "miramichi-bshl",    "league": "BSHL", "name": "Miramichi",         "aliases": ["Miramichi JC"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/bshl/miramichi.png" },
+    { "slug": "belle-baie",        "league": "BSHL", "name": "Belle‑Baie",        "aliases": ["Belle Baie"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/bshl/belle-baie.png" },
+    { "slug": "peninsule",         "league": "BSHL", "name": "Péninsule",         "aliases": ["Peninsule"], "logo_url": "https://thomasmccrossin.github.io/amherst-display/assets/logos/bshl/peninsule.png" }
+  ]
+}
