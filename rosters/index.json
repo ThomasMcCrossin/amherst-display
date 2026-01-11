@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-10T06:52:45.747Z",
+  "generated_at": "2026-01-11T06:54:48.653Z",
   "season": "2024-25",
   "season_id": 41,
   "api_source": "HockeyTech",
@@ -35,7 +35,7 @@
       "team_name": "Valley-Wildcats",
       "league": "MHL",
       "team_id": 4,
-      "player_count": 24,
+      "player_count": 21,
       "file": "rosters/valley-wildcats.json"
     },
     {
@@ -43,7 +43,7 @@
       "team_name": "Yarmouth-Mariners",
       "league": "MHL",
       "team_id": 5,
-      "player_count": 26,
+      "player_count": 27,
       "file": "rosters/yarmouth-mariners.json"
     },
     {
@@ -59,7 +59,7 @@
       "team_name": "Pictou-County-Crushers",
       "league": "MHL",
       "team_id": 7,
-      "player_count": 32,
+      "player_count": 33,
       "file": "rosters/pictou-county-crushers.json"
     },
     {
@@ -83,7 +83,7 @@
       "team_name": "Summerside-Capitals",
       "league": "MHL",
       "team_id": 10,
-      "player_count": 25,
+      "player_count": 23,
       "file": "rosters/summerside-capitals.json"
     },
     {
@@ -91,7 +91,7 @@
       "team_name": "Grand-Falls-Rapids",
       "league": "MHL",
       "team_id": 12,
-      "player_count": 26,
+      "player_count": 24,
       "file": "rosters/grand-falls-rapids.json"
     },
     {
