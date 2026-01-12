@@ -4,7 +4,7 @@
   "team_id": 1,
   "season": "2024-25",
   "season_id": 41,
-  "updated_at": "2026-01-11T06:55:05.008Z",
+  "updated_at": "2026-01-12T07:00:58.427Z",
   "summary": {
     "games_played": 35,
     "wins": 20,
@@ -65,6 +65,11 @@
               "player_id": "mhl-3756",
               "name": "Zach Wheeler",
               "number": 19
+            },
+            {
+              "player_id": "mhl-3038",
+              "name": "Owen Aura",
+              "number": 25
             }
           ],
           "power_play": false,
@@ -88,6 +93,11 @@
               "player_id": "mhl-3808",
               "name": "Ryan Hackett",
               "number": 17
+            },
+            {
+              "player_id": "mhl-3250",
+              "name": "Harlan Eustace",
+              "number": 27
             }
           ],
           "power_play": false,
@@ -181,9 +191,9 @@
           },
           "assists": [
             {
-              "player_id": "mhl-3562",
-              "name": "Elliot Wright",
-              "number": 13
+              "player_id": "mhl-2943",
+              "name": "Cooper Cormier",
+              "number": 37
             }
           ],
           "power_play": false,
@@ -202,18 +212,7 @@
             "number": 27,
             "position": "RW"
           },
-          "assists": [
-            {
-              "player_id": "mhl-2933",
-              "name": "James Martin",
-              "number": 16
-            },
-            {
-              "player_id": "mhl-3756",
-              "name": "Nick Beatty",
-              "number": 19
-            }
-          ],
+          "assists": [],
           "power_play": false,
           "short_handed": false,
           "game_winning": false,
@@ -235,6 +234,11 @@
               "player_id": "mhl-2799",
               "name": "Anthony Gaudet",
               "number": 11
+            },
+            {
+              "player_id": "mhl-3250",
+              "name": "Mark Corbett",
+              "number": 27
             }
           ],
           "power_play": false,
@@ -389,8 +393,8 @@
         "mhl-3562": {
           "position": "C",
           "goals": 0,
-          "assists": 1,
-          "points": 1,
+          "assists": 0,
+          "points": 0,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -467,8 +471,8 @@
         "mhl-3038": {
           "position": "D",
           "goals": 0,
-          "assists": 1,
-          "points": 1,
+          "assists": 2,
+          "points": 2,
           "penalty_minutes": 2,
           "shots": 0,
           "plus_minus": "0",
@@ -480,8 +484,8 @@
         "mhl-3250": {
           "position": "C",
           "goals": 1,
-          "assists": 0,
-          "points": 1,
+          "assists": 1,
+          "points": 2,
           "penalty_minutes": 4,
           "shots": 0,
           "plus_minus": "0",
@@ -493,8 +497,8 @@
         "mhl-2943": {
           "position": "LW",
           "goals": 3,
-          "assists": 0,
-          "points": 3,
+          "assists": 1,
+          "points": 4,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -557,8 +561,8 @@
         },
         "mhl-3766": {
           "position": "G",
-          "saves": 35,
-          "shots_against": 40,
+          "saves": 36,
+          "shots_against": 41,
           "goals_against": 5,
           "save_percentage": "0.000",
           "time_on_ice": "60:44"

@@ -101,7 +101,7 @@
 [rosters/yarmouth-mariners] Fetching roster for Yarmouth-Mariners...
 [rosters] Fetching from API: team_id=5
 [rosters] Fetching stats from API: team_id=5
-[rosters/yarmouth-mariners] Processing 27 players (downloading headshots)
+[rosters/yarmouth-mariners] Processing 28 players (downloading headshots)
 [rosters] Downloaded: 4-loic-mburanumwe.jpg
 [rosters] Downloaded: 5-nic-macisaac.jpg
 [rosters] Downloaded: 6-lucien-doucette.jpg
@@ -113,6 +113,7 @@
 [rosters] Skipping placeholder image
 [rosters] Downloaded: 16-noah-breau.jpg
 [rosters] Downloaded: 16-jared-pitman.jpg
+[rosters] Downloaded: 18-malcolm-macdonald.jpg
 [rosters] Downloaded: 19-grayson-pardy.jpg
 [rosters] Downloaded: 21-ryder-macqueen.jpg
 [rosters] Downloaded: 22-owen-o-donnell.jpg
@@ -128,7 +129,7 @@
 [rosters] Downloaded: 47-seamus-maceachern.jpg
 [rosters] Downloaded: 47-ryker-rougeau.jpg
 [rosters] Downloaded: 49-maxime-gigu-re.jpg
-[rosters/yarmouth-mariners] Wrote rosters/yarmouth-mariners.json (27 players)
+[rosters/yarmouth-mariners] Wrote rosters/yarmouth-mariners.json (28 players)
 [rosters/west-kent-steamers] Fetching roster for West-Kent-Steamers...
 [rosters] Fetching from API: team_id=6
 [rosters] Fetching stats from API: team_id=6
@@ -268,7 +269,7 @@
 [rosters/summerside-capitals] Fetching roster for Summerside-Capitals...
 [rosters] Fetching from API: team_id=10
 [rosters] Fetching stats from API: team_id=10
-[rosters/summerside-capitals] Processing 23 players (downloading headshots)
+[rosters/summerside-capitals] Processing 24 players (downloading headshots)
 [rosters] Downloaded: 2-max-jardine.jpg
 [rosters] Downloaded: 3-isaac-taweel.jpg
 [rosters] Downloaded: 4-elliott-mullen.jpg
@@ -291,7 +292,8 @@
 [rosters] Downloaded: 77-justin-ouellette.jpg
 [rosters] Downloaded: 79-alex-hendry.jpg
 [rosters] Downloaded: 81-brett-arsenault.jpg
-[rosters/summerside-capitals] Wrote rosters/summerside-capitals.json (23 players)
+[rosters] Skipping placeholder image
+[rosters/summerside-capitals] Wrote rosters/summerside-capitals.json (24 players)
 [rosters/grand-falls-rapids] Fetching roster for Grand-Falls-Rapids...
 [rosters] Fetching from API: team_id=12
 [rosters] Fetching stats from API: team_id=12
@@ -409,15 +411,15 @@
 ╚═════════════════════════════════════════════════════════════════════════╝
 [standings/MHL] table rows found
 [standings/MHL] tables=1 standings_tables=1 rows=12
-[standings/MHL] example={"gp":36,"w":24,"l":9,"otl":3,"sol":0,"pts":51,"pct":"0.708","rw":17,"otw":5,"sow":2,"gf":133,"ga":105,"diff":28,"pim":432,"streak":"1-0-0-0","p10":"8-2-0-0","division_rank":1,"team":"Truro Bearcats","division":"Eastlink South","slug":"truro-bearcats"}
+[standings/MHL] example={"gp":36,"w":22,"l":7,"otl":4,"sol":3,"pts":51,"pct":"0.708","rw":19,"otw":3,"sow":0,"gf":166,"ga":124,"diff":42,"pim":890,"streak":"2-0-1-1","p10":"4-4-1-1","division_rank":1,"team":"Summerside Western Capitals","division":"Eastlink South","slug":"summerside-western-capitals"}
 [standings/MHL] South teams: 6, North teams: 6
 [standings] mhlRows=12
 [schedules/ICS] parsed=52
 [schedules] events=52  ramblers=52
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 143 total schedule items
-[CCMHA] Found 4 games at Amherst Stadium
-[ccmha] games=4
+[CCMHA] API returned 136 total schedule items
+[CCMHA] Found 3 games at Amherst Stadium
+[ccmha] games=3
 [league] Building league-wide statistics...
 
 [league] Fetching skater leaders...
