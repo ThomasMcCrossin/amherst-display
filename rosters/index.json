@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-12T07:00:43.556Z",
+  "generated_at": "2026-01-13T06:57:59.798Z",
   "season": "2024-25",
   "season_id": 41,
   "api_source": "HockeyTech",
@@ -59,7 +59,7 @@
       "team_name": "Pictou-County-Crushers",
       "league": "MHL",
       "team_id": 7,
-      "player_count": 33,
+      "player_count": 32,
       "file": "rosters/pictou-county-crushers.json"
     },
     {
@@ -67,7 +67,7 @@
       "team_name": "Campbellton-Tigers",
       "league": "MHL",
       "team_id": 8,
-      "player_count": 27,
+      "player_count": 26,
       "file": "rosters/campbellton-tigers.json"
     },
     {

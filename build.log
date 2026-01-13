@@ -42,7 +42,7 @@
 [rosters/truro-bearcats] Processing 33 players (downloading headshots)
 [rosters] Downloaded: 1-sam-berthiaume.jpg
 [rosters] Downloaded: 3-logan-quinn.jpg
-[rosters] Skipping placeholder image
+[rosters] Downloaded: 5-jace-evans.jpg
 [rosters] Downloaded: 9-jake-todd.jpg
 [rosters] Downloaded: 10-julien-roy.jpg
 [rosters] Downloaded: 11-callum-aucoin.jpg
@@ -53,7 +53,7 @@
 [rosters] Downloaded: 20-austin-hoyt.jpg
 [rosters] Downloaded: 21-samuel-vachon.jpg
 [rosters] Downloaded: 24-seth-mackenzie.jpg
-[rosters] Skipping placeholder image
+[rosters] Downloaded: 27-antoine-fontaine.jpg
 [rosters] Downloaded: 28-eric-halliday.jpg
 [rosters] Downloaded: 35-louca-connolly.jpg
 [rosters] Downloaded: 44-jayden-connors.jpg
@@ -166,14 +166,12 @@
 [rosters/pictou-county-crushers] Fetching roster for Pictou-County-Crushers...
 [rosters] Fetching from API: team_id=7
 [rosters] Fetching stats from API: team_id=7
-[rosters/pictou-county-crushers] Processing 33 players (downloading headshots)
-[rosters] Downloaded: 1-george-gallant.jpg
+[rosters/pictou-county-crushers] Processing 32 players (downloading headshots)
 [rosters] Downloaded: 4-brendan-avery.jpg
 [rosters] Downloaded: 5-christian-luke.jpg
 [rosters] Downloaded: 7-brennan-o-donnell.jpg
 [rosters] Downloaded: 8-matthew-mcdonald.jpg
 [rosters] Downloaded: 11-dominic-mackenzie.jpg
-[rosters] Downloaded: 12-kingsley-austin.jpg
 [rosters] Downloaded: 14-logan-crosby.jpg
 [rosters] Downloaded: 15-mitchell-wagner.jpg
 [rosters] Downloaded: 16-ian-ramsay.jpg
@@ -182,6 +180,7 @@
 [rosters] Downloaded: 19-clint-maclaughlin.jpg
 [rosters] Downloaded: 21-ethan-dickson.jpg
 [rosters] Downloaded: 26-owen-bell.jpg
+[rosters] Downloaded: 29-george-gallant.jpg
 [rosters] Downloaded: 31-yianni-karkoulas.jpg
 [rosters] Downloaded: 35-jake-poirier.jpg
 [rosters] Downloaded: 47-trent-stewart.jpg
@@ -199,11 +198,11 @@
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
-[rosters/pictou-county-crushers] Wrote rosters/pictou-county-crushers.json (33 players)
+[rosters/pictou-county-crushers] Wrote rosters/pictou-county-crushers.json (32 players)
 [rosters/campbellton-tigers] Fetching roster for Campbellton-Tigers...
 [rosters] Fetching from API: team_id=8
 [rosters] Fetching stats from API: team_id=8
-[rosters/campbellton-tigers] Processing 27 players (downloading headshots)
+[rosters/campbellton-tigers] Processing 26 players (downloading headshots)
 [rosters] Downloaded: 1-samuel-quimper.jpg
 [rosters] Downloaded: 7-alex-lavoie.jpg
 [rosters] Downloaded: 8-adam-v-ronneau.jpg
@@ -212,11 +211,9 @@
 [rosters] Downloaded: 11-nathan-lebrasseur.jpg
 [rosters] Downloaded: 12-samuel-deveau.jpg
 [rosters] Downloaded: 14-liam-duquette.jpg
-[rosters] Downloaded: 15-keegan-o-neill.jpg
 [rosters] Downloaded: 17-nathan-rhodes.jpg
 [rosters] Downloaded: 18-edouard-dion.jpg
 [rosters] Downloaded: 19-samuel-ouellet.jpg
-[rosters] Downloaded: 20-eliot-arseneault.jpg
 [rosters] Downloaded: 21-alexi-parent.jpg
 [rosters] Downloaded: 22-thierry-demers.jpg
 [rosters] Downloaded: 23-brett-woodard.jpg
@@ -230,7 +227,8 @@
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
-[rosters/campbellton-tigers] Wrote rosters/campbellton-tigers.json (27 players)
+[rosters] Skipping placeholder image
+[rosters/campbellton-tigers] Wrote rosters/campbellton-tigers.json (26 players)
 [rosters/miramichi-timberwolves] Fetching roster for Miramichi-Timberwolves...
 [rosters] Fetching from API: team_id=9
 [rosters] Fetching stats from API: team_id=9
@@ -411,15 +409,15 @@
 ╚═════════════════════════════════════════════════════════════════════════╝
 [standings/MHL] table rows found
 [standings/MHL] tables=1 standings_tables=1 rows=12
-[standings/MHL] example={"gp":36,"w":22,"l":7,"otl":4,"sol":3,"pts":51,"pct":"0.708","rw":19,"otw":3,"sow":0,"gf":166,"ga":124,"diff":42,"pim":890,"streak":"2-0-1-1","p10":"4-4-1-1","division_rank":1,"team":"Summerside Western Capitals","division":"Eastlink South","slug":"summerside-western-capitals"}
+[standings/MHL] example={"gp":37,"w":23,"l":7,"otl":4,"sol":3,"pts":53,"pct":"0.716","rw":20,"otw":3,"sow":0,"gf":173,"ga":127,"diff":46,"pim":908,"streak":"3-0-1-1","p10":"4-4-1-1","division_rank":1,"team":"Summerside Western Capitals","division":"Eastlink South","slug":"summerside-western-capitals"}
 [standings/MHL] South teams: 6, North teams: 6
 [standings] mhlRows=12
 [schedules/ICS] parsed=52
 [schedules] events=52  ramblers=52
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 136 total schedule items
-[CCMHA] Found 3 games at Amherst Stadium
-[ccmha] games=3
+[CCMHA] API returned 138 total schedule items
+[CCMHA] Found 4 games at Amherst Stadium
+[ccmha] games=4
 [league] Building league-wide statistics...
 
 [league] Fetching skater leaders...
