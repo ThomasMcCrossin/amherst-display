@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-13T06:57:59.798Z",
+  "generated_at": "2026-01-14T06:57:16.765Z",
   "season": "2024-25",
   "season_id": 41,
   "api_source": "HockeyTech",
@@ -75,7 +75,7 @@
       "team_name": "Miramichi-Timberwolves",
       "league": "MHL",
       "team_id": 9,
-      "player_count": 31,
+      "player_count": 30,
       "file": "rosters/miramichi-timberwolves.json"
     },
     {

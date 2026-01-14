@@ -5,8 +5,8 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 9,
-  "updated_at": "2026-01-13T06:57:58.237Z",
-  "player_count": 31,
+  "updated_at": "2026-01-14T06:57:14.935Z",
+  "player_count": 30,
   "players": [
     {
       "player_id": "mhl-3914",
@@ -139,7 +139,7 @@
       "first_name": "Alexis",
       "last_name": "Doucet",
       "name": "Alexis Doucet",
-      "position": "RW",
+      "position": "C",
       "height": "6'0",
       "height_inches": 72,
       "weight": 183,
@@ -1058,31 +1058,6 @@
         "ht-rookie",
         "ht-affiliate"
       ]
-    },
-    {
-      "player_id": "mhl-3069",
-      "number": "99",
-      "first_name": "Jackson",
-      "last_name": "Shaddick",
-      "name": "Jackson Shaddick",
-      "position": "RW",
-      "height": "5'7",
-      "height_inches": 67,
-      "weight": 155,
-      "shoots": "R",
-      "birthdate": "2007-05-12",
-      "birth_year": "'07",
-      "age": 19,
-      "hometown": "Miramichi, NB",
-      "birthplace": "Miramichi, NB, New Brunswick",
-      "rookie": false,
-      "veteran": false,
-      "headshot": "assets/headshots/Miramichi-Timberwolves/99-jackson-shaddick.jpg",
-      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3069.jpg",
-      "stats": {},
-      "hockeytech_id": "3069",
-      "person_id": "3587",
-      "flags": []
     },
     {
       "player_id": "mhl-3713",
