@@ -8,7 +8,7 @@
 [rosters] Fetching from API: team_id=2
 [rosters] Fetching stats from API: team_id=2
 [rosters/edmundston-blizzard] Processing 28 players (downloading headshots)
-[rosters] Downloaded: 1-rylan-benner.jpg
+[rosters] Downloaded: 7-jack-bartlett.jpg
 [rosters] Downloaded: 8-samuel-cloutier.jpg
 [rosters] Downloaded: 9-darien-thomson.jpg
 [rosters] Downloaded: 10-nicolas-dub.jpg
@@ -24,15 +24,15 @@
 [rosters] Downloaded: 27-fran-ois-xavier-mercier.jpg
 [rosters] Downloaded: 28-charles-ric-tremblay.jpg
 [rosters] Downloaded: 31-cedric-mass.jpg
-[rosters] Downloaded: 34-michael-arsenault.jpg
+[rosters] Downloaded: 33-olivier-st-onge.jpg
 [rosters] Downloaded: 55-jack-brown.jpg
+[rosters] Downloaded: 71-michael-arsenault.jpg
 [rosters] Downloaded: 77-lucas-fortin.jpg
 [rosters] Downloaded: 79-william-labranche.jpg
 [rosters] Downloaded: 81-mile-fournier.jpg
 [rosters] Downloaded: 93-michael-derbidge.jpg
 [rosters] Downloaded: 99-hayden-aubin.jpg
 [rosters] Downloaded: 99-felix-sylvain-hache.jpg
-[rosters] Downloaded: 99-olivier-st-onge.jpg
 [rosters] Skipping placeholder image
 [rosters] Downloaded: 99-brayden-waterhouse.jpg
 [rosters/edmundston-blizzard] Wrote rosters/edmundston-blizzard.json (28 players)
@@ -214,6 +214,7 @@
 [rosters] Downloaded: 17-nathan-rhodes.jpg
 [rosters] Downloaded: 18-edouard-dion.jpg
 [rosters] Downloaded: 19-samuel-ouellet.jpg
+[rosters] Downloaded: 20-xavier-guillemette.jpg
 [rosters] Downloaded: 21-alexi-parent.jpg
 [rosters] Downloaded: 22-thierry-demers.jpg
 [rosters] Downloaded: 23-brett-woodard.jpg
@@ -224,7 +225,6 @@
 [rosters] Downloaded: 45-jacob-singer.jpg
 [rosters] Downloaded: 55-luke-orr.jpg
 [rosters] Downloaded: 84-nash-coffin.jpg
-[rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
@@ -282,7 +282,7 @@
 [rosters] Downloaded: 19-brennan-murphy.jpg
 [rosters] Downloaded: 21-ryder-howatt.jpg
 [rosters] Downloaded: 24-aidan-souligny.jpg
-[rosters] Skipping placeholder image
+[rosters] Downloaded: 29-justin-robinson.jpg
 [rosters] Downloaded: 33-kolton-bourret.jpg
 [rosters] Downloaded: 44-matthew-maclean.jpg
 [rosters] Downloaded: 55-simon-mullen.jpg
@@ -414,7 +414,7 @@
 [schedules/ICS] parsed=52
 [schedules] events=52  ramblers=52
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 145 total schedule items
+[CCMHA] API returned 146 total schedule items
 [CCMHA] Found 4 games at Amherst Stadium
 [ccmha] games=4
 [league] Building league-wide statistics...
