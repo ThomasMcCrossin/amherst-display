@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 21,
-  "updated_at": "2026-01-15T06:57:24.551Z",
+  "updated_at": "2026-01-16T06:56:50.370Z",
   "player_count": 29,
   "players": [
     {
@@ -416,6 +416,8 @@
       "birthplace": "Dalmeny, SK, SK",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Chaleur-Lightning/22-easton-adrian.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3913.jpg",
       "stats": {
         "games_played": 7,
         "goals": 2,
@@ -586,47 +588,8 @@
       "flags": []
     },
     {
-      "player_id": "mhl-3716",
-      "number": "33",
-      "first_name": "Will",
-      "last_name": "Morgan",
-      "name": "Will Morgan",
-      "position": "G",
-      "height": "5'10",
-      "height_inches": 70,
-      "weight": 155,
-      "shoots": "R",
-      "birthdate": "2008-01-31",
-      "birth_year": "'08",
-      "age": 18,
-      "hometown": "Holyrood, NL",
-      "birthplace": "Holyrood, NL, NL",
-      "rookie": true,
-      "veteran": false,
-      "headshot": "assets/headshots/Chaleur-Lightning/33-will-morgan.jpg",
-      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3716.jpg",
-      "stats": {
-        "games_played": 4,
-        "wins": 1,
-        "losses": 3,
-        "ot_losses": 0,
-        "minutes_played": 171,
-        "saves": 83,
-        "shots": 98,
-        "goals_against": 15,
-        "shutouts": 0,
-        "save_percentage": 0.847,
-        "goals_against_average": 5.27
-      },
-      "hockeytech_id": "3716",
-      "person_id": "4331",
-      "flags": [
-        "ht-rookie"
-      ]
-    },
-    {
       "player_id": "mhl-2953",
-      "number": "34",
+      "number": "33",
       "first_name": "Jack",
       "last_name": "Flanagan",
       "name": "Jack Flanagan",
@@ -642,7 +605,7 @@
       "birthplace": "Saint John, NB, ",
       "rookie": false,
       "veteran": true,
-      "headshot": "assets/headshots/Chaleur-Lightning/34-jack-flanagan.jpg",
+      "headshot": "assets/headshots/Chaleur-Lightning/33-jack-flanagan.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2953.jpg",
       "stats": {
         "games_played": 26,
@@ -661,6 +624,45 @@
       "person_id": "3426",
       "flags": [
         "ht-played-major-junior"
+      ]
+    },
+    {
+      "player_id": "mhl-3716",
+      "number": "34",
+      "first_name": "Will",
+      "last_name": "Morgan",
+      "name": "Will Morgan",
+      "position": "G",
+      "height": "5'10",
+      "height_inches": 70,
+      "weight": 155,
+      "shoots": "R",
+      "birthdate": "2008-01-31",
+      "birth_year": "'08",
+      "age": 18,
+      "hometown": "Holyrood, NL",
+      "birthplace": "Holyrood, NL, NL",
+      "rookie": true,
+      "veteran": false,
+      "headshot": "assets/headshots/Chaleur-Lightning/34-will-morgan.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3716.jpg",
+      "stats": {
+        "games_played": 4,
+        "wins": 1,
+        "losses": 3,
+        "ot_losses": 0,
+        "minutes_played": 171,
+        "saves": 83,
+        "shots": 98,
+        "goals_against": 15,
+        "shutouts": 0,
+        "save_percentage": 0.847,
+        "goals_against_average": 5.27
+      },
+      "hockeytech_id": "3716",
+      "person_id": "4331",
+      "flags": [
+        "ht-rookie"
       ]
     },
     {

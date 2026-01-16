@@ -76,15 +76,17 @@
 [rosters/valley-wildcats] Fetching roster for Valley-Wildcats...
 [rosters] Fetching from API: team_id=4
 [rosters] Fetching stats from API: team_id=4
-[rosters/valley-wildcats] Processing 21 players (downloading headshots)
+[rosters/valley-wildcats] Processing 23 players (downloading headshots)
 [rosters] Downloaded: 4-joshua-plourde.jpg
 [rosters] Downloaded: 5-marek-dubuc.jpg
+[rosters] Skipping placeholder image
 [rosters] Downloaded: 7-carter-morrison.jpg
 [rosters] Downloaded: 8-louis-carl-tremblay.jpg
 [rosters] Downloaded: 9-felix-belanger.jpg
 [rosters] Skipping placeholder image
 [rosters] Downloaded: 15-arnaud-lucier.jpg
 [rosters] Downloaded: 16-victor-proulx.jpg
+[rosters] Downloaded: 17-matthew-ferdinand.jpg
 [rosters] Skipping placeholder image
 [rosters] Downloaded: 19-jacob-pineau.jpg
 [rosters] Downloaded: 20-drew-lutz.jpg
@@ -97,7 +99,7 @@
 [rosters] Downloaded: 29-cohen-stoddard.jpg
 [rosters] Downloaded: 32-brody-ford.jpg
 [rosters] Downloaded: 70-sean-hogan.jpg
-[rosters/valley-wildcats] Wrote rosters/valley-wildcats.json (21 players)
+[rosters/valley-wildcats] Wrote rosters/valley-wildcats.json (23 players)
 [rosters/yarmouth-mariners] Fetching roster for Yarmouth-Mariners...
 [rosters] Fetching from API: team_id=5
 [rosters] Fetching stats from API: team_id=5
@@ -333,13 +335,13 @@
 [rosters] Downloaded: 15-brett-yuzik.jpg
 [rosters] Downloaded: 16-will-clark.jpg
 [rosters] Downloaded: 19-cohen-mccallum.jpg
-[rosters] Skipping placeholder image
+[rosters] Downloaded: 22-easton-adrian.jpg
 [rosters] Downloaded: 25-owen-arnold.jpg
 [rosters] Downloaded: 29-thomas-hendrickson.jpg
 [rosters] Downloaded: 30-george-foti.jpg
 [rosters] Downloaded: 32-will-carroll.jpg
-[rosters] Downloaded: 33-will-morgan.jpg
-[rosters] Downloaded: 34-jack-flanagan.jpg
+[rosters] Downloaded: 33-jack-flanagan.jpg
+[rosters] Downloaded: 34-will-morgan.jpg
 [rosters] Downloaded: 55-william-cossette.jpg
 [rosters] Downloaded: 66-ben-cross.jpg
 [rosters] Downloaded: 77-mason-cook.jpg
@@ -408,7 +410,7 @@
 ╚═════════════════════════════════════════════════════════════════════════╝
 [standings/MHL] table rows found
 [standings/MHL] tables=1 standings_tables=1 rows=12
-[standings/MHL] example={"gp":37,"w":23,"l":7,"otl":4,"sol":3,"pts":53,"pct":"0.716","rw":20,"otw":3,"sow":0,"gf":173,"ga":127,"diff":46,"pim":908,"streak":"3-0-1-1","p10":"4-4-1-1","division_rank":1,"team":"Summerside Western Capitals","division":"Eastlink South","slug":"summerside-western-capitals"}
+[standings/MHL] example={"gp":38,"w":24,"l":7,"otl":4,"sol":3,"pts":55,"pct":"0.724","rw":21,"otw":3,"sow":0,"gf":178,"ga":130,"diff":48,"pim":916,"streak":"4-0-1-1","p10":"5-3-1-1","division_rank":1,"team":"Summerside Western Capitals","division":"Eastlink South","slug":"summerside-western-capitals"}
 [standings/MHL] South teams: 6, North teams: 6
 [standings] mhlRows=12
 [schedules/ICS] parsed=52
