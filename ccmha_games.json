@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-16T06:57:08Z",
+  "generated_at": "2026-01-17T06:53:06Z",
   "timezone": "America/Halifax",
   "games": [
     {
@@ -35,6 +35,24 @@
       "away_team": "Cumberland Ramblers",
       "start": "2026-01-18T15:00:00-04:00",
       "end": "2026-01-18T16:30:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U9-ADV",
+      "home_team": "Dieppe Memramcook Maple Leafs",
+      "away_team": "Cumberland Ramblers",
+      "start": "2026-01-24T12:15:00-04:00",
+      "end": "2026-01-24T13:15:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U11-AA",
+      "home_team": "Glace Bay Miners",
+      "away_team": "Cumberland Ramblers",
+      "start": "2026-01-24T13:45:00-04:00",
+      "end": "2026-01-24T15:15:00-04:00",
       "location": "Amherst Stadium",
       "source": "ccmha"
     }

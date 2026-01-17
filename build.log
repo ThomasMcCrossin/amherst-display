@@ -284,7 +284,7 @@
 [rosters] Downloaded: 19-brennan-murphy.jpg
 [rosters] Downloaded: 21-ryder-howatt.jpg
 [rosters] Downloaded: 24-aidan-souligny.jpg
-[rosters] Downloaded: 29-justin-robinson.jpg
+[rosters] Downloaded: 30-justin-robinson.jpg
 [rosters] Downloaded: 33-kolton-bourret.jpg
 [rosters] Downloaded: 44-matthew-maclean.jpg
 [rosters] Downloaded: 55-simon-mullen.jpg
@@ -359,7 +359,7 @@
 [games] Starting Ramblers games build...
 [games] Loaded roster with 25 players
 [games] Fetching Ramblers schedule...
-[games] Processing 35 completed games...
+[games] Processing 36 completed games...
 [games] Fetched summary for game 4612 (7 goals, 0 penalties)
 [games] Fetched summary for game 4619 (12 goals, 0 penalties)
 [games] Fetched summary for game 4624 (7 goals, 0 penalties)
@@ -395,10 +395,11 @@
 [games] Fetched summary for game 4809 (10 goals, 0 penalties)
 [games] Fetched summary for game 4816 (14 goals, 0 penalties)
 [games] Fetched summary for game 4820 (11 goals, 0 penalties)
-[games] Wrote games/amherst-ramblers.json (35 completed games)
-[games] Complete! Games=35
+[games] Fetched summary for game 4831 (9 goals, 0 penalties)
+[games] Wrote games/amherst-ramblers.json (36 completed games)
+[games] Complete! Games=36
 [boxscores] Starting Playwright box score scraper...
-[boxscores] Scraping 35 games...
+[boxscores] Scraping 36 games...
 [boxscores] failed: browserType.launch: Executable doesn't exist at /home/runner/.cache/ms-playwright/chromium_headless_shell-1194/chrome-linux/headless_shell
 ╔═════════════════════════════════════════════════════════════════════════╗
 ║ Looks like Playwright Test or Playwright was just installed or updated. ║
@@ -416,9 +417,9 @@
 [schedules/ICS] parsed=52
 [schedules] events=52  ramblers=52
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 146 total schedule items
-[CCMHA] Found 4 games at Amherst Stadium
-[ccmha] games=4
+[CCMHA] API returned 145 total schedule items
+[CCMHA] Found 6 games at Amherst Stadium
+[ccmha] games=6
 [league] Building league-wide statistics...
 
 [league] Fetching skater leaders...

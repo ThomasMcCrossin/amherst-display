@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 5,
-  "updated_at": "2026-01-16T06:56:46.215Z",
+  "updated_at": "2026-01-17T06:52:44.170Z",
   "player_count": 28,
   "players": [
     {
@@ -29,7 +29,7 @@
       "headshot": "assets/headshots/Yarmouth-Mariners/4-loic-mburanumwe.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3491.jpg",
       "stats": {
-        "games_played": 33,
+        "games_played": 34,
         "goals": 1,
         "assists": 9,
         "points": 10,
@@ -43,7 +43,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.3
+        "points_per_game": 0.29
       },
       "hockeytech_id": "3491",
       "person_id": "4054",
@@ -73,21 +73,21 @@
       "headshot": "assets/headshots/Yarmouth-Mariners/5-nic-macisaac.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3722.jpg",
       "stats": {
-        "games_played": 34,
+        "games_played": 35,
         "goals": 1,
-        "assists": 5,
-        "points": 6,
+        "assists": 7,
+        "points": 8,
         "plus_minus": 0,
         "penalty_minutes": 35,
         "power_play_goals": 0,
-        "power_play_assists": 0,
-        "power_play_points": 0,
+        "power_play_assists": 1,
+        "power_play_points": 1,
         "short_handed_goals": 0,
         "short_handed_assists": 0,
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.18
+        "points_per_game": 0.23
       },
       "hockeytech_id": "3722",
       "person_id": "4337",
@@ -143,7 +143,7 @@
       "headshot": "assets/headshots/Yarmouth-Mariners/9-dawson-o-connell.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3302.jpg",
       "stats": {
-        "games_played": 35,
+        "games_played": 36,
         "goals": 3,
         "assists": 13,
         "points": 16,
@@ -157,7 +157,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.46
+        "points_per_game": 0.44
       },
       "hockeytech_id": "3302",
       "person_id": "3860",
@@ -186,15 +186,15 @@
       "headshot": "assets/headshots/Yarmouth-Mariners/10-liam-dutcher.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3035.jpg",
       "stats": {
-        "games_played": 30,
-        "goals": 11,
+        "games_played": 31,
+        "goals": 12,
         "assists": 12,
-        "points": 23,
+        "points": 24,
         "plus_minus": 0,
         "penalty_minutes": 23,
-        "power_play_goals": 0,
+        "power_play_goals": 1,
         "power_play_assists": 5,
-        "power_play_points": 5,
+        "power_play_points": 6,
         "short_handed_goals": 0,
         "short_handed_assists": 0,
         "short_handed_points": 0,
@@ -270,7 +270,7 @@
       "headshot": "assets/headshots/Yarmouth-Mariners/14-thomas-dandurand.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3860.jpg",
       "stats": {
-        "games_played": 24,
+        "games_played": 25,
         "goals": 4,
         "assists": 4,
         "points": 8,
@@ -284,7 +284,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.33
+        "points_per_game": 0.32
       },
       "hockeytech_id": "3860",
       "person_id": "4496",
@@ -313,10 +313,10 @@
       "headshot": "assets/headshots/Yarmouth-Mariners/15-ewan-cleary.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3810.jpg",
       "stats": {
-        "games_played": 35,
+        "games_played": 36,
         "goals": 8,
-        "assists": 14,
-        "points": 22,
+        "assists": 16,
+        "points": 24,
         "plus_minus": 0,
         "penalty_minutes": 14,
         "power_play_goals": 0,
@@ -327,7 +327,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.63
+        "points_per_game": 0.67
       },
       "hockeytech_id": "3810",
       "person_id": "4428",
@@ -381,7 +381,7 @@
       "headshot": "assets/headshots/Yarmouth-Mariners/16-noah-breau.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2818.jpg",
       "stats": {
-        "games_played": 34,
+        "games_played": 35,
         "goals": 9,
         "assists": 22,
         "points": 31,
@@ -395,7 +395,7 @@
         "short_handed_points": 2,
         "game_winning_goals": 2,
         "overtime_goals": 1,
-        "points_per_game": 0.91
+        "points_per_game": 0.89
       },
       "hockeytech_id": "2818",
       "person_id": "3245",
@@ -422,7 +422,7 @@
       "headshot": "assets/headshots/Yarmouth-Mariners/16-jared-pitman.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2656.jpg",
       "stats": {
-        "games_played": 35,
+        "games_played": 36,
         "goals": 7,
         "assists": 25,
         "points": 32,
@@ -436,7 +436,7 @@
         "short_handed_points": 1,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.91
+        "points_per_game": 0.89
       },
       "hockeytech_id": "2656",
       "person_id": "3081",
@@ -463,7 +463,7 @@
       "headshot": "assets/headshots/Yarmouth-Mariners/18-malcolm-macdonald.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3801.jpg",
       "stats": {
-        "games_played": 30,
+        "games_played": 31,
         "goals": 6,
         "assists": 6,
         "points": 12,
@@ -477,7 +477,7 @@
         "short_handed_points": 1,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.4
+        "points_per_game": 0.39
       },
       "hockeytech_id": "3801",
       "person_id": "4419",
@@ -503,10 +503,10 @@
       "headshot": "assets/headshots/Yarmouth-Mariners/19-grayson-pardy.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3809.jpg",
       "stats": {
-        "games_played": 32,
-        "goals": 12,
+        "games_played": 33,
+        "goals": 14,
         "assists": 5,
-        "points": 17,
+        "points": 19,
         "plus_minus": 0,
         "penalty_minutes": 25,
         "power_play_goals": 4,
@@ -517,7 +517,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.53
+        "points_per_game": 0.58
       },
       "hockeytech_id": "3809",
       "person_id": "4427",
@@ -586,21 +586,21 @@
       "headshot": "assets/headshots/Yarmouth-Mariners/22-owen-o-donnell.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3527.jpg",
       "stats": {
-        "games_played": 35,
+        "games_played": 36,
         "goals": 8,
-        "assists": 11,
-        "points": 19,
+        "assists": 12,
+        "points": 20,
         "plus_minus": 0,
         "penalty_minutes": 4,
         "power_play_goals": 2,
-        "power_play_assists": 0,
-        "power_play_points": 2,
+        "power_play_assists": 1,
+        "power_play_points": 3,
         "short_handed_goals": 0,
         "short_handed_assists": 0,
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.54
+        "points_per_game": 0.56
       },
       "hockeytech_id": "3527",
       "person_id": "4099",
@@ -629,7 +629,7 @@
       "headshot": "assets/headshots/Yarmouth-Mariners/23-cole-macleod.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3512.jpg",
       "stats": {
-        "games_played": 35,
+        "games_played": 36,
         "goals": 17,
         "assists": 13,
         "points": 30,
@@ -643,7 +643,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 2,
         "overtime_goals": 1,
-        "points_per_game": 0.86
+        "points_per_game": 0.83
       },
       "hockeytech_id": "3512",
       "person_id": "4076",
@@ -700,7 +700,7 @@
       "headshot": "assets/headshots/Yarmouth-Mariners/26-ryan-loveless.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3104.jpg",
       "stats": {
-        "games_played": 32,
+        "games_played": 33,
         "goals": 8,
         "assists": 12,
         "points": 20,
@@ -714,7 +714,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.63
+        "points_per_game": 0.61
       },
       "hockeytech_id": "3104",
       "person_id": "3622",
@@ -778,17 +778,17 @@
       "headshot": "assets/headshots/Yarmouth-Mariners/30-keegan-warren.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2651.jpg",
       "stats": {
-        "games_played": 31,
+        "games_played": 32,
         "wins": 12,
-        "losses": 12,
+        "losses": 13,
         "ot_losses": 3,
-        "minutes_played": 1802,
-        "saves": 976,
-        "shots": 1076,
-        "goals_against": 100,
+        "minutes_played": 1862,
+        "saves": 1007,
+        "shots": 1113,
+        "goals_against": 106,
         "shutouts": 0,
-        "save_percentage": 0.907,
-        "goals_against_average": 3.33
+        "save_percentage": 0.905,
+        "goals_against_average": 3.42
       },
       "hockeytech_id": "2651",
       "person_id": "3076",
@@ -883,7 +883,7 @@
       "headshot": "assets/headshots/Yarmouth-Mariners/37-jano-zambakdjian.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3534.jpg",
       "stats": {
-        "games_played": 35,
+        "games_played": 36,
         "goals": 0,
         "assists": 19,
         "points": 19,
@@ -897,7 +897,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.54
+        "points_per_game": 0.53
       },
       "hockeytech_id": "3534",
       "person_id": "4106",
@@ -926,7 +926,7 @@
       "headshot": "assets/headshots/Yarmouth-Mariners/46-luke-foley.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3030.jpg",
       "stats": {
-        "games_played": 33,
+        "games_played": 34,
         "goals": 5,
         "assists": 11,
         "points": 16,
@@ -940,7 +940,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.48
+        "points_per_game": 0.47
       },
       "hockeytech_id": "3030",
       "person_id": "3536",
@@ -967,7 +967,7 @@
       "headshot": "assets/headshots/Yarmouth-Mariners/47-seamus-maceachern.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3025.jpg",
       "stats": {
-        "games_played": 34,
+        "games_played": 35,
         "goals": 0,
         "assists": 11,
         "points": 11,
@@ -981,7 +981,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.32
+        "points_per_game": 0.31
       },
       "hockeytech_id": "3025",
       "person_id": "3531",
@@ -1010,7 +1010,7 @@
       "headshot": "assets/headshots/Yarmouth-Mariners/47-ryker-rougeau.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3862.jpg",
       "stats": {
-        "games_played": 20,
+        "games_played": 21,
         "goals": 3,
         "assists": 2,
         "points": 5,
@@ -1024,7 +1024,7 @@
         "short_handed_points": 1,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.25
+        "points_per_game": 0.24
       },
       "hockeytech_id": "3862",
       "person_id": "4499",
@@ -1076,17 +1076,17 @@
       "rookie": false,
       "veteran": false,
       "stats": {
-        "games_played": 35,
+        "games_played": 36,
         "wins": 14,
-        "losses": 16,
+        "losses": 17,
         "ot_losses": 3,
-        "minutes_played": 2122,
-        "saves": 1133,
-        "shots": 1267,
-        "goals_against": 134,
+        "minutes_played": 2182,
+        "saves": 1164,
+        "shots": 1304,
+        "goals_against": 140,
         "shutouts": 0,
-        "save_percentage": 0.894,
-        "goals_against_average": 3.79
+        "save_percentage": 0.893,
+        "goals_against_average": 3.85
       },
       "flags": []
     }

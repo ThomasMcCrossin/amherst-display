@@ -1,17 +1,10 @@
 {
-  "generated_at": "2026-01-16T06:57:07Z",
+  "generated_at": "2026-01-17T06:53:05Z",
   "timezone": "America/Halifax",
   "teams": [
     {
       "team_slug": "amherst-ramblers",
       "games": [
-        {
-          "opponent_slug": "yarmouth-mariners",
-          "home": false,
-          "start": "2026-01-16T19:00:00-04:00",
-          "venue": "Mariners Centre",
-          "city": ""
-        },
         {
           "opponent_slug": "truro-bearcats",
           "home": true,
@@ -23,6 +16,13 @@
           "opponent_slug": "yarmouth-mariners",
           "home": true,
           "start": "2026-01-23T19:00:00-04:00",
+          "venue": "Amherst Stadium",
+          "city": ""
+        },
+        {
+          "opponent_slug": "summerside-western-capitals",
+          "home": true,
+          "start": "2026-01-24T19:00:00-04:00",
           "venue": "Amherst Stadium",
           "city": ""
         }

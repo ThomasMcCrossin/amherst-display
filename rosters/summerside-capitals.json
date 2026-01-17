@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 10,
-  "updated_at": "2026-01-16T06:56:49.133Z",
+  "updated_at": "2026-01-17T06:52:47.150Z",
   "player_count": 24,
   "players": [
     {
@@ -572,7 +572,7 @@
     },
     {
       "player_id": "mhl-3926",
-      "number": "29",
+      "number": "30",
       "first_name": "Justin",
       "last_name": "Robinson",
       "name": "Justin Robinson",
@@ -587,7 +587,7 @@
       "hometown": "Kipawa, QC",
       "rookie": false,
       "veteran": false,
-      "headshot": "assets/headshots/Summerside-Capitals/29-justin-robinson.jpg",
+      "headshot": "assets/headshots/Summerside-Capitals/30-justin-robinson.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3926.jpg",
       "stats": {
         "games_played": 0,
