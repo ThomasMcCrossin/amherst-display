@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-17T06:52:48.194Z",
+  "generated_at": "2026-01-18T06:54:15.049Z",
   "season": "2024-25",
   "season_id": 41,
   "api_source": "HockeyTech",
@@ -35,7 +35,7 @@
       "team_name": "Valley-Wildcats",
       "league": "MHL",
       "team_id": 4,
-      "player_count": 23,
+      "player_count": 24,
       "file": "rosters/valley-wildcats.json"
     },
     {
@@ -43,7 +43,7 @@
       "team_name": "Yarmouth-Mariners",
       "league": "MHL",
       "team_id": 5,
-      "player_count": 28,
+      "player_count": 26,
       "file": "rosters/yarmouth-mariners.json"
     },
     {
