@@ -1,25 +1,7 @@
 {
-  "generated_at": "2026-01-18T06:54:35Z",
+  "generated_at": "2026-01-19T07:03:55Z",
   "timezone": "America/Halifax",
   "games": [
-    {
-      "league": "U9-DEV",
-      "home_team": "Tatamagouche Titans",
-      "away_team": "Cumberland Ramblers - Development",
-      "start": "2026-01-18T09:15:00-04:00",
-      "end": "2026-01-18T10:15:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
-    {
-      "league": "U18-AA",
-      "home_team": "Bedford Blues",
-      "away_team": "Cumberland Ramblers",
-      "start": "2026-01-18T15:00:00-04:00",
-      "end": "2026-01-18T16:30:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
     {
       "league": "U9-ADV",
       "home_team": "Dieppe Memramcook Maple Leafs",
