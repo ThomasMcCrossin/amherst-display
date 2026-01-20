@@ -4,7 +4,7 @@
   "team_id": 1,
   "season": "2024-25",
   "season_id": 41,
-  "updated_at": "2026-01-19T07:03:51.890Z",
+  "updated_at": "2026-01-20T07:01:30.094Z",
   "summary": {
     "games_played": 37,
     "wins": 21,
@@ -66,8 +66,8 @@
               "number": 21
             },
             {
-              "name": "Eric Halliday",
-              "number": 28
+              "name": "Jayden Connors",
+              "number": 44
             }
           ],
           "power_play": false,
@@ -119,9 +119,8 @@
               "number": 44
             },
             {
-              "player_id": "mhl-3250",
-              "name": "Antoine Fontaine",
-              "number": 27
+              "name": "Eric Halliday",
+              "number": 28
             }
           ],
           "power_play": false,
@@ -147,9 +146,9 @@
               "number": 7
             },
             {
-              "player_id": "mhl-3207",
-              "name": "Ryan Hayes",
-              "number": 95
+              "player_id": "mhl-3038",
+              "name": "Owen Aura",
+              "number": 25
             }
           ],
           "power_play": false,
@@ -186,11 +185,6 @@
             "position": "C"
           },
           "assists": [
-            {
-              "player_id": "mhl-3038",
-              "name": "Owen Aura",
-              "number": 25
-            },
             {
               "player_id": "mhl-2635",
               "name": "Jacob Kaine",
@@ -429,8 +423,8 @@
         "mhl-3207": {
           "position": "D",
           "goals": 0,
-          "assists": 1,
-          "points": 1,
+          "assists": 0,
+          "points": 0,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -441,8 +435,8 @@
         },
         "mhl-3766": {
           "position": "G",
-          "saves": 36,
-          "shots_against": 40,
+          "saves": 30,
+          "shots_against": 34,
           "goals_against": 4,
           "save_percentage": "0.000",
           "time_on_ice": "58:11"

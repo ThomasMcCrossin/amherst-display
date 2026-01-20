@@ -39,7 +39,7 @@
 [rosters/truro-bearcats] Fetching roster for Truro-Bearcats...
 [rosters] Fetching from API: team_id=3
 [rosters] Fetching stats from API: team_id=3
-[rosters/truro-bearcats] Processing 33 players (downloading headshots)
+[rosters/truro-bearcats] Processing 34 players (downloading headshots)
 [rosters] Downloaded: 1-sam-berthiaume.jpg
 [rosters] Downloaded: 3-logan-quinn.jpg
 [rosters] Downloaded: 5-jace-evans.jpg
@@ -72,7 +72,8 @@
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
-[rosters/truro-bearcats] Wrote rosters/truro-bearcats.json (33 players)
+[rosters] Skipping placeholder image
+[rosters/truro-bearcats] Wrote rosters/truro-bearcats.json (34 players)
 [rosters/valley-wildcats] Fetching roster for Valley-Wildcats...
 [rosters] Fetching from API: team_id=4
 [rosters] Fetching stats from API: team_id=4
