@@ -19,6 +19,7 @@
     division: 'Eastlink South',
     // GitHub raw URLs
     baseUrl: 'https://raw.githubusercontent.com/ThomasMcCrossin/amherst-display/main',
+    assetsBaseUrl: '',
     // Cache TTL in ms
     cacheTTL: 5 * 60 * 1000, // 5 minutes
     staleOK: 30 * 60 * 1000, // 30 minutes - still show stale data
@@ -34,6 +35,7 @@
   let STATE = {
     games: [],
     roster: [],
+    teams: [],
     standings: null,
     schedule: [],
     leagueStats: null, // P1: League-wide stats, leaders, streaks
@@ -126,11 +128,13 @@
     // New format: opponent is an object
     if (game.opponent) {
       const code = game.opponent.team_code || '';
-      return {
-        name: game.opponent.team_name || 'TBD',
-        slug: code ? code.toLowerCase() : '',
-        code,
-      };
+      const name = game.opponent.team_name || 'TBD';
+      const needle = String(name).trim().toLowerCase();
+      const team = (STATE.teams || []).find(t => String(t.name || '').trim().toLowerCase() === needle) ||
+        (STATE.teams || []).find(t => String(t.name || '').trim().toLowerCase().includes(needle) || needle.includes(String(t.name || '').trim().toLowerCase())) ||
+        null;
+
+      return { name, slug: team?.slug || '', code };
     }
     // Legacy format
     if (isHomeGame(game)) {
@@ -189,13 +193,84 @@
   // Logo URL for team
   function logoUrl(slug) {
     if (!slug) return '';
-    return `${CONFIG.baseUrl}/logos/${slug}.png`;
+    // Full URL already
+    if (/^https?:\/\//i.test(String(slug))) return String(slug);
+    const base = CONFIG.assetsBaseUrl || '';
+    return `${base}assets/logos/mhl/${slug}.png`;
   }
 
-  // Headshot URL for player
-  function headshotUrl(playerId) {
-    if (!playerId) return '';
-    return `${CONFIG.baseUrl}/headshots/${playerId}.png`;
+  function playerByAnyId(id) {
+    const needle = String(id || '').trim();
+    if (!needle) return null;
+
+    const normalize = (v) => String(v || '').trim();
+    const stripPrefix = (v) => normalize(v).replace(/^mhl-/, '');
+    const needleStripped = stripPrefix(needle);
+
+    return (STATE.roster || []).find(p => {
+      const pid = normalize(p.player_id || p.id);
+      const ht = normalize(p.hockeytech_id || p.person_id);
+      return pid === needle || stripPrefix(pid) === needleStripped || ht === needleStripped;
+    }) || null;
+  }
+
+  // Headshot URL for player (prefers HockeyTech-provided URL in roster)
+  function headshotUrl(playerOrId) {
+    if (!playerOrId) return '';
+
+    // Full URL already
+    if (typeof playerOrId === 'string' && /^https?:\/\//i.test(playerOrId)) return playerOrId;
+
+    const p = (typeof playerOrId === 'object')
+      ? playerOrId
+      : playerByAnyId(playerOrId);
+
+    const url = p?.headshot_url || p?.headshotUrl || p?.headshot || p?.photo_url || p?.photo || '';
+    if (url) return url;
+
+    const toDigits = (v) => {
+      const s = String(v || '').trim();
+      if (!s) return '';
+      const stripped = s.replace(/^mhl-/, '');
+      if (/^\d+$/.test(stripped)) return stripped;
+      return '';
+    };
+
+    // Attempt to derive the Leaguestat asset URL (works for most MHL players).
+    const derivedId = toDigits(p?.hockeytech_id || p?.person_id || p?.player_id || p?.id || playerOrId);
+    if (derivedId) return `https://assets.leaguestat.com/mhl/240x240/${derivedId}.jpg`;
+
+    // Fallback to cached headshots (if present).
+    const id = (typeof playerOrId === 'string') ? playerOrId : (p?.player_id || p?.id || '');
+    const base = CONFIG.assetsBaseUrl || '';
+    return id ? `${base}assets/headshots/${id}.png` : '';
+  }
+
+  function logoHtml({ slug, name }) {
+    const url = logoUrl(slug);
+    const ini = name
+      ? initials(name)
+      : initials(String(slug || '').replace(/[-_]+/g, ' '));
+    return `
+      <div class="logo">
+        ${url ? `<img src="${esc(url)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}
+        <div class="ini">${esc(ini)}</div>
+      </div>
+    `;
+  }
+
+  function headshotHtml(player, opts = {}) {
+    const url = headshotUrl(player);
+    const name = player?.name || player?.player_name || player?.full_name || '';
+    const ini = initials(name || '??');
+    const extraStyle = opts.style ? ` style="${opts.style}"` : '';
+    const extraClass = opts.className ? ` ${opts.className}` : '';
+    return `
+      <div class="hs${extraClass}"${extraStyle}>
+        ${url ? `<img src="${esc(url)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}
+        <div class="ini">${esc(ini)}</div>
+      </div>
+    `;
   }
 
   // ===========================================================================
@@ -242,26 +317,33 @@
 
   async function loadAllData() {
     const results = await Promise.allSettled([
+      fetchJson('teams.json'),
       fetchJson(`games/${CONFIG.team}.json`),
       fetchJson(`rosters/${CONFIG.team}.json`),
       fetchJson('standings_mhl.json'),
-      fetchJson('schedule/schedule_mhl.json'),
+      fetchJson('games.json'),
       fetchJson('league_stats.json'), // P1: League-wide stats
     ]);
 
-    const [gamesRes, rosterRes, standingsRes, scheduleRes, leagueRes] = results;
+    const [teamsRes, gamesRes, rosterRes, standingsRes, scheduleRes, leagueRes] = results;
 
+    if (teamsRes.status === 'fulfilled') {
+      STATE.teams = teamsRes.value?.teams || teamsRes.value || [];
+    }
     if (gamesRes.status === 'fulfilled') {
-      STATE.games = gamesRes.value?.games || gamesRes.value || [];
+      const games = gamesRes.value?.games || gamesRes.value;
+      STATE.games = Array.isArray(games) ? games : [];
     }
     if (rosterRes.status === 'fulfilled') {
-      STATE.roster = rosterRes.value?.roster || rosterRes.value?.players || rosterRes.value || [];
+      const roster = rosterRes.value?.roster || rosterRes.value?.players || rosterRes.value;
+      STATE.roster = Array.isArray(roster) ? roster : [];
     }
     if (standingsRes.status === 'fulfilled') {
       STATE.standings = standingsRes.value;
     }
     if (scheduleRes.status === 'fulfilled') {
-      STATE.schedule = scheduleRes.value?.games || scheduleRes.value || [];
+      const schedule = scheduleRes.value?.events || scheduleRes.value?.games || scheduleRes.value;
+      STATE.schedule = Array.isArray(schedule) ? schedule : [];
     }
     if (leagueRes.status === 'fulfilled') {
       STATE.leagueStats = leagueRes.value;
@@ -271,6 +353,7 @@
     STATE.dataError = results.every(r => r.status === 'rejected');
 
     console.log('[data] Loaded:', {
+      teams: STATE.teams.length,
       games: STATE.games.length,
       roster: STATE.roster.length,
       standings: STATE.standings?.rows?.length || 0,
@@ -395,6 +478,7 @@
     const lastFive = document.getElementById('lastFive');
     const stadiumNext = document.getElementById('stadiumNext');
     const nextSub = document.getElementById('nextSub');
+    const heroTitle = document.getElementById('heroTitle');
 
     if (!hero || !lastFive || !stadiumNext) return;
 
@@ -416,6 +500,7 @@
 
     // Next game hero
     if (future.length > 0) {
+      if (heroTitle) heroTitle.textContent = 'Next Game';
       const next = future[0];
       const opponent = getOpponent(next);
       const gameDate = new Date(next.date || next.game_date);
@@ -440,12 +525,12 @@
         </div>
         <div class="matchMid">
           <div class="bigTeam">
-            <div class="logo"><img src="${esc(logoUrl(CONFIG.team))}" alt="" onerror="this.style.display='none'"></div>
+            ${logoHtml({ slug: CONFIG.team, name: CONFIG.teamName })}
             <div><div class="nm">Ramblers</div><div class="sub">${esc(isHomeGame(next) ? 'HOME' : 'AWAY')}</div></div>
           </div>
           <div class="vs">VS</div>
           <div class="bigTeam" style="flex-direction:row-reverse;text-align:right">
-            <div class="logo"><img src="${esc(logoUrl(opponent.slug))}" alt="" onerror="this.style.display='none'"></div>
+            ${logoHtml({ slug: opponent.slug, name: opponent.name })}
             <div><div class="nm">${esc(shortName(opponent.name))}</div><div class="sub">${esc(isHomeGame(next) ? 'AWAY' : 'HOME')}</div></div>
           </div>
         </div>
@@ -456,7 +541,128 @@
         </div>
       `;
     } else {
-      hero.innerHTML = '<div class="bigTitle">Season Complete</div>';
+      if (heroTitle) heroTitle.textContent = 'Season Snapshot';
+
+      const standingsRow = STATE.standings?.rows?.find(r =>
+        r.slug === CONFIG.team || (r.team || '').toLowerCase().includes('amherst')
+      );
+
+      const divRank = (() => {
+        const rows = STATE.standings?.rows || [];
+        const south = rows
+          .filter(r => r.division === CONFIG.division || (r.team || '').toLowerCase().includes('amherst'))
+          .sort((a, b) => (b.pts || 0) - (a.pts || 0));
+        const i = south.findIndex(r => r.slug === CONFIG.team || (r.team || '').toLowerCase().includes('amherst'));
+        return i >= 0 ? i + 1 : null;
+      })();
+
+      const skaters = (STATE.roster || [])
+        .filter(p => (p.position || '').toUpperCase() !== 'G')
+        .map(p => ({ ...p, ...skaterStats(p) }))
+        .filter(p => p.gp > 0)
+        .sort((a, b) => b.points - a.points);
+
+      const topScorer = skaters[0] || null;
+      const topGoals = [...skaters].sort((a, b) => b.goals - a.goals)[0] || null;
+
+      const goalies = (STATE.roster || [])
+        .filter(p => (p.position || '').toUpperCase() === 'G')
+        .map(p => ({ ...p, ...goalieStats(p) }))
+        .filter(g => g.gp > 0)
+        .sort((a, b) => b.svPct - a.svPct);
+      const topGoalie = goalies[0] || null;
+
+      const last = past[0] || null;
+      const lastOpp = last ? getOpponent(last) : null;
+      const lastWon = last ? didWeWin(last) : null;
+      const lastScore = last ? `${getOurScore(last)}-${getTheirScore(last)}` : '';
+
+      hero.innerHTML = `
+        <div class="seasonHero">
+          <div class="seasonTop">
+            <div class="seasonBrand">
+              <div class="seasonLogo">${logoHtml({ slug: CONFIG.team, name: CONFIG.teamName })}</div>
+              <div>
+                <div class="seasonTitle">Season Complete</div>
+                <div class="seasonSub">${standingsRow ? esc(`${standingsRow.w || 0}-${standingsRow.l || 0}-${standingsRow.otl || 0} • ${standingsRow.pts || 0} PTS`) : '—'}</div>
+              </div>
+            </div>
+            <div class="seasonMeta">
+              <div class="pill"><span class="ic">🏁</span><b>Finish</b> ${divRank ? `#${divRank} South` : '--'}</div>
+              ${standingsRow ? `<div class="pill"><span class="ic">🥅</span><b>GF/GA</b> ${standingsRow.gf || 0}/${standingsRow.ga || 0}</div>` : ''}
+              ${standingsRow ? `<div class="pill"><span class="ic">➕</span><b>Diff</b> ${(standingsRow.diff > 0 ? '+' : '') + (standingsRow.diff || 0)}</div>` : ''}
+            </div>
+          </div>
+
+          <div class="seasonCards">
+            ${last && lastOpp ? `
+              <div class="seasonCard">
+                <div class="k">Last Game</div>
+                <div class="v">
+                  <div class="row" style="background:rgba(0,0,0,.14);padding:10px 10px;border-radius:14px;border:1px solid rgba(255,255,255,.10)">
+                    <div class="team">
+                      ${logoHtml({ slug: lastOpp.slug, name: lastOpp.name })}
+                      <div>
+                        <div class="nm">${esc(shortName(lastOpp.name))}</div>
+                        <div class="sub">${esc(fmtDate(last.date || last.game_date))} • ${esc(isHomeGame(last) ? 'H' : 'A')}</div>
+                      </div>
+                    </div>
+                    <div class="badge ${lastWon === null ? 'warn' : (lastWon ? 'good' : 'bad')}">${lastWon === null ? '—' : (lastWon ? 'W' : 'L')} ${esc(lastScore)}</div>
+                  </div>
+                </div>
+              </div>
+            ` : ''}
+
+            ${topScorer ? `
+              <div class="seasonCard">
+                <div class="k">Points Leader</div>
+                <div class="v">
+                  <div class="playerLine">
+                    ${headshotHtml(topScorer)}
+                    <div>
+                      <div class="playerName">${esc(topScorer.name)}</div>
+                      <div class="playerSub">#${esc(topScorer.number || '?')} • ${esc(topScorer.position || '?')}</div>
+                    </div>
+                  </div>
+                  <div class="seasonStat"><span class="b">${topScorer.points}</span> PTS • ${topScorer.goals}G ${topScorer.assists}A</div>
+                </div>
+              </div>
+            ` : ''}
+
+            ${topGoalie ? `
+              <div class="seasonCard">
+                <div class="k">In the Crease</div>
+                <div class="v">
+                  <div class="playerLine">
+                    ${headshotHtml(topGoalie)}
+                    <div>
+                      <div class="playerName">${esc(topGoalie.name)}</div>
+                      <div class="playerSub">${topGoalie.gp} GP • ${topGoalie.wins}-${topGoalie.losses}</div>
+                    </div>
+                  </div>
+                  <div class="seasonStat"><span class="b">${topGoalie.svPct.toFixed(3).slice(1)}</span> SV% • ${topGoalie.gaa.toFixed(2)} GAA</div>
+                </div>
+              </div>
+            ` : ''}
+
+            ${topGoals && topGoals !== topScorer ? `
+              <div class="seasonCard">
+                <div class="k">Top Scorer</div>
+                <div class="v">
+                  <div class="playerLine">
+                    ${headshotHtml(topGoals)}
+                    <div>
+                      <div class="playerName">${esc(topGoals.name)}</div>
+                      <div class="playerSub">#${esc(topGoals.number || '?')} • ${esc(topGoals.position || '?')}</div>
+                    </div>
+                  </div>
+                  <div class="seasonStat"><span class="b">${topGoals.goals}</span> G • ${topGoals.points} PTS</div>
+                </div>
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      `;
     }
 
     // Last 5 games
@@ -468,7 +674,7 @@
       return `
         <div class="row">
           <div class="team">
-            <div class="logo"><img src="${esc(logoUrl(opponent.slug))}" alt="" onerror="this.style.display='none'"></div>
+            ${logoHtml({ slug: opponent.slug, name: opponent.name })}
             <div>
               <div class="nm">${esc(shortName(opponent.name))}</div>
               <div class="sub">${esc(fmtDate(g.date || g.game_date))} • ${esc(isHomeGame(g) ? 'H' : 'A')}</div>
@@ -485,7 +691,7 @@
       return `
         <div class="row">
           <div class="team">
-            <div class="logo"><img src="${esc(logoUrl(opponent.slug))}" alt="" onerror="this.style.display='none'"></div>
+            ${logoHtml({ slug: opponent.slug, name: opponent.name })}
             <div>
               <div class="nm">vs ${esc(shortName(opponent.name))}</div>
               <div class="sub">${esc(fmtDateTime(g.date || g.game_date))}</div>
@@ -497,9 +703,16 @@
 
     // Subtitle
     if (nextSub) {
-      const record = past.length > 0 ?
-        `${past.filter(g => didWeWin(g)).length}-${past.filter(g => didWeWin(g) === false).length}` :
-        '--';
+      const standingsRow = STATE.standings?.rows?.find(r =>
+        r.slug === CONFIG.team || (r.team || '').toLowerCase().includes('amherst')
+      );
+
+      const record = standingsRow
+        ? `${standingsRow.w || 0}-${standingsRow.l || 0}-${standingsRow.otl || 0}`
+        : (past.length > 0
+          ? `${past.filter(g => didWeWin(g)).length}-${past.filter(g => didWeWin(g) === false).length}`
+          : '--');
+
       nextSub.textContent = `Season Record: ${record}`;
     }
   }
@@ -520,34 +733,139 @@
 
   function renderFaces() {
     const grid = document.getElementById('facesGrid');
+    const note = document.getElementById('facesNote');
     if (!grid) return;
 
-    // Get skaters sorted by points (stats are nested under .stats)
-    const skaters = (STATE.roster || [])
-      .filter(p => (p.position || '').toUpperCase() !== 'G')
-      .map(p => ({
-        ...p,
-        ...skaterStats(p),
-      }))
-      .sort((a, b) => b.points - a.points)
-      .slice(0, 9);
+    const FACE_CARDS = 12;
+    const isGoalie = (p) => (p.position || '').toUpperCase() === 'G';
 
-    grid.innerHTML = skaters.map(p => `
-      <div class="faceCard">
-        <div class="hs">
-          <img src="${esc(headshotUrl(p.player_id))}" alt="" onerror="this.nextElementSibling.style.display='flex';this.style.display='none'">
-          <div class="ini" style="display:none">${esc(initials(p.name))}</div>
+    const skatersAll = (STATE.roster || [])
+      .filter(p => !isGoalie(p))
+      .map(p => ({ ...p, ...skaterStats(p) }));
+    const goaliesAll = (STATE.roster || [])
+      .filter(p => isGoalie(p))
+      .map(p => ({ ...p, ...goalieStats(p) }));
+
+    // Prefer players with real GP (avoid 0 GP cards when possible)
+    const skaters = skatersAll.filter(p => p.gp > 0);
+    const goalies = goaliesAll.filter(g => g.gp > 0 || g.wins > 0 || g.svPct > 0 || g.gaa > 0);
+    const skatersUse = skaters.length ? skaters : skatersAll;
+    const goaliesUse = goalies.length ? goalies : goaliesAll;
+
+    const topPts = skatersUse.length ? [...skatersUse].sort((a, b) => b.points - a.points)[0] : null;
+    const topG = skatersUse.length ? [...skatersUse].sort((a, b) => b.goals - a.goals)[0] : null;
+    const topA = skatersUse.length ? [...skatersUse].sort((a, b) => b.assists - a.assists)[0] : null;
+    const topPpg = skatersUse.length ? [...skatersUse].sort((a, b) => ((b.gp ? b.points / b.gp : 0) - (a.gp ? a.points / a.gp : 0)))[0] : null;
+    const topPIM = skatersUse.length ? [...skatersUse].sort((a, b) => safeNum(b.stats?.penalty_minutes || b.pim, 0) - safeNum(a.stats?.penalty_minutes || a.pim, 0))[0] : null;
+    const topGoalie = goaliesUse.length ? [...goaliesUse].sort((a, b) => b.svPct - a.svPct)[0] : null;
+
+    const uniq = (arr) => {
+      const seen = new Set();
+      const out = [];
+      arr.forEach(p => {
+        if (!p) return;
+        const key = String(p.player_id || p.id || p.name || Math.random());
+        if (seen.has(key)) return;
+        seen.add(key);
+        out.push(p);
+      });
+      return out;
+    };
+
+    function rotationKey() { return 'mhl_faces_rotation_v2'; }
+    function loadRotation() {
+      try { return JSON.parse(localStorage.getItem(rotationKey()) || '{}'); } catch { return {}; }
+    }
+    function saveRotation(obj) {
+      try { localStorage.setItem(rotationKey(), JSON.stringify(obj)); } catch { /* ignore */ }
+    }
+    function pickRotatingPlayers(players, n) {
+      if (!players.length) return [];
+      const st = loadRotation();
+      const seen = Array.isArray(st.seen) ? st.seen : [];
+
+      // Reset daily for fresh rotation
+      const dayKey = new Date().toLocaleDateString('en-CA');
+      if (st.dayKey !== dayKey) {
+        st.dayKey = dayKey;
+        st.seen = [];
+        st.i = 0;
+      }
+
+      const sorted = [...players].sort((a, b) => (safeNum(b.points || b.pts, 0) - safeNum(a.points || a.pts, 0)) || String(a.name).localeCompare(String(b.name)));
+      const picks = [];
+      let i = st.i || 0;
+      const maxLoops = sorted.length * 2;
+
+      for (let loops = 0; loops < maxLoops && picks.length < n; loops++) {
+        const p = sorted[i % sorted.length];
+        const key = `${p.player_id || p.id || p.name}|${p.number || p.num || ''}|${p.position || p.pos || ''}`;
+        if (!seen.includes(key)) {
+          picks.push(p);
+          seen.push(key);
+        }
+        i++;
+        if (seen.length > sorted.length * 0.75) {
+          seen.splice(0, Math.floor(sorted.length * 0.25));
+        }
+      }
+
+      st.i = i;
+      st.seen = seen;
+      st.t = Date.now();
+      saveRotation(st);
+
+      if (picks.length < n) {
+        while (picks.length < n) {
+          const p = sorted[Math.floor(Math.random() * sorted.length)];
+          if (!picks.includes(p)) picks.push(p);
+          if (picks.length >= sorted.length) break;
+        }
+      }
+
+      return picks.slice(0, n);
+    }
+
+    const curated = uniq([topPts, topG, topA, topPpg, topPIM, topGoalie]).filter(Boolean);
+    const needed = Math.max(0, FACE_CARDS - curated.length);
+    const pool = uniq([...skatersUse, ...goaliesUse]);
+    const rotPool = pool.filter(p => !curated.includes(p));
+    const rot = pickRotatingPlayers(rotPool.length ? rotPool : pool, needed);
+    const picks = uniq([...curated, ...rot]).slice(0, FACE_CARDS);
+
+    if (!picks.length) {
+      grid.innerHTML = '<div class="faceCard">No roster data</div>';
+      return;
+    }
+
+    const labelFor = (p) => {
+      if (p === topPts) return { k: 'Points leader', v: `${p.points} PTS` };
+      if (p === topG) return { k: 'Top scorer', v: `${p.goals} G` };
+      if (p === topA) return { k: 'Top playmaker', v: `${p.assists} A` };
+      if (p === topPpg) return { k: 'Hot hand', v: `${p.gp ? (p.points / p.gp).toFixed(2) : '—'} P/GP` };
+      if (p === topPIM) return { k: 'Physical', v: `${safeNum(p.stats?.penalty_minutes || p.pim, 0)} PIM` };
+      if (p === topGoalie) return { k: 'In goal', v: `${p.svPct ? p.svPct.toFixed(3).slice(1) + ' SV%' : 'Goalie'}` };
+      return { k: 'Spotlight', v: `${p.points ?? p.pts ?? 0} PTS` };
+    };
+
+    grid.innerHTML = picks.map(p => {
+      const lab = labelFor(p);
+      return `
+        <div class="faceCard">
+          ${headshotHtml(p)}
+          <div class="who">
+            <div class="playerName">${esc(p.name)}</div>
+            <div class="playerSub">#${esc(p.number || p.num || '?')} • ${esc(p.position || p.pos || '?')}</div>
+          </div>
+          <div class="statBox" style="text-align:right;">
+            <div class="big">${esc(lab.v)}</div>
+            <div class="lbl">${esc(lab.k)}</div>
+          </div>
         </div>
-        <div class="who">
-          <div class="playerName">${esc(p.name)}</div>
-          <div class="playerSub">#${esc(p.number || '?')} • ${esc(p.position || '?')}</div>
-        </div>
-        <div class="statBox">
-          <div class="big">${p.points}</div>
-          <div class="lbl">PTS</div>
-        </div>
-      </div>
-    `).join('') || '<div class="faceCard">No roster data</div>';
+      `;
+    }).join('');
+
+    if (note) note.textContent = 'Tonight’s Faces';
   }
 
   // ===========================================================================
@@ -582,6 +900,7 @@
         if (shotsAgainst > 0) {
           const svPct = saves / shotsAgainst;
           candidates.push({
+            playerId,
             name,
             jersey: player?.number || player?.jersey || player?.jersey_number || '',
             position: 'G',
@@ -603,6 +922,7 @@
           if (assists > 0) statLine += (statLine ? ' ' : '') + `${assists}A`;
 
           candidates.push({
+            playerId,
             name,
             jersey: player?.number || player?.jersey || player?.jersey_number || '',
             position: position || '?',
@@ -654,11 +974,11 @@
     recapScore.innerHTML = `
       <div class="teams">
         <div class="team">
-          <div class="logo"><img src="${esc(logoUrl(CONFIG.team))}" alt="" onerror="this.style.display='none'"></div>
+          ${logoHtml({ slug: CONFIG.team, name: CONFIG.teamName })}
           <div><div class="nm">Ramblers</div><div class="sub">${esc(isHomeGame(lastGame) ? 'HOME' : 'AWAY')}</div></div>
         </div>
         <div class="team">
-          <div class="logo"><img src="${esc(logoUrl(opponent.slug))}" alt="" onerror="this.style.display='none'"></div>
+          ${logoHtml({ slug: opponent.slug, name: opponent.name })}
           <div><div class="nm">${esc(shortName(opponent.name))}</div><div class="sub">${esc(isHomeGame(lastGame) ? 'AWAY' : 'HOME')}</div></div>
         </div>
       </div>
@@ -692,10 +1012,7 @@
         threeStars.innerHTML = officialStars.slice(0, 3).map((star, i) => `
           <div class="leaderRow">
             <div class="rank">${i + 1}</div>
-            <div class="hs">
-              <img src="${esc(headshotUrl(star.player_id || star.id))}" alt="" onerror="this.nextElementSibling.style.display='flex';this.style.display='none'">
-              <div class="ini" style="display:none">${esc(initials(star.name || star.player_name))}</div>
-            </div>
+            ${headshotHtml(playerByAnyId(star.player_id || star.id) || star)}
             <div class="who">
               <div class="playerName">${esc(star.name || star.player_name)}</div>
               <div class="playerSub">${esc(star.stat_line || star.statLine || '')}</div>
@@ -711,6 +1028,7 @@
           threeStars.innerHTML = computed.map((star, i) => `
             <div class="leaderRow">
               <div class="rank">${i + 1}</div>
+              ${headshotHtml(playerByAnyId(star.playerId) || { name: star.name })}
               <div class="who">
                 <div class="playerName">${esc(star.name)}</div>
                 <div class="playerSub">#${esc(star.jersey)} • ${esc(star.position)}</div>
@@ -830,7 +1148,7 @@
           <div class="r ${isUs ? 'me' : ''} ${isCutline ? 'cutline' : ''}">
             <div class="pos">${rank}</div>
             <div class="tn">
-              <div class="logo"><img src="${esc(logoUrl(team.slug))}" alt="" onerror="this.style.display='none'"></div>
+              ${logoHtml({ slug: team.slug, name: team.team })}
               <div class="nm">${esc(shortName(team.team))}</div>
             </div>
             <div class="num">${team.gp || 0}</div>
@@ -902,10 +1220,7 @@
       matchup.innerHTML = `
         <div class="goalieDuel">
           <div class="goalieCard">
-            <div class="hs">
-              <img src="${esc(headshotUrl(ourGoalie.player_id))}" alt="" onerror="this.nextElementSibling.style.display='flex';this.style.display='none'">
-              <div class="ini" style="display:none">${esc(initials(ourGoalie.name))}</div>
-            </div>
+            ${headshotHtml(ourGoalie)}
             <div class="who">
               <div class="playerName">${esc(ourGoalie.name)}</div>
               <div class="playerSub">#${esc(ourGoalie.number || '?')}</div>
@@ -930,10 +1245,7 @@
     } else {
       matchup.innerHTML = `
         <div class="goalieCard">
-          <div class="hs">
-            <img src="${esc(headshotUrl(ourGoalie.player_id))}" alt="" onerror="this.nextElementSibling.style.display='flex';this.style.display='none'">
-            <div class="ini" style="display:none">${esc(initials(ourGoalie.name))}</div>
-          </div>
+          ${headshotHtml(ourGoalie)}
           <div class="who">
             <div class="playerName">${esc(ourGoalie.name)}</div>
             <div class="playerSub">#${esc(ourGoalie.number || '?')}</div>
@@ -948,10 +1260,7 @@
       return `
         <div class="row">
           <div class="playerLine">
-            <div class="hs" style="width:44px;height:44px">
-              <img src="${esc(headshotUrl(g.player_id))}" alt="" onerror="this.nextElementSibling.style.display='flex';this.style.display='none'">
-              <div class="ini" style="display:none">${esc(initials(g.name))}</div>
-            </div>
+            ${headshotHtml(g, { style: 'width:44px;height:44px;border-radius:14px' })}
             <div>
               <div class="playerName">${esc(g.name)}</div>
               <div class="playerSub">#${esc(g.number || '?')} • ${stats.gp} GP</div>
@@ -984,6 +1293,12 @@
 
     if (!leaders || !nextGames) return;
 
+    const scheduleStart = (g) => {
+      const raw = g?.start || g?.date || g?.date_time || g?.game_date || g?.datetime || g?.time;
+      const d = raw ? new Date(raw) : new Date(NaN);
+      return d;
+    };
+
     // P1: Use actual player scoring leaders from league_stats.json
     const scoringLeaders = STATE.leagueStats?.leaders?.points || [];
 
@@ -1013,7 +1328,7 @@
         return `
           <div class="leaderRow" ${isUs ? 'style="background:rgba(var(--accent-rgb),.18)"' : ''}>
             <div class="rank">${i + 1}</div>
-            <div class="logo"><img src="${esc(logoUrl(team.slug))}" alt="" onerror="this.style.display='none'"></div>
+            ${logoHtml({ slug: team.slug, name: team.team })}
             <div class="who">
               <div class="playerName">${esc(team.team)}</div>
               <div class="playerSub">${team.w || 0}-${team.l || 0}-${team.otl || 0}</div>
@@ -1054,19 +1369,21 @@
     // Next MHL games (from schedule) - or show goalie leaders if no schedule
     const now = new Date();
     const upcoming = (STATE.schedule || [])
-      .filter(g => new Date(g.date || g.game_date) > now)
-      .sort((a, b) => new Date(a.date || a.game_date) - new Date(b.date || b.game_date))
-      .slice(0, 3);
+      .map(g => ({ g, d: scheduleStart(g) }))
+      .filter(x => x.d instanceof Date && !isNaN(x.d) && x.d > now)
+      .sort((a, b) => a.d - b.d)
+      .slice(0, 3)
+      .map(x => x.g);
 
     if (upcoming.length > 0) {
       nextGames.innerHTML = upcoming.map(g => `
         <div class="row">
           <div class="meta">
-            <span>${esc(g.away_team || g.awayTeam?.name || 'TBD')}</span>
+            <span>${esc(g.away_team || g.awayTeam?.name || g.away || 'TBD')}</span>
             <span>@</span>
-            <span>${esc(g.home_team || g.homeTeam?.name || 'TBD')}</span>
+            <span>${esc(g.home_team || g.homeTeam?.name || g.home || 'TBD')}</span>
           </div>
-          <div class="pill">${esc(fmtDateTime(g.date || g.game_date))}</div>
+          <div class="pill">${esc(fmtDateTime(g.start || g.date || g.date_time || g.game_date))}</div>
         </div>
       `).join('') + specialTeamsHtml;
     } else {
@@ -1203,6 +1520,9 @@
     track.innerHTML = allItems.map(item =>
       `<div class="tick-item">${item}<span class="sep">•</span></div>`
     ).join('');
+    track.style.animation = 'none';
+    track.offsetHeight;
+    track.style.animation = '';
   }
 
   // ===========================================================================

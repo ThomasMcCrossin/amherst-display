@@ -29,6 +29,8 @@
 
       --topbar-h: 92px;
       --ticker-h: 68px;
+      --ticker-edge: 140px;
+      --ticker-dur: 32s;
       --pad: 28px;
       --r: 18px;
     }
@@ -338,8 +340,32 @@
       display:flex; align-items:center; justify-content:center;
       overflow:hidden;
       flex: 0 0 auto;
+      position:relative;
     }
-    .logo img{ width: 85%; height: 85%; object-fit:contain; }
+    .logo img{
+      width: 100%;
+      height: 100%;
+      object-fit:contain;
+      position:absolute;
+      inset:0;
+      z-index:1;
+      padding: 7px;
+      filter: drop-shadow(0 8px 14px rgba(0,0,0,.35));
+    }
+    .logo .ini{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight: 950;
+      letter-spacing: .8px;
+      color: rgba(244,246,255,.72);
+      background: rgba(255,255,255,.05);
+      z-index:0;
+      text-transform:uppercase;
+      font-size: 12px;
+    }
     .team .nm{
       font-size: 14px;
       font-weight: 900;
@@ -418,7 +444,14 @@
       flex: 0 0 auto;
       position:relative;
     }
-    .hs img{ width:100%; height:100%; object-fit:cover; }
+    .hs img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      position:absolute;
+      inset:0;
+      z-index:1;
+    }
     .hs .ini{
       position:absolute; inset:0;
       display:flex; align-items:center; justify-content:center;
@@ -426,6 +459,7 @@
       color: rgba(244,246,255,.88);
       letter-spacing:.8px;
       background: radial-gradient(120px 80px at 20% 10%, rgba(var(--accent-rgb), .42), rgba(0,0,0,.22));
+      z-index:0;
     }
 
     .playerLine{
@@ -574,30 +608,122 @@
       flex-wrap:wrap;
     }
 
+    /* Season snapshot (used when there is no upcoming game) */
+    .seasonHero{
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+    }
+    .seasonTop{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 16px;
+      flex-wrap:wrap;
+    }
+    .seasonBrand{
+      display:flex;
+      align-items:center;
+      gap: 14px;
+      min-width: 320px;
+    }
+    .seasonLogo .logo{
+      width: 74px;
+      height: 74px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(var(--accent-rgb), .32), rgba(0,0,0,.18));
+      border-color: rgba(var(--accent-rgb), .42);
+    }
+    .seasonTitle{
+      font-size: 26px;
+      font-weight: 950;
+      letter-spacing: .4px;
+      line-height: 1.05;
+    }
+    .seasonSub{
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing:.2px;
+    }
+    .seasonMeta{
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      gap: 10px;
+      flex-wrap:wrap;
+      flex:1;
+      min-width: 320px;
+    }
+    .seasonCards{
+      flex:1;
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      align-content:start;
+    }
+    .seasonCard{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.16);
+      padding: 12px;
+      overflow:hidden;
+    }
+    .seasonCard .k{
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform:uppercase;
+      color: var(--faint);
+      font-weight: 950;
+    }
+    .seasonCard .v{ margin-top: 10px; }
+    .seasonStat{
+      margin-top: 10px;
+      color: rgba(244,246,255,.88);
+      font-size: 13px;
+      letter-spacing: .15px;
+    }
+    .seasonStat .b{ font-weight: 950; color: var(--text); }
+
     /* Slide: Faces */
     #s-faces .grid{
       grid-template-columns: 1fr;
-      grid-template-rows: auto 1fr;
+      grid-template-rows: 1fr;
+    }
+    #s-faces .panel .inner{
+      display:flex;
+      flex-direction:column;
+      height:100%;
     }
     .facesGrid{
       display:grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(3, minmax(0, 1fr));
+      grid-auto-rows: minmax(0, 1fr);
       gap: 12px;
+      flex: 1;
+      align-content: stretch;
     }
     .faceCard{
       display:flex;
       align-items:center;
       gap: 12px;
-      padding: 12px;
+      padding: 16px;
       border-radius: 18px;
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(0,0,0,.18);
       min-width:0;
     }
+    .faceCard .hs{
+      width: 66px;
+      height: 66px;
+      border-radius: 18px;
+    }
     .faceCard .who{ min-width:0; flex:1; }
-    .faceCard .who .playerName{ font-size: 15px; }
-    .faceCard .who .playerSub{ font-size: 11px; }
-    .faceCard .statBox .big{ font-size: 20px; }
+    .faceCard .who .playerName{ font-size: 16px; }
+    .faceCard .who .playerSub{ font-size: 12px; }
+    .faceCard .statBox .big{ font-size: 26px; }
 
     /* Slide: Goalies */
     #s-goalies .grid{
@@ -872,7 +998,7 @@
       content:"";
       position:absolute;
       left:0; top:0; bottom:0;
-      width: 140px;
+      width: var(--ticker-edge);
       background: linear-gradient(90deg, rgba(10,12,24,1), rgba(10,12,24,0));
       z-index:2;
       pointer-events:none;
@@ -881,7 +1007,7 @@
       content:"";
       position:absolute;
       right:0; top:0; bottom:0;
-      width: 140px;
+      width: var(--ticker-edge);
       background: linear-gradient(270deg, rgba(10,12,24,1), rgba(10,12,24,0));
       z-index:2;
       pointer-events:none;
@@ -891,17 +1017,15 @@
       display:flex;
       align-items:center;
       gap: 36px;
-      padding-left: 140px;
+      padding-inline: var(--ticker-edge);
       white-space:nowrap;
       will-change: transform;
-      animation: scroll 46s linear infinite;
+      transform: translate3d(0,0,0);
+      animation: ticker-scroll var(--ticker-dur) linear infinite;
     }
-    @keyframes scroll{
-      from{ transform: translateX(0); }
-      to{ transform: translateX(-50%); }
-    }
-    @media (prefers-reduced-motion: reduce){
-      .ticker-track{ animation:none; }
+    @keyframes ticker-scroll{
+      from{ transform: translate3d(0,0,0); }
+      to{ transform: translate3d(-50%,0,0); }
     }
 
     .tick-item{
@@ -923,10 +1047,15 @@
 
     /* Small-screen tightening */
     @media (max-height: 800px){
-      :root{ --topbar-h: 82px; --ticker-h: 58px; --pad: 22px; }
+      :root{ --topbar-h: 82px; --ticker-h: 58px; --ticker-edge: 110px; --pad: 22px; }
       .slide-title{ font-size: 24px; }
       .scoreBig{ font-size: 46px; }
-      .facesGrid{ grid-template-columns: repeat(3, 1fr); gap: 10px; }
+      .seasonCards{ grid-template-columns: 1fr; }
+      .seasonLogo .logo{ width: 64px; height: 64px; border-radius: 20px; }
+      .seasonTitle{ font-size: 22px; }
+      .facesGrid{ grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(4, minmax(0, 1fr)); gap: 10px; }
+      .faceCard{ padding: 12px; }
+      .faceCard .hs{ width: 54px; height: 54px; border-radius: 16px; }
       .hs{ width: 50px; height: 50px; border-radius: 14px; }
     }
   </style>
