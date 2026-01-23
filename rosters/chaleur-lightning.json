@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 21,
-  "updated_at": "2026-01-22T06:59:27.403Z",
+  "updated_at": "2026-01-23T06:58:48.739Z",
   "player_count": 29,
   "players": [
     {
@@ -222,6 +222,8 @@
       "birthplace": "Fredericton, NB, NB",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Chaleur-Lightning/12-jaxon-pierce.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2842.jpg",
       "stats": {},
       "hockeytech_id": "2842",
       "person_id": "3269",

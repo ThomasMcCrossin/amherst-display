@@ -5,8 +5,8 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 4,
-  "updated_at": "2026-01-22T06:59:21.859Z",
-  "player_count": 24,
+  "updated_at": "2026-01-23T06:58:40.297Z",
+  "player_count": 23,
   "players": [
     {
       "player_id": "mhl-3909",
@@ -56,29 +56,6 @@
       "flags": [
         "ht-import"
       ]
-    },
-    {
-      "player_id": "mhl-3517",
-      "number": "5",
-      "first_name": "Jesse",
-      "last_name": "Sinclair",
-      "name": "Jesse Sinclair",
-      "position": "RW",
-      "height": "5'10",
-      "height_inches": 70,
-      "weight": 165,
-      "shoots": "R",
-      "birthdate": "2008-01-18",
-      "birth_year": "'08",
-      "age": 18,
-      "hometown": "Centreville,NS",
-      "birthplace": "Centreville,NS, NS",
-      "rookie": false,
-      "veteran": false,
-      "stats": {},
-      "hockeytech_id": "3517",
-      "person_id": "4083",
-      "flags": []
     },
     {
       "player_id": "mhl-3507",
