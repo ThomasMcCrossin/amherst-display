@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 21,
-  "updated_at": "2026-01-23T06:58:48.739Z",
+  "updated_at": "2026-01-24T06:54:28.857Z",
   "player_count": 29,
   "players": [
     {
@@ -29,10 +29,10 @@
       "headshot": "assets/headshots/Chaleur-Lightning/2-jack-hayne.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3495.jpg",
       "stats": {
-        "games_played": 36,
-        "goals": 15,
-        "assists": 24,
-        "points": 39,
+        "games_played": 37,
+        "goals": 18,
+        "assists": 25,
+        "points": 43,
         "plus_minus": 0,
         "penalty_minutes": 52,
         "power_play_goals": 3,
@@ -43,7 +43,7 @@
         "short_handed_points": 1,
         "game_winning_goals": 3,
         "overtime_goals": 1,
-        "points_per_game": 1.08
+        "points_per_game": 1.16
       },
       "hockeytech_id": "3495",
       "person_id": "4058",
@@ -97,10 +97,10 @@
       "headshot": "assets/headshots/Chaleur-Lightning/7-sam-rocca.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3182.jpg",
       "stats": {
-        "games_played": 12,
+        "games_played": 13,
         "goals": 4,
-        "assists": 4,
-        "points": 8,
+        "assists": 5,
+        "points": 9,
         "plus_minus": 0,
         "penalty_minutes": 0,
         "power_play_goals": 1,
@@ -111,7 +111,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.67
+        "points_per_game": 0.69
       },
       "hockeytech_id": "3182",
       "person_id": "3702",
@@ -141,10 +141,10 @@
       "headshot": "assets/headshots/Chaleur-Lightning/9-tyson-snow.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2378.jpg",
       "stats": {
-        "games_played": 35,
-        "goals": 11,
-        "assists": 18,
-        "points": 29,
+        "games_played": 36,
+        "goals": 12,
+        "assists": 19,
+        "points": 31,
         "plus_minus": 0,
         "penalty_minutes": 46,
         "power_play_goals": 1,
@@ -155,7 +155,7 @@
         "short_handed_points": 4,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.83
+        "points_per_game": 0.86
       },
       "hockeytech_id": "2378",
       "person_id": "2770",
@@ -182,7 +182,7 @@
       "headshot": "assets/headshots/Chaleur-Lightning/10-carter-bromley.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3718.jpg",
       "stats": {
-        "games_played": 35,
+        "games_played": 36,
         "goals": 16,
         "assists": 20,
         "points": 36,
@@ -196,7 +196,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 2,
         "overtime_goals": 1,
-        "points_per_game": 1.03
+        "points_per_game": 1
       },
       "hockeytech_id": "3718",
       "person_id": "4333",
@@ -250,10 +250,10 @@
       "headshot": "assets/headshots/Chaleur-Lightning/13-zachary-rushton.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3070.jpg",
       "stats": {
-        "games_played": 36,
+        "games_played": 37,
         "goals": 15,
-        "assists": 20,
-        "points": 35,
+        "assists": 22,
+        "points": 37,
         "plus_minus": 0,
         "penalty_minutes": 42,
         "power_play_goals": 5,
@@ -264,7 +264,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 3,
         "overtime_goals": 1,
-        "points_per_game": 0.97
+        "points_per_game": 1
       },
       "hockeytech_id": "3070",
       "person_id": "3588",
@@ -293,12 +293,12 @@
       "headshot": "assets/headshots/Chaleur-Lightning/15-brett-yuzik.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3802.jpg",
       "stats": {
-        "games_played": 35,
+        "games_played": 36,
         "goals": 9,
-        "assists": 18,
-        "points": 27,
+        "assists": 20,
+        "points": 29,
         "plus_minus": 0,
-        "penalty_minutes": 22,
+        "penalty_minutes": 24,
         "power_play_goals": 0,
         "power_play_assists": 6,
         "power_play_points": 6,
@@ -307,7 +307,7 @@
         "short_handed_points": 2,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.77
+        "points_per_game": 0.81
       },
       "hockeytech_id": "3802",
       "person_id": "4420",
@@ -337,10 +337,10 @@
       "headshot": "assets/headshots/Chaleur-Lightning/16-will-clark.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3458.jpg",
       "stats": {
-        "games_played": 35,
+        "games_played": 36,
         "goals": 10,
-        "assists": 6,
-        "points": 16,
+        "assists": 7,
+        "points": 17,
         "plus_minus": 0,
         "penalty_minutes": 4,
         "power_play_goals": 0,
@@ -351,7 +351,7 @@
         "short_handed_points": 2,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.46
+        "points_per_game": 0.47
       },
       "hockeytech_id": "3458",
       "person_id": "4021",
@@ -421,10 +421,10 @@
       "headshot": "assets/headshots/Chaleur-Lightning/22-easton-adrian.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3913.jpg",
       "stats": {
-        "games_played": 10,
-        "goals": 4,
-        "assists": 4,
-        "points": 8,
+        "games_played": 11,
+        "goals": 5,
+        "assists": 5,
+        "points": 10,
         "plus_minus": 0,
         "penalty_minutes": 19,
         "power_play_goals": 1,
@@ -435,7 +435,7 @@
         "short_handed_points": 1,
         "game_winning_goals": 2,
         "overtime_goals": 1,
-        "points_per_game": 0.8
+        "points_per_game": 0.91
       },
       "hockeytech_id": "3913",
       "person_id": "4566",
@@ -464,7 +464,7 @@
       "headshot": "assets/headshots/Chaleur-Lightning/25-owen-arnold.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3109.jpg",
       "stats": {
-        "games_played": 31,
+        "games_played": 32,
         "goals": 0,
         "assists": 6,
         "points": 6,
@@ -505,10 +505,10 @@
       "headshot": "assets/headshots/Chaleur-Lightning/29-thomas-hendrickson.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3046.jpg",
       "stats": {
-        "games_played": 35,
-        "goals": 1,
+        "games_played": 36,
+        "goals": 2,
         "assists": 4,
-        "points": 5,
+        "points": 6,
         "plus_minus": 0,
         "penalty_minutes": 70,
         "power_play_goals": 0,
@@ -517,9 +517,9 @@
         "short_handed_goals": 0,
         "short_handed_assists": 0,
         "short_handed_points": 0,
-        "game_winning_goals": 0,
+        "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.14
+        "points_per_game": 0.17
       },
       "hockeytech_id": "3046",
       "person_id": "3564",
@@ -546,17 +546,17 @@
       "headshot": "assets/headshots/Chaleur-Lightning/30-george-foti.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3358.jpg",
       "stats": {
-        "games_played": 11,
-        "wins": 7,
+        "games_played": 12,
+        "wins": 8,
         "losses": 4,
         "ot_losses": 0,
-        "minutes_played": 654,
-        "saves": 340,
-        "shots": 370,
-        "goals_against": 30,
+        "minutes_played": 714,
+        "saves": 372,
+        "shots": 406,
+        "goals_against": 34,
         "shutouts": 0,
-        "save_percentage": 0.919,
-        "goals_against_average": 2.75
+        "save_percentage": 0.916,
+        "goals_against_average": 2.86
       },
       "hockeytech_id": "3358",
       "person_id": "3920",
@@ -584,7 +584,23 @@
       "veteran": false,
       "headshot": "assets/headshots/Chaleur-Lightning/32-will-carroll.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3235.jpg",
-      "stats": {},
+      "stats": {
+        "games_played": 18,
+        "goals": 0,
+        "assists": 4,
+        "points": 4,
+        "plus_minus": 0,
+        "penalty_minutes": 21,
+        "power_play_goals": 0,
+        "power_play_assists": 0,
+        "power_play_points": 0,
+        "short_handed_goals": 0,
+        "short_handed_assists": 0,
+        "short_handed_points": 0,
+        "game_winning_goals": 0,
+        "overtime_goals": 0,
+        "points_per_game": 0.22
+      },
       "hockeytech_id": "3235",
       "person_id": "3771",
       "flags": []
@@ -615,8 +631,8 @@
         "losses": 12,
         "ot_losses": 1,
         "minutes_played": 1679,
-        "saves": 857,
-        "shots": 945,
+        "saves": 861,
+        "shots": 949,
         "goals_against": 88,
         "shutouts": 2,
         "save_percentage": 0.907,
@@ -716,10 +732,10 @@
       "headshot": "assets/headshots/Chaleur-Lightning/66-ben-cross.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2844.jpg",
       "stats": {
-        "games_played": 35,
-        "goals": 25,
-        "assists": 20,
-        "points": 45,
+        "games_played": 36,
+        "goals": 27,
+        "assists": 21,
+        "points": 48,
         "plus_minus": 0,
         "penalty_minutes": 28,
         "power_play_goals": 8,
@@ -730,7 +746,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 5,
         "overtime_goals": 1,
-        "points_per_game": 1.29
+        "points_per_game": 1.33
       },
       "hockeytech_id": "2844",
       "person_id": "3271",
@@ -759,7 +775,7 @@
       "headshot": "assets/headshots/Chaleur-Lightning/77-mason-cook.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3361.jpg",
       "stats": {
-        "games_played": 32,
+        "games_played": 33,
         "goals": 1,
         "assists": 6,
         "points": 7,
@@ -773,7 +789,7 @@
         "short_handed_points": 1,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.22
+        "points_per_game": 0.21
       },
       "hockeytech_id": "3361",
       "person_id": "3923",
@@ -845,7 +861,7 @@
       "headshot": "assets/headshots/Chaleur-Lightning/92-jayden-burtt-munn.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2937.jpg",
       "stats": {
-        "games_played": 33,
+        "games_played": 34,
         "goals": 5,
         "assists": 7,
         "points": 12,
@@ -859,7 +875,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.36
+        "points_per_game": 0.35
       },
       "hockeytech_id": "2937",
       "person_id": "3408",
@@ -1031,17 +1047,17 @@
       "rookie": false,
       "veteran": false,
       "stats": {
-        "games_played": 36,
-        "wins": 22,
+        "games_played": 37,
+        "wins": 23,
         "losses": 11,
         "ot_losses": 2,
-        "minutes_played": 2189,
-        "saves": 1108,
-        "shots": 1234,
-        "goals_against": 126,
+        "minutes_played": 2249,
+        "saves": 1144,
+        "shots": 1274,
+        "goals_against": 130,
         "shutouts": 1,
         "save_percentage": 0.898,
-        "goals_against_average": 3.45
+        "goals_against_average": 3.47
       },
       "flags": []
     }
