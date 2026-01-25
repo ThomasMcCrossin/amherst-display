@@ -1,34 +1,7 @@
 {
-  "generated_at": "2026-01-24T06:54:50Z",
+  "generated_at": "2026-01-25T06:55:44Z",
   "timezone": "America/Halifax",
   "games": [
-    {
-      "league": "U9-ADV",
-      "home_team": "Dieppe Memramcook Maple Leafs",
-      "away_team": "Cumberland Ramblers",
-      "start": "2026-01-24T12:15:00-04:00",
-      "end": "2026-01-24T13:15:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
-    {
-      "league": "U11-AA",
-      "home_team": "Glace Bay Miners",
-      "away_team": "Cumberland Ramblers",
-      "start": "2026-01-24T13:45:00-04:00",
-      "end": "2026-01-24T15:15:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
-    {
-      "league": "U9-ADV",
-      "home_team": "Dieppe Memramcook Maple Leafs",
-      "away_team": "Cumberland Ramblers",
-      "start": "2026-01-24T15:30:00-04:00",
-      "end": "2026-01-24T16:30:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
     {
       "league": "U13-AA",
       "home_team": "Pictou County Crushers",
@@ -44,6 +17,33 @@
       "away_team": "Cumberland Ramblers",
       "start": "2026-01-25T15:30:00-04:00",
       "end": "2026-01-25T17:00:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U13-AA",
+      "home_team": "Pictou County Crushers",
+      "away_team": "Cumberland Ramblers",
+      "start": "2026-02-01T12:00:00-04:00",
+      "end": "2026-02-01T13:30:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U15-AA",
+      "home_team": "Antigonish Bulldogs",
+      "away_team": "Cumberland Ramblers",
+      "start": "2026-02-01T13:45:00-04:00",
+      "end": "2026-02-01T15:15:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U18-A",
+      "home_team": "West Colchester Cobras",
+      "away_team": "Cumberland Ramblers",
+      "start": "2026-02-01T15:30:00-04:00",
+      "end": "2026-02-01T17:00:00-04:00",
       "location": "Amherst Stadium",
       "source": "ccmha"
     }
