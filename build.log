@@ -85,7 +85,7 @@
 [rosters] Downloaded: 7-carter-morrison.jpg
 [rosters] Downloaded: 8-louis-carl-tremblay.jpg
 [rosters] Downloaded: 9-felix-belanger.jpg
-[rosters] Skipping placeholder image
+[rosters] Downloaded: 10-jesse-sinclair.jpg
 [rosters] Skipping placeholder image
 [rosters] Downloaded: 15-arnaud-lucier.jpg
 [rosters] Downloaded: 16-victor-proulx.jpg
@@ -137,7 +137,7 @@
 [rosters/west-kent-steamers] Fetching roster for West-Kent-Steamers...
 [rosters] Fetching from API: team_id=6
 [rosters] Fetching stats from API: team_id=6
-[rosters/west-kent-steamers] Processing 29 players (downloading headshots)
+[rosters/west-kent-steamers] Processing 30 players (downloading headshots)
 [rosters] Downloaded: 1-olivier-bacon.jpg
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
@@ -166,7 +166,8 @@
 [rosters] Downloaded: 95-isaac-arsenault.jpg
 [rosters] Downloaded: 96-brody-breau.jpg
 [rosters] Downloaded: 120-louis-simon-boucher.jpg
-[rosters/west-kent-steamers] Wrote rosters/west-kent-steamers.json (29 players)
+[rosters] Skipping placeholder image
+[rosters/west-kent-steamers] Wrote rosters/west-kent-steamers.json (30 players)
 [rosters/pictou-county-crushers] Fetching roster for Pictou-County-Crushers...
 [rosters] Fetching from API: team_id=7
 [rosters] Fetching stats from API: team_id=7
@@ -422,9 +423,9 @@
 [schedules/ICS] parsed=52
 [schedules] events=52  ramblers=52
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 117 total schedule items
-[CCMHA] Found 5 games at Amherst Stadium
-[ccmha] games=5
+[CCMHA] API returned 104 total schedule items
+[CCMHA] Found 3 games at Amherst Stadium
+[ccmha] games=3
 [league] Building league-wide statistics...
 
 [league] Fetching skater leaders...
