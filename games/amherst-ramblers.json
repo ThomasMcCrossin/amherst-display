@@ -4,7 +4,7 @@
   "team_id": 1,
   "season": "2024-25",
   "season_id": 41,
-  "updated_at": "2026-01-26T07:01:44.154Z",
+  "updated_at": "2026-01-27T07:00:56.150Z",
   "summary": {
     "games_played": 39,
     "wins": 23,
@@ -172,11 +172,6 @@
               "player_id": "mhl-2799",
               "name": "Anthony Gaudet",
               "number": 11
-            },
-            {
-              "player_id": "mhl-3759",
-              "name": "Thomas Gagnon",
-              "number": 21
             }
           ],
           "power_play": false,
@@ -307,8 +302,8 @@
         "mhl-3759": {
           "position": "C",
           "goals": 0,
-          "assists": 1,
-          "points": 1,
+          "assists": 0,
+          "points": 0,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -423,8 +418,8 @@
         },
         "mhl-3187": {
           "position": "G",
-          "saves": 37,
-          "shots_against": 37,
+          "saves": 32,
+          "shots_against": 32,
           "goals_against": 0,
           "save_percentage": "0.000",
           "time_on_ice": "60:00"
@@ -478,9 +473,9 @@
               "number": 21
             },
             {
-              "player_id": "mhl-3038",
-              "name": "Owen Aura",
-              "number": 25
+              "player_id": "mhl-2943",
+              "name": "Cooper Cormier",
+              "number": 37
             }
           ],
           "power_play": false,
@@ -581,13 +576,7 @@
             "number": 7,
             "position": "C"
           },
-          "assists": [
-            {
-              "player_id": "mhl-3759",
-              "name": "Thomas Gagnon",
-              "number": 21
-            }
-          ],
+          "assists": [],
           "power_play": false,
           "short_handed": false,
           "game_winning": true,
@@ -637,9 +626,9 @@
               "number": 15
             },
             {
-              "player_id": "mhl-3530",
-              "name": "Dawson O’Connell",
-              "number": 9
+              "player_id": "mhl-3187",
+              "name": "Keegan Warren",
+              "number": 30
             }
           ],
           "power_play": false,
@@ -783,8 +772,8 @@
         "mhl-3759": {
           "position": "C",
           "goals": 1,
-          "assists": 2,
-          "points": 3,
+          "assists": 1,
+          "points": 2,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -809,8 +798,8 @@
         "mhl-3038": {
           "position": "D",
           "goals": 0,
-          "assists": 2,
-          "points": 2,
+          "assists": 1,
+          "points": 1,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -835,8 +824,8 @@
         "mhl-2943": {
           "position": "LW",
           "goals": 0,
-          "assists": 0,
-          "points": 0,
+          "assists": 1,
+          "points": 1,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -886,8 +875,8 @@
         },
         "mhl-3187": {
           "position": "G",
-          "saves": 30,
-          "shots_against": 33,
+          "saves": 19,
+          "shots_against": 22,
           "goals_against": 3,
           "save_percentage": "0.000",
           "time_on_ice": "60:00"
