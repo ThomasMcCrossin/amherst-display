@@ -4,7 +4,7 @@
   "team_id": 1,
   "season": "2024-25",
   "season_id": 41,
-  "updated_at": "2026-01-27T07:00:56.150Z",
+  "updated_at": "2026-01-28T07:00:25.375Z",
   "summary": {
     "games_played": 39,
     "wins": 23,
@@ -4234,7 +4234,16 @@
             "number": 77,
             "position": "LW"
           },
-          "assists": [],
+          "assists": [
+            {
+              "name": "Henry Ouellet",
+              "number": 5
+            },
+            {
+              "name": "Andrew Thompson",
+              "number": 6
+            }
+          ],
           "power_play": false,
           "short_handed": false,
           "game_winning": false,
@@ -4494,8 +4503,8 @@
         },
         "mhl-3766": {
           "position": "G",
-          "saves": 47,
-          "shots_against": 48,
+          "saves": 53,
+          "shots_against": 54,
           "goals_against": 1,
           "save_percentage": "0.000",
           "time_on_ice": "60:00"
