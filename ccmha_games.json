@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-28T07:00:28Z",
+  "generated_at": "2026-01-29T07:14:23Z",
   "timezone": "America/Halifax",
   "games": [
     {
@@ -26,6 +26,15 @@
       "away_team": "Cumberland Ramblers",
       "start": "2026-02-01T15:30:00-04:00",
       "end": "2026-02-01T17:00:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U18-C",
+      "home_team": "Moncton Hawkes",
+      "away_team": "Cumberland U18C Ramblers",
+      "start": "2026-02-05T20:00:00-04:00",
+      "end": "2026-02-05T21:00:00-04:00",
       "location": "Amherst Stadium",
       "source": "ccmha"
     }

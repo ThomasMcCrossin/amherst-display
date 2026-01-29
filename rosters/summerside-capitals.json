@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 10,
-  "updated_at": "2026-01-28T06:59:59.076Z",
+  "updated_at": "2026-01-29T07:13:57.456Z",
   "player_count": 24,
   "players": [
     {
@@ -391,7 +391,7 @@
       "position": "RW",
       "height": "5'10",
       "height_inches": 70,
-      "weight": 150,
+      "weight": 170,
       "shoots": "L",
       "birthdate": "2006-05-05",
       "birth_year": "'06",
@@ -568,7 +568,9 @@
       "stats": {},
       "hockeytech_id": "3920",
       "person_id": "4582",
-      "flags": []
+      "flags": [
+        "ht-committed"
+      ]
     },
     {
       "player_id": "mhl-3926",
