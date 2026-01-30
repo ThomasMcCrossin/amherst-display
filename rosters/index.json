@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-29T07:14:01.656Z",
+  "generated_at": "2026-01-30T07:24:14.811Z",
   "season": "2024-25",
   "season_id": 41,
   "api_source": "HockeyTech",
@@ -51,7 +51,7 @@
       "team_name": "West-Kent-Steamers",
       "league": "MHL",
       "team_id": 6,
-      "player_count": 30,
+      "player_count": 32,
       "file": "rosters/west-kent-steamers.json"
     },
     {

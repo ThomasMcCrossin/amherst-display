@@ -137,8 +137,9 @@
 [rosters/west-kent-steamers] Fetching roster for West-Kent-Steamers...
 [rosters] Fetching from API: team_id=6
 [rosters] Fetching stats from API: team_id=6
-[rosters/west-kent-steamers] Processing 30 players (downloading headshots)
+[rosters/west-kent-steamers] Processing 32 players (downloading headshots)
 [rosters] Downloaded: 1-olivier-bacon.jpg
+[rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
 [rosters] Downloaded: 6-th-o-lebrun.jpg
@@ -152,6 +153,7 @@
 [rosters] Downloaded: 19-zachary-paulhus.jpg
 [rosters] Downloaded: 21-natan-grenier.jpg
 [rosters] Downloaded: 23-nathan-weber.jpg
+[rosters] Downloaded: 27-olivier-guignard.jpg
 [rosters] Downloaded: 27-olivier-leblanc.jpg
 [rosters] Downloaded: 30-victor-r-gis.jpg
 [rosters] Downloaded: 31-xavier-farrah.jpg
@@ -167,7 +169,7 @@
 [rosters] Downloaded: 96-brody-breau.jpg
 [rosters] Downloaded: 120-louis-simon-boucher.jpg
 [rosters] Skipping placeholder image
-[rosters/west-kent-steamers] Wrote rosters/west-kent-steamers.json (30 players)
+[rosters/west-kent-steamers] Wrote rosters/west-kent-steamers.json (32 players)
 [rosters/pictou-county-crushers] Fetching roster for Pictou-County-Crushers...
 [rosters] Fetching from API: team_id=7
 [rosters] Fetching stats from API: team_id=7
@@ -417,7 +419,7 @@
 ╚═════════════════════════════════════════════════════════════════════════╝
 [standings/MHL] table rows found
 [standings/MHL] tables=1 standings_tables=1 rows=12
-[standings/MHL] example={"gp":40,"w":25,"l":8,"otl":4,"sol":3,"pts":57,"pct":"0.713","rw":22,"otw":3,"sow":0,"gf":181,"ga":137,"diff":44,"pim":965,"streak":"0-1-0-0","p10":"5-3-1-1","division_rank":1,"team":"Summerside Western Capitals","division":"Eastlink South","slug":"summerside-western-capitals"}
+[standings/MHL] example={"gp":41,"w":25,"l":8,"otl":5,"sol":3,"pts":58,"pct":"0.707","rw":22,"otw":3,"sow":0,"gf":183,"ga":140,"diff":43,"pim":1011,"streak":"0-1-1-0","p10":"5-2-2-1","division_rank":1,"team":"Summerside Western Capitals","division":"Eastlink South","slug":"summerside-western-capitals"}
 [standings/MHL] South teams: 6, North teams: 6
 [standings] mhlRows=12
 [schedules/ICS] parsed=52
