@@ -79,13 +79,14 @@
 [rosters/valley-wildcats] Fetching roster for Valley-Wildcats...
 [rosters] Fetching from API: team_id=4
 [rosters] Fetching stats from API: team_id=4
-[rosters/valley-wildcats] Processing 24 players (downloading headshots)
+[rosters/valley-wildcats] Processing 25 players (downloading headshots)
 [rosters] Downloaded: 4-joshua-plourde.jpg
 [rosters] Downloaded: 5-marek-dubuc.jpg
 [rosters] Downloaded: 7-carter-morrison.jpg
 [rosters] Downloaded: 8-louis-carl-tremblay.jpg
 [rosters] Downloaded: 9-felix-belanger.jpg
 [rosters] Downloaded: 10-jesse-sinclair.jpg
+[rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
 [rosters] Downloaded: 15-arnaud-lucier.jpg
 [rosters] Downloaded: 16-victor-proulx.jpg
@@ -103,7 +104,7 @@
 [rosters] Downloaded: 29-cohen-stoddard.jpg
 [rosters] Downloaded: 32-brody-ford.jpg
 [rosters] Downloaded: 70-sean-hogan.jpg
-[rosters/valley-wildcats] Wrote rosters/valley-wildcats.json (24 players)
+[rosters/valley-wildcats] Wrote rosters/valley-wildcats.json (25 players)
 [rosters/yarmouth-mariners] Fetching roster for Yarmouth-Mariners...
 [rosters] Fetching from API: team_id=5
 [rosters] Fetching stats from API: team_id=5
@@ -364,7 +365,7 @@
 [games] Starting Ramblers games build...
 [games] Loaded roster with 25 players
 [games] Fetching Ramblers schedule...
-[games] Processing 39 completed games...
+[games] Processing 40 completed games...
 [games] Fetched summary for game 4612 (7 goals, 0 penalties)
 [games] Fetched summary for game 4619 (12 goals, 0 penalties)
 [games] Fetched summary for game 4624 (7 goals, 0 penalties)
@@ -404,10 +405,11 @@
 [games] Fetched summary for game 4832 (6 goals, 0 penalties)
 [games] Fetched summary for game 4840 (7 goals, 0 penalties)
 [games] Fetched summary for game 4843 (5 goals, 0 penalties)
-[games] Wrote games/amherst-ramblers.json (39 completed games)
-[games] Complete! Games=39
+[games] Fetched summary for game 4855 (7 goals, 0 penalties)
+[games] Wrote games/amherst-ramblers.json (40 completed games)
+[games] Complete! Games=40
 [boxscores] Starting Playwright box score scraper...
-[boxscores] Scraping 39 games...
+[boxscores] Scraping 40 games...
 [boxscores] failed: browserType.launch: Executable doesn't exist at /home/runner/.cache/ms-playwright/chromium_headless_shell-1194/chrome-linux/headless_shell
 ╔═════════════════════════════════════════════════════════════════════════╗
 ║ Looks like Playwright Test or Playwright was just installed or updated. ║
@@ -426,8 +428,8 @@
 [schedules] events=52  ramblers=52
 [CCMHA] Fetching games for next 7 days
 [CCMHA] API returned 112 total schedule items
-[CCMHA] Found 4 games at Amherst Stadium
-[ccmha] games=4
+[CCMHA] Found 6 games at Amherst Stadium
+[ccmha] games=6
 [league] Building league-wide statistics...
 
 [league] Fetching skater leaders...

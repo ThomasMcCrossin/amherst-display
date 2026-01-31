@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-30T07:24:34Z",
+  "generated_at": "2026-01-31T07:04:16Z",
   "timezone": "America/Halifax",
   "games": [
     {
@@ -35,6 +35,24 @@
       "away_team": "Cumberland U18C Ramblers",
       "start": "2026-02-05T20:00:00-04:00",
       "end": "2026-02-05T21:00:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U9-ADV",
+      "home_team": "West Hants Warriors",
+      "away_team": "Cumberland Ramblers",
+      "start": "2026-02-07T12:15:00-04:00",
+      "end": "2026-02-07T13:15:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U11-AA",
+      "home_team": "Cape Breton County Islanders",
+      "away_team": "Cumberland Ramblers",
+      "start": "2026-02-07T13:45:00-04:00",
+      "end": "2026-02-07T15:15:00-04:00",
       "location": "Amherst Stadium",
       "source": "ccmha"
     }
