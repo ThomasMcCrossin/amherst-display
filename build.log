@@ -138,7 +138,7 @@
 [rosters/west-kent-steamers] Fetching roster for West-Kent-Steamers...
 [rosters] Fetching from API: team_id=6
 [rosters] Fetching stats from API: team_id=6
-[rosters/west-kent-steamers] Processing 32 players (downloading headshots)
+[rosters/west-kent-steamers] Processing 33 players (downloading headshots)
 [rosters] Downloaded: 1-olivier-bacon.jpg
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
@@ -170,7 +170,8 @@
 [rosters] Downloaded: 96-brody-breau.jpg
 [rosters] Downloaded: 120-louis-simon-boucher.jpg
 [rosters] Skipping placeholder image
-[rosters/west-kent-steamers] Wrote rosters/west-kent-steamers.json (32 players)
+[rosters] Skipping placeholder image
+[rosters/west-kent-steamers] Wrote rosters/west-kent-steamers.json (33 players)
 [rosters/pictou-county-crushers] Fetching roster for Pictou-County-Crushers...
 [rosters] Fetching from API: team_id=7
 [rosters] Fetching stats from API: team_id=7
@@ -365,7 +366,7 @@
 [games] Starting Ramblers games build...
 [games] Loaded roster with 25 players
 [games] Fetching Ramblers schedule...
-[games] Processing 40 completed games...
+[games] Processing 41 completed games...
 [games] Fetched summary for game 4612 (7 goals, 0 penalties)
 [games] Fetched summary for game 4619 (12 goals, 0 penalties)
 [games] Fetched summary for game 4624 (7 goals, 0 penalties)
@@ -406,10 +407,11 @@
 [games] Fetched summary for game 4840 (7 goals, 0 penalties)
 [games] Fetched summary for game 4843 (5 goals, 0 penalties)
 [games] Fetched summary for game 4855 (7 goals, 0 penalties)
-[games] Wrote games/amherst-ramblers.json (40 completed games)
-[games] Complete! Games=40
+[games] Fetched summary for game 4856 (5 goals, 0 penalties)
+[games] Wrote games/amherst-ramblers.json (41 completed games)
+[games] Complete! Games=41
 [boxscores] Starting Playwright box score scraper...
-[boxscores] Scraping 40 games...
+[boxscores] Scraping 41 games...
 [boxscores] failed: browserType.launch: Executable doesn't exist at /home/runner/.cache/ms-playwright/chromium_headless_shell-1194/chrome-linux/headless_shell
 ╔═════════════════════════════════════════════════════════════════════════╗
 ║ Looks like Playwright Test or Playwright was just installed or updated. ║
@@ -421,15 +423,15 @@
 ╚═════════════════════════════════════════════════════════════════════════╝
 [standings/MHL] table rows found
 [standings/MHL] tables=1 standings_tables=1 rows=12
-[standings/MHL] example={"gp":41,"w":25,"l":8,"otl":5,"sol":3,"pts":58,"pct":"0.707","rw":22,"otw":3,"sow":0,"gf":183,"ga":140,"diff":43,"pim":1011,"streak":"0-1-1-0","p10":"5-2-2-1","division_rank":1,"team":"Summerside Western Capitals","division":"Eastlink South","slug":"summerside-western-capitals"}
+[standings/MHL] example={"gp":42,"w":26,"l":8,"otl":5,"sol":3,"pts":60,"pct":"0.714","rw":23,"otw":3,"sow":0,"gf":191,"ga":142,"diff":49,"pim":1017,"streak":"1-0-1-0","p10":"6-1-2-1","division_rank":1,"team":"x - Summerside Western Capitals","division":"Eastlink South","slug":null}
 [standings/MHL] South teams: 6, North teams: 6
 [standings] mhlRows=12
 [schedules/ICS] parsed=52
 [schedules] events=52  ramblers=52
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 112 total schedule items
-[CCMHA] Found 6 games at Amherst Stadium
-[ccmha] games=6
+[CCMHA] API returned 104 total schedule items
+[CCMHA] Found 7 games at Amherst Stadium
+[ccmha] games=7
 [league] Building league-wide statistics...
 
 [league] Fetching skater leaders...
