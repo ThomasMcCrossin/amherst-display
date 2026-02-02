@@ -1,34 +1,7 @@
 {
-  "generated_at": "2026-02-01T07:11:53Z",
+  "generated_at": "2026-02-02T07:33:58Z",
   "timezone": "America/Halifax",
   "games": [
-    {
-      "league": "U13-AA",
-      "home_team": "Pictou County Crushers",
-      "away_team": "Cumberland Ramblers",
-      "start": "2026-02-01T12:00:00-04:00",
-      "end": "2026-02-01T13:30:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
-    {
-      "league": "U15-AA",
-      "home_team": "Antigonish Bulldogs",
-      "away_team": "Cumberland Ramblers",
-      "start": "2026-02-01T13:45:00-04:00",
-      "end": "2026-02-01T15:15:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
-    {
-      "league": "U18-A",
-      "home_team": "West Colchester Cobras",
-      "away_team": "Cumberland Ramblers",
-      "start": "2026-02-01T15:30:00-04:00",
-      "end": "2026-02-01T17:00:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
     {
       "league": "U18-C",
       "home_team": "Moncton Hawkes",
