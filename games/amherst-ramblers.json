@@ -4,7 +4,7 @@
   "team_id": 1,
   "season": "2024-25",
   "season_id": 41,
-  "updated_at": "2026-02-02T07:33:53.990Z",
+  "updated_at": "2026-02-03T07:26:35.515Z",
   "summary": {
     "games_played": 41,
     "wins": 25,
@@ -458,6 +458,11 @@
               "player_id": "mhl-3207",
               "name": "Ryan Hayes",
               "number": 95
+            },
+            {
+              "player_id": "mhl-3187",
+              "name": "Hudson Bradley",
+              "number": 30
             }
           ],
           "power_play": false,
@@ -558,11 +563,6 @@
               "player_id": "mhl-2799",
               "name": "Anthony Gaudet",
               "number": 11
-            },
-            {
-              "player_id": "mhl-2943",
-              "name": "Cooper Cormier",
-              "number": 37
             }
           ],
           "power_play": true,
@@ -610,14 +610,14 @@
           },
           "assists": [
             {
-              "player_id": "mhl-3530",
-              "name": "Felix Belanger",
-              "number": 9
-            },
-            {
               "player_id": "mhl-2760",
               "name": "Antoine Pilotte",
               "number": 18
+            },
+            {
+              "player_id": "mhl-2799",
+              "name": "Duncan Anderson",
+              "number": 11
             }
           ],
           "power_play": false,
@@ -724,7 +724,7 @@
           "goals": 0,
           "assists": 0,
           "points": 0,
-          "penalty_minutes": 15,
+          "penalty_minutes": 5,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -800,8 +800,8 @@
         "mhl-2943": {
           "position": "LW",
           "goals": 0,
-          "assists": 2,
-          "points": 2,
+          "assists": 1,
+          "points": 1,
           "penalty_minutes": 4,
           "shots": 0,
           "plus_minus": "0",
@@ -872,8 +872,8 @@
         },
         "mhl-3187": {
           "position": "G",
-          "saves": 28,
-          "shots_against": 30,
+          "saves": 44,
+          "shots_against": 46,
           "goals_against": 2,
           "save_percentage": "0.000",
           "time_on_ice": "60:00"
