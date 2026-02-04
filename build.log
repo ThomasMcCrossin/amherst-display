@@ -142,6 +142,8 @@
 [rosters] Downloaded: 1-olivier-bacon.jpg
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
+[rosters] Downloaded: 2-louis-simon-boucher.jpg
+[rosters] Downloaded: 2-olivier-guignard.jpg
 [rosters] Skipping placeholder image
 [rosters] Downloaded: 6-th-o-lebrun.jpg
 [rosters] Downloaded: 7-sam-bowness.jpg
@@ -150,11 +152,11 @@
 [rosters] Downloaded: 10-cam-white.jpg
 [rosters] Downloaded: 11-jude-campbell.jpg
 [rosters] Downloaded: 12-dawson-grandy.jpg
+[rosters] Downloaded: 13-alexandre-caissie.jpg
 [rosters] Downloaded: 16-olivier-o-brien.jpg
 [rosters] Downloaded: 19-zachary-paulhus.jpg
 [rosters] Downloaded: 21-natan-grenier.jpg
 [rosters] Downloaded: 23-nathan-weber.jpg
-[rosters] Downloaded: 27-olivier-guignard.jpg
 [rosters] Downloaded: 27-olivier-leblanc.jpg
 [rosters] Downloaded: 30-victor-r-gis.jpg
 [rosters] Downloaded: 31-xavier-farrah.jpg
@@ -168,8 +170,6 @@
 [rosters] Downloaded: 91-victor-lalibert.jpg
 [rosters] Downloaded: 95-isaac-arsenault.jpg
 [rosters] Downloaded: 96-brody-breau.jpg
-[rosters] Downloaded: 120-louis-simon-boucher.jpg
-[rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
 [rosters/west-kent-steamers] Wrote rosters/west-kent-steamers.json (33 players)
 [rosters/pictou-county-crushers] Fetching roster for Pictou-County-Crushers...
@@ -429,7 +429,7 @@
 [schedules/ICS] parsed=52
 [schedules] events=52  ramblers=52
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 97 total schedule items
+[CCMHA] API returned 96 total schedule items
 [CCMHA] Found 4 games at Amherst Stadium
 [ccmha] games=4
 [league] Building league-wide statistics...

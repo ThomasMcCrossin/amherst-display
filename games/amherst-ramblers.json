@@ -4,7 +4,7 @@
   "team_id": 1,
   "season": "2024-25",
   "season_id": 41,
-  "updated_at": "2026-02-03T07:26:35.515Z",
+  "updated_at": "2026-02-04T07:27:50.917Z",
   "summary": {
     "games_played": 41,
     "wins": 25,
@@ -405,8 +405,8 @@
         },
         "mhl-3766": {
           "position": "G",
-          "saves": 28,
-          "shots_against": 29,
+          "saves": 26,
+          "shots_against": 27,
           "goals_against": 1,
           "save_percentage": "0.000",
           "time_on_ice": "60:00"
