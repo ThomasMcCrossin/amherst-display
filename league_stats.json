@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-04T07:27:56.103Z",
+  "generated_at": "2026-02-05T07:33:02.417Z",
   "season": "2024-25",
   "season_id": 41,
   "league": "MHL",
@@ -3493,7 +3493,7 @@
         "streak_length": 11,
         "assists": 10,
         "points": 21,
-        "active": true
+        "active": false
       },
       {
         "player_id": "3797",
@@ -3549,7 +3549,7 @@
         "streak_length": 5,
         "assists": 13,
         "points": 18,
-        "active": true
+        "active": false
       },
       {
         "player_id": "3576",
