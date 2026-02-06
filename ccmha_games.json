@@ -1,16 +1,7 @@
 {
-  "generated_at": "2026-02-05T07:33:01Z",
+  "generated_at": "2026-02-06T07:28:43Z",
   "timezone": "America/Halifax",
   "games": [
-    {
-      "league": "U18-C",
-      "home_team": "Moncton Hawkes",
-      "away_team": "Cumberland U18C Ramblers",
-      "start": "2026-02-05T20:00:00-04:00",
-      "end": "2026-02-05T21:00:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
     {
       "league": "U11-AA",
       "home_team": "Cape Breton County Islanders",

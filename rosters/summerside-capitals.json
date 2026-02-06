@@ -5,8 +5,8 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 10,
-  "updated_at": "2026-02-05T07:32:35.609Z",
-  "player_count": 24,
+  "updated_at": "2026-02-06T07:28:23.099Z",
+  "player_count": 25,
   "players": [
     {
       "player_id": "mhl-2547",
@@ -689,6 +689,28 @@
       "flags": [
         "ht-played-major-junior"
       ]
+    },
+    {
+      "player_id": "mhl-3935",
+      "number": "47",
+      "first_name": "Maverick",
+      "last_name": "Hayes",
+      "name": "Maverick Hayes",
+      "position": "D",
+      "height": "6'4",
+      "height_inches": 76,
+      "weight": 205,
+      "shoots": "L",
+      "birthdate": "2006-09-29",
+      "birth_year": "'06",
+      "age": 20,
+      "hometown": "Ottawa, ON",
+      "rookie": false,
+      "veteran": false,
+      "stats": {},
+      "hockeytech_id": "3935",
+      "person_id": "4601",
+      "flags": []
     },
     {
       "player_id": "mhl-2513",

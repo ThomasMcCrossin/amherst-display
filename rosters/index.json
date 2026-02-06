@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-05T07:32:39.582Z",
+  "generated_at": "2026-02-06T07:28:24.400Z",
   "season": "2024-25",
   "season_id": 41,
   "api_source": "HockeyTech",
@@ -83,7 +83,7 @@
       "team_name": "Summerside-Capitals",
       "league": "MHL",
       "team_id": 10,
-      "player_count": 24,
+      "player_count": 25,
       "file": "rosters/summerside-capitals.json"
     },
     {
