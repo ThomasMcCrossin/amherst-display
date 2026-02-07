@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 1,
-  "updated_at": "2026-02-06T07:28:17.063Z",
+  "updated_at": "2026-02-07T07:08:09.335Z",
   "player_count": 33,
   "players": [
     {
@@ -28,12 +28,12 @@
       "veteran": false,
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3545.jpg",
       "stats": {
-        "games_played": 34,
+        "games_played": 35,
         "goals": 1,
         "assists": 10,
         "points": 11,
         "plus_minus": 0,
-        "penalty_minutes": 58,
+        "penalty_minutes": 62,
         "power_play_goals": 0,
         "power_play_assists": 1,
         "power_play_points": 1,
@@ -42,7 +42,7 @@
         "short_handed_points": 1,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.32
+        "points_per_game": 0.31
       },
       "hockeytech_id": "3545",
       "person_id": "4126",
@@ -71,12 +71,12 @@
       "veteran": false,
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3848.jpg",
       "stats": {
-        "games_played": 36,
+        "games_played": 37,
         "goals": 8,
         "assists": 12,
         "points": 20,
         "plus_minus": 0,
-        "penalty_minutes": 10,
+        "penalty_minutes": 14,
         "power_play_goals": 0,
         "power_play_assists": 3,
         "power_play_points": 3,
@@ -85,7 +85,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.56
+        "points_per_game": 0.54
       },
       "hockeytech_id": "3848",
       "person_id": "4476",
@@ -139,10 +139,10 @@
       "veteran": false,
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3192.jpg",
       "stats": {
-        "games_played": 35,
+        "games_played": 36,
         "goals": 1,
-        "assists": 5,
-        "points": 6,
+        "assists": 6,
+        "points": 7,
         "plus_minus": 0,
         "penalty_minutes": 43,
         "power_play_goals": 0,
@@ -153,7 +153,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.17
+        "points_per_game": 0.19
       },
       "hockeytech_id": "3192",
       "person_id": "3713",
@@ -179,7 +179,7 @@
       "veteran": false,
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2799.jpg",
       "stats": {
-        "games_played": 40,
+        "games_played": 41,
         "goals": 20,
         "assists": 51,
         "points": 71,
@@ -193,7 +193,7 @@
         "short_handed_points": 8,
         "game_winning_goals": 3,
         "overtime_goals": 0,
-        "points_per_game": 1.78
+        "points_per_game": 1.73
       },
       "hockeytech_id": "2799",
       "person_id": "3226",
@@ -221,12 +221,12 @@
       "veteran": false,
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3402.jpg",
       "stats": {
-        "games_played": 19,
+        "games_played": 20,
         "goals": 1,
         "assists": 5,
         "points": 6,
         "plus_minus": 0,
-        "penalty_minutes": 8,
+        "penalty_minutes": 10,
         "power_play_goals": 0,
         "power_play_assists": 0,
         "power_play_points": 0,
@@ -235,7 +235,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.32
+        "points_per_game": 0.3
       },
       "hockeytech_id": "3402",
       "person_id": "3964",
@@ -263,7 +263,7 @@
       "veteran": false,
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3562.jpg",
       "stats": {
-        "games_played": 41,
+        "games_played": 42,
         "goals": 10,
         "assists": 12,
         "points": 22,
@@ -277,7 +277,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.54
+        "points_per_game": 0.52
       },
       "hockeytech_id": "3562",
       "person_id": "4147",
@@ -305,7 +305,7 @@
       "veteran": false,
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3243.jpg",
       "stats": {
-        "games_played": 32,
+        "games_played": 33,
         "goals": 3,
         "assists": 3,
         "points": 6,
@@ -319,7 +319,7 @@
         "short_handed_points": 1,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.19
+        "points_per_game": 0.18
       },
       "hockeytech_id": "3243",
       "person_id": "3786",
@@ -425,7 +425,7 @@
       "veteran": false,
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2760.jpg",
       "stats": {
-        "games_played": 35,
+        "games_played": 36,
         "goals": 10,
         "assists": 10,
         "points": 20,
@@ -439,7 +439,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 2,
         "overtime_goals": 0,
-        "points_per_game": 0.57
+        "points_per_game": 0.56
       },
       "hockeytech_id": "2760",
       "person_id": "3187",
@@ -509,7 +509,7 @@
       "veteran": false,
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3759.jpg",
       "stats": {
-        "games_played": 41,
+        "games_played": 42,
         "goals": 16,
         "assists": 6,
         "points": 22,
@@ -523,7 +523,7 @@
         "short_handed_points": 2,
         "game_winning_goals": 3,
         "overtime_goals": 0,
-        "points_per_game": 0.54
+        "points_per_game": 0.52
       },
       "hockeytech_id": "3759",
       "person_id": "4375",
@@ -552,12 +552,12 @@
       "veteran": false,
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3799.jpg",
       "stats": {
-        "games_played": 33,
+        "games_played": 34,
         "goals": 7,
         "assists": 6,
         "points": 13,
         "plus_minus": 0,
-        "penalty_minutes": 60,
+        "penalty_minutes": 62,
         "power_play_goals": 1,
         "power_play_assists": 0,
         "power_play_points": 1,
@@ -566,7 +566,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.39
+        "points_per_game": 0.38
       },
       "hockeytech_id": "3799",
       "person_id": "4417",
@@ -596,7 +596,7 @@
       "veteran": false,
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3038.jpg",
       "stats": {
-        "games_played": 41,
+        "games_played": 42,
         "goals": 7,
         "assists": 36,
         "points": 43,
@@ -610,7 +610,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 1.05
+        "points_per_game": 1.02
       },
       "hockeytech_id": "3038",
       "person_id": "3544",
@@ -636,7 +636,7 @@
       "veteran": true,
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3250.jpg",
       "stats": {
-        "games_played": 38,
+        "games_played": 39,
         "goals": 20,
         "assists": 25,
         "points": 45,
@@ -650,7 +650,7 @@
         "short_handed_points": 3,
         "game_winning_goals": 8,
         "overtime_goals": 1,
-        "points_per_game": 1.18
+        "points_per_game": 1.15
       },
       "hockeytech_id": "3250",
       "person_id": "3795",
@@ -714,17 +714,17 @@
       "veteran": false,
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3187.jpg",
       "stats": {
-        "games_played": 17,
+        "games_played": 18,
         "wins": 11,
-        "losses": 4,
+        "losses": 5,
         "ot_losses": 1,
-        "minutes_played": 921,
-        "saves": 510,
-        "shots": 571,
-        "goals_against": 61,
+        "minutes_played": 981,
+        "saves": 534,
+        "shots": 600,
+        "goals_against": 66,
         "shutouts": 1,
-        "save_percentage": 0.893,
-        "goals_against_average": 3.97
+        "save_percentage": 0.89,
+        "goals_against_average": 4.04
       },
       "hockeytech_id": "3187",
       "person_id": "3707",
@@ -752,10 +752,10 @@
       "veteran": false,
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2943.jpg",
       "stats": {
-        "games_played": 40,
-        "goals": 29,
+        "games_played": 41,
+        "goals": 30,
         "assists": 27,
-        "points": 56,
+        "points": 57,
         "plus_minus": 0,
         "penalty_minutes": 34,
         "power_play_goals": 8,
@@ -766,7 +766,7 @@
         "short_handed_points": 2,
         "game_winning_goals": 2,
         "overtime_goals": 1,
-        "points_per_game": 1.4
+        "points_per_game": 1.39
       },
       "hockeytech_id": "2943",
       "person_id": "3416",
@@ -831,7 +831,7 @@
       "veteran": false,
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2635.jpg",
       "stats": {
-        "games_played": 41,
+        "games_played": 42,
         "goals": 15,
         "assists": 16,
         "points": 31,
@@ -845,7 +845,7 @@
         "short_handed_points": 2,
         "game_winning_goals": 2,
         "overtime_goals": 0,
-        "points_per_game": 0.76
+        "points_per_game": 0.74
       },
       "hockeytech_id": "2635",
       "person_id": "3059",
@@ -871,12 +871,12 @@
       "veteran": false,
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3226.jpg",
       "stats": {
-        "games_played": 39,
+        "games_played": 40,
         "goals": 1,
         "assists": 10,
         "points": 11,
         "plus_minus": 0,
-        "penalty_minutes": 59,
+        "penalty_minutes": 63,
         "power_play_goals": 0,
         "power_play_assists": 4,
         "power_play_points": 4,
@@ -939,12 +939,12 @@
       "veteran": false,
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3207.jpg",
       "stats": {
-        "games_played": 39,
+        "games_played": 40,
         "goals": 3,
         "assists": 11,
         "points": 14,
         "plus_minus": 0,
-        "penalty_minutes": 76,
+        "penalty_minutes": 78,
         "power_play_goals": 1,
         "power_play_assists": 2,
         "power_play_points": 3,
@@ -953,7 +953,7 @@
         "short_handed_points": 1,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.36
+        "points_per_game": 0.35
       },
       "hockeytech_id": "3207",
       "person_id": "3728",
@@ -1205,17 +1205,17 @@
       "rookie": false,
       "veteran": false,
       "stats": {
-        "games_played": 41,
+        "games_played": 42,
         "wins": 25,
-        "losses": 15,
+        "losses": 16,
         "ot_losses": 1,
-        "minutes_played": 2466,
-        "saves": 1359,
-        "shots": 1505,
-        "goals_against": 146,
+        "minutes_played": 2527,
+        "saves": 1383,
+        "shots": 1535,
+        "goals_against": 152,
         "shutouts": 1,
-        "save_percentage": 0.903,
-        "goals_against_average": 3.55
+        "save_percentage": 0.901,
+        "goals_against_average": 3.61
       },
       "flags": []
     }

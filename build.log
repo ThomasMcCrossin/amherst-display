@@ -79,9 +79,10 @@
 [rosters/valley-wildcats] Fetching roster for Valley-Wildcats...
 [rosters] Fetching from API: team_id=4
 [rosters] Fetching stats from API: team_id=4
-[rosters/valley-wildcats] Processing 25 players (downloading headshots)
+[rosters/valley-wildcats] Processing 26 players (downloading headshots)
 [rosters] Downloaded: 4-joshua-plourde.jpg
 [rosters] Downloaded: 5-marek-dubuc.jpg
+[rosters] Skipping placeholder image
 [rosters] Downloaded: 7-carter-morrison.jpg
 [rosters] Downloaded: 8-louis-carl-tremblay.jpg
 [rosters] Downloaded: 9-felix-belanger.jpg
@@ -104,7 +105,7 @@
 [rosters] Downloaded: 29-cohen-stoddard.jpg
 [rosters] Downloaded: 32-brody-ford.jpg
 [rosters] Downloaded: 70-sean-hogan.jpg
-[rosters/valley-wildcats] Wrote rosters/valley-wildcats.json (25 players)
+[rosters/valley-wildcats] Wrote rosters/valley-wildcats.json (26 players)
 [rosters/yarmouth-mariners] Fetching roster for Yarmouth-Mariners...
 [rosters] Fetching from API: team_id=5
 [rosters] Fetching stats from API: team_id=5
@@ -294,7 +295,7 @@
 [rosters] Downloaded: 30-justin-robinson.jpg
 [rosters] Downloaded: 33-kolton-bourret.jpg
 [rosters] Downloaded: 44-matthew-maclean.jpg
-[rosters] Skipping placeholder image
+[rosters] Downloaded: 47-maverick-hayes.jpg
 [rosters] Downloaded: 55-simon-mullen.jpg
 [rosters] Downloaded: 77-justin-ouellette.jpg
 [rosters] Downloaded: 79-alex-hendry.jpg
@@ -332,10 +333,11 @@
 [rosters/chaleur-lightning] Fetching roster for Chaleur-Lightning...
 [rosters] Fetching from API: team_id=21
 [rosters] Fetching stats from API: team_id=21
-[rosters/chaleur-lightning] Processing 29 players (downloading headshots)
+[rosters/chaleur-lightning] Processing 30 players (downloading headshots)
 [rosters] Downloaded: 2-jack-hayne.jpg
 [rosters] Downloaded: 4-jameson-george.jpg
 [rosters] Downloaded: 7-sam-rocca.jpg
+[rosters] Skipping placeholder image
 [rosters] Downloaded: 9-tyson-snow.jpg
 [rosters] Downloaded: 10-carter-bromley.jpg
 [rosters] Downloaded: 12-jaxon-pierce.jpg
@@ -361,58 +363,16 @@
 [rosters] Downloaded: 120-dax-fraser.jpg
 [rosters] Downloaded: 120-carter-mcillwraith.jpg
 [rosters] Downloaded: 120-isaiah-rogerson.jpg
-[rosters/chaleur-lightning] Wrote rosters/chaleur-lightning.json (29 players)
+[rosters/chaleur-lightning] Wrote rosters/chaleur-lightning.json (30 players)
 [rosters] Wrote rosters/index.json with 12 team(s)
 [rosters] Complete! Teams=12
 [games] Starting Ramblers games build...
 [games] Loaded roster with 25 players
 [games] Fetching Ramblers schedule...
-[games] Processing 41 completed games...
-[games] Fetched summary for game 4612 (7 goals, 0 penalties)
-[games] Fetched summary for game 4619 (12 goals, 0 penalties)
-[games] Fetched summary for game 4624 (7 goals, 0 penalties)
-[games] Fetched summary for game 4632 (10 goals, 0 penalties)
-[games] Fetched summary for game 4641 (7 goals, 0 penalties)
-[games] Fetched summary for game 4647 (10 goals, 0 penalties)
-[games] Fetched summary for game 4650 (3 goals, 0 penalties)
-[games] Fetched summary for game 4655 (9 goals, 0 penalties)
-[games] Fetched summary for game 4659 (9 goals, 0 penalties)
-[games] Fetched summary for game 4667 (6 goals, 0 penalties)
-[games] Fetched summary for game 4675 (4 goals, 0 penalties)
-[games] Fetched summary for game 4677 (8 goals, 0 penalties)
-[games] Fetched summary for game 4681 (5 goals, 0 penalties)
-[games] Fetched summary for game 4691 (7 goals, 0 penalties)
-[games] Fetched summary for game 4699 (6 goals, 0 penalties)
-[games] Fetched summary for game 4704 (7 goals, 0 penalties)
-[games] Fetched summary for game 4713 (7 goals, 0 penalties)
-[games] Fetched summary for game 4718 (3 goals, 0 penalties)
-[games] Fetched summary for game 4725 (14 goals, 0 penalties)
-[games] Fetched summary for game 4728 (6 goals, 0 penalties)
-[games] Fetched summary for game 4731 (5 goals, 0 penalties)
-[games] Fetched summary for game 4738 (9 goals, 0 penalties)
-[games] Fetched summary for game 4751 (9 goals, 0 penalties)
-[games] Fetched summary for game 4760 (5 goals, 0 penalties)
-[games] Fetched summary for game 4763 (8 goals, 0 penalties)
-[games] Fetched summary for game 4772 (3 goals, 0 penalties)
-[games] Fetched summary for game 4782 (6 goals, 0 penalties)
-[games] Fetched summary for game 4787 (7 goals, 0 penalties)
-[games] Fetched summary for game 4791 (5 goals, 0 penalties)
-[games] Fetched summary for game 4799 (6 goals, 0 penalties)
-[games] Fetched summary for game 4801 (6 goals, 0 penalties)
-[games] Fetched summary for game 4803 (12 goals, 0 penalties)
-[games] Fetched summary for game 4809 (10 goals, 0 penalties)
-[games] Fetched summary for game 4816 (14 goals, 0 penalties)
-[games] Fetched summary for game 4820 (11 goals, 0 penalties)
-[games] Fetched summary for game 4831 (9 goals, 0 penalties)
-[games] Fetched summary for game 4832 (6 goals, 0 penalties)
-[games] Fetched summary for game 4840 (7 goals, 0 penalties)
-[games] Fetched summary for game 4843 (5 goals, 0 penalties)
-[games] Fetched summary for game 4855 (7 goals, 0 penalties)
-[games] Fetched summary for game 4856 (5 goals, 0 penalties)
-[games] Wrote games/amherst-ramblers.json (41 completed games)
-[games] Complete! Games=41
+[games] Error: HTTP 500: Internal Server Error
+[games] failed: HTTP 500: Internal Server Error
 [boxscores] Starting Playwright box score scraper...
-[boxscores] Scraping 41 games...
+[boxscores] Scraping 0 games...
 [boxscores] failed: browserType.launch: Executable doesn't exist at /home/runner/.cache/ms-playwright/chromium_headless_shell-1194/chrome-linux/headless_shell
 ╔═════════════════════════════════════════════════════════════════════════╗
 ║ Looks like Playwright Test or Playwright was just installed or updated. ║
@@ -424,13 +384,13 @@
 ╚═════════════════════════════════════════════════════════════════════════╝
 [standings/MHL] table rows found
 [standings/MHL] tables=1 standings_tables=1 rows=12
-[standings/MHL] example={"gp":42,"w":26,"l":8,"otl":5,"sol":3,"pts":60,"pct":"0.714","rw":23,"otw":3,"sow":0,"gf":191,"ga":142,"diff":49,"pim":1017,"streak":"1-0-1-0","p10":"6-1-2-1","division_rank":1,"team":"x - Summerside Western Capitals","division":"Eastlink South","slug":null}
+[standings/MHL] example={"gp":43,"w":27,"l":8,"otl":5,"sol":3,"pts":62,"pct":"0.721","rw":24,"otw":3,"sow":0,"gf":197,"ga":143,"diff":54,"pim":1053,"streak":"2-0-1-0","p10":"6-1-2-1","division_rank":1,"team":"x - Summerside Western Capitals","division":"Eastlink South","slug":null}
 [standings/MHL] South teams: 6, North teams: 6
 [standings] mhlRows=12
 [schedules/ICS] parsed=52
 [schedules] events=52  ramblers=52
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 94 total schedule items
+[CCMHA] API returned 93 total schedule items
 [CCMHA] Found 3 games at Amherst Stadium
 [ccmha] games=3
 [league] Building league-wide statistics...

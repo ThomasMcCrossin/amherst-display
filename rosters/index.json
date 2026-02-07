@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-06T07:28:24.400Z",
+  "generated_at": "2026-02-07T07:08:27.611Z",
   "season": "2024-25",
   "season_id": 41,
   "api_source": "HockeyTech",
@@ -35,7 +35,7 @@
       "team_name": "Valley-Wildcats",
       "league": "MHL",
       "team_id": 4,
-      "player_count": 25,
+      "player_count": 26,
       "file": "rosters/valley-wildcats.json"
     },
     {
@@ -99,7 +99,7 @@
       "team_name": "Chaleur-Lightning",
       "league": "MHL",
       "team_id": 21,
-      "player_count": 29,
+      "player_count": 30,
       "file": "rosters/chaleur-lightning.json"
     }
   ]
