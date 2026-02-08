@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-07T07:08:27.611Z",
+  "generated_at": "2026-02-08T07:12:39.482Z",
   "season": "2024-25",
   "season_id": 41,
   "api_source": "HockeyTech",
@@ -91,7 +91,7 @@
       "team_name": "Grand-Falls-Rapids",
       "league": "MHL",
       "team_id": 12,
-      "player_count": 24,
+      "player_count": 26,
       "file": "rosters/grand-falls-rapids.json"
     },
     {
@@ -99,7 +99,7 @@
       "team_name": "Chaleur-Lightning",
       "league": "MHL",
       "team_id": 21,
-      "player_count": 30,
+      "player_count": 29,
       "file": "rosters/chaleur-lightning.json"
     }
   ]
