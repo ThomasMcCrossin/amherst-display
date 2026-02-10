@@ -1,5 +1,15 @@
 {
-  "generated_at": "2026-02-09T07:38:04Z",
+  "generated_at": "2026-02-10T07:38:34Z",
   "timezone": "America/Halifax",
-  "games": []
+  "games": [
+    {
+      "league": "U13-C",
+      "home_team": "SCMHA U13 ELKS WHITE",
+      "away_team": "Cumberland U13C Ramblers",
+      "start": "2026-02-17T19:30:00-04:00",
+      "end": "2026-02-17T20:30:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    }
+  ]
 }
