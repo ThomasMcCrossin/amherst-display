@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 10,
-  "updated_at": "2026-02-12T07:34:14.471Z",
+  "updated_at": "2026-02-13T07:32:29.659Z",
   "player_count": 25,
   "players": [
     {
@@ -83,21 +83,21 @@
       "headshot": "assets/headshots/Summerside-Capitals/4-elliott-mullen.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3407.jpg",
       "stats": {
-        "games_played": 28,
+        "games_played": 29,
         "goals": 21,
-        "assists": 10,
-        "points": 31,
+        "assists": 11,
+        "points": 32,
         "plus_minus": 0,
         "penalty_minutes": 26,
         "power_play_goals": 4,
-        "power_play_assists": 1,
-        "power_play_points": 5,
+        "power_play_assists": 2,
+        "power_play_points": 6,
         "short_handed_goals": 1,
         "short_handed_assists": 1,
         "short_handed_points": 2,
         "game_winning_goals": 3,
         "overtime_goals": 0,
-        "points_per_game": 1.11
+        "points_per_game": 1.1
       },
       "hockeytech_id": "3407",
       "person_id": "3969",
@@ -123,7 +123,7 @@
       "headshot": "assets/headshots/Summerside-Capitals/5-henry-ouellet.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3900.jpg",
       "stats": {
-        "games_played": 25,
+        "games_played": 26,
         "goals": 9,
         "assists": 18,
         "points": 27,
@@ -137,7 +137,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 1.08
+        "points_per_game": 1.04
       },
       "hockeytech_id": "3900",
       "person_id": "4546",
@@ -164,12 +164,12 @@
       "headshot": "assets/headshots/Summerside-Capitals/6-andrew-thompson.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2705.jpg",
       "stats": {
-        "games_played": 43,
+        "games_played": 44,
         "goals": 5,
         "assists": 14,
         "points": 19,
         "plus_minus": 0,
-        "penalty_minutes": 23,
+        "penalty_minutes": 25,
         "power_play_goals": 4,
         "power_play_assists": 5,
         "power_play_points": 9,
@@ -178,7 +178,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.44
+        "points_per_game": 0.43
       },
       "hockeytech_id": "2705",
       "person_id": "3132",
@@ -231,12 +231,12 @@
       "headshot": "assets/headshots/Summerside-Capitals/9-carson-griffin.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2695.jpg",
       "stats": {
-        "games_played": 41,
+        "games_played": 42,
         "goals": 8,
         "assists": 10,
         "points": 18,
         "plus_minus": 0,
-        "penalty_minutes": 76,
+        "penalty_minutes": 78,
         "power_play_goals": 1,
         "power_play_assists": 2,
         "power_play_points": 3,
@@ -245,7 +245,7 @@
         "short_handed_points": 1,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.44
+        "points_per_game": 0.43
       },
       "hockeytech_id": "2695",
       "person_id": "3122",
@@ -274,12 +274,12 @@
       "headshot": "assets/headshots/Summerside-Capitals/10-eliott-robert.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3278.jpg",
       "stats": {
-        "games_played": 43,
+        "games_played": 44,
         "goals": 18,
-        "assists": 24,
-        "points": 42,
+        "assists": 25,
+        "points": 43,
         "plus_minus": 0,
-        "penalty_minutes": 60,
+        "penalty_minutes": 62,
         "power_play_goals": 3,
         "power_play_assists": 5,
         "power_play_points": 8,
@@ -317,7 +317,7 @@
       "headshot": "assets/headshots/Summerside-Capitals/11-alexandre-guy.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3843.jpg",
       "stats": {
-        "games_played": 42,
+        "games_played": 43,
         "goals": 20,
         "assists": 18,
         "points": 38,
@@ -331,7 +331,7 @@
         "short_handed_points": 2,
         "game_winning_goals": 6,
         "overtime_goals": 1,
-        "points_per_game": 0.9
+        "points_per_game": 0.88
       },
       "hockeytech_id": "3843",
       "person_id": "4467",
@@ -360,7 +360,7 @@
       "headshot": "assets/headshots/Summerside-Capitals/12-jordan-shaw.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3007.jpg",
       "stats": {
-        "games_played": 42,
+        "games_played": 43,
         "goals": 11,
         "assists": 13,
         "points": 24,
@@ -374,7 +374,7 @@
         "short_handed_points": 3,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.57
+        "points_per_game": 0.56
       },
       "hockeytech_id": "3007",
       "person_id": "3513",
@@ -444,7 +444,7 @@
       "headshot": "assets/headshots/Summerside-Capitals/18-cade-moser.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3796.jpg",
       "stats": {
-        "games_played": 42,
+        "games_played": 43,
         "goals": 15,
         "assists": 26,
         "points": 41,
@@ -458,7 +458,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 2,
         "overtime_goals": 0,
-        "points_per_game": 0.98
+        "points_per_game": 0.95
       },
       "hockeytech_id": "3796",
       "person_id": "4414",
@@ -485,7 +485,7 @@
       "headshot": "assets/headshots/Summerside-Capitals/19-brennan-murphy.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2768.jpg",
       "stats": {
-        "games_played": 29,
+        "games_played": 30,
         "goals": 11,
         "assists": 9,
         "points": 20,
@@ -499,7 +499,7 @@
         "short_handed_points": 3,
         "game_winning_goals": 2,
         "overtime_goals": 0,
-        "points_per_game": 0.69
+        "points_per_game": 0.67
       },
       "hockeytech_id": "2768",
       "person_id": "3195",
@@ -526,7 +526,7 @@
       "headshot": "assets/headshots/Summerside-Capitals/21-ryder-howatt.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2709.jpg",
       "stats": {
-        "games_played": 38,
+        "games_played": 39,
         "goals": 13,
         "assists": 17,
         "points": 30,
@@ -540,7 +540,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.79
+        "points_per_game": 0.77
       },
       "hockeytech_id": "2709",
       "person_id": "3136",
@@ -592,17 +592,17 @@
       "headshot": "assets/headshots/Summerside-Capitals/30-justin-robinson.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3926.jpg",
       "stats": {
-        "games_played": 5,
+        "games_played": 6,
         "wins": 3,
-        "losses": 0,
+        "losses": 1,
         "ot_losses": 1,
-        "minutes_played": 262,
-        "saves": 101,
-        "shots": 110,
-        "goals_against": 9,
+        "minutes_played": 321,
+        "saves": 129,
+        "shots": 141,
+        "goals_against": 12,
         "shutouts": 0,
-        "save_percentage": 0.918,
-        "goals_against_average": 2.06
+        "save_percentage": 0.915,
+        "goals_against_average": 2.24
       },
       "hockeytech_id": "3926",
       "person_id": "4591",
@@ -668,10 +668,10 @@
       "headshot": "assets/headshots/Summerside-Capitals/44-matthew-maclean.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2704.jpg",
       "stats": {
-        "games_played": 43,
-        "goals": 6,
+        "games_played": 44,
+        "goals": 7,
         "assists": 18,
-        "points": 24,
+        "points": 25,
         "plus_minus": 0,
         "penalty_minutes": 54,
         "power_play_goals": 2,
@@ -682,7 +682,7 @@
         "short_handed_points": 2,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.56
+        "points_per_game": 0.57
       },
       "hockeytech_id": "2704",
       "person_id": "3131",
@@ -732,19 +732,19 @@
       "hometown": "Truro, NS",
       "birthplace": "Truro, NS, Nova Scotia ",
       "rookie": false,
-      "veteran": false,
+      "veteran": true,
       "headshot": "assets/headshots/Summerside-Capitals/55-simon-mullen.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2513.jpg",
       "stats": {
-        "games_played": 44,
+        "games_played": 45,
         "goals": 13,
-        "assists": 47,
-        "points": 60,
+        "assists": 48,
+        "points": 61,
         "plus_minus": 0,
         "penalty_minutes": 32,
         "power_play_goals": 5,
-        "power_play_assists": 23,
-        "power_play_points": 28,
+        "power_play_assists": 24,
+        "power_play_points": 29,
         "short_handed_goals": 2,
         "short_handed_assists": 2,
         "short_handed_points": 4,
@@ -778,7 +778,7 @@
       "headshot": "assets/headshots/Summerside-Capitals/77-justin-ouellette.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3904.jpg",
       "stats": {
-        "games_played": 20,
+        "games_played": 21,
         "goals": 8,
         "assists": 21,
         "points": 29,
@@ -792,7 +792,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 2,
         "overtime_goals": 0,
-        "points_per_game": 1.45
+        "points_per_game": 1.38
       },
       "hockeytech_id": "3904",
       "person_id": "4551",
@@ -815,7 +815,7 @@
       "hometown": "Milton, ON",
       "birthplace": "Milton, ON, ",
       "rookie": false,
-      "veteran": false,
+      "veteran": true,
       "headshot": "assets/headshots/Summerside-Capitals/79-alex-hendry.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3858.jpg",
       "stats": {},
@@ -846,21 +846,21 @@
       "headshot": "assets/headshots/Summerside-Capitals/81-brett-arsenault.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2610.jpg",
       "stats": {
-        "games_played": 42,
-        "goals": 20,
-        "assists": 29,
-        "points": 49,
+        "games_played": 43,
+        "goals": 21,
+        "assists": 30,
+        "points": 51,
         "plus_minus": 0,
         "penalty_minutes": 81,
-        "power_play_goals": 10,
+        "power_play_goals": 11,
         "power_play_assists": 14,
-        "power_play_points": 24,
+        "power_play_points": 25,
         "short_handed_goals": 1,
         "short_handed_assists": 0,
         "short_handed_points": 1,
         "game_winning_goals": 3,
         "overtime_goals": 1,
-        "points_per_game": 1.17
+        "points_per_game": 1.19
       },
       "hockeytech_id": "2610",
       "person_id": "3032",
@@ -912,17 +912,17 @@
       "rookie": false,
       "veteran": false,
       "stats": {
-        "games_played": 44,
+        "games_played": 45,
         "wins": 28,
-        "losses": 8,
+        "losses": 9,
         "ot_losses": 5,
-        "minutes_played": 2679,
-        "saves": 1184,
-        "shots": 1325,
-        "goals_against": 141,
+        "minutes_played": 2739,
+        "saves": 1212,
+        "shots": 1357,
+        "goals_against": 145,
         "shutouts": 1,
-        "save_percentage": 0.894,
-        "goals_against_average": 3.16
+        "save_percentage": 0.893,
+        "goals_against_average": 3.18
       },
       "flags": []
     }
