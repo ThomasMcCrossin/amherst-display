@@ -212,7 +212,7 @@
 [rosters/campbellton-tigers] Fetching roster for Campbellton-Tigers...
 [rosters] Fetching from API: team_id=8
 [rosters] Fetching stats from API: team_id=8
-[rosters/campbellton-tigers] Processing 26 players (downloading headshots)
+[rosters/campbellton-tigers] Processing 27 players (downloading headshots)
 [rosters] Downloaded: 1-samuel-quimper.jpg
 [rosters] Downloaded: 7-alex-lavoie.jpg
 [rosters] Downloaded: 8-adam-v-ronneau.jpg
@@ -238,7 +238,8 @@
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
-[rosters/campbellton-tigers] Wrote rosters/campbellton-tigers.json (26 players)
+[rosters] Skipping placeholder image
+[rosters/campbellton-tigers] Wrote rosters/campbellton-tigers.json (27 players)
 [rosters/miramichi-timberwolves] Fetching roster for Miramichi-Timberwolves...
 [rosters] Fetching from API: team_id=9
 [rosters] Fetching stats from API: team_id=9
@@ -437,8 +438,8 @@
 [schedules] events=52  ramblers=52
 [CCMHA] Fetching games for next 7 days
 [CCMHA] API returned 80 total schedule items
-[CCMHA] Found 1 games at Amherst Stadium
-[ccmha] games=1
+[CCMHA] Found 3 games at Amherst Stadium
+[ccmha] games=3
 [league] Building league-wide statistics...
 
 [league] Fetching skater leaders...
@@ -447,7 +448,7 @@
 
 [league] Fetching goalie leaders...
 [league] Fetching players...
-[league] Found 16 qualified goalies
+[league] Found 17 qualified goalies
 
 [league] Fetching player streaks...
 [league] Fetching streaks_player...

@@ -4,7 +4,7 @@
   "team_id": 1,
   "season": "2024-25",
   "season_id": 41,
-  "updated_at": "2026-02-13T07:32:55.391Z",
+  "updated_at": "2026-02-14T07:10:48.075Z",
   "summary": {
     "games_played": 44,
     "wins": 26,
@@ -611,7 +611,7 @@
               "number": 25
             }
           ],
-          "power_play": true,
+          "power_play": false,
           "short_handed": false,
           "game_winning": false,
           "empty_net": false
