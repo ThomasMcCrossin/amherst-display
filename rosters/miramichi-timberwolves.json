@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 9,
-  "updated_at": "2026-02-14T07:10:24.510Z",
+  "updated_at": "2026-02-15T07:13:02.616Z",
   "player_count": 30,
   "players": [
     {
@@ -29,17 +29,17 @@
       "headshot": "assets/headshots/Miramichi-Timberwolves/1-zach-ericson.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3914.jpg",
       "stats": {
-        "games_played": 9,
+        "games_played": 10,
         "wins": 2,
         "losses": 6,
-        "ot_losses": 0,
-        "minutes_played": 505,
-        "saves": 322,
-        "shots": 353,
-        "goals_against": 31,
+        "ot_losses": 1,
+        "minutes_played": 567,
+        "saves": 361,
+        "shots": 399,
+        "goals_against": 38,
         "shutouts": 0,
-        "save_percentage": 0.912,
-        "goals_against_average": 3.69
+        "save_percentage": 0.905,
+        "goals_against_average": 4.02
       },
       "hockeytech_id": "3914",
       "person_id": "4567",
@@ -68,10 +68,10 @@
       "headshot": "assets/headshots/Miramichi-Timberwolves/6-lorenzo-tita.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3494.jpg",
       "stats": {
-        "games_played": 39,
-        "goals": 10,
+        "games_played": 40,
+        "goals": 11,
         "assists": 13,
-        "points": 23,
+        "points": 24,
         "plus_minus": 0,
         "penalty_minutes": 2,
         "power_play_goals": 0,
@@ -82,7 +82,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.59
+        "points_per_game": 0.6
       },
       "hockeytech_id": "3494",
       "person_id": "4057",
@@ -111,10 +111,10 @@
       "headshot": "assets/headshots/Miramichi-Timberwolves/8-cameron-leblanc.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3349.jpg",
       "stats": {
-        "games_played": 42,
+        "games_played": 43,
         "goals": 1,
-        "assists": 5,
-        "points": 6,
+        "assists": 6,
+        "points": 7,
         "plus_minus": 0,
         "penalty_minutes": 12,
         "power_play_goals": 0,
@@ -125,7 +125,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.14
+        "points_per_game": 0.16
       },
       "hockeytech_id": "3349",
       "person_id": "3911",
@@ -154,18 +154,18 @@
       "headshot": "assets/headshots/Miramichi-Timberwolves/9-alexis-doucet.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3791.jpg",
       "stats": {
-        "games_played": 44,
+        "games_played": 45,
         "goals": 19,
-        "assists": 22,
-        "points": 41,
+        "assists": 23,
+        "points": 42,
         "plus_minus": 0,
         "penalty_minutes": 50,
         "power_play_goals": 4,
         "power_play_assists": 9,
         "power_play_points": 13,
         "short_handed_goals": 2,
-        "short_handed_assists": 1,
-        "short_handed_points": 3,
+        "short_handed_assists": 2,
+        "short_handed_points": 4,
         "game_winning_goals": 3,
         "overtime_goals": 0,
         "points_per_game": 0.93
@@ -198,12 +198,12 @@
       "headshot": "assets/headshots/Miramichi-Timberwolves/11-grady-burns.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3338.jpg",
       "stats": {
-        "games_played": 42,
+        "games_played": 43,
         "goals": 3,
         "assists": 8,
         "points": 11,
         "plus_minus": 0,
-        "penalty_minutes": 26,
+        "penalty_minutes": 28,
         "power_play_goals": 0,
         "power_play_assists": 0,
         "power_play_points": 0,
@@ -241,12 +241,12 @@
       "headshot": "assets/headshots/Miramichi-Timberwolves/16-james-martin.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3849.jpg",
       "stats": {
-        "games_played": 22,
+        "games_played": 23,
         "goals": 1,
         "assists": 8,
         "points": 9,
         "plus_minus": 0,
-        "penalty_minutes": 65,
+        "penalty_minutes": 69,
         "power_play_goals": 0,
         "power_play_assists": 0,
         "power_play_points": 0,
@@ -255,7 +255,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.41
+        "points_per_game": 0.39
       },
       "hockeytech_id": "3849",
       "person_id": "4477",
@@ -282,7 +282,7 @@
       "headshot": "assets/headshots/Miramichi-Timberwolves/17-ryan-hackett.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3223.jpg",
       "stats": {
-        "games_played": 43,
+        "games_played": 44,
         "goals": 2,
         "assists": 15,
         "points": 17,
@@ -296,7 +296,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.4
+        "points_per_game": 0.39
       },
       "hockeytech_id": "3223",
       "person_id": "3752",
@@ -325,7 +325,7 @@
       "headshot": "assets/headshots/Miramichi-Timberwolves/18-aiden-clowater.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3709.jpg",
       "stats": {
-        "games_played": 41,
+        "games_played": 42,
         "goals": 2,
         "assists": 3,
         "points": 5,
@@ -368,10 +368,10 @@
       "headshot": "assets/headshots/Miramichi-Timberwolves/19-nick-beatty.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2848.jpg",
       "stats": {
-        "games_played": 39,
-        "goals": 3,
+        "games_played": 40,
+        "goals": 4,
         "assists": 10,
-        "points": 13,
+        "points": 14,
         "plus_minus": 0,
         "penalty_minutes": 16,
         "power_play_goals": 0,
@@ -382,7 +382,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.33
+        "points_per_game": 0.35
       },
       "hockeytech_id": "2848",
       "person_id": "3275",
@@ -459,10 +459,10 @@
       "headshot": "assets/headshots/Miramichi-Timberwolves/22-austin-walker.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3020.jpg",
       "stats": {
-        "games_played": 36,
+        "games_played": 37,
         "goals": 7,
-        "assists": 6,
-        "points": 13,
+        "assists": 7,
+        "points": 14,
         "plus_minus": 0,
         "penalty_minutes": 57,
         "power_play_goals": 0,
@@ -473,7 +473,7 @@
         "short_handed_points": 2,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.36
+        "points_per_game": 0.38
       },
       "hockeytech_id": "3020",
       "person_id": "3526",
@@ -502,10 +502,10 @@
       "headshot": "assets/headshots/Miramichi-Timberwolves/24-dawson-peverelle.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3342.jpg",
       "stats": {
-        "games_played": 44,
+        "games_played": 45,
         "goals": 7,
-        "assists": 7,
-        "points": 14,
+        "assists": 8,
+        "points": 15,
         "plus_minus": 0,
         "penalty_minutes": 28,
         "power_play_goals": 0,
@@ -516,7 +516,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 2,
         "overtime_goals": 0,
-        "points_per_game": 0.32
+        "points_per_game": 0.33
       },
       "hockeytech_id": "3342",
       "person_id": "3904",
@@ -545,10 +545,10 @@
       "headshot": "assets/headshots/Miramichi-Timberwolves/26-kaden-mcneil.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2900.jpg",
       "stats": {
-        "games_played": 44,
+        "games_played": 45,
         "goals": 5,
-        "assists": 16,
-        "points": 21,
+        "assists": 17,
+        "points": 22,
         "plus_minus": 0,
         "penalty_minutes": 42,
         "power_play_goals": 2,
@@ -559,7 +559,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.48
+        "points_per_game": 0.49
       },
       "hockeytech_id": "2900",
       "person_id": "3346",
@@ -586,10 +586,10 @@
       "headshot": "assets/headshots/Miramichi-Timberwolves/27-harlan-eustace.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3173.jpg",
       "stats": {
-        "games_played": 42,
-        "goals": 8,
-        "assists": 8,
-        "points": 16,
+        "games_played": 43,
+        "goals": 9,
+        "assists": 9,
+        "points": 18,
         "plus_minus": 0,
         "penalty_minutes": 22,
         "power_play_goals": 1,
@@ -600,7 +600,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.38
+        "points_per_game": 0.42
       },
       "hockeytech_id": "3173",
       "person_id": "3693",
@@ -629,12 +629,12 @@
       "headshot": "assets/headshots/Miramichi-Timberwolves/28-charles-olivier-gigu-re.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3790.jpg",
       "stats": {
-        "games_played": 44,
-        "goals": 11,
-        "assists": 12,
-        "points": 23,
+        "games_played": 45,
+        "goals": 13,
+        "assists": 13,
+        "points": 26,
         "plus_minus": 0,
-        "penalty_minutes": 38,
+        "penalty_minutes": 42,
         "power_play_goals": 3,
         "power_play_assists": 3,
         "power_play_points": 6,
@@ -643,7 +643,7 @@
         "short_handed_points": 1,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.52
+        "points_per_game": 0.58
       },
       "hockeytech_id": "3790",
       "person_id": "4408",
@@ -714,7 +714,7 @@
       "headshot": "assets/headshots/Miramichi-Timberwolves/37-thatcher-hughes.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3178.jpg",
       "stats": {
-        "games_played": 44,
+        "games_played": 45,
         "goals": 14,
         "assists": 17,
         "points": 31,
@@ -728,7 +728,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.7
+        "points_per_game": 0.69
       },
       "hockeytech_id": "3178",
       "person_id": "3698",
@@ -755,12 +755,12 @@
       "headshot": "assets/headshots/Miramichi-Timberwolves/54-julien-avignon-bourque.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3475.jpg",
       "stats": {
-        "games_played": 42,
+        "games_played": 43,
         "goals": 1,
         "assists": 18,
         "points": 19,
         "plus_minus": 0,
-        "penalty_minutes": 30,
+        "penalty_minutes": 32,
         "power_play_goals": 0,
         "power_play_assists": 1,
         "power_play_points": 1,
@@ -769,7 +769,7 @@
         "short_handed_points": 1,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.45
+        "points_per_game": 0.44
       },
       "hockeytech_id": "3475",
       "person_id": "4038",
@@ -796,21 +796,21 @@
       "headshot": "assets/headshots/Miramichi-Timberwolves/86-brayden-campbell.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3237.jpg",
       "stats": {
-        "games_played": 46,
-        "goals": 12,
-        "assists": 16,
-        "points": 28,
+        "games_played": 47,
+        "goals": 13,
+        "assists": 17,
+        "points": 30,
         "plus_minus": 0,
         "penalty_minutes": 12,
         "power_play_goals": 2,
         "power_play_assists": 4,
         "power_play_points": 6,
-        "short_handed_goals": 1,
+        "short_handed_goals": 2,
         "short_handed_assists": 1,
-        "short_handed_points": 2,
+        "short_handed_points": 3,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.61
+        "points_per_game": 0.64
       },
       "hockeytech_id": "3237",
       "person_id": "3778",
@@ -1090,17 +1090,17 @@
       "rookie": false,
       "veteran": false,
       "stats": {
-        "games_played": 44,
+        "games_played": 45,
         "wins": 14,
         "losses": 27,
-        "ot_losses": 2,
-        "minutes_played": 2662,
-        "saves": 1448,
-        "shots": 1622,
-        "goals_against": 174,
+        "ot_losses": 3,
+        "minutes_played": 2724,
+        "saves": 1487,
+        "shots": 1668,
+        "goals_against": 181,
         "shutouts": 4,
-        "save_percentage": 0.893,
-        "goals_against_average": 3.92
+        "save_percentage": 0.891,
+        "goals_against_average": 3.99
       },
       "flags": []
     }

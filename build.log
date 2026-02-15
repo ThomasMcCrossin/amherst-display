@@ -371,7 +371,7 @@
 [games] Starting Ramblers games build...
 [games] Loaded roster with 25 players
 [games] Fetching Ramblers schedule...
-[games] Processing 44 completed games...
+[games] Processing 45 completed games...
 [games] Fetched summary for game 4612 (7 goals, 0 penalties)
 [games] Fetched summary for game 4619 (12 goals, 0 penalties)
 [games] Fetched summary for game 4624 (7 goals, 0 penalties)
@@ -416,10 +416,11 @@
 [games] Fetched summary for game 4865 (7 goals, 0 penalties)
 [games] Fetched summary for game 4867 (9 goals, 0 penalties)
 [games] Fetched summary for game 4873 (6 goals, 0 penalties)
-[games] Wrote games/amherst-ramblers.json (44 completed games)
-[games] Complete! Games=44
+[games] Fetched summary for game 4877 (7 goals, 0 penalties)
+[games] Wrote games/amherst-ramblers.json (45 completed games)
+[games] Complete! Games=45
 [boxscores] Starting Playwright box score scraper...
-[boxscores] Scraping 44 games...
+[boxscores] Scraping 45 games...
 [boxscores] failed: browserType.launch: Executable doesn't exist at /home/runner/.cache/ms-playwright/chromium_headless_shell-1194/chrome-linux/headless_shell
 ╔═════════════════════════════════════════════════════════════════════════╗
 ║ Looks like Playwright Test or Playwright was just installed or updated. ║
@@ -431,15 +432,15 @@
 ╚═════════════════════════════════════════════════════════════════════════╝
 [standings/MHL] table rows found
 [standings/MHL] tables=1 standings_tables=1 rows=12
-[standings/MHL] example={"gp":45,"w":28,"l":9,"otl":5,"sol":3,"pts":64,"pct":"0.711","rw":25,"otw":3,"sow":0,"gf":206,"ga":148,"diff":58,"pim":1083,"streak":"0-1-0-0","p10":"7-2-1-0","division_rank":1,"team":"x - Summerside Western Capitals","division":"Eastlink South","slug":null}
+[standings/MHL] example={"gp":46,"w":29,"l":9,"otl":5,"sol":3,"pts":66,"pct":"0.717","rw":26,"otw":3,"sow":0,"gf":211,"ga":150,"diff":61,"pim":1115,"streak":"1-0-0-0","p10":"7-2-1-0","division_rank":1,"team":"x - Summerside Western Capitals","division":"Eastlink South","slug":null}
 [standings/MHL] South teams: 6, North teams: 6
 [standings] mhlRows=12
 [schedules/ICS] parsed=52
 [schedules] events=52  ramblers=52
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 80 total schedule items
-[CCMHA] Found 3 games at Amherst Stadium
-[ccmha] games=3
+[CCMHA] API returned 73 total schedule items
+[CCMHA] Found 7 games at Amherst Stadium
+[ccmha] games=7
 [league] Building league-wide statistics...
 
 [league] Fetching skater leaders...
