@@ -438,7 +438,7 @@
 [schedules/ICS] parsed=52
 [schedules] events=52  ramblers=52
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 73 total schedule items
+[CCMHA] API returned 66 total schedule items
 [CCMHA] Found 7 games at Amherst Stadium
 [ccmha] games=7
 [league] Building league-wide statistics...
@@ -449,7 +449,7 @@
 
 [league] Fetching goalie leaders...
 [league] Fetching players...
-[league] Found 17 qualified goalies
+[league] Found 16 qualified goalies
 
 [league] Fetching player streaks...
 [league] Fetching streaks_player...
