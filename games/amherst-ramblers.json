@@ -4,18 +4,18 @@
   "team_id": 1,
   "season": "2024-25",
   "season_id": 41,
-  "updated_at": "2026-02-16T07:36:36.384Z",
+  "updated_at": "2026-02-17T07:32:26.647Z",
   "summary": {
-    "games_played": 45,
-    "wins": 27,
+    "games_played": 46,
+    "wins": 28,
     "losses": 17,
     "ot_losses": 1,
     "shootout_losses": 0,
-    "points": 55,
-    "goals_for": 169,
-    "goals_against": 162,
+    "points": 57,
+    "goals_for": 174,
+    "goals_against": 165,
     "home_record": {
-      "wins": 16,
+      "wins": 17,
       "losses": 7,
       "ot_losses": 0
     },
@@ -24,10 +24,494 @@
       "losses": 10,
       "ot_losses": 1
     },
-    "goal_differential": 7,
-    "record": "27-17-1"
+    "goal_differential": 9,
+    "record": "28-17-1"
   },
   "games": [
+    {
+      "game_id": "4882",
+      "date": "2026-02-16",
+      "date_time": "2026-02-16T14:00:00-04:00",
+      "opponent": {
+        "team_id": 3,
+        "team_name": "Truro Bearcats",
+        "team_code": "TRU"
+      },
+      "home_game": true,
+      "venue": "Amherst Stadium",
+      "result": {
+        "won": true,
+        "ramblers_score": 5,
+        "opponent_score": 3,
+        "overtime": false,
+        "shootout": false,
+        "final_score": "5-3"
+      },
+      "attendance": 945,
+      "scoring": [
+        {
+          "period": 1,
+          "period_name": "1st",
+          "time": "9:20",
+          "team": "opponent",
+          "scorer": {
+            "player_id": "mhl-3848",
+            "name": "Ty Peddigrew",
+            "number": 7,
+            "position": "C"
+          },
+          "assists": [
+            {
+              "player_id": "mhl-3756",
+              "name": "Zach Wheeler",
+              "number": 19
+            },
+            {
+              "player_id": "mhl-3562",
+              "name": "Elliot Wright",
+              "number": 13
+            }
+          ],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "11:48",
+          "team": "opponent",
+          "scorer": {
+            "player_id": "mhl-3250",
+            "name": "Mark Corbett",
+            "number": 27,
+            "position": "C"
+          },
+          "assists": [
+            {
+              "player_id": "mhl-2943",
+              "name": "Cooper Cormier",
+              "number": 37
+            },
+            {
+              "player_id": "mhl-2799",
+              "name": "Anthony Gaudet",
+              "number": 11
+            }
+          ],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "15:26",
+          "team": "opponent",
+          "scorer": {
+            "player_id": "mhl-3530",
+            "name": "Jake Todd",
+            "number": 9,
+            "position": "C"
+          },
+          "assists": [
+            {
+              "name": "Liam Welsh",
+              "number": 81
+            },
+            {
+              "name": "Rylan Sutherland",
+              "number": 96
+            }
+          ],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "17:56",
+          "team": "opponent",
+          "scorer": {
+            "player_id": "mhl-2799",
+            "name": "Callum Aucoin",
+            "number": 11,
+            "position": "RW"
+          },
+          "assists": [
+            {
+              "name": "Austin Hoyt",
+              "number": 20
+            },
+            {
+              "name": "Wyatt Countway",
+              "number": 55
+            }
+          ],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "6:21",
+          "team": "opponent",
+          "scorer": {
+            "player_id": "mhl-3250",
+            "name": "Mark Corbett",
+            "number": 27,
+            "position": "C"
+          },
+          "assists": [
+            {
+              "player_id": "mhl-2799",
+              "name": "Anthony Gaudet",
+              "number": 11
+            },
+            {
+              "player_id": "mhl-2635",
+              "name": "Jacob Kaine",
+              "number": 71
+            }
+          ],
+          "power_play": true,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "9:23",
+          "team": "opponent",
+          "scorer": {
+            "name": "Jayden Connors",
+            "number": 44,
+            "position": "D"
+          },
+          "assists": [
+            {
+              "player_id": "mhl-3250",
+              "name": "Antoine Fontaine",
+              "number": 27
+            },
+            {
+              "player_id": "mhl-3530",
+              "name": "Jake Todd",
+              "number": 9
+            }
+          ],
+          "power_play": true,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "17:36",
+          "team": "opponent",
+          "scorer": {
+            "player_id": "mhl-2943",
+            "name": "Cooper Cormier",
+            "number": 37,
+            "position": "LW"
+          },
+          "assists": [
+            {
+              "player_id": "mhl-3250",
+              "name": "Mark Corbett",
+              "number": 27
+            },
+            {
+              "player_id": "mhl-3038",
+              "name": "Owen Aura",
+              "number": 25
+            }
+          ],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": true,
+          "empty_net": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "19:41",
+          "team": "opponent",
+          "scorer": {
+            "player_id": "mhl-2799",
+            "name": "Anthony Gaudet",
+            "number": 11,
+            "position": "C"
+          },
+          "assists": [],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": true
+        }
+      ],
+      "penalties": [],
+      "player_stats": {
+        "mhl-3545": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3848": {
+          "position": "C",
+          "goals": 1,
+          "assists": 0,
+          "points": 1,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3530": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3192": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-2799": {
+          "position": "C",
+          "goals": 1,
+          "assists": 2,
+          "points": 3,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3402": {
+          "position": "LW",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3562": {
+          "position": "C",
+          "goals": 0,
+          "assists": 1,
+          "points": 1,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3243": {
+          "position": "C",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-2760": {
+          "position": "RW",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 2,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3756": {
+          "position": "C",
+          "goals": 0,
+          "assists": 1,
+          "points": 1,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3759": {
+          "position": "C",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3038": {
+          "position": "D",
+          "goals": 0,
+          "assists": 1,
+          "points": 1,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3250": {
+          "position": "C",
+          "goals": 2,
+          "assists": 1,
+          "points": 3,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-2943": {
+          "position": "LW",
+          "goals": 1,
+          "assists": 1,
+          "points": 2,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-2635": {
+          "position": "C",
+          "goals": 0,
+          "assists": 1,
+          "points": 1,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3226": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3833": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3207": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3766": {
+          "position": "G",
+          "saves": 23,
+          "shots_against": 26,
+          "goals_against": 3,
+          "save_percentage": "0.000",
+          "time_on_ice": "60:00"
+        },
+        "mhl-3187": {
+          "position": "G",
+          "saves": 0,
+          "shots_against": 0,
+          "goals_against": 0,
+          "save_percentage": "0.000",
+          "time_on_ice": "00:00"
+        }
+      }
+    },
     {
       "game_id": "4877",
       "date": "2026-02-14",
@@ -94,9 +578,9 @@
               "number": 11
             },
             {
-              "player_id": "mhl-3207",
-              "name": "Ryan Hayes",
-              "number": 95
+              "player_id": "mhl-3038",
+              "name": "Owen Aura",
+              "number": 25
             }
           ],
           "power_play": false,
@@ -120,11 +604,6 @@
               "player_id": "mhl-3250",
               "name": "Mark Corbett",
               "number": 27
-            },
-            {
-              "player_id": "mhl-3038",
-              "name": "Owen Aura",
-              "number": 25
             }
           ],
           "power_play": true,
@@ -225,13 +704,7 @@
             "number": 24,
             "position": "LW"
           },
-          "assists": [
-            {
-              "player_id": "mhl-3402",
-              "name": "Aidan Silvaggio",
-              "number": 12
-            }
-          ],
+          "assists": [],
           "power_play": false,
           "short_handed": false,
           "game_winning": false,
@@ -295,8 +768,8 @@
         "mhl-3402": {
           "position": "LW",
           "goals": 0,
-          "assists": 1,
-          "points": 1,
+          "assists": 0,
+          "points": 0,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -464,8 +937,8 @@
         "mhl-3207": {
           "position": "D",
           "goals": 0,
-          "assists": 1,
-          "points": 1,
+          "assists": 0,
+          "points": 0,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -476,8 +949,8 @@
         },
         "mhl-3766": {
           "position": "G",
-          "saves": 21,
-          "shots_against": 23,
+          "saves": 18,
+          "shots_against": 20,
           "goals_against": 2,
           "save_percentage": "0.000",
           "time_on_ice": "60:00"
@@ -919,8 +1392,8 @@
         },
         "mhl-3187": {
           "position": "G",
-          "saves": 30,
-          "shots_against": 32,
+          "saves": 32,
+          "shots_against": 34,
           "goals_against": 2,
           "save_percentage": "0.000",
           "time_on_ice": "60:00"

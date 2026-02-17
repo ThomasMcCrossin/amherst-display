@@ -176,7 +176,7 @@
 [rosters/pictou-county-crushers] Fetching roster for Pictou-County-Crushers...
 [rosters] Fetching from API: team_id=7
 [rosters] Fetching stats from API: team_id=7
-[rosters/pictou-county-crushers] Processing 32 players (downloading headshots)
+[rosters/pictou-county-crushers] Processing 33 players (downloading headshots)
 [rosters] Downloaded: 4-brendan-avery.jpg
 [rosters] Downloaded: 5-christian-luke.jpg
 [rosters] Downloaded: 7-brennan-o-donnell.jpg
@@ -189,6 +189,7 @@
 [rosters] Downloaded: 18-will-allen.jpg
 [rosters] Downloaded: 19-clint-maclaughlin.jpg
 [rosters] Downloaded: 21-ethan-dickson.jpg
+[rosters] Downloaded: 23-colin-clokie.jpg
 [rosters] Downloaded: 26-owen-bell.jpg
 [rosters] Downloaded: 29-george-gallant.jpg
 [rosters] Downloaded: 31-yianni-karkoulas.jpg
@@ -208,7 +209,7 @@
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
-[rosters/pictou-county-crushers] Wrote rosters/pictou-county-crushers.json (32 players)
+[rosters/pictou-county-crushers] Wrote rosters/pictou-county-crushers.json (33 players)
 [rosters/campbellton-tigers] Fetching roster for Campbellton-Tigers...
 [rosters] Fetching from API: team_id=8
 [rosters] Fetching stats from API: team_id=8
@@ -371,7 +372,7 @@
 [games] Starting Ramblers games build...
 [games] Loaded roster with 25 players
 [games] Fetching Ramblers schedule...
-[games] Processing 45 completed games...
+[games] Processing 46 completed games...
 [games] Fetched summary for game 4612 (7 goals, 0 penalties)
 [games] Fetched summary for game 4619 (12 goals, 0 penalties)
 [games] Fetched summary for game 4624 (7 goals, 0 penalties)
@@ -417,10 +418,11 @@
 [games] Fetched summary for game 4867 (9 goals, 0 penalties)
 [games] Fetched summary for game 4873 (6 goals, 0 penalties)
 [games] Fetched summary for game 4877 (7 goals, 0 penalties)
-[games] Wrote games/amherst-ramblers.json (45 completed games)
-[games] Complete! Games=45
+[games] Fetched summary for game 4882 (8 goals, 0 penalties)
+[games] Wrote games/amherst-ramblers.json (46 completed games)
+[games] Complete! Games=46
 [boxscores] Starting Playwright box score scraper...
-[boxscores] Scraping 45 games...
+[boxscores] Scraping 46 games...
 [boxscores] failed: browserType.launch: Executable doesn't exist at /home/runner/.cache/ms-playwright/chromium_headless_shell-1194/chrome-linux/headless_shell
 ╔═════════════════════════════════════════════════════════════════════════╗
 ║ Looks like Playwright Test or Playwright was just installed or updated. ║
@@ -432,7 +434,7 @@
 ╚═════════════════════════════════════════════════════════════════════════╝
 [standings/MHL] table rows found
 [standings/MHL] tables=1 standings_tables=1 rows=12
-[standings/MHL] example={"gp":46,"w":29,"l":9,"otl":5,"sol":3,"pts":66,"pct":"0.717","rw":26,"otw":3,"sow":0,"gf":211,"ga":150,"diff":61,"pim":1115,"streak":"1-0-0-0","p10":"7-2-1-0","division_rank":1,"team":"x - Summerside Western Capitals","division":"Eastlink South","slug":null}
+[standings/MHL] example={"gp":47,"w":29,"l":10,"otl":5,"sol":3,"pts":66,"pct":"0.702","rw":26,"otw":3,"sow":0,"gf":213,"ga":154,"diff":59,"pim":1131,"streak":"0-1-0-0","p10":"6-3-1-0","division_rank":1,"team":"x - Summerside Western Capitals","division":"Eastlink South","slug":null}
 [standings/MHL] South teams: 6, North teams: 6
 [standings] mhlRows=12
 [schedules/ICS] parsed=52
