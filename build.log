@@ -39,7 +39,7 @@
 [rosters/truro-bearcats] Fetching roster for Truro-Bearcats...
 [rosters] Fetching from API: team_id=3
 [rosters] Fetching stats from API: team_id=3
-[rosters/truro-bearcats] Processing 36 players (downloading headshots)
+[rosters/truro-bearcats] Processing 34 players (downloading headshots)
 [rosters] Downloaded: 1-sam-berthiaume.jpg
 [rosters] Downloaded: 3-logan-quinn.jpg
 [rosters] Downloaded: 5-jace-evans.jpg
@@ -73,9 +73,7 @@
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
 [rosters] Skipping placeholder image
-[rosters] Skipping placeholder image
-[rosters] Skipping placeholder image
-[rosters/truro-bearcats] Wrote rosters/truro-bearcats.json (36 players)
+[rosters/truro-bearcats] Wrote rosters/truro-bearcats.json (34 players)
 [rosters/valley-wildcats] Fetching roster for Valley-Wildcats...
 [rosters] Fetching from API: team_id=4
 [rosters] Fetching stats from API: team_id=4
@@ -434,15 +432,15 @@
 ╚═════════════════════════════════════════════════════════════════════════╝
 [standings/MHL] table rows found
 [standings/MHL] tables=1 standings_tables=1 rows=12
-[standings/MHL] example={"gp":47,"w":29,"l":10,"otl":5,"sol":3,"pts":66,"pct":"0.702","rw":26,"otw":3,"sow":0,"gf":213,"ga":154,"diff":59,"pim":1131,"streak":"0-1-0-0","p10":"6-3-1-0","division_rank":1,"team":"x - Summerside Western Capitals","division":"Eastlink South","slug":null}
+[standings/MHL] example={"gp":48,"w":29,"l":11,"otl":5,"sol":3,"pts":66,"pct":"0.688","rw":26,"otw":3,"sow":0,"gf":214,"ga":156,"diff":58,"pim":1152,"streak":"0-2-0-0","p10":"5-4-1-0","division_rank":1,"team":"x - Summerside Western Capitals","division":"Eastlink South","slug":null}
 [standings/MHL] South teams: 6, North teams: 6
 [standings] mhlRows=12
 [schedules/ICS] parsed=52
 [schedules] events=52  ramblers=52
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 63 total schedule items
-[CCMHA] Found 6 games at Amherst Stadium
-[ccmha] games=6
+[CCMHA] API returned 66 total schedule items
+[CCMHA] Found 5 games at Amherst Stadium
+[ccmha] games=5
 [league] Building league-wide statistics...
 
 [league] Fetching skater leaders...
