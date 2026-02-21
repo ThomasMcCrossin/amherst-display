@@ -1,17 +1,10 @@
 {
-  "generated_at": "2026-02-20T07:30:47Z",
+  "generated_at": "2026-02-21T07:07:38Z",
   "timezone": "America/Halifax",
   "teams": [
     {
       "team_slug": "amherst-ramblers",
       "games": [
-        {
-          "opponent_slug": "valley-wildcats",
-          "home": false,
-          "start": "2026-02-20T19:00:00-04:00",
-          "venue": "Kings Mutual Century Centre",
-          "city": ""
-        },
         {
           "opponent_slug": "yarmouth-mariners",
           "home": true,
@@ -24,6 +17,13 @@
           "home": false,
           "start": "2026-02-26T19:00:00-04:00",
           "venue": "Rath Eastlink Community Centre",
+          "city": ""
+        },
+        {
+          "opponent_slug": "west-kent-steamers",
+          "home": false,
+          "start": "2026-02-28T19:00:00-04:00",
+          "venue": "J. K. Irving Centre",
           "city": ""
         }
       ]
