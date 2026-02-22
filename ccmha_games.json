@@ -1,25 +1,7 @@
 {
-  "generated_at": "2026-02-21T07:07:38Z",
+  "generated_at": "2026-02-22T07:11:51Z",
   "timezone": "America/Halifax",
   "games": [
-    {
-      "league": "U9-INT",
-      "home_team": "Pictou Crushers White",
-      "away_team": "Cumberland Ramblers",
-      "start": "2026-02-21T11:00:00-04:00",
-      "end": "2026-02-21T12:00:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
-    {
-      "league": "U11-AA",
-      "home_team": "Truro Bearcats",
-      "away_team": "Cumberland Ramblers",
-      "start": "2026-02-21T13:45:00-04:00",
-      "end": "2026-02-21T15:15:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
     {
       "league": "U9-DEV",
       "home_team": "SCMHA U9 DEVELOPMENT BLACK",

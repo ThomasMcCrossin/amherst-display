@@ -77,7 +77,7 @@
 [rosters/valley-wildcats] Fetching roster for Valley-Wildcats...
 [rosters] Fetching from API: team_id=4
 [rosters] Fetching stats from API: team_id=4
-[rosters/valley-wildcats] Processing 27 players (downloading headshots)
+[rosters/valley-wildcats] Processing 28 players (downloading headshots)
 [rosters] Downloaded: 4-joshua-plourde.jpg
 [rosters] Downloaded: 5-marek-dubuc.jpg
 [rosters] Skipping placeholder image
@@ -103,12 +103,13 @@
 [rosters] Downloaded: 29-cohen-stoddard.jpg
 [rosters] Downloaded: 32-brody-ford.jpg
 [rosters] Skipping placeholder image
+[rosters] Skipping placeholder image
 [rosters] Downloaded: 70-sean-hogan.jpg
-[rosters/valley-wildcats] Wrote rosters/valley-wildcats.json (27 players)
+[rosters/valley-wildcats] Wrote rosters/valley-wildcats.json (28 players)
 [rosters/yarmouth-mariners] Fetching roster for Yarmouth-Mariners...
 [rosters] Fetching from API: team_id=5
 [rosters] Fetching stats from API: team_id=5
-[rosters/yarmouth-mariners] Processing 26 players (downloading headshots)
+[rosters/yarmouth-mariners] Processing 27 players (downloading headshots)
 [rosters] Downloaded: 4-loic-mburanumwe.jpg
 [rosters] Downloaded: 5-nic-macisaac.jpg
 [rosters] Downloaded: 6-lucien-doucette.jpg
@@ -134,7 +135,8 @@
 [rosters] Downloaded: 46-luke-foley.jpg
 [rosters] Downloaded: 47-seamus-maceachern.jpg
 [rosters] Downloaded: 49-maxime-gigu-re.jpg
-[rosters/yarmouth-mariners] Wrote rosters/yarmouth-mariners.json (26 players)
+[rosters] Skipping placeholder image
+[rosters/yarmouth-mariners] Wrote rosters/yarmouth-mariners.json (27 players)
 [rosters/west-kent-steamers] Fetching roster for West-Kent-Steamers...
 [rosters] Fetching from API: team_id=6
 [rosters] Fetching stats from API: team_id=6
@@ -371,7 +373,7 @@
 [games] Starting Ramblers games build...
 [games] Loaded roster with 25 players
 [games] Fetching Ramblers schedule...
-[games] Processing 47 completed games...
+[games] Processing 48 completed games...
 [games] Fetched summary for game 4612 (7 goals, 0 penalties)
 [games] Fetched summary for game 4619 (12 goals, 0 penalties)
 [games] Fetched summary for game 4624 (7 goals, 0 penalties)
@@ -419,10 +421,11 @@
 [games] Fetched summary for game 4877 (7 goals, 0 penalties)
 [games] Fetched summary for game 4882 (8 goals, 0 penalties)
 [games] Fetched summary for game 4890 (6 goals, 0 penalties)
-[games] Wrote games/amherst-ramblers.json (47 completed games)
-[games] Complete! Games=47
+[games] Fetched summary for game 4891 (5 goals, 0 penalties)
+[games] Wrote games/amherst-ramblers.json (48 completed games)
+[games] Complete! Games=48
 [boxscores] Starting Playwright box score scraper...
-[boxscores] Scraping 47 games...
+[boxscores] Scraping 48 games...
 [boxscores] failed: browserType.launch: Executable doesn't exist at /home/runner/.cache/ms-playwright/chromium_headless_shell-1194/chrome-linux/headless_shell
 ╔═════════════════════════════════════════════════════════════════════════╗
 ║ Looks like Playwright Test or Playwright was just installed or updated. ║
@@ -434,15 +437,15 @@
 ╚═════════════════════════════════════════════════════════════════════════╝
 [standings/MHL] table rows found
 [standings/MHL] tables=1 standings_tables=1 rows=12
-[standings/MHL] example={"gp":48,"w":29,"l":11,"otl":5,"sol":3,"pts":66,"pct":"0.688","rw":26,"otw":3,"sow":0,"gf":214,"ga":156,"diff":58,"pim":1152,"streak":"0-2-0-0","p10":"5-4-1-0","division_rank":1,"team":"x - Summerside Western Capitals","division":"Eastlink South","slug":null}
+[standings/MHL] example={"gp":49,"w":29,"l":12,"otl":5,"sol":3,"pts":66,"pct":"0.673","rw":26,"otw":3,"sow":0,"gf":217,"ga":162,"diff":55,"pim":1184,"streak":"0-3-0-0","p10":"4-5-1-0","division_rank":1,"team":"x - Summerside Western Capitals","division":"Eastlink South","slug":null}
 [standings/MHL] South teams: 6, North teams: 6
 [standings] mhlRows=12
 [schedules/ICS] parsed=52
 [schedules] events=52  ramblers=52
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 59 total schedule items
-[CCMHA] Found 5 games at Amherst Stadium
-[ccmha] games=5
+[CCMHA] API returned 53 total schedule items
+[CCMHA] Found 3 games at Amherst Stadium
+[ccmha] games=3
 [league] Building league-wide statistics...
 
 [league] Fetching skater leaders...
