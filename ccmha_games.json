@@ -1,33 +1,5 @@
 {
-  "generated_at": "2026-02-22T07:11:51Z",
+  "generated_at": "2026-02-23T07:37:24Z",
   "timezone": "America/Halifax",
-  "games": [
-    {
-      "league": "U9-DEV",
-      "home_team": "SCMHA U9 DEVELOPMENT BLACK",
-      "away_team": "Cumberland Ramblers - Development",
-      "start": "2026-02-22T09:15:00-04:00",
-      "end": "2026-02-22T10:15:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
-    {
-      "league": "U18-AA",
-      "home_team": "Glace Bay Miners",
-      "away_team": "Cumberland Ramblers",
-      "start": "2026-02-22T12:00:00-04:00",
-      "end": "2026-02-22T13:30:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
-    {
-      "league": "U18-AA",
-      "home_team": "Sydney Steelers",
-      "away_team": "Cumberland Ramblers",
-      "start": "2026-02-22T15:30:00-04:00",
-      "end": "2026-02-22T17:00:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    }
-  ]
+  "games": []
 }
