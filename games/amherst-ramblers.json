@@ -4,7 +4,7 @@
   "team_id": 1,
   "season": "2024-25",
   "season_id": 41,
-  "updated_at": "2026-02-23T07:37:21.162Z",
+  "updated_at": "2026-02-24T07:33:03.229Z",
   "summary": {
     "games_played": 48,
     "wins": 30,
@@ -89,8 +89,8 @@
               "number": 20
             },
             {
-              "name": "Cole Bent",
-              "number": 34
+              "name": "Noah Breau",
+              "number": 8
             }
           ],
           "power_play": false,
@@ -114,6 +114,11 @@
               "player_id": "mhl-3226",
               "name": "Jeremie Richard",
               "number": 77
+            },
+            {
+              "player_id": "mhl-3562",
+              "name": "Elliot Wright",
+              "number": 13
             }
           ],
           "power_play": false,
@@ -134,9 +139,9 @@
           },
           "assists": [
             {
-              "player_id": "mhl-3562",
-              "name": "Elliot Wright",
-              "number": 13
+              "player_id": "mhl-3756",
+              "name": "Zach Wheeler",
+              "number": 19
             },
             {
               "player_id": "mhl-3226",
@@ -165,11 +170,6 @@
               "player_id": "mhl-2943",
               "name": "Cooper Cormier",
               "number": 37
-            },
-            {
-              "player_id": "mhl-2799",
-              "name": "Anthony Gaudet",
-              "number": 11
             }
           ],
           "power_play": false,
@@ -235,8 +235,8 @@
         "mhl-2799": {
           "position": "C",
           "goals": 0,
-          "assists": 2,
-          "points": 2,
+          "assists": 1,
+          "points": 1,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -300,8 +300,8 @@
         "mhl-3756": {
           "position": "C",
           "goals": 0,
-          "assists": 0,
-          "points": 0,
+          "assists": 1,
+          "points": 1,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -424,8 +424,8 @@
         },
         "mhl-3187": {
           "position": "G",
-          "saves": 19,
-          "shots_against": 20,
+          "saves": 28,
+          "shots_against": 29,
           "goals_against": 1,
           "save_percentage": "0.000",
           "time_on_ice": "60:00"
@@ -524,6 +524,11 @@
               "player_id": "mhl-3562",
               "name": "Elliot Wright",
               "number": 13
+            },
+            {
+              "player_id": "mhl-3530",
+              "name": "Tyler Moroz",
+              "number": 9
             }
           ],
           "power_play": false,
@@ -566,9 +571,9 @@
               "number": 11
             },
             {
-              "player_id": "mhl-2943",
-              "name": "Cooper Cormier",
-              "number": 37
+              "player_id": "mhl-3250",
+              "name": "Mark Corbett",
+              "number": 27
             }
           ],
           "power_play": true,
@@ -636,8 +641,8 @@
         "mhl-3530": {
           "position": "D",
           "goals": 0,
-          "assists": 0,
-          "points": 0,
+          "assists": 1,
+          "points": 1,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -766,8 +771,8 @@
         "mhl-3250": {
           "position": "C",
           "goals": 1,
-          "assists": 2,
-          "points": 3,
+          "assists": 3,
+          "points": 4,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -779,8 +784,8 @@
         "mhl-2943": {
           "position": "LW",
           "goals": 2,
-          "assists": 1,
-          "points": 3,
+          "assists": 0,
+          "points": 2,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -843,8 +848,8 @@
         },
         "mhl-3766": {
           "position": "G",
-          "saves": 30,
-          "shots_against": 31,
+          "saves": 21,
+          "shots_against": 22,
           "goals_against": 1,
           "save_percentage": "0.000",
           "time_on_ice": "60:00"
@@ -896,11 +901,6 @@
               "player_id": "mhl-3756",
               "name": "Zach Wheeler",
               "number": 19
-            },
-            {
-              "player_id": "mhl-3562",
-              "name": "Elliot Wright",
-              "number": 13
             }
           ],
           "power_play": false,
@@ -926,9 +926,9 @@
               "number": 37
             },
             {
-              "player_id": "mhl-2799",
-              "name": "Anthony Gaudet",
-              "number": 11
+              "player_id": "mhl-3226",
+              "name": "Jeremie Richard",
+              "number": 77
             }
           ],
           "power_play": false,
@@ -977,10 +977,6 @@
             {
               "name": "Austin Hoyt",
               "number": 20
-            },
-            {
-              "name": "Wyatt Countway",
-              "number": 55
             }
           ],
           "power_play": false,
@@ -1082,7 +1078,13 @@
             "number": 11,
             "position": "C"
           },
-          "assists": [],
+          "assists": [
+            {
+              "player_id": "mhl-3038",
+              "name": "Owen Aura",
+              "number": 25
+            }
+          ],
           "power_play": false,
           "short_handed": false,
           "game_winning": false,
@@ -1146,8 +1148,8 @@
         "mhl-2799": {
           "position": "C",
           "goals": 1,
-          "assists": 2,
-          "points": 3,
+          "assists": 1,
+          "points": 2,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -1172,8 +1174,8 @@
         "mhl-3562": {
           "position": "C",
           "goals": 0,
-          "assists": 1,
-          "points": 1,
+          "assists": 0,
+          "points": 0,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -1237,8 +1239,8 @@
         "mhl-3038": {
           "position": "D",
           "goals": 0,
-          "assists": 1,
-          "points": 1,
+          "assists": 2,
+          "points": 2,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -1289,8 +1291,8 @@
         "mhl-3226": {
           "position": "D",
           "goals": 0,
-          "assists": 0,
-          "points": 0,
+          "assists": 1,
+          "points": 1,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",

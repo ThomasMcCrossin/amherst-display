@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 5,
-  "updated_at": "2026-02-23T07:36:58.720Z",
+  "updated_at": "2026-02-24T07:32:32.857Z",
   "player_count": 28,
   "players": [
     {
@@ -186,8 +186,8 @@
       "stats": {
         "games_played": 47,
         "goals": 3,
-        "assists": 16,
-        "points": 19,
+        "assists": 15,
+        "points": 18,
         "plus_minus": 0,
         "penalty_minutes": 8,
         "power_play_goals": 1,
@@ -198,7 +198,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.4
+        "points_per_game": 0.38
       },
       "hockeytech_id": "3302",
       "person_id": "3860",
@@ -229,8 +229,8 @@
       "stats": {
         "games_played": 42,
         "goals": 16,
-        "assists": 17,
-        "points": 33,
+        "assists": 16,
+        "points": 32,
         "plus_minus": 0,
         "penalty_minutes": 41,
         "power_play_goals": 3,
@@ -241,7 +241,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 4,
         "overtime_goals": 2,
-        "points_per_game": 0.79
+        "points_per_game": 0.76
       },
       "hockeytech_id": "3035",
       "person_id": "3541",
@@ -263,15 +263,15 @@
       "age": 19,
       "hometown": "Blainville, QC,",
       "birthplace": "Blainville, QC,, ",
-      "rookie": false,
+      "rookie": true,
       "veteran": false,
       "headshot": "assets/headshots/Yarmouth-Mariners/14-thomas-dandurand.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3860.jpg",
       "stats": {
         "games_played": 36,
         "goals": 4,
-        "assists": 8,
-        "points": 12,
+        "assists": 9,
+        "points": 13,
         "plus_minus": 0,
         "penalty_minutes": 20,
         "power_play_goals": 0,
@@ -282,11 +282,12 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.33
+        "points_per_game": 0.36
       },
       "hockeytech_id": "3860",
       "person_id": "4496",
       "flags": [
+        "ht-rookie",
         "ht-import"
       ]
     },
@@ -415,7 +416,7 @@
       "age": 19,
       "hometown": "Coxheath, NS",
       "birthplace": "Coxheath, NS, NS",
-      "rookie": false,
+      "rookie": true,
       "veteran": false,
       "headshot": "assets/headshots/Yarmouth-Mariners/18-malcolm-macdonald.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3801.jpg",
@@ -438,7 +439,9 @@
       },
       "hockeytech_id": "3801",
       "person_id": "4419",
-      "flags": []
+      "flags": [
+        "ht-rookie"
+      ]
     },
     {
       "player_id": "mhl-3809",
@@ -462,8 +465,8 @@
       "stats": {
         "games_played": 44,
         "goals": 18,
-        "assists": 9,
-        "points": 27,
+        "assists": 8,
+        "points": 26,
         "plus_minus": 0,
         "penalty_minutes": 27,
         "power_play_goals": 6,
@@ -474,7 +477,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.61
+        "points_per_game": 0.59
       },
       "hockeytech_id": "3809",
       "person_id": "4427",
@@ -547,8 +550,8 @@
       "stats": {
         "games_played": 32,
         "goals": 7,
-        "assists": 2,
-        "points": 9,
+        "assists": 3,
+        "points": 10,
         "plus_minus": 0,
         "penalty_minutes": 90,
         "power_play_goals": 1,
@@ -559,7 +562,7 @@
         "short_handed_points": 1,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.28
+        "points_per_game": 0.31
       },
       "hockeytech_id": "3862",
       "person_id": "4499",
@@ -589,8 +592,8 @@
       "stats": {
         "games_played": 47,
         "goals": 9,
-        "assists": 15,
-        "points": 24,
+        "assists": 17,
+        "points": 26,
         "plus_minus": 0,
         "penalty_minutes": 4,
         "power_play_goals": 2,
@@ -601,7 +604,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.51
+        "points_per_game": 0.55
       },
       "hockeytech_id": "3527",
       "person_id": "4099",
@@ -703,8 +706,8 @@
       "stats": {
         "games_played": 44,
         "goals": 15,
-        "assists": 16,
-        "points": 31,
+        "assists": 17,
+        "points": 32,
         "plus_minus": 0,
         "penalty_minutes": 26,
         "power_play_goals": 5,
@@ -715,7 +718,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 4,
         "overtime_goals": 1,
-        "points_per_game": 0.7
+        "points_per_game": 0.73
       },
       "hockeytech_id": "3104",
       "person_id": "3622",
@@ -747,8 +750,8 @@
         "losses": 17,
         "ot_losses": 3,
         "minutes_played": 2281,
-        "saves": 1225,
-        "shots": 1361,
+        "saves": 1222,
+        "shots": 1358,
         "goals_against": 136,
         "shutouts": 0,
         "save_percentage": 0.9,
@@ -979,11 +982,11 @@
         "losses": 3,
         "ot_losses": 0,
         "minutes_played": 427,
-        "saves": 230,
-        "shots": 257,
+        "saves": 248,
+        "shots": 275,
         "goals_against": 27,
         "shutouts": 0,
-        "save_percentage": 0.895,
+        "save_percentage": 0.902,
         "goals_against_average": 3.79
       },
       "hockeytech_id": "3905",
@@ -1033,11 +1036,11 @@
         "losses": 22,
         "ot_losses": 3,
         "minutes_played": 2851,
-        "saves": 1527,
-        "shots": 1710,
+        "saves": 1542,
+        "shots": 1725,
         "goals_against": 183,
         "shutouts": 0,
-        "save_percentage": 0.893,
+        "save_percentage": 0.894,
         "goals_against_average": 3.85
       },
       "flags": []
