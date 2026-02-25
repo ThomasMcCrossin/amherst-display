@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 3,
-  "updated_at": "2026-02-24T07:32:30.168Z",
+  "updated_at": "2026-02-25T07:33:08.331Z",
   "player_count": 34,
   "players": [
     {
@@ -824,8 +824,8 @@
       "stats": {
         "games_played": 47,
         "goals": 14,
-        "assists": 25,
-        "points": 39,
+        "assists": 26,
+        "points": 40,
         "plus_minus": 0,
         "penalty_minutes": 60,
         "power_play_goals": 4,
@@ -836,7 +836,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 5,
         "overtime_goals": 1,
-        "points_per_game": 0.83
+        "points_per_game": 0.85
       },
       "hockeytech_id": "3199",
       "person_id": "3720",
@@ -911,8 +911,8 @@
       "stats": {
         "games_played": 44,
         "goals": 11,
-        "assists": 12,
-        "points": 23,
+        "assists": 11,
+        "points": 22,
         "plus_minus": 0,
         "penalty_minutes": 2,
         "power_play_goals": 2,
@@ -923,7 +923,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.52
+        "points_per_game": 0.5
       },
       "hockeytech_id": "3404",
       "person_id": "3966",
