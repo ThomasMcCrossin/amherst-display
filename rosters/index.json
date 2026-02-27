@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-26T07:33:07.760Z",
+  "generated_at": "2026-02-27T07:28:06.735Z",
   "season": "2024-25",
   "season_id": 41,
   "api_source": "HockeyTech",
@@ -27,7 +27,7 @@
       "team_name": "Truro-Bearcats",
       "league": "MHL",
       "team_id": 3,
-      "player_count": 34,
+      "player_count": 35,
       "file": "rosters/truro-bearcats.json"
     },
     {

@@ -1,5 +1,15 @@
 {
-  "generated_at": "2026-02-26T07:33:33Z",
+  "generated_at": "2026-02-27T07:28:30Z",
   "timezone": "America/Halifax",
-  "games": []
+  "games": [
+    {
+      "league": "U18-C",
+      "home_team": "Cole Harbour Wings Gold",
+      "away_team": "Cumberland U18C Ramblers",
+      "start": "2026-03-06T19:00:00-04:00",
+      "end": "2026-03-06T19:50:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    }
+  ]
 }
