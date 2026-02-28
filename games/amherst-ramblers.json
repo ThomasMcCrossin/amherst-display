@@ -4,7 +4,7 @@
   "team_id": 1,
   "season": "2024-25",
   "season_id": 41,
-  "updated_at": "2026-02-27T07:28:27.089Z",
+  "updated_at": "2026-02-28T07:02:27.974Z",
   "summary": {
     "games_played": 49,
     "wins": 30,
@@ -65,11 +65,6 @@
               "player_id": "mhl-3038",
               "name": "Owen Aura",
               "number": 25
-            },
-            {
-              "player_id": "mhl-3250",
-              "name": "Mark Corbett",
-              "number": 27
             }
           ],
           "power_play": true,
@@ -141,6 +136,11 @@
               "player_id": "mhl-3038",
               "name": "Owen Aura",
               "number": 25
+            },
+            {
+              "player_id": "mhl-2799",
+              "name": "Anthony Gaudet",
+              "number": 11
             }
           ],
           "power_play": true,
@@ -357,8 +357,8 @@
         "mhl-2799": {
           "position": "C",
           "goals": 1,
-          "assists": 1,
-          "points": 2,
+          "assists": 2,
+          "points": 3,
           "penalty_minutes": 2,
           "shots": 0,
           "plus_minus": "0",
@@ -461,8 +461,8 @@
         "mhl-3250": {
           "position": "C",
           "goals": 1,
-          "assists": 1,
-          "points": 2,
+          "assists": 0,
+          "points": 1,
           "penalty_minutes": 2,
           "shots": 0,
           "plus_minus": "0",
@@ -538,8 +538,8 @@
         },
         "mhl-3766": {
           "position": "G",
-          "saves": 28,
-          "shots_against": 33,
+          "saves": 27,
+          "shots_against": 32,
           "goals_against": 5,
           "save_percentage": "0.000",
           "time_on_ice": "59:37"
