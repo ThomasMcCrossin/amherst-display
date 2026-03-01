@@ -375,7 +375,7 @@
 [games] Starting Ramblers games build...
 [games] Loaded roster with 25 players
 [games] Fetching Ramblers schedule...
-[games] Processing 49 completed games...
+[games] Processing 50 completed games...
 [games] Fetched summary for game 4612 (7 goals, 0 penalties)
 [games] Fetched summary for game 4619 (12 goals, 0 penalties)
 [games] Fetched summary for game 4624 (7 goals, 0 penalties)
@@ -425,10 +425,11 @@
 [games] Fetched summary for game 4890 (6 goals, 0 penalties)
 [games] Fetched summary for game 4891 (5 goals, 0 penalties)
 [games] Fetched summary for game 4900 (10 goals, 0 penalties)
-[games] Wrote games/amherst-ramblers.json (49 completed games)
-[games] Complete! Games=49
+[games] Fetched summary for game 4908 (1 goals, 0 penalties)
+[games] Wrote games/amherst-ramblers.json (50 completed games)
+[games] Complete! Games=50
 [boxscores] Starting Playwright box score scraper...
-[boxscores] Scraping 49 games...
+[boxscores] Scraping 50 games...
 [boxscores] failed: browserType.launch: Executable doesn't exist at /home/runner/.cache/ms-playwright/chromium_headless_shell-1194/chrome-linux/headless_shell
 ╔═════════════════════════════════════════════════════════════════════════╗
 ║ Looks like Playwright Test or Playwright was just installed or updated. ║
@@ -440,13 +441,13 @@
 ╚═════════════════════════════════════════════════════════════════════════╝
 [standings/MHL] table rows found
 [standings/MHL] tables=1 standings_tables=1 rows=12
-[standings/MHL] example={"gp":49,"w":32,"l":13,"otl":3,"sol":1,"pts":68,"pct":"0.694","rw":24,"otw":5,"sow":3,"gf":179,"ga":137,"diff":42,"pim":627,"streak":"4-0-0-0","p10":"7-2-0-1","division_rank":1,"team":"x - Truro Bearcats","division":"Eastlink South","slug":null}
+[standings/MHL] example={"gp":50,"w":33,"l":13,"otl":3,"sol":1,"pts":70,"pct":"0.700","rw":25,"otw":5,"sow":3,"gf":185,"ga":138,"diff":47,"pim":633,"streak":"5-0-0-0","p10":"7-2-0-1","division_rank":1,"team":"x - Truro Bearcats","division":"Eastlink South","slug":null}
 [standings/MHL] South teams: 6, North teams: 6
 [standings] mhlRows=12
 [schedules/ICS] parsed=52
 [schedules] events=52  ramblers=52
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 52 total schedule items
+[CCMHA] API returned 40 total schedule items
 [CCMHA] Found 1 games at Amherst Stadium
 [ccmha] games=1
 [league] Building league-wide statistics...
