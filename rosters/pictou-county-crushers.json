@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 7,
-  "updated_at": "2026-03-02T07:31:47.459Z",
+  "updated_at": "2026-03-03T07:25:17.030Z",
   "player_count": 33,
   "players": [
     {
@@ -584,7 +584,9 @@
       },
       "hockeytech_id": "2773",
       "person_id": "3200",
-      "flags": []
+      "flags": [
+        "ht-played-major-junior"
+      ]
     },
     {
       "player_id": "mhl-3509",
@@ -612,8 +614,8 @@
         "losses": 9,
         "ot_losses": 4,
         "minutes_played": 2065,
-        "saves": 961,
-        "shots": 1067,
+        "saves": 966,
+        "shots": 1072,
         "goals_against": 106,
         "shutouts": 1,
         "save_percentage": 0.901,
@@ -1194,8 +1196,8 @@
         "losses": 15,
         "ot_losses": 4,
         "minutes_played": 3027,
-        "saves": 1344,
-        "shots": 1504,
+        "saves": 1349,
+        "shots": 1509,
         "goals_against": 160,
         "shutouts": 2,
         "save_percentage": 0.894,
