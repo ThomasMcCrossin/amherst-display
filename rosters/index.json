@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-04T07:12:01.111Z",
+  "generated_at": "2026-03-05T07:25:29.303Z",
   "season": "2024-25",
   "season_id": 41,
   "api_source": "HockeyTech",
@@ -51,7 +51,7 @@
       "team_name": "West-Kent-Steamers",
       "league": "MHL",
       "team_id": 6,
-      "player_count": 33,
+      "player_count": 31,
       "file": "rosters/west-kent-steamers.json"
     },
     {
@@ -91,7 +91,7 @@
       "team_name": "Grand-Falls-Rapids",
       "league": "MHL",
       "team_id": 12,
-      "player_count": 26,
+      "player_count": 25,
       "file": "rosters/grand-falls-rapids.json"
     },
     {

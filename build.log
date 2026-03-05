@@ -142,13 +142,8 @@
 [rosters/west-kent-steamers] Fetching roster for West-Kent-Steamers...
 [rosters] Fetching from API: team_id=6
 [rosters] Fetching stats from API: team_id=6
-[rosters/west-kent-steamers] Processing 33 players (downloading headshots)
+[rosters/west-kent-steamers] Processing 31 players (downloading headshots)
 [rosters] Downloaded: 1-olivier-bacon.jpg
-[rosters] Skipping placeholder image
-[rosters] Skipping placeholder image
-[rosters] Downloaded: 2-louis-simon-boucher.jpg
-[rosters] Downloaded: 2-olivier-guignard.jpg
-[rosters] Skipping placeholder image
 [rosters] Downloaded: 6-th-o-lebrun.jpg
 [rosters] Downloaded: 7-sam-bowness.jpg
 [rosters] Downloaded: 8-tyler-wood.jpg
@@ -162,11 +157,9 @@
 [rosters] Downloaded: 21-natan-grenier.jpg
 [rosters] Downloaded: 23-nathan-weber.jpg
 [rosters] Downloaded: 27-olivier-leblanc.jpg
-[rosters] Downloaded: 30-victor-r-gis.jpg
 [rosters] Downloaded: 31-xavier-farrah.jpg
 [rosters] Downloaded: 34-spencer-caines.jpg
 [rosters] Downloaded: 44-jean-christophe-gemme.jpg
-[rosters] Downloaded: 44-cody-macloon.jpg
 [rosters] Downloaded: 61-zachary-boudreau.jpg
 [rosters] Downloaded: 63-malik-bourque-vigneault.jpg
 [rosters] Downloaded: 77-austin-sanchez.jpg
@@ -174,8 +167,13 @@
 [rosters] Downloaded: 91-victor-lalibert.jpg
 [rosters] Downloaded: 95-isaac-arsenault.jpg
 [rosters] Downloaded: 96-brody-breau.jpg
+[rosters] Downloaded: 99-louis-simon-boucher.jpg
 [rosters] Skipping placeholder image
-[rosters/west-kent-steamers] Wrote rosters/west-kent-steamers.json (33 players)
+[rosters] Skipping placeholder image
+[rosters] Downloaded: 99-olivier-guignard.jpg
+[rosters] Skipping placeholder image
+[rosters] Downloaded: 99-cody-macloon.jpg
+[rosters/west-kent-steamers] Wrote rosters/west-kent-steamers.json (31 players)
 [rosters/pictou-county-crushers] Fetching roster for Pictou-County-Crushers...
 [rosters] Fetching from API: team_id=7
 [rosters] Fetching stats from API: team_id=7
@@ -310,7 +308,7 @@
 [rosters/grand-falls-rapids] Fetching roster for Grand-Falls-Rapids...
 [rosters] Fetching from API: team_id=12
 [rosters] Fetching stats from API: team_id=12
-[rosters/grand-falls-rapids] Processing 26 players (downloading headshots)
+[rosters/grand-falls-rapids] Processing 25 players (downloading headshots)
 [rosters] Downloaded: 2-william-patey.jpg
 [rosters] Downloaded: 4-loic-gallant.jpg
 [rosters] Downloaded: 5-anton-topilnyckyj.jpg
@@ -335,8 +333,7 @@
 [rosters] Downloaded: 77-nathan-plamondon-michaud.jpg
 [rosters] Downloaded: 91-loic-francoeur.jpg
 [rosters] Skipping placeholder image
-[rosters] Skipping placeholder image
-[rosters/grand-falls-rapids] Wrote rosters/grand-falls-rapids.json (26 players)
+[rosters/grand-falls-rapids] Wrote rosters/grand-falls-rapids.json (25 players)
 [rosters/chaleur-lightning] Fetching roster for Chaleur-Lightning...
 [rosters] Fetching from API: team_id=21
 [rosters] Fetching stats from API: team_id=21
@@ -447,9 +444,9 @@
 [schedules/ICS] parsed=52
 [schedules] events=52  ramblers=52
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 38 total schedule items
-[CCMHA] Found 1 games at Amherst Stadium
-[ccmha] games=1
+[CCMHA] API returned 40 total schedule items
+[CCMHA] Found 2 games at Amherst Stadium
+[ccmha] games=2
 [league] Building league-wide statistics...
 
 [league] Fetching skater leaders...
