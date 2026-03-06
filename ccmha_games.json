@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-05T07:25:54Z",
+  "generated_at": "2026-03-06T07:13:37Z",
   "timezone": "America/Halifax",
   "games": [
     {
@@ -17,6 +17,24 @@
       "away_team": "Cumberland U18C Ramblers",
       "start": "2026-03-12T20:00:00-04:00",
       "end": "2026-03-12T21:00:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U18-A",
+      "home_team": "Truro Bearcats",
+      "away_team": "Cumberland Ramblers",
+      "start": "2026-03-13T18:00:00-04:00",
+      "end": "2026-03-13T19:30:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U18-AA",
+      "home_team": "Truro Bearcats",
+      "away_team": "Cumberland Ramblers",
+      "start": "2026-03-13T20:00:00-04:00",
+      "end": "2026-03-13T21:30:00-04:00",
       "location": "Amherst Stadium",
       "source": "ccmha"
     }
