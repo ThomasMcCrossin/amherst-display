@@ -373,7 +373,7 @@
 [games] Starting Ramblers games build...
 [games] Loaded roster with 25 players
 [games] Fetching Ramblers schedule...
-[games] Processing 51 completed games...
+[games] Processing 52 completed games...
 [games] Fetched summary for game 4612 (7 goals, 0 penalties)
 [games] Fetched summary for game 4619 (12 goals, 0 penalties)
 [games] Fetched summary for game 4624 (7 goals, 0 penalties)
@@ -425,10 +425,11 @@
 [games] Fetched summary for game 4900 (10 goals, 0 penalties)
 [games] Fetched summary for game 4908 (1 goals, 0 penalties)
 [games] Fetched summary for game 4914 (6 goals, 0 penalties)
-[games] Wrote games/amherst-ramblers.json (51 completed games)
-[games] Complete! Games=51
+[games] Fetched summary for game 4920 (9 goals, 0 penalties)
+[games] Wrote games/amherst-ramblers.json (52 completed games)
+[games] Complete! Games=52
 [boxscores] Starting Playwright box score scraper...
-[boxscores] Scraping 51 games...
+[boxscores] Scraping 52 games...
 [boxscores] failed: browserType.launch: Executable doesn't exist at /home/runner/.cache/ms-playwright/chromium_headless_shell-1194/chrome-linux/headless_shell
 ╔═════════════════════════════════════════════════════════════════════════╗
 ║ Looks like Playwright Test or Playwright was just installed or updated. ║
@@ -446,7 +447,7 @@
 [schedules/ICS] parsed=52
 [schedules] events=52  ramblers=52
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 30 total schedule items
+[CCMHA] API returned 28 total schedule items
 [CCMHA] Found 6 games at Amherst Stadium
 [ccmha] games=6
 [league] Building league-wide statistics...
