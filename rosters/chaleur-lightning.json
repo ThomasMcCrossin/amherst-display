@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 21,
-  "updated_at": "2026-03-09T07:33:24.960Z",
+  "updated_at": "2026-03-10T07:24:18.792Z",
   "player_count": 30,
   "players": [
     {
@@ -897,22 +897,8 @@
       "flags": []
     },
     {
-      "player_id": "mhl-3676",
-      "number": "103",
-      "first_name": "Hunter",
-      "last_name": "Hood",
-      "name": "Hunter Hood",
-      "shoots": "R",
-      "rookie": false,
-      "veteran": false,
-      "stats": {},
-      "hockeytech_id": "3676",
-      "person_id": "4291",
-      "flags": []
-    },
-    {
       "player_id": "mhl-3723",
-      "number": "120",
+      "number": "99",
       "first_name": "Isaak",
       "last_name": "Berube",
       "name": "Isaak Berube",
@@ -928,7 +914,7 @@
       "birthplace": "Moncton, NB",
       "rookie": false,
       "veteran": false,
-      "headshot": "assets/headshots/Chaleur-Lightning/120-isaak-berube.jpg",
+      "headshot": "assets/headshots/Chaleur-Lightning/99-isaak-berube.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3723.jpg",
       "stats": {},
       "hockeytech_id": "3723",
@@ -939,7 +925,7 @@
     },
     {
       "player_id": "mhl-3719",
-      "number": "120",
+      "number": "99",
       "first_name": "Jayden",
       "last_name": "Croft",
       "name": "Jayden Croft",
@@ -964,7 +950,7 @@
     },
     {
       "player_id": "mhl-3680",
-      "number": "120",
+      "number": "99",
       "first_name": "Jesse",
       "last_name": "Dunlap",
       "name": "Jesse Dunlap",
@@ -980,7 +966,7 @@
       "birthplace": "Quispamsis, NB",
       "rookie": false,
       "veteran": false,
-      "headshot": "assets/headshots/Chaleur-Lightning/120-jesse-dunlap.jpg",
+      "headshot": "assets/headshots/Chaleur-Lightning/99-jesse-dunlap.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3680.jpg",
       "stats": {},
       "hockeytech_id": "3680",
@@ -991,7 +977,7 @@
     },
     {
       "player_id": "mhl-3857",
-      "number": "120",
+      "number": "99",
       "first_name": "Dax",
       "last_name": "Fraser",
       "name": "Dax Fraser",
@@ -1005,20 +991,46 @@
       "age": 18,
       "hometown": "Quispamsis, NB",
       "birthplace": "Quispamsis, NB",
-      "rookie": false,
+      "rookie": true,
       "veteran": false,
-      "headshot": "assets/headshots/Chaleur-Lightning/120-dax-fraser.jpg",
+      "headshot": "assets/headshots/Chaleur-Lightning/99-dax-fraser.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3857.jpg",
       "stats": {},
       "hockeytech_id": "3857",
       "person_id": "4486",
       "flags": [
+        "ht-rookie",
+        "ht-affiliate"
+      ]
+    },
+    {
+      "player_id": "mhl-3676",
+      "number": "99",
+      "first_name": "Hunter",
+      "last_name": "Hood",
+      "name": "Hunter Hood",
+      "position": "LW",
+      "height": "5' 11",
+      "weight": 179,
+      "shoots": "L",
+      "birthdate": "2009-11-14",
+      "birth_year": "'09",
+      "age": 17,
+      "hometown": "Halifax, NS",
+      "birthplace": "Halifax, NS, ",
+      "rookie": true,
+      "veteran": false,
+      "stats": {},
+      "hockeytech_id": "3676",
+      "person_id": "4291",
+      "flags": [
+        "ht-rookie",
         "ht-affiliate"
       ]
     },
     {
       "player_id": "mhl-3451",
-      "number": "120",
+      "number": "99",
       "first_name": "Carter",
       "last_name": "McIllwraith",
       "name": "Carter McIllwraith",
@@ -1032,20 +1044,21 @@
       "age": 18,
       "hometown": "Fredericton, NB",
       "birthplace": "Fredericton, NB",
-      "rookie": false,
+      "rookie": true,
       "veteran": false,
-      "headshot": "assets/headshots/Chaleur-Lightning/120-carter-mcillwraith.jpg",
+      "headshot": "assets/headshots/Chaleur-Lightning/99-carter-mcillwraith.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3451.jpg",
       "stats": {},
       "hockeytech_id": "3451",
       "person_id": "4014",
       "flags": [
+        "ht-rookie",
         "ht-affiliate"
       ]
     },
     {
       "player_id": "mhl-3459",
-      "number": "120",
+      "number": "99",
       "first_name": "Isaiah",
       "last_name": "Rogerson",
       "name": "Isaiah Rogerson",
@@ -1059,14 +1072,15 @@
       "age": 18,
       "hometown": "Saint John, NB",
       "birthplace": "Saint John, NB",
-      "rookie": false,
+      "rookie": true,
       "veteran": false,
-      "headshot": "assets/headshots/Chaleur-Lightning/120-isaiah-rogerson.jpg",
+      "headshot": "assets/headshots/Chaleur-Lightning/99-isaiah-rogerson.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3459.jpg",
       "stats": {},
       "hockeytech_id": "3459",
       "person_id": "4022",
       "flags": [
+        "ht-rookie",
         "ht-affiliate"
       ]
     },
