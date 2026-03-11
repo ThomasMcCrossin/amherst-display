@@ -5,8 +5,8 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 7,
-  "updated_at": "2026-03-10T07:24:14.657Z",
-  "player_count": 33,
+  "updated_at": "2026-03-11T07:26:48.167Z",
+  "player_count": 36,
   "players": [
     {
       "player_id": "mhl-2671",
@@ -200,6 +200,47 @@
       "flags": [
         "ht-played-major-junior"
       ]
+    },
+    {
+      "player_id": "mhl-3074",
+      "number": "12",
+      "first_name": "Kingsley",
+      "last_name": "Austin",
+      "name": "Kingsley Austin",
+      "position": "D",
+      "height": "5'10",
+      "height_inches": 70,
+      "weight": 165,
+      "shoots": "L",
+      "birthdate": "2007-02-18",
+      "birth_year": "'07",
+      "age": 19,
+      "hometown": "New Glasgow, NS",
+      "birthplace": "New Glasgow, NS, ",
+      "rookie": false,
+      "veteran": false,
+      "headshot": "assets/headshots/Pictou-County-Crushers/12-kingsley-austin.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3074.jpg",
+      "stats": {
+        "games_played": 25,
+        "goals": 6,
+        "assists": 15,
+        "points": 21,
+        "plus_minus": 0,
+        "penalty_minutes": 32,
+        "power_play_goals": 2,
+        "power_play_assists": 5,
+        "power_play_points": 7,
+        "short_handed_goals": 0,
+        "short_handed_assists": 0,
+        "short_handed_points": 0,
+        "game_winning_goals": 1,
+        "overtime_goals": 0,
+        "points_per_game": 0.84
+      },
+      "hockeytech_id": "3074",
+      "person_id": "3592",
+      "flags": []
     },
     {
       "player_id": "mhl-3797",
@@ -438,6 +479,33 @@
       "hockeytech_id": "2689",
       "person_id": "3114",
       "flags": []
+    },
+    {
+      "player_id": "mhl-3109",
+      "number": "21",
+      "first_name": "Owen",
+      "last_name": "Arnold",
+      "name": "Owen Arnold",
+      "position": "D",
+      "height": "6'6",
+      "height_inches": 78,
+      "weight": 225,
+      "shoots": "R",
+      "birthdate": "2005-04-08",
+      "birth_year": "'05",
+      "age": 21,
+      "hometown": "Quispamsis, NB",
+      "birthplace": "Quispamsis, NB, NB",
+      "rookie": false,
+      "veteran": false,
+      "headshot": "assets/headshots/Pictou-County-Crushers/21-owen-arnold.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3109.jpg",
+      "stats": {},
+      "hockeytech_id": "3109",
+      "person_id": "3627",
+      "flags": [
+        "ht-played-major-junior"
+      ]
     },
     {
       "player_id": "mhl-2712",
@@ -1191,6 +1259,49 @@
       "person_id": "4116",
       "flags": [
         "ht-affiliate"
+      ]
+    },
+    {
+      "player_id": "mhl-3796",
+      "number": "0",
+      "first_name": "Cade",
+      "last_name": "Moser",
+      "name": "Cade Moser",
+      "position": "C",
+      "height": "5'10",
+      "height_inches": 70,
+      "weight": 185,
+      "shoots": "L",
+      "birthdate": "2006-03-01",
+      "birth_year": "'06",
+      "age": 20,
+      "hometown": "Linacy, NS",
+      "birthplace": "Linacy, NS, ",
+      "rookie": false,
+      "veteran": false,
+      "headshot": "assets/headshots/Pictou-County-Crushers/0-cade-moser.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3796.jpg",
+      "stats": {
+        "games_played": 30,
+        "goals": 8,
+        "assists": 22,
+        "points": 30,
+        "plus_minus": 0,
+        "penalty_minutes": 10,
+        "power_play_goals": 1,
+        "power_play_assists": 4,
+        "power_play_points": 5,
+        "short_handed_goals": 0,
+        "short_handed_assists": 0,
+        "short_handed_points": 0,
+        "game_winning_goals": 1,
+        "overtime_goals": 0,
+        "points_per_game": 1
+      },
+      "hockeytech_id": "3796",
+      "person_id": "4414",
+      "flags": [
+        "ht-played-major-junior"
       ]
     },
     {

@@ -5,8 +5,8 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 3,
-  "updated_at": "2026-03-10T07:24:11.198Z",
-  "player_count": 35,
+  "updated_at": "2026-03-11T07:26:37.917Z",
+  "player_count": 40,
   "players": [
     {
       "player_id": "mhl-3846",
@@ -131,6 +131,34 @@
       "person_id": "4197",
       "flags": [
         "ht-rookie",
+        "ht-played-major-junior"
+      ]
+    },
+    {
+      "player_id": "mhl-3411",
+      "number": "6",
+      "first_name": "Nathan",
+      "last_name": "Dubreuil",
+      "name": "Nathan Dubreuil",
+      "position": "D",
+      "height": "5'11",
+      "height_inches": 71,
+      "weight": 164,
+      "shoots": "L",
+      "birthdate": "2006-01-19",
+      "birth_year": "'06",
+      "age": 20,
+      "hometown": "St-Narcisse, QC",
+      "birthplace": "St-Narcisse, QC, Quebec",
+      "rookie": false,
+      "veteran": false,
+      "headshot": "assets/headshots/Truro-Bearcats/6-nathan-dubreuil.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3411.jpg",
+      "stats": {},
+      "hockeytech_id": "3411",
+      "person_id": "3973",
+      "flags": [
+        "ht-import",
         "ht-played-major-junior"
       ]
     },
@@ -260,6 +288,31 @@
       "flags": [
         "ht-played-major-junior"
       ]
+    },
+    {
+      "player_id": "mhl-3174",
+      "number": "12",
+      "first_name": "Isaac",
+      "last_name": "Arsenault",
+      "name": "Isaac Arsenault",
+      "position": "C",
+      "height": "5'11",
+      "height_inches": 71,
+      "weight": 175,
+      "shoots": "L",
+      "birthdate": "2006-05-05",
+      "birth_year": "'06",
+      "age": 20,
+      "hometown": "Richmond, PE",
+      "birthplace": "Richmond, PE, PE",
+      "rookie": false,
+      "veteran": false,
+      "headshot": "assets/headshots/Truro-Bearcats/12-isaac-arsenault.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3174.jpg",
+      "stats": {},
+      "hockeytech_id": "3174",
+      "person_id": "3694",
+      "flags": []
     },
     {
       "player_id": "mhl-3834",
@@ -591,6 +644,31 @@
       ]
     },
     {
+      "player_id": "mhl-3348",
+      "number": "27",
+      "first_name": "Olivier",
+      "last_name": "Guignard",
+      "name": "Olivier Guignard",
+      "position": "D",
+      "height": "6'0",
+      "height_inches": 72,
+      "weight": 175,
+      "shoots": "L",
+      "birthdate": "2006-10-28",
+      "birth_year": "'06",
+      "age": 20,
+      "hometown": "Lameque, NB",
+      "birthplace": "Lameque, NB, ",
+      "rookie": false,
+      "veteran": false,
+      "headshot": "assets/headshots/Truro-Bearcats/27-olivier-guignard.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3348.jpg",
+      "stats": {},
+      "hockeytech_id": "3348",
+      "person_id": "3910",
+      "flags": []
+    },
+    {
       "player_id": "mhl-3288",
       "number": "28",
       "first_name": "Eric",
@@ -629,6 +707,45 @@
       },
       "hockeytech_id": "3288",
       "person_id": "3843",
+      "flags": [
+        "ht-played-major-junior"
+      ]
+    },
+    {
+      "player_id": "mhl-3766",
+      "number": "31",
+      "first_name": "Brandon",
+      "last_name": "Lavoie",
+      "name": "Brandon Lavoie",
+      "position": "G",
+      "height": "6'02",
+      "height_inches": 74,
+      "weight": 168,
+      "shoots": "L",
+      "birthdate": "2006-03-03",
+      "birth_year": "'06",
+      "age": 20,
+      "hometown": "Lower Sackville, NS",
+      "birthplace": "Lower Sackville, NS, ",
+      "rookie": false,
+      "veteran": false,
+      "headshot": "assets/headshots/Truro-Bearcats/31-brandon-lavoie.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3766.jpg",
+      "stats": {
+        "games_played": 9,
+        "wins": 3,
+        "losses": 5,
+        "ot_losses": 1,
+        "minutes_played": 535,
+        "saves": 234,
+        "shots": 262,
+        "goals_against": 28,
+        "shutouts": 0,
+        "save_percentage": 0.893,
+        "goals_against_average": 3.14
+      },
+      "hockeytech_id": "3766",
+      "person_id": "4382",
       "flags": [
         "ht-played-major-junior"
       ]
@@ -732,7 +849,7 @@
       "birth_year": "'06",
       "age": 20,
       "hometown": "Brookfield, NS",
-      "birthplace": "Brookfield, NS, ",
+      "birthplace": "Brookfield, NS, Nova Scotia",
       "rookie": false,
       "veteran": false,
       "headshot": "assets/headshots/Truro-Bearcats/55-wyatt-countway.jpg",
@@ -816,7 +933,7 @@
       "birth_year": "'05",
       "age": 21,
       "hometown": "Halifax, NS",
-      "birthplace": "Halifax, NS, ",
+      "birthplace": "Halifax, NS, Nova Scotia ",
       "rookie": false,
       "veteran": false,
       "headshot": "assets/headshots/Truro-Bearcats/81-liam-welsh.jpg",
@@ -903,7 +1020,7 @@
       "birth_year": "'05",
       "age": 21,
       "hometown": "Val-DOr, QC",
-      "birthplace": "Val-D'Or, QC, ",
+      "birthplace": "Val-D'Or, QC, Quebec",
       "rookie": false,
       "veteran": false,
       "headshot": "assets/headshots/Truro-Bearcats/91-matthew-bolduc.jpg",
@@ -1285,6 +1402,25 @@
       "flags": [
         "ht-affiliate"
       ]
+    },
+    {
+      "player_id": "mhl-3931",
+      "number": "99",
+      "first_name": "Loghan",
+      "last_name": "Wallace",
+      "name": "Loghan Wallace",
+      "position": "C",
+      "weight": 0,
+      "shoots": "R",
+      "birthdate": "0000-00-00",
+      "birth_year": "'00",
+      "birthplace": ", ",
+      "rookie": false,
+      "veteran": false,
+      "stats": {},
+      "hockeytech_id": "3931",
+      "person_id": "4597",
+      "flags": []
     },
     {
       "player_id": "mhl-undefined",
