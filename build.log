@@ -570,13 +570,13 @@
 ╚═════════════════════════════════════════════════════════════════════════╝
 [standings/MHL] table rows found
 [standings/MHL] tables=1 standings_tables=1 rows=8
-[standings/MHL] example={"gp":0,"w":0,"l":0,"otl":0,"sol":0,"pts":0,"pct":"0.000","rw":0,"otw":0,"sow":0,"gf":0,"ga":0,"diff":0,"pim":0,"streak":"","p10":"0-0-0-0","division_rank":1,"team":"Truro Bearcats","division":"Eastlink South","slug":"truro-bearcats"}
+[standings/MHL] example={"gp":1,"w":1,"l":0,"otl":0,"sol":0,"pts":2,"pct":"1.000","rw":1,"otw":0,"sow":0,"gf":6,"ga":0,"diff":6,"pim":40,"streak":"1-0-0-0","p10":"1-0-0-0","division_rank":1,"team":"Truro Bearcats","division":"Eastlink South","slug":"truro-bearcats"}
 [standings/MHL] South teams: 4, North teams: 4
 [standings] mhlRows=8
 [schedules/ICS] parsed=52
 [schedules] events=52  ramblers=52
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 31 total schedule items
+[CCMHA] API returned 27 total schedule items
 [CCMHA] Found 5 games at Amherst Stadium
 [ccmha] games=5
 [league] Building league-wide statistics...
