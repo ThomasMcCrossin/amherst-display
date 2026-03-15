@@ -1,25 +1,7 @@
 {
-  "generated_at": "2026-03-14T07:12:32Z",
+  "generated_at": "2026-03-15T07:28:39Z",
   "timezone": "America/Halifax",
   "games": [
-    {
-      "league": "U9-ADV",
-      "home_team": "Truro Bearcats",
-      "away_team": "Cumberland Ramblers",
-      "start": "2026-03-14T09:30:00-03:00",
-      "end": "2026-03-14T11:00:00-03:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
-    {
-      "league": "U18-A",
-      "home_team": "Cumberland Ramblers",
-      "away_team": "Antigonish Bulldogs",
-      "start": "2026-03-14T11:30:00-03:00",
-      "end": "2026-03-14T13:00:00-03:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
     {
       "league": "U9-DEV",
       "home_team": "Sackville Rangers U9",
