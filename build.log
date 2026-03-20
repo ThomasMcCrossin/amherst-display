@@ -570,7 +570,7 @@
 ╚═════════════════════════════════════════════════════════════════════════╝
 [standings/MHL] table rows found
 [standings/MHL] tables=1 standings_tables=1 rows=8
-[standings/MHL] example={"gp":3,"w":3,"l":0,"otl":0,"sol":0,"pts":6,"pct":"1.000","rw":3,"otw":0,"sow":0,"gf":16,"ga":2,"diff":14,"pim":79,"streak":"3-0-0-0","p10":"3-0-0-0","division_rank":1,"team":"Truro Bearcats","division":"Eastlink South","slug":"truro-bearcats"}
+[standings/MHL] example={"gp":4,"w":3,"l":1,"otl":0,"sol":0,"pts":6,"pct":"0.750","rw":3,"otw":0,"sow":0,"gf":19,"ga":6,"diff":13,"pim":121,"streak":"0-1-0-0","p10":"3-1-0-0","division_rank":1,"team":"Truro Bearcats","division":"Eastlink South","slug":"truro-bearcats"}
 [standings/MHL] South teams: 4, North teams: 4
 [standings] mhlRows=8
 [schedules/ICS] parsed=52
