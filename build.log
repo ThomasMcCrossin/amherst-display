@@ -576,9 +576,9 @@
 [schedules/ICS] parsed=52
 [schedules] events=52  ramblers=52
 [CCMHA] Fetching games for next 7 days
-[CCMHA] API returned 7 total schedule items
-[CCMHA] Found 1 games at Amherst Stadium
-[ccmha] games=1
+[CCMHA] API returned 4 total schedule items
+[CCMHA] Found 0 games at Amherst Stadium
+[ccmha] games=0
 [league] Building league-wide statistics...
 
 [league] Fetching skater leaders...
