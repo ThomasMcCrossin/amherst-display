@@ -5,7 +5,7 @@
   "season": "2024-25",
   "season_id": 41,
   "team_id": 2,
-  "updated_at": "2026-03-23T07:44:34.941Z",
+  "updated_at": "2026-03-24T07:34:59.984Z",
   "player_count": 35,
   "players": [
     {
@@ -56,7 +56,7 @@
       "height_inches": 74,
       "weight": 174,
       "shoots": "L",
-      "birthdate": "2007-04-01",
+      "birthdate": "2007-04-10",
       "birth_year": "'07",
       "age": 19,
       "hometown": "Conception Bay South, NL",
