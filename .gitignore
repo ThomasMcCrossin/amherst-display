@@ -17,6 +17,35 @@ Thumbs.db
 .vscode/
 .idea/
 
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Local outputs
+Games/
+temp/
+
+# Large media inputs/outputs
+*.mp4
+*.ts
+*.mkv
+*.mov
+*.avi
+
+# OCR training / scratch assets
+tesseract_training/
+video_processing/
+
 # Temporary files
 *.tmp
 debug_page.html
+
+# Credentials (never commit)
+credentials/
+
+# Local env files (never commit)
+.env
+.env.*
+.envfromCurlysBooks

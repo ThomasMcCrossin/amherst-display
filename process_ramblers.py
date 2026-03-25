@@ -190,12 +190,13 @@ def process_video(
     )
 
     result = pipeline.execute(
-        sample_interval=30,
+        sample_interval=5,
         tolerance_seconds=30,
-        before_seconds=8.0,
-        after_seconds=6.0,
+        before_seconds=15.0,
+        after_seconds=4.0,
         parallel_ocr=True,
         ocr_workers=4,
+        broadcast_type='auto',
     )
 
     # Print results
@@ -205,6 +206,8 @@ def process_video(
 
     if result.success:
         print(f"Status: SUCCESS")
+        if getattr(result, "paused_for_review", False):
+            print("Note: Paused for major penalty review (production reel not built yet)")
         print(f"Events found: {result.events_found}")
         print(f"Events matched: {result.events_matched} ({result.match_rate():.1f}%)")
         print(f"Clips created: {result.clips_created}")

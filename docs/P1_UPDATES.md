@@ -221,7 +221,7 @@ As of the last scrape:
 **Required Parameters:**
 - `feed=statviewfeed`
 - `view=players|teams|streaks_player`
-- `key=4a948e7faf5ee58d`
+- `key=$HOCKEYTECH_API_KEY`
 - `client_code=mhl`
 - `site_id=2`
 - `season=41` (2024-25 season)

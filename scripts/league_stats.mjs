@@ -21,10 +21,14 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(__dirname, '..');
 
 // HockeyTech statviewfeed API (different from modulekit!)
-const API_KEY = '4a948e7faf5ee58d';
+const API_KEY = (process.env.HOCKEYTECH_API_KEY || '').trim();
 const CLIENT_CODE = 'mhl';
 const SITE_ID = 2;
 const SEASON_ID = 41; // 2024-25
+
+if (!API_KEY) {
+  throw new Error('HOCKEYTECH_API_KEY is required');
+}
 
 const nowISO = () => new Date().toISOString();
 

@@ -8,6 +8,7 @@
  * - Goaltender details
  * - Shootout attempts
  * - Three stars (when available)
+ * - Individual penalties (period, time, player, infraction, minutes)
  *
  * Outputs:
  *   games/amherst-ramblers-boxscores.json - Enhanced box score data
@@ -89,6 +90,217 @@ function parsePowerPlaySummary(tableData) {
   }
 
   return result;
+}
+
+/**
+ * Parse individual penalties from the penalties table
+ * Handles two formats:
+ * 1. Column-based: Period | Time | Team | Player | Infraction | PIM
+ * 2. Period-based (MHL): Headers are "1st | 2nd | 3rd | OT", rows are "Time | Team | PlayerInfo"
+ */
+function parsePenaltiesTable(tableData, isHomeGame) {
+  if (!tableData || tableData.length < 1) return [];
+
+  const penalties = [];
+
+  for (const row of tableData) {
+    // Skip if row doesn't have enough data
+    if (!row || row.length < 5) continue;
+
+    // Skip header rows (check if first cell looks like a period number)
+    const firstCell = (row[0] || '').trim();
+    if (firstCell.toLowerCase() === 'period' || firstCell === '' || firstCell.toLowerCase() === 'per') continue;
+
+    // Parse period - could be "1", "2", "3", "OT", etc.
+    let period = 0;
+    const periodStr = firstCell.toUpperCase();
+    if (periodStr === 'OT' || periodStr === 'OT1') period = 4;
+    else if (periodStr === 'OT2') period = 5;
+    else if (periodStr === 'SO') period = 6;
+    else period = parseInt(periodStr) || 0;
+
+    if (period === 0) continue; // Skip if we can't determine period
+
+    // Parse time (MM:SS format)
+    const time = (row[1] || '').trim();
+    if (!time.match(/^\d{1,2}:\d{2}$/)) continue; // Skip if not valid time format
+
+    // Parse team name
+    const teamName = (row[2] || '').trim().toLowerCase();
+    const isAmherst = teamName.includes('amherst') || teamName.includes('ramblers') || teamName === 'amh';
+    const team = isAmherst ? 'ramblers' : 'opponent';
+
+    // Parse player - format is often "Name (#)" or just "Name"
+    const playerCell = (row[3] || '').trim();
+    const playerMatch = playerCell.match(/^(.+?)\s*(?:\(#?(\d+)\))?$/);
+    const playerName = playerMatch ? playerMatch[1].trim() : playerCell;
+    const playerNumber = playerMatch && playerMatch[2] ? parseInt(playerMatch[2]) : null;
+
+    // Parse infraction
+    const infraction = (row[4] || '').trim();
+
+    // Parse minutes - could be in column 5 or 6 depending on table format
+    // Look for a number that represents penalty minutes (typically 2, 4, 5, 10, etc.)
+    let minutes = 2; // Default to 2 minutes
+    for (let i = 5; i < row.length; i++) {
+      const val = parseInt((row[i] || '').trim());
+      if (val > 0 && val <= 25) { // Reasonable penalty minute range
+        minutes = val;
+        break;
+      }
+    }
+
+    penalties.push({
+      period,
+      time,
+      team,
+      player: {
+        name: playerName,
+        number: playerNumber
+      },
+      infraction,
+      minutes
+    });
+  }
+
+  // Sort by period and time (descending time since hockey clocks count down)
+  penalties.sort((a, b) => {
+    if (a.period !== b.period) return a.period - b.period;
+    // Convert time to seconds for comparison (higher time = earlier in period)
+    const aSeconds = timeToSeconds(a.time);
+    const bSeconds = timeToSeconds(b.time);
+    return bSeconds - aSeconds; // Earlier penalties first
+  });
+
+  return penalties;
+}
+
+/**
+ * Parse penalties from period-based table format (MHL style)
+ * Headers: "1st | 2nd | 3rd | OT"
+ * Rows: Period markers ("1st", "2nd") followed by penalty rows
+ * Penalty row format: "Time | Team | PlayerInfo, Infraction - Type (), N min PP"
+ * Example: "13:13 | AMH | Owen AuraBench, Served by Owen Aura, Interference - Minor (), 2 min PP"
+ */
+function parsePenaltiesByPeriod(tableData, isHomeGame) {
+  if (!tableData || tableData.length < 1) return [];
+
+  const penalties = [];
+  let currentPeriod = 1; // Default to period 1 (tables often start without explicit "1st" marker)
+
+  for (const row of tableData) {
+    if (!row || row.length < 1) continue;
+
+    const firstCell = (row[0] || '').trim();
+
+    // Check if this is a period header row
+    const periodMatch = firstCell.match(/^(\d+)(st|nd|rd|th)$|^OT(\d*)$/i);
+    if (periodMatch) {
+      if (periodMatch[1]) {
+        currentPeriod = parseInt(periodMatch[1]);
+      } else if (periodMatch[0].toUpperCase().startsWith('OT')) {
+        const otNum = periodMatch[3] || '1';
+        currentPeriod = 3 + parseInt(otNum);
+      }
+      continue;
+    }
+
+    // Skip "No Penalties" or "No Scoring" rows
+    if (firstCell.toLowerCase().includes('no penalties') || firstCell.toLowerCase().includes('no scoring')) {
+      continue;
+    }
+
+    // Check if first cell looks like a time (MM:SS)
+    const timeMatch = firstCell.match(/^(\d{1,2}:\d{2})$/);
+    if (!timeMatch) continue;
+
+    const time = timeMatch[1];
+    const team = (row[1] || '').trim().toUpperCase();
+    const penaltyInfo = (row[2] || '').trim();
+
+    // Determine team
+    const isAmherst = team === 'AMH' || team.toLowerCase().includes('amherst') || team.toLowerCase().includes('ramblers');
+    const teamSlug = isAmherst ? 'ramblers' : 'opponent';
+
+    // Parse the penalty info string
+    // Format: "PlayerNameBench, Served by Player, Infraction - Type (), N min PP"
+    // Or: "PlayerName, Infraction - Type (), N min"
+    let playerName = '';
+    let infraction = '';
+    let minutes = 2;
+
+    // Extract minutes from the string
+    const minMatch = penaltyInfo.match(/(\d+)\s*min/i);
+    if (minMatch) {
+      minutes = parseInt(minMatch[1]);
+    }
+
+    // Extract infraction (look for common patterns)
+    const infractionMatch = penaltyInfo.match(/,\s*([^,]+?)\s*-\s*(Minor|Major|Misconduct|Double Minor|Match)/i);
+    if (infractionMatch) {
+      infraction = infractionMatch[1].trim();
+      const penaltyType = infractionMatch[2];
+      if (penaltyType) {
+        infraction += ` - ${penaltyType}`;
+      }
+    } else {
+      // Try simpler pattern
+      const simpleMatch = penaltyInfo.match(/,\s*([A-Za-z\s]+?)(?:\s*-|\s*\(|\s*,|$)/);
+      if (simpleMatch) {
+        infraction = simpleMatch[1].trim();
+      }
+    }
+
+    // Extract player name (first part before comma or "Bench")
+    const playerMatch = penaltyInfo.match(/^([^,]+?)(?:Bench|,)/i);
+    if (playerMatch) {
+      playerName = playerMatch[1].trim();
+    } else {
+      // Just take first part
+      const parts = penaltyInfo.split(',');
+      if (parts.length > 0) {
+        playerName = parts[0].replace(/Bench.*$/i, '').trim();
+      }
+    }
+
+    // Skip "Served by" entries which are just noting who served a bench penalty
+    if (infraction.toLowerCase().startsWith('served by')) {
+      continue;
+    }
+
+    if (currentPeriod > 0 && time && playerName) {
+      penalties.push({
+        period: currentPeriod,
+        time,
+        team: teamSlug,
+        player: {
+          name: playerName,
+          number: null
+        },
+        infraction: infraction || 'Unknown',
+        minutes
+      });
+    }
+  }
+
+  // Sort by period and time (descending time since hockey clocks count down)
+  penalties.sort((a, b) => {
+    if (a.period !== b.period) return a.period - b.period;
+    const aSeconds = timeToSeconds(a.time);
+    const bSeconds = timeToSeconds(b.time);
+    return bSeconds - aSeconds;
+  });
+
+  return penalties;
+}
+
+/**
+ * Helper to convert MM:SS to seconds
+ */
+function timeToSeconds(timeStr) {
+  const parts = timeStr.split(':');
+  if (parts.length !== 2) return 0;
+  return parseInt(parts[0]) * 60 + parseInt(parts[1]);
 }
 
 /**
@@ -326,6 +538,32 @@ async function scrapeGameBoxScore(page, gameId, isHomeGame) {
           result.tables.shootout.push(...extractTable(table));
         } else if (headerStr.includes('scoring') && headerStr.includes('total')) {
           result.tables.scoring = extractTable(table);
+        } else if ((headerStr.includes('period') || headerStr.includes('per')) &&
+                   headerStr.includes('time') &&
+                   (headerStr.includes('infraction') || headerStr.includes('penalty'))) {
+          // Penalties table: Period | Time | Team | Player | Infraction | PIM
+          result.tables.penalties = extractTable(table);
+        } else if (headerStr.includes('1st') || headerStr.includes('1')) {
+          // Could be penalties or scoring table - check content to distinguish
+          const tableRows = extractTable(table);
+
+          // Look for penalty indicators in rows (e.g., "min", "PP", "Minor", "Major")
+          const hasPenaltyContent = tableRows.some(row =>
+            row.some(cell =>
+              /\d+\s*min\s*(PP|SH)?|\bMinor\b|\bMajor\b|\bMisconduct\b/i.test(cell)
+            )
+          );
+          // Look for scoring indicators (e.g., "ASST:", "PPG", goal patterns)
+          const hasScoringContent = tableRows.some(row =>
+            row.some(cell =>
+              /ASST:|PPG|SHG|\(\d+\)/.test(cell)
+            )
+          );
+
+          if (hasPenaltyContent && !hasScoringContent) {
+            result.tables.penaltiesByPeriod = tableRows;
+          }
+          // Note: We don't overwrite scoring table since it may already be set
         }
       });
 
@@ -336,6 +574,12 @@ async function scrapeGameBoxScore(page, gameId, isHomeGame) {
     });
 
     // Parse the extracted tables
+    // Try both penalty formats - column-based and period-based (MHL style)
+    let penalties = parsePenaltiesTable(boxScore.tables.penalties, isHomeGame);
+    if (penalties.length === 0 && boxScore.tables.penaltiesByPeriod) {
+      penalties = parsePenaltiesByPeriod(boxScore.tables.penaltiesByPeriod, isHomeGame);
+    }
+
     const parsed = {
       game_id: gameId,
       shots_by_period: parseShotsTable(boxScore.tables.shots),
@@ -343,7 +587,8 @@ async function scrapeGameBoxScore(page, gameId, isHomeGame) {
       game_info: parseOfficials(boxScore.tables.officials),
       goaltenders: parseGoaltenderStats(boxScore.tables.goalies, isHomeGame),
       shootout: parseShootout(boxScore.tables.shootout, isHomeGame),
-      three_stars: parseThreeStars(boxScore.pageText)
+      three_stars: parseThreeStars(boxScore.pageText),
+      penalties
     };
 
     // Also extract period-by-period scoring if available
@@ -448,7 +693,8 @@ export async function scrapeRamblersBoxScores(options = {}) {
           power_play_summary: boxScore.power_play_summary,
           goaltenders: boxScore.goaltenders,
           shootout: boxScore.shootout,
-          three_stars: boxScore.three_stars
+          three_stars: boxScore.three_stars,
+          penalties: boxScore.penalties || []
         },
         game_info: boxScore.game_info
       };

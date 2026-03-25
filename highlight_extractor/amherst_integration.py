@@ -122,26 +122,41 @@ class AmherstBoxScoreProvider:
         """
         games = self.games_data.get('games', [])
 
+        def _norm(value: str) -> str:
+            v = (value or "").lower().strip()
+            v = "".join(ch if ch.isalnum() or ch.isspace() else " " for ch in v)
+            return " ".join(v.split())
+
+        home_norm = _norm(home_team)
+        away_norm = _norm(away_team)
+
         for game in games:
             if game.get('date') != game_date:
                 continue
 
             is_home = game.get('home_game', False)
             opponent = game.get('opponent', {}).get('team_name', '')
+            opp_norm = _norm(opponent)
+
+            is_ramblers_home = ("rambler" in home_norm) or ("amherst" in home_norm)
+            is_ramblers_away = ("rambler" in away_norm) or ("amherst" in away_norm)
+
+            def _teams_match(team_norm: str, opponent_norm: str) -> bool:
+                if not team_norm or not opponent_norm:
+                    return False
+                return (team_norm in opponent_norm) or (opponent_norm in team_norm)
 
             # Ramblers are home: home_team should match Ramblers, away_team matches opponent
             if is_home:
-                if 'rambler' in home_team.lower() and opponent.lower() in away_team.lower():
+                if is_ramblers_home and _teams_match(away_norm, opp_norm):
                     return game
-                if 'amherst' in home_team.lower() and opponent.lower() in away_team.lower():
-                    return game
+                continue
 
             # Ramblers are away: away_team should match Ramblers, home_team matches opponent
             else:
-                if 'rambler' in away_team.lower() and opponent.lower() in home_team.lower():
+                if is_ramblers_away and _teams_match(home_norm, opp_norm):
                     return game
-                if 'amherst' in away_team.lower() and opponent.lower() in home_team.lower():
-                    return game
+                continue
 
         return None
 
@@ -157,6 +172,8 @@ class AmherstBoxScoreProvider:
         """
         scoring = game.get('scoring', [])
         penalties = game.get('penalties', [])
+        if not penalties:
+            penalties = (game.get('box_score') or {}).get('penalties', []) or []
         opponent = game.get('opponent', {})
         is_home = game.get('home_game', False)
 
@@ -177,6 +194,21 @@ class AmherstBoxScoreProvider:
             penalty = self._convert_penalty(pen, ramblers_name, opponent_name)
             if penalty:
                 penalty_list.append(penalty)
+
+        # Some amherst-display caches omit the per-penalty log (even when PP goals exist).
+        # Fall back to HockeyTech for penalties so PP-penalty linking + major review workflows work end-to-end.
+        if not penalty_list:
+            game_id = str(game.get('game_id') or '').strip()
+            if game_id:
+                try:
+                    fetcher = BoxScoreFetcher()
+                    raw = fetcher.fetch_box_score('MHL', game_id)
+                    api_penalties = (raw or {}).get('SiteKit', {}).get('Gamesummary', {}).get('penalties', []) or []
+                    if api_penalties:
+                        penalty_list = api_penalties
+                        logger.info(f"Fetched {len(api_penalties)} penalties from HockeyTech for game {game_id}")
+                except Exception as e:
+                    logger.warning(f"Could not fetch penalties from HockeyTech for game {game_id}: {e}")
 
         # Build HockeyTech-style response
         box_score = {
@@ -211,14 +243,21 @@ class AmherstBoxScoreProvider:
     ) -> Optional[Dict]:
         """Convert amherst-display scoring play to HockeyTech goal format"""
         try:
+            def _team_name_from_value(value: str) -> str:
+                v = str(value or "").strip().lower()
+                if not v:
+                    return opponent_name
+                # Amherst-display uses a mix of slugs and labels.
+                if v in {"ramblers", "amherst-ramblers", "amherst ramblers", "amherst", "amh"}:
+                    return ramblers_name
+                if v in {"opponent", "opp"}:
+                    return opponent_name
+                if "rambler" in v or "amherst" in v:
+                    return ramblers_name
+                return opponent_name
+
             # Determine team name
-            team_key = play.get('team', '')
-            if team_key == 'ramblers':
-                team = ramblers_name
-            elif team_key == 'opponent':
-                team = opponent_name
-            else:
-                team = team_key
+            team = _team_name_from_value(play.get("team", ""))
 
             # Get scorer info
             scorer_obj = play.get('scorer', {})
@@ -262,13 +301,19 @@ class AmherstBoxScoreProvider:
     ) -> Optional[Dict]:
         """Convert amherst-display penalty to HockeyTech format"""
         try:
-            team_key = pen.get('team', '')
-            if team_key == 'ramblers':
-                team = ramblers_name
-            elif team_key == 'opponent':
-                team = opponent_name
-            else:
-                team = team_key
+            def _team_name_from_value(value: str) -> str:
+                v = str(value or "").strip().lower()
+                if not v:
+                    return opponent_name
+                if v in {"ramblers", "amherst-ramblers", "amherst ramblers", "amherst", "amh"}:
+                    return ramblers_name
+                if v in {"opponent", "opp"}:
+                    return opponent_name
+                if "rambler" in v or "amherst" in v:
+                    return ramblers_name
+                return opponent_name
+
+            team = _team_name_from_value(pen.get("team", ""))
 
             player_obj = pen.get('player', {})
 
@@ -304,8 +349,13 @@ class AmherstBoxScoreProvider:
         goals = []
         for play in scoring:
             try:
-                team_key = play.get('team', '')
-                team = ramblers_name if team_key == 'ramblers' else opponent_name
+                team_key = str(play.get("team", "") or "").strip().lower()
+                if team_key in {"ramblers", "amherst-ramblers", "amherst ramblers", "amherst", "amh"} or (
+                    "rambler" in team_key or "amherst" in team_key
+                ):
+                    team = ramblers_name
+                else:
+                    team = opponent_name
 
                 scorer = play.get('scorer', {}).get('name', 'Unknown')
                 assists = play.get('assists', [])
@@ -406,6 +456,9 @@ class PreloadedBoxScoreFetcher(BoxScoreFetcher):
         """
         super().__init__(cache_dir=cache_dir)
         self._game_id = game_id
+        # Some pipeline components key off `_last_game_id` (legacy BoxScoreFetcher behavior).
+        # Mirror it here so major review workflows keep using the numeric game id.
+        self._last_game_id = game_id
         self._box_score = box_score
         self._goals = goals
 

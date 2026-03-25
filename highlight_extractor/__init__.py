@@ -5,7 +5,7 @@ A modular system for extracting hockey highlights using box score data
 and OCR-based time matching.
 """
 
-__version__ = "2.1.0"
+from .version import __version__
 __author__ = "Thomas McCrossin"
 
 # Core processors

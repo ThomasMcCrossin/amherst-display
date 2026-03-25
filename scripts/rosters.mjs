@@ -17,10 +17,14 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(__dirname, '..');
 
 // HockeyTech API configuration
-const HOCKEYTECH_API_KEY = '4a948e7faf5ee58d';
+const HOCKEYTECH_API_KEY = (process.env.HOCKEYTECH_API_KEY || '').trim();
 const HOCKEYTECH_CLIENT = 'mhl';
 const HOCKEYTECH_BASE_URL = 'https://lscluster.hockeytech.com/feed/';
 const SEASON_ID = 41; // 2024-25 season
+
+if (!HOCKEYTECH_API_KEY) {
+  throw new Error('HOCKEYTECH_API_KEY is required');
+}
 
 // Team configuration: { slug: { name, team_id } }
 // All MHL teams for 2024-25 season

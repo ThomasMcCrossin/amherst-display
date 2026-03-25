@@ -59,8 +59,9 @@ class BoxScoreParser:
                     logger.warning(f"Failed to parse goal: {e}")
                     logger.debug(f"Raw goal data: {raw_goal}")
 
-            # Sort by period and time (time is countdown, so higher time = earlier in period)
-            goals.sort(key=lambda g: (g.period, -g.time_seconds))
+            # HockeyTech/box score feeds report *time elapsed* in the period (not time remaining).
+            # Sort chronologically within each period (ascending elapsed time).
+            goals.sort(key=lambda g: (g.period, g.time_seconds))
 
             logger.info(f"Parsed {len(goals)} goals from box score")
 
