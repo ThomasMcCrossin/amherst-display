@@ -15,7 +15,7 @@ from dataclasses import dataclass
 # Hockey period constants
 PERIOD_LENGTH_MINUTES = 20
 PERIOD_LENGTH_SECONDS = PERIOD_LENGTH_MINUTES * 60
-OT_LENGTH_MINUTES = 20
+OT_LENGTH_MINUTES = 5
 OT_LENGTH_SECONDS = OT_LENGTH_MINUTES * 60
 
 
@@ -158,7 +158,8 @@ def period_time_to_absolute_seconds(period: int, time_remaining_seconds: int) ->
             previous_periods_time += (period - 4) * OT_LENGTH_SECONDS
 
     # Time elapsed in current period = period length - time remaining
-    time_elapsed_in_period = PERIOD_LENGTH_SECONDS - time_remaining_seconds
+    period_length = OT_LENGTH_SECONDS if period >= 4 else PERIOD_LENGTH_SECONDS
+    time_elapsed_in_period = period_length - time_remaining_seconds
 
     return previous_periods_time + time_elapsed_in_period
 
@@ -194,7 +195,8 @@ def absolute_seconds_to_period_time(absolute_seconds: int) -> Tuple[int, int]:
         elapsed_in_period = ot_time - (ot_period * OT_LENGTH_SECONDS)
 
     # Time remaining = period length - time elapsed
-    time_remaining = PERIOD_LENGTH_SECONDS - elapsed_in_period
+    period_length = OT_LENGTH_SECONDS if period >= 4 else PERIOD_LENGTH_SECONDS
+    time_remaining = period_length - elapsed_in_period
 
     return (period, max(0, time_remaining))
 

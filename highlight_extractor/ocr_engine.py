@@ -1,9 +1,17 @@
 """
-OCR Engine - Extracts game time from video scoreboards using Tesseract OCR
+OCR Engine - Extracts game time from video scoreboards.
+
+Legacy API compatibility:
+  - extract_time_from_frame(...) -> Optional[(period, "MM:SS")]
+New API for diagnostics + confidence-aware logic:
+  - extract_time_from_frame_detailed(...) -> Optional[OcrResult]
 """
 
+import json
 import logging
 import re
+from dataclasses import dataclass
+from datetime import datetime
 from typing import Optional, Tuple, List, Dict
 from pathlib import Path
 import numpy as np
@@ -18,7 +26,155 @@ except ImportError:
     TESSERACT_AVAILABLE = False
     logging.warning("pytesseract not installed - OCR functionality disabled")
 
+from .ocr_types import OcrResult
+from .ocr_backends import TesseractBackend, EasyOcrBackend
+
 logger = logging.getLogger(__name__)
+
+
+@dataclass
+class OCRSampleLog:
+    """Log entry for a single OCR sample."""
+    video_time: float
+    raw_text: str
+    parsed_period: Optional[int]
+    parsed_time: Optional[str]
+    parsed_time_seconds: Optional[int]
+    success: bool
+    confidence: Optional[float] = None
+    backend: Optional[str] = None
+    failure_reason: Optional[str] = None
+    roi_used: Optional[Tuple[int, int, int, int]] = None
+    broadcast_type: str = "unknown"
+    preprocess_style: str = "standard"
+
+    def to_dict(self) -> Dict:
+        return {
+            "video_time": self.video_time,
+            "video_time_formatted": self._format_time(self.video_time),
+            "raw_ocr_text": self.raw_text,
+            "parsed": {
+                "period": self.parsed_period,
+                "time": self.parsed_time,
+                "time_seconds": self.parsed_time_seconds,
+                "confidence": self.confidence,
+                "backend": self.backend,
+            },
+            "success": self.success,
+            "failure_reason": self.failure_reason,
+            "roi": self.roi_used,
+            "broadcast_type": self.broadcast_type,
+            "preprocess_style": self.preprocess_style,
+        }
+
+    @staticmethod
+    def _format_time(seconds: float) -> str:
+        hours = int(seconds // 3600)
+        mins = int((seconds % 3600) // 60)
+        secs = int(seconds % 60)
+        if hours > 0:
+            return f"{hours}:{mins:02d}:{secs:02d}"
+        return f"{mins}:{secs:02d}"
+
+
+class OCRLogger:
+    """
+    Manages detailed logging for OCR sampling.
+
+    Creates a log file with every OCR sample attempt, useful for diagnosing
+    scoreboard detection issues, OCR failures, and period detection problems.
+    """
+
+    def __init__(self, output_dir: Optional[Path] = None, game_id: str = "unknown"):
+        self.output_dir = output_dir
+        self.game_id = game_id
+        self.samples: List[OCRSampleLog] = []
+        self.start_time = datetime.now()
+
+    def add_sample(self, sample: OCRSampleLog):
+        """Add an OCR sample log entry."""
+        self.samples.append(sample)
+
+    def write_logs(self):
+        """Write OCR logs to files."""
+        if not self.output_dir:
+            logger.debug("No output_dir specified - skipping OCR log file write")
+            return
+
+        output_path = Path(self.output_dir)
+        output_path.mkdir(parents=True, exist_ok=True)
+
+        # Calculate stats
+        total = len(self.samples)
+        successful = sum(1 for s in self.samples if s.success)
+        with_period = sum(1 for s in self.samples if s.success and s.parsed_period and s.parsed_period > 0)
+        failed = total - successful
+
+        # Write JSON log
+        json_path = output_path / "ocr_sampling_log.json"
+        try:
+            json_data = {
+                "game_id": self.game_id,
+                "timestamp": self.start_time.isoformat(),
+                "summary": {
+                    "total_samples": total,
+                    "successful": successful,
+                    "failed": failed,
+                    "with_period_detected": with_period,
+                    "success_rate": f"{100*successful/total:.1f}%" if total > 0 else "N/A",
+                    "period_detection_rate": f"{100*with_period/successful:.1f}%" if successful > 0 else "N/A",
+                },
+                "samples": [s.to_dict() for s in self.samples],
+            }
+            with open(json_path, "w", encoding="utf-8") as f:
+                json.dump(json_data, f, indent=2)
+            logger.info(f"Wrote OCR sampling log to: {json_path}")
+        except Exception as e:
+            logger.error(f"Failed to write OCR JSON log: {e}")
+
+        # Write human-readable log
+        txt_path = output_path / "ocr_sampling_log.txt"
+        try:
+            with open(txt_path, "w", encoding="utf-8") as f:
+                f.write(f"OCR SAMPLING LOG - {self.game_id}\n")
+                f.write(f"Generated: {self.start_time.isoformat()}\n")
+                f.write("=" * 70 + "\n\n")
+
+                # Summary
+                f.write("SUMMARY:\n")
+                f.write(f"  Total samples: {total}\n")
+                f.write(f"  Successful OCR reads: {successful} ({100*successful/total:.1f}%)\n" if total > 0 else "  Successful: N/A\n")
+                f.write(f"  Period detected: {with_period} ({100*with_period/successful:.1f}% of successful)\n" if successful > 0 else "  Period detected: N/A\n")
+                f.write(f"  Failed samples: {failed}\n")
+                f.write("\n")
+
+                # Period distribution
+                period_counts = {}
+                for s in self.samples:
+                    if s.success:
+                        p = s.parsed_period if s.parsed_period else 0
+                        period_counts[p] = period_counts.get(p, 0) + 1
+                f.write("PERIOD DISTRIBUTION:\n")
+                for p in sorted(period_counts.keys()):
+                    label = f"P{p}" if p > 0 else "Unknown"
+                    f.write(f"  {label}: {period_counts[p]} samples\n")
+                f.write("\n")
+
+                # Detailed samples
+                f.write("DETAILED SAMPLE LOG:\n")
+                f.write("-" * 70 + "\n")
+                for s in self.samples:
+                    vt = s.video_time
+                    vt_fmt = OCRSampleLog._format_time(vt)
+                    if s.success:
+                        period_str = f"P{s.parsed_period}" if s.parsed_period else "P?"
+                        f.write(f"[{vt_fmt}] {period_str} {s.parsed_time} | raw: \"{s.raw_text.strip()[:50]}\"\n")
+                    else:
+                        f.write(f"[{vt_fmt}] FAILED: {s.failure_reason} | raw: \"{s.raw_text.strip()[:50]}\"\n")
+
+            logger.info(f"Wrote OCR sampling text log to: {txt_path}")
+        except Exception as e:
+            logger.error(f"Failed to write OCR text log: {e}")
 
 
 class OCREngine:
@@ -33,26 +189,48 @@ class OCREngine:
         """
         self.config = config
         self.scoreboard_roi: Optional[Tuple[int, int, int, int]] = None  # (x, y, w, h)
+        self._last_sampling_stats: Dict[str, float] = {}
+        self._consecutive_bad_samples: int = 0
 
-        # Validate pytesseract is installed
-        if not TESSERACT_AVAILABLE:
+        # Backends (tesseract required for historical workflows, EasyOCR optional).
+        self._tesseract_backend = TesseractBackend()
+        enable_easy = bool(getattr(self.config, "OCR_ENABLE_EASYOCR_FALLBACK", True))
+        self._easyocr_backend = EasyOcrBackend(
+            langs=getattr(self.config, "OCR_EASYOCR_LANGS", ["en"]),
+            gpu=bool(getattr(self.config, "OCR_EASYOCR_GPU", False)),
+        ) if enable_easy else None
+
+        backend_order = list(getattr(self.config, "OCR_BACKENDS", ["tesseract", "easyocr"]))
+        self._backends = []
+        for name in backend_order:
+            n = str(name or "").strip().lower()
+            if n == "tesseract" and self._tesseract_backend.is_available():
+                self._backends.append(self._tesseract_backend)
+            elif n == "easyocr" and self._easyocr_backend is not None and self._easyocr_backend.is_available():
+                self._backends.append(self._easyocr_backend)
+
+        if not self._backends:
             raise RuntimeError(
-                "pytesseract not installed. Install with: pip install pytesseract"
+                "No OCR backend available. Install pytesseract (and tesseract-ocr) "
+                "and/or easyocr to enable OCR functionality."
             )
 
-        # Validate tesseract-ocr system package is installed
-        try:
-            pytesseract.get_tesseract_version()
-            logger.debug(f"Tesseract version: {pytesseract.get_tesseract_version()}")
-        except Exception as e:
-            raise RuntimeError(
-                "tesseract-ocr system package not found. "
-                "Install it:\n"
-                "  macOS: brew install tesseract\n"
-                "  Ubuntu/Debian: sudo apt-get install tesseract-ocr\n"
-                "  Windows: Download from https://github.com/UB-Mannheim/tesseract/wiki\n"
-                f"Error: {e}"
-            )
+        # Validate tesseract-ocr system package if we will use it.
+        if any(getattr(b, "name", "") == "tesseract" for b in self._backends):
+            if not TESSERACT_AVAILABLE:
+                raise RuntimeError("pytesseract not installed. Install with: pip install pytesseract")
+            try:
+                pytesseract.get_tesseract_version()
+                logger.debug(f"Tesseract version: {pytesseract.get_tesseract_version()}")
+            except Exception as e:
+                raise RuntimeError(
+                    "tesseract-ocr system package not found. "
+                    "Install it:\n"
+                    "  macOS: brew install tesseract\n"
+                    "  Ubuntu/Debian: sudo apt-get install tesseract-ocr\n"
+                    "  Windows: Download from https://github.com/UB-Mannheim/tesseract/wiki\n"
+                    f"Error: {e}"
+                )
 
     def detect_scoreboard_roi(
         self,
@@ -64,7 +242,7 @@ class OCREngine:
 
         Args:
             frame: Video frame (RGB or BGR)
-            method: Detection method ('auto', 'top', 'bottom')
+            method: Detection method ('auto', 'top', 'bottom', 'flohockey', 'yarmouth')
 
         Returns:
             ROI as (x, y, width, height) or None
@@ -80,6 +258,34 @@ class OCREngine:
                 # Assume scoreboard is in bottom portion
                 y_start = int(height * 0.85)
                 return (0, y_start, width, height - y_start)
+
+            elif method == 'flohockey':
+                # FloHockey overlay: banner in upper portion of frame
+                # Discovered position: near top of frame for 720p video
+                # Layout: FLOHOCKEY | Away | Score | Home | Score | Period | Time
+                # "1st 20:00" portion is at far right (~x=750 onwards)
+                # Use a taller ROI starting at the top edge to avoid clipping
+                # the period token ("1st"/"2nd"/"3rd") and digit tops.
+                y_start = 0
+                roi_height = max(40, int(height * 0.09))  # ~65px for 720p
+                # Capture the period token + clock reliably. 0.52 was too far right and
+                # could clip the period label (leading to noisy, period-less OCR reads).
+                x_start = int(width * 0.50)
+                roi_width = width - x_start - 5           # Leave small margin at right
+                roi = (x_start, y_start, roi_width, roi_height)
+                logger.info(f"FloHockey ROI: {roi}")
+                return roi
+
+            elif method == 'yarmouth':
+                # Yarmouth home broadcast: custom scorebug typically lives in the top-left.
+                # Use a generous ROI so auto-probing can lock onto it.
+                y_start = 0
+                roi_height = max(50, int(height * 0.14))  # ~100px for 720p
+                x_start = 0
+                roi_width = max(200, int(width * 0.70))
+                roi = (x_start, y_start, roi_width, roi_height)
+                logger.info(f"Yarmouth ROI: {roi}")
+                return roi
 
             else:  # 'auto'
                 # Default to top 15% of frame (most common for hockey)
@@ -107,70 +313,698 @@ class OCREngine:
     def extract_time_from_frame(
         self,
         frame: np.ndarray,
-        roi: Optional[Tuple[int, int, int, int]] = None
+        roi: Optional[Tuple[int, int, int, int]] = None,
+        broadcast_type: str = 'auto'
     ) -> Optional[Tuple[int, str]]:
         """
-        Extract game time from video frame
+        Extract game time from video frame (legacy API).
 
         Args:
             frame: Video frame (RGB or BGR)
             roi: Optional region of interest (x, y, w, h). Uses stored ROI if None.
+            broadcast_type: Type of broadcast ('auto', 'flohockey', 'yarmouth', 'standard')
 
         Returns:
             Tuple of (period, time_string) or None if extraction failed
             Example: (1, "15:23") for Period 1, 15:23 remaining
         """
-        if not TESSERACT_AVAILABLE:
+        detailed = self.extract_time_from_frame_detailed(frame, roi=roi, broadcast_type=broadcast_type)
+        if detailed is None:
             return None
+        return (int(detailed.period), str(detailed.time_str))
 
+    def extract_time_from_frame_detailed(
+        self,
+        frame: np.ndarray,
+        roi: Optional[Tuple[int, int, int, int]] = None,
+        broadcast_type: str = "auto",
+    ) -> Optional[OcrResult]:
+        """
+        Extract game time from video frame with diagnostics + confidence.
+        """
+        parsed, raw_text, conf, backend_name, used_broadcast, used_roi, preprocess_style = self._extract_time_from_frame_with_meta(
+            frame,
+            roi=roi,
+            broadcast_type=broadcast_type,
+        )
+        if parsed is None:
+            return None
+        period, time_str = parsed
         try:
-            # Use provided ROI or stored ROI
-            if roi is None:
-                roi = self.scoreboard_roi
-
-            # Auto-detect ROI if not set
-            if roi is None:
-                roi = self.detect_scoreboard_roi(frame)
-
-            if roi is None:
-                logger.warning("No ROI available for time extraction")
-                return None
-
-            # Extract ROI from frame
-            x, y, w, h = roi
-            scoreboard = frame[y:y+h, x:x+w]
-
-            # Preprocess for better OCR
-            processed = self._preprocess_for_ocr(scoreboard)
-
-            # Run OCR
-            text = pytesseract.image_to_string(
-                processed,
-                config='--psm 6 --oem 3 -c tessedit_char_whitelist=0123456789:. PeriodOT'
-            )
-
-            logger.debug(f"OCR raw text: {text}")
-
-            # Parse time and period from text
-            result = self._parse_time_text(text)
-
-            if result:
-                period, time_str = result
-                logger.debug(f"Extracted: Period {period}, Time {time_str}")
-                return result
-
+            seconds = int(self._time_to_seconds(str(time_str)))
+        except Exception:
             return None
+        return OcrResult(
+            period=int(period),
+            time_str=str(time_str),
+            time_seconds=int(seconds),
+            confidence=float(conf),
+            raw_text=str(raw_text or ""),
+            backend=str(backend_name or "unknown"),
+            broadcast_type=str(used_broadcast or "unknown"),
+            roi=used_roi,
+            preprocess_style=str(preprocess_style or "standard"),
+        )
+
+    def _score_candidate(self, parsed: Optional[Tuple[int, str]], confidence: float) -> float:
+        score = 0.0
+        if parsed is not None:
+            score += 50.0
+            try:
+                if int(parsed[0]) != 0:
+                    score += 25.0
+            except Exception:
+                pass
+        score += max(0.0, min(100.0, float(confidence))) * 0.5
+        return score
+
+    def _tesseract_configs_for_broadcast(self, broadcast_type: str) -> List[str]:
+        bt = str(broadcast_type or "standard").lower()
+        if bt in {"flohockey", "yarmouth"}:
+            return ["--psm 7 --oem 3"]
+        # "standard": keep a whitelist variant and a looser variant.
+        return [
+            "--psm 7 --oem 3 -c tessedit_char_whitelist=0123456789:OTSO.",
+            "--psm 6 --oem 3",
+        ]
+
+    def _candidate_rois(self, frame: np.ndarray) -> List[Tuple[str, Tuple[int, int, int, int]]]:
+        height, width = frame.shape[:2]
+        rois: List[Tuple[str, Tuple[int, int, int, int]]] = []
+
+        # Known broadcast layouts first.
+        fh = self.detect_scoreboard_roi(frame, method="flohockey")
+        if fh is not None:
+            rois.append(("flohockey", fh))
+        ya = self.detect_scoreboard_roi(frame, method="yarmouth")
+        if ya is not None:
+            rois.append(("yarmouth", ya))
+
+        # Generic candidates (corners + top band).
+        roi_h = max(20, int(height * 0.22))
+        roi_w = max(50, int(width * 0.45))
+        rois.extend(
+            [
+                ("standard", (0, 0, roi_w, roi_h)),
+                ("standard", (width - roi_w, 0, roi_w, roi_h)),
+                ("standard", (0, height - roi_h, roi_w, roi_h)),
+                ("standard", (width - roi_w, height - roi_h, roi_w, roi_h)),
+            ]
+        )
+        auto_roi = self.detect_scoreboard_roi(frame, method="auto")
+        if auto_roi is not None:
+            rois.append(("standard", auto_roi))
+
+        return rois
+
+    def _select_best_settings(self, frame: np.ndarray) -> Tuple[str, Tuple[int, int, int, int], str, str]:
+        """
+        Pick the best (broadcast_type, roi, preprocess_style, backend_name) for this video.
+        """
+        best = None  # (score, parsed, raw, conf, bt, roi, style, backend)
+
+        for bt, candidate_roi in self._candidate_rois(frame):
+            x0, y0, w0, h0 = candidate_roi
+            probe = frame[y0:y0 + h0, x0:x0 + w0]
+
+            preprocess_variants = self._preprocess_variants(probe, base_style=bt if bt in {"flohockey", "yarmouth"} else "standard")
+            for style_name, processed in preprocess_variants:
+                for backend in self._backends:
+                    if getattr(backend, "name", "") == "tesseract":
+                        cfgs = self._tesseract_configs_for_broadcast(bt)
+                    else:
+                        cfgs = [None]
+                    for cfg in cfgs:
+                        bres = backend.read_text(processed, config=cfg)
+                        raw_text = str(bres.text or "")
+                        parsed = self._parse_time_text(raw_text)
+                        score = self._score_candidate(parsed, float(bres.confidence or 0.0))
+                        if best is None or score > best[0]:
+                            best = (score, parsed, raw_text, float(bres.confidence or 0.0), bt, candidate_roi, style_name, str(getattr(backend, "name", "unknown")))
+
+        if best is None:
+            # Last-resort defaults.
+            roi = self.detect_scoreboard_roi(frame, method="auto") or (0, 0, frame.shape[1], int(frame.shape[0] * 0.15))
+            return ("standard", roi, "standard", "tesseract")
+
+        _score, _parsed, _raw, _conf, bt, roi, style_name, backend_name = best
+        return (bt if bt in {"flohockey", "yarmouth"} else "standard", roi, style_name, backend_name)
+
+    def set_broadcast_type(self, broadcast_type: str):
+        """
+        Set the broadcast type for ROI detection and preprocessing
+
+        Args:
+            broadcast_type: 'flohockey', 'yarmouth', 'standard', or 'auto'
+        """
+        self._broadcast_type = broadcast_type
+        # Reset cached settings; caller is explicitly overriding.
+        self.scoreboard_roi = None
+        if hasattr(self, "_preprocess_style"):
+            try:
+                delattr(self, "_preprocess_style")
+            except Exception:
+                pass
+        if hasattr(self, "_backend_name"):
+            try:
+                delattr(self, "_backend_name")
+            except Exception:
+                pass
+        logger.info(f"Broadcast type set to: {broadcast_type}")
+
+    def _extract_time_from_frame_with_meta(
+        self,
+        frame: np.ndarray,
+        roi: Optional[Tuple[int, int, int, int]] = None,
+        broadcast_type: str = 'auto'
+    ) -> Tuple[Optional[Tuple[int, str]], str, float, str, str, Optional[Tuple[int, int, int, int]], str]:
+        """
+        Extract game time from video frame, also returning raw OCR metadata for logging.
+
+        Args:
+            frame: Video frame (RGB or BGR)
+            roi: Optional region of interest (x, y, w, h)
+            broadcast_type: Type of broadcast
+
+        Returns:
+            (result, raw_text, confidence, backend_name, used_broadcast_type, used_roi, preprocess_style)
+        """
+        try:
+            used_broadcast = str(broadcast_type or "auto").lower()
+            # One-time probe + cache for auto mode.
+            if used_broadcast == "auto":
+                detected = getattr(self, "_broadcast_type", None)
+                if not detected or self.scoreboard_roi is None or not hasattr(self, "_preprocess_style") or not hasattr(self, "_backend_name"):
+                    bt, roi_sel, style_sel, backend_sel = self._select_best_settings(frame)
+                    self._broadcast_type = bt
+                    self.scoreboard_roi = roi_sel
+                    self._preprocess_style = style_sel
+                    self._backend_name = backend_sel
+                used_broadcast = str(getattr(self, "_broadcast_type", "standard"))
+
+            # Choose ROI
+            used_roi = roi or self.scoreboard_roi
+            if used_roi is None:
+                method = used_broadcast if used_broadcast in {"flohockey", "yarmouth"} else "auto"
+                used_roi = self.detect_scoreboard_roi(frame, method=method)
+
+            if used_roi is None:
+                return None, "", 0.0, "unknown", used_broadcast, None, "standard"
+
+            x, y, w, h = used_roi
+            scoreboard = frame[y:y + h, x:x + w]
+
+            # Choose preprocess style (cached for auto; otherwise default for broadcast).
+            preprocess_style = getattr(self, "_preprocess_style", None)
+            if str(broadcast_type or "").lower() != "auto":
+                preprocess_style = used_broadcast if used_broadcast in {"flohockey", "yarmouth"} else "standard"
+            preprocess_style = str(preprocess_style or (used_broadcast if used_broadcast in {"flohockey", "yarmouth"} else "standard"))
+
+            processed = self._preprocess_for_ocr(scoreboard, style=preprocess_style)
+
+            # Choose backend
+            backend_name = str(getattr(self, "_backend_name", "tesseract"))
+            if str(broadcast_type or "").lower() != "auto":
+                # If user pinned broadcast type, prefer tesseract first, but allow fallback list.
+                backend_name = "tesseract"
+
+            backend = next((b for b in self._backends if str(getattr(b, "name", "")) == backend_name), None) or self._backends[0]
+            backend_name = str(getattr(backend, "name", "unknown"))
+
+            def _attempt_with(backend_obj):
+                name = str(getattr(backend_obj, "name", "unknown"))
+                cfgs = self._tesseract_configs_for_broadcast(used_broadcast) if name == "tesseract" else [None]
+                best_local = None  # (score, parsed, raw, conf, backend_name)
+                for cfg in cfgs:
+                    bres = backend_obj.read_text(processed, config=cfg)
+                    raw = str(bres.text or "")
+                    conf_f = float(bres.confidence or 0.0)
+                    parsed = self._parse_time_text(raw)
+                    score = self._score_candidate(parsed, conf_f)
+                    if best_local is None or score > best_local[0]:
+                        best_local = (score, parsed, raw, conf_f, name)
+                return best_local
+
+            best_attempt = _attempt_with(backend)
+
+            # Fast fallback: if parse failed, try other backends (e.g., EasyOCR) on the same processed ROI.
+            if best_attempt is None or best_attempt[1] is None:
+                for b in self._backends:
+                    if b is backend:
+                        continue
+                    alt = _attempt_with(b)
+                    if alt is None:
+                        continue
+                    if best_attempt is None or alt[0] > best_attempt[0]:
+                        best_attempt = alt
+
+            if best_attempt is None:
+                return None, "", 0.0, "unknown", used_broadcast, used_roi, preprocess_style
+
+            _score, parsed, raw_text, conf, backend_name = best_attempt
+            if parsed is not None and str(broadcast_type or "").lower() == "auto":
+                # Cache the winning backend for subsequent frames.
+                self._backend_name = backend_name
+
+            return parsed, str(raw_text or ""), float(conf or 0.0), str(backend_name or "unknown"), used_broadcast, used_roi, preprocess_style
 
         except Exception as e:
             logger.error(f"Failed to extract time from frame: {e}")
+            return None, "", 0.0, "unknown", str(broadcast_type or "unknown"), roi, "standard"
+
+    # Backwards-compatible alias for older callers.
+    def _extract_time_from_frame_with_raw(
+        self,
+        frame: np.ndarray,
+        roi: Optional[Tuple[int, int, int, int]] = None,
+        broadcast_type: str = "auto",
+    ) -> Tuple[Optional[Tuple[int, str]], str]:
+        parsed, raw_text, *_ = self._extract_time_from_frame_with_meta(frame, roi=roi, broadcast_type=broadcast_type)
+        return parsed, raw_text
+
+    def get_last_sampling_stats(self) -> Dict[str, float]:
+        """Stats from the most recent `sample_video_times` call."""
+        return dict(self._last_sampling_stats or {})
+
+    def probe_video_scoreboard(
+        self,
+        video_processor,
+        *,
+        start_time: float = 0.0,
+        samples: int = 60,
+    ) -> Dict:
+        """
+        Probe across the video to determine the most stable scoreboard settings.
+
+        Returns a JSON-serializable report and also installs the winning settings
+        into the engine cache (broadcast_type/roi/preprocess/backend).
+        """
+        report: Dict = {
+            "samples": [],
+            "summary": {},
+            "selected": {},
+        }
+
+        duration = float(getattr(video_processor, "duration", 0.0) or 0.0)
+        if duration <= 0:
+            report["summary"] = {"error": "video duration unknown"}
+            return report
+
+        # Save/restore current cache.
+        prev = {
+            "broadcast_type": getattr(self, "_broadcast_type", None),
+            "roi": self.scoreboard_roi,
+            "preprocess": getattr(self, "_preprocess_style", None),
+            "backend": getattr(self, "_backend_name", None),
+        }
+
+        try:
+            n = int(samples) if int(samples) > 0 else 1
+            n = max(1, min(200, n))
+            start = max(0.0, float(start_time or 0.0))
+            end = max(start, duration - 1.0)
+            if n == 1:
+                times = [start]
+            else:
+                step = (end - start) / float(n - 1)
+                times = [start + i * step for i in range(n)]
+
+            by_setting: Dict[str, Dict[str, float]] = {}
+            for t in times:
+                frame = video_processor.get_frame_at_time(float(t))
+                if frame is None:
+                    continue
+
+                bt, roi, style, backend = self._select_best_settings(frame)
+                # Apply and evaluate on this frame (auto path uses cached values).
+                self._broadcast_type = bt
+                self.scoreboard_roi = roi
+                self._preprocess_style = style
+                self._backend_name = backend
+
+                parsed, raw_text, conf, backend_name, used_broadcast, used_roi, preprocess_style = self._extract_time_from_frame_with_meta(
+                    frame, broadcast_type="auto"
+                )
+                score = self._score_candidate(parsed, float(conf or 0.0))
+                key = f"{used_broadcast}|{preprocess_style}|{backend_name}|{used_roi}"
+
+                agg = by_setting.setdefault(key, {"count": 0.0, "success": 0.0, "score_sum": 0.0})
+                agg["count"] += 1.0
+                agg["score_sum"] += float(score)
+                if parsed is not None:
+                    agg["success"] += 1.0
+
+                report["samples"].append(
+                    {
+                        "t": float(t),
+                        "settings": {
+                            "broadcast_type": used_broadcast,
+                            "roi": used_roi,
+                            "preprocess_style": preprocess_style,
+                            "backend": backend_name,
+                        },
+                        "raw_text": raw_text,
+                        "confidence": float(conf or 0.0),
+                        "parsed": {"period": parsed[0], "time": parsed[1]} if parsed else None,
+                        "score": float(score),
+                    }
+                )
+
+            # Select the most reliable setting: highest average score, tie-break by success rate.
+            best_key = None
+            best_tuple = None  # (avg_score, success_rate, key)
+            for key, agg in by_setting.items():
+                count = float(agg.get("count") or 0.0)
+                if count <= 0:
+                    continue
+                avg_score = float(agg.get("score_sum") or 0.0) / count
+                success_rate = float(agg.get("success") or 0.0) / count
+                tup = (avg_score, success_rate, key)
+                if best_tuple is None or tup > best_tuple:
+                    best_tuple = tup
+                    best_key = key
+
+            report["summary"] = {
+                "distinct_settings": len(by_setting),
+                "evaluated_samples": len(report["samples"]),
+            }
+
+            if best_key is None:
+                report["selected"] = {}
+                return report
+
+            # Parse back the selected settings key.
+            # key format: broadcast|preprocess|backend|roi_tuple
+            parts = best_key.split("|", 3)
+            sel_broadcast = parts[0] if len(parts) > 0 else "standard"
+            sel_preprocess = parts[1] if len(parts) > 1 else "standard"
+            sel_backend = parts[2] if len(parts) > 2 else "tesseract"
+            sel_roi = None
+            if len(parts) > 3:
+                roi_s = str(parts[3] or "")
+                nums = re.findall(r"-?\\d+", roi_s)
+                if len(nums) == 4:
+                    try:
+                        sel_roi = (int(nums[0]), int(nums[1]), int(nums[2]), int(nums[3]))
+                    except Exception:
+                        sel_roi = None
+
+            if isinstance(sel_roi, tuple) and len(sel_roi) == 4:
+                self.scoreboard_roi = sel_roi
+            else:
+                self.scoreboard_roi = None
+            self._broadcast_type = sel_broadcast
+            self._preprocess_style = sel_preprocess
+            self._backend_name = sel_backend
+            report["selected"] = {
+                "broadcast_type": sel_broadcast,
+                "roi": self.scoreboard_roi,
+                "preprocess_style": sel_preprocess,
+                "backend": sel_backend,
+                "avg_score": float(best_tuple[0]) if best_tuple else None,
+                "success_rate": float(best_tuple[1]) if best_tuple else None,
+            }
+            return report
+        finally:
+            # If selection did not succeed, restore previous cached values.
+            if not report.get("selected"):
+                if prev.get("broadcast_type") is not None:
+                    self._broadcast_type = prev["broadcast_type"]
+                else:
+                    if hasattr(self, "_broadcast_type"):
+                        try:
+                            delattr(self, "_broadcast_type")
+                        except Exception:
+                            pass
+                self.scoreboard_roi = prev.get("roi")
+                if prev.get("preprocess") is not None:
+                    self._preprocess_style = prev.get("preprocess")
+                else:
+                    if hasattr(self, "_preprocess_style"):
+                        try:
+                            delattr(self, "_preprocess_style")
+                        except Exception:
+                            pass
+                if prev.get("backend") is not None:
+                    self._backend_name = prev.get("backend")
+                else:
+                    if hasattr(self, "_backend_name"):
+                        try:
+                            delattr(self, "_backend_name")
+                        except Exception:
+                            pass
+
+    def _preprocess_variants(self, image: np.ndarray, *, base_style: str) -> List[Tuple[str, np.ndarray]]:
+        """
+        Return a small set of preprocessing variants to try during probing.
+
+        We keep this intentionally small: probing runs on a single frame but still
+        needs to be fast enough for unattended ingest.
+        """
+        style = str(base_style or "standard").lower()
+        variants = []
+        if style in {"flohockey"}:
+            variants = ["flohockey", "flohockey_sharp"]
+        elif style in {"yarmouth"}:
+            variants = ["yarmouth", "yarmouth_invert"]
+        else:
+            variants = ["standard", "standard_otsu"]
+
+        out: List[Tuple[str, np.ndarray]] = []
+        for v in variants:
+            try:
+                out.append((v, self._preprocess_for_ocr(image, style=v)))
+            except Exception:
+                continue
+        return out or [(style, self._preprocess_for_ocr(image, style=style))]
+
+    def find_game_start(
+        self,
+        video_processor,
+        search_start_minutes: int = 15,
+        max_search_minutes: int = 45,
+        scan_interval_seconds: int = 60
+    ) -> Optional[float]:
+        """
+        Auto-detect when the actual game starts (puck drop).
+
+        Algorithm:
+        1. Linear scan from search_start_minutes with scan_interval_seconds steps
+        2. Look for pattern: 20:00 readings, then a reading < 20:00
+        3. Once transition found, refine with smaller steps
+        4. Return video timestamp ~3 seconds before clock starts counting down
+
+        This is more robust than binary search because OCR can fail intermittently.
+
+        Args:
+            video_processor: VideoProcessor instance with loaded video
+            search_start_minutes: Start scanning from this point (default 15 min)
+            max_search_minutes: Stop scanning at this point (default 45 min)
+            scan_interval_seconds: Seconds between scan samples (default 60s)
+
+        Returns:
+            Video timestamp in seconds where puck drops, or None if not found
+        """
+        logger.info("=" * 60)
+        logger.info("AUTO-DETECTING GAME START")
+        logger.info("=" * 60)
+
+        duration = video_processor.duration
+        scan_start = min(search_start_minutes * 60, duration * 0.1)
+        scan_end = min(max_search_minutes * 60, duration * 0.5)
+
+        def check_time_at(timestamp: float) -> Optional[tuple]:
+            """Check OCR at timestamp, return (period, time_str, time_seconds) or None"""
+            frame = video_processor.get_frame_at_time(timestamp)
+            if frame is None:
+                return None
+            result = self.extract_time_from_frame(frame)
+            if result:
+                period, time_str = result
+                time_seconds = self._time_to_seconds(time_str)
+                return (period, time_str, time_seconds)
             return None
 
-    def _preprocess_for_ocr(self, image: np.ndarray) -> np.ndarray:
+        logger.info(f"Scanning from {scan_start/60:.1f} to {scan_end/60:.1f} minutes...")
+
+        # Phase 1: Find the 20:00 → <20:00 transition region
+        last_20_00_timestamp = None
+        first_running_timestamp = None
+        first_running_time = None
+
+        current_time = scan_start
+        while current_time <= scan_end:
+            result = check_time_at(current_time)
+
+            if result:
+                period, time_str, time_seconds = result
+                logger.debug(f"  {current_time/60:.1f}m: P{period} {time_str}")
+
+                if time_seconds >= 20 * 60:
+                    # Clock shows 20:00 - period hasn't started yet
+                    last_20_00_timestamp = current_time
+                    logger.info(f"  {current_time/60:.1f}m: Found 20:00 (pre-game)")
+                elif time_seconds < 20 * 60:
+                    # Clock is running (< 20:00) - game in progress
+                    if first_running_timestamp is None:
+                        first_running_timestamp = current_time
+                        first_running_time = time_str
+                        logger.info(f"  {current_time/60:.1f}m: Clock running at {time_str}")
+
+                        # If we found both, we have the transition region
+                        if last_20_00_timestamp is not None:
+                            break
+
+            current_time += scan_interval_seconds
+
+        # Phase 2: Refine the transition point
+        if last_20_00_timestamp is not None and first_running_timestamp is not None:
+            logger.info(f"Transition region: {last_20_00_timestamp/60:.1f}m - {first_running_timestamp/60:.1f}m")
+
+            # Fine scan within the transition region
+            game_start = self._refine_game_start(
+                video_processor,
+                last_20_00_timestamp,
+                first_running_timestamp,
+                check_time_at
+            )
+
+            if game_start is not None:
+                logger.info(f"Game starts at {game_start/60:.2f} minutes ({game_start:.0f}s)")
+                return game_start
+
+        elif first_running_timestamp is not None:
+            # Found running clock but not 20:00 - estimate from game time
+            # If clock shows 19:06, about 54 seconds have elapsed
+            result = check_time_at(first_running_timestamp)
+            if result:
+                period, time_str, time_seconds = result
+                elapsed_game_time = 20 * 60 - time_seconds  # How much of period has elapsed
+                estimated_start = first_running_timestamp - elapsed_game_time - 3
+                estimated_start = max(0, estimated_start)
+                logger.info(f"Estimated game start: {estimated_start/60:.2f} minutes (from clock {time_str})")
+                return estimated_start
+
+        logger.warning(f"Could not find game start within {max_search_minutes} minutes")
+        return None
+
+    def _refine_game_start(
+        self,
+        video_processor,
+        pre_start: float,
+        post_start: float,
+        check_func
+    ) -> Optional[float]:
+        """
+        Refine game start within a known transition region using finer sampling.
+
+        Args:
+            video_processor: Video processor instance
+            pre_start: Timestamp known to show 20:00
+            post_start: Timestamp known to show < 20:00
+            check_func: Function to check time at a timestamp
+
+        Returns:
+            Refined game start timestamp
+        """
+        # Sample every 10 seconds within the region
+        step = 10
+        last_20_00 = pre_start
+
+        current = pre_start + step
+        while current < post_start:
+            result = check_func(current)
+            if result:
+                period, time_str, time_seconds = result
+                if time_seconds >= 20 * 60:
+                    last_20_00 = current
+                elif time_seconds < 20 * 60:
+                    # Found transition - game started between last_20_00 and current
+                    # Puck drop is about 3 seconds before clock starts
+                    game_start = last_20_00 + (current - last_20_00) / 2
+                    game_start = max(0, game_start - 3)
+                    return game_start
+            current += step
+
+        # If we get here, return midpoint minus puck drop offset
+        game_start = (pre_start + post_start) / 2 - 3
+        return max(0, game_start)
+
+    def _binary_search_clock_start(
+        self,
+        video_processor,
+        low: float,
+        high: float,
+        precision: int,
+        check_func
+    ) -> Optional[float]:
+        """
+        Binary search to find where game starts (transition from no-time to time < 20:00)
+
+        Args:
+            video_processor: Video processor instance
+            low: Lower bound timestamp
+            high: Upper bound timestamp (known to have game content)
+            precision: Stop when range is within this many seconds
+            check_func: Function to check time at timestamp
+
+        Returns:
+            Timestamp where game starts
+        """
+        # First, verify high point has valid time
+        high_result = check_func(high)
+        if not high_result:
+            logger.warning("High point has no valid time - cannot binary search")
+            return high
+
+        iterations = 0
+        max_iterations = 20  # Safety limit
+
+        while (high - low) > precision and iterations < max_iterations:
+            mid = (low + high) / 2
+            iterations += 1
+
+            result = check_func(mid)
+
+            if result:
+                period, time_str, time_seconds = result
+                logger.debug(f"  Binary search: {mid/60:.1f}m -> P{period} {time_str}")
+
+                # If we find valid game time, game has started before this point
+                # But we need to check if it's actually game time (< 20:00) or just 20:00
+                if time_seconds < 20 * 60:
+                    # Game in progress here, search earlier
+                    high = mid
+                else:
+                    # Could be period start, check if game actually in progress
+                    low = mid
+            else:
+                # No time detected - game hasn't started yet, search later
+                logger.debug(f"  Binary search: {mid/60:.1f}m -> no time")
+                low = mid
+
+        # Return the point where we're confident game has started
+        # Add a small buffer to ensure we're past the very start
+        game_start = low
+
+        # Verify we can get valid time at our found start point
+        # If not, move forward slightly
+        for offset in [0, 30, 60, 90, 120]:
+            test_point = game_start + offset
+            if test_point <= high:
+                result = check_func(test_point)
+                if result and result[2] < 20 * 60:
+                    return test_point
+
+        return game_start
+
+    def _preprocess_for_ocr(self, image: np.ndarray, style: str = 'standard') -> np.ndarray:
         """
         Preprocess image for better OCR accuracy
 
         Args:
             image: Input image (RGB or BGR)
+            style: Preprocessing style ('standard', 'flohockey', 'yarmouth')
 
         Returns:
             Preprocessed grayscale image
@@ -178,16 +1012,53 @@ class OCREngine:
         try:
             # Convert to grayscale
             if len(image.shape) == 3:
-                gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+                # MoviePy frames are RGB; prefer RGB conversion but be tolerant.
+                try:
+                    gray = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+                except Exception:
+                    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
             else:
                 gray = image
 
             # Resize for better OCR (if too small)
             height = gray.shape[0]
-            if height < 50:
-                scale = 50 / height
+            min_height = 50
+            if style in {'flohockey', 'yarmouth'}:
+                min_height = 80
+            if height < min_height:
+                scale = min_height / height
                 gray = cv2.resize(gray, None, fx=scale, fy=scale, interpolation=cv2.INTER_CUBIC)
 
+            style = str(style or "standard").lower()
+
+            if style == 'flohockey':
+                # FloHockey: dark text on a light/gray banner. Hard thresholding
+                # can drop punctuation (:) or thin glyphs, producing noisy reads
+                # like "1244" instead of "12:44". Tesseract tends to do better on
+                # a resized grayscale image with mild edge-preserving denoise.
+                return cv2.bilateralFilter(gray, 5, 50, 50)
+
+            if style == 'flohockey_sharp':
+                base = cv2.bilateralFilter(gray, 5, 50, 50)
+                blur = cv2.GaussianBlur(base, (0, 0), sigmaX=1.0)
+                sharp = cv2.addWeighted(base, 1.6, blur, -0.6, 0)
+                return sharp
+
+            if style == 'yarmouth':
+                # Yarmouth scorebug varies; use a conservative contrast boost + binarization.
+                clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+                enhanced = clahe.apply(gray)
+                _, binary = cv2.threshold(enhanced, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+                return binary
+
+            if style == 'yarmouth_invert':
+                inv = cv2.bitwise_not(gray)
+                clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+                enhanced = clahe.apply(inv)
+                _, binary = cv2.threshold(enhanced, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+                return binary
+
+            # Standard preprocessing for other scoreboard types
             # Apply bilateral filter to reduce noise while keeping edges sharp
             denoised = cv2.bilateralFilter(gray, 5, 50, 50)
 
@@ -195,9 +1066,12 @@ class OCREngine:
             clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
             enhanced = clahe.apply(denoised)
 
-            # Apply thresholding
-            # Try adaptive thresholding first
-            binary = cv2.adaptiveThreshold(
+            if style == "standard_otsu":
+                _, binary = cv2.threshold(enhanced, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+                return binary
+
+            # Apply thresholding (default)
+            return cv2.adaptiveThreshold(
                 enhanced,
                 255,
                 cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
@@ -205,8 +1079,6 @@ class OCREngine:
                 11,
                 2
             )
-
-            return binary
 
         except Exception as e:
             logger.warning(f"Preprocessing failed, using original: {e}")
@@ -222,44 +1094,85 @@ class OCREngine:
         Returns:
             Tuple of (period, time_string) or None
         """
-        # Clean up text
-        text = text.strip().upper()
+        text = str(text or "").strip().upper()
 
-        # Patterns to match
-        # Examples: "1st 15:23", "P2 12:00", "Period 3 5:45", "OT 4:23"
-        patterns = [
-            r'(?:PERIOD\s*)?(\d)[SNRT][TD]?\s*(\d{1,2}:\d{2})',  # "1st 15:23" or "Period 1st 15:23"
-            r'P(?:ERIOD)?\s*(\d)\s*(\d{1,2}:\d{2})',             # "P1 15:23" or "Period 1 15:23"
-            r'(\d)\s*(\d{1,2}:\d{2})',                           # "1 15:23"
-            r'(OT)\s*(\d{1,2}:\d{2})',                           # "OT 4:23"
-        ]
+        # Pre-game clock (e.g., "PRE 7:19") is not the in-game clock; ignore so game-start
+        # detection and timestamp sampling don't lock onto the wrong timer.
+        if "PRE" in text:
+            return None
 
-        for pattern in patterns:
-            match = re.search(pattern, text)
-            if match:
-                period_str, time_str = match.groups()
+        # Common OCR mistakes
+        text = re.sub(r"\b0T\b", "OT", text)  # 0T -> OT
+        text = re.sub(r"\s+", " ", text).strip()
 
-                # Convert period to int (OT = 4)
-                if period_str.upper() == 'OT':
-                    period = 4
-                else:
-                    try:
-                        period = int(period_str)
-                    except ValueError:
-                        continue
+        def _clean_time(mm: str, ss: str) -> str:
+            m = str(mm or "").upper().replace("U", "0").replace("O", "0")
+            s = str(ss or "").upper().replace("U", "0").replace("O", "0")
+            return f"{m}:{s}"
 
-                # Validate time format
-                if self._validate_time_format(time_str):
-                    return (period, time_str)
-
-        # Try to find just a time string if period not found
-        time_match = re.search(r'(\d{1,2}:\d{2})', text)
-        if time_match:
-            time_str = time_match.group(1)
+        def _try_return(period: int, mm: str, ss: str) -> Optional[Tuple[int, str]]:
+            try:
+                p = int(period)
+            except Exception:
+                return None
+            if not (0 <= p <= 5):
+                return None
+            time_str = _clean_time(mm, ss)
             if self._validate_time_format(time_str):
-                # Default to period 1 if we can't determine period
-                logger.warning(f"Found time {time_str} but no period - defaulting to P1")
-                return (1, time_str)
+                return (p, time_str)
+            return None
+
+        # FloHockey-style period tokens. These patterns intentionally allow the colon to be missing:
+        #   "1ST 19:56", "1ST1956", "1ST 19 56"
+        fh_patterns = [
+            (1, r"\b[01IJL][ST]{2}\s*([0-9UO]{1,2})\s*[:\.]?\s*([0-9UO]{2})\b"),
+            (2, r"\b[2Z@][ND]{2}\s*([0-9UO]{1,2})\s*[:\.]?\s*([0-9UO]{2})\b"),
+            (3, r"\b3[RD]{2}\s*([0-9UO]{1,2})\s*[:\.]?\s*([0-9UO]{2})\b"),
+        ]
+        for p, pat in fh_patterns:
+            m = re.search(pat, text, re.IGNORECASE)
+            if m:
+                mm, ss = m.group(1), m.group(2)
+                out = _try_return(p, mm, ss)
+                if out:
+                    return out
+
+        # OT / SO
+        m = re.search(r"\b(OT|SO)\s*([0-9UO]{1,2})\s*[:\.]?\s*([0-9UO]{2})\b", text, re.IGNORECASE)
+        if m:
+            period = 4 if m.group(1).upper() == "OT" else 5
+            out = _try_return(period, m.group(2), m.group(3))
+            if out:
+                return out
+
+        # Traditional patterns: "P2 12:00", "PERIOD 3 5:45", or "1 15:23"
+        m = re.search(r"\bPERIOD\s*(\d)\s*([0-9UO]{1,2})\s*[:\.]?\s*([0-9UO]{2})\b", text, re.IGNORECASE)
+        if m:
+            out = _try_return(int(m.group(1)), m.group(2), m.group(3))
+            if out:
+                return out
+
+        # Some broadcasts show "1 15:23" (digit + whitespace + clock). Require whitespace so we don't
+        # mis-parse "19:44" as "P1 9:44".
+        m = re.search(r"\b(\d)\s+([0-9UO]{1,2})\s*[:\.]?\s*([0-9UO]{2})\b", text, re.IGNORECASE)
+        if m:
+            out = _try_return(int(m.group(1)), m.group(2), m.group(3))
+            if out:
+                return out
+
+        m = re.search(r"\bP(?:ERIOD)?\s*(\d)\s*([0-9UO]{1,2})\s*[:\.]?\s*([0-9UO]{2})\b", text, re.IGNORECASE)
+        if m:
+            out = _try_return(int(m.group(1)), m.group(2), m.group(3))
+            if out:
+                return out
+
+        # Time-only fallback. Period token is frequently missed; return period=0 and infer later.
+        m = re.search(r"\b([0-9UO]{1,2})\s*[:\.]?\s*([0-9UO]{2})\b", text, re.IGNORECASE)
+        if m:
+            out = _try_return(0, m.group(1), m.group(2))
+            if out:
+                logger.debug(f"Found time {out[1]} but no period - marking period unknown (P0)")
+                return out
 
         logger.debug(f"Could not parse time from: {text}")
         return None
@@ -297,6 +1210,13 @@ class OCREngine:
                 )
                 return False
 
+            # The broadcast clock never shows 20:xx (only 20:00 at a faceoff/start).
+            if minutes == 20 and seconds != 0:
+                logger.warning(
+                    f"Invalid time '{time_str}' - 20:xx only valid as 20:00"
+                )
+                return False
+
             return True
 
         except (ValueError, AttributeError) as e:
@@ -306,11 +1226,14 @@ class OCREngine:
     def sample_video_times(
         self,
         video_processor,
-        sample_interval: int = 30,
+        sample_interval: int = 5,
         max_samples: Optional[int] = None,
         debug_dir: Optional[Path] = None,
         parallel: bool = True,
-        workers: int = 4
+        workers: int = 4,
+        start_time: float = 0.0,
+        output_dir: Optional[Path] = None,
+        game_id: str = "unknown"
     ) -> List[Dict]:
         """
         Sample time from video at regular intervals
@@ -322,33 +1245,41 @@ class OCREngine:
             debug_dir: Optional directory to save debug frames (auto-saves first/middle/last)
             parallel: Whether to use parallel processing (default True)
             workers: Number of worker threads for parallel processing (default 4)
+            start_time: Video timestamp to start sampling from (default 0.0)
+            output_dir: Optional directory to write OCR logs (for diagnostics)
+            game_id: Game identifier for logging
 
         Returns:
             List of dictionaries with {video_time, period, game_time}
         """
-        # Use parallel or sequential implementation based on flag
+        # NOTE: MoviePy's VideoFileClip/FFMPEG reader is not thread-safe. In practice,
+        # calling `get_frame_at_time()` concurrently against the same clip can
+        # serialize/hang and make OCR *dramatically* slower.
+        #
+        # We keep the `parallel` flag for API compatibility, but force sequential
+        # frame sampling (which is fast enough at 5s intervals) to ensure reliability.
         if parallel and workers > 1:
-            return self._sample_video_times_parallel(
-                video_processor,
-                sample_interval,
-                max_samples,
-                debug_dir,
-                workers
-            )
-        else:
-            return self._sample_video_times_sequential(
-                video_processor,
-                sample_interval,
-                max_samples,
-                debug_dir
-            )
+            logger.info("Parallel OCR sampling disabled (VideoFileClip is not thread-safe); using sequential sampling")
+
+        return self._sample_video_times_sequential(
+            video_processor,
+            sample_interval,
+            max_samples,
+            debug_dir,
+            start_time,
+            output_dir=output_dir,
+            game_id=game_id,
+        )
 
     def _sample_video_times_sequential(
         self,
         video_processor,
-        sample_interval: int = 30,
+        sample_interval: int = 5,
         max_samples: Optional[int] = None,
-        debug_dir: Optional[Path] = None
+        debug_dir: Optional[Path] = None,
+        start_time: float = 0.0,
+        output_dir: Optional[Path] = None,
+        game_id: str = "unknown"
     ) -> List[Dict]:
         """
         Sample time from video sequentially (original implementation)
@@ -358,17 +1289,27 @@ class OCREngine:
             sample_interval: Seconds between samples
             max_samples: Maximum number of samples (None for all)
             debug_dir: Optional directory to save debug frames (auto-saves first/middle/last)
+            start_time: Video timestamp to start sampling from (default 0.0)
+            output_dir: Optional directory to write OCR logs
+            game_id: Game identifier for logging
 
         Returns:
             List of dictionaries with {video_time, period, game_time}
         """
         timestamps = []
 
+        # Initialize OCR logger for detailed diagnostics
+        ocr_logger = OCRLogger(
+            output_dir=Path(output_dir) if output_dir else None,
+            game_id=game_id
+        )
+
         try:
             duration = video_processor.duration
 
             # Calculate total number of samples for progress bar
-            total_samples = int(duration / sample_interval) + 1
+            sample_duration = duration - start_time
+            total_samples = int(sample_duration / sample_interval) + 1
             if max_samples:
                 total_samples = min(total_samples, max_samples)
 
@@ -389,8 +1330,10 @@ class OCREngine:
                 ncols=100
             )
 
-            current_time = 0.0
+            current_time = start_time
             sample_count = 0
+
+            logger.info(f"Starting OCR sampling from {start_time/60:.1f} minutes")
 
             while current_time < duration:
                 # Check max samples limit
@@ -408,20 +1351,80 @@ class OCREngine:
                         self.save_debug_frame(frame, debug_path, roi)
                         logger.debug(f"Saved debug frame: {debug_path}")
 
-                    # Extract time from frame
-                    result = self.extract_time_from_frame(frame)
+                    # Extract time from frame with metadata for logging
+                    result, raw_text, conf, backend_name, used_broadcast, used_roi, preprocess_style = self._extract_time_from_frame_with_meta(frame)
 
                     if result:
                         period, game_time = result
+                        time_seconds = self._time_to_seconds(game_time)
                         timestamps.append({
                             'video_time': current_time,
                             'period': period,
                             'game_time': game_time,
-                            'game_time_seconds': self._time_to_seconds(game_time)
+                            'game_time_seconds': time_seconds,
+                            'ocr_confidence': float(conf or 0.0),
+                            'ocr_backend': str(backend_name or "unknown"),
+                            'ocr_broadcast_type': str(used_broadcast or "unknown"),
+                            'ocr_preprocess': str(preprocess_style or "standard"),
                         })
                         logger.debug(f"Sample at {current_time:.1f}s: P{period} {game_time}")
                         # Update progress bar description with latest result
-                        progress_bar.set_postfix({'latest': f"P{period} {game_time}"})
+                        progress_bar.set_postfix({'latest': f"P{period} {game_time}", 'conf': f"{float(conf or 0.0):.0f}"})
+
+                        # Log successful sample
+                        ocr_logger.add_sample(OCRSampleLog(
+                            video_time=current_time,
+                            raw_text=raw_text,
+                            parsed_period=period,
+                            parsed_time=game_time,
+                            parsed_time_seconds=time_seconds,
+                            confidence=float(conf or 0.0),
+                            backend=str(backend_name or "unknown"),
+                            success=True,
+                            roi_used=used_roi or self.scoreboard_roi,
+                            broadcast_type=str(used_broadcast or getattr(self, '_broadcast_type', 'unknown')),
+                            preprocess_style=str(preprocess_style or "standard"),
+                        ))
+                        self._consecutive_bad_samples = 0
+                    else:
+                        # Log failed sample
+                        ocr_logger.add_sample(OCRSampleLog(
+                            video_time=current_time,
+                            raw_text=raw_text or "",
+                            parsed_period=None,
+                            parsed_time=None,
+                            parsed_time_seconds=None,
+                            confidence=float(conf or 0.0),
+                            backend=str(backend_name or "unknown"),
+                            success=False,
+                            failure_reason="Could not parse time from OCR text",
+                            roi_used=used_roi or self.scoreboard_roi,
+                            broadcast_type=str(used_broadcast or getattr(self, '_broadcast_type', 'unknown')),
+                            preprocess_style=str(preprocess_style or "standard"),
+                        ))
+                        self._consecutive_bad_samples += 1
+
+                        # If OCR quality collapses, drop cached ROI/broadcast and re-probe.
+                        reset_n = int(getattr(self.config, "OCR_HEALTH_BAD_CONSECUTIVE_SAMPLES_RESET", 10) or 10)
+                        if self._consecutive_bad_samples >= max(3, reset_n):
+                            logger.info("OCR health collapsed; resetting cached ROI/broadcast and re-probing")
+                            self.scoreboard_roi = None
+                            if hasattr(self, "_broadcast_type"):
+                                try:
+                                    delattr(self, "_broadcast_type")
+                                except Exception:
+                                    pass
+                            if hasattr(self, "_preprocess_style"):
+                                try:
+                                    delattr(self, "_preprocess_style")
+                                except Exception:
+                                    pass
+                            if hasattr(self, "_backend_name"):
+                                try:
+                                    delattr(self, "_backend_name")
+                                except Exception:
+                                    pass
+                            self._consecutive_bad_samples = 0
 
                 # Update progress bar
                 progress_bar.update(1)
@@ -433,6 +1436,24 @@ class OCREngine:
             # Close progress bar
             progress_bar.close()
 
+            # Write OCR logs
+            ocr_logger.write_logs()
+
+            # Persist sampling stats for pipeline-level health decisions.
+            total = float(total_samples or 0)
+            successful = float(len([s for s in ocr_logger.samples if s.success]))
+            with_period = float(len([s for s in ocr_logger.samples if s.success and (s.parsed_period or 0) > 0]))
+            confs = [float(s.confidence) for s in ocr_logger.samples if s.success and s.confidence is not None]
+            avg_conf = float(sum(confs) / len(confs)) if confs else 0.0
+            self._last_sampling_stats = {
+                "total_samples": total,
+                "successful": successful,
+                "with_period": with_period,
+                "success_rate": (successful / total) if total > 0 else 0.0,
+                "period_rate": (with_period / successful) if successful > 0 else 0.0,
+                "avg_confidence": avg_conf,
+            }
+
             logger.info(f"Sampled {len(timestamps)} timestamps from video")
             if debug_dir and debug_sample_indices:
                 logger.info(f"Debug frames saved to: {debug_dir}")
@@ -441,15 +1462,18 @@ class OCREngine:
 
         except Exception as e:
             logger.error(f"Failed to sample video times: {e}")
+            # Still write logs on failure
+            ocr_logger.write_logs()
             return []
 
     def _sample_video_times_parallel(
         self,
         video_processor,
-        sample_interval: int = 30,
+        sample_interval: int = 5,
         max_samples: Optional[int] = None,
         debug_dir: Optional[Path] = None,
-        workers: int = 4
+        workers: int = 4,
+        start_time: float = 0.0
     ) -> List[Dict]:
         """
         Sample time from video in parallel using ThreadPoolExecutor
@@ -460,6 +1484,7 @@ class OCREngine:
             max_samples: Maximum number of samples (None for all)
             debug_dir: Optional directory to save debug frames (auto-saves first/middle/last)
             workers: Number of worker threads (default 4)
+            start_time: Video timestamp to start sampling from (default 0.0)
 
         Returns:
             List of dictionaries with {video_time, period, game_time}
@@ -469,9 +1494,11 @@ class OCREngine:
         try:
             duration = video_processor.duration
 
+            logger.info(f"Starting parallel OCR sampling from {start_time/60:.1f} minutes")
+
             # Calculate all sample times
             sample_times = []
-            current_time = 0.0
+            current_time = start_time
             while current_time < duration:
                 sample_times.append(current_time)
                 current_time += sample_interval

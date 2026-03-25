@@ -258,11 +258,19 @@ class PipelineResult:
     """Result from running the highlight extraction pipeline"""
 
     success: bool
-    game_info: GameInfo
+    # May be None if the pipeline fails before filename parsing / setup.
+    game_info: Optional[GameInfo]
     events_found: int
     events_matched: int
     clips_created: int
     highlights_path: Optional[str] = None
+    paused_for_review: bool = False
+    resume_state_path: Optional[str] = None
+    major_review_folder_url: Optional[str] = None
+    # Failure diagnostics (best-effort; intended to be stable machine-readable signals)
+    failed_step: Optional[int] = None
+    failed_reason: Optional[str] = None
+    exception_type: Optional[str] = None
     errors: List[str] = field(default_factory=list)
     warnings: List[str] = field(default_factory=list)
 
@@ -274,6 +282,10 @@ class PipelineResult:
 
     def __post_init__(self):
         """Validate result data"""
+        if self.failed_step is not None:
+            if not isinstance(self.failed_step, int) or self.failed_step <= 0:
+                raise ValueError(f"Invalid failed_step {self.failed_step}, expected positive int")
+
         if self.events_found < 0:
             raise ValueError(f"Invalid events_found {self.events_found}, must be >= 0")
 
@@ -299,7 +311,13 @@ class PipelineResult:
         """Convert to dictionary for JSON serialization"""
         return {
             'success': self.success,
-            'game_info': self.game_info.__dict__,
+            'paused_for_review': self.paused_for_review,
+            'resume_state_path': self.resume_state_path,
+            'major_review_folder_url': self.major_review_folder_url,
+            'failed_step': self.failed_step,
+            'failed_reason': self.failed_reason,
+            'exception_type': self.exception_type,
+            'game_info': self.game_info.__dict__ if self.game_info else None,
             'events_found': self.events_found,
             'events_matched': self.events_matched,
             'clips_created': self.clips_created,

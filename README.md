@@ -164,6 +164,8 @@ Static JSON Files (GitHub Pages)
 Yodeck Display (index.html fetches JSON every 10 min)
 ```
 
+Set `HOCKEYTECH_API_KEY` before running the HockeyTech-backed scripts locally or in CI.
+
 ## Key Design Decisions
 
 ### Amherst Ramblers Headshots Served from API

@@ -9,9 +9,9 @@ import numpy as np
 from tqdm import tqdm
 
 try:
-    from moviepy import VideoFileClip, concatenate_videoclips
+    from moviepy import VideoFileClip, concatenate_videoclips, TextClip, CompositeVideoClip
 except ImportError:
-    from moviepy.editor import VideoFileClip, concatenate_videoclips
+    from moviepy.editor import VideoFileClip, concatenate_videoclips, TextClip, CompositeVideoClip
 
 logger = logging.getLogger(__name__)
 
@@ -82,15 +82,23 @@ class VideoProcessor:
         self,
         start_time: float,
         end_time: float,
-        output_path: Optional[Path] = None
+        output_path: Optional[Path] = None,
+        overlay_config: Optional[dict] = None
     ) -> Optional[VideoFileClip]:
         """
-        Create a video clip between start and end times
+        Create a video clip between start and end times with optional text overlay.
 
         Args:
             start_time: Start time in seconds
             end_time: End time in seconds
             output_path: Optional path to save clip
+            overlay_config: Optional overlay configuration dict with:
+                - scorer_name: Name to display
+                - is_power_play: Add "PP" suffix
+                - is_short_handed: Add "SH" suffix
+                - is_penalty: True if this is a penalty clip
+                - infraction: Penalty infraction text
+                - minutes: Penalty minutes
 
         Returns:
             VideoFileClip object or None if failed
@@ -109,6 +117,10 @@ class VideoProcessor:
             # Create subclip
             clip = self.video_clip.subclipped(start_time, end_time)
 
+            # Add overlay if configured
+            if overlay_config and getattr(self.config, 'OVERLAY_ENABLED', True):
+                clip = self._add_overlay(clip, overlay_config)
+
             # Save if output path provided
             if output_path:
                 self._write_video(clip, output_path)
@@ -118,6 +130,122 @@ class VideoProcessor:
         except Exception as e:
             logger.error(f"Failed to create clip: {e}")
             return None
+
+    def _add_overlay(self, clip: VideoFileClip, overlay_config: dict) -> VideoFileClip:
+        """
+        Add text overlay to a clip.
+
+        Args:
+            clip: The video clip
+            overlay_config: Overlay configuration
+
+        Returns:
+            Clip with overlay composited
+        """
+        try:
+            # Build overlay text
+            if overlay_config.get('is_penalty'):
+                # Penalty clip overlay: "Player - Infraction (2 min)"
+                player = overlay_config.get('player_name', 'Unknown')
+                infraction = overlay_config.get('infraction', '')
+                minutes = overlay_config.get('minutes', 2)
+                display_text = f"{player} - {infraction} ({minutes} min)"
+            else:
+                # Goal clip overlay: "Scorer Name PP" or "Scorer Name"
+                scorer = overlay_config.get('scorer_name', '')
+                if not scorer:
+                    return clip  # No overlay if no scorer name
+
+                suffix = ''
+                if overlay_config.get('is_power_play'):
+                    suffix = ' PP'
+                elif overlay_config.get('is_short_handed'):
+                    suffix = ' SH'
+                elif overlay_config.get('is_empty_net'):
+                    suffix = ' EN'
+
+                display_text = f"{scorer}{suffix}"
+
+            # Create text clip
+            font_size = getattr(self.config, 'OVERLAY_FONT_SIZE', 42)
+            font = getattr(self.config, 'OVERLAY_FONT', 'Arial-Bold')
+            duration = getattr(self.config, 'OVERLAY_DURATION_SECONDS', 5.0)
+
+            # Limit overlay duration to clip duration
+            overlay_duration = min(duration, clip.duration)
+
+            txt_clip = TextClip(
+                text=display_text,
+                font_size=font_size,
+                color='white',
+                font=font,
+                stroke_color='black',
+                stroke_width=2
+            )
+
+            # Position in lower-third area with margin
+            margin_x = 40
+            margin_y = 60
+
+            txt_clip = (txt_clip
+                        .with_position((margin_x, clip.h - txt_clip.h - margin_y))
+                        .with_duration(overlay_duration))
+
+            # Composite overlay onto clip
+            result = CompositeVideoClip([clip, txt_clip])
+
+            logger.debug(f"Added overlay: '{display_text}'")
+            return result
+
+        except Exception as e:
+            logger.warning(f"Failed to add overlay, returning clip without: {e}")
+            return clip
+
+    def _build_overlay_config(self, event: dict) -> Optional[dict]:
+        """
+        Build overlay configuration from event data.
+
+        Args:
+            event: Event dictionary
+
+        Returns:
+            Overlay config dict or None if no overlay needed
+        """
+        event_type = event.get('type', '').lower()
+
+        if event_type == 'goal':
+            # Extract scorer name
+            scorer = event.get('scorer', {})
+            if isinstance(scorer, dict):
+                scorer_name = scorer.get('name', '')
+            else:
+                scorer_name = str(scorer) if scorer else ''
+
+            if not scorer_name:
+                return None
+
+            return {
+                'scorer_name': scorer_name,
+                'is_power_play': event.get('power_play', False),
+                'is_short_handed': event.get('short_handed', False),
+                'is_empty_net': event.get('empty_net', False)
+            }
+
+        elif event_type == 'penalty':
+            player = event.get('player', {})
+            if isinstance(player, dict):
+                player_name = player.get('name', 'Unknown')
+            else:
+                player_name = str(player) if player else 'Unknown'
+
+            return {
+                'is_penalty': True,
+                'player_name': player_name,
+                'infraction': event.get('infraction', ''),
+                'minutes': event.get('minutes', 2)
+            }
+
+        return None
 
     def create_highlight_clips(
         self,
@@ -160,9 +288,12 @@ class VideoProcessor:
                     progress_bar.set_postfix({'status': 'skipped'})
                     continue
 
+                event_before = float(event.get('before_seconds', before_seconds))
+                event_after = float(event.get('after_seconds', after_seconds))
+
                 # Calculate clip boundaries
-                start_time = max(0, video_time - before_seconds)
-                end_time = min(self.duration, video_time + after_seconds)
+                start_time = max(0, video_time - event_before)
+                end_time = min(self.duration, video_time + event_after)
 
                 # Create clip filename
                 event_type = event.get('type', 'event').upper()
@@ -175,10 +306,13 @@ class VideoProcessor:
                 # Update progress bar with current clip info
                 progress_bar.set_postfix({'clip': clip_filename[:30]})
 
+                # Build overlay configuration from event data
+                overlay_config = self._build_overlay_config(event)
+
                 # Create and save clip
                 logger.debug(f"Creating clip {i}/{len(events)}: {clip_filename}")
 
-                clip = self.create_clip(start_time, end_time, clip_path)
+                clip = self.create_clip(start_time, end_time, clip_path, overlay_config)
 
                 if clip:
                     created_clips.append((event, clip_path))
@@ -281,17 +415,36 @@ class VideoProcessor:
             # Ensure parent directory exists
             output_path.parent.mkdir(parents=True, exist_ok=True)
 
-            # Write video with codec settings from config
-            codec = getattr(self.config, 'OUTPUT_CODEC', 'mpeg4')
+            # Write video with codec settings from config (MoviePy -> ffmpeg)
+            codec = getattr(self.config, 'OUTPUT_CODEC', 'libx264')
+            preset = getattr(self.config, 'OUTPUT_PRESET', 'medium')
+            audio_codec = getattr(self.config, 'OUTPUT_AUDIO_CODEC', 'aac')
+            audio_bitrate = getattr(self.config, 'OUTPUT_AUDIO_BITRATE', None)
+            audio_fps = getattr(self.config, 'OUTPUT_AUDIO_SAMPLE_RATE', 44100)
+            pixel_format = getattr(self.config, 'OUTPUT_PIXEL_FORMAT', None)
+            threads = getattr(self.config, 'OUTPUT_THREADS', None)
+
+            ffmpeg_params = []
+            crf = getattr(self.config, 'OUTPUT_CRF', None)
+            if crf is not None and str(codec).lower() in {'libx264', 'libx265'}:
+                ffmpeg_params += ['-crf', str(crf)]
+            # Web playback friendliness.
+            ffmpeg_params += ['-movflags', '+faststart']
 
             # Try different write methods for MoviePy 1.x vs 2.x compatibility
             try:
                 clip.write_videofile(
                     str(output_path),
                     codec=codec,
-                    audio_codec='aac',
+                    preset=preset,
+                    audio_codec=audio_codec,
+                    audio_bitrate=audio_bitrate,
+                    audio_fps=audio_fps,
                     temp_audiofile=None,
                     remove_temp=True,
+                    threads=threads,
+                    ffmpeg_params=ffmpeg_params or None,
+                    pixel_format=pixel_format,
                     logger=None
                 )
             except TypeError:
@@ -299,9 +452,15 @@ class VideoProcessor:
                 clip.write_videofile(
                     str(output_path),
                     codec=codec,
-                    audio_codec='aac',
+                    preset=preset,
+                    audio_codec=audio_codec,
+                    audio_bitrate=audio_bitrate,
+                    audio_fps=audio_fps,
                     temp_audiofile=None,
-                    remove_temp=True
+                    remove_temp=True,
+                    threads=threads,
+                    ffmpeg_params=ffmpeg_params or None,
+                    pixel_format=pixel_format,
                 )
 
             logger.debug(f"Video written to {output_path}")

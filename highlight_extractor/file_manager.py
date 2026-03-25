@@ -9,6 +9,8 @@ from datetime import datetime
 from typing import Dict, Optional, List
 import logging
 
+from .version import __version__ as HIGHLIGHT_EXTRACTOR_VERSION
+
 logger = logging.getLogger(__name__)
 
 
@@ -92,6 +94,37 @@ class FileManager:
         Returns:
             Generic game info dictionary
         """
+        # Common replay naming pattern found in Drive inbox:
+        #   Replay- Home - 2026 Truro vs Amherst - Jan 17 @ 6 PM.ts
+        replay_pattern = (
+            r'^Replay-\s*(Home|Away)\s*-\s*'
+            r'(\d{4})\s+(.+?)\s+vs\s+(.+?)\s*-\s*'
+            r'([A-Za-z]{3,9})\s+(\d{1,2})\s*@\s*(\d{1,2})\s*(AM|PM)\b'
+        )
+        m = re.match(replay_pattern, filename, re.IGNORECASE)
+        if m:
+            perspective, year_str, team1, team2, month_str, day_str, hour_str, ampm = m.groups()
+            try:
+                dt = datetime.strptime(f"{year_str} {month_str} {day_str}", "%Y %b %d")
+            except Exception:
+                try:
+                    dt = datetime.strptime(f"{year_str} {month_str} {day_str}", "%Y %B %d")
+                except Exception:
+                    dt = datetime.now()
+
+            league = self._determine_league(team1, team2)
+            time_str = f"{int(hour_str)}.00{ampm.lower()}"
+            return {
+                'date': dt.strftime('%Y-%m-%d'),
+                'date_formatted': dt.strftime('%B %d, %Y'),
+                'home_team': team1.strip(),
+                'away_team': team2.strip(),
+                'home_away': perspective.lower(),
+                'time': time_str,
+                'league': league,
+                'filename': filename
+            }
+
         return {
             'date': datetime.now().strftime('%Y-%m-%d'),
             'date_formatted': datetime.now().strftime('%B %d, %Y'),
@@ -151,7 +184,7 @@ class FileManager:
 
         return False
 
-    def create_game_folder(self, game_info: Dict) -> Dict[str, Path]:
+    def create_game_folder(self, game_info: Dict, *, base_dir: Optional[Path] = None) -> Dict[str, Path]:
         """
         Create organized folder structure for game
 
@@ -166,7 +199,8 @@ class FileManager:
         folder_name = self._sanitize_folder_name(folder_name)
 
         # Base game directory
-        game_dir = self.config.GAMES_DIR / folder_name
+        root = base_dir if isinstance(base_dir, Path) else self.config.GAMES_DIR
+        game_dir = root / folder_name
 
         # Create subdirectories
         folders = {
@@ -189,6 +223,37 @@ class FileManager:
                     logger.error(f"Failed to create directory {path}: {e}")
 
         return folders
+
+    def create_game_folder_from_teams(
+        self,
+        *,
+        date: str,
+        home_team: str,
+        away_team: str,
+        league: str,
+        filename: str,
+        home_away: str = "unknown",
+        time_str: str = "unknown",
+        date_formatted: Optional[str] = None,
+        base_dir: Optional[Path] = None,
+    ) -> Dict[str, Path]:
+        """
+        Create a game folder from canonical team names, bypassing filename parsing.
+
+        This is used by ingestion workflows that can derive authoritative home/away names
+        from the box score (e.g., Drive ingest), even when filenames are ambiguous.
+        """
+        info = {
+            "date": date,
+            "date_formatted": date_formatted or date,
+            "home_team": str(home_team or "").strip(),
+            "away_team": str(away_team or "").strip(),
+            "home_away": str(home_away or "unknown").strip().lower(),
+            "time": str(time_str or "unknown").strip(),
+            "league": league,
+            "filename": filename,
+        }
+        return self.create_game_folder(info, base_dir=base_dir)
 
     def _sanitize_folder_name(self, name: str) -> str:
         """
@@ -246,7 +311,15 @@ class FileManager:
 
         return sorted(video_files, key=lambda p: p.stat().st_mtime, reverse=True)
 
-    def save_game_metadata(self, game_folders: Dict, game_info: Dict, box_score: Optional[Dict] = None):
+    def save_game_metadata(
+        self,
+        game_folders: Dict,
+        game_info: Dict,
+        box_score: Optional[Dict] = None,
+        *,
+        source_game_info: Optional[Dict] = None,
+        extra: Optional[Dict] = None,
+    ):
         """
         Save game metadata to JSON file
 
@@ -255,12 +328,15 @@ class FileManager:
             game_info: Game information dictionary
             box_score: Optional box score data
         """
-        metadata = {
-            'game_info': game_info,
-            'box_score': box_score,
-            'processed_at': datetime.now().isoformat(),
-            'version': '2.0.0'
+        metadata: Dict[str, object] = {
+            "game_info": game_info,
+            "source_game_info": source_game_info,
+            "box_score": box_score,
+            "processed_at": datetime.now().isoformat(),
+            "version": HIGHLIGHT_EXTRACTOR_VERSION,
         }
+        if extra and isinstance(extra, dict):
+            metadata["extra"] = extra
 
         metadata_file = game_folders['data_dir'] / 'game_metadata.json'
 

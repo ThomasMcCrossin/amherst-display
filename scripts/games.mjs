@@ -16,11 +16,15 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(__dirname, '..');
 
 // HockeyTech API configuration
-const HOCKEYTECH_API_KEY = '4a948e7faf5ee58d';
+const HOCKEYTECH_API_KEY = (process.env.HOCKEYTECH_API_KEY || '').trim();
 const HOCKEYTECH_CLIENT = 'mhl';
 const HOCKEYTECH_BASE_URL = 'https://lscluster.hockeytech.com/feed/';
 const SEASON_ID = 41; // 2024-25 season
 const AMHERST_TEAM_ID = 1;
+
+if (!HOCKEYTECH_API_KEY) {
+  throw new Error('HOCKEYTECH_API_KEY is required');
+}
 
 const nowISO = () => new Date().toISOString();
 
@@ -116,9 +120,14 @@ function parseScoringPlays(gameSummary, playerMap, isHomeGame) {
 
     for (const goal of period.goals) {
       // Check if this goal was scored by Amherst
-      const isRamblersGoal = isHomeGame ?
-        goal.team === 'home' :
-        goal.team === 'visiting';
+      let isRamblersGoal = false;
+      if (typeof goal.team === 'object' && goal.team?.id != null) {
+        // Newer statviewfeed schema: team is an object with an `id`.
+        isRamblersGoal = String(goal.team.id) === String(AMHERST_TEAM_ID);
+      } else if (typeof goal.team === 'string') {
+        // Older schema: team is 'home' / 'visiting'.
+        isRamblersGoal = isHomeGame ? goal.team === 'home' : goal.team === 'visiting';
+      }
 
       const scorer = goal.scoredBy || {};
       const scorerNumber = String(scorer.jerseyNumber || '');
@@ -165,28 +174,41 @@ function parsePenalties(gameSummary, playerMap, isHomeGame) {
     if (!period.penalties) continue;
 
     for (const penalty of period.penalties) {
-      const isRamblersPenalty = isHomeGame ?
-        penalty.againstTeam === 'home' :
-        penalty.againstTeam === 'visiting';
+      const against = penalty.againstTeam;
+      let isRamblersPenalty = false;
 
-      if (!isRamblersPenalty) continue; // Only track Ramblers penalties
+      // Newer schema: againstTeam is an object with an `id`.
+      if (against && typeof against === 'object' && against.id != null) {
+        isRamblersPenalty = String(against.id) === String(AMHERST_TEAM_ID);
+      } else if (typeof against === 'string') {
+        // Older schema: againstTeam is 'home' / 'visiting'.
+        isRamblersPenalty = isHomeGame ? against === 'home' : against === 'visiting';
+      }
 
-      const player = penalty.takenBy || {};
-      const playerNumber = String(player.jerseyNumber || '');
-      const playerId = playerMap.get(playerNumber);
+      const takenBy = penalty.takenBy || penalty.servedBy || {};
+      const firstName = takenBy.firstName || '';
+      const lastName = takenBy.lastName || '';
+      const name = `${firstName} ${lastName}`.trim() || (takenBy.name || '');
+      const jerseyNumber = takenBy.jerseyNumber;
+
+      const playerId = isRamblersPenalty ? playerMap.get(String(jerseyNumber || '')) : undefined;
+
+      const minutes = parseInt(penalty.minutes || 0) || 0;
 
       penalties.push({
-        period: parseInt(period.info?.id || 0),
-        period_name: period.info?.longName || '',
+        period: parseInt(penalty.period?.id || period.info?.id || 0),
+        period_name: penalty.period?.longName || period.info?.longName || '',
         time: penalty.time || '',
+        team: isRamblersPenalty ? 'ramblers' : 'opponent',
         player: {
           player_id: playerId,
-          name: `${player.firstName || ''} ${player.lastName || ''}`.trim(),
-          number: player.jerseyNumber,
-          position: player.position
+          name,
+          number: jerseyNumber,
+          position: takenBy.position
         },
         infraction: penalty.description || '',
-        duration: parseInt(penalty.minutes || 0),
+        minutes: minutes || 2,
+        duration: minutes || 2, // backwards compat (docs/clients use duration)
         is_bench: penalty.isBench === true
       });
     }
