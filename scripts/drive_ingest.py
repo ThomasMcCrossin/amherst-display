@@ -45,6 +45,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT))
 
 import config  # noqa: E402
+from drive_config import resolve_drive_config  # noqa: E402
 from highlight_extractor import HighlightPipeline  # noqa: E402
 from highlight_extractor.amherst_integration import AmherstBoxScoreProvider  # noqa: E402
 from highlight_extractor.file_manager import FileManager  # noqa: E402
@@ -98,10 +99,15 @@ def _preflight_snapshot() -> Dict[str, Any]:
         "env": {
             # Don't dump secrets; just presence.
             "GOOGLE_APPLICATION_CREDENTIALS_set": bool(os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")),
+            "HIGHLIGHTS_DRIVE_ID_set": bool(os.environ.get("HIGHLIGHTS_DRIVE_ID")),
             "RAMBLERS_DRIVE_ID_set": bool(os.environ.get("RAMBLERS_DRIVE_ID")),
+            "HIGHLIGHTS_INGEST_FOLDER_ID_set": bool(os.environ.get("HIGHLIGHTS_INGEST_FOLDER_ID")),
             "DRIVE_INGEST_FOLDER_ID_set": bool(os.environ.get("DRIVE_INGEST_FOLDER_ID")),
+            "HIGHLIGHTS_GAMES_FOLDER_ID_set": bool(os.environ.get("HIGHLIGHTS_GAMES_FOLDER_ID")),
             "DRIVE_GAMES_FOLDER_ID_set": bool(os.environ.get("DRIVE_GAMES_FOLDER_ID")),
+            "HIGHLIGHTS_REELS_FOLDER_ID_set": bool(os.environ.get("HIGHLIGHTS_REELS_FOLDER_ID")),
             "DRIVE_HIGHLIGHTS_FOLDER_ID_set": bool(os.environ.get("DRIVE_HIGHLIGHTS_FOLDER_ID")),
+            "HIGHLIGHTS_MAJOR_REVIEW_FOLDER_ID_set": bool(os.environ.get("HIGHLIGHTS_MAJOR_REVIEW_FOLDER_ID")),
             "HOCKEYTECH_API_KEY_set": bool(os.environ.get("HOCKEYTECH_API_KEY")),
         },
         "imports": {},
@@ -985,14 +991,16 @@ def _process_one_video(
     game_folders: Dict[str, Path],
     canonical_game_info: Dict[str, Any],
     source_game_info: Optional[Dict[str, Any]],
-    sample_interval: int,
-    tolerance_seconds: int,
-    before_seconds: float,
-    after_seconds: float,
-    max_clips: int,
-    broadcast_type: str,
-    parallel_ocr: bool,
-    ocr_workers: int,
+    execution_profile_name: str,
+    reel_mode: str,
+    sample_interval: Optional[int],
+    tolerance_seconds: Optional[int],
+    before_seconds: Optional[float],
+    after_seconds: Optional[float],
+    max_clips: Optional[int],
+    broadcast_type: Optional[str],
+    parallel_ocr: Optional[bool],
+    ocr_workers: Optional[int],
 ) -> Tuple[bool, Optional[Path], Dict[str, Any]]:
     provider = _load_amherst_provider()
     fetcher = provider.create_fetcher(game)
@@ -1005,17 +1013,32 @@ def _process_one_video(
         game_folders_override=game_folders,
         source_game_info_override=source_game_info,
     )
-    result = pipeline.execute(
-        sample_interval=sample_interval,
-        tolerance_seconds=tolerance_seconds,
-        before_seconds=before_seconds,
-        after_seconds=after_seconds,
-        max_clips=max_clips if max_clips > 0 else None,
-        parallel_ocr=parallel_ocr,
-        ocr_workers=ocr_workers,
-        broadcast_type=broadcast_type,
-        auto_detect_start=True,
+
+    profile_selection = config.resolve_highlight_execution_selection(
+        execution_profile_name,
+        game_info=canonical_game_info,
+        source_game_info=source_game_info,
+        reel_mode=reel_mode,
     )
+    execution_profile = dict(profile_selection["execution_profile"])
+    if sample_interval is not None:
+        execution_profile["sample_interval"] = int(sample_interval)
+    if tolerance_seconds is not None:
+        execution_profile["tolerance_seconds"] = int(tolerance_seconds)
+    if before_seconds is not None:
+        execution_profile["before_seconds"] = float(before_seconds)
+    if after_seconds is not None:
+        execution_profile["after_seconds"] = float(after_seconds)
+    if max_clips is not None:
+        execution_profile["max_clips"] = int(max_clips) if int(max_clips) > 0 else None
+    if broadcast_type:
+        execution_profile["broadcast_type"] = str(broadcast_type)
+    if parallel_ocr is not None:
+        execution_profile["parallel_ocr"] = bool(parallel_ocr)
+    if ocr_workers is not None:
+        execution_profile["ocr_workers"] = int(ocr_workers)
+
+    result = pipeline.execute(**execution_profile)
 
     game_dir = game_folders.get("game_dir") if isinstance(game_folders.get("game_dir"), Path) else None
 
@@ -1032,6 +1055,10 @@ def _process_one_video(
         "events_found": result.events_found,
         "events_matched": result.events_matched,
         "clips_created": result.clips_created,
+        "execution_profile_name": profile_selection["execution_profile_name"],
+        "execution_profile": execution_profile,
+        "scorebug_profile": profile_selection["scorebug_profile"],
+        "scorebug_context": profile_selection["scorebug_context"],
         "highlights_path": result.highlights_path,
         "errors": result.errors,
         "warnings": result.warnings,
@@ -1100,25 +1127,26 @@ def _list_ingest_videos(
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Process videos dropped into a Drive folder (service account API).")
-    parser.add_argument("--drive-id", default=os.environ.get("RAMBLERS_DRIVE_ID", ""), help="Shared Drive ID (optional)")
+    drive_runtime = resolve_drive_config()
+    parser.add_argument("--drive-id", default=drive_runtime.drive_id, help="Shared Drive ID (optional)")
 
-    parser.add_argument("--ingest-folder-id", default=os.environ.get("DRIVE_INGEST_FOLDER_ID", ""), help="Ingest folder ID (preferred)")
+    parser.add_argument("--ingest-folder-id", default=drive_runtime.ingest_folder_id, help="Ingest folder ID (preferred)")
     parser.add_argument(
         "--ingest-folder-path",
-        default=os.environ.get("DRIVE_INGEST_FOLDER_PATH", "Inbox"),
+        default=drive_runtime.ingest_folder_path or "Inbox",
         help="Ingest folder path under the Drive root (used when --ingest-folder-id is not set)",
     )
 
-    parser.add_argument("--games-folder-id", default=os.environ.get("DRIVE_GAMES_FOLDER_ID", ""), help="Games root folder ID for uploads (optional)")
-    parser.add_argument("--games-folder-path", default=os.environ.get("DRIVE_GAMES_FOLDER_PATH", ""), help="Games root folder path under Drive root (optional)")
+    parser.add_argument("--games-folder-id", default=drive_runtime.games_folder_id, help="Games root folder ID for uploads (optional)")
+    parser.add_argument("--games-folder-path", default=drive_runtime.games_folder_path, help="Games root folder path under Drive root (optional)")
     parser.add_argument(
         "--highlights-folder-id",
-        default=os.environ.get("DRIVE_HIGHLIGHTS_FOLDER_ID", ""),
+        default=drive_runtime.reels_folder_id,
         help="Highlights output root folder ID (optional)",
     )
     parser.add_argument(
         "--highlights-folder-path",
-        default=os.environ.get("DRIVE_HIGHLIGHTS_FOLDER_PATH", ""),
+        default=drive_runtime.reels_folder_path,
         help="Highlights output root folder path under Drive root (optional)",
     )
 
@@ -1135,17 +1163,27 @@ def main() -> int:
 
     # Pipeline tuning
     parser.add_argument(
-        "--broadcast-type",
+        "--profile",
         default="auto",
-        help="OCR broadcast type: auto, flohockey, yarmouth, standard (default: auto)",
+        help="Execution profile name, or 'auto' to resolve from the scorebug catalog (default: auto)",
     )
-    parser.add_argument("--sample-interval", type=int, default=5, help="OCR sampling interval in seconds")
-    parser.add_argument("--tolerance-seconds", type=int, default=30, help="Matching tolerance in seconds")
-    parser.add_argument("--before-seconds", type=float, default=15.0, help="Seconds before goal to include")
-    parser.add_argument("--after-seconds", type=float, default=4.0, help="Seconds after goal to include")
-    parser.add_argument("--max-clips", type=int, default=0, help="Max clips in basic highlights.mp4 (0 = unlimited)")
+    parser.add_argument(
+        "--reel-mode",
+        default=getattr(config, "DEFAULT_REEL_MODE", "goals_only"),
+        help="Reel mode to use while generating source clips",
+    )
+    parser.add_argument(
+        "--broadcast-type",
+        default="",
+        help="OCR broadcast type override: flohockey, yarmouth, standard, auto",
+    )
+    parser.add_argument("--sample-interval", type=int, default=None, help="OCR sampling interval override in seconds")
+    parser.add_argument("--tolerance-seconds", type=int, default=None, help="Matching tolerance override in seconds")
+    parser.add_argument("--before-seconds", type=float, default=None, help="Seconds before goal to include")
+    parser.add_argument("--after-seconds", type=float, default=None, help="Seconds after goal to include")
+    parser.add_argument("--max-clips", type=int, default=None, help="Max clips in basic highlights.mp4 (0 = unlimited)")
     parser.add_argument("--no-parallel-ocr", action="store_true", help="Disable parallel OCR")
-    parser.add_argument("--ocr-workers", type=int, default=4, help="OCR worker threads when parallel OCR is enabled")
+    parser.add_argument("--ocr-workers", type=int, default=None, help="OCR worker threads override")
     parser.add_argument(
         "--audio-delay-seconds",
         type=float,
@@ -1246,7 +1284,7 @@ def main() -> int:
 
     supported_exts = {ext.lower() for ext in getattr(config, "SUPPORTED_FORMATS", [".ts", ".mp4", ".mkv", ".mov"])}
     args.local_incoming_dir.mkdir(parents=True, exist_ok=True)
-    parallel_ocr = not bool(args.no_parallel_ocr)
+    parallel_ocr = False if bool(args.no_parallel_ocr) else None
     min_age = _parse_min_age(str(args.min_age))
     file_manager = FileManager(config)
     unmatched_root = Path(config.GAMES_DIR) / "unmatched"
@@ -1471,14 +1509,16 @@ def main() -> int:
                         game_folders=game_folders,
                         canonical_game_info=canonical_game_info,
                         source_game_info=source_game_info,
-                        sample_interval=int(args.sample_interval),
-                        tolerance_seconds=int(args.tolerance_seconds),
-                        before_seconds=float(args.before_seconds),
-                        after_seconds=float(args.after_seconds),
-                        max_clips=int(args.max_clips),
-                        broadcast_type=str(args.broadcast_type),
+                        execution_profile_name=str(args.profile),
+                        reel_mode=str(args.reel_mode),
+                        sample_interval=args.sample_interval,
+                        tolerance_seconds=args.tolerance_seconds,
+                        before_seconds=args.before_seconds,
+                        after_seconds=args.after_seconds,
+                        max_clips=args.max_clips,
+                        broadcast_type=str(args.broadcast_type or ""),
                         parallel_ocr=parallel_ocr,
-                        ocr_workers=int(args.ocr_workers),
+                        ocr_workers=args.ocr_workers,
                     )
                     if repaired_video and working_video == repaired_video and isinstance(status_payload, dict):
                         status_payload.setdefault("warnings", []).append(
@@ -1500,14 +1540,16 @@ def main() -> int:
                                 game_folders=game_folders,
                                 canonical_game_info=canonical_game_info,
                                 source_game_info=source_game_info,
-                                sample_interval=int(args.sample_interval),
-                                tolerance_seconds=int(args.tolerance_seconds),
-                                before_seconds=float(args.before_seconds),
-                                after_seconds=float(args.after_seconds),
-                                max_clips=int(args.max_clips),
-                                broadcast_type=str(args.broadcast_type),
+                                execution_profile_name=str(args.profile),
+                                reel_mode=str(args.reel_mode),
+                                sample_interval=args.sample_interval,
+                                tolerance_seconds=args.tolerance_seconds,
+                                before_seconds=args.before_seconds,
+                                after_seconds=args.after_seconds,
+                                max_clips=args.max_clips,
+                                broadcast_type=str(args.broadcast_type or ""),
                                 parallel_ocr=parallel_ocr,
-                                ocr_workers=int(args.ocr_workers),
+                                ocr_workers=args.ocr_workers,
                             )
                             status_payload.setdefault("warnings", []).append(
                                 f"Video repaired via ffmpeg remux/re-encode: {repaired_video.name}"

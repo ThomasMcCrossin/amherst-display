@@ -3,6 +3,9 @@ Video Processor - Handles video loading, clip creation, and rendering
 """
 
 import logging
+import re
+import subprocess
+import unicodedata
 from pathlib import Path
 from typing import List, Optional, Tuple
 import numpy as np
@@ -14,6 +17,54 @@ except ImportError:
     from moviepy.editor import VideoFileClip, concatenate_videoclips, TextClip, CompositeVideoClip
 
 logger = logging.getLogger(__name__)
+
+
+def _sanitize_filename_token(value: str, *, fallback: str, limit: int = 40) -> str:
+    normalized = unicodedata.normalize("NFKD", str(value or ""))
+    ascii_value = normalized.encode("ascii", "ignore").decode("ascii").lower()
+    ascii_value = re.sub(r"[^a-z0-9]+", "-", ascii_value).strip("-")
+    if not ascii_value:
+        ascii_value = fallback
+    return ascii_value[:limit].strip("-") or fallback
+
+
+def _event_clip_filename(event: dict, *, index: int) -> str:
+    event_type = str(event.get("type") or "event").strip().lower()
+    period = int(event.get("period") or 0)
+    time_token = re.sub(r"[^0-9-]+", "", str(event.get("time") or "0:00").strip().replace(":", "-")) or "0-00"
+    team = _sanitize_filename_token(str(event.get("team") or "team"), fallback="team")
+
+    parts = [f"{int(index):02d}", event_type or "event", f"p{period}", time_token, team]
+
+    if event_type == "goal":
+        scorer = _sanitize_filename_token(str(event.get("scorer") or "unknown-scorer"), fallback="unknown-scorer")
+        parts.append(scorer)
+        assist1 = str(event.get("assist1") or "").strip()
+        assist2 = str(event.get("assist2") or "").strip()
+        special = str(event.get("special") or "").strip().lower()
+        if assist1:
+            parts.append(f"a1-{_sanitize_filename_token(assist1, fallback='assist1')}")
+        if assist2:
+            parts.append(f"a2-{_sanitize_filename_token(assist2, fallback='assist2')}")
+        if special:
+            parts.append(_sanitize_filename_token(special, fallback=special, limit=12))
+    elif event_type == "penalty":
+        player = event.get("player")
+        if isinstance(player, dict):
+            player = player.get("name")
+        parts.append(_sanitize_filename_token(str(player or "unknown-player"), fallback="unknown-player"))
+        infraction = str(event.get("infraction") or "").strip()
+        if infraction:
+            parts.append(_sanitize_filename_token(infraction, fallback="penalty", limit=28))
+
+    return "_".join(parts) + ".mp4"
+
+
+class _WrittenClipHandle:
+    """Minimal closeable handle for ffmpeg-written clips."""
+
+    def close(self) -> None:
+        return None
 
 
 class VideoProcessor:
@@ -111,14 +162,20 @@ class VideoProcessor:
             # Ensure times are within bounds
             start_time = max(0, min(start_time, self.duration))
             end_time = max(start_time, min(end_time, self.duration))
+            apply_overlay = bool(overlay_config) and getattr(self.config, 'OVERLAY_ENABLED', True)
 
             logger.debug(f"Creating clip: {start_time:.1f}s - {end_time:.1f}s")
+
+            # Fast path: when no overlay is needed, cut directly from the source video with ffmpeg.
+            if output_path and not apply_overlay:
+                self._write_source_segment(start_time, end_time, output_path)
+                return _WrittenClipHandle()
 
             # Create subclip
             clip = self.video_clip.subclipped(start_time, end_time)
 
             # Add overlay if configured
-            if overlay_config and getattr(self.config, 'OVERLAY_ENABLED', True):
+            if apply_overlay:
                 clip = self._add_overlay(clip, overlay_config)
 
             # Save if output path provided
@@ -130,6 +187,65 @@ class VideoProcessor:
         except Exception as e:
             logger.error(f"Failed to create clip: {e}")
             return None
+
+    def _write_source_segment(self, start_time: float, end_time: float, output_path: Path) -> None:
+        """Cut and encode a source segment directly with ffmpeg."""
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+
+        duration = max(0.05, float(end_time) - float(start_time))
+        codec = getattr(self.config, 'OUTPUT_CODEC', 'libx264')
+        preset = getattr(self.config, 'OUTPUT_PRESET', 'medium')
+        audio_codec = getattr(self.config, 'OUTPUT_AUDIO_CODEC', 'aac')
+        audio_bitrate = getattr(self.config, 'OUTPUT_AUDIO_BITRATE', None)
+        audio_fps = getattr(self.config, 'OUTPUT_AUDIO_SAMPLE_RATE', 44100)
+        pixel_format = getattr(self.config, 'OUTPUT_PIXEL_FORMAT', None)
+        threads = getattr(self.config, 'OUTPUT_THREADS', None)
+        crf = getattr(self.config, 'OUTPUT_CRF', None)
+
+        cmd = [
+            'ffmpeg',
+            '-y',
+            '-ss',
+            f'{float(start_time):.3f}',
+            '-t',
+            f'{duration:.3f}',
+            '-i',
+            str(self.video_path),
+            '-map',
+            '0:v:0',
+            '-map',
+            '0:a?',
+            '-c:v',
+            str(codec),
+            '-preset',
+            str(preset),
+        ]
+        if crf is not None and str(codec).lower() in {'libx264', 'libx265'}:
+            cmd += ['-crf', str(crf)]
+        if audio_codec:
+            cmd += ['-c:a', str(audio_codec)]
+        if audio_bitrate:
+            cmd += ['-b:a', str(audio_bitrate)]
+        if audio_fps:
+            cmd += ['-ar', str(audio_fps)]
+        if pixel_format:
+            cmd += ['-pix_fmt', str(pixel_format)]
+        if threads:
+            cmd += ['-threads', str(threads)]
+        cmd += [
+            '-movflags',
+            '+faststart',
+            '-avoid_negative_ts',
+            'make_zero',
+            str(output_path),
+        ]
+
+        try:
+            subprocess.run(cmd, check=True, capture_output=True, text=True)
+            logger.debug(f"Source segment written to {output_path}")
+        except subprocess.CalledProcessError as exc:
+            stderr = (exc.stderr or '').strip()
+            raise RuntimeError(stderr or f"ffmpeg failed for {output_path}") from exc
 
     def _add_overlay(self, clip: VideoFileClip, overlay_config: dict) -> VideoFileClip:
         """
@@ -295,12 +411,7 @@ class VideoProcessor:
                 start_time = max(0, video_time - event_before)
                 end_time = min(self.duration, video_time + event_after)
 
-                # Create clip filename
-                event_type = event.get('type', 'event').upper()
-                period = event.get('period', 0)
-                team = event.get('team', 'unknown').replace(' ', '_')
-
-                clip_filename = f"{i:02d}_{event_type}_P{period}_{team}.mp4"
+                clip_filename = _event_clip_filename(event, index=i)
                 clip_path = clips_dir / clip_filename
 
                 # Update progress bar with current clip info

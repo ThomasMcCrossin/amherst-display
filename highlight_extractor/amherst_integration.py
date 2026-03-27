@@ -23,6 +23,7 @@ Usage:
 
 import json
 import logging
+import os
 from pathlib import Path
 from typing import Dict, List, Optional, Any
 from datetime import datetime
@@ -50,6 +51,9 @@ class AmherstBoxScoreProvider:
         """
         self.games_json_path = Path(games_json_path)
         self.games_data = None
+        self._remote_schedule_cache: Optional[List[Dict[str, Any]]] = None
+        self._remote_game_cache: Dict[str, Dict[str, Any]] = {}
+        self._live_fetcher = BoxScoreFetcher()
         self._load_games()
 
     def _load_games(self):
@@ -98,8 +102,249 @@ class AmherstBoxScoreProvider:
 
             return game
 
+        remote_game = self._find_remote_game(game_date=game_date, opponent=opponent, game_id=game_id)
+        if remote_game:
+            return remote_game
+
         logger.warning(f"No game found for date={game_date}, opponent={opponent}, id={game_id}")
         return None
+
+    def _find_remote_game(
+        self,
+        *,
+        game_date: str,
+        opponent: Optional[str] = None,
+        game_id: Optional[str] = None,
+    ) -> Optional[Dict[str, Any]]:
+        try:
+            schedule = self._fetch_remote_schedule()
+        except Exception as e:
+            logger.warning(f"Could not fetch remote Amherst schedule: {e}")
+            return None
+
+        opponent_norm = (opponent or "").strip().lower()
+        for entry in schedule:
+            if not isinstance(entry, dict):
+                continue
+            if not self._is_amherst_schedule_entry(entry):
+                continue
+            if game_id and str(entry.get("game_id") or entry.get("id") or "").strip() != str(game_id).strip():
+                continue
+            if game_date and str(entry.get("date_played") or "").strip() != str(game_date).strip():
+                continue
+
+            if opponent_norm:
+                home_name = str(entry.get("home_team_name") or "").strip()
+                away_name = str(entry.get("visiting_team_name") or "").strip()
+                entry_opp = away_name if self._is_amherst_name(home_name) else home_name
+                if opponent_norm not in entry_opp.lower():
+                    continue
+
+            game_key = str(entry.get("game_id") or entry.get("id") or game_date or "").strip()
+            if game_key in self._remote_game_cache:
+                return self._remote_game_cache[game_key]
+
+            remote_game = self._build_remote_game(entry)
+            if remote_game:
+                self._cache_remote_game(remote_game)
+                return remote_game
+        return None
+
+    def _cache_remote_game(self, game: Dict[str, Any]) -> None:
+        game_id = str(game.get("game_id") or "").strip()
+        if not game_id:
+            return
+        self._remote_game_cache[game_id] = game
+        games = self.games_data.setdefault("games", []) if isinstance(self.games_data, dict) else None
+        if not isinstance(games, list):
+            return
+        if any(str(existing.get("game_id") or "").strip() == game_id for existing in games if isinstance(existing, dict)):
+            return
+        games.append(game)
+
+    def _fetch_remote_schedule(self) -> List[Dict[str, Any]]:
+        if self._remote_schedule_cache is not None:
+            return self._remote_schedule_cache
+
+        self._live_fetcher._require_api_key()
+        league_cfg = self._live_fetcher.LEAGUE_CONFIGS.get("MHL")
+        if not league_cfg:
+            raise RuntimeError("MHL league config is unavailable")
+
+        params = {
+            "feed": "modulekit",
+            "view": "schedule",
+            "key": self._live_fetcher.api_key,
+            "fmt": "json",
+            "client_code": league_cfg["client_code"],
+            "league_id": league_cfg["league_id"],
+        }
+        if league_cfg.get("season_id"):
+            params["season_id"] = league_cfg["season_id"]
+
+        response = self._live_fetcher.session.get(
+            f"{self._live_fetcher.API_BASE}index.php",
+            params=params,
+            timeout=(5, 15),
+        )
+        response.raise_for_status()
+        payload = response.json()
+        sitekit = payload.get("SiteKit", {}) if isinstance(payload, dict) else {}
+        schedule = sitekit.get("Schedule", []) if isinstance(sitekit, dict) else []
+        self._remote_schedule_cache = [entry for entry in schedule if isinstance(entry, dict)]
+        return self._remote_schedule_cache
+
+    @staticmethod
+    def _is_amherst_name(value: str) -> bool:
+        team = str(value or "").strip().lower()
+        return "amherst" in team or "rambler" in team
+
+    def _is_amherst_schedule_entry(self, entry: Dict[str, Any]) -> bool:
+        return self._is_amherst_name(str(entry.get("home_team_name") or "")) or self._is_amherst_name(
+            str(entry.get("visiting_team_name") or "")
+        )
+
+    @staticmethod
+    def _period_name(period: int) -> str:
+        if period == 1:
+            return "1st"
+        if period == 2:
+            return "2nd"
+        if period == 3:
+            return "3rd"
+        if period == 4:
+            return "OT"
+        if period > 4:
+            return f"{period - 3}OT"
+        return str(period)
+
+    @staticmethod
+    def _safe_int(value: Any) -> Optional[int]:
+        if value in ("", None):
+            return None
+        try:
+            return int(value)
+        except Exception:
+            return None
+
+    def _build_remote_game(self, schedule_entry: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+        game_id = str(schedule_entry.get("game_id") or schedule_entry.get("id") or "").strip()
+        if not game_id:
+            return None
+
+        home_name = str(schedule_entry.get("home_team_name") or "").strip()
+        away_name = str(schedule_entry.get("visiting_team_name") or "").strip()
+        is_home = self._is_amherst_name(home_name)
+        opponent_name = away_name if is_home else home_name
+        opponent_code = str(schedule_entry.get("visiting_team_code") if is_home else schedule_entry.get("home_team_code") or "").strip()
+        opponent_team_id = self._safe_int(schedule_entry.get("visiting_team") if is_home else schedule_entry.get("home_team"))
+        schedule_notes = str(schedule_entry.get("schedule_notes") or "").strip()
+
+        raw_box = self._live_fetcher.fetch_box_score("MHL", game_id) or {}
+        summary = (raw_box.get("SiteKit") or {}).get("Gamesummary", {}) if isinstance(raw_box, dict) else {}
+        goals = summary.get("goals", []) if isinstance(summary, dict) else []
+        penalties = summary.get("penalties", []) if isinstance(summary, dict) else []
+
+        scoring: List[Dict[str, Any]] = []
+        for goal in goals if isinstance(goals, list) else []:
+            if not isinstance(goal, dict):
+                continue
+            goal_team = str(goal.get("team") or "").strip()
+            plus_minus = str(goal.get("plus_minus") or "").strip().upper()
+            assists: List[Dict[str, Any]] = []
+            assist1 = goal.get("assist1") if isinstance(goal.get("assist1"), dict) else {}
+            assist2 = goal.get("assist2") if isinstance(goal.get("assist2"), dict) else {}
+            if str(assist1.get("name") or "").strip():
+                assists.append({"name": str(assist1.get("name") or "").strip()})
+            if str(assist2.get("name") or "").strip():
+                assists.append({"name": str(assist2.get("name") or "").strip()})
+            period = self._safe_int(goal.get("period")) or 0
+            scoring.append(
+                {
+                    "period": period,
+                    "period_name": self._period_name(period),
+                    "time": str(goal.get("time") or "").strip(),
+                    "team": "amherst-ramblers" if self._is_amherst_name(goal_team) else "opponent",
+                    "scorer": {"name": str(((goal.get("goal") or {}).get("name") or "")).strip()},
+                    "assists": assists,
+                    "power_play": plus_minus == "PP",
+                    "short_handed": plus_minus == "SH",
+                    "game_winning": False,
+                    "empty_net": plus_minus == "EN",
+                }
+            )
+
+        local_penalties: List[Dict[str, Any]] = []
+        for penalty in penalties if isinstance(penalties, list) else []:
+            if not isinstance(penalty, dict):
+                continue
+            team_name = str(penalty.get("team") or "").strip()
+            period = self._safe_int(penalty.get("period")) or 0
+            player = penalty.get("player") if isinstance(penalty.get("player"), dict) else {}
+            local_penalties.append(
+                {
+                    "period": period,
+                    "period_name": self._period_name(period),
+                    "time": str(penalty.get("time") or "").strip(),
+                    "team": "amherst-ramblers" if self._is_amherst_name(team_name) else "opponent",
+                    "player": {
+                        "name": str(player.get("name") or "").strip(),
+                        "number": self._safe_int(player.get("number")),
+                    },
+                    "infraction": str(penalty.get("description") or "").strip(),
+                    "minutes": self._safe_int(penalty.get("minutes")) or 2,
+                }
+            )
+
+        home_goals = self._safe_int(schedule_entry.get("home_goal_count"))
+        away_goals = self._safe_int(schedule_entry.get("visiting_goal_count"))
+        game_status = str(schedule_entry.get("game_status") or "").strip()
+        is_final = str(schedule_entry.get("final") or "").strip() == "1" or str(schedule_entry.get("status") or "").strip() == "4" or game_status.lower().startswith("final")
+        result: Dict[str, Any] = {}
+        if is_final and home_goals is not None and away_goals is not None:
+            ramblers_score = home_goals if is_home else away_goals
+            opponent_score = away_goals if is_home else home_goals
+            result = {
+                "won": ramblers_score > opponent_score,
+                "ramblers_score": ramblers_score,
+                "opponent_score": opponent_score,
+                "overtime": "ot" in game_status.lower(),
+                "shootout": "so" in game_status.lower(),
+                "final_score": f"{ramblers_score}-{opponent_score}" + (f" ({game_status.replace('Final', '').strip()})" if game_status.lower().startswith("final ") else ""),
+            }
+
+        attendance = self._safe_int(schedule_entry.get("attendance"))
+        return {
+            "game_id": game_id,
+            "season_id": self._safe_int(schedule_entry.get("season_id")),
+            "date": str(schedule_entry.get("date_played") or "").strip(),
+            "date_time": str(schedule_entry.get("GameDateISO8601") or schedule_entry.get("date_time_played") or "").strip(),
+            "opponent": {
+                "team_id": opponent_team_id,
+                "team_name": opponent_name,
+                "team_code": opponent_code,
+            },
+            "home_game": is_home,
+            "playoff": ("best of 7" in schedule_notes.lower()) or bool(self._safe_int(schedule_entry.get("game_number"))),
+            "schedule_notes": schedule_notes,
+            "venue": str(schedule_entry.get("venue_name") or schedule_entry.get("venue_location") or "").strip(),
+            "result": result,
+            "attendance": attendance,
+            "scoring": scoring,
+            "penalties": local_penalties,
+            "box_score": raw_box,
+            "game_info": {
+                "venue_name": str(schedule_entry.get("venue_name") or "").strip(),
+                "venue_location": str(schedule_entry.get("venue_location") or "").strip(),
+                "scheduled_time": str(schedule_entry.get("scheduled_time") or schedule_entry.get("game_status") or "").strip(),
+                "timezone": str(schedule_entry.get("timezone") or "").strip(),
+            },
+            "_remote_source": {
+                "provider": "hockeytech",
+                "cached_locally": False,
+                "schedule_entry": schedule_entry,
+            },
+        }
 
     def find_game_by_teams(
         self,
@@ -498,14 +743,26 @@ def find_amherst_display_path() -> Optional[Path]:
     project_dir = highlight_extractor_dir.parent.parent  # Up to parent of HockeyHighlightExtractor
 
     # Try common locations
-    candidates = [
-        project_dir / 'amherst-display',
-        project_dir.parent / 'amherst-display',
-        Path.home() / 'amherst-display',
-        Path('/home/clarencehub/amherst-display'),
-    ]
+    env_override = os.environ.get("AMHERST_DISPLAY_DIR", "").strip()
+    candidates = []
+    if env_override:
+        candidates.append(Path(env_override).expanduser())
+    candidates.extend(
+        [
+            project_dir / 'amherst-display',
+            project_dir.parent / 'amherst-display',
+            Path.cwd() / 'amherst-display',
+            Path.cwd().parent / 'amherst-display',
+            Path.home() / 'amherst-display',
+        ]
+    )
 
-    for path in candidates:
+    seen = set()
+    for raw_path in candidates:
+        path = raw_path.expanduser().resolve()
+        if path in seen:
+            continue
+        seen.add(path)
         games_file = path / 'games' / 'amherst-ramblers.json'
         if games_file.exists():
             logger.info(f"Found amherst-display at: {path}")

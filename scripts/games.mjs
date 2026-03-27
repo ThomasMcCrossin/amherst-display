@@ -19,8 +19,24 @@ const ROOT_DIR = path.resolve(__dirname, '..');
 const HOCKEYTECH_API_KEY = (process.env.HOCKEYTECH_API_KEY || '').trim();
 const HOCKEYTECH_CLIENT = 'mhl';
 const HOCKEYTECH_BASE_URL = 'https://lscluster.hockeytech.com/feed/';
-const SEASON_ID = 41; // 2024-25 season
+const DEFAULT_SEASON_IDS = [41, 44]; // 2025-26 regular season + playoffs
+const SEASON_LABEL = (process.env.HOCKEYTECH_SEASON_LABEL || '2025-26').trim();
 const AMHERST_TEAM_ID = 1;
+
+function parseSeasonIds(rawValue) {
+  const value = String(rawValue || '').trim();
+  if (!value) return [...DEFAULT_SEASON_IDS];
+
+  const parsed = value
+    .split(',')
+    .map((item) => Number.parseInt(item.trim(), 10))
+    .filter((item) => Number.isInteger(item) && item > 0);
+
+  return parsed.length > 0 ? parsed : [...DEFAULT_SEASON_IDS];
+}
+
+const SEASON_IDS = parseSeasonIds(process.env.HOCKEYTECH_SEASON_IDS || DEFAULT_SEASON_IDS.join(','));
+const PRIMARY_SEASON_ID = SEASON_IDS[0];
 
 if (!HOCKEYTECH_API_KEY) {
   throw new Error('HOCKEYTECH_API_KEY is required');
@@ -59,17 +75,17 @@ async function loadRoster() {
 /**
  * Fetch Amherst Ramblers schedule
  */
-async function fetchRamblersSchedule() {
+async function fetchRamblersSchedule(seasonId) {
   const url = new URL(HOCKEYTECH_BASE_URL);
   url.searchParams.set('feed', 'modulekit');
   url.searchParams.set('view', 'schedule');
   url.searchParams.set('team_id', AMHERST_TEAM_ID);
-  url.searchParams.set('season_id', SEASON_ID);
+  url.searchParams.set('season_id', seasonId);
   url.searchParams.set('key', HOCKEYTECH_API_KEY);
   url.searchParams.set('fmt', 'json');
   url.searchParams.set('client_code', HOCKEYTECH_CLIENT);
 
-  console.log(`[games] Fetching Ramblers schedule...`);
+  console.log(`[games] Fetching Ramblers schedule for season ${seasonId}...`);
 
   const response = await fetch(url.toString());
   if (!response.ok) {
@@ -78,6 +94,30 @@ async function fetchRamblersSchedule() {
 
   const data = await response.json();
   return data.SiteKit?.Schedule || [];
+}
+
+async function fetchCombinedRamblersSchedule() {
+  const merged = new Map();
+
+  for (const seasonId of SEASON_IDS) {
+    const schedule = await fetchRamblersSchedule(seasonId);
+    for (const game of schedule) {
+      const gameId = String(game?.game_id || game?.id || '');
+      if (!gameId) continue;
+      merged.set(gameId, { ...game, season_id: String(game.season_id || seasonId) });
+    }
+  }
+
+  return Array.from(merged.values());
+}
+
+function isPlayoffGame(game) {
+  const notes = `${game?.schedule_notes || ''} ${game?.notes_text || ''}`.toLowerCase();
+  if (notes.includes('best of 7') || notes.includes('semi-final') || notes.includes('playoff')) {
+    return true;
+  }
+
+  return Number.parseInt(String(game?.season_id || ''), 10) !== PRIMARY_SEASON_ID;
 }
 
 /**
@@ -312,6 +352,7 @@ async function processGames(schedule, playerMap) {
 
     const gameData = {
       game_id: game.game_id,
+      season_id: parseInt(game.season_id || PRIMARY_SEASON_ID, 10),
       date: game.date_played,
       date_time: game.GameDateISO8601,
       opponent: {
@@ -320,6 +361,8 @@ async function processGames(schedule, playerMap) {
         team_code: isHomeGame ? game.visiting_team_code : game.home_team_code
       },
       home_game: isHomeGame,
+      playoff: isPlayoffGame(game),
+      schedule_notes: game.schedule_notes || '',
       venue: game.venue_name,
       result: {
         won,
@@ -351,8 +394,9 @@ async function processGames(schedule, playerMap) {
  * Calculate season summary stats
  */
 function calculateSeasonSummary(games) {
+  const regularSeasonGames = games.filter((game) => !game.playoff);
   const summary = {
-    games_played: games.length,
+    games_played: regularSeasonGames.length,
     wins: 0,
     losses: 0,
     ot_losses: 0,
@@ -364,7 +408,7 @@ function calculateSeasonSummary(games) {
     away_record: { wins: 0, losses: 0, ot_losses: 0 }
   };
 
-  for (const game of games) {
+  for (const game of regularSeasonGames) {
     const { won, ramblers_score, opponent_score, overtime, shootout } = game.result;
     const { home_game } = game;
 
@@ -410,18 +454,21 @@ export async function buildRamblersGames() {
     const playerMap = await loadRoster();
     console.log(`[games] Loaded roster with ${playerMap.size} players`);
 
-    const schedule = await fetchRamblersSchedule();
+    const schedule = await fetchCombinedRamblersSchedule();
     const games = await processGames(schedule, playerMap);
     const summary = calculateSeasonSummary(games);
+    const playoffSummary = calculateSeasonSummary(games.filter((game) => game.playoff).map((game) => ({ ...game, playoff: false })));
 
     const output = {
       team_slug: 'amherst-ramblers',
       team_name: 'Amherst Ramblers',
       team_id: AMHERST_TEAM_ID,
-      season: '2024-25',
-      season_id: SEASON_ID,
+      season: SEASON_LABEL,
+      season_id: PRIMARY_SEASON_ID,
+      season_ids: SEASON_IDS,
       updated_at: nowISO(),
       summary,
+      playoff_summary: playoffSummary,
       games
     };
 

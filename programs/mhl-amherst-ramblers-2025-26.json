@@ -1,0 +1,39 @@
+{
+  "program_id": "mhl-amherst-ramblers-2025-26",
+  "league": "MHL",
+  "team": "Amherst Ramblers",
+  "season": "2025-26",
+  "provider": {
+    "type": "amherst_box_score",
+    "games_cache": "games/amherst-ramblers.json"
+  },
+  "defaults": {
+    "execution_profile": "flohockey_recording",
+    "reel_mode": "goals_only"
+  },
+  "scorebug_profiles": [
+    "mhl_yarmouth_home",
+    "mhl_flohockey_default",
+    "generic_standard_fallback"
+  ],
+  "drive_layout": {
+    "root_folder": "Programs",
+    "program_root_path": "Programs/MHL/Amherst Ramblers/2025-26",
+    "ingest_root_path": "Programs/MHL/Amherst Ramblers/2025-26/01_Ingest",
+    "ingest_inbox_path": "Programs/MHL/Amherst Ramblers/2025-26/01_Ingest/Inbox",
+    "games_root_path": "Programs/MHL/Amherst Ramblers/2025-26/02_Games",
+    "reels_root_path": "Programs/MHL/Amherst Ramblers/2025-26/03_Reels",
+    "reels_games_path": "Programs/MHL/Amherst Ramblers/2025-26/03_Reels/Games",
+    "reels_series_path": "Programs/MHL/Amherst Ramblers/2025-26/03_Reels/Series",
+    "reels_players_path": "Programs/MHL/Amherst Ramblers/2025-26/03_Reels/Players",
+    "reels_special_projects_path": "Programs/MHL/Amherst Ramblers/2025-26/03_Reels/Special Projects",
+    "review_root_path": "Programs/MHL/Amherst Ramblers/2025-26/04_Review",
+    "major_review_root_path": "Programs/MHL/Amherst Ramblers/2025-26/04_Review/Major Penalties",
+    "major_review_incoming_path": "Programs/MHL/Amherst Ramblers/2025-26/04_Review/Major Penalties/Incoming",
+    "major_review_approved_path": "Programs/MHL/Amherst Ramblers/2025-26/04_Review/Major Penalties/Approved",
+    "reference_root_path": "Programs/MHL/Amherst Ramblers/2025-26/05_Reference",
+    "ocr_samples_path": "Programs/MHL/Amherst Ramblers/2025-26/05_Reference/OCR Samples",
+    "ocr_notes_path": "Programs/MHL/Amherst Ramblers/2025-26/05_Reference/OCR Notes",
+    "run_manifests_path": "Programs/MHL/Amherst Ramblers/2025-26/05_Reference/Run Manifests"
+  }
+}

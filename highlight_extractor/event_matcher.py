@@ -755,6 +755,7 @@ class EventMatcher:
         tolerance_seconds: int = 30,
         game_id: str = "unknown",
         output_dir: Optional[Path] = None,
+        recording_game_start_time: Optional[float] = None,
     ) -> List[Dict]:
         """
         Match box score events to video timestamps
@@ -867,7 +868,8 @@ class EventMatcher:
                 match_result = self._find_closest_timestamp_with_confidence(
                     event,
                     normalized_timestamps,
-                    tolerance_seconds
+                    tolerance_seconds,
+                    recording_game_start_time=recording_game_start_time,
                 )
 
                 if match_result is not None:
@@ -964,7 +966,9 @@ class EventMatcher:
         self,
         event: Dict,
         video_timestamps: List[Dict],
-        tolerance_seconds: int
+        tolerance_seconds: int,
+        *,
+        recording_game_start_time: Optional[float] = None,
     ) -> Optional[float]:
         """
         Find the closest video timestamp for a box score event
@@ -989,9 +993,23 @@ class EventMatcher:
             if ts.get('period') == event_period
         ]
 
+        minimum_video_time = self.minimum_video_time_for_event(
+            event,
+            recording_game_start_time=recording_game_start_time,
+        )
+        if minimum_video_time is not None:
+            period_timestamps = [
+                ts for ts in period_timestamps
+                if float(ts.get("video_time", -1.0) or -1.0) >= minimum_video_time
+            ]
+
         if not period_timestamps:
             # Try interpolation if we have timestamps before and after this period
-            return self._interpolate_timestamp(event, video_timestamps)
+            return self._interpolate_timestamp(
+                event,
+                video_timestamps,
+                recording_game_start_time=recording_game_start_time,
+            )
 
         # Find timestamp with closest game time
         best_match = None
@@ -1013,13 +1031,19 @@ class EventMatcher:
             return best_match['video_time']
 
         # If exact period match failed, try interpolation
-        return self._interpolate_timestamp(event, video_timestamps)
+        return self._interpolate_timestamp(
+            event,
+            video_timestamps,
+            recording_game_start_time=recording_game_start_time,
+        )
 
     def _find_closest_timestamp_with_confidence(
         self,
         event: Dict,
         video_timestamps: List[Dict],
-        tolerance_seconds: int
+        tolerance_seconds: int,
+        *,
+        recording_game_start_time: Optional[float] = None,
     ) -> Optional[Tuple[float, float, float, str]]:
         """
         Find the closest video timestamp for a box score event with confidence score
@@ -1046,9 +1070,23 @@ class EventMatcher:
             if ts.get('period') == event_period
         ]
 
+        minimum_video_time = self.minimum_video_time_for_event(
+            event,
+            recording_game_start_time=recording_game_start_time,
+        )
+        if minimum_video_time is not None:
+            period_timestamps = [
+                ts for ts in period_timestamps
+                if float(ts.get("video_time", -1.0) or -1.0) >= minimum_video_time
+            ]
+
         if not period_timestamps:
             # Try interpolation if we have timestamps before and after this period
-            video_time = self._interpolate_timestamp(event, video_timestamps)
+            video_time = self._interpolate_timestamp(
+                event,
+                video_timestamps,
+                recording_game_start_time=recording_game_start_time,
+            )
             if video_time is not None:
                 # Lower confidence for interpolated matches
                 return (video_time, 0.5, tolerance_seconds / 2, "interpolation_no_period_match")
@@ -1083,7 +1121,11 @@ class EventMatcher:
             return (video_time, confidence, best_diff, "exact_period")
 
         # If exact period match failed, try interpolation
-        video_time = self._interpolate_timestamp(event, video_timestamps)
+        video_time = self._interpolate_timestamp(
+            event,
+            video_timestamps,
+            recording_game_start_time=recording_game_start_time,
+        )
         if video_time is not None:
             # Very low confidence for interpolated matches outside tolerance
             return (video_time, 0.3, tolerance_seconds, "interpolation_fallback")
@@ -1093,7 +1135,9 @@ class EventMatcher:
     def _interpolate_timestamp(
         self,
         event: Dict,
-        video_timestamps: List[Dict]
+        video_timestamps: List[Dict],
+        *,
+        recording_game_start_time: Optional[float] = None,
     ) -> Optional[float]:
         """
         Interpolate video timestamp when exact period match not found
@@ -1109,6 +1153,10 @@ class EventMatcher:
             event_period = event.get('period')
             event_time = event.get('time', '00:00')
             event_seconds = self._event_time_to_remaining_seconds(event_period, event_time)
+            minimum_video_time = self.minimum_video_time_for_event(
+                event,
+                recording_game_start_time=recording_game_start_time,
+            )
 
             # Convert event to absolute game time (seconds from game start)
             event_game_seconds = self._event_to_absolute_time(event_period, event_seconds)
@@ -1118,6 +1166,8 @@ class EventMatcher:
             after = None
 
             for ts in video_timestamps:
+                if minimum_video_time is not None and float(ts.get("video_time", -1.0) or -1.0) < minimum_video_time:
+                    continue
                 ts_game_seconds = self._event_to_absolute_time(
                     ts['period'],
                     ts['game_time_seconds']
@@ -1202,6 +1252,49 @@ class EventMatcher:
         """Public wrapper for event time → remaining seconds conversion."""
         return self._event_time_to_remaining_seconds(period, time_str)
 
+    def minimum_video_time_for_event(
+        self,
+        event: Dict,
+        *,
+        recording_game_start_time: Optional[float] = None,
+    ) -> Optional[float]:
+        """
+        Return the earliest plausible video timestamp for an event.
+
+        For recorded full-game inputs, a goal at P1 15:21 cannot happen before
+        15:21 of *game elapsed* time after puck drop. This guard rejects warmup
+        samples that happen to show the same period/clock later used in-game.
+        """
+        if recording_game_start_time is None:
+            return None
+        if not bool(getattr(self.config, "EVENT_ENFORCE_MIN_VIDEO_TIME_FROM_GAME_START", True)):
+            return None
+
+        try:
+            start_time = float(recording_game_start_time)
+        except Exception:
+            return None
+
+        try:
+            period = int(event.get("period") or 1)
+        except Exception:
+            period = 1
+        time_str = str(event.get("time") or "0:00")
+
+        try:
+            remaining_seconds = self._event_time_to_remaining_seconds(period, time_str)
+            absolute_game_seconds = float(self._event_to_absolute_time(period, remaining_seconds))
+        except Exception:
+            return None
+
+        try:
+            buffer_seconds = float(getattr(self.config, "EVENT_MIN_VIDEO_TIME_BUFFER_SECONDS", 240.0) or 240.0)
+        except Exception:
+            buffer_seconds = 240.0
+        buffer_seconds = max(0.0, buffer_seconds)
+
+        return max(0.0, start_time + absolute_game_seconds - buffer_seconds)
+
     def _time_to_seconds(self, time_str: str) -> int:
         """
         Convert MM:SS time string to seconds
@@ -1218,7 +1311,9 @@ class EventMatcher:
         self,
         goals: List[Goal],
         video_timestamps: List[Dict],
-        tolerance_seconds: int = 30
+        tolerance_seconds: int = 30,
+        *,
+        recording_game_start_time: Optional[float] = None,
     ) -> List[Goal]:
         """
         Match Goal objects to video timestamps.
@@ -1262,7 +1357,8 @@ class EventMatcher:
                 match_result = self._find_closest_timestamp_with_confidence(
                     event_dict,
                     normalized_timestamps,
-                    tolerance_seconds
+                    tolerance_seconds,
+                    recording_game_start_time=recording_game_start_time,
                 )
 
                 if match_result is not None:

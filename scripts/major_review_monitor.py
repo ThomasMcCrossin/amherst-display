@@ -42,6 +42,7 @@ from typing import Any, List, Dict, Optional, Tuple
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import config
+from drive_config import resolve_drive_config
 
 # Set up logging
 logging.basicConfig(
@@ -207,9 +208,10 @@ def _ensure_youtube_description(game_dir: Path) -> Optional[Path]:
 
 
 def upload_highlight_outputs(service, *, game_dir: Path, drive_id: str) -> Optional[str]:
-    parent_folder_id = normalize_drive_folder_id(os.environ.get("DRIVE_HIGHLIGHTS_FOLDER_ID", ""))
+    drive_cfg = resolve_drive_config()
+    parent_folder_id = normalize_drive_folder_id(drive_cfg.reels_folder_id)
     if not parent_folder_id:
-        folder_path = str(os.environ.get("DRIVE_HIGHLIGHTS_FOLDER_PATH", "") or "").strip()
+        folder_path = str(drive_cfg.reels_folder_path or "").strip()
         if folder_path:
             try:
                 parent_folder_id = _resolve_folder_path(service, drive_id=drive_id, folder_path=folder_path)
@@ -217,7 +219,7 @@ def upload_highlight_outputs(service, *, game_dir: Path, drive_id: str) -> Optio
                 logger.warning(f"Highlight upload skipped: could not resolve folder path ({e})")
                 return None
         else:
-            logger.info("Highlight upload skipped: DRIVE_HIGHLIGHTS_FOLDER_ID not set")
+            logger.info("Highlight upload skipped: HIGHLIGHTS_REELS_FOLDER_ID not set")
             return None
 
     output_dir = Path(game_dir) / "output"
@@ -1105,7 +1107,7 @@ def run_check(force: bool = False):
                 if out_path:
                     logger.info(f"Built production reel: {out_path}")
                     status["major_review_monitor"]["production_reel"] = str(out_path)
-                    drive_id = str(os.environ.get("RAMBLERS_DRIVE_ID", "") or "").strip()
+                    drive_id = str(resolve_drive_config().drive_id or "").strip()
                     highlights_folder_url = upload_highlight_outputs(service, game_dir=game_dir, drive_id=drive_id)
                     if highlights_folder_url:
                         status["major_review_monitor"]["highlights_folder_url"] = highlights_folder_url

@@ -24,6 +24,9 @@ from typing import Any, Dict, List, Optional, Tuple
 from PIL import Image, ImageDraw, ImageFont
 
 
+REPO_ROOT = Path(__file__).resolve().parents[1]
+
+
 @dataclass(frozen=True)
 class TeamInfo:
     name: str
@@ -37,6 +40,11 @@ class ClipItem:
     index: int
     clip_path: Path
     event: Dict[str, Any]
+    game_info: Dict[str, Any] | None = None
+    overlay_game_label: str = ""
+    overlay_series_title: str = ""
+    series_context: Dict[str, Any] | None = None
+    segment_kind: str = "clip"
 
     @property
     def type(self) -> str:
@@ -64,16 +72,16 @@ def _find_team_info(team_name: str, league: str, teams_db: Dict[str, Any]) -> Te
         candidates = [team.get("name", "")] + list(team.get("aliases", []) or [])
         if any(_norm_name(c) == normalized for c in candidates if c):
             slug = team.get("slug") or normalized.replace(" ", "-")
-            logo_path = Path("assets/logos") / league.lower() / f"{slug}.png"
+            logo_path = REPO_ROOT / "assets" / "logos" / league.lower() / f"{slug}.png"
             if not logo_path.exists():
-                logo_path = Path("assets/logos/fallback.png")
+                logo_path = REPO_ROOT / "assets" / "logos" / "fallback.png"
             return TeamInfo(name=team.get("name", team_name), slug=slug, league=league_norm, logo_path=logo_path)
 
     # Fallback: best-effort slug from name
     slug = normalized.replace(" ", "-") or "unknown"
-    logo_path = Path("assets/logos") / league.lower() / f"{slug}.png"
+    logo_path = REPO_ROOT / "assets" / "logos" / league.lower() / f"{slug}.png"
     if not logo_path.exists():
-        logo_path = Path("assets/logos/fallback.png")
+        logo_path = REPO_ROOT / "assets" / "logos" / "fallback.png"
     return TeamInfo(name=team_name, slug=slug, league=league_norm, logo_path=logo_path)
 
 
@@ -91,7 +99,7 @@ def _collect_name_values(obj: Any) -> List[str]:
 
 
 def _load_roster_names(team_slug: str) -> List[str]:
-    roster_path = Path("rosters") / f"{team_slug}.json"
+    roster_path = REPO_ROOT / "rosters" / f"{team_slug}.json"
     if not roster_path.exists():
         return []
     data = _read_json(roster_path)
@@ -242,6 +250,211 @@ def _format_period_label(period: int) -> str:
     return f"{period - 3}OT"
 
 
+def _format_attendance(value: Any) -> str:
+    if value in ("", None):
+        return ""
+    try:
+        return f"Attendance {int(value):,}"
+    except Exception:
+        return str(value).strip()
+
+
+def _render_transparent_overlay_png(out_path: Path, overlay_size: Tuple[int, int]) -> None:
+    Image.new("RGBA", overlay_size, (0, 0, 0, 0)).save(out_path, format="PNG")
+
+
+def _render_game_intro_card_png(
+    out_path: Path,
+    *,
+    video_size: Tuple[int, int],
+    home: TeamInfo,
+    away: TeamInfo,
+    series_title: str,
+    game_label: str,
+    series_status: str,
+    game_date_label: str,
+    venue: str,
+    attendance: Any,
+) -> None:
+    w, h = video_size
+    font_bold = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+    font_reg = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
+
+    img = Image.new("RGBA", (w, h), (10, 14, 22, 255))
+    draw = ImageDraw.Draw(img)
+
+    # Layered background for a cleaner transition-card look.
+    draw.rectangle([0, 0, w, h], fill=(8, 12, 20, 255))
+    draw.ellipse([-180, -160, 520, 480], fill=(22, 66, 120, 120))
+    draw.ellipse([w - 520, h - 420, w + 160, h + 180], fill=(140, 32, 46, 120))
+    draw.rounded_rectangle([56, 56, w - 56, h - 56], radius=32, fill=(0, 0, 0, 112), outline=(255, 255, 255, 42), width=2)
+
+    tag_font = _load_font(font_bold, 20)
+    date_font = _load_font(font_reg, 18)
+    title_font = _fit_text_font(draw, game_label or "Game", font_bold, max_size=68, min_size=42, max_width=w - 220)
+    series_font = _fit_text_font(draw, series_title or "", font_bold, max_size=28, min_size=18, max_width=w - 220)
+    status_font = _fit_text_font(draw, series_status or "", font_reg, max_size=26, min_size=18, max_width=w - 220)
+    venue_text = " • ".join([part for part in [str(venue or "").strip(), _format_attendance(attendance)] if part])
+    venue_font = _fit_text_font(draw, venue_text or "", font_reg, max_size=20, min_size=16, max_width=w - 220)
+
+    draw.text((90, 84), game_date_label, font=date_font, fill=(210, 220, 235, 210))
+    if series_title.strip():
+        draw.text((90, 128), series_title.strip(), font=series_font, fill=(25, 195, 125, 235))
+
+    draw.text((90, 212), game_label.strip() or "Game", font=title_font, fill=(255, 255, 255, 245))
+    if series_status.strip():
+        draw.text((92, 292), series_status.strip(), font=status_font, fill=(225, 230, 238, 220))
+
+    away_logo = Image.open(away.logo_path).convert("RGBA").resize((140, 140), Image.Resampling.LANCZOS)
+    home_logo = Image.open(home.logo_path).convert("RGBA").resize((140, 140), Image.Resampling.LANCZOS)
+    away_x = 176
+    home_x = w - 176 - 140
+    logo_y = 390
+    img.paste(away_logo, (away_x, logo_y), away_logo)
+    img.paste(home_logo, (home_x, logo_y), home_logo)
+
+    away_name = away.name.strip() or "Away"
+    home_name = home.name.strip() or "Home"
+    away_font = _fit_text_font(draw, away_name, font_bold, max_size=24, min_size=18, max_width=300)
+    home_font = _fit_text_font(draw, home_name, font_bold, max_size=24, min_size=18, max_width=300)
+    draw.text((away_x - 50, logo_y + 164), away_name, font=away_font, fill=(255, 255, 255, 230))
+    draw.text((home_x - 50, logo_y + 164), home_name, font=home_font, fill=(255, 255, 255, 230))
+
+    versus_font = _load_font(font_bold, 34)
+    vs_text = "AT" if _norm_name(away.name) != _norm_name(home.name) else "VS"
+    vs_w = int(draw.textlength(vs_text, font=versus_font))
+    draw.rounded_rectangle([w // 2 - 70, logo_y + 30, w // 2 + 70, logo_y + 112], radius=24, fill=(255, 255, 255, 28))
+    draw.text((w // 2 - vs_w // 2, logo_y + 47), vs_text, font=versus_font, fill=(255, 255, 255, 230))
+
+    if venue_text:
+        venue_y = h - 112
+        draw.text((90, venue_y), venue_text, font=venue_font, fill=(210, 220, 235, 210))
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    img.save(out_path, format="PNG")
+
+
+def _render_series_outro_card_png(
+    out_path: Path,
+    *,
+    video_size: Tuple[int, int],
+    home: TeamInfo,
+    away: TeamInfo,
+    series_title: str,
+    series_status: str,
+    next_game_label: str,
+    datetime_label: str,
+    venue: str,
+    location: str,
+) -> None:
+    w, h = video_size
+    font_bold = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+    font_reg = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
+
+    img = Image.new("RGBA", (w, h), (9, 12, 19, 255))
+    draw = ImageDraw.Draw(img)
+
+    draw.rectangle([0, 0, w, h], fill=(9, 12, 19, 255))
+    draw.ellipse([-220, -120, 520, 520], fill=(18, 122, 92, 108))
+    draw.ellipse([w - 520, -180, w + 160, 420], fill=(28, 76, 148, 116))
+    draw.ellipse([w - 420, h - 420, w + 120, h + 120], fill=(156, 46, 54, 96))
+    draw.rounded_rectangle([56, 56, w - 56, h - 56], radius=32, fill=(0, 0, 0, 108), outline=(255, 255, 255, 44), width=2)
+
+    date_font = _load_font(font_reg, 19)
+    series_font = _fit_text_font(draw, series_title or "", font_bold, max_size=28, min_size=18, max_width=w - 220)
+    status_font = _fit_text_font(draw, series_status or "", font_bold, max_size=54, min_size=32, max_width=w - 220)
+    game_font = _fit_text_font(draw, next_game_label or "", font_bold, max_size=34, min_size=22, max_width=w - 220)
+    info_font = _fit_text_font(draw, datetime_label or "", font_reg, max_size=24, min_size=18, max_width=w - 220)
+    venue_font = _fit_text_font(draw, venue or "", font_bold, max_size=26, min_size=18, max_width=w - 220)
+    location_font = _fit_text_font(draw, location or "", font_reg, max_size=18, min_size=14, max_width=w - 220)
+
+    if series_title.strip():
+        draw.text((92, 92), series_title.strip(), font=series_font, fill=(25, 195, 125, 235))
+    draw.text((92, 152), "Series Update", font=date_font, fill=(210, 220, 235, 210))
+
+    draw.text((92, 212), series_status.strip() or "Series Continues", font=status_font, fill=(255, 255, 255, 245))
+    if next_game_label.strip():
+        draw.text((94, 302), next_game_label.strip(), font=game_font, fill=(232, 236, 242, 225))
+    if datetime_label.strip():
+        draw.text((94, 352), datetime_label.strip(), font=info_font, fill=(214, 222, 232, 220))
+    if venue.strip():
+        draw.text((94, 406), venue.strip(), font=venue_font, fill=(255, 255, 255, 228))
+    if location.strip():
+        draw.text((94, 448), location.strip(), font=location_font, fill=(214, 222, 232, 204))
+
+    away_logo = Image.open(away.logo_path).convert("RGBA").resize((148, 148), Image.Resampling.LANCZOS)
+    home_logo = Image.open(home.logo_path).convert("RGBA").resize((148, 148), Image.Resampling.LANCZOS)
+    logo_y = h - 274
+    away_x = 176
+    home_x = w - 176 - 148
+    img.paste(away_logo, (away_x, logo_y), away_logo)
+    img.paste(home_logo, (home_x, logo_y), home_logo)
+
+    away_name = away.name.strip() or "Away"
+    home_name = home.name.strip() or "Home"
+    name_font = _fit_text_font(draw, away_name, font_bold, max_size=24, min_size=18, max_width=320)
+    draw.text((away_x - 46, logo_y + 166), away_name, font=name_font, fill=(255, 255, 255, 226))
+    name_font = _fit_text_font(draw, home_name, font_bold, max_size=24, min_size=18, max_width=320)
+    draw.text((home_x - 46, logo_y + 166), home_name, font=name_font, fill=(255, 255, 255, 226))
+
+    versus_font = _load_font(font_bold, 30)
+    draw.rounded_rectangle([w // 2 - 106, logo_y + 40, w // 2 + 106, logo_y + 118], radius=24, fill=(255, 255, 255, 28))
+    vs_text = "GAME 7"
+    vs_w = int(draw.textlength(vs_text, font=versus_font))
+    draw.text((w // 2 - vs_w // 2, logo_y + 61), vs_text, font=versus_font, fill=(255, 255, 255, 232))
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    img.save(out_path, format="PNG")
+
+
+def _render_static_card_video(
+    image_path: Path,
+    out_path: Path,
+    *,
+    duration_seconds: float,
+    fps: str,
+) -> None:
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    subprocess.run(
+        [
+            "ffmpeg",
+            "-hide_banner",
+            "-y",
+            "-loop",
+            "1",
+            "-framerate",
+            str(fps),
+            "-t",
+            f"{float(duration_seconds):.3f}",
+            "-i",
+            str(image_path),
+            "-f",
+            "lavfi",
+            "-t",
+            f"{float(duration_seconds):.3f}",
+            "-i",
+            "anullsrc=channel_layout=stereo:sample_rate=48000",
+            "-shortest",
+            "-c:v",
+            "libx264",
+            "-preset",
+            "veryfast",
+            "-crf",
+            "18",
+            "-pix_fmt",
+            "yuv420p",
+            "-c:a",
+            "aac",
+            "-b:a",
+            "192k",
+            str(out_path),
+        ],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+
+
 def _render_overlay_png(
     out_path: Path,
     *,
@@ -261,6 +474,8 @@ def _render_overlay_png(
     is_short_handed: bool,
     is_empty_net: bool,
     special: str = "",
+    game_label: str = "",
+    series_title: str = "",
 ) -> None:
     video_w, video_h = video_size
     w, h = overlay_size
@@ -351,8 +566,10 @@ def _render_overlay_png(
     if special and not badge_text:
         tag = f"{special.strip().upper()} GOAL"
 
-    tag_font = _load_font(font_bold, 18)
-    draw.text((text_x0, 10), tag, font=tag_font, fill=(25, 195, 125, 240))
+    title_parts = [str(game_label or "").strip(), tag]
+    title_text = " • ".join([part for part in title_parts if part])
+    tag_font = _fit_text_font(draw, title_text, font_bold, max_size=18, min_size=14, max_width=text_w)
+    draw.text((text_x0, 10), title_text, font=tag_font, fill=(25, 195, 125, 240))
 
     scorer = scorer.strip() or "Unknown"
     badge_reserve = 70 if badge_text else 0
@@ -381,9 +598,9 @@ def _render_overlay_png(
         draw.rounded_rectangle([badge_x, badge_y, badge_x + badge_w, badge_y + badge_h], radius=10, fill=badge_fill)
         draw.text((badge_x + badge_pad_x, badge_y + badge_pad_y), badge_text, font=badge_font, fill=(0, 0, 0, 220))
 
-    meta_parts = [_format_period_label(period), time_str]
+    meta_parts = [str(series_title or "").strip(), _format_period_label(period), time_str]
     meta = " • ".join([p for p in meta_parts if p])
-    meta_font = _load_font(font_reg, 20)
+    meta_font = _fit_text_font(draw, meta, font_reg, max_size=20, min_size=14, max_width=text_w)
     draw.text((text_x0, 82), meta, font=meta_font, fill=(255, 255, 255, 200))
 
     assists = [a.strip() for a in [assist1, assist2] if a and a.strip()]
@@ -411,6 +628,8 @@ def _render_penalty_overlay_png(
     player: str,
     infraction: str,
     minutes: int,
+    game_label: str = "",
+    series_title: str = "",
 ) -> None:
     video_w, video_h = video_size
     w, h = overlay_size
@@ -482,16 +701,18 @@ def _render_penalty_overlay_png(
     text_x1 = score_x0 - pad
     text_w = max(10, text_x1 - text_x0)
 
-    tag_font = _load_font(font_bold, 18)
-    draw.text((text_x0, 10), "PENALTY", font=tag_font, fill=(255, 193, 7, 240))
+    title_parts = [str(game_label or "").strip(), "PENALTY"]
+    title_text = " • ".join([part for part in title_parts if part])
+    tag_font = _fit_text_font(draw, title_text, font_bold, max_size=18, min_size=14, max_width=text_w)
+    draw.text((text_x0, 10), title_text, font=tag_font, fill=(255, 193, 7, 240))
 
     player = player.strip() or "Unknown"
     player_font = _fit_text_font(draw, player, font_bold, max_size=34, min_size=22, max_width=text_w)
     draw.text((text_x0, 38), player, font=player_font, fill=(255, 255, 255, 235))
 
-    meta_parts = [_format_period_label(period), time_str]
+    meta_parts = [str(series_title or "").strip(), _format_period_label(period), time_str]
     meta = " • ".join([p for p in meta_parts if p])
-    meta_font = _load_font(font_reg, 20)
+    meta_font = _fit_text_font(draw, meta, font_reg, max_size=20, min_size=14, max_width=text_w)
     draw.text((text_x0, 82), meta, font=meta_font, fill=(255, 255, 255, 200))
 
     detail = infraction.strip() or "Penalty"
@@ -661,6 +882,175 @@ def _load_clip_items(
     return items
 
 
+def _load_reel_manifest_items(reel_manifest: Path) -> List[ClipItem]:
+    raw = _read_json(reel_manifest)
+    entries = raw.get("clips") if isinstance(raw, dict) else None
+    if not isinstance(entries, list):
+        raise ValueError(f"Invalid reel manifest: {reel_manifest}")
+
+    items: List[ClipItem] = []
+    for index, entry in enumerate(entries, 1):
+        if not isinstance(entry, dict):
+            continue
+        clip_path = Path(str(entry.get("clip_path") or "")).expanduser().resolve()
+        if not clip_path.exists():
+            raise FileNotFoundError(f"Missing clip path in reel manifest: {clip_path}")
+        event = entry.get("event") if isinstance(entry.get("event"), dict) else {}
+        game_info = entry.get("game_info") if isinstance(entry.get("game_info"), dict) else {}
+        items.append(
+            ClipItem(
+                index=int(entry.get("index") or index),
+                clip_path=clip_path,
+                event=dict(event),
+                game_info=dict(game_info),
+                overlay_game_label=str(entry.get("game_label") or "").strip(),
+                overlay_series_title=str(
+                    entry.get("series_title") or (raw.get("title") if isinstance(raw, dict) else "") or ""
+                ).strip(),
+                series_context=dict(entry.get("series_context") or {}) if isinstance(entry.get("series_context"), dict) else {},
+            )
+        )
+
+    items.sort(key=lambda item: (item.index, item.clip_path.name))
+    return items
+
+
+def _insert_game_intro_cards(
+    items: List[ClipItem],
+    *,
+    output_dir: Path,
+    teams_db: Dict[str, Any],
+    video_size: Tuple[int, int],
+    fps: str,
+    duration_seconds: float,
+) -> List[ClipItem]:
+    if not items:
+        return items
+
+    render_items: List[ClipItem] = []
+    last_game_key: Optional[Tuple[str, str, str]] = None
+    intro_index = 0
+
+    for item in items:
+        game_info = dict(item.game_info or {})
+        series_context = dict(item.series_context or {})
+        game_key = (
+            str(series_context.get("game_date") or game_info.get("date") or "").strip(),
+            str(item.overlay_game_label or "").strip(),
+            str(game_info.get("home_team") or "") + "::" + str(game_info.get("away_team") or ""),
+        )
+
+        should_insert = item.segment_kind == "clip" and bool(item.overlay_game_label or series_context.get("game_date"))
+        if should_insert and game_key != last_game_key:
+            league = str(game_info.get("league") or "MHL")
+            home_name = str(game_info.get("home_team") or "Home")
+            away_name = str(game_info.get("away_team") or "Away")
+            home = _find_team_info(home_name, league, teams_db)
+            away = _find_team_info(away_name, league, teams_db)
+
+            intro_index += 1
+            card_png = output_dir / f"game_intro_{intro_index:02d}.png"
+            card_mp4 = output_dir / f"game_intro_{intro_index:02d}.mp4"
+            _render_game_intro_card_png(
+                card_png,
+                video_size=video_size,
+                home=home,
+                away=away,
+                series_title=str(series_context.get("series_title") or item.overlay_series_title or "").strip(),
+                game_label=str(series_context.get("game_label") or item.overlay_game_label or "").strip(),
+                series_status=str(series_context.get("series_status") or "").strip(),
+                game_date_label=str(series_context.get("game_date_display") or series_context.get("game_date") or "").strip(),
+                venue=str(series_context.get("venue") or "").strip(),
+                attendance=series_context.get("attendance"),
+            )
+            _render_static_card_video(card_png, card_mp4, duration_seconds=duration_seconds, fps=fps)
+            render_items.append(
+                ClipItem(
+                    index=max(0, int(item.index) - 1),
+                    clip_path=card_mp4,
+                    event={"type": "game_intro"},
+                    game_info=game_info,
+                    overlay_game_label=str(item.overlay_game_label or "").strip(),
+                    overlay_series_title=str(item.overlay_series_title or "").strip(),
+                    series_context=series_context,
+                    segment_kind="game_intro",
+                )
+            )
+            last_game_key = game_key
+
+        render_items.append(item)
+
+    return render_items
+
+
+def _insert_series_outro_card(
+    items: List[ClipItem],
+    *,
+    output_dir: Path,
+    teams_db: Dict[str, Any],
+    video_size: Tuple[int, int],
+    fps: str,
+    duration_seconds: float,
+    series_status: str,
+    next_game_label: str,
+    datetime_label: str,
+    venue: str,
+    location: str,
+    home_team_name: str,
+    away_team_name: str,
+) -> List[ClipItem]:
+    if not items:
+        return items
+
+    reference = next((item for item in reversed(items) if item.segment_kind == "clip"), items[-1])
+    game_info = dict(reference.game_info or {})
+    league = str(game_info.get("league") or "MHL")
+    home_name = str(home_team_name or game_info.get("home_team") or "Home").strip()
+    away_name = str(away_team_name or game_info.get("away_team") or "Away").strip()
+    home = _find_team_info(home_name, league, teams_db)
+    away = _find_team_info(away_name, league, teams_db)
+
+    card_png = output_dir / "series_outro.png"
+    card_mp4 = output_dir / "series_outro.mp4"
+    _render_series_outro_card_png(
+        card_png,
+        video_size=video_size,
+        home=home,
+        away=away,
+        series_title=str(reference.overlay_series_title or "").strip(),
+        series_status=str(series_status or "").strip(),
+        next_game_label=str(next_game_label or "").strip(),
+        datetime_label=str(datetime_label or "").strip(),
+        venue=str(venue or "").strip(),
+        location=str(location or "").strip(),
+    )
+    _render_static_card_video(card_png, card_mp4, duration_seconds=duration_seconds, fps=fps)
+
+    outro_item = ClipItem(
+        index=int(reference.index) + 1,
+        clip_path=card_mp4,
+        event={"type": "series_outro"},
+        game_info={
+            **game_info,
+            "home_team": home_name,
+            "away_team": away_name,
+            "league": league,
+        },
+        overlay_series_title=str(reference.overlay_series_title or "").strip(),
+        segment_kind="series_outro",
+    )
+    return [*items, outro_item]
+
+
+def _coerce_score(value: Any) -> Optional[int]:
+    if value is None or value == "":
+        return None
+    try:
+        return int(value)
+    except Exception:
+        return None
+
+
 def _build_ffmpeg_filter(
     *,
     num_clips: int,
@@ -729,9 +1119,15 @@ def _build_ffmpeg_filter(
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Build a production highlight reel with overlays + transitions.")
-    parser.add_argument("--game-dir", type=Path, required=True, help="Game folder under Games/...")
+    parser.add_argument("--game-dir", type=Path, default=None, help="Game folder under Games/...")
+    parser.add_argument(
+        "--reel-manifest",
+        type=Path,
+        default=None,
+        help="Filtered/multi-game reel manifest JSON. When set, clips and metadata are loaded from the manifest instead of one game dir.",
+    )
     parser.add_argument("--clips-dir", type=Path, default=None, help="Directory containing per-clip mp4s (default: <game-dir>/clips)")
-    parser.add_argument("--events-json", type=Path, default=None, help="Matched events JSON (default: <game-dir>/data/matched_events_freezestart.json)")
+    parser.add_argument("--events-json", type=Path, default=None, help="Matched events JSON (default: <game-dir>/data/matched_events.json)")
     parser.add_argument("--clips-manifest", type=Path, default=None, help="Clip manifest JSON (default: <game-dir>/data/clips_manifest.json)")
     parser.add_argument(
         "--major-approved-json",
@@ -739,10 +1135,26 @@ def main() -> int:
         default=None,
         help="Approved major penalty manifest (default: <game-dir>/data/major_penalty_approved.json)",
     )
-    parser.add_argument("--teams-json", type=Path, default=Path("teams_highlights.json"), help="Teams metadata JSON (default: teams_highlights.json)")
+    parser.add_argument(
+        "--skip-major-approved",
+        action="store_true",
+        help="Ignore approved major penalty manifest even if it exists.",
+    )
+    parser.add_argument("--teams-json", type=Path, default=REPO_ROOT / "teams_highlights.json", help="Teams metadata JSON (default: teams_highlights.json)")
     parser.add_argument("--output", type=Path, default=None, help="Output mp4 path (default: <game-dir>/output/highlights_production.mp4)")
     parser.add_argument("--transition-seconds", type=float, default=0.25, help="Crossfade duration between clips")
     parser.add_argument("--overlay-seconds", type=float, default=5.0, help="How long to show the overlay at the start of each clip")
+    parser.add_argument("--game-intro-cards", action="store_true", help="Insert full-screen intro cards before the first clip of each game block")
+    parser.add_argument("--game-intro-card-seconds", type=float, default=3.5, help="Duration of each inserted game intro card in seconds")
+    parser.add_argument("--series-outro-card", action="store_true", help="Append a full-screen series outro card after the final clip")
+    parser.add_argument("--series-outro-card-seconds", type=float, default=4.5, help="Duration of the inserted series outro card in seconds")
+    parser.add_argument("--series-outro-status", default="", help="Primary status line for the series outro card")
+    parser.add_argument("--series-outro-game-label", default="", help="Upcoming game label for the series outro card")
+    parser.add_argument("--series-outro-datetime-label", default="", help="Date/time label for the series outro card")
+    parser.add_argument("--series-outro-venue", default="", help="Venue name for the series outro card")
+    parser.add_argument("--series-outro-location", default="", help="Venue location text for the series outro card")
+    parser.add_argument("--series-outro-home-team", default="", help="Home team name shown on the series outro card")
+    parser.add_argument("--series-outro-away-team", default="", help="Away team name shown on the series outro card")
     parser.add_argument(
         "--fps",
         default="source",
@@ -752,57 +1164,97 @@ def main() -> int:
     parser.add_argument("--dry-run", action="store_true", help="Print ffmpeg command without running it")
     args = parser.parse_args()
 
-    game_dir: Path = args.game_dir
-    clips_dir = args.clips_dir or (game_dir / "clips")
-    events_json = args.events_json or (game_dir / "data" / "matched_events_freezestart.json")
-    clips_manifest = args.clips_manifest or (game_dir / "data" / "clips_manifest.json")
-    major_approved_json = args.major_approved_json or (game_dir / "data" / "major_penalty_approved.json")
-    output_path = args.output or (game_dir / "output" / "highlights_production.mp4")
+    if not args.reel_manifest and not args.game_dir:
+        parser.error("one of --game-dir or --reel-manifest is required")
 
-    if not clips_dir.exists():
-        raise FileNotFoundError(f"Clips dir not found: {clips_dir}")
-    if not events_json.exists():
-        raise FileNotFoundError(f"Events JSON not found: {events_json}")
-
-    game_meta_path = game_dir / "data" / "game_metadata.json"
-    if not game_meta_path.exists():
-        raise FileNotFoundError(f"Missing game metadata: {game_meta_path}")
-
+    reel_manifest = args.reel_manifest.expanduser().resolve() if args.reel_manifest else None
+    game_dir = args.game_dir.expanduser().resolve() if args.game_dir else None
     teams_db = _read_json(args.teams_json)
-    game_meta = _read_json(game_meta_path)
-    game_info = game_meta.get("game_info", {})
+    default_game_info: Dict[str, Any] = {}
+    clips_dir: Optional[Path] = None
 
-    league = str(game_info.get("league", "MHL"))
-    home_name = str(game_info.get("home_team", "Home"))
-    away_name = str(game_info.get("away_team", "Away"))
+    if reel_manifest:
+        clip_items = _load_reel_manifest_items(reel_manifest)
+        output_path = args.output or reel_manifest.with_suffix(".mp4")
+    else:
+        assert game_dir is not None
+        clips_dir = args.clips_dir or (game_dir / "clips")
+        events_json = args.events_json or (game_dir / "data" / "matched_events.json")
+        if not events_json.exists():
+            legacy_events_json = game_dir / "data" / "matched_events_freezestart.json"
+            if legacy_events_json.exists():
+                events_json = legacy_events_json
+        clips_manifest = args.clips_manifest or (game_dir / "data" / "clips_manifest.json")
+        major_approved_json = args.major_approved_json or (game_dir / "data" / "major_penalty_approved.json")
+        if args.skip_major_approved:
+            major_approved_json = None
+        output_path = args.output or (game_dir / "output" / "highlights_production.mp4")
 
-    home = _find_team_info(home_name, league, teams_db)
-    away = _find_team_info(away_name, league, teams_db)
+        if not clips_dir.exists():
+            raise FileNotFoundError(f"Clips dir not found: {clips_dir}")
+        if not events_json.exists():
+            raise FileNotFoundError(f"Events JSON not found: {events_json}")
 
-    home_roster = _load_roster_names(home.slug)
-    away_roster = _load_roster_names(away.slug)
+        game_meta_path = game_dir / "data" / "game_metadata.json"
+        if not game_meta_path.exists():
+            raise FileNotFoundError(f"Missing game metadata: {game_meta_path}")
 
-    clip_items = _load_clip_items(
-        game_dir=game_dir,
-        clips_dir=clips_dir,
-        events_json=events_json,
-        clips_manifest=clips_manifest,
-        major_approved_json=major_approved_json if major_approved_json.exists() else None,
-    )
-    clip_paths = [it.clip_path for it in clip_items]
-    if not clip_paths:
-        raise ValueError(f"No mp4 clips found in: {clips_dir}")
+        game_meta = _read_json(game_meta_path)
+        default_game_info = dict(game_meta.get("game_info", {}) or {})
+        clip_items = _load_clip_items(
+            game_dir=game_dir,
+            clips_dir=clips_dir,
+            events_json=events_json,
+            clips_manifest=clips_manifest,
+            major_approved_json=major_approved_json if (major_approved_json and major_approved_json.exists()) else None,
+        )
 
-    # Render overlays
-    overlays_dir = game_dir / "output" / "overlays"
+    base_clip_paths = [it.clip_path for it in clip_items]
+    if not base_clip_paths:
+        raise ValueError(f"No mp4 clips found for production render")
+
+    fps_expr = str(args.fps or "").strip()
+    if not fps_expr or fps_expr.lower() in {"source", "auto"}:
+        fps_expr = _ffprobe_fps_expr(base_clip_paths[0]) or "30"
+    if not re.match(r"^[0-9./]+$", fps_expr):
+        raise ValueError(f"Invalid --fps value: {args.fps}")
+
+    # Render overlays / optional game intro cards
+    overlays_dir = (game_dir / "output" / "overlays") if game_dir else (output_path.parent / f"{output_path.stem}_overlays")
     overlays_dir.mkdir(parents=True, exist_ok=True)
 
     overlay_w, overlay_h = (780, 140)
     video_size = (1280, 720)
 
+    if args.game_intro_cards:
+        clip_items = _insert_game_intro_cards(
+            clip_items,
+            output_dir=overlays_dir,
+            teams_db=teams_db,
+            video_size=video_size,
+            fps=fps_expr,
+            duration_seconds=float(args.game_intro_card_seconds),
+        )
+    if args.series_outro_card:
+        clip_items = _insert_series_outro_card(
+            clip_items,
+            output_dir=overlays_dir,
+            teams_db=teams_db,
+            video_size=video_size,
+            fps=fps_expr,
+            duration_seconds=float(args.series_outro_card_seconds),
+            series_status=str(args.series_outro_status or "").strip(),
+            next_game_label=str(args.series_outro_game_label or "").strip(),
+            datetime_label=str(args.series_outro_datetime_label or "").strip(),
+            venue=str(args.series_outro_venue or "").strip(),
+            location=str(args.series_outro_location or "").strip(),
+            home_team_name=str(args.series_outro_home_team or "").strip(),
+            away_team_name=str(args.series_outro_away_team or "").strip(),
+        )
+
     overlay_paths: List[Path] = []
-    home_score = 0
-    away_score = 0
+    clip_paths: List[Path] = []
+    score_cache: Dict[Tuple[str, str, str], Tuple[TeamInfo, TeamInfo, List[str], List[str]]] = {}
 
     unreliable_clips = []
     for idx, item in enumerate(clip_items, 1):
@@ -810,11 +1262,34 @@ def main() -> int:
         clip_type = item.type
 
         overlay_path = overlays_dir / f"overlay_{idx:02d}.png"
+        clip_paths.append(item.clip_path)
+        item_game_info = dict(default_game_info)
+        if item.game_info:
+            item_game_info.update(item.game_info)
+
+        league = str(item_game_info.get("league", "MHL"))
+        home_name = str(item_game_info.get("home_team", "Home"))
+        away_name = str(item_game_info.get("away_team", "Away"))
+        score_key = (league, home_name, away_name)
+        if score_key not in score_cache:
+            home = _find_team_info(home_name, league, teams_db)
+            away = _find_team_info(away_name, league, teams_db)
+            score_cache[score_key] = (
+                home,
+                away,
+                _load_roster_names(home.slug),
+                _load_roster_names(away.slug),
+            )
+        home, away, home_roster, away_roster = score_cache[score_key]
+
+        if item.segment_kind in {"game_intro", "series_outro"} or clip_type in {"game_intro", "series_outro"}:
+            _render_transparent_overlay_png(overlay_path, (overlay_w, overlay_h))
+            overlay_paths.append(overlay_path)
+            continue
 
         # Check for unreliable match (scoreboard issues detected)
         is_unreliable = bool(e.get("match_unreliable", False))
         match_confidence = e.get("match_confidence", 1.0)
-        scoreboard_health = e.get("scoreboard_health_score", 1.0)
 
         if is_unreliable:
             reason = e.get("match_unreliable_reason", "Unknown")
@@ -838,10 +1313,11 @@ def main() -> int:
                 scoring_team_name = str(e.get("team", "") or "")
                 scoring_team = _find_team_info(scoring_team_name, league, teams_db)
 
-            if scoring_team is home:
-                home_score += 1
-            elif scoring_team is away:
-                away_score += 1
+            home_score = _coerce_score(e.get("home_score"))
+            away_score = _coerce_score(e.get("away_score"))
+            if home_score is None or away_score is None:
+                home_score = 1 if scoring_team is home else 0
+                away_score = 1 if scoring_team is away else 0
 
             special_str = str(e.get("special") or "").strip()
             special_norm = special_str.upper()
@@ -872,6 +1348,8 @@ def main() -> int:
                 is_short_handed=is_short_handed,
                 is_empty_net=is_empty_net,
                 special=special_overlay,
+                game_label=item.overlay_game_label,
+                series_title=item.overlay_series_title,
             )
             overlay_paths.append(overlay_path)
             continue
@@ -880,6 +1358,8 @@ def main() -> int:
         if penalized_team is None:
             penalized_team = home
 
+        home_score = _coerce_score(e.get("home_score")) or 0
+        away_score = _coerce_score(e.get("away_score")) or 0
         player = e.get("player") or {}
         player_name = player.get("name") if isinstance(player, dict) else str(player or "")
         _render_penalty_overlay_png(
@@ -896,6 +1376,8 @@ def main() -> int:
             player=str(player_name or "").strip(),
             infraction=str(e.get("infraction") or "").strip(),
             minutes=int(e.get("minutes") or 2),
+            game_label=item.overlay_game_label,
+            series_title=item.overlay_series_title,
         )
         overlay_paths.append(overlay_path)
 
@@ -912,11 +1394,11 @@ def main() -> int:
         print("=" * 70 + "\n")
 
         # Write unreliable clips report
-        report_path = game_dir / "output" / "UNRELIABLE_CLIPS_REPORT.txt"
+        report_path = (game_dir / "output" / "UNRELIABLE_CLIPS_REPORT.txt") if game_dir else (output_path.parent / "UNRELIABLE_CLIPS_REPORT.txt")
         try:
             with open(report_path, "w", encoding="utf-8") as f:
                 f.write(f"UNRELIABLE CLIPS REPORT\n")
-                f.write(f"Game: {game_dir.name}\n")
+                f.write(f"Game: {(game_dir.name if game_dir else output_path.stem)}\n")
                 f.write("=" * 50 + "\n\n")
                 f.write(f"Total clips with timing issues: {len(unreliable_clips)}\n\n")
                 for clip in unreliable_clips:
@@ -934,12 +1416,6 @@ def main() -> int:
 
     # Clip durations
     durations = [_ffprobe_duration_seconds(p) for p in clip_paths]
-
-    fps_expr = str(args.fps or "").strip()
-    if not fps_expr or fps_expr.lower() in {"source", "auto"}:
-        fps_expr = _ffprobe_fps_expr(clip_paths[0]) or "30"
-    if not re.match(r"^[0-9./]+$", fps_expr):
-        raise ValueError(f"Invalid --fps value: {args.fps}")
 
     # Build ffmpeg command
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -1006,8 +1482,8 @@ def main() -> int:
     print(f"Wrote: {output_path}")
 
     # Copy YouTube description alongside output if available.
-    desc_src = game_dir / "output" / "youtube_description.txt"
-    if desc_src.exists():
+    desc_src = (game_dir / "output" / "youtube_description.txt") if game_dir else None
+    if desc_src and desc_src.exists():
         try:
             out_desc = output_path.parent / "youtube_description.txt"
             if out_desc.resolve() != desc_src.resolve():

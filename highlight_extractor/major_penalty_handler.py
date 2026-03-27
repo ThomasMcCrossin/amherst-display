@@ -18,6 +18,8 @@ from pathlib import Path
 from typing import List, Dict, Optional, Tuple
 from dataclasses import dataclass, asdict
 
+from drive_config import resolve_drive_config
+
 from .penalty_analyzer import PenaltyInfo, find_major_penalties, parse_penalties, group_coincidental_penalties
 from .time_utils import time_string_to_seconds, PERIOD_LENGTH_SECONDS, OT_LENGTH_SECONDS
 
@@ -557,7 +559,7 @@ def upload_to_drive(
     if not service:
         return None
 
-    folder_id = os.environ.get('MAJOR_REVIEW_DRIVE_FOLDER_ID', '')
+    folder_id = resolve_drive_config().major_review_folder_id
     if not folder_id:
         folder_id = getattr(config, 'MAJOR_REVIEW_DRIVE_FOLDER_ID', '')
     if isinstance(folder_id, str):

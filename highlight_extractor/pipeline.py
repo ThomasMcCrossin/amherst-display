@@ -15,7 +15,10 @@ from .models import GameInfo, Event, VideoTimestamp, PipelineResult
 from .goal import Goal, GoalSummary
 from .file_manager import FileManager
 from .box_score import BoxScoreFetcher
-from .video_processor import VideoProcessor
+try:
+    from .video_processor import VideoProcessor
+except ModuleNotFoundError:
+    VideoProcessor = None  # type: ignore[assignment]
 from .ocr_engine import OCREngine
 from .event_matcher import EventMatcher
 from .time_utils import (
@@ -76,8 +79,25 @@ class HighlightPipeline:
         # Dependency injection (allows testing with mocks)
         self.file_manager = file_manager or FileManager(config)
         self.box_score_fetcher = box_score_fetcher or BoxScoreFetcher()
-        self.video_processor = video_processor or VideoProcessor(self.video_path, config)
-        self.ocr_engine = ocr_engine or OCREngine(config)
+        if video_processor is not None:
+            self.video_processor = video_processor
+        else:
+            if VideoProcessor is None:
+                raise RuntimeError(
+                    "VideoProcessor is unavailable because moviepy is not installed. "
+                    "Inject a stub video_processor for tests or install highlight video dependencies."
+                )
+            self.video_processor = VideoProcessor(self.video_path, config)
+        self.ocr_engine = ocr_engine
+        self._ocr_engine_init_error: Optional[BaseException] = None
+        self._pending_broadcast_type = 'auto'
+        if self.ocr_engine is None:
+            try:
+                self.ocr_engine = OCREngine(config)
+            except Exception as exc:
+                # Defer OCR dependency failures until a code path actually needs OCR.
+                # This keeps non-OCR tests and stubbed flows working when OCR deps are absent.
+                self._ocr_engine_init_error = exc
         self.event_matcher = event_matcher or EventMatcher(config)
 
         # State
@@ -127,6 +147,10 @@ class HighlightPipeline:
             self.game_folders = game_folders_override
 
         self._log_handler = None
+        self.reel_mode = str(getattr(self.config, "DEFAULT_REEL_MODE", "goals_only"))
+        self._refine_goal_clock = True
+        self._refine_local_ocr = True
+        self._detected_game_start_time: Optional[float] = None
 
     @property
     def goals(self) -> List[Goal]:
@@ -181,6 +205,114 @@ class HighlightPipeline:
             # Logging must never break processing.
             self._log_handler = None
 
+    def _normalize_reel_mode(self, reel_mode: Optional[str]) -> str:
+        mode = str(reel_mode or getattr(self.config, "DEFAULT_REEL_MODE", "goals_only")).strip().lower()
+        supported = tuple(getattr(self.config, "SUPPORTED_REEL_MODES", ("goals_only",)))
+        if mode not in supported:
+            raise ValueError(
+                f"Unsupported reel mode '{mode}'. Expected one of: {', '.join(supported)}"
+            )
+        return mode
+
+    def _include_pp_penalty_clips(self) -> bool:
+        return self.reel_mode in {"goals_with_pp_penalties", "full_production"}
+
+    def _requires_major_review_workflow(self) -> bool:
+        return self.reel_mode in {"goals_with_approved_majors", "full_production"}
+
+    def _ensure_ocr_engine(self) -> OCREngine:
+        if self.ocr_engine is None:
+            try:
+                self.ocr_engine = OCREngine(self.config)
+                self._ocr_engine_init_error = None
+            except Exception as exc:
+                self._ocr_engine_init_error = exc
+
+        if self.ocr_engine is None:
+            detail = str(self._ocr_engine_init_error or "").strip() or "OCR backend unavailable"
+            raise RuntimeError(detail) from self._ocr_engine_init_error
+
+        if self._pending_broadcast_type != 'auto':
+            self.ocr_engine.set_broadcast_type(self._pending_broadcast_type)
+        return self.ocr_engine
+
+    def _minimum_plausible_video_time_for_event(self, event: Dict) -> Optional[float]:
+        helper = getattr(self.event_matcher, "minimum_video_time_for_event", None)
+        if not callable(helper):
+            return None
+        try:
+            return helper(
+                event,
+                recording_game_start_time=self._detected_game_start_time,
+            )
+        except Exception:
+            return None
+
+    def _refinement_broadcast_type(self) -> str:
+        """
+        Use the resolved execution-profile broadcast type during local refinement too.
+
+        Falling back to auto here causes the refinement passes to re-probe generic ROIs,
+        which is both slower and less accurate for seeded home-broadcast layouts.
+        """
+        return str(self._pending_broadcast_type or "auto")
+
+    @staticmethod
+    def _goal_match_key(entry: Dict) -> tuple[int, str, str, str]:
+        return (
+            int(entry.get("period") or 0),
+            str(entry.get("time") or "").strip(),
+            str(entry.get("team") or "").strip().lower(),
+            str(entry.get("scorer") or "").strip().lower(),
+        )
+
+    def _hydrate_goal_events_from_typed_matches(self) -> int:
+        """
+        Backfill legacy event dicts from typed Goal matches.
+
+        The pipeline still creates clips from self.matched_events, but the typed
+        goal matcher is often more resilient when OCR coverage is sparse. Copy any
+        successful typed-goal matches back into the dict event list so clip creation
+        and manifests don't silently drop goals.
+        """
+        if not self.matched_events or not self._matched_goals:
+            return 0
+
+        typed_lookup: Dict[tuple[int, str, str, str], List[Goal]] = {}
+        for goal in self._matched_goals:
+            key = (
+                int(goal.period or 0),
+                str(goal.time or "").strip(),
+                str(goal.team or "").strip().lower(),
+                str(goal.scorer or "").strip().lower(),
+            )
+            typed_lookup.setdefault(key, []).append(goal)
+
+        hydrated = 0
+        for event in self.matched_events:
+            if str(event.get("type") or "").strip().lower() != "goal":
+                continue
+
+            key = self._goal_match_key(event)
+            matches = typed_lookup.get(key) or []
+            if not matches:
+                continue
+
+            goal = matches.pop(0)
+            if event.get("video_time") is None and goal.video_time is not None:
+                event["video_time"] = float(goal.video_time)
+                hydrated += 1
+            if event.get("match_confidence") is None and goal.match_confidence is not None:
+                event["match_confidence"] = float(goal.match_confidence)
+            if not str(event.get("assist1") or "").strip() and goal.assist1:
+                event["assist1"] = goal.assist1
+            if not str(event.get("assist2") or "").strip() and goal.assist2:
+                event["assist2"] = goal.assist2
+            if not str(event.get("special") or "").strip() and getattr(goal, "goal_type", None):
+                event["special"] = str(goal.goal_type.value)
+
+        return hydrated
+
     def execute(
         self,
         sample_interval: int = 5,
@@ -191,7 +323,12 @@ class HighlightPipeline:
         parallel_ocr: bool = True,
         ocr_workers: int = 4,
         broadcast_type: str = 'auto',
-        auto_detect_start: bool = True
+        auto_detect_start: bool = True,
+        refine_goal_clock: bool = True,
+        refine_local_ocr: bool = True,
+        reel_mode: Optional[str] = None,
+        build_reel: bool = True,
+        build_description: bool = True,
     ) -> PipelineResult:
         """
         Execute the complete 7-step pipeline
@@ -206,14 +343,23 @@ class HighlightPipeline:
             ocr_workers: Number of worker threads for parallel OCR
             broadcast_type: Type of broadcast ('auto', 'flohockey', 'yarmouth', 'standard')
             auto_detect_start: Auto-detect game start to skip pre-game content (default True)
+            refine_goal_clock: Use the goal clock-stop refinement pass after matching
+            refine_local_ocr: Use the local OCR fallback refinement pass after matching
+            reel_mode: Reel composition mode (goals_only, goals_with_pp_penalties,
+                goals_with_approved_majors, full_production)
+            build_reel: Build the per-game stitched highlights reel after creating clips
+            build_description: Generate the YouTube description sidecar after processing
 
         Returns:
             PipelineResult with success status and metrics
         """
-        # Configure OCR for broadcast type
-        if broadcast_type != 'auto':
-            self.ocr_engine.set_broadcast_type(broadcast_type)
-            logger.info(f"Using broadcast type: {broadcast_type}")
+        self.reel_mode = self._normalize_reel_mode(reel_mode)
+        self._refine_goal_clock = bool(refine_goal_clock)
+        self._refine_local_ocr = bool(refine_local_ocr)
+
+        self._pending_broadcast_type = str(broadcast_type or 'auto')
+        if self._pending_broadcast_type != 'auto':
+            logger.info(f"Using broadcast type: {self._pending_broadcast_type}")
         self._pipeline_start_time = time.time()
         errors = []
         warnings = []
@@ -227,6 +373,7 @@ class HighlightPipeline:
             logger.info("Box-Score-Based Detection")
             logger.info("=" * 70)
             logger.info(f"Processing: {self.video_path.name}")
+            logger.info(f"Reel mode: {self.reel_mode}")
 
             # STEP 1: Parse filename and create folders
             try:
@@ -260,11 +407,13 @@ class HighlightPipeline:
 
             # STEP 3.5: Auto-detect game start (optional)
             game_start_time = 0.0
+            self._detected_game_start_time = None
             if auto_detect_start:
                 try:
                     detected_start = self._detect_game_start()
                     if detected_start is not None:
                         game_start_time = detected_start
+                        self._detected_game_start_time = float(detected_start)
                         logger.info(f"Game start detected at {game_start_time/60:.1f} minutes")
                     else:
                         logger.warning("Could not auto-detect game start, starting from beginning")
@@ -288,7 +437,10 @@ class HighlightPipeline:
 
             # STEP 5: Match events to video
             try:
-                self._step5_match_events(tolerance_seconds=tolerance_seconds)
+                self._step5_match_events(
+                    tolerance_seconds=tolerance_seconds,
+                    recording_game_start_time=self._detected_game_start_time,
+                )
             except Exception as e:
                 self._record_failure(5, "event_match_failed", e)
                 error_msg = f"Step 5 failed: {e}"
@@ -337,23 +489,27 @@ class HighlightPipeline:
                 success = len(errors) == 0 or (len(self.created_clips) > 0)
                 return self._create_result(success, errors, warnings, highlights_path=None)
 
-            # STEP 7: Create highlights reel
             highlights_path = None
-            try:
-                highlights_path = self._step7_create_highlights_reel(max_clips=max_clips)
-            except Exception as e:
-                error_msg = f"Step 7 failed: {e}"
-                logger.error(error_msg)
-                errors.append(error_msg)
-                warnings.append(error_msg)
+            if build_reel:
+                try:
+                    highlights_path = self._step7_create_highlights_reel(max_clips=max_clips)
+                except Exception as e:
+                    error_msg = f"Step 7 failed: {e}"
+                    logger.error(error_msg)
+                    errors.append(error_msg)
+                    warnings.append(error_msg)
+            else:
+                logger.info("Skipping per-game highlights reel build")
 
-            # STEP 8: Generate YouTube description
-            try:
-                self._step8_generate_description()
-            except Exception as e:
-                warning_msg = f"Step 8 (YouTube description) failed: {e}"
-                logger.warning(warning_msg)
-                warnings.append(warning_msg)
+            if build_description:
+                try:
+                    self._step8_generate_description()
+                except Exception as e:
+                    warning_msg = f"Step 8 (YouTube description) failed: {e}"
+                    logger.warning(warning_msg)
+                    warnings.append(warning_msg)
+            else:
+                logger.info("Skipping YouTube description generation")
 
             # Generate summary
             self._log_summary(highlights_path)
@@ -522,7 +678,7 @@ class HighlightPipeline:
         logger.info("STEP 3.5: AUTO-DETECTING GAME START")
         logger.info("=" * 70)
 
-        game_start = self.ocr_engine.find_game_start(self.video_processor)
+        game_start = self._ensure_ocr_engine().find_game_start(self.video_processor)
 
         if game_start is not None:
             logger.info(f"✅ Game starts at {game_start/60:.1f} minutes ({game_start:.0f}s)")
@@ -559,7 +715,9 @@ class HighlightPipeline:
             ocr_game_id = game_dir.name if hasattr(game_dir, 'name') else str(game_dir).split('/')[-1]
 
         # Sample video with OCR
-        self.video_timestamps = self.ocr_engine.sample_video_times(
+        ocr_engine = self._ensure_ocr_engine()
+
+        self.video_timestamps = ocr_engine.sample_video_times(
             self.video_processor,
             sample_interval=sample_interval,
             max_samples=None,
@@ -569,11 +727,12 @@ class HighlightPipeline:
             start_time=video_start_time,
             output_dir=self.game_folders.get('data_dir'),
             game_id=ocr_game_id,
+            broadcast_type=str(self._pending_broadcast_type or "auto"),
         )
 
         # Hybrid policy: if OCR quality is poor, run a probe pass to lock onto the most stable
         # scoreboard settings and rerun sampling before failing the pipeline.
-        stats = self.ocr_engine.get_last_sampling_stats()
+        stats = ocr_engine.get_last_sampling_stats()
         try:
             min_success = float(getattr(self.config, "OCR_MIN_SUCCESS_RATE", 0.05))
             min_period = float(getattr(self.config, "OCR_MIN_PERIOD_RATE", 0.20))
@@ -594,7 +753,7 @@ class HighlightPipeline:
                     ac,
                 )
                 try:
-                    probe_report = self.ocr_engine.probe_video_scoreboard(
+                    probe_report = ocr_engine.probe_video_scoreboard(
                         self.video_processor,
                         start_time=video_start_time,
                         samples=60,
@@ -606,7 +765,7 @@ class HighlightPipeline:
                     logger.warning(f"OCR probe pass failed: {e}")
 
                 # Retry full sampling using the newly cached ROI/broadcast/backend/preprocess.
-                self.video_timestamps = self.ocr_engine.sample_video_times(
+                self.video_timestamps = ocr_engine.sample_video_times(
                     self.video_processor,
                     sample_interval=sample_interval,
                     max_samples=None,
@@ -616,6 +775,7 @@ class HighlightPipeline:
                     start_time=video_start_time,
                     output_dir=self.game_folders.get('data_dir'),
                     game_id=ocr_game_id,
+                    broadcast_type=str(self._pending_broadcast_type or "auto"),
                 )
 
         if not self.video_timestamps:
@@ -636,7 +796,11 @@ class HighlightPipeline:
 
         self._step_timings['extract_timestamps'] = time.time() - step_start
 
-    def _step5_match_events(self, tolerance_seconds: int = 30):
+    def _step5_match_events(
+        self,
+        tolerance_seconds: int = 30,
+        recording_game_start_time: Optional[float] = None,
+    ):
         """Step 5: Match box score events to video timestamps"""
         start_time = time.time()
 
@@ -681,6 +845,7 @@ class HighlightPipeline:
             tolerance_seconds=tolerance_seconds,
             game_id=game_id,
             output_dir=output_dir,
+            recording_game_start_time=recording_game_start_time,
         )
 
         # Also match typed Goal objects (new in v2.1)
@@ -688,26 +853,36 @@ class HighlightPipeline:
             self._matched_goals = self.event_matcher.match_goals_to_video(
                 self._goals,
                 self.video_timestamps,
-                tolerance_seconds=tolerance_seconds
+                tolerance_seconds=tolerance_seconds,
+                recording_game_start_time=recording_game_start_time,
             )
+            hydrated = self._hydrate_goal_events_from_typed_matches()
+            if hydrated:
+                logger.info(f"Hydrated {hydrated} goal events from typed goal matches")
 
         # Refine any low-confidence goal matches by locating the clock-stop moment
         # (the scoreboard freezes at the goal time during the stoppage).
-        try:
-            refined = self._refine_goal_events_by_clock_stop(self.matched_events)
-            if refined:
-                logger.info(f"Refined {refined} goal timestamps via clock-stop OCR")
-        except Exception as e:
-            logger.warning(f"Goal timestamp refinement failed: {e}")
+        if self._refine_goal_clock:
+            try:
+                refined = self._refine_goal_events_by_clock_stop(self.matched_events)
+                if refined:
+                    logger.info(f"Refined {refined} goal timestamps via clock-stop OCR")
+            except Exception as e:
+                logger.warning(f"Goal timestamp refinement failed: {e}")
+        else:
+            logger.info("Skipping goal clock-stop refinement")
 
         # Generic fallback: for low-confidence matches, do a small local OCR scan around the
         # approximate match timestamp and snap to the closest persistent clock reading.
-        try:
-            refined_any = self._refine_low_confidence_events_by_local_ocr(self.matched_events)
-            if refined_any:
-                logger.info(f"Refined {refined_any} event timestamps via local OCR")
-        except Exception as e:
-            logger.warning(f"Local OCR refinement failed: {e}")
+        if self._refine_local_ocr:
+            try:
+                refined_any = self._refine_low_confidence_events_by_local_ocr(self.matched_events)
+                if refined_any:
+                    logger.info(f"Refined {refined_any} event timestamps via local OCR")
+            except Exception as e:
+                logger.warning(f"Local OCR refinement failed: {e}")
+        else:
+            logger.info("Skipping local OCR refinement")
 
         # Filter to only events with successful matches
         valid_events = [e for e in self.matched_events if e.get('video_time') is not None]
@@ -771,10 +946,16 @@ class HighlightPipeline:
             time_str = event.get('time', '0:00')
             target_seconds = self.event_matcher.event_time_to_remaining_seconds(period, time_str)
             period_length = OT_LENGTH_SECONDS if (period or 1) >= 4 else PERIOD_LENGTH_SECONDS
+            minimum_video_time = self._minimum_plausible_video_time_for_event(event)
 
             period_ts = [
                 ts for ts in video_timestamps
-                if ts.get('period') == period and ts.get('video_time') is not None
+                if ts.get('period') == period
+                and ts.get('video_time') is not None
+                and (
+                    minimum_video_time is None
+                    or float(ts.get('video_time') or 0.0) >= minimum_video_time
+                )
             ]
             period_ts.sort(key=lambda t: t.get('video_time', 0))
 
@@ -797,11 +978,17 @@ class HighlightPipeline:
                         anchor_before = ts
                         break
 
-            search_start = max(0.0, float(video_time) - lookback_seconds)
+            anchor_video_time = float(video_time)
+            if minimum_video_time is not None and anchor_video_time < minimum_video_time:
+                anchor_video_time = minimum_video_time
+
+            search_start = max(0.0, anchor_video_time - lookback_seconds)
             if anchor_before is not None:
                 search_start = max(0.0, float(anchor_before['video_time']) - 5.0)
+            if minimum_video_time is not None:
+                search_start = max(search_start, minimum_video_time)
 
-            search_end = min(duration, float(video_time) + lookforward_seconds)
+            search_end = min(duration, anchor_video_time + lookforward_seconds)
             if search_end <= search_start:
                 continue
 
@@ -813,7 +1000,10 @@ class HighlightPipeline:
                 frame = self.video_processor.get_frame_at_time(t)
                 ocr_seconds = None
                 if frame is not None:
-                    ocr_result = self.ocr_engine.extract_time_from_frame(frame)
+                    ocr_result = self._ensure_ocr_engine().extract_time_from_frame(
+                        frame,
+                        broadcast_type=self._refinement_broadcast_type(),
+                    )
                     if ocr_result:
                         _, ocr_time_str = ocr_result
                         parsed = time_string_to_seconds(ocr_time_str)
@@ -927,8 +1117,15 @@ class HighlightPipeline:
             if video_time is None:
                 continue
 
-            # Skip events already refined by a stronger mechanism.
-            if str(event.get("refined_by") or "") in {"clock_stop"}:
+            # Goals-only reels do not benefit from rescanning penalties or other
+            # non-goal events during the generic local-OCR fallback.
+            if self.reel_mode == "goals_only" and str(event.get("type") or "").strip().lower() != "goal":
+                continue
+
+            # Skip events already refined by the stronger clock-stop mechanism.
+            # "closest_clock" is only a best-effort fallback and still benefits
+            # from the generic local OCR pass.
+            if str(event.get("refined_by") or "") == "clock_stop":
                 continue
 
             try:
@@ -1012,8 +1209,15 @@ class HighlightPipeline:
         if max_diff_seconds <= 0:
             max_diff_seconds = 0.0
 
-        start = max(0.0, float(approx_video_time) - window_seconds)
-        end = min(duration, float(approx_video_time) + window_seconds)
+        minimum_video_time = self._minimum_plausible_video_time_for_event(event)
+        center_time = float(approx_video_time)
+        if minimum_video_time is not None and center_time < minimum_video_time:
+            center_time = minimum_video_time
+
+        start = max(0.0, center_time - window_seconds)
+        if minimum_video_time is not None:
+            start = max(start, minimum_video_time)
+        end = min(duration, center_time + window_seconds)
         if end <= start:
             return None
 
@@ -1029,7 +1233,10 @@ class HighlightPipeline:
 
             ocr = None
             try:
-                ocr = self.ocr_engine.extract_time_from_frame_detailed(frame, broadcast_type="auto")
+                ocr = self._ensure_ocr_engine().extract_time_from_frame_detailed(
+                    frame,
+                    broadcast_type=self._refinement_broadcast_type(),
+                )
             except Exception:
                 ocr = None
 
@@ -1082,7 +1289,7 @@ class HighlightPipeline:
         before_seconds: float = 15.0,
         after_seconds: float = 4.0
     ):
-        """Step 6: Create individual highlight clips (including penalty clips for PP goals)"""
+        """Step 6: Create individual highlight clips for the selected reel mode."""
         start_time = time.time()
 
         logger.info("\n" + "=" * 70)
@@ -1108,82 +1315,78 @@ class HighlightPipeline:
         except Exception as e:
             logger.warning(f"Could not clear existing clips: {e}")
 
-        # Analyze penalties and link to PP goals
-        # Get penalties from box_score - nested under SiteKit.Gamesummary.penalties
         pp_penalty_map = {}
-        penalties_data = []
-        if self.box_score:
-            penalties_data = (self.box_score.get('SiteKit', {})
-                              .get('Gamesummary', {})
-                              .get('penalties', []))
-        if penalties_data:
-            logger.info(f"Analyzing {len(penalties_data)} penalties for PP goal linking...")
-            time_is_elapsed = bool(getattr(self.config, 'BOX_SCORE_TIME_IS_ELAPSED', True))
-            penalty_analysis = analyze_game_penalties(
-                goal_events,
-                penalties_data,
-                our_team='ramblers',
-                time_is_elapsed=time_is_elapsed,
-            )
-            pp_penalty_map = penalty_analysis.get('pp_penalty_map', {})
-            logger.info(f"Found {len(pp_penalty_map)} penalties linked to PP goals")
+        if self._include_pp_penalty_clips():
+            penalties_data = []
+            if self.box_score:
+                penalties_data = (self.box_score.get('SiteKit', {})
+                                  .get('Gamesummary', {})
+                                  .get('penalties', []))
+            if penalties_data:
+                logger.info(f"Analyzing {len(penalties_data)} penalties for PP goal linking...")
+                time_is_elapsed = bool(getattr(self.config, 'BOX_SCORE_TIME_IS_ELAPSED', True))
+                penalty_analysis = analyze_game_penalties(
+                    goal_events,
+                    penalties_data,
+                    our_team='ramblers',
+                    time_is_elapsed=time_is_elapsed,
+                )
+                pp_penalty_map = penalty_analysis.get('pp_penalty_map', {})
+                logger.info(f"Found {len(pp_penalty_map)} penalties linked to PP goals")
 
-        # Match penalty video times using the same timestamp data
-        for goal_idx, penalty_info in pp_penalty_map.items():
-            if penalty_info.video_time is None:
-                # Find video time for this penalty
-                penalty_video_time = self._find_penalty_video_time(penalty_info)
-                if penalty_video_time is not None:
-                    penalty_info.video_time = penalty_video_time
-                    logger.debug(f"Penalty P{penalty_info.period} {penalty_info.time} matched to video time {penalty_video_time:.1f}s")
-                else:
-                    # Fallback: estimate penalty clip position relative to the matched PP goal,
-                    # then optionally refine via a local OCR scan around that estimate.
-                    # This helps when OCR sampling starts late or period inference fails,
-                    # leaving no usable timestamps for the penalty's period.
-                    try:
-                        goal_event = goal_events[int(goal_idx)]
-                        goal_video_time = goal_event.get("video_time")
-                        if goal_video_time is not None:
-                            # Convert both times to absolute elapsed seconds in game.
-                            goal_remaining = self.event_matcher.event_time_to_remaining_seconds(
-                                goal_event.get("period"), str(goal_event.get("time", "0:00"))
-                            )
-                            goal_abs = period_time_to_absolute_seconds(int(goal_event.get("period") or 1), int(goal_remaining))
-                            pen_abs = period_time_to_absolute_seconds(int(penalty_info.period or 1), int(penalty_info.time_seconds))
-                            delta = goal_abs - pen_abs
+            # Match penalty video times using the same timestamp data
+            for goal_idx, penalty_info in pp_penalty_map.items():
+                if penalty_info.video_time is None:
+                    penalty_video_time = self._find_penalty_video_time(penalty_info)
+                    if penalty_video_time is not None:
+                        penalty_info.video_time = penalty_video_time
+                        logger.debug(f"Penalty P{penalty_info.period} {penalty_info.time} matched to video time {penalty_video_time:.1f}s")
+                    else:
+                        try:
+                            goal_event = goal_events[int(goal_idx)]
+                            goal_video_time = goal_event.get("video_time")
+                            if goal_video_time is not None:
+                                goal_remaining = self.event_matcher.event_time_to_remaining_seconds(
+                                    goal_event.get("period"), str(goal_event.get("time", "0:00"))
+                                )
+                                goal_abs = period_time_to_absolute_seconds(int(goal_event.get("period") or 1), int(goal_remaining))
+                                pen_abs = period_time_to_absolute_seconds(int(penalty_info.period or 1), int(penalty_info.time_seconds))
+                                delta = goal_abs - pen_abs
 
-                            max_delta = int(getattr(self.config, "PENALTY_VIDEO_TIME_FALLBACK_MAX_DELTA_SECONDS", 15 * 60))
-                            if 0 < delta <= max_delta:
-                                approx = max(0.0, float(goal_video_time) - float(delta))
-                                refined = None
-                                if bool(getattr(self.config, "PENALTY_VIDEO_TIME_LOCAL_OCR_REFINEMENT", True)):
-                                    refined = self._refine_penalty_video_time_by_local_ocr(
-                                        penalty_info,
-                                        approx_video_time=approx,
-                                    )
+                                max_delta = int(getattr(self.config, "PENALTY_VIDEO_TIME_FALLBACK_MAX_DELTA_SECONDS", 15 * 60))
+                                if 0 < delta <= max_delta:
+                                    approx = max(0.0, float(goal_video_time) - float(delta))
+                                    refined = None
+                                    if bool(getattr(self.config, "PENALTY_VIDEO_TIME_LOCAL_OCR_REFINEMENT", True)):
+                                        refined = self._refine_penalty_video_time_by_local_ocr(
+                                            penalty_info,
+                                            approx_video_time=approx,
+                                        )
 
-                                if refined is not None:
-                                    penalty_info.video_time = refined
-                                    logger.info(
-                                        f"Refined penalty video time via local OCR: "
-                                        f"P{penalty_info.period} {penalty_info.time} → {refined:.1f}s "
-                                        f"(approx {approx:.1f}s)"
-                                    )
-                                elif bool(getattr(self.config, "PENALTY_VIDEO_TIME_ALLOW_ESTIMATE_FALLBACK", True)):
-                                    penalty_info.video_time = approx
-                                    logger.info(
-                                        f"Estimated penalty video time via PP-goal delta: "
-                                        f"P{penalty_info.period} {penalty_info.time} ≈ {approx:.1f}s "
-                                        f"(Δ{delta}s before goal)"
-                                    )
-                    except Exception:
-                        pass
+                                    if refined is not None:
+                                        penalty_info.video_time = refined
+                                        logger.info(
+                                            f"Refined penalty video time via local OCR: "
+                                            f"P{penalty_info.period} {penalty_info.time} → {refined:.1f}s "
+                                            f"(approx {approx:.1f}s)"
+                                        )
+                                    elif bool(getattr(self.config, "PENALTY_VIDEO_TIME_ALLOW_ESTIMATE_FALLBACK", True)):
+                                        penalty_info.video_time = approx
+                                        logger.info(
+                                            f"Estimated penalty video time via PP-goal delta: "
+                                            f"P{penalty_info.period} {penalty_info.time} ≈ {approx:.1f}s "
+                                            f"(Δ{delta}s before goal)"
+                                        )
+                        except Exception:
+                            pass
+        else:
+            logger.info("Skipping PP penalty clip insertion for reel mode '%s'", self.reel_mode)
 
         # Build final events list with penalty clips inserted before PP goals
         final_events = []
         penalty_before = getattr(self.config, 'PENALTY_PP_BEFORE_SECONDS', 3.0)
         penalty_after = getattr(self.config, 'PENALTY_PP_AFTER_SECONDS', 3.0)
+        inserted_penalty_clips = 0
 
         for i, goal in enumerate(goal_events):
             # Check if this goal has a linked penalty
@@ -1208,6 +1411,7 @@ class HighlightPipeline:
                         'linked_to_goal': i,  # Track which goal this penalty leads to
                     }
                     final_events.append(penalty_event)
+                    inserted_penalty_clips += 1
                     logger.info(f"Adding penalty clip: {penalty_info.player_name} - {penalty_info.infraction} ({penalty_info.minutes} min)")
                 else:
                     logger.warning(f"Could not find video time for penalty P{penalty_info.period} {penalty_info.time}")
@@ -1225,7 +1429,11 @@ class HighlightPipeline:
             except Exception:
                 diff_f = 0.0
 
-            if refined_by != 'clock_stop' or conf_f < 0.95:
+            if refined_by == 'clock_stop':
+                clock_stop_before = float(getattr(self.config, 'GOAL_CLOCK_STOP_BEFORE_SECONDS', max(float(before_seconds), 24.0)))
+                goal['before_seconds'] = max(float(goal.get('before_seconds', 0.0) or 0.0), clock_stop_before)
+                goal['after_seconds'] = float(after_seconds)
+            elif refined_by != 'clock_stop' or conf_f < 0.95:
                 # Add buffer: diff + 5 seconds, capped to avoid huge clips.
                 extra = min(20.0, max(0.0, diff_f + 5.0))
                 goal['before_seconds'] = float(before_seconds) + extra
@@ -1233,7 +1441,12 @@ class HighlightPipeline:
 
             final_events.append(goal)
 
-        logger.info(f"Creating {len(final_events)} highlight clips ({len(pp_penalty_map)} penalty clips + {len(goal_events)} goal clips)...")
+        logger.info(
+            "Creating %s highlight clips (%s inserted penalty clips + %s goal clips)...",
+            len(final_events),
+            inserted_penalty_clips,
+            len(goal_events),
+        )
 
         self.created_clips = self.video_processor.create_highlight_clips(
             final_events,
@@ -1394,7 +1607,7 @@ class HighlightPipeline:
             sec = None
             period = None
             if frame is not None:
-                result = self.ocr_engine.extract_time_from_frame(frame)
+                result = self._ensure_ocr_engine().extract_time_from_frame(frame)
                 if result:
                     p, time_str = result
                     try:
@@ -1471,6 +1684,11 @@ class HighlightPipeline:
         logger.info("\n" + "=" * 70)
         logger.info("STEP 6.5: CHECKING FOR MAJOR PENALTIES")
         logger.info("=" * 70)
+
+        if not self._requires_major_review_workflow():
+            logger.info("Skipping major penalty workflow for reel mode '%s'", self.reel_mode)
+            self._step_timings['major_penalties'] = time.time() - start_time
+            return
 
         # Get penalties from box_score - nested under SiteKit.Gamesummary.penalties
         penalties_data = []
@@ -1558,7 +1776,7 @@ class HighlightPipeline:
             self.config,
             video_timestamps=self.video_timestamps,
             resume_state_path=resume_state_path,
-            ocr_engine=self.ocr_engine,
+            ocr_engine=self._ensure_ocr_engine(),
         )
 
         if result['major_count'] > 0:

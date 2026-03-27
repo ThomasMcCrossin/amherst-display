@@ -26,6 +26,8 @@ venv/
 # Local outputs
 Games/
 temp/
+input/
+output/
 
 # Large media inputs/outputs
 *.mp4
@@ -33,6 +35,7 @@ temp/
 *.mkv
 *.mov
 *.avi
+*.watch-rams/
 
 # OCR training / scratch assets
 tesseract_training/

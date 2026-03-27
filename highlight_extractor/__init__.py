@@ -9,7 +9,10 @@ from .version import __version__
 __author__ = "Thomas McCrossin"
 
 # Core processors
-from .video_processor import VideoProcessor
+try:
+    from .video_processor import VideoProcessor
+except ModuleNotFoundError:
+    VideoProcessor = None  # type: ignore[assignment]
 from .box_score import BoxScoreFetcher
 from .box_score_parser import BoxScoreParser
 from .ocr_engine import OCREngine

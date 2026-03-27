@@ -90,6 +90,49 @@ A modern, automated sports display system for showcasing Amherst Ramblers (MHL) 
    # Visit: http://localhost:8080
    ```
 
+## Highlight Pipeline
+
+The highlight workflow is local-first and does not require Drive ingest for normal runs.
+
+- HockeyTech/MHL box-score times are elapsed in period.
+- Broadcast OCR scorebug times are remaining in period.
+- The default local Flo recording profile is `flohockey_recording`.
+- The seeded non-standard profile is `yarmouth_recording` for Yarmouth home broadcasts.
+- The default automatic reel mode is `goals_only`.
+- PP penalty inserts and major-review clips are opt-in reel modes, not part of the default automatic reel.
+- Known scorebug handling now lives in `scorebug_profiles.py`, with auto-probe fallback for unknown layouts.
+- Shared Drive bootstrap/config now uses generic `HIGHLIGHTS_*` env names with legacy `RAMBLERS_DRIVE_ID` / `DRIVE_*` aliases still supported.
+
+Common local commands:
+
+```bash
+# Build a filtered montage of every Amherst goal across multiple recordings
+python3 scripts/build_filtered_reel.py \
+  --source 2026-03-20=/path/to/game1.mp4 \
+  --source 2026-03-22=/path/to/game2.mp4 \
+  --event-type goal \
+  --team ramblers \
+  --output /tmp/ramblers-goals.mp4
+
+# Build a filtered montage of every goal where Gaudet had an assist
+python3 scripts/build_filtered_reel.py \
+  --source 2026-03-20=/path/to/game1.mp4 \
+  --source 2026-03-22=/path/to/game2.mp4 \
+  --event-type goal \
+  --assist gaudet \
+  --output /tmp/gaudet-assists.mp4
+```
+
+Notes:
+
+- `scripts/build_series_goal_reel.py` remains as a compatibility wrapper for Amherst goal-only series reels.
+- `scripts/build_filtered_reel.py` reuses existing processed game folders when present unless `--force-reprocess` is set.
+- `scripts/build_production_highlight_reel.py` now reads `matched_events.json` by default and can skip approved majors with `--skip-major-approved`.
+- `scripts/setup_highlight_drive.py` bootstraps the canonical shared-drive tree and writes local env/manifest outputs for future ingest and archive flows.
+- The seeded program manifest is `programs/mhl-amherst-ramblers-2025-26.json`.
+- For multi-machine setups, keep processing local to each machine and use the Shared Drive tree as the shared archive/review surface after processing completes.
+- `highlight_extractor.amherst_integration.find_amherst_display_path()` now prefers `AMHERST_DISPLAY_DIR` and sibling repo layouts before falling back to `~/amherst-display`, so side-by-side clones on WSL or another Ubuntu box work without server-specific paths.
+
 ## GitHub Actions Setup
 
 ### Required Secret
@@ -165,6 +208,10 @@ Yodeck Display (index.html fetches JSON every 10 min)
 ```
 
 Set `HOCKEYTECH_API_KEY` before running the HockeyTech-backed scripts locally or in CI.
+
+Optional overrides:
+- `HOCKEYTECH_SEASON_IDS=41,44` to merge the 2025-26 regular season plus playoff schedule into `games/amherst-ramblers.json`
+- `HOCKEYTECH_SEASON_LABEL=2025-26` to override the season label written into that file
 
 ## Key Design Decisions
 

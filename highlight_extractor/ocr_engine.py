@@ -31,6 +31,19 @@ from .ocr_backends import TesseractBackend, EasyOcrBackend
 
 logger = logging.getLogger(__name__)
 
+ROI_PINNED_BROADCAST_TYPES = {
+    "flohockey",
+    "yarmouth",
+    "mhl_summerside",
+    "mhl_amherst",
+}
+FLO_LIKE_BROADCAST_TYPES = {
+    "flohockey",
+    "mhl_summerside",
+    "mhl_amherst",
+}
+OCR_STYLE_BROADCAST_TYPES = FLO_LIKE_BROADCAST_TYPES | {"yarmouth"}
+
 
 @dataclass
 class OCRSampleLog:
@@ -47,6 +60,8 @@ class OCRSampleLog:
     roi_used: Optional[Tuple[int, int, int, int]] = None
     broadcast_type: str = "unknown"
     preprocess_style: str = "standard"
+    sharpness_score: Optional[float] = None
+    crop_debug_path: Optional[str] = None
 
     def to_dict(self) -> Dict:
         return {
@@ -65,6 +80,8 @@ class OCRSampleLog:
             "roi": self.roi_used,
             "broadcast_type": self.broadcast_type,
             "preprocess_style": self.preprocess_style,
+            "sharpness_score": self.sharpness_score,
+            "crop_debug_path": self.crop_debug_path,
         }
 
     @staticmethod
@@ -242,7 +259,8 @@ class OCREngine:
 
         Args:
             frame: Video frame (RGB or BGR)
-            method: Detection method ('auto', 'top', 'bottom', 'flohockey', 'yarmouth')
+            method: Detection method ('auto', 'top', 'bottom', 'flohockey', 'yarmouth',
+                'mhl_summerside', 'mhl_amherst')
 
         Returns:
             ROI as (x, y, width, height) or None
@@ -274,6 +292,29 @@ class OCREngine:
                 roi_width = width - x_start - 5           # Leave small margin at right
                 roi = (x_start, y_start, roi_width, roi_height)
                 logger.info(f"FloHockey ROI: {roi}")
+                return roi
+
+            elif method == 'mhl_summerside':
+                # Summerside home broadcasts use a wide black banner centered at the
+                # top of the frame. The period/clock block lives on the right side of
+                # that banner, so crop narrowly around it instead of the whole banner.
+                y_start = 0
+                roi_height = max(60, int(height * 0.10))
+                x_start = int(width * 0.57)
+                roi_width = max(280, int(width * 0.15))
+                roi = (x_start, y_start, roi_width, roi_height)
+                logger.info(f"MHL Summerside ROI: {roi}")
+                return roi
+
+            elif method == 'mhl_amherst':
+                # Amherst home broadcasts use a lighter full-width strip. The right
+                # clock block is slightly wider than the Summerside layout.
+                y_start = 0
+                roi_height = max(60, int(height * 0.09))
+                x_start = int(width * 0.58)
+                roi_width = max(340, int(width * 0.19))
+                roi = (x_start, y_start, roi_width, roi_height)
+                logger.info(f"MHL Amherst ROI: {roi}")
                 return roi
 
             elif method == 'yarmouth':
@@ -380,7 +421,7 @@ class OCREngine:
 
     def _tesseract_configs_for_broadcast(self, broadcast_type: str) -> List[str]:
         bt = str(broadcast_type or "standard").lower()
-        if bt in {"flohockey", "yarmouth"}:
+        if bt in OCR_STYLE_BROADCAST_TYPES:
             return ["--psm 7 --oem 3"]
         # "standard": keep a whitelist variant and a looser variant.
         return [
@@ -396,6 +437,12 @@ class OCREngine:
         fh = self.detect_scoreboard_roi(frame, method="flohockey")
         if fh is not None:
             rois.append(("flohockey", fh))
+        su = self.detect_scoreboard_roi(frame, method="mhl_summerside")
+        if su is not None:
+            rois.append(("mhl_summerside", su))
+        am = self.detect_scoreboard_roi(frame, method="mhl_amherst")
+        if am is not None:
+            rois.append(("mhl_amherst", am))
         ya = self.detect_scoreboard_roi(frame, method="yarmouth")
         if ya is not None:
             rois.append(("yarmouth", ya))
@@ -427,7 +474,10 @@ class OCREngine:
             x0, y0, w0, h0 = candidate_roi
             probe = frame[y0:y0 + h0, x0:x0 + w0]
 
-            preprocess_variants = self._preprocess_variants(probe, base_style=bt if bt in {"flohockey", "yarmouth"} else "standard")
+            preprocess_variants = self._preprocess_variants(
+                probe,
+                base_style=bt if bt in OCR_STYLE_BROADCAST_TYPES else "standard",
+            )
             for style_name, processed in preprocess_variants:
                 for backend in self._backends:
                     if getattr(backend, "name", "") == "tesseract":
@@ -448,7 +498,7 @@ class OCREngine:
             return ("standard", roi, "standard", "tesseract")
 
         _score, _parsed, _raw, _conf, bt, roi, style_name, backend_name = best
-        return (bt if bt in {"flohockey", "yarmouth"} else "standard", roi, style_name, backend_name)
+        return (bt if bt in OCR_STYLE_BROADCAST_TYPES else "standard", roi, style_name, backend_name)
 
     def set_broadcast_type(self, broadcast_type: str):
         """
@@ -505,7 +555,7 @@ class OCREngine:
             # Choose ROI
             used_roi = roi or self.scoreboard_roi
             if used_roi is None:
-                method = used_broadcast if used_broadcast in {"flohockey", "yarmouth"} else "auto"
+                method = used_broadcast if used_broadcast in ROI_PINNED_BROADCAST_TYPES else "auto"
                 used_roi = self.detect_scoreboard_roi(frame, method=method)
 
             if used_roi is None:
@@ -517,8 +567,10 @@ class OCREngine:
             # Choose preprocess style (cached for auto; otherwise default for broadcast).
             preprocess_style = getattr(self, "_preprocess_style", None)
             if str(broadcast_type or "").lower() != "auto":
-                preprocess_style = used_broadcast if used_broadcast in {"flohockey", "yarmouth"} else "standard"
-            preprocess_style = str(preprocess_style or (used_broadcast if used_broadcast in {"flohockey", "yarmouth"} else "standard"))
+                preprocess_style = used_broadcast if used_broadcast in OCR_STYLE_BROADCAST_TYPES else "standard"
+            preprocess_style = str(
+                preprocess_style or (used_broadcast if used_broadcast in OCR_STYLE_BROADCAST_TYPES else "standard")
+            )
 
             processed = self._preprocess_for_ocr(scoreboard, style=preprocess_style)
 
@@ -763,7 +815,7 @@ class OCREngine:
         """
         style = str(base_style or "standard").lower()
         variants = []
-        if style in {"flohockey"}:
+        if style in FLO_LIKE_BROADCAST_TYPES:
             variants = ["flohockey", "flohockey_sharp"]
         elif style in {"yarmouth"}:
             variants = ["yarmouth", "yarmouth_invert"]
@@ -831,6 +883,7 @@ class OCREngine:
         last_20_00_timestamp = None
         first_running_timestamp = None
         first_running_time = None
+        scanned_results = []  # (video_time, period, time_str, time_seconds)
 
         current_time = scan_start
         while current_time <= scan_end:
@@ -838,6 +891,7 @@ class OCREngine:
 
             if result:
                 period, time_str, time_seconds = result
+                scanned_results.append((float(current_time), int(period), str(time_str), int(time_seconds)))
                 logger.debug(f"  {current_time/60:.1f}m: P{period} {time_str}")
 
                 if time_seconds >= 20 * 60:
@@ -873,12 +927,56 @@ class OCREngine:
                 logger.info(f"Game starts at {game_start/60:.2f} minutes ({game_start:.0f}s)")
                 return game_start
 
+        # Detect the common recorded-stream pattern where warmup counts down in P1,
+        # then the real game later resets back near 20:00. This shows up as a large
+        # upward clock jump within the same displayed period.
+        reset_candidate = None
+        for prev, curr in zip(scanned_results, scanned_results[1:]):
+            prev_t, prev_period, prev_time_str, prev_seconds = prev
+            curr_t, curr_period, curr_time_str, curr_seconds = curr
+            if prev_period != 1 or curr_period != 1:
+                continue
+            if prev_seconds > 2 * 60:
+                continue
+            if curr_seconds < 19 * 60:
+                continue
+            if (curr_seconds - prev_seconds) < 10 * 60:
+                continue
+            elapsed_game_time = 20 * 60 - curr_seconds
+            reset_candidate = max(0.0, curr_t - elapsed_game_time - 3.0)
+            logger.info(
+                "Detected warmup-to-game clock reset: P1 %s at %.1fm -> P1 %s at %.1fm",
+                prev_time_str,
+                prev_t / 60.0,
+                curr_time_str,
+                curr_t / 60.0,
+            )
+            break
+
+        if reset_candidate is not None:
+            logger.info(
+                "Estimated game start from clock reset: %.2f minutes",
+                reset_candidate / 60.0,
+            )
+            return reset_candidate
+
         elif first_running_timestamp is not None:
             # Found running clock but not 20:00 - estimate from game time
-            # If clock shows 19:06, about 54 seconds have elapsed
+            # This is only safe if the clock is still near the start of P1.
+            # Estimating from a lone late-period reading (for example 0:21) can
+            # jump us deep into warmup or intermission content.
             result = check_time_at(first_running_timestamp)
             if result:
                 period, time_str, time_seconds = result
+                if period != 1 or time_seconds < 15 * 60:
+                    logger.warning(
+                        "Ignoring lone running-clock fallback at %.1fm (P%s %s); "
+                        "not near the start of the first period",
+                        first_running_timestamp / 60.0,
+                        period,
+                        time_str,
+                    )
+                    return None
                 elapsed_game_time = 20 * 60 - time_seconds  # How much of period has elapsed
                 estimated_start = first_running_timestamp - elapsed_game_time - 3
                 estimated_start = max(0, estimated_start)
@@ -1004,7 +1102,8 @@ class OCREngine:
 
         Args:
             image: Input image (RGB or BGR)
-            style: Preprocessing style ('standard', 'flohockey', 'yarmouth')
+            style: Preprocessing style ('standard', 'flohockey', 'yarmouth',
+                'mhl_summerside', 'mhl_amherst')
 
         Returns:
             Preprocessed grayscale image
@@ -1023,7 +1122,7 @@ class OCREngine:
             # Resize for better OCR (if too small)
             height = gray.shape[0]
             min_height = 50
-            if style in {'flohockey', 'yarmouth'}:
+            if style in OCR_STYLE_BROADCAST_TYPES:
                 min_height = 80
             if height < min_height:
                 scale = min_height / height
@@ -1031,7 +1130,7 @@ class OCREngine:
 
             style = str(style or "standard").lower()
 
-            if style == 'flohockey':
+            if style in {'flohockey', 'mhl_summerside', 'mhl_amherst'}:
                 # FloHockey: dark text on a light/gray banner. Hard thresholding
                 # can drop punctuation (:) or thin glyphs, producing noisy reads
                 # like "1244" instead of "12:44". Tesseract tends to do better on
@@ -1125,9 +1224,18 @@ class OCREngine:
         # FloHockey-style period tokens. These patterns intentionally allow the colon to be missing:
         #   "1ST 19:56", "1ST1956", "1ST 19 56"
         fh_patterns = [
-            (1, r"\b[01IJL][ST]{2}\s*([0-9UO]{1,2})\s*[:\.]?\s*([0-9UO]{2})\b"),
-            (2, r"\b[2Z@][ND]{2}\s*([0-9UO]{1,2})\s*[:\.]?\s*([0-9UO]{2})\b"),
-            (3, r"\b3[RD]{2}\s*([0-9UO]{1,2})\s*[:\.]?\s*([0-9UO]{2})\b"),
+            (
+                1,
+                r"\b[01IJLI][ST]{2}[\]\|\)}\-_]*\s*([0-9UO]{1,2})\s*[:\.]?\s*([0-9UO]{2})\b",
+            ),
+            (
+                2,
+                r"\b[2Z@][ND]{2}[\]\|\)}\-_]*\s*([0-9UO]{1,2})\s*[:\.]?\s*([0-9UO]{2})\b",
+            ),
+            (
+                3,
+                r"\b3[RD]{2}[\]\|\)}\-_]*\s*([0-9UO]{1,2})\s*[:\.]?\s*([0-9UO]{2})\b",
+            ),
         ]
         for p, pat in fh_patterns:
             m = re.search(pat, text, re.IGNORECASE)
@@ -1223,6 +1331,99 @@ class OCREngine:
             logger.debug(f"Failed to parse time '{time_str}': {e}")
             return False
 
+    def _extract_scorebug_crop(
+        self,
+        frame: np.ndarray,
+        roi: Optional[Tuple[int, int, int, int]],
+    ) -> Optional[np.ndarray]:
+        """Crop the scorebug directly from the native frame without resizing the full image."""
+        if roi is None:
+            return None
+        try:
+            x, y, w, h = roi
+            if w <= 0 or h <= 0:
+                return None
+            return frame[y:y + h, x:x + w].copy()
+        except Exception:
+            return None
+
+    def _measure_sharpness(self, image: Optional[np.ndarray]) -> Optional[float]:
+        """
+        Estimate blur/sharpness using variance of the Laplacian.
+
+        Higher values generally indicate a sharper crop.
+        """
+        if image is None:
+            return None
+        try:
+            if len(image.shape) == 3:
+                try:
+                    gray = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+                except Exception:
+                    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            else:
+                gray = image
+            return float(cv2.Laplacian(gray, cv2.CV_64F).var())
+        except Exception:
+            return None
+
+    def _save_scorebug_crop_debug(
+        self,
+        crop: Optional[np.ndarray],
+        *,
+        output_dir: Optional[Path],
+        sample_idx: int,
+        current_time: float,
+        confidence: float,
+        success: bool,
+        raw_text: str,
+        failure_counter: int,
+        low_conf_counter: int,
+    ) -> Optional[str]:
+        """
+        Save scorebug-only crops for failed and low-confidence OCR samples.
+        """
+        if crop is None or output_dir is None:
+            return None
+        if not bool(getattr(self.config, "OCR_DEBUG_SAVE_SCOREBUG_CROPS", True)):
+            return None
+
+        threshold = float(getattr(self.config, "OCR_DEBUG_LOW_CONFIDENCE_THRESHOLD", 65.0) or 65.0)
+        failure_limit = int(getattr(self.config, "OCR_DEBUG_FAILURE_CROP_LIMIT", 40) or 40)
+        low_conf_limit = int(getattr(self.config, "OCR_DEBUG_LOW_CONFIDENCE_CROP_LIMIT", 25) or 25)
+
+        label = None
+        ordinal = None
+        if not success:
+            if failure_counter > failure_limit:
+                return None
+            label = "failed"
+            ordinal = failure_counter
+        elif float(confidence or 0.0) < threshold:
+            if low_conf_counter > low_conf_limit:
+                return None
+            label = "lowconf"
+            ordinal = low_conf_counter
+        else:
+            return None
+
+        crop_dir = output_dir / str(getattr(self.config, "OCR_DEBUG_SCOREBUG_CROP_DIRNAME", "ocr_scorebug_crops") or "ocr_scorebug_crops")
+        crop_dir.mkdir(parents=True, exist_ok=True)
+
+        safe_text = re.sub(r"[^A-Za-z0-9]+", "-", str(raw_text or "").strip())[:40].strip("-") or "blank"
+        crop_path = crop_dir / (
+            f"{label}_{ordinal:03d}_sample{sample_idx:04d}_{current_time:08.1f}s_"
+            f"conf{int(float(confidence or 0.0)):03d}_{safe_text}.png"
+        )
+        try:
+            image = crop
+            if len(image.shape) == 3:
+                image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+            cv2.imwrite(str(crop_path), image)
+            return str(crop_path)
+        except Exception:
+            return None
+
     def sample_video_times(
         self,
         video_processor,
@@ -1233,7 +1434,8 @@ class OCREngine:
         workers: int = 4,
         start_time: float = 0.0,
         output_dir: Optional[Path] = None,
-        game_id: str = "unknown"
+        game_id: str = "unknown",
+        broadcast_type: str = "auto",
     ) -> List[Dict]:
         """
         Sample time from video at regular intervals
@@ -1269,6 +1471,7 @@ class OCREngine:
             start_time,
             output_dir=output_dir,
             game_id=game_id,
+            broadcast_type=broadcast_type,
         )
 
     def _sample_video_times_sequential(
@@ -1279,7 +1482,8 @@ class OCREngine:
         debug_dir: Optional[Path] = None,
         start_time: float = 0.0,
         output_dir: Optional[Path] = None,
-        game_id: str = "unknown"
+        game_id: str = "unknown",
+        broadcast_type: str = "auto",
     ) -> List[Dict]:
         """
         Sample time from video sequentially (original implementation)
@@ -1297,6 +1501,8 @@ class OCREngine:
             List of dictionaries with {video_time, period, game_time}
         """
         timestamps = []
+        failure_crop_count = 0
+        low_conf_crop_count = 0
 
         # Initialize OCR logger for detailed diagnostics
         ocr_logger = OCRLogger(
@@ -1346,17 +1552,38 @@ class OCREngine:
                 if frame is not None:
                     # Save debug frame for first, middle, and last samples
                     if debug_dir and sample_count in debug_sample_indices:
-                        roi = self.scoreboard_roi or self.detect_scoreboard_roi(frame)
+                        method = str(broadcast_type or "auto").lower()
+                        if method not in ROI_PINNED_BROADCAST_TYPES:
+                            method = "auto"
+                        roi = self.scoreboard_roi or self.detect_scoreboard_roi(frame, method=method)
                         debug_path = debug_dir / f"debug_ocr_frame_{sample_count:04d}_{current_time:.1f}s.jpg"
                         self.save_debug_frame(frame, debug_path, roi)
                         logger.debug(f"Saved debug frame: {debug_path}")
 
                     # Extract time from frame with metadata for logging
-                    result, raw_text, conf, backend_name, used_broadcast, used_roi, preprocess_style = self._extract_time_from_frame_with_meta(frame)
+                    result, raw_text, conf, backend_name, used_broadcast, used_roi, preprocess_style = self._extract_time_from_frame_with_meta(
+                        frame,
+                        broadcast_type=broadcast_type,
+                    )
+                    scorebug_crop = self._extract_scorebug_crop(frame, used_roi or self.scoreboard_roi)
+                    sharpness_score = self._measure_sharpness(scorebug_crop)
 
                     if result:
                         period, game_time = result
                         time_seconds = self._time_to_seconds(game_time)
+                        if float(conf or 0.0) < float(getattr(self.config, "OCR_DEBUG_LOW_CONFIDENCE_THRESHOLD", 65.0) or 65.0):
+                            low_conf_crop_count += 1
+                        crop_debug_path = self._save_scorebug_crop_debug(
+                            scorebug_crop,
+                            output_dir=Path(output_dir) if output_dir else None,
+                            sample_idx=sample_count,
+                            current_time=current_time,
+                            confidence=float(conf or 0.0),
+                            success=True,
+                            raw_text=raw_text,
+                            failure_counter=failure_crop_count,
+                            low_conf_counter=low_conf_crop_count,
+                        )
                         timestamps.append({
                             'video_time': current_time,
                             'period': period,
@@ -1366,6 +1593,8 @@ class OCREngine:
                             'ocr_backend': str(backend_name or "unknown"),
                             'ocr_broadcast_type': str(used_broadcast or "unknown"),
                             'ocr_preprocess': str(preprocess_style or "standard"),
+                            'ocr_sharpness_score': sharpness_score,
+                            'ocr_crop_debug_path': crop_debug_path,
                         })
                         logger.debug(f"Sample at {current_time:.1f}s: P{period} {game_time}")
                         # Update progress bar description with latest result
@@ -1384,9 +1613,23 @@ class OCREngine:
                             roi_used=used_roi or self.scoreboard_roi,
                             broadcast_type=str(used_broadcast or getattr(self, '_broadcast_type', 'unknown')),
                             preprocess_style=str(preprocess_style or "standard"),
+                            sharpness_score=sharpness_score,
+                            crop_debug_path=crop_debug_path,
                         ))
                         self._consecutive_bad_samples = 0
                     else:
+                        failure_crop_count += 1
+                        crop_debug_path = self._save_scorebug_crop_debug(
+                            scorebug_crop,
+                            output_dir=Path(output_dir) if output_dir else None,
+                            sample_idx=sample_count,
+                            current_time=current_time,
+                            confidence=float(conf or 0.0),
+                            success=False,
+                            raw_text=raw_text,
+                            failure_counter=failure_crop_count,
+                            low_conf_counter=low_conf_crop_count,
+                        )
                         # Log failed sample
                         ocr_logger.add_sample(OCRSampleLog(
                             video_time=current_time,
@@ -1401,6 +1644,8 @@ class OCREngine:
                             roi_used=used_roi or self.scoreboard_roi,
                             broadcast_type=str(used_broadcast or getattr(self, '_broadcast_type', 'unknown')),
                             preprocess_style=str(preprocess_style or "standard"),
+                            sharpness_score=sharpness_score,
+                            crop_debug_path=crop_debug_path,
                         ))
                         self._consecutive_bad_samples += 1
 
