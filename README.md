@@ -70,13 +70,16 @@ A modern, automated sports display system for showcasing Amherst Ramblers (MHL) 
 2. **Install Dependencies:**
    ```bash
    npm install
+   python3 -m venv .venv
+   . .venv/bin/activate
+   pip install -r requirements.txt
    ```
 
-3. **Set Environment Variable (Optional but Recommended):**
+3. **Set Environment Variables:**
    ```bash
-   export RAMBLERS_ICS_URL="https://your-hockeytech-calendar-url.ics"
+   cp .env.example .env
    ```
-   Without this, the fallback `data/ramblers.ics` file will be used (which may be outdated).
+   Fill in `HOCKEYTECH_API_KEY` and any local Drive/service-account values you want to use. For shared-drive workflows, `scripts/setup_highlight_drive.py` can generate the machine-local env files under `~/.local/state/...`.
 
 4. **Build Data:**
    ```bash

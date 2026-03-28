@@ -22,6 +22,12 @@ pandas==2.3.2
 requests==2.32.5
 urllib3==2.5.0
 certifi==2025.8.3
+python-dotenv==1.0.1
+
+# Google Drive bootstrap / archive sync
+google-api-python-client==2.193.0
+google-auth==2.49.1
+google-auth-httplib2==0.3.0
 
 # File watching for automation
 watchdog==6.0.0
@@ -35,6 +41,9 @@ tqdm==4.67.1
 # librosa==0.11.0
 # soundfile==0.13.1
 # noisereduce==3.0.3
+
+# Optional review-email integration
+# resend>=2.0
 
 # Development/debugging
 colorama==0.4.6

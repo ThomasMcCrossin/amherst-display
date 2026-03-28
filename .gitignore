@@ -51,4 +51,5 @@ credentials/
 # Local env files (never commit)
 .env
 .env.*
+!.env.example
 .envfromCurlysBooks
