@@ -28,7 +28,7 @@ from PIL import Image, ImageDraw, ImageFont
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 TEAM_COLOR_PRESETS: Dict[str, Dict[str, str]] = {
-    "amherst-ramblers": {"primary": "#19c37d", "secondary": "#0b6d49"},
+    "amherst-ramblers": {"primary": "#412580", "secondary": "#24114f"},
     "summerside-western-capitals": {"primary": "#cf4859", "secondary": "#7e1827"},
     "yarmouth-mariners": {"primary": "#18b58f", "secondary": "#0f5f52"},
     "truro-bearcats": {"primary": "#6f51d8", "secondary": "#2f2758"},
