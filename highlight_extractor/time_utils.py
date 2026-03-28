@@ -8,7 +8,7 @@ This module provides centralized time handling for:
 """
 
 import re
-from typing import Optional, Tuple
+from typing import Any, Optional, Tuple
 from dataclasses import dataclass
 
 
@@ -17,6 +17,87 @@ PERIOD_LENGTH_MINUTES = 20
 PERIOD_LENGTH_SECONDS = PERIOD_LENGTH_MINUTES * 60
 OT_LENGTH_MINUTES = 5
 OT_LENGTH_SECONDS = OT_LENGTH_MINUTES * 60
+
+
+@dataclass(frozen=True)
+class GameClockRules:
+    """Period-length rules for a specific game context."""
+    playoff: bool = False
+    regular_season_ot_minutes: int = OT_LENGTH_MINUTES
+    playoff_first_ot_minutes: int = 10
+    playoff_later_ot_minutes: int = 20
+
+    def period_length_seconds(self, period: int) -> int:
+        period_num = int(period or 1)
+        if period_num <= 3:
+            return PERIOD_LENGTH_SECONDS
+        if not self.playoff:
+            return int(self.regular_season_ot_minutes) * 60
+        if period_num == 4:
+            return int(self.playoff_first_ot_minutes) * 60
+        return int(self.playoff_later_ot_minutes) * 60
+
+
+DEFAULT_GAME_CLOCK_RULES = GameClockRules()
+
+
+def _context_get(game_context: Any, key: str, default: Any = None) -> Any:
+    if game_context is None:
+        return default
+    if isinstance(game_context, dict):
+        return game_context.get(key, default)
+    return getattr(game_context, key, default)
+
+
+def game_clock_rules_from_context(game_context: Any = None) -> GameClockRules:
+    """Build clock rules from a game metadata object or dict."""
+    if isinstance(game_context, GameClockRules):
+        return game_context
+
+    playoff_raw = _context_get(game_context, "playoff", None)
+    schedule_notes = str(_context_get(game_context, "schedule_notes", "") or "").strip().lower()
+    game_number = _context_get(game_context, "game_number", None)
+
+    playoff = False
+    if isinstance(playoff_raw, bool):
+        playoff = playoff_raw
+    elif playoff_raw is not None:
+        playoff = str(playoff_raw).strip().lower() in {"1", "true", "yes", "y", "on"}
+
+    if not playoff:
+        playoff = ("best of" in schedule_notes) or bool(game_number)
+
+    def _coerce_minutes(value: Any, fallback: int) -> int:
+        try:
+            iv = int(value)
+        except Exception:
+            return fallback
+        return iv if iv > 0 else fallback
+
+    regular_season_ot_minutes = _coerce_minutes(
+        _context_get(game_context, "regular_season_ot_minutes", None),
+        OT_LENGTH_MINUTES,
+    )
+    playoff_first_ot_minutes = _coerce_minutes(
+        _context_get(game_context, "playoff_first_ot_minutes", None),
+        10,
+    )
+    playoff_later_ot_minutes = _coerce_minutes(
+        _context_get(game_context, "playoff_later_ot_minutes", None),
+        20,
+    )
+
+    return GameClockRules(
+        playoff=bool(playoff),
+        regular_season_ot_minutes=regular_season_ot_minutes,
+        playoff_first_ot_minutes=playoff_first_ot_minutes,
+        playoff_later_ot_minutes=playoff_later_ot_minutes,
+    )
+
+
+def period_length_seconds(period: int, clock_rules: Any = None) -> int:
+    rules = game_clock_rules_from_context(clock_rules)
+    return rules.period_length_seconds(period)
 
 
 @dataclass(frozen=True)
@@ -34,8 +115,8 @@ class GameTime:
 
     def __post_init__(self):
         """Validate the game time"""
-        if not 1 <= self.period <= 5:
-            raise ValueError(f"Invalid period {self.period}, expected 1-5")
+        if int(self.period or 0) < 1:
+            raise ValueError(f"Invalid period {self.period}, expected >= 1")
 
         if not re.match(r'^\d{1,2}:\d{2}$', self.time_remaining):
             raise ValueError(f"Invalid time format '{self.time_remaining}', expected MM:SS")
@@ -53,7 +134,7 @@ class GameTime:
     @property
     def time_elapsed_in_period(self) -> int:
         """Get time elapsed in current period (seconds)"""
-        return PERIOD_LENGTH_SECONDS - self.time_remaining_seconds
+        return period_length_seconds(self.period) - self.time_remaining_seconds
 
     @property
     def absolute_seconds(self) -> int:
@@ -130,7 +211,7 @@ def seconds_to_time_string(total_seconds: int) -> str:
     return f"{minutes}:{seconds:02d}"
 
 
-def period_time_to_absolute_seconds(period: int, time_remaining_seconds: int) -> int:
+def period_time_to_absolute_seconds(period: int, time_remaining_seconds: int, clock_rules: Any = None) -> int:
     """
     Convert period + time remaining to absolute game time.
 
@@ -146,25 +227,19 @@ def period_time_to_absolute_seconds(period: int, time_remaining_seconds: int) ->
         Absolute game time in seconds from start
     """
     # Calculate time from completed previous periods
-    if period == 1:
-        previous_periods_time = 0
-    elif period == 2:
-        previous_periods_time = PERIOD_LENGTH_SECONDS
-    elif period == 3:
-        previous_periods_time = PERIOD_LENGTH_SECONDS * 2
-    else:  # OT (period 4+)
-        previous_periods_time = PERIOD_LENGTH_SECONDS * 3
-        if period > 4:
-            previous_periods_time += (period - 4) * OT_LENGTH_SECONDS
+    period_num = int(period or 1)
+    previous_periods_time = 0
+    for p in range(1, period_num):
+        previous_periods_time += period_length_seconds(p, clock_rules)
 
     # Time elapsed in current period = period length - time remaining
-    period_length = OT_LENGTH_SECONDS if period >= 4 else PERIOD_LENGTH_SECONDS
+    period_length = period_length_seconds(period_num, clock_rules)
     time_elapsed_in_period = period_length - time_remaining_seconds
 
     return previous_periods_time + time_elapsed_in_period
 
 
-def absolute_seconds_to_period_time(absolute_seconds: int) -> Tuple[int, int]:
+def absolute_seconds_to_period_time(absolute_seconds: int, clock_rules: Any = None) -> Tuple[int, int]:
     """
     Convert absolute game time to period + time remaining.
 
@@ -177,26 +252,19 @@ def absolute_seconds_to_period_time(absolute_seconds: int) -> Tuple[int, int]:
     if absolute_seconds < 0:
         return (1, PERIOD_LENGTH_SECONDS)
 
-    # Determine period
-    if absolute_seconds < PERIOD_LENGTH_SECONDS:
-        period = 1
-        elapsed_in_period = absolute_seconds
-    elif absolute_seconds < PERIOD_LENGTH_SECONDS * 2:
-        period = 2
-        elapsed_in_period = absolute_seconds - PERIOD_LENGTH_SECONDS
-    elif absolute_seconds < PERIOD_LENGTH_SECONDS * 3:
-        period = 3
-        elapsed_in_period = absolute_seconds - (PERIOD_LENGTH_SECONDS * 2)
-    else:
-        # Overtime
-        ot_time = absolute_seconds - (PERIOD_LENGTH_SECONDS * 3)
-        ot_period = ot_time // OT_LENGTH_SECONDS
-        period = 4 + ot_period
-        elapsed_in_period = ot_time - (ot_period * OT_LENGTH_SECONDS)
+    remaining_absolute = int(absolute_seconds)
+    period = 1
+    while True:
+        current_period_length = period_length_seconds(period, clock_rules)
+        if remaining_absolute < current_period_length:
+            elapsed_in_period = remaining_absolute
+            break
+        remaining_absolute -= current_period_length
+        period += 1
 
     # Time remaining = period length - time elapsed
-    period_length = OT_LENGTH_SECONDS if period >= 4 else PERIOD_LENGTH_SECONDS
-    time_remaining = period_length - elapsed_in_period
+    current_period_length = period_length_seconds(period, clock_rules)
+    time_remaining = current_period_length - elapsed_in_period
 
     return (period, max(0, time_remaining))
 

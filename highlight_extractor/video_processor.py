@@ -2,6 +2,7 @@
 Video Processor - Handles video loading, clip creation, and rendering
 """
 
+import json
 import logging
 import re
 import subprocess
@@ -93,8 +94,20 @@ class VideoProcessor:
         """
         try:
             logger.info(f"Loading video: {self.video_path}")
+            try:
+                self.video_clip = VideoFileClip(str(self.video_path))
+            except Exception as exc:
+                # Some downloaded transport streams omit enough front-of-file metadata
+                # that MoviePy's fast probe path cannot infer duration/size. Falling
+                # back to a full decode probe is slower, but it keeps the pipeline
+                # working for otherwise decodable files.
+                logger.warning(
+                    "Fast video probe failed for %s; retrying with full decode probe: %s",
+                    self.video_path,
+                    exc,
+                )
+                self.video_clip = VideoFileClip(str(self.video_path), decode_file=True)
 
-            self.video_clip = VideoFileClip(str(self.video_path))
             self.duration = self.video_clip.duration
             self.fps = self.video_clip.fps
 
@@ -246,6 +259,125 @@ class VideoProcessor:
         except subprocess.CalledProcessError as exc:
             stderr = (exc.stderr or '').strip()
             raise RuntimeError(stderr or f"ffmpeg failed for {output_path}") from exc
+
+    def _probe_stream_metadata(self, clip_path: Path) -> dict:
+        """Return basic ffprobe metadata for a clip."""
+        cmd = [
+            'ffprobe',
+            '-v',
+            'error',
+            '-show_entries',
+            'stream=codec_type,width,height,r_frame_rate,pix_fmt',
+            '-of',
+            'json',
+            str(clip_path),
+        ]
+        try:
+            payload = json.loads(subprocess.check_output(cmd, text=True))
+        except subprocess.CalledProcessError as exc:
+            raise RuntimeError(f"ffprobe failed for {clip_path}") from exc
+        streams = payload.get('streams') or []
+        if not streams:
+            raise RuntimeError(f"No streams found in {clip_path}")
+        return {
+            stream.get('codec_type') or f'unknown-{idx}': stream
+            for idx, stream in enumerate(streams)
+        }
+
+    def _write_concat_reel_ffmpeg(self, clip_paths: List[Path], output_path: Path) -> None:
+        """Stitch clips with a single ffmpeg concat filter and one final encode."""
+        if not clip_paths:
+            raise RuntimeError("No clips provided for concat reel")
+
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        temp_output = output_path.with_name(f"{output_path.stem}.tmp{output_path.suffix}")
+        if temp_output.exists():
+            temp_output.unlink()
+
+        first_streams = self._probe_stream_metadata(clip_paths[0])
+        video_stream = first_streams.get('video') or {}
+        width = int(video_stream.get('width') or 1920)
+        height = int(video_stream.get('height') or 1080)
+        target_fps = str(video_stream.get('r_frame_rate') or '30000/1001')
+
+        codec = getattr(self.config, 'OUTPUT_CODEC', 'libx264')
+        preset = getattr(self.config, 'OUTPUT_PRESET', 'medium')
+        audio_codec = getattr(self.config, 'OUTPUT_AUDIO_CODEC', 'aac')
+        audio_bitrate = getattr(self.config, 'OUTPUT_AUDIO_BITRATE', None)
+        audio_fps = getattr(self.config, 'OUTPUT_AUDIO_SAMPLE_RATE', 44100)
+        pixel_format = getattr(self.config, 'OUTPUT_PIXEL_FORMAT', 'yuv420p') or 'yuv420p'
+        threads = getattr(self.config, 'OUTPUT_THREADS', None)
+        crf = getattr(self.config, 'OUTPUT_CRF', None)
+
+        cmd = ['ffmpeg', '-hide_banner', '-y']
+        filter_parts: List[str] = []
+        concat_inputs: List[str] = []
+
+        for idx, clip_path in enumerate(clip_paths):
+            cmd += ['-i', str(clip_path)]
+            streams = self._probe_stream_metadata(clip_path)
+            if 'audio' not in streams:
+                raise RuntimeError(f"Clip is missing audio stream: {clip_path}")
+            filter_parts.append(
+                f'[{idx}:v:0]'
+                f'scale={width}:{height}:force_original_aspect_ratio=decrease,'
+                f'pad={width}:{height}:(ow-iw)/2:(oh-ih)/2:color=black,'
+                f'setsar=1,'
+                f'fps={target_fps},'
+                f'format={pixel_format}'
+                f'[v{idx}]'
+            )
+            filter_parts.append(
+                f'[{idx}:a:0]'
+                f'aresample={int(audio_fps)},'
+                f'aformat=sample_fmts=fltp:channel_layouts=stereo'
+                f'[a{idx}]'
+            )
+            concat_inputs.extend([f'[v{idx}]', f'[a{idx}]'])
+
+        filter_parts.append(
+            ''.join(concat_inputs) + f'concat=n={len(clip_paths)}:v=1:a=1[vout][aout]'
+        )
+
+        cmd += [
+            '-filter_complex',
+            ';'.join(filter_parts),
+            '-map',
+            '[vout]',
+            '-map',
+            '[aout]',
+            '-c:v',
+            str(codec),
+            '-preset',
+            str(preset),
+        ]
+        if crf is not None and str(codec).lower() in {'libx264', 'libx265'}:
+            cmd += ['-crf', str(crf)]
+        if audio_codec:
+            cmd += ['-c:a', str(audio_codec)]
+        if audio_bitrate:
+            cmd += ['-b:a', str(audio_bitrate)]
+        if audio_fps:
+            cmd += ['-ar', str(audio_fps)]
+        if pixel_format:
+            cmd += ['-pix_fmt', str(pixel_format)]
+        if threads:
+            cmd += ['-threads', str(threads)]
+        cmd += [
+            '-movflags',
+            '+faststart',
+            str(temp_output),
+        ]
+
+        try:
+            subprocess.run(cmd, check=True, capture_output=True, text=True)
+        except subprocess.CalledProcessError as exc:
+            stderr = (exc.stderr or '').strip()
+            if temp_output.exists():
+                temp_output.unlink(missing_ok=True)
+            raise RuntimeError(stderr or f"ffmpeg concat failed for {output_path}") from exc
+
+        temp_output.replace(output_path)
 
     def _add_overlay(self, clip: VideoFileClip, overlay_config: dict) -> VideoFileClip:
         """
@@ -469,6 +601,17 @@ class VideoProcessor:
                 clip_paths = clip_paths[:max_clips]
 
             logger.info(f"Creating highlights reel from {len(clip_paths)} clips")
+
+            try:
+                self._write_concat_reel_ffmpeg(clip_paths, output_path)
+                logger.info(f"✅ Highlights reel created: {output_path}")
+                return True
+            except Exception as exc:
+                logger.warning(
+                    "ffmpeg concat reel path failed for %s; falling back to MoviePy: %s",
+                    output_path,
+                    exc,
+                )
 
             # Load all clips with progress bar
             clips = []

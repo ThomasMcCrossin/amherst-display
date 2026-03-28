@@ -1084,6 +1084,8 @@ def _build_ffmpeg_filter(
     # Overlay placement (bottom-left)
     x = overlay_margin
     y = int(video_size[1]) - overlay_margin - overlay_h
+    video_w = int(video_size[0])
+    video_h = int(video_size[1])
 
     parts: List[str] = []
 
@@ -1094,7 +1096,13 @@ def _build_ffmpeg_filter(
 
     for i in range(n):
         ov_in = n + i
-        parts.append(f"[{i}:v]setpts=PTS-STARTPTS[v{i}base]")
+        # Normalize mixed source resolutions before overlay + xfade.
+        parts.append(
+            f"[{i}:v]setpts=PTS-STARTPTS,"
+            f"scale={video_w}:{video_h}:force_original_aspect_ratio=decrease,"
+            f"pad={video_w}:{video_h}:(ow-iw)/2:(oh-ih)/2:black,"
+            f"setsar=1[v{i}base]"
+        )
         parts.append(
             f"[{ov_in}:v]format=rgba,"
             f"fade=t=in:st=0:d={overlay_start_fade}:alpha=1,"
@@ -1177,6 +1185,29 @@ def main() -> int:
         help="Output FPS (e.g., 60, 30000/1001, or 'source' to match input clips)",
     )
     parser.add_argument("--crf", type=int, default=18, help="H.264 CRF quality (lower=better, default: 18)")
+    parser.add_argument(
+        "--encoder-preset",
+        default="slow",
+        help="ffmpeg/x264 preset for the final encode (default: slow)",
+    )
+    parser.add_argument(
+        "--ffmpeg-threads",
+        type=int,
+        default=0,
+        help="Limit ffmpeg encoder threads; 0 keeps ffmpeg's default auto behavior",
+    )
+    parser.add_argument(
+        "--filter-threads",
+        type=int,
+        default=0,
+        help="Limit ffmpeg filter threads; 0 keeps ffmpeg's default auto behavior",
+    )
+    parser.add_argument(
+        "--filter-complex-threads",
+        type=int,
+        default=0,
+        help="Limit ffmpeg filter_complex threads; 0 keeps ffmpeg's default auto behavior",
+    )
     parser.add_argument("--dry-run", action="store_true", help="Print ffmpeg command without running it")
     args = parser.parse_args()
 
@@ -1450,6 +1481,10 @@ def main() -> int:
     )
 
     cmd: List[str] = ["ffmpeg", "-hide_banner", "-y"]
+    if int(args.filter_threads or 0) > 0:
+        cmd += ["-filter_threads", str(int(args.filter_threads))]
+    if int(args.filter_complex_threads or 0) > 0:
+        cmd += ["-filter_complex_threads", str(int(args.filter_complex_threads))]
 
     for clip in clip_paths:
         cmd += ["-i", str(clip)]
@@ -1468,7 +1503,11 @@ def main() -> int:
         "-c:v",
         "libx264",
         "-preset",
-        "slow",
+        str(args.encoder_preset),
+    ]
+    if int(args.ffmpeg_threads or 0) > 0:
+        cmd += ["-threads", str(int(args.ffmpeg_threads))]
+    cmd += [
         "-crf",
         str(int(args.crf)),
         "-pix_fmt",

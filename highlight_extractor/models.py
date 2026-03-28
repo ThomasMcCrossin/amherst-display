@@ -23,6 +23,11 @@ class GameInfo:
     home_away: str = 'unknown'  # 'home' | 'away' | 'unknown'
     time: str = 'unknown'
     date_formatted: Optional[str] = None
+    playoff: bool = False
+    game_number: Optional[int] = None
+    schedule_notes: str = ''
+    overtime: bool = False
+    shootout: bool = False
 
     def __post_init__(self):
         """Validate game info after initialization"""
@@ -89,8 +94,8 @@ class Event:
             raise ValueError(f"Invalid event type '{self.type}', expected 'goal' or 'penalty'")
 
         # Validate period
-        if not 1 <= self.period <= 5:  # Regular + OT + 2OT
-            raise ValueError(f"Invalid period {self.period}, expected 1-5")
+        if int(self.period or 0) < 1:
+            raise ValueError(f"Invalid period {self.period}, expected >= 1")
 
         # Validate time format
         if not re.match(r'^\d{1,2}:\d{2}$', self.time):
@@ -200,8 +205,8 @@ class VideoTimestamp:
             raise ValueError(f"Invalid video_time {self.video_time}, must be >= 0")
 
         # Validate period
-        if not 1 <= self.period <= 5:
-            raise ValueError(f"Invalid period {self.period}, expected 1-5")
+        if int(self.period or 0) < 1:
+            raise ValueError(f"Invalid period {self.period}, expected >= 1")
 
         # Validate game_time format
         if not re.match(r'^\d{1,2}:\d{2}$', self.game_time):

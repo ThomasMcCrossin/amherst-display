@@ -135,6 +135,7 @@ Notes:
 - The seeded program manifest is `programs/mhl-amherst-ramblers-2025-26.json`.
 - For multi-machine setups, keep processing local to each machine and use the Shared Drive tree as the shared archive/review surface after processing completes.
 - `highlight_extractor.amherst_integration.find_amherst_display_path()` now prefers `AMHERST_DISPLAY_DIR` and sibling repo layouts before falling back to `~/amherst-display`, so side-by-side clones on WSL or another Ubuntu box work without server-specific paths.
+- Windows/WSL-specific conveniences such as mounted-drive source paths or copying review files into Windows `Downloads` are operator-local workflow choices, not committed pipeline requirements. The repo itself stays Linux/env-path driven so pure Ubuntu runs keep using their own local paths.
 
 ## GitHub Actions Setup
 

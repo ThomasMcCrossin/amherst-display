@@ -15,6 +15,9 @@ import numpy as np
 
 from .goal import Goal
 from .time_utils import (
+    game_clock_rules_from_context,
+    absolute_seconds_to_period_time,
+    period_length_seconds,
     time_string_to_seconds,
     period_time_to_absolute_seconds,
     seconds_to_time_string,
@@ -674,6 +677,20 @@ class EventMatcher:
         """
         self.config = config
         self.scoreboard_health: Optional[ScoreboardHealth] = None
+        self.clock_rules = game_clock_rules_from_context()
+
+    def set_game_context(self, game_context: Optional[Dict] = None) -> None:
+        """Install game-specific clock rules (playoff vs regular season OT)."""
+        self.clock_rules = game_clock_rules_from_context(game_context)
+
+    def _period_length_seconds(self, period: int) -> int:
+        return period_length_seconds(period, self.clock_rules)
+
+    def _period_time_to_absolute_seconds(self, period: int, time_seconds: int) -> int:
+        return period_time_to_absolute_seconds(period, time_seconds, self.clock_rules)
+
+    def _absolute_seconds_to_period_time(self, absolute_seconds: int) -> Tuple[int, int]:
+        return absolute_seconds_to_period_time(absolute_seconds, self.clock_rules)
 
     def assess_scoreboard_health(
         self,
@@ -700,7 +717,7 @@ class EventMatcher:
         # Count period detection
         for ts in video_timestamps:
             period = ts.get("period")
-            if period is not None and period != 0 and 1 <= period <= 5:
+            if period is not None and period != 0 and int(period) >= 1:
                 health.samples_with_period += 1
             else:
                 health.samples_period_unknown += 1
@@ -1229,7 +1246,7 @@ class EventMatcher:
         Returns:
             Absolute game time in seconds
         """
-        return period_time_to_absolute_seconds(period, time_seconds)
+        return self._period_time_to_absolute_seconds(period, time_seconds)
 
     def _event_time_to_remaining_seconds(self, period: Optional[int], time_str: str) -> int:
         """
@@ -1242,7 +1259,7 @@ class EventMatcher:
 
         # Default to True to match config.py default (box scores use elapsed time)
         if getattr(self.config, 'BOX_SCORE_TIME_IS_ELAPSED', True):
-            period_length = OT_LENGTH_SECONDS if period_num >= 4 else PERIOD_LENGTH_SECONDS
+            period_length = self._period_length_seconds(period_num)
             event_seconds = max(0, min(event_seconds, period_length))
             return max(0, period_length - event_seconds)
 
@@ -1436,7 +1453,7 @@ class EventMatcher:
                 ts_period = int(ts_period_raw) if ts_period_raw is not None else None
             except (TypeError, ValueError):
                 ts_period = None
-            if ts_period is not None and not (1 <= ts_period <= 5):
+            if ts_period is not None and int(ts_period) < 1:
                 ts_period = None
 
             time_remaining = ts.get('game_time_seconds')
@@ -1451,7 +1468,7 @@ class EventMatcher:
 
             # Validate against expected period length (OT is 5:00).
             expected_period = ts_period or current_period
-            period_length = OT_LENGTH_SECONDS if expected_period >= 4 else PERIOD_LENGTH_SECONDS
+            period_length = self._period_length_seconds(expected_period)
             if time_remaining < 0 or time_remaining > period_length:
                 norm_logger.add_entry(NormalizationLogEntry(
                     video_time=video_time,
@@ -1486,7 +1503,7 @@ class EventMatcher:
 
                 # Prefer explicit OCR period jumps when they look plausible.
                 if ts_period is not None and ts_period > current_period:
-                    ts_period_length = OT_LENGTH_SECONDS if ts_period >= 4 else PERIOD_LENGTH_SECONDS
+                    ts_period_length = self._period_length_seconds(ts_period)
                     near_start = time_remaining >= (ts_period_length - 60)
                     near_end_prev = last_time_remaining <= 120
                     if near_start and (near_end_prev or long_gap):
@@ -1503,7 +1520,7 @@ class EventMatcher:
 
                 if last_time_remaining is not None:
                     # Period reset: big jump back up to ~20:00 (or to ~5:00 for OT if inferred).
-                    inferred_period_length = OT_LENGTH_SECONDS if current_period >= 4 else PERIOD_LENGTH_SECONDS
+                    inferred_period_length = self._period_length_seconds(current_period)
                     period_reset_threshold = int(inferred_period_length * 0.75)
 
                     if time_remaining > last_time_remaining + period_reset_threshold:
@@ -1513,7 +1530,7 @@ class EventMatcher:
                             if seen_near_start_in_period or long_gap:
                                 # Legitimate intermission reset.
                                 old_period = current_period
-                                current_period = min(5, current_period + 1)
+                                current_period = current_period + 1
                                 norm_logger.add_period_transition(
                                     video_time, old_period, current_period,
                                     f"Clock reset to ~{time_remaining}s (intermission)"
@@ -1545,7 +1562,7 @@ class EventMatcher:
                         # Allow the 3rd→OT transition even if OCR period isn't trusted:
                         # 0:xx → 4:xx (OT clock) is a legitimate reset but much smaller than a 20:00 reset.
                         if current_period == 3:
-                            near_ot_start = time_remaining >= (OT_LENGTH_SECONDS - 60)
+                            near_ot_start = time_remaining >= (self._period_length_seconds(4) - 60)
                             near_end_prev = last_time_remaining <= 30
                             if near_ot_start and (near_end_prev or long_gap):
                                 old_period = current_period
@@ -1615,7 +1632,7 @@ class EventMatcher:
             last_video_time = video_time
             last_confidence = ts_confidence
             # Update "seen near start" after any period transitions for this sample.
-            period_len_for_current = OT_LENGTH_SECONDS if current_period >= 4 else PERIOD_LENGTH_SECONDS
+            period_len_for_current = self._period_length_seconds(current_period)
             if time_remaining >= (period_len_for_current - 60):
                 seen_near_start_in_period = True
 

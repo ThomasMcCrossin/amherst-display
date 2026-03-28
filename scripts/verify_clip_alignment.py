@@ -28,8 +28,8 @@ sys.path.insert(0, str(REPO_ROOT))
 import config  # noqa: E402
 from highlight_extractor.ocr_engine import OCREngine  # noqa: E402
 from highlight_extractor.time_utils import (  # noqa: E402
-    PERIOD_LENGTH_SECONDS,
-    OT_LENGTH_SECONDS,
+    game_clock_rules_from_context,
+    period_length_seconds,
     seconds_to_time_string,
     time_string_to_seconds,
 )
@@ -40,11 +40,39 @@ except Exception:  # pragma: no cover
     from moviepy.editor import VideoFileClip  # type: ignore
 
 
-def _period_length_seconds(period: int) -> int:
-    return OT_LENGTH_SECONDS if int(period or 0) >= 4 else PERIOD_LENGTH_SECONDS
+def _load_game_clock_rules(game_dir: Path):
+    metadata_path = game_dir / "data" / "game_metadata.json"
+    context: Dict[str, Any] = {}
+    if metadata_path.exists():
+        try:
+            payload = json.loads(metadata_path.read_text(encoding="utf-8"))
+        except Exception:
+            payload = {}
+        if isinstance(payload, dict):
+            for key in ("game_info", "source_game_info"):
+                value = payload.get(key)
+                if isinstance(value, dict):
+                    for item_key, item_value in value.items():
+                        if item_value not in (None, ""):
+                            context[item_key] = item_value
+            box_score = payload.get("box_score")
+            if isinstance(box_score, dict):
+                amherst_payload = box_score.get("_amherst_display")
+                if isinstance(amherst_payload, dict):
+                    for item_key in ("playoff", "schedule_notes", "result", "game_number"):
+                        item_value = amherst_payload.get(item_key)
+                        if item_value not in (None, ""):
+                            context[item_key] = item_value
+                    game_meta = amherst_payload.get("game_info")
+                    if isinstance(game_meta, dict):
+                        for item_key in ("playoff", "schedule_notes", "result", "game_number"):
+                            item_value = game_meta.get(item_key)
+                            if item_value not in (None, ""):
+                                context[item_key] = item_value
+    return game_clock_rules_from_context(context)
 
 
-def _expected_remaining_seconds(*, period: int, box_time: str) -> int:
+def _expected_remaining_seconds(*, period: int, box_time: str, clock_rules) -> int:
     """
     Convert a box-score time string to the expected broadcast clock time in seconds.
 
@@ -53,7 +81,7 @@ def _expected_remaining_seconds(*, period: int, box_time: str) -> int:
     value = time_string_to_seconds(str(box_time or "0:00"))
     if not bool(getattr(config, "BOX_SCORE_TIME_IS_ELAPSED", True)):
         return int(value)
-    period_len = _period_length_seconds(period)
+    period_len = period_length_seconds(period, clock_rules)
     return max(0, min(period_len, period_len - int(value)))
 
 
@@ -179,6 +207,7 @@ def main() -> int:
     args = parser.parse_args()
 
     game_dir: Path = args.game_dir
+    clock_rules = _load_game_clock_rules(game_dir)
     manifest = _load_manifest(game_dir)
     if int(args.max_clips) > 0:
         manifest = manifest[: int(args.max_clips)]
@@ -218,7 +247,11 @@ def main() -> int:
 
         period = int(event.get("period") or 0)
         time_str = str(event.get("time") or "").strip()
-        expected_remaining = _expected_remaining_seconds(period=period or 1, box_time=time_str)
+        expected_remaining = _expected_remaining_seconds(
+            period=period or 1,
+            box_time=time_str,
+            clock_rules=clock_rules,
+        )
         expected_clock = seconds_to_time_string(expected_remaining)
 
         # Default: event happens ~before_seconds into the clip.

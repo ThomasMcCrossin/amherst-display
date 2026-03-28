@@ -139,7 +139,22 @@ PENALTY_PP_AFTER_SECONDS = 3.0   # 3 seconds after (5s total clip)
 # Goal clips refined from the scoreboard clock-stop are typically anchored at the
 # whistle/stoppage, not the puck crossing the line. Give them more lead-in so the
 # scoring play is actually visible.
-GOAL_CLOCK_STOP_BEFORE_SECONDS = 24.0
+GOAL_CLOCK_STOP_BEFORE_SECONDS = 32.0
+GOAL_CLOCK_STOP_AFTER_SECONDS = 3.0
+GOAL_FALLBACK_BEFORE_SECONDS = 20.0
+GOAL_FALLBACK_AFTER_SECONDS = 4.0
+GOAL_OT_BEFORE_SECONDS = 60.0
+GOAL_OT_POWER_PLAY_BEFORE_SECONDS = 120.0
+GOAL_OT_AFTER_SECONDS = 4.0
+# Default goal timing rule: the goal moment is the first stable scoreboard clock
+# freeze at the official goal time. Keep legacy near-match / projected fallbacks
+# disabled unless a specific broken-scorebug run needs them.
+GOAL_CLOCK_STOP_ALLOW_CLOSE_SECONDS = 0
+GOAL_ENABLE_PROJECTED_CLOCK_FALLBACK = False
+GOAL_PROJECTED_CLOCK_FALLBACK_REQUIRES_UNRELIABLE = True
+GOAL_LOCAL_OCR_ALLOW_CLOSE_SECONDS = 0
+GOAL_ENABLE_LOCAL_OCR_CLOSEST_FALLBACK = False
+GOAL_LOCAL_OCR_CLOSEST_FALLBACK_REQUIRES_UNRELIABLE = True
 
 # 5-minute major settings (require manual review)
 # Note: Clock freezes at penalty time for 10-30s while refs sort things out,
@@ -173,8 +188,8 @@ HIGHLIGHT_EXECUTION_PROFILES = {
         "tolerance_seconds": 30,
         "before_seconds": 8.0,
         "after_seconds": 6.0,
-        "parallel_ocr": False,
-        "ocr_workers": 1,
+        "parallel_ocr": True,
+        "ocr_workers": 4,
         "broadcast_type": "flohockey",
         "auto_detect_start": True,
         "reel_mode": DEFAULT_REEL_MODE,
@@ -186,8 +201,8 @@ HIGHLIGHT_EXECUTION_PROFILES = {
         "tolerance_seconds": 30,
         "before_seconds": 8.0,
         "after_seconds": 6.0,
-        "parallel_ocr": False,
-        "ocr_workers": 1,
+        "parallel_ocr": True,
+        "ocr_workers": 4,
         "broadcast_type": "flohockey",
         "auto_detect_start": True,
         "reel_mode": DEFAULT_REEL_MODE,
@@ -198,8 +213,8 @@ HIGHLIGHT_EXECUTION_PROFILES = {
         "tolerance_seconds": 30,
         "before_seconds": 8.0,
         "after_seconds": 6.0,
-        "parallel_ocr": False,
-        "ocr_workers": 1,
+        "parallel_ocr": True,
+        "ocr_workers": 4,
         "broadcast_type": "mhl_amherst",
         "auto_detect_start": True,
         "reel_mode": DEFAULT_REEL_MODE,
@@ -210,8 +225,8 @@ HIGHLIGHT_EXECUTION_PROFILES = {
         "tolerance_seconds": 30,
         "before_seconds": 8.0,
         "after_seconds": 6.0,
-        "parallel_ocr": False,
-        "ocr_workers": 1,
+        "parallel_ocr": True,
+        "ocr_workers": 4,
         "broadcast_type": "mhl_summerside",
         "auto_detect_start": True,
         "reel_mode": DEFAULT_REEL_MODE,
@@ -222,8 +237,8 @@ HIGHLIGHT_EXECUTION_PROFILES = {
         "tolerance_seconds": 30,
         "before_seconds": 8.0,
         "after_seconds": 6.0,
-        "parallel_ocr": False,
-        "ocr_workers": 1,
+        "parallel_ocr": True,
+        "ocr_workers": 4,
         "broadcast_type": "auto",
         "auto_detect_start": True,
         "reel_mode": DEFAULT_REEL_MODE,
@@ -234,8 +249,8 @@ HIGHLIGHT_EXECUTION_PROFILES = {
         "tolerance_seconds": 30,
         "before_seconds": 8.0,
         "after_seconds": 6.0,
-        "parallel_ocr": False,
-        "ocr_workers": 1,
+        "parallel_ocr": True,
+        "ocr_workers": 4,
         "broadcast_type": "yarmouth",
         "auto_detect_start": True,
         "reel_mode": DEFAULT_REEL_MODE,

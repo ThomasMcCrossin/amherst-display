@@ -22,6 +22,8 @@ except ModuleNotFoundError:
 from .ocr_engine import OCREngine
 from .event_matcher import EventMatcher
 from .time_utils import (
+    game_clock_rules_from_context,
+    period_length_seconds,
     time_string_to_seconds,
     PERIOD_LENGTH_SECONDS,
     OT_LENGTH_SECONDS,
@@ -151,6 +153,13 @@ class HighlightPipeline:
         self._refine_goal_clock = True
         self._refine_local_ocr = True
         self._detected_game_start_time: Optional[float] = None
+        self._game_context: Dict = {}
+        if game_info_override:
+            self._game_context.update(dict(game_info_override))
+        if source_game_info_override:
+            for key, value in dict(source_game_info_override).items():
+                self._game_context.setdefault(key, value)
+        self._clock_rules = game_clock_rules_from_context(self._game_context)
 
     @property
     def goals(self) -> List[Goal]:
@@ -204,6 +213,45 @@ class HighlightPipeline:
         except Exception:
             # Logging must never break processing.
             self._log_handler = None
+
+    def _refresh_game_context(self) -> None:
+        context: Dict = {}
+        if self.game_info is not None:
+            context.update(getattr(self.game_info, "__dict__", {}) or {})
+        if self.source_game_info is not None:
+            for key, value in (getattr(self.source_game_info, "__dict__", {}) or {}).items():
+                context.setdefault(key, value)
+
+        if isinstance(self.box_score, dict):
+            amherst_payload = self.box_score.get("_amherst_display")
+            if isinstance(amherst_payload, dict):
+                for key in ("playoff", "schedule_notes", "result", "date", "game_number"):
+                    if amherst_payload.get(key) not in (None, ""):
+                        context[key] = amherst_payload.get(key)
+                game_meta = amherst_payload.get("game_info")
+                if isinstance(game_meta, dict):
+                    for key in ("playoff", "schedule_notes", "result", "game_number"):
+                        if game_meta.get(key) not in (None, ""):
+                            context[key] = game_meta.get(key)
+
+        if self._game_context:
+            merged = dict(self._game_context)
+            merged.update({k: v for k, v in context.items() if v not in (None, "")})
+            context = merged
+
+        self._game_context = context
+        self._clock_rules = game_clock_rules_from_context(context)
+        if hasattr(self.event_matcher, "set_game_context"):
+            try:
+                self.event_matcher.set_game_context(context)
+            except Exception:
+                pass
+
+    def _period_length_seconds(self, period: int) -> int:
+        return period_length_seconds(period, self._clock_rules)
+
+    def _period_time_to_absolute_seconds(self, period: int, time_remaining_seconds: int) -> int:
+        return period_time_to_absolute_seconds(period, time_remaining_seconds, self._clock_rules)
 
     def _normalize_reel_mode(self, reel_mode: Optional[str]) -> str:
         mode = str(reel_mode or getattr(self.config, "DEFAULT_REEL_MODE", "goals_only")).strip().lower()
@@ -559,6 +607,7 @@ class HighlightPipeline:
                 logger.info(f"\n📁 Output folder: {self.game_folders['game_dir']}")
 
             self._configure_pipeline_logging()
+            self._refresh_game_context()
             self._step_timings['parse_and_setup'] = time.time() - start_time
             return
 
@@ -582,6 +631,7 @@ class HighlightPipeline:
         logger.info(f"\n📁 Output folder: {self.game_folders['game_dir']}")
 
         self._configure_pipeline_logging()
+        self._refresh_game_context()
         self._step_timings['parse_and_setup'] = time.time() - start_time
 
     def _step2_fetch_box_score(self):
@@ -650,6 +700,7 @@ class HighlightPipeline:
             source_game_info=self.source_game_info.__dict__ if self.source_game_info else None,
         )
 
+        self._refresh_game_context()
         self._step_timings['fetch_box_score'] = time.time() - start_time
 
     def _step3_load_video(self):
@@ -905,197 +956,368 @@ class HighlightPipeline:
 
         self._step_timings['match_events'] = time.time() - start_time
 
+    def _ocr_clock_sample(self, t: float, *, expected_period: int, period_length: int) -> Dict:
+        frame = self.video_processor.get_frame_at_time(float(t))
+        if frame is None:
+            return {"t": float(t), "sec": None, "period": None, "confidence": 0.0}
+
+        ocr = None
+        try:
+            ocr = self._ensure_ocr_engine().extract_time_from_frame_detailed(
+                frame,
+                broadcast_type=self._refinement_broadcast_type(),
+            )
+        except Exception:
+            ocr = None
+
+        if ocr is None:
+            return {"t": float(t), "sec": None, "period": None, "confidence": 0.0}
+
+        observed_period = int(getattr(ocr, "period", 0) or 0)
+        if observed_period not in {0, int(expected_period or 1)}:
+            return {"t": float(t), "sec": None, "period": observed_period, "confidence": float(getattr(ocr, "confidence", 0.0) or 0.0)}
+
+        sec = int(getattr(ocr, "time_seconds", -1) or -1)
+        if not (0 <= sec <= int(period_length)):
+            sec = None
+
+        return {
+            "t": float(t),
+            "sec": sec,
+            "period": observed_period,
+            "confidence": float(getattr(ocr, "confidence", 0.0) or 0.0),
+        }
+
+    def _sample_clock_window(
+        self,
+        *,
+        search_start: float,
+        search_end: float,
+        step_seconds: float,
+        expected_period: int,
+        period_length: int,
+    ) -> List[Dict]:
+        samples: List[Dict] = []
+        t = float(search_start)
+        while t <= float(search_end) + 1e-6:
+            samples.append(
+                self._ocr_clock_sample(
+                    t,
+                    expected_period=int(expected_period or 1),
+                    period_length=int(period_length),
+                )
+            )
+            t += float(step_seconds)
+        return samples
+
+    def _find_clock_stop_from_samples(
+        self,
+        samples: List[Dict],
+        *,
+        target_seconds: int,
+        persistence_window_seconds: float,
+        min_target_hits: int,
+        allow_close_seconds: int = 0,
+    ) -> Optional[float]:
+        if not samples:
+            return None
+
+        from collections import Counter
+
+        running_prefix: List[bool] = []
+        seen_running = False
+        for sample in samples:
+            sec = sample.get("sec")
+            if sec is not None and int(sec) > int(target_seconds):
+                seen_running = True
+            running_prefix.append(seen_running)
+
+        for idx, sample in enumerate(samples):
+            sec = sample.get("sec")
+            if sec is None:
+                continue
+            if abs(int(sec) - int(target_seconds)) > int(allow_close_seconds):
+                continue
+            if not running_prefix[idx]:
+                continue
+
+            window_end = float(sample["t"]) + float(persistence_window_seconds)
+            window_vals: List[int] = []
+            target_hits = 0
+            for follow in samples[idx:]:
+                if float(follow["t"]) > window_end:
+                    break
+                follow_sec = follow.get("sec")
+                if follow_sec is None:
+                    continue
+                follow_sec_int = int(follow_sec)
+                window_vals.append(follow_sec_int)
+                if abs(follow_sec_int - int(target_seconds)) <= int(allow_close_seconds):
+                    target_hits += 1
+
+            if len(window_vals) < max(3, int(min_target_hits)):
+                continue
+
+            mode_val, _mode_count = Counter(window_vals).most_common(1)[0]
+            if abs(int(mode_val) - int(target_seconds)) > int(allow_close_seconds):
+                continue
+            if target_hits < int(min_target_hits):
+                continue
+            return float(sample["t"])
+
+        return None
+
+    def _candidate_goal_search_ranges(
+        self,
+        coarse_samples: List[Dict],
+        *,
+        target_seconds: int,
+        default_start: float,
+        default_end: float,
+    ) -> List[tuple[float, float]]:
+        candidates: List[tuple[float, float]] = []
+        best = None  # (diff, t)
+        seen_running = False
+        prev = None
+
+        for sample in coarse_samples:
+            sec = sample.get("sec")
+            if sec is None:
+                continue
+            sec_int = int(sec)
+            if sec_int > int(target_seconds):
+                seen_running = True
+
+            diff = abs(sec_int - int(target_seconds))
+            if seen_running and (best is None or diff < best[0] or (diff == best[0] and float(sample["t"]) < best[1])):
+                best = (diff, float(sample["t"]))
+
+            if prev is not None and prev.get("sec") is not None:
+                prev_sec = int(prev["sec"])
+                curr_sec = sec_int
+                crossed_target = prev_sec > int(target_seconds) and curr_sec <= int(target_seconds)
+                exact_target = curr_sec == int(target_seconds) and seen_running
+                if crossed_target or exact_target:
+                    left = max(float(default_start), float(prev["t"]) - 2.0)
+                    right = min(float(default_end), float(sample["t"]) + 4.0)
+                    candidates.append((left, right))
+            prev = sample
+
+        if not candidates and best is not None:
+            candidates.append(
+                (
+                    max(float(default_start), float(best[1]) - 4.0),
+                    min(float(default_end), float(best[1]) + 4.0),
+                )
+            )
+
+        if not candidates:
+            candidates.append((float(default_start), float(default_end)))
+
+        merged: List[tuple[float, float]] = []
+        for start, end in sorted(candidates, key=lambda pair: (pair[0], pair[1])):
+            if not merged or start > merged[-1][1] + 0.5:
+                merged.append((start, end))
+            else:
+                merged[-1] = (merged[-1][0], max(merged[-1][1], end))
+        return merged[:3]
+
     def _refine_goal_events_by_clock_stop(
         self,
         matched_events: List[Dict],
         *,
-        step_seconds: float = 0.5,
+        coarse_step_seconds: float = 2.0,
+        fine_step_seconds: float = 0.25,
         lookback_seconds: float = 90.0,
         lookforward_seconds: float = 20.0,
-        persistence_window_seconds: float = 20.0,
-        min_target_hits: int = 10,
+        persistence_window_seconds: float = 8.0,
+        min_target_hits: int = 4,
     ) -> int:
         """
-        Refine goal video timestamps by searching for the stoppage where the clock
-        freezes at the goal time (box score time).
-
-        We prefer the *start* of the freeze (clock reaches goal time and stays),
-        not just any later frame during the stoppage.
+        Refine goal video timestamps by locating the first stable clock-stop at the
+        box-score goal time. Coarse OCR markers narrow the search range before a
+        finer stop-time scan runs inside likely intervals.
         """
         if not matched_events:
             return 0
 
         refined_count = 0
-
-        duration = getattr(self.video_processor, 'duration', 0.0) or 0.0
+        duration = float(getattr(self.video_processor, "duration", 0.0) or 0.0)
         if duration <= 0:
             return 0
 
-        # Use the existing OCR sample map to narrow the search range.
         video_timestamps = self.video_timestamps or []
+        allow_close_seconds = max(
+            0,
+            int(getattr(self.config, "GOAL_CLOCK_STOP_ALLOW_CLOSE_SECONDS", 0) or 0),
+        )
+        allow_projected_fallback = bool(
+            getattr(self.config, "GOAL_ENABLE_PROJECTED_CLOCK_FALLBACK", False)
+        )
+        projected_requires_unreliable = bool(
+            getattr(self.config, "GOAL_PROJECTED_CLOCK_FALLBACK_REQUIRES_UNRELIABLE", True)
+        )
 
         for event in matched_events:
-            if event.get('type') != 'goal':
+            if str(event.get("type") or "").strip().lower() != "goal":
                 continue
 
-            video_time = event.get('video_time')
+            video_time = event.get("video_time")
             if video_time is None:
                 continue
 
-            period = event.get('period')
-            time_str = event.get('time', '0:00')
-            target_seconds = self.event_matcher.event_time_to_remaining_seconds(period, time_str)
-            period_length = OT_LENGTH_SECONDS if (period or 1) >= 4 else PERIOD_LENGTH_SECONDS
+            try:
+                period = int(event.get("period") or 1)
+            except Exception:
+                period = 1
+            time_str = str(event.get("time") or "0:00").strip()
+
+            try:
+                target_seconds = int(self.event_matcher.event_time_to_remaining_seconds(period, time_str))
+            except Exception:
+                continue
+
+            period_length = self._period_length_seconds(period)
             minimum_video_time = self._minimum_plausible_video_time_for_event(event)
 
             period_ts = [
                 ts for ts in video_timestamps
-                if ts.get('period') == period
-                and ts.get('video_time') is not None
+                if int(ts.get("period") or 0) == period
+                and ts.get("video_time") is not None
                 and (
                     minimum_video_time is None
-                    or float(ts.get('video_time') or 0.0) >= minimum_video_time
+                    or float(ts.get("video_time") or 0.0) >= minimum_video_time
                 )
             ]
-            period_ts.sort(key=lambda t: t.get('video_time', 0))
+            period_ts.sort(key=lambda t: float(t.get("video_time") or 0.0))
 
-            # Start scanning from a timestamp where the clock is still running (> target),
-            # so the first stable target run is the start of the stoppage.
             anchor_before = None
             if period_ts:
                 nearest_idx = min(
                     range(len(period_ts)),
-                    key=lambda i: abs(float(period_ts[i]['video_time']) - float(video_time))
+                    key=lambda i: abs(float(period_ts[i]["video_time"]) - float(video_time)),
                 )
-                for i in range(nearest_idx, -1, -1):
-                    ts = period_ts[i]
-                    ts_seconds = ts.get('game_time_seconds')
-                    if ts_seconds is None:
-                        ts_seconds = time_string_to_seconds(ts.get('game_time', '0:00'))
-                    if ts_seconds < 0 or ts_seconds > period_length:
+                for idx in range(nearest_idx, -1, -1):
+                    sample = period_ts[idx]
+                    sample_sec = sample.get("game_time_seconds")
+                    if sample_sec is None:
+                        sample_sec = time_string_to_seconds(str(sample.get("game_time") or "0:00"))
+                    try:
+                        sample_sec_int = int(sample_sec)
+                    except Exception:
                         continue
-                    if ts_seconds > target_seconds:
-                        anchor_before = ts
+                    if sample_sec_int > target_seconds:
+                        anchor_before = sample
                         break
 
             anchor_video_time = float(video_time)
-            if minimum_video_time is not None and anchor_video_time < minimum_video_time:
-                anchor_video_time = minimum_video_time
-
-            search_start = max(0.0, anchor_video_time - lookback_seconds)
-            if anchor_before is not None:
-                search_start = max(0.0, float(anchor_before['video_time']) - 5.0)
             if minimum_video_time is not None:
-                search_start = max(search_start, minimum_video_time)
+                anchor_video_time = max(anchor_video_time, float(minimum_video_time))
 
-            search_end = min(duration, anchor_video_time + lookforward_seconds)
+            search_start = max(0.0, anchor_video_time - float(lookback_seconds))
+            if anchor_before is not None:
+                search_start = max(0.0, float(anchor_before["video_time"]) - 5.0)
+            if minimum_video_time is not None:
+                search_start = max(search_start, float(minimum_video_time))
+            search_end = min(duration, anchor_video_time + float(lookforward_seconds))
             if search_end <= search_start:
                 continue
 
-            # Scan window and store OCR results so we can apply a robust "freeze-start"
-            # heuristic even with intermittent OCR dropouts/misreads.
-            samples: List[Dict] = []
-            t = search_start
-            while t <= search_end:
-                frame = self.video_processor.get_frame_at_time(t)
-                ocr_seconds = None
-                if frame is not None:
-                    ocr_result = self._ensure_ocr_engine().extract_time_from_frame(
-                        frame,
-                        broadcast_type=self._refinement_broadcast_type(),
-                    )
-                    if ocr_result:
-                        _, ocr_time_str = ocr_result
-                        parsed = time_string_to_seconds(ocr_time_str)
-                        if 0 <= parsed <= period_length:
-                            ocr_seconds = parsed
-                samples.append({'t': t, 'sec': ocr_seconds})
-                t += step_seconds
+            coarse_samples = self._sample_clock_window(
+                search_start=search_start,
+                search_end=search_end,
+                step_seconds=float(coarse_step_seconds),
+                expected_period=period,
+                period_length=period_length,
+            )
+            candidate_ranges = self._candidate_goal_search_ranges(
+                coarse_samples,
+                target_seconds=target_seconds,
+                default_start=search_start,
+                default_end=search_end,
+            )
 
             refined_time = None
+            refined_method = None
+            for candidate_start, candidate_end in candidate_ranges:
+                fine_samples = self._sample_clock_window(
+                    search_start=max(search_start, candidate_start),
+                    search_end=min(search_end, candidate_end),
+                    step_seconds=float(fine_step_seconds),
+                    expected_period=period,
+                    period_length=period_length,
+                )
 
-            # Precompute whether we've ever seen the clock running (> target) up to each sample.
-            running_prefix = []
-            seen_running = anchor_before is not None
-            for s in samples:
-                sec = s['sec']
-                if sec is not None and sec > target_seconds:
-                    seen_running = True
-                running_prefix.append(seen_running)
+                refined_time = self._find_clock_stop_from_samples(
+                    fine_samples,
+                    target_seconds=target_seconds,
+                    persistence_window_seconds=float(persistence_window_seconds),
+                    min_target_hits=int(min_target_hits),
+                )
+                if refined_time is not None:
+                    refined_method = "clock_stop"
+                    break
 
-            # Find earliest timestamp where:
-            # - OCR reads target_seconds (at least once)
-            # - Clock was running (>target) before it
-            # - In the subsequent persistence window, the mode is target_seconds and
-            #   we have enough hits of target_seconds (tolerates OCR noise).
-            from collections import Counter
-
-            for i, s in enumerate(samples):
-                if s['sec'] != target_seconds:
-                    continue
-                if not running_prefix[i]:
-                    continue
-
-                window_end = s['t'] + persistence_window_seconds
-                window_vals = []
-                for j in range(i, len(samples)):
-                    if samples[j]['t'] > window_end:
+                if allow_close_seconds > 0:
+                    refined_time = self._find_clock_stop_from_samples(
+                        fine_samples,
+                        target_seconds=target_seconds,
+                        persistence_window_seconds=max(4.0, float(persistence_window_seconds) / 2.0),
+                        min_target_hits=max(3, int(min_target_hits) - 1),
+                        allow_close_seconds=int(allow_close_seconds),
+                    )
+                    if refined_time is not None:
+                        refined_method = "clock_stop"
                         break
-                    sec = samples[j]['sec']
-                    if sec is not None:
-                        window_vals.append(sec)
 
-                if len(window_vals) < 3:
+                fallback_allowed = allow_projected_fallback and (
+                    not projected_requires_unreliable or bool(event.get("match_unreliable"))
+                )
+                if not fallback_allowed:
                     continue
 
-                counts = Counter(window_vals)
-                mode_val, mode_count = counts.most_common(1)[0]
-                if mode_val != target_seconds:
-                    continue
-                if mode_count < min_target_hits:
-                    continue
-
-                refined_time = s['t']
-                break
-
-            if refined_time is None:
-                # Fallback: if the scoreboard clock never freezes at the goal time (operator mistake),
-                # pick the closest observed clock reading to the target within the scan window.
-                best = None  # (diff, t)
-                for i, s in enumerate(samples):
-                    sec = s['sec']
+                best = None  # (diff, -confidence, t, sec)
+                seen_running = False
+                for sample in fine_samples:
+                    sec = sample.get("sec")
                     if sec is None:
                         continue
-                    if not running_prefix[i]:
+                    sec_int = int(sec)
+                    if sec_int > target_seconds:
+                        seen_running = True
+                    if not seen_running:
                         continue
-                    diff = abs(sec - target_seconds)
-                    if best is None or diff < best[0] or (diff == best[0] and s['t'] < best[1]):
-                        best = (diff, s['t'])
+                    diff = abs(sec_int - target_seconds)
+                    candidate = (diff, -float(sample.get("confidence") or 0.0), float(sample["t"]), sec_int)
+                    if best is None or candidate < best:
+                        best = candidate
+                if best is not None:
+                    observed_t = float(best[2])
+                    observed_sec = int(best[3])
+                    projected_time = observed_t + float(observed_sec - int(target_seconds))
+                    projected_time = min(max(projected_time, 0.0), duration)
+                    if minimum_video_time is not None:
+                        projected_time = max(projected_time, float(minimum_video_time))
+                    refined_time = float(projected_time)
+                    refined_method = "closest_clock_projected"
+                    break
 
-                if best is None:
-                    continue
-
-                refined_time = float(best[1])
-                # Mark as a best-effort refinement (not a true clock-stop freeze).
-                if 'video_time_original' not in event:
-                    event['video_time_original'] = video_time
-                event['video_time'] = refined_time
-                event['refined_by'] = 'closest_clock'
-                refined_count += 1
-                logger.info(
-                    f"Best-effort refine goal P{period} {time_str}: {video_time:.1f}s → {refined_time:.1f}s (closest_clock)"
-                )
+            if refined_time is None or refined_method is None:
                 continue
 
-            # Update event with refined timestamp (preserve the original for debugging).
-            if 'video_time_original' not in event:
-                event['video_time_original'] = video_time
-            event['video_time'] = float(refined_time)
-            event['refined_by'] = 'clock_stop'
+            if "video_time_original" not in event:
+                event["video_time_original"] = float(video_time)
+            event["video_time"] = float(refined_time)
+            event["refined_by"] = refined_method
             refined_count += 1
 
             logger.info(
-                f"Refined goal P{period} {time_str}: {video_time:.1f}s → {refined_time:.1f}s"
+                "%s goal P%s %s: %.1fs -> %.1fs",
+                "Refined" if refined_method == "clock_stop" else "Best-effort refined",
+                period,
+                time_str,
+                float(video_time),
+                float(refined_time),
             )
 
         return refined_count
@@ -1125,7 +1347,7 @@ class HighlightPipeline:
             # Skip events already refined by the stronger clock-stop mechanism.
             # "closest_clock" is only a best-effort fallback and still benefits
             # from the generic local OCR pass.
-            if str(event.get("refined_by") or "") == "clock_stop":
+            if str(event.get("refined_by") or "") in {"clock_stop", "manual_source_review"}:
                 continue
 
             try:
@@ -1188,15 +1410,35 @@ class HighlightPipeline:
         except Exception:
             return None
 
-        period_length = OT_LENGTH_SECONDS if period >= 4 else PERIOD_LENGTH_SECONDS
+        period_length = self._period_length_seconds(period)
         if not (0 <= target_remaining <= period_length):
             return None
 
+        event_type = str(event.get("type") or "").strip().lower()
+        is_goal = event_type == "goal"
         window_seconds = float(getattr(self.config, "EVENT_LOCAL_OCR_WINDOW_SECONDS", 60.0))
         step_seconds = float(getattr(self.config, "EVENT_LOCAL_OCR_STEP_SECONDS", 0.5))
         persistence_window_seconds = float(getattr(self.config, "EVENT_LOCAL_OCR_PERSISTENCE_WINDOW_SECONDS", 6.0))
         min_target_hits = int(getattr(self.config, "EVENT_LOCAL_OCR_MIN_HITS", 3))
         max_diff_seconds = float(getattr(self.config, "EVENT_LOCAL_OCR_MAX_DIFF_SECONDS", 6.0))
+        goal_allow_close_seconds = max(
+            0,
+            int(getattr(self.config, "GOAL_LOCAL_OCR_ALLOW_CLOSE_SECONDS", 0) or 0),
+        )
+        goal_allow_closest_fallback = bool(
+            getattr(self.config, "GOAL_ENABLE_LOCAL_OCR_CLOSEST_FALLBACK", False)
+        )
+        goal_closest_requires_unreliable = bool(
+            getattr(self.config, "GOAL_LOCAL_OCR_CLOSEST_FALLBACK_REQUIRES_UNRELIABLE", True)
+        )
+        goal_closest_active = (
+            is_goal
+            and goal_allow_closest_fallback
+            and (
+                not goal_closest_requires_unreliable
+                or bool(event.get("match_unreliable"))
+            )
+        )
 
         if window_seconds <= 0:
             return None
@@ -1255,13 +1497,18 @@ class HighlightPipeline:
                     if best is None or (diff, conf) < (best[0], best[1]):
                         best = (diff, conf, float(t))
 
-                    if diff <= max_diff_seconds:
+                    if is_goal:
+                        if diff <= float(goal_allow_close_seconds):
+                            hits.append({"t": float(t), "diff": int(diff), "conf": conf})
+                    elif diff <= max_diff_seconds:
                         hits.append({"t": float(t), "diff": int(diff), "conf": conf})
 
             t += step_seconds
 
         if not hits:
             # Fallback to best single-frame candidate if it's close enough.
+            if is_goal and not goal_closest_active:
+                return None
             if best is not None and float(best[0]) <= max_diff_seconds:
                 return float(best[2])
             return None
@@ -1281,8 +1528,98 @@ class HighlightPipeline:
                 return float(hits[j]["t"])
 
         # No cluster met the threshold; use the closest hit (diff, then higher confidence).
+        if is_goal and not goal_closest_active:
+            return None
         hits.sort(key=lambda h: (h["diff"], -h["conf"], h["t"]))
         return float(hits[0]["t"])
+
+    def _goal_clip_window(
+        self,
+        goal: Dict,
+        *,
+        before_seconds: float,
+        after_seconds: float,
+    ) -> tuple[float, float]:
+        try:
+            conf_f = float(goal.get("match_confidence") or 0.0)
+        except Exception:
+            conf_f = 0.0
+        try:
+            diff_f = abs(float(goal.get("match_time_diff_seconds") or 0.0))
+        except Exception:
+            diff_f = 0.0
+        try:
+            period = int(goal.get("period") or 1)
+        except Exception:
+            period = 1
+        try:
+            original_video_time = float(goal.get("video_time_original"))
+        except Exception:
+            original_video_time = None
+        try:
+            current_video_time = float(goal.get("video_time"))
+        except Exception:
+            current_video_time = None
+
+        refined_by = str(goal.get("refined_by") or "").strip().lower()
+        special = str(goal.get("special") or "").strip().upper()
+        is_power_play = bool(goal.get("power_play")) or special == "PP"
+        is_ot = period >= 4
+
+        clip_before = float(before_seconds)
+        clip_after = float(after_seconds)
+
+        if refined_by in {"clock_stop", "manual_source_review"}:
+            clip_before = max(
+                clip_before,
+                float(getattr(self.config, "GOAL_CLOCK_STOP_BEFORE_SECONDS", 32.0) or 32.0),
+            )
+            clip_after = min(
+                clip_after,
+                float(getattr(self.config, "GOAL_CLOCK_STOP_AFTER_SECONDS", 3.0) or 3.0),
+            )
+        else:
+            extra = min(20.0, max(0.0, diff_f + 5.0))
+            clip_before = max(
+                float(before_seconds) + extra,
+                float(getattr(self.config, "GOAL_FALLBACK_BEFORE_SECONDS", 20.0) or 20.0),
+            )
+            clip_after = min(
+                clip_after,
+                float(getattr(self.config, "GOAL_FALLBACK_AFTER_SECONDS", 4.0) or 4.0),
+            )
+
+        if conf_f < 0.95 or bool(goal.get("match_unreliable")):
+            clip_before = max(clip_before, float(getattr(self.config, "GOAL_FALLBACK_BEFORE_SECONDS", 20.0) or 20.0))
+
+        if is_ot:
+            clip_before = max(
+                clip_before,
+                float(getattr(self.config, "GOAL_OT_BEFORE_SECONDS", 60.0) or 60.0),
+            )
+            clip_after = min(
+                clip_after,
+                float(getattr(self.config, "GOAL_OT_AFTER_SECONDS", 4.0) or 4.0),
+            )
+            if is_power_play:
+                clip_before = max(
+                    clip_before,
+                    float(getattr(self.config, "GOAL_OT_POWER_PLAY_BEFORE_SECONDS", 120.0) or 120.0),
+                )
+
+        if (
+            refined_by == "closest_clock_projected"
+            and original_video_time is not None
+            and current_video_time is not None
+        ):
+            projection_delta = float(current_video_time) - float(original_video_time)
+            if projection_delta > 0:
+                # Keep the earlier setup when we had to project the true stop time later.
+                clip_before += float(projection_delta)
+            elif projection_delta < 0:
+                clip_after += abs(float(projection_delta))
+
+        return (float(clip_before), float(clip_after))
 
     def _step6_create_clips(
         self,
@@ -1349,8 +1686,8 @@ class HighlightPipeline:
                                 goal_remaining = self.event_matcher.event_time_to_remaining_seconds(
                                     goal_event.get("period"), str(goal_event.get("time", "0:00"))
                                 )
-                                goal_abs = period_time_to_absolute_seconds(int(goal_event.get("period") or 1), int(goal_remaining))
-                                pen_abs = period_time_to_absolute_seconds(int(penalty_info.period or 1), int(penalty_info.time_seconds))
+                                goal_abs = self._period_time_to_absolute_seconds(int(goal_event.get("period") or 1), int(goal_remaining))
+                                pen_abs = self._period_time_to_absolute_seconds(int(penalty_info.period or 1), int(penalty_info.time_seconds))
                                 delta = goal_abs - pen_abs
 
                                 max_delta = int(getattr(self.config, "PENALTY_VIDEO_TIME_FALLBACK_MAX_DELTA_SECONDS", 15 * 60))
@@ -1416,28 +1753,13 @@ class HighlightPipeline:
                 else:
                     logger.warning(f"Could not find video time for penalty P{penalty_info.period} {penalty_info.time}")
 
-            # If the match is low-confidence or not refined by a clock-stop, expand the pre-roll
-            conf = goal.get('match_confidence')
-            diff = goal.get('match_time_diff_seconds')
-            refined_by = str(goal.get('refined_by') or '')
-            try:
-                conf_f = float(conf) if conf is not None else 0.0
-            except Exception:
-                conf_f = 0.0
-            try:
-                diff_f = abs(float(diff)) if diff is not None else 0.0
-            except Exception:
-                diff_f = 0.0
-
-            if refined_by == 'clock_stop':
-                clock_stop_before = float(getattr(self.config, 'GOAL_CLOCK_STOP_BEFORE_SECONDS', max(float(before_seconds), 24.0)))
-                goal['before_seconds'] = max(float(goal.get('before_seconds', 0.0) or 0.0), clock_stop_before)
-                goal['after_seconds'] = float(after_seconds)
-            elif refined_by != 'clock_stop' or conf_f < 0.95:
-                # Add buffer: diff + 5 seconds, capped to avoid huge clips.
-                extra = min(20.0, max(0.0, diff_f + 5.0))
-                goal['before_seconds'] = float(before_seconds) + extra
-                goal['after_seconds'] = float(after_seconds)
+            goal_before, goal_after = self._goal_clip_window(
+                goal,
+                before_seconds=float(before_seconds),
+                after_seconds=float(after_seconds),
+            )
+            goal['before_seconds'] = goal_before
+            goal['after_seconds'] = goal_after
 
             final_events.append(goal)
 
@@ -1504,7 +1826,7 @@ class HighlightPipeline:
         # Box scores typically provide time ELAPSED; OCR provides time REMAINING.
         elapsed_seconds = time_string_to_seconds(penalty_info.time)
         time_is_elapsed = bool(getattr(self.config, 'BOX_SCORE_TIME_IS_ELAPSED', True))
-        period_length = OT_LENGTH_SECONDS if penalty_period >= 4 else PERIOD_LENGTH_SECONDS
+        period_length = self._period_length_seconds(penalty_period)
         penalty_remaining = (period_length - elapsed_seconds) if time_is_elapsed else elapsed_seconds
 
         # Find timestamps in the same period
@@ -1574,7 +1896,7 @@ class HighlightPipeline:
         except Exception:
             return None
 
-        period_length = OT_LENGTH_SECONDS if penalty_period >= 4 else PERIOD_LENGTH_SECONDS
+        period_length = self._period_length_seconds(penalty_period)
         if not (0 <= target_remaining <= period_length):
             return None
 

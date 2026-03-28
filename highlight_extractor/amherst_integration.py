@@ -338,6 +338,10 @@ class AmherstBoxScoreProvider:
                 "venue_location": str(schedule_entry.get("venue_location") or "").strip(),
                 "scheduled_time": str(schedule_entry.get("scheduled_time") or schedule_entry.get("game_status") or "").strip(),
                 "timezone": str(schedule_entry.get("timezone") or "").strip(),
+                "playoff": ("best of 7" in schedule_notes.lower()) or bool(self._safe_int(schedule_entry.get("game_number"))),
+                "game_number": self._safe_int(schedule_entry.get("game_number")),
+                "schedule_notes": schedule_notes,
+                "result": result,
             },
             "_remote_source": {
                 "provider": "hockeytech",
@@ -475,6 +479,10 @@ class AmherstBoxScoreProvider:
                 'box_score': game.get('box_score'),
                 'game_info': game.get('game_info'),
                 'player_stats': game.get('player_stats'),
+                'playoff': game.get('playoff'),
+                'schedule_notes': game.get('schedule_notes'),
+                'result': game.get('result'),
+                'date': game.get('date'),
             }
         }
 

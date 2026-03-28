@@ -312,4 +312,4 @@ def test_pipeline_clock_stop_goals_get_extra_preroll(tmp_path: Path):
     clip = manifest["clips"][0]
 
     assert clip["before_seconds"] == config.GOAL_CLOCK_STOP_BEFORE_SECONDS
-    assert clip["after_seconds"] == 4.0
+    assert clip["after_seconds"] == config.GOAL_CLOCK_STOP_AFTER_SECONDS

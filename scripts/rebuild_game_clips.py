@@ -40,6 +40,25 @@ def _write_json(path: Path, payload: Any) -> None:
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
 
+def _merge_game_context(metadata: Dict[str, Any]) -> Dict[str, Any]:
+    context: Dict[str, Any] = {}
+
+    game_info = metadata.get("game_info")
+    if isinstance(game_info, dict):
+        context.update(game_info)
+
+    box_score = metadata.get("box_score")
+    if isinstance(box_score, dict):
+        amherst_meta = box_score.get("_amherst_display")
+        if isinstance(amherst_meta, dict):
+            for key in ("playoff", "schedule_notes", "result", "date", "game_number"):
+                value = amherst_meta.get(key)
+                if value not in (None, ""):
+                    context[key] = value
+
+    return context
+
+
 def _get_drive_service():
     from googleapiclient.discovery import build
     from google.oauth2 import service_account
@@ -323,12 +342,24 @@ def main() -> int:
 
     raw_timestamps = _read_json(timestamps_path)
     raw_events = _read_json(events_path)
+    metadata = _read_json(metadata_path)
+    game_context = _merge_game_context(metadata) if isinstance(metadata, dict) else {}
 
-    pipeline = HighlightPipeline(config=config, video_path=video_path)
+    pipeline_kwargs: Dict[str, Any] = {
+        "config": config,
+        "video_path": video_path,
+    }
+    if game_context:
+        pipeline_kwargs["game_info_override"] = dict(game_context)
+        pipeline_kwargs["source_game_info_override"] = dict(game_context)
+
+    pipeline = HighlightPipeline(**pipeline_kwargs)
     if not pipeline.video_processor.load_video():
         raise RuntimeError(f"Failed to load video: {video_path}")
 
     matcher = EventMatcher(config)
+    if game_context:
+        matcher.set_game_context(game_context)
     ts_norm = matcher._normalize_video_timestamps(raw_timestamps)
     ts_norm = matcher.estimate_missing_timestamps(ts_norm, pipeline.video_processor.duration)
     ts_norm = matcher._normalize_video_timestamps(ts_norm)
@@ -364,9 +395,16 @@ def main() -> int:
         if k.endswith("_dir"):
             Path(p).mkdir(parents=True, exist_ok=True)
     pipeline.game_folders = game_folders
-    pipeline.box_score = _read_json(metadata_path).get("box_score") or {}
+    pipeline.box_score = metadata.get("box_score") or {}
+    if game_context:
+        pipeline._refresh_game_context()
 
-    pipeline._step6_create_clips(before_seconds=float(args.before_seconds), after_seconds=float(args.after_seconds))
+    original_overlay_enabled = getattr(config, "OVERLAY_ENABLED", True)
+    config.OVERLAY_ENABLED = False
+    try:
+        pipeline._step6_create_clips(before_seconds=float(args.before_seconds), after_seconds=float(args.after_seconds))
+    finally:
+        config.OVERLAY_ENABLED = original_overlay_enabled
     print(f"[rebuild] Rebuilt clips in: {game_dir / 'clips'}")
 
     if not bool(args.keep_video) and downloaded_path is not None:

@@ -100,18 +100,31 @@ def canonical_game_info_from_match(source_video: Path, game_date: str, game: dic
         "filename": source_video.name,
         "home_away": home_away,
         "time": "unknown",
+        "playoff": bool(game.get("playoff")),
+        "game_number": game.get("game_number"),
+        "schedule_notes": str(game.get("schedule_notes") or "").strip(),
+        "overtime": bool(((game.get("result") or {}).get("overtime"))),
+        "shootout": bool(((game.get("result") or {}).get("shootout"))),
     }
 
 
 def resolve_clip_path(game_dir: Path, entry: dict[str, Any]) -> Path | None:
     relpath = str(entry.get("path") or "").strip()
     clip_filename = str(entry.get("clip_filename") or "").strip()
+    clip_index = entry.get("index")
 
     candidates: list[Path] = []
     if relpath:
         candidates.append(game_dir / relpath)
     if clip_filename:
         candidates.append(game_dir / "clips" / clip_filename)
+    if clip_index not in (None, ""):
+        try:
+            index_prefix = f"{int(clip_index):02d} - "
+        except (TypeError, ValueError):
+            index_prefix = ""
+        if index_prefix:
+            candidates.extend(sorted((game_dir / "clips" / "goal_review").glob(f"{index_prefix}*.mp4")))
 
     for candidate in candidates:
         if candidate.exists():
@@ -526,31 +539,13 @@ def maybe_run_pipeline(
         box_score_fetcher=fetcher,
         game_info_override=canonical_game_info,
         game_folders_override=game_folders,
-        source_game_info_override={
-            "date": game_date,
-            "date_formatted": game_date,
-            "home_team": canonical_game_info["home_team"],
-            "away_team": canonical_game_info["away_team"],
-            "league": canonical_game_info["league"],
-            "filename": video_path.name,
-            "home_away": canonical_game_info["home_away"],
-            "time": canonical_game_info["time"],
-        },
+        source_game_info_override=dict(canonical_game_info),
     )
 
     profile_selection = config.resolve_highlight_execution_selection(
         execution_profile_name,
         game_info=canonical_game_info,
-        source_game_info={
-            "date": game_date,
-            "date_formatted": game_date,
-            "home_team": canonical_game_info["home_team"],
-            "away_team": canonical_game_info["away_team"],
-            "league": canonical_game_info["league"],
-            "filename": video_path.name,
-            "home_away": canonical_game_info["home_away"],
-            "time": canonical_game_info["time"],
-        },
+        source_game_info=dict(canonical_game_info),
         reel_mode=reel_mode,
         **execution_overrides,
     )

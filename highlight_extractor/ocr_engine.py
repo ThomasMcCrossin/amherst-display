@@ -1454,14 +1454,24 @@ class OCREngine:
         Returns:
             List of dictionaries with {video_time, period, game_time}
         """
-        # NOTE: MoviePy's VideoFileClip/FFMPEG reader is not thread-safe. In practice,
-        # calling `get_frame_at_time()` concurrently against the same clip can
-        # serialize/hang and make OCR *dramatically* slower.
-        #
-        # We keep the `parallel` flag for API compatibility, but force sequential
-        # frame sampling (which is fast enough at 5s intervals) to ensure reliability.
         if parallel and workers > 1:
-            logger.info("Parallel OCR sampling disabled (VideoFileClip is not thread-safe); using sequential sampling")
+            try:
+                return self._sample_video_times_parallel(
+                    video_processor,
+                    sample_interval=sample_interval,
+                    max_samples=max_samples,
+                    debug_dir=debug_dir,
+                    workers=workers,
+                    start_time=start_time,
+                    output_dir=output_dir,
+                    game_id=game_id,
+                    broadcast_type=broadcast_type,
+                )
+            except Exception as exc:
+                logger.warning(
+                    "Parallel OCR sampling failed (%s); falling back to sequential sampling",
+                    exc,
+                )
 
         return self._sample_video_times_sequential(
             video_processor,
@@ -1718,10 +1728,13 @@ class OCREngine:
         max_samples: Optional[int] = None,
         debug_dir: Optional[Path] = None,
         workers: int = 4,
-        start_time: float = 0.0
+        start_time: float = 0.0,
+        output_dir: Optional[Path] = None,
+        game_id: str = "unknown",
+        broadcast_type: str = "auto",
     ) -> List[Dict]:
         """
-        Sample time from video in parallel using ThreadPoolExecutor
+        Capture frames sequentially, then OCR the scorebug crops in parallel.
 
         Args:
             video_processor: VideoProcessor instance with loaded video
@@ -1730,98 +1743,278 @@ class OCREngine:
             debug_dir: Optional directory to save debug frames (auto-saves first/middle/last)
             workers: Number of worker threads (default 4)
             start_time: Video timestamp to start sampling from (default 0.0)
+            output_dir: Optional directory to write OCR logs
+            game_id: Game identifier for logging
+            broadcast_type: Pinned or auto-detected broadcast type
 
         Returns:
             List of dictionaries with {video_time, period, game_time}
         """
-        timestamps = []
+        timestamps: List[Dict] = []
+        failure_crop_count = 0
+        low_conf_crop_count = 0
+        ocr_logger = OCRLogger(
+            output_dir=Path(output_dir) if output_dir else None,
+            game_id=game_id,
+        )
 
         try:
-            duration = video_processor.duration
+            duration = float(video_processor.duration or 0.0)
+            if duration <= 0:
+                return []
 
-            logger.info(f"Starting parallel OCR sampling from {start_time/60:.1f} minutes")
+            logger.info(
+                "Starting parallel OCR sampling from %.1f minutes with %s workers",
+                float(start_time) / 60.0,
+                int(max(1, workers)),
+            )
 
-            # Calculate all sample times
-            sample_times = []
-            current_time = start_time
+            sample_times: List[float] = []
+            current_time = float(start_time)
             while current_time < duration:
                 sample_times.append(current_time)
-                current_time += sample_interval
+                current_time += float(sample_interval)
                 if max_samples and len(sample_times) >= max_samples:
                     break
 
             total_samples = len(sample_times)
+            if total_samples == 0:
+                return []
 
-            # Determine which samples to save as debug frames
             debug_sample_indices = set()
             if total_samples > 0:
                 debug_sample_indices = {
-                    0,                          # First sample
-                    total_samples // 2,         # Middle sample
-                    total_samples - 1           # Last sample
+                    0,
+                    total_samples // 2,
+                    total_samples - 1,
                 }
 
-            logger.info(f"Starting parallel OCR sampling with {workers} workers")
-            logger.debug(f"Total samples to process: {total_samples}")
+            requested_broadcast = str(broadcast_type or "auto").lower()
+            pinned_broadcast = requested_broadcast
+            pinned_roi = self.scoreboard_roi
 
-            # Create progress bar
-            progress_bar = tqdm(
-                total=total_samples,
-                desc=f"OCR Sampling ({workers} workers)",
-                unit="frame",
-                ncols=100
-            )
+            sample_payloads: List[Dict] = []
+            capture_bar = tqdm(total=total_samples, desc="Capture Frames", unit="frame", ncols=100)
 
-            # Process frames in parallel
-            with ThreadPoolExecutor(max_workers=workers) as executor:
-                # Submit all tasks
-                future_to_sample = {}
-                for idx, sample_time in enumerate(sample_times):
-                    save_debug = debug_dir is not None and idx in debug_sample_indices
-                    future = executor.submit(
-                        self._extract_time_at_sample,
-                        video_processor,
-                        sample_time,
-                        idx,
-                        save_debug,
-                        debug_dir
-                    )
-                    future_to_sample[future] = (idx, sample_time)
+            for idx, sample_time in enumerate(sample_times):
+                frame = video_processor.get_frame_at_time(float(sample_time))
+                if frame is None:
+                    sample_payloads.append({"idx": idx, "sample_time": float(sample_time), "crop": None})
+                    capture_bar.update(1)
+                    continue
 
-                # Collect results as they complete
-                for future in as_completed(future_to_sample):
-                    idx, sample_time = future_to_sample[future]
+                if pinned_roi is None or requested_broadcast == "auto":
+                    if requested_broadcast == "auto":
+                        bt, roi_sel, style_sel, backend_sel = self._select_best_settings(frame)
+                        self._broadcast_type = bt
+                        self.scoreboard_roi = roi_sel
+                        self._preprocess_style = style_sel
+                        self._backend_name = backend_sel
+                        pinned_broadcast = bt
+                        pinned_roi = roi_sel
+                    else:
+                        method = requested_broadcast if requested_broadcast in ROI_PINNED_BROADCAST_TYPES else "auto"
+                        pinned_roi = self.detect_scoreboard_roi(frame, method=method)
+                        self.scoreboard_roi = pinned_roi
 
+                if debug_dir and idx in debug_sample_indices and pinned_roi is not None:
+                    debug_path = debug_dir / f"debug_ocr_frame_{idx:04d}_{sample_time:.1f}s.jpg"
+                    self.save_debug_frame(frame, debug_path, pinned_roi)
+
+                crop = self._extract_scorebug_crop(frame, pinned_roi)
+                sample_payloads.append(
+                    {
+                        "idx": idx,
+                        "sample_time": float(sample_time),
+                        "crop": crop,
+                        "broadcast_type": str(pinned_broadcast or requested_broadcast or "standard"),
+                        "roi": pinned_roi,
+                    }
+                )
+                capture_bar.update(1)
+
+            capture_bar.close()
+
+            def _ocr_payload(payload: Dict) -> Dict:
+                crop = payload.get("crop")
+                sample_time = float(payload.get("sample_time") or 0.0)
+                if crop is None:
+                    return {
+                        "video_time": sample_time,
+                        "result": None,
+                        "raw_text": "",
+                        "confidence": 0.0,
+                        "backend_name": "unknown",
+                        "used_broadcast": str(payload.get("broadcast_type") or "unknown"),
+                        "used_roi": payload.get("roi"),
+                        "preprocess_style": "standard",
+                        "crop": None,
+                        "sharpness": None,
+                    }
+                h, w = crop.shape[:2]
+                full_roi = (0, 0, int(w), int(h))
+                result, raw_text, conf, backend_name, used_broadcast, _used_roi, preprocess_style = self._extract_time_from_frame_with_meta(
+                    crop,
+                    roi=full_roi,
+                    broadcast_type=str(payload.get("broadcast_type") or "standard"),
+                )
+                return {
+                    "video_time": sample_time,
+                    "result": result,
+                    "raw_text": raw_text,
+                    "confidence": float(conf or 0.0),
+                    "backend_name": str(backend_name or "unknown"),
+                    "used_broadcast": str(used_broadcast or payload.get("broadcast_type") or "unknown"),
+                    "used_roi": payload.get("roi"),
+                    "preprocess_style": str(preprocess_style or "standard"),
+                    "crop": crop,
+                    "sharpness": self._measure_sharpness(crop),
+                }
+
+            ocr_results: List[Dict] = []
+            ocr_bar = tqdm(total=total_samples, desc=f"OCR ({max(1, workers)} workers)", unit="frame", ncols=100)
+            with ThreadPoolExecutor(max_workers=max(1, int(workers or 1))) as executor:
+                future_map = {executor.submit(_ocr_payload, payload): payload for payload in sample_payloads}
+                for future in as_completed(future_map):
+                    payload = future_map[future]
                     try:
-                        result = future.result()
-                        if result:
-                            timestamps.append(result)
-                            period, game_time = result['period'], result['game_time']
-                            progress_bar.set_postfix({'latest': f"P{period} {game_time}"})
-                        else:
-                            progress_bar.set_postfix({'status': 'no_data'})
-
+                        ocr_results.append(future.result())
                     except Exception as exc:
-                        logger.warning(f"Sample at {sample_time:.1f}s failed: {exc}")
-                        progress_bar.set_postfix({'status': 'error'})
+                        logger.warning("OCR sample at %.1fs failed: %s", float(payload.get("sample_time") or 0.0), exc)
+                        ocr_results.append(
+                            {
+                                "video_time": float(payload.get("sample_time") or 0.0),
+                                "result": None,
+                                "raw_text": "",
+                                "confidence": 0.0,
+                                "backend_name": "unknown",
+                                "used_broadcast": str(payload.get("broadcast_type") or "unknown"),
+                                "used_roi": payload.get("roi"),
+                                "preprocess_style": "standard",
+                                "crop": payload.get("crop"),
+                                "sharpness": None,
+                            }
+                        )
+                    ocr_bar.update(1)
+            ocr_bar.close()
 
-                    # Update progress bar
-                    progress_bar.update(1)
+            ocr_results.sort(key=lambda item: float(item.get("video_time") or 0.0))
 
-            # Close progress bar
-            progress_bar.close()
+            for sample in ocr_results:
+                sample_time = float(sample.get("video_time") or 0.0)
+                crop = sample.get("crop")
+                result = sample.get("result")
+                raw_text = str(sample.get("raw_text") or "")
+                conf = float(sample.get("confidence") or 0.0)
+                backend_name = str(sample.get("backend_name") or "unknown")
+                used_broadcast = str(sample.get("used_broadcast") or "unknown")
+                used_roi = sample.get("used_roi")
+                preprocess_style = str(sample.get("preprocess_style") or "standard")
+                sharpness_score = sample.get("sharpness")
 
-            # Sort timestamps by video_time
-            timestamps.sort(key=lambda t: t['video_time'])
+                if result:
+                    period, game_time = result
+                    time_seconds = self._time_to_seconds(game_time)
+                    if conf < float(getattr(self.config, "OCR_DEBUG_LOW_CONFIDENCE_THRESHOLD", 65.0) or 65.0):
+                        low_conf_crop_count += 1
+                    crop_debug_path = self._save_scorebug_crop_debug(
+                        crop,
+                        output_dir=Path(output_dir) if output_dir else None,
+                        sample_idx=int(round(sample_time)),
+                        current_time=sample_time,
+                        confidence=conf,
+                        success=True,
+                        raw_text=raw_text,
+                        failure_counter=failure_crop_count,
+                        low_conf_counter=low_conf_crop_count,
+                    )
+                    timestamps.append(
+                        {
+                            "video_time": sample_time,
+                            "period": period,
+                            "game_time": game_time,
+                            "game_time_seconds": time_seconds,
+                            "ocr_confidence": conf,
+                            "ocr_backend": backend_name,
+                            "ocr_broadcast_type": used_broadcast,
+                            "ocr_preprocess": preprocess_style,
+                            "ocr_sharpness_score": sharpness_score,
+                            "ocr_crop_debug_path": crop_debug_path,
+                        }
+                    )
+                    ocr_logger.add_sample(
+                        OCRSampleLog(
+                            video_time=sample_time,
+                            raw_text=raw_text,
+                            parsed_period=period,
+                            parsed_time=game_time,
+                            parsed_time_seconds=time_seconds,
+                            confidence=conf,
+                            backend=backend_name,
+                            success=True,
+                            roi_used=used_roi,
+                            broadcast_type=used_broadcast,
+                            preprocess_style=preprocess_style,
+                            sharpness_score=sharpness_score,
+                            crop_debug_path=crop_debug_path,
+                        )
+                    )
+                else:
+                    failure_crop_count += 1
+                    crop_debug_path = self._save_scorebug_crop_debug(
+                        crop,
+                        output_dir=Path(output_dir) if output_dir else None,
+                        sample_idx=int(round(sample_time)),
+                        current_time=sample_time,
+                        confidence=conf,
+                        success=False,
+                        raw_text=raw_text,
+                        failure_counter=failure_crop_count,
+                        low_conf_counter=low_conf_crop_count,
+                    )
+                    ocr_logger.add_sample(
+                        OCRSampleLog(
+                            video_time=sample_time,
+                            raw_text=raw_text,
+                            parsed_period=None,
+                            parsed_time=None,
+                            parsed_time_seconds=None,
+                            confidence=conf,
+                            backend=backend_name,
+                            success=False,
+                            failure_reason="Could not parse time from OCR text",
+                            roi_used=used_roi,
+                            broadcast_type=used_broadcast,
+                            preprocess_style=preprocess_style,
+                            sharpness_score=sharpness_score,
+                            crop_debug_path=crop_debug_path,
+                        )
+                    )
 
-            logger.info(f"Sampled {len(timestamps)} timestamps from video (parallel)")
+            ocr_logger.write_logs()
+
+            total = float(total_samples or 0)
+            successful = float(len([s for s in ocr_logger.samples if s.success]))
+            with_period = float(len([s for s in ocr_logger.samples if s.success and (s.parsed_period or 0) > 0]))
+            confs = [float(s.confidence) for s in ocr_logger.samples if s.success and s.confidence is not None]
+            avg_conf = float(sum(confs) / len(confs)) if confs else 0.0
+            self._last_sampling_stats = {
+                "total_samples": total,
+                "successful": successful,
+                "with_period": with_period,
+                "success_rate": (successful / total) if total > 0 else 0.0,
+                "period_rate": (with_period / successful) if successful > 0 else 0.0,
+                "avg_confidence": avg_conf,
+            }
+
+            logger.info("Sampled %s timestamps from video (parallel OCR)", len(timestamps))
             if debug_dir and debug_sample_indices:
-                logger.info(f"Debug frames saved to: {debug_dir}")
-
+                logger.info("Debug frames saved to: %s", debug_dir)
             return timestamps
 
         except Exception as e:
             logger.error(f"Failed to sample video times (parallel): {e}")
+            ocr_logger.write_logs()
             return []
 
     def _extract_time_at_sample(
