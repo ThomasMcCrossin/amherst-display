@@ -16,6 +16,7 @@ import json
 import os
 import re
 import subprocess
+import tempfile
 import unicodedata
 from dataclasses import dataclass
 from pathlib import Path
@@ -25,6 +26,21 @@ from PIL import Image, ImageDraw, ImageFont
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
+
+TEAM_COLOR_PRESETS: Dict[str, Dict[str, str]] = {
+    "amherst-ramblers": {"primary": "#19c37d", "secondary": "#0b6d49"},
+    "summerside-western-capitals": {"primary": "#cf4859", "secondary": "#7e1827"},
+    "yarmouth-mariners": {"primary": "#18b58f", "secondary": "#0f5f52"},
+    "truro-bearcats": {"primary": "#6f51d8", "secondary": "#2f2758"},
+    "edmundston-blizzard": {"primary": "#4ba4ff", "secondary": "#103d6f"},
+}
+
+TEAM_SHORT_LABELS: Dict[str, str] = {
+    "amherst-ramblers": "AMH",
+    "summerside-western-capitals": "SUM",
+    "yarmouth-mariners": "YAR",
+    "truro-bearcats": "TRU",
+}
 
 
 @dataclass(frozen=True)
@@ -259,6 +275,134 @@ def _format_attendance(value: Any) -> str:
         return str(value).strip()
 
 
+def _ffprobe_video_size(video_path: Path) -> Tuple[int, int]:
+    proc = subprocess.run(
+        [
+            "ffprobe",
+            "-v",
+            "error",
+            "-select_streams",
+            "v:0",
+            "-show_entries",
+            "stream=width,height",
+            "-of",
+            "csv=p=0:s=x",
+            str(video_path),
+        ],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    raw = (proc.stdout or "").strip().splitlines()
+    if not raw:
+        return (1920, 1080)
+    width_str, height_str = (raw[0].split("x", 1) + ["1080"])[:2]
+    try:
+        return (int(width_str), int(height_str))
+    except Exception:
+        return (1920, 1080)
+
+
+def _design_scale(video_size: Tuple[int, int]) -> float:
+    video_w, video_h = video_size
+    return min(float(video_w) / 1920.0, float(video_h) / 1080.0)
+
+
+def _scale_px(video_size: Tuple[int, int], value: int) -> int:
+    return max(1, int(round(value * _design_scale(video_size))))
+
+
+def _team_palette(team: TeamInfo) -> Dict[str, str]:
+    palette = TEAM_COLOR_PRESETS.get(team.slug)
+    if palette:
+        return dict(palette)
+    return {"primary": "#4ba4ff", "secondary": "#153656"}
+
+
+def _team_short_label(team: TeamInfo) -> str:
+    if team.slug in TEAM_SHORT_LABELS:
+        return TEAM_SHORT_LABELS[team.slug]
+    words = [part for part in re.split(r"[^A-Za-z0-9]+", team.name or "") if part]
+    if not words:
+        return "TEAM"
+    if len(words) == 1:
+        return words[0][:3].upper()
+    return "".join(word[0] for word in words[:3]).upper()
+
+
+def _series_round_label(series_title: str) -> str:
+    title = str(series_title or "").strip()
+    if not title:
+        return "Playoff Series"
+    if " vs " in title:
+        return title.split(" vs ", 1)[0].strip()
+    return title
+
+
+def _build_matchup_label(home: TeamInfo, away: TeamInfo) -> str:
+    return f"{away.name} vs {home.name}"
+
+
+def _format_goal_secondary_text(assist1: str, assist2: str) -> str:
+    assists = [value.strip() for value in [assist1, assist2] if value and value.strip()]
+    if assists:
+        return "A: " + ", ".join(assists)
+    return "Unassisted"
+
+
+def _format_goal_meta_text(period: int, time_str: str) -> str:
+    parts = [_format_period_label(period), str(time_str or "").strip()]
+    return " • ".join([part for part in parts if part])
+
+
+def _goal_kicker_text(*, game_label: str, clip_type: str, is_power_play: bool, is_short_handed: bool, is_empty_net: bool) -> str:
+    tag = "GOAL"
+    if clip_type == "penalty":
+        tag = "PENALTY"
+    elif is_power_play:
+        tag = "PP GOAL"
+    elif is_short_handed:
+        tag = "SH GOAL"
+    elif is_empty_net:
+        tag = "EN GOAL"
+    pieces = [str(game_label or "").strip(), tag]
+    return " • ".join([piece for piece in pieces if piece])
+
+
+def _result_badge_text(result_display: str, *, fallback: str = "Final") -> str:
+    normalized = str(result_display or "").upper()
+    if "(SO" in normalized or "SO)" in normalized:
+        return "Final / SO"
+    if "(OT" in normalized or "OT)" in normalized:
+        return "Final / OT"
+    return fallback
+
+
+def _render_browser_graphics(jobs: List[Dict[str, Any]]) -> None:
+    if not jobs:
+        return
+    with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False, encoding="utf-8") as handle:
+        json.dump({"jobs": jobs}, handle, indent=2)
+        spec_path = Path(handle.name)
+    try:
+        subprocess.run(
+            [
+                "node",
+                str(REPO_ROOT / "scripts" / "render_overlay_asset.mjs"),
+                "--spec",
+                str(spec_path),
+                "--output",
+                str(jobs[0]["output_path"]),
+            ],
+            check=True,
+            cwd=REPO_ROOT,
+            capture_output=True,
+            text=True,
+        )
+    finally:
+        spec_path.unlink(missing_ok=True)
+
+
 def _render_transparent_overlay_png(out_path: Path, overlay_size: Tuple[int, int]) -> None:
     Image.new("RGBA", overlay_size, (0, 0, 0, 0)).save(out_path, format="PNG")
 
@@ -270,68 +414,85 @@ def _render_game_intro_card_png(
     home: TeamInfo,
     away: TeamInfo,
     series_title: str,
+    total_games: int,
+    final_series_status: str,
+) -> None:
+    open_headline = "Road to Game 7" if str(final_series_status or "").strip().lower() == "series tied 3-3" else "Series Highlights"
+    footer_parts = [f"Games 1-{max(1, int(total_games))} highlights"]
+    if str(final_series_status or "").strip():
+        if open_headline == "Road to Game 7":
+            footer_parts.append(f"{str(final_series_status or '').strip()} entering tonight")
+        else:
+            footer_parts.append(str(final_series_status or "").strip())
+    home_palette = _team_palette(home)
+    away_palette = _team_palette(away)
+    spec = {
+        "type": "series_open",
+        "width": int(video_size[0]),
+        "height": int(video_size[1]),
+        "eyebrow": _series_round_label(series_title),
+        "headline": open_headline,
+        "subheadline": _build_matchup_label(home, away),
+        "footer": " • ".join([part for part in footer_parts if part]),
+        "badgeText": str(final_series_status or "").strip(),
+        "centerBadge": "Winner Take All" if open_headline == "Road to Game 7" else f"Games 1-{max(1, int(total_games))}",
+        "homeName": home.name,
+        "awayName": away.name,
+        "homeLogoPath": str(home.logo_path),
+        "awayLogoPath": str(away.logo_path),
+        "homePrimary": home_palette["primary"],
+        "awayPrimary": away_palette["primary"],
+        "accentPrimary": home_palette["primary"],
+        "accentSecondary": away_palette["secondary"],
+    }
+    _render_browser_graphics([{"output_path": str(out_path), "spec": spec}])
+
+
+def _render_game_break_card_png(
+    out_path: Path,
+    *,
+    video_size: Tuple[int, int],
+    home: TeamInfo,
+    away: TeamInfo,
     game_label: str,
+    headline: str,
     series_status: str,
-    game_date_label: str,
+    home_score: int | None,
+    away_score: int | None,
+    final_score_display: str,
     venue: str,
     attendance: Any,
+    next_game_label: str,
+    winner_side: str,
 ) -> None:
-    w, h = video_size
-    font_bold = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
-    font_reg = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
-
-    img = Image.new("RGBA", (w, h), (10, 14, 22, 255))
-    draw = ImageDraw.Draw(img)
-
-    # Layered background for a cleaner transition-card look.
-    draw.rectangle([0, 0, w, h], fill=(8, 12, 20, 255))
-    draw.ellipse([-180, -160, 520, 480], fill=(22, 66, 120, 120))
-    draw.ellipse([w - 520, h - 420, w + 160, h + 180], fill=(140, 32, 46, 120))
-    draw.rounded_rectangle([56, 56, w - 56, h - 56], radius=32, fill=(0, 0, 0, 112), outline=(255, 255, 255, 42), width=2)
-
-    tag_font = _load_font(font_bold, 20)
-    date_font = _load_font(font_reg, 18)
-    title_font = _fit_text_font(draw, game_label or "Game", font_bold, max_size=68, min_size=42, max_width=w - 220)
-    series_font = _fit_text_font(draw, series_title or "", font_bold, max_size=28, min_size=18, max_width=w - 220)
-    status_font = _fit_text_font(draw, series_status or "", font_reg, max_size=26, min_size=18, max_width=w - 220)
-    venue_text = " • ".join([part for part in [str(venue or "").strip(), _format_attendance(attendance)] if part])
-    venue_font = _fit_text_font(draw, venue_text or "", font_reg, max_size=20, min_size=16, max_width=w - 220)
-
-    draw.text((90, 84), game_date_label, font=date_font, fill=(210, 220, 235, 210))
-    if series_title.strip():
-        draw.text((90, 128), series_title.strip(), font=series_font, fill=(25, 195, 125, 235))
-
-    draw.text((90, 212), game_label.strip() or "Game", font=title_font, fill=(255, 255, 255, 245))
-    if series_status.strip():
-        draw.text((92, 292), series_status.strip(), font=status_font, fill=(225, 230, 238, 220))
-
-    away_logo = Image.open(away.logo_path).convert("RGBA").resize((140, 140), Image.Resampling.LANCZOS)
-    home_logo = Image.open(home.logo_path).convert("RGBA").resize((140, 140), Image.Resampling.LANCZOS)
-    away_x = 176
-    home_x = w - 176 - 140
-    logo_y = 390
-    img.paste(away_logo, (away_x, logo_y), away_logo)
-    img.paste(home_logo, (home_x, logo_y), home_logo)
-
-    away_name = away.name.strip() or "Away"
-    home_name = home.name.strip() or "Home"
-    away_font = _fit_text_font(draw, away_name, font_bold, max_size=24, min_size=18, max_width=300)
-    home_font = _fit_text_font(draw, home_name, font_bold, max_size=24, min_size=18, max_width=300)
-    draw.text((away_x - 50, logo_y + 164), away_name, font=away_font, fill=(255, 255, 255, 230))
-    draw.text((home_x - 50, logo_y + 164), home_name, font=home_font, fill=(255, 255, 255, 230))
-
-    versus_font = _load_font(font_bold, 34)
-    vs_text = "AT" if _norm_name(away.name) != _norm_name(home.name) else "VS"
-    vs_w = int(draw.textlength(vs_text, font=versus_font))
-    draw.rounded_rectangle([w // 2 - 70, logo_y + 30, w // 2 + 70, logo_y + 112], radius=24, fill=(255, 255, 255, 28))
-    draw.text((w // 2 - vs_w // 2, logo_y + 47), vs_text, font=versus_font, fill=(255, 255, 255, 230))
-
-    if venue_text:
-        venue_y = h - 112
-        draw.text((90, venue_y), venue_text, font=venue_font, fill=(210, 220, 235, 210))
-
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    img.save(out_path, format="PNG")
+    home_palette = _team_palette(home)
+    away_palette = _team_palette(away)
+    winner_palette = home_palette if winner_side == "home" else away_palette
+    spec = {
+        "type": "game_break",
+        "width": int(video_size[0]),
+        "height": int(video_size[1]),
+        "kicker": f"{str(game_label or '').strip()} Final",
+        "headline": str(headline or series_status or "Series Update").strip(),
+        "seriesStatus": str(series_status or "").strip(),
+        "venue": str(venue or "").strip(),
+        "attendanceText": _format_attendance(attendance),
+        "nextGameLabel": f"Up Next • {str(next_game_label or '').strip()}" if str(next_game_label or "").strip() else "",
+        "homeName": home.name,
+        "awayName": away.name,
+        "homeScore": home_score if home_score is not None else 0,
+        "awayScore": away_score if away_score is not None else 0,
+        "centerBadge": _result_badge_text(final_score_display),
+        "homeLogoPath": str(home.logo_path),
+        "awayLogoPath": str(away.logo_path),
+        "homePrimary": home_palette["primary"],
+        "awayPrimary": away_palette["primary"],
+        "accentPrimary": winner_palette["primary"],
+        "accentSecondary": winner_palette["secondary"],
+        "homeResultClass": "winner" if winner_side == "home" else "",
+        "awayResultClass": "winner" if winner_side == "away" else "",
+    }
+    _render_browser_graphics([{"output_path": str(out_path), "spec": spec}])
 
 
 def _render_series_outro_card_png(
@@ -347,64 +508,30 @@ def _render_series_outro_card_png(
     venue: str,
     location: str,
 ) -> None:
-    w, h = video_size
-    font_bold = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
-    font_reg = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
-
-    img = Image.new("RGBA", (w, h), (9, 12, 19, 255))
-    draw = ImageDraw.Draw(img)
-
-    draw.rectangle([0, 0, w, h], fill=(9, 12, 19, 255))
-    draw.ellipse([-220, -120, 520, 520], fill=(18, 122, 92, 108))
-    draw.ellipse([w - 520, -180, w + 160, 420], fill=(28, 76, 148, 116))
-    draw.ellipse([w - 420, h - 420, w + 120, h + 120], fill=(156, 46, 54, 96))
-    draw.rounded_rectangle([56, 56, w - 56, h - 56], radius=32, fill=(0, 0, 0, 108), outline=(255, 255, 255, 44), width=2)
-
-    date_font = _load_font(font_reg, 19)
-    series_font = _fit_text_font(draw, series_title or "", font_bold, max_size=28, min_size=18, max_width=w - 220)
-    status_font = _fit_text_font(draw, series_status or "", font_bold, max_size=54, min_size=32, max_width=w - 220)
-    game_font = _fit_text_font(draw, next_game_label or "", font_bold, max_size=34, min_size=22, max_width=w - 220)
-    info_font = _fit_text_font(draw, datetime_label or "", font_reg, max_size=24, min_size=18, max_width=w - 220)
-    venue_font = _fit_text_font(draw, venue or "", font_bold, max_size=26, min_size=18, max_width=w - 220)
-    location_font = _fit_text_font(draw, location or "", font_reg, max_size=18, min_size=14, max_width=w - 220)
-
-    if series_title.strip():
-        draw.text((92, 92), series_title.strip(), font=series_font, fill=(25, 195, 125, 235))
-    draw.text((92, 152), "Series Update", font=date_font, fill=(210, 220, 235, 210))
-
-    draw.text((92, 212), series_status.strip() or "Series Continues", font=status_font, fill=(255, 255, 255, 245))
-    if next_game_label.strip():
-        draw.text((94, 302), next_game_label.strip(), font=game_font, fill=(232, 236, 242, 225))
-    if datetime_label.strip():
-        draw.text((94, 352), datetime_label.strip(), font=info_font, fill=(214, 222, 232, 220))
-    if venue.strip():
-        draw.text((94, 406), venue.strip(), font=venue_font, fill=(255, 255, 255, 228))
-    if location.strip():
-        draw.text((94, 448), location.strip(), font=location_font, fill=(214, 222, 232, 204))
-
-    away_logo = Image.open(away.logo_path).convert("RGBA").resize((148, 148), Image.Resampling.LANCZOS)
-    home_logo = Image.open(home.logo_path).convert("RGBA").resize((148, 148), Image.Resampling.LANCZOS)
-    logo_y = h - 274
-    away_x = 176
-    home_x = w - 176 - 148
-    img.paste(away_logo, (away_x, logo_y), away_logo)
-    img.paste(home_logo, (home_x, logo_y), home_logo)
-
-    away_name = away.name.strip() or "Away"
-    home_name = home.name.strip() or "Home"
-    name_font = _fit_text_font(draw, away_name, font_bold, max_size=24, min_size=18, max_width=320)
-    draw.text((away_x - 46, logo_y + 166), away_name, font=name_font, fill=(255, 255, 255, 226))
-    name_font = _fit_text_font(draw, home_name, font_bold, max_size=24, min_size=18, max_width=320)
-    draw.text((home_x - 46, logo_y + 166), home_name, font=name_font, fill=(255, 255, 255, 226))
-
-    versus_font = _load_font(font_bold, 30)
-    draw.rounded_rectangle([w // 2 - 106, logo_y + 40, w // 2 + 106, logo_y + 118], radius=24, fill=(255, 255, 255, 28))
-    vs_text = "GAME 7"
-    vs_w = int(draw.textlength(vs_text, font=versus_font))
-    draw.text((w // 2 - vs_w // 2, logo_y + 61), vs_text, font=versus_font, fill=(255, 255, 255, 232))
-
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    img.save(out_path, format="PNG")
+    home_palette = _team_palette(home)
+    away_palette = _team_palette(away)
+    spec = {
+        "type": "series_outro",
+        "width": int(video_size[0]),
+        "height": int(video_size[1]),
+        "eyebrow": _series_round_label(series_title),
+        "headline": str(series_status or "Series Continues").strip(),
+        "subheadline": str(next_game_label or "Game 7 Tonight").strip(),
+        "datetimeLabel": str(datetime_label or "").strip(),
+        "venue": str(venue or "").strip(),
+        "location": str(location or "").strip(),
+        "badgeText": "Tonight",
+        "centerBadge": "Winner Take All",
+        "homeName": home.name,
+        "awayName": away.name,
+        "homeLogoPath": str(home.logo_path),
+        "awayLogoPath": str(away.logo_path),
+        "homePrimary": home_palette["primary"],
+        "awayPrimary": away_palette["primary"],
+        "accentPrimary": home_palette["primary"],
+        "accentSecondary": away_palette["secondary"],
+    }
+    _render_browser_graphics([{"output_path": str(out_path), "spec": spec}])
 
 
 def _render_static_card_video(
@@ -477,140 +604,40 @@ def _render_overlay_png(
     game_label: str = "",
     series_title: str = "",
 ) -> None:
-    video_w, video_h = video_size
-    w, h = overlay_size
-
-    font_bold = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
-    font_reg = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
-
-    img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
-    draw = ImageDraw.Draw(img)
-
-    # Background card
-    radius = 18
-    bg_alpha = 96  # ~0.38
-    draw.rounded_rectangle([0, 0, w, h], radius=radius, fill=(0, 0, 0, bg_alpha))
-
-    # Accent bar
-    accent_w = 8
-    draw.rounded_rectangle([0, 0, accent_w, h], radius=radius, fill=(25, 195, 125, 200))
-
-    pad = 18
-    logo_size = 88
-    score_area_w = 200
-
-    # Scoring team logo (left)
-    logo = Image.open(scoring_team.logo_path).convert("RGBA")
-    logo = logo.resize((logo_size, logo_size), Image.Resampling.LANCZOS)
-    logo_x = pad
-    logo_y = (h - logo_size) // 2
-    img.paste(logo, (logo_x, logo_y), logo)
-
-    # Score area (right)
-    small_logo = 40
-    home_logo = Image.open(home.logo_path).convert("RGBA").resize((small_logo, small_logo), Image.Resampling.LANCZOS)
-    away_logo = Image.open(away.logo_path).convert("RGBA").resize((small_logo, small_logo), Image.Resampling.LANCZOS)
-
-    score_x0 = w - pad - score_area_w
-    row_gap = 10
-    row_h = (h - row_gap) // 2
-    away_row_y = 0
-    home_row_y = row_h + row_gap
-
-    # Highlight scoring team row slightly
-    if _norm_name(scoring_team.name) == _norm_name(away.name):
-        highlight_y = away_row_y
-    elif _norm_name(scoring_team.name) == _norm_name(home.name):
-        highlight_y = home_row_y
-    else:
-        highlight_y = None
-
-    if highlight_y is not None:
-        draw.rounded_rectangle(
-            [score_x0, highlight_y + 6, w - pad, highlight_y + row_h - 6],
-            radius=12,
-            fill=(255, 255, 255, 28),
-        )
-
-    score_font = _load_font(font_bold, 34)
-    label_font = _load_font(font_reg, 16)
-
-    # Away row
-    ax = score_x0 + 10
-    ay = away_row_y + (row_h - small_logo) // 2
-    img.paste(away_logo, (ax, ay), away_logo)
-    draw.text((ax + small_logo + 10, away_row_y + 18), f"{away_score}", font=score_font, fill=(255, 255, 255, 230))
-    draw.text((ax + small_logo + 70, away_row_y + 26), "AWAY", font=label_font, fill=(255, 255, 255, 160))
-
-    # Home row
-    hx = score_x0 + 10
-    hy = home_row_y + (row_h - small_logo) // 2
-    img.paste(home_logo, (hx, hy), home_logo)
-    draw.text((hx + small_logo + 10, home_row_y + 18), f"{home_score}", font=score_font, fill=(255, 255, 255, 230))
-    draw.text((hx + small_logo + 70, home_row_y + 26), "HOME", font=label_font, fill=(255, 255, 255, 160))
-
-    # Text block (center)
-    text_x0 = logo_x + logo_size + pad
-    text_x1 = score_x0 - pad
-    text_w = max(10, text_x1 - text_x0)
-
-    badge_text = ""
-    if is_power_play:
-        badge_text = "PP"
-    elif is_short_handed:
-        badge_text = "SH"
-    elif is_empty_net:
-        badge_text = "EN"
-
-    tag = "GOAL"
-    if special and not badge_text:
-        tag = f"{special.strip().upper()} GOAL"
-
-    title_parts = [str(game_label or "").strip(), tag]
-    title_text = " • ".join([part for part in title_parts if part])
-    tag_font = _fit_text_font(draw, title_text, font_bold, max_size=18, min_size=14, max_width=text_w)
-    draw.text((text_x0, 10), title_text, font=tag_font, fill=(25, 195, 125, 240))
-
-    scorer = scorer.strip() or "Unknown"
-    badge_reserve = 70 if badge_text else 0
-    scorer_font = _fit_text_font(draw, scorer, font_bold, max_size=36, min_size=24, max_width=max(10, text_w - badge_reserve))
-    scorer_y = 38
-    draw.text((text_x0, scorer_y), scorer, font=scorer_font, fill=(255, 255, 255, 235))
-
-    if badge_text:
-        badge_font = _load_font(font_bold, 16)
-        badge_pad_x = 10
-        badge_pad_y = 6
-        scorer_w = int(draw.textlength(scorer, font=scorer_font))
-        badge_w = int(draw.textlength(badge_text, font=badge_font)) + 2 * badge_pad_x
-        badge_h = int(badge_font.size) + 2 * badge_pad_y
-        badge_x = min(text_x0 + scorer_w + 12, text_x1 - badge_w)
-        badge_y = scorer_y + int((int(scorer_font.size) - badge_h) * 0.5) + 4
-
-        badge_fill = (90, 90, 90, 200)
-        if badge_text == "PP":
-            badge_fill = (35, 140, 255, 220)
-        elif badge_text == "SH":
-            badge_fill = (255, 140, 0, 220)
-        elif badge_text == "EN":
-            badge_fill = (210, 210, 210, 200)
-
-        draw.rounded_rectangle([badge_x, badge_y, badge_x + badge_w, badge_y + badge_h], radius=10, fill=badge_fill)
-        draw.text((badge_x + badge_pad_x, badge_y + badge_pad_y), badge_text, font=badge_font, fill=(0, 0, 0, 220))
-
-    meta_parts = [str(series_title or "").strip(), _format_period_label(period), time_str]
-    meta = " • ".join([p for p in meta_parts if p])
-    meta_font = _fit_text_font(draw, meta, font_reg, max_size=20, min_size=14, max_width=text_w)
-    draw.text((text_x0, 82), meta, font=meta_font, fill=(255, 255, 255, 200))
-
-    assists = [a.strip() for a in [assist1, assist2] if a and a.strip()]
-    if assists:
-        assists_text = "A: " + ", ".join(assists)
-        assists_font = _fit_text_font(draw, assists_text, font_reg, max_size=18, min_size=14, max_width=text_w)
-        draw.text((text_x0, 108), assists_text, font=assists_font, fill=(255, 255, 255, 180))
-
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    img.save(out_path, format="PNG")
+    accent = _team_palette(scoring_team)
+    special_text = str(special or "").strip()
+    badge_text = special_text if "UNVERIFIED" in special_text.upper() else ""
+    spec = {
+        "type": "goal_overlay",
+        "transparent": True,
+        "width": int(overlay_size[0]),
+        "height": int(overlay_size[1]),
+        "kicker": _goal_kicker_text(
+            game_label=game_label,
+            clip_type="goal",
+            is_power_play=is_power_play,
+            is_short_handed=is_short_handed,
+            is_empty_net=is_empty_net,
+        ),
+        "hero": str(scorer or "Unknown").strip(),
+        "secondaryText": _format_goal_secondary_text(assist1, assist2),
+        "metaText": _format_goal_meta_text(period, time_str),
+        "badgeText": badge_text,
+        "primaryLogoPath": str(scoring_team.logo_path),
+        "homeLogoPath": str(home.logo_path),
+        "awayLogoPath": str(away.logo_path),
+        "homeScore": int(home_score),
+        "awayScore": int(away_score),
+        "homeShortLabel": _team_short_label(home),
+        "awayShortLabel": _team_short_label(away),
+        "scoreLabel": "Game State",
+        "scoringSide": "home" if _norm_name(scoring_team.name) == _norm_name(home.name) else "away",
+        "homePrimary": _team_palette(home)["primary"],
+        "awayPrimary": _team_palette(away)["primary"],
+        "accentPrimary": accent["primary"],
+        "accentSecondary": accent["secondary"],
+    }
+    _render_browser_graphics([{"output_path": str(out_path), "spec": spec}])
 
 
 def _render_penalty_overlay_png(
@@ -631,97 +658,39 @@ def _render_penalty_overlay_png(
     game_label: str = "",
     series_title: str = "",
 ) -> None:
-    video_w, video_h = video_size
-    w, h = overlay_size
-
-    font_bold = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
-    font_reg = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
-
-    img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
-    draw = ImageDraw.Draw(img)
-
-    radius = 18
-    bg_alpha = 96
-    draw.rounded_rectangle([0, 0, w, h], radius=radius, fill=(0, 0, 0, bg_alpha))
-
-    # Amber accent bar for penalties
-    accent_w = 8
-    draw.rounded_rectangle([0, 0, accent_w, h], radius=radius, fill=(255, 193, 7, 220))
-
-    pad = 18
-    logo_size = 88
-    score_area_w = 200
-
-    logo = Image.open(penalized_team.logo_path).convert("RGBA")
-    logo = logo.resize((logo_size, logo_size), Image.Resampling.LANCZOS)
-    logo_x = pad
-    logo_y = (h - logo_size) // 2
-    img.paste(logo, (logo_x, logo_y), logo)
-
-    small_logo = 40
-    home_logo = Image.open(home.logo_path).convert("RGBA").resize((small_logo, small_logo), Image.Resampling.LANCZOS)
-    away_logo = Image.open(away.logo_path).convert("RGBA").resize((small_logo, small_logo), Image.Resampling.LANCZOS)
-
-    score_x0 = w - pad - score_area_w
-    row_gap = 10
-    row_h = (h - row_gap) // 2
-    away_row_y = 0
-    home_row_y = row_h + row_gap
-
-    if _norm_name(penalized_team.name) == _norm_name(away.name):
-        highlight_y = away_row_y
-    elif _norm_name(penalized_team.name) == _norm_name(home.name):
-        highlight_y = home_row_y
-    else:
-        highlight_y = None
-
-    if highlight_y is not None:
-        draw.rounded_rectangle(
-            [score_x0, highlight_y + 6, w - pad, highlight_y + row_h - 6],
-            radius=12,
-            fill=(255, 255, 255, 28),
-        )
-
-    score_font = _load_font(font_bold, 34)
-    label_font = _load_font(font_reg, 16)
-
-    ax = score_x0 + 10
-    ay = away_row_y + (row_h - small_logo) // 2
-    img.paste(away_logo, (ax, ay), away_logo)
-    draw.text((ax + small_logo + 10, away_row_y + 18), f"{away_score}", font=score_font, fill=(255, 255, 255, 230))
-    draw.text((ax + small_logo + 70, away_row_y + 26), "AWAY", font=label_font, fill=(255, 255, 255, 160))
-
-    hx = score_x0 + 10
-    hy = home_row_y + (row_h - small_logo) // 2
-    img.paste(home_logo, (hx, hy), home_logo)
-    draw.text((hx + small_logo + 10, home_row_y + 18), f"{home_score}", font=score_font, fill=(255, 255, 255, 230))
-    draw.text((hx + small_logo + 70, home_row_y + 26), "HOME", font=label_font, fill=(255, 255, 255, 160))
-
-    text_x0 = logo_x + logo_size + pad
-    text_x1 = score_x0 - pad
-    text_w = max(10, text_x1 - text_x0)
-
-    title_parts = [str(game_label or "").strip(), "PENALTY"]
-    title_text = " • ".join([part for part in title_parts if part])
-    tag_font = _fit_text_font(draw, title_text, font_bold, max_size=18, min_size=14, max_width=text_w)
-    draw.text((text_x0, 10), title_text, font=tag_font, fill=(255, 193, 7, 240))
-
-    player = player.strip() or "Unknown"
-    player_font = _fit_text_font(draw, player, font_bold, max_size=34, min_size=22, max_width=text_w)
-    draw.text((text_x0, 38), player, font=player_font, fill=(255, 255, 255, 235))
-
-    meta_parts = [str(series_title or "").strip(), _format_period_label(period), time_str]
-    meta = " • ".join([p for p in meta_parts if p])
-    meta_font = _fit_text_font(draw, meta, font_reg, max_size=20, min_size=14, max_width=text_w)
-    draw.text((text_x0, 82), meta, font=meta_font, fill=(255, 255, 255, 200))
-
-    detail = infraction.strip() or "Penalty"
-    detail += f" ({int(minutes)} min)"
-    detail_font = _fit_text_font(draw, detail, font_reg, max_size=18, min_size=14, max_width=text_w)
-    draw.text((text_x0, 108), detail, font=detail_font, fill=(255, 255, 255, 180))
-
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    img.save(out_path, format="PNG")
+    accent = {"primary": "#f4b942", "secondary": "#805112"}
+    details = f"{str(infraction or 'Penalty').strip()} • {int(minutes or 2)} min"
+    spec = {
+        "type": "penalty_overlay",
+        "transparent": True,
+        "width": int(overlay_size[0]),
+        "height": int(overlay_size[1]),
+        "kicker": _goal_kicker_text(
+            game_label=game_label,
+            clip_type="penalty",
+            is_power_play=False,
+            is_short_handed=False,
+            is_empty_net=False,
+        ),
+        "hero": str(player or "Unknown").strip(),
+        "secondaryText": details,
+        "metaText": _format_goal_meta_text(period, time_str),
+        "badgeText": "",
+        "primaryLogoPath": str(penalized_team.logo_path),
+        "homeLogoPath": str(home.logo_path),
+        "awayLogoPath": str(away.logo_path),
+        "homeScore": int(home_score),
+        "awayScore": int(away_score),
+        "homeShortLabel": _team_short_label(home),
+        "awayShortLabel": _team_short_label(away),
+        "scoreLabel": "Game State",
+        "scoringSide": "home" if _norm_name(penalized_team.name) == _norm_name(home.name) else "away",
+        "homePrimary": _team_palette(home)["primary"],
+        "awayPrimary": _team_palette(away)["primary"],
+        "accentPrimary": accent["primary"],
+        "accentSecondary": accent["secondary"],
+    }
+    _render_browser_graphics([{"output_path": str(out_path), "spec": spec}])
 
 
 def _parse_clip_prefix(path: Path) -> int:
@@ -927,9 +896,9 @@ def _insert_game_intro_cards(
     if not items:
         return items
 
-    render_items: List[ClipItem] = []
-    last_game_key: Optional[Tuple[str, str, str]] = None
-    intro_index = 0
+    grouped: List[Tuple[ClipItem, List[ClipItem]]] = []
+    current_group: List[ClipItem] = []
+    current_key: Optional[Tuple[str, str, str]] = None
 
     for item in items:
         game_info = dict(item.game_info or {})
@@ -939,46 +908,92 @@ def _insert_game_intro_cards(
             str(item.overlay_game_label or "").strip(),
             str(game_info.get("home_team") or "") + "::" + str(game_info.get("away_team") or ""),
         )
+        if current_key is None or game_key == current_key:
+            current_group.append(item)
+            current_key = game_key
+            continue
+        grouped.append((current_group[0], list(current_group)))
+        current_group = [item]
+        current_key = game_key
 
-        should_insert = item.segment_kind == "clip" and bool(item.overlay_game_label or series_context.get("game_date"))
-        if should_insert and game_key != last_game_key:
-            league = str(game_info.get("league") or "MHL")
-            home_name = str(game_info.get("home_team") or "Home")
-            away_name = str(game_info.get("away_team") or "Away")
-            home = _find_team_info(home_name, league, teams_db)
-            away = _find_team_info(away_name, league, teams_db)
+    if current_group:
+        grouped.append((current_group[0], list(current_group)))
 
-            intro_index += 1
-            card_png = output_dir / f"game_intro_{intro_index:02d}.png"
-            card_mp4 = output_dir / f"game_intro_{intro_index:02d}.mp4"
+    render_items: List[ClipItem] = []
+    total_games = len(grouped)
+    final_context = dict(grouped[-1][0].series_context or {}) if grouped else {}
+
+    for group_index, (anchor, group_items) in enumerate(grouped, 1):
+        game_info = dict(anchor.game_info or {})
+        series_context = dict(anchor.series_context or {})
+        league = str(game_info.get("league") or "MHL")
+        home_name = str(game_info.get("home_team") or "Home")
+        away_name = str(game_info.get("away_team") or "Away")
+        home = _find_team_info(home_name, league, teams_db)
+        away = _find_team_info(away_name, league, teams_db)
+
+        card_png = output_dir / f"game_intro_{group_index:02d}.png"
+        card_mp4 = output_dir / f"game_intro_{group_index:02d}.mp4"
+
+        if group_index == 1:
             _render_game_intro_card_png(
                 card_png,
                 video_size=video_size,
                 home=home,
                 away=away,
-                series_title=str(series_context.get("series_title") or item.overlay_series_title or "").strip(),
-                game_label=str(series_context.get("game_label") or item.overlay_game_label or "").strip(),
-                series_status=str(series_context.get("series_status") or "").strip(),
-                game_date_label=str(series_context.get("game_date_display") or series_context.get("game_date") or "").strip(),
-                venue=str(series_context.get("venue") or "").strip(),
-                attendance=series_context.get("attendance"),
+                series_title=str(series_context.get("series_title") or anchor.overlay_series_title or "").strip(),
+                total_games=total_games,
+                final_series_status=str(final_context.get("series_status_after") or final_context.get("series_status") or "").strip(),
             )
-            _render_static_card_video(card_png, card_mp4, duration_seconds=duration_seconds, fps=fps)
-            render_items.append(
-                ClipItem(
-                    index=max(0, int(item.index) - 1),
-                    clip_path=card_mp4,
-                    event={"type": "game_intro"},
-                    game_info=game_info,
-                    overlay_game_label=str(item.overlay_game_label or "").strip(),
-                    overlay_series_title=str(item.overlay_series_title or "").strip(),
-                    series_context=series_context,
-                    segment_kind="game_intro",
-                )
+        else:
+            previous_anchor, _ = grouped[group_index - 2]
+            previous_info = dict(previous_anchor.game_info or {})
+            previous_context = dict(previous_anchor.series_context or {})
+            previous_home = _find_team_info(str(previous_info.get("home_team") or home_name), league, teams_db)
+            previous_away = _find_team_info(str(previous_info.get("away_team") or away_name), league, teams_db)
+            previous_home_score = previous_context.get("final_home_score")
+            previous_away_score = previous_context.get("final_away_score")
+            if previous_home_score is not None or previous_away_score is not None:
+                winner_side = "home" if int(previous_home_score or 0) >= int(previous_away_score or 0) else "away"
+            else:
+                previous_won = previous_context.get("won")
+                home_is_amherst = "ramblers" in _norm_name(previous_home.name)
+                winner_side = "home"
+                if previous_won is True:
+                    winner_side = "home" if home_is_amherst else "away"
+                elif previous_won is False:
+                    winner_side = "away" if home_is_amherst else "home"
+            _render_game_break_card_png(
+                card_png,
+                video_size=video_size,
+                home=previous_home,
+                away=previous_away,
+                game_label=str(previous_context.get("game_label") or previous_anchor.overlay_game_label or "").strip(),
+                headline=str(previous_context.get("momentum_headline") or previous_context.get("series_status_after") or "Series Update").strip(),
+                series_status=str(previous_context.get("series_status_after") or previous_context.get("series_status") or "").strip(),
+                home_score=int(previous_home_score) if previous_home_score is not None else None,
+                away_score=int(previous_away_score) if previous_away_score is not None else None,
+                final_score_display=str(previous_context.get("final_score_display") or "").strip(),
+                venue=str(previous_context.get("venue") or "").strip(),
+                attendance=previous_context.get("attendance"),
+                next_game_label=str(series_context.get("game_label") or anchor.overlay_game_label or "").strip(),
+                winner_side=winner_side,
             )
-            last_game_key = game_key
 
-        render_items.append(item)
+        _render_static_card_video(card_png, card_mp4, duration_seconds=duration_seconds, fps=fps)
+        render_items.append(
+            ClipItem(
+                index=max(0, int(anchor.index) - 1),
+                clip_path=card_mp4,
+                event={"type": "game_intro"},
+                game_info=game_info,
+                overlay_game_label=str(anchor.overlay_game_label or "").strip(),
+                overlay_series_title=str(anchor.overlay_series_title or "").strip(),
+                series_context=series_context,
+                segment_kind="game_intro",
+            )
+        )
+        render_items.extend(group_items)
 
     return render_items
 
@@ -1055,6 +1070,7 @@ def _build_ffmpeg_filter(
     *,
     num_clips: int,
     clip_durations: List[float],
+    video_size: Tuple[int, int],
     overlay_w: int,
     overlay_h: int,
     overlay_margin: int,
@@ -1067,7 +1083,7 @@ def _build_ffmpeg_filter(
 
     # Overlay placement (bottom-left)
     x = overlay_margin
-    y = 720 - overlay_margin - overlay_h  # tuned for 1280x720 source clips
+    y = int(video_size[1]) - overlay_margin - overlay_h
 
     parts: List[str] = []
 
@@ -1144,8 +1160,8 @@ def main() -> int:
     parser.add_argument("--output", type=Path, default=None, help="Output mp4 path (default: <game-dir>/output/highlights_production.mp4)")
     parser.add_argument("--transition-seconds", type=float, default=0.25, help="Crossfade duration between clips")
     parser.add_argument("--overlay-seconds", type=float, default=5.0, help="How long to show the overlay at the start of each clip")
-    parser.add_argument("--game-intro-cards", action="store_true", help="Insert full-screen intro cards before the first clip of each game block")
-    parser.add_argument("--game-intro-card-seconds", type=float, default=3.5, help="Duration of each inserted game intro card in seconds")
+    parser.add_argument("--game-intro-cards", action="store_true", help="Insert the series-open card and between-game recap cards")
+    parser.add_argument("--game-intro-card-seconds", type=float, default=3.5, help="Duration of each inserted series-open / between-game card in seconds")
     parser.add_argument("--series-outro-card", action="store_true", help="Append a full-screen series outro card after the final clip")
     parser.add_argument("--series-outro-card-seconds", type=float, default=4.5, help="Duration of the inserted series outro card in seconds")
     parser.add_argument("--series-outro-status", default="", help="Primary status line for the series outro card")
@@ -1223,8 +1239,10 @@ def main() -> int:
     overlays_dir = (game_dir / "output" / "overlays") if game_dir else (output_path.parent / f"{output_path.stem}_overlays")
     overlays_dir.mkdir(parents=True, exist_ok=True)
 
-    overlay_w, overlay_h = (780, 140)
-    video_size = (1280, 720)
+    video_size = _ffprobe_video_size(base_clip_paths[0])
+    overlay_w = _scale_px(video_size, 1020)
+    overlay_h = _scale_px(video_size, 228)
+    overlay_margin = _scale_px(video_size, 64)
 
     if args.game_intro_cards:
         clip_items = _insert_game_intro_cards(
@@ -1422,9 +1440,10 @@ def main() -> int:
     filter_complex = _build_ffmpeg_filter(
         num_clips=len(clip_paths),
         clip_durations=durations,
+        video_size=video_size,
         overlay_w=overlay_w,
         overlay_h=overlay_h,
-        overlay_margin=24,
+        overlay_margin=overlay_margin,
         overlay_seconds=float(args.overlay_seconds),
         transition_seconds=float(args.transition_seconds),
         fps=fps_expr,

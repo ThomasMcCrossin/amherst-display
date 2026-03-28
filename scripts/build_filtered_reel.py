@@ -286,6 +286,34 @@ def format_series_status(*, amherst_wins: int, opponent_wins: int, opponent_name
     return f"{str(opponent_name or 'Opponent').strip()} leads {opponent_wins}-{amherst_wins}"
 
 
+def _coerce_int(value: Any) -> int | None:
+    if value in ("", None):
+        return None
+    try:
+        return int(value)
+    except Exception:
+        return None
+
+
+def build_momentum_headline(
+    *,
+    amherst_wins_after: int,
+    opponent_wins_after: int,
+    opponent_name: str,
+) -> str:
+    if amherst_wins_after == opponent_wins_after:
+        if amherst_wins_after >= 3:
+            return "WINNER TAKE ALL"
+        return f"Series tied {amherst_wins_after}-{opponent_wins_after}".upper()
+    if amherst_wins_after > opponent_wins_after:
+        if amherst_wins_after == 3 and opponent_wins_after < 3:
+            return "Amherst One Win Away"
+        return f"Amherst leads {amherst_wins_after}-{opponent_wins_after}".upper()
+    if opponent_wins_after == 3 and amherst_wins_after < 3:
+        return f"{opponent_name} One Win Away"
+    return f"{opponent_name} leads {opponent_wins_after}-{amherst_wins_after}".upper()
+
+
 def format_display_date(game_date: str) -> str:
     try:
         parsed = datetime.strptime(str(game_date or "").strip(), "%Y-%m-%d")
@@ -318,6 +346,18 @@ def build_series_context(
 
     result = game.get("result") if isinstance(game.get("result"), dict) else {}
     schedule_notes = str(game.get("schedule_notes") or "").strip()
+    ramblers_score = _coerce_int(result.get("ramblers_score")) if result else None
+    opponent_score = _coerce_int(result.get("opponent_score")) if result else None
+    amherst_wins_after = int(amherst_wins_before) + (1 if bool(result.get("won")) else 0)
+    opponent_wins_after = int(opponent_wins_before) + (0 if bool(result.get("won")) else (1 if result else 0))
+    home_team = str(canonical_game_info.get("home_team") or "").strip()
+    away_team = str(canonical_game_info.get("away_team") or "").strip()
+    if is_amherst_team(home_team):
+        final_home_score = ramblers_score
+        final_away_score = opponent_score
+    else:
+        final_home_score = opponent_score
+        final_away_score = ramblers_score
 
     return {
         "source_index": int(source_index),
@@ -331,12 +371,31 @@ def build_series_context(
             opponent_wins=int(opponent_wins_before),
             opponent_name=opponent_name,
         ),
+        "series_record_after": f"{amherst_wins_after}-{opponent_wins_after}",
+        "series_status_after": format_series_status(
+            amherst_wins=amherst_wins_after,
+            opponent_wins=opponent_wins_after,
+            opponent_name=opponent_name,
+        ),
         "venue": venue,
         "attendance": attendance,
         "opponent_name": opponent_name,
         "schedule_notes": schedule_notes,
-        "home_team": str(canonical_game_info.get("home_team") or "").strip(),
-        "away_team": str(canonical_game_info.get("away_team") or "").strip(),
+        "home_team": home_team,
+        "away_team": away_team,
+        "ramblers_score": ramblers_score,
+        "opponent_score": opponent_score,
+        "final_score_display": str(result.get("final_score") or "").strip(),
+        "final_home_score": final_home_score,
+        "final_away_score": final_away_score,
+        "won": bool(result.get("won")) if result else None,
+        "overtime": bool(result.get("overtime")) if result else False,
+        "shootout": bool(result.get("shootout")) if result else False,
+        "momentum_headline": build_momentum_headline(
+            amherst_wins_after=amherst_wins_after,
+            opponent_wins_after=opponent_wins_after,
+            opponent_name=opponent_name,
+        ),
         "result": dict(result) if result else {},
     }
 
@@ -578,8 +637,8 @@ def main() -> int:
     parser.add_argument("--render-style", choices=("plain", "production"), default="plain", help="Final reel render style")
     parser.add_argument("--title", default="", help="Optional series/title label for production overlays and output manifest")
     parser.add_argument("--game-label-mode", choices=("none", "date", "series_game"), default="none", help="How to label each source game in production overlays")
-    parser.add_argument("--game-intro-cards", action="store_true", help="Insert full-screen intro cards before the first clip of each game in production renders")
-    parser.add_argument("--game-intro-card-seconds", type=float, default=3.5, help="Duration of each inserted game intro card in seconds")
+    parser.add_argument("--game-intro-cards", action="store_true", help="Insert the series-open card and between-game recap cards in production renders")
+    parser.add_argument("--game-intro-card-seconds", type=float, default=3.5, help="Duration of each inserted series-open / between-game card in seconds")
     parser.add_argument("--series-outro-card", action="store_true", help="Append a full-screen series outro card after the final clip in production renders")
     parser.add_argument("--series-outro-card-seconds", type=float, default=4.5, help="Duration of the inserted series outro card in seconds")
     parser.add_argument("--series-outro-status", default="", help="Primary status line for the series outro card")

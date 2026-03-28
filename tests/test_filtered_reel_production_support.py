@@ -100,6 +100,10 @@ def test_build_series_context():
 
     assert context["series_record_before"] == "0-0"
     assert context["series_status"] == "Series tied 0-0"
+    assert context["series_record_after"] == "1-0"
+    assert context["series_status_after"] == "Amherst leads 1-0"
+    assert context["final_score_display"] == "2-1"
+    assert context["momentum_headline"] == "AMHERST LEADS 1-0"
     assert context["venue"] == "Credit Union Place"
     assert context["attendance"] == 2028
     assert context["game_date_display"] == "March 14, 2026"
@@ -211,3 +215,79 @@ def test_insert_series_outro_card_appends_segment(tmp_path, monkeypatch):
     assert len(rendered) == 2
     assert rendered[-1].segment_kind == "series_outro"
     assert rendered[-1].clip_path.name == "series_outro.mp4"
+
+
+def test_insert_game_intro_cards_adds_series_open_and_break_card(tmp_path, monkeypatch):
+    module = _load_module(PRODUCTION_REEL_PATH, "build_production_reel_intro_test")
+
+    clip1 = tmp_path / "clip1.mp4"
+    clip2 = tmp_path / "clip2.mp4"
+    clip1.write_bytes(b"fake")
+    clip2.write_bytes(b"fake")
+
+    items = [
+        module.ClipItem(
+            index=1,
+            clip_path=clip1,
+            event={"type": "goal"},
+            game_info={"league": "MHL", "home_team": "Summerside Western Capitals", "away_team": "Amherst Ramblers"},
+            overlay_game_label="Game 1",
+            overlay_series_title="EastLink South Semi-Final 1 vs Summerside Western Capitals",
+            series_context={
+                "game_label": "Game 1",
+                "series_title": "EastLink South Semi-Final 1 vs Summerside Western Capitals",
+                "series_status_after": "Summerside Western Capitals leads 1-0",
+                "final_score_display": "3-2",
+                "final_home_score": 3,
+                "final_away_score": 2,
+                "venue": "Credit Union Place",
+                "attendance": 1301,
+                "momentum_headline": "SUMMERSIDE LEADS 1-0",
+            },
+        ),
+        module.ClipItem(
+            index=2,
+            clip_path=clip2,
+            event={"type": "goal"},
+            game_info={"league": "MHL", "home_team": "Amherst Ramblers", "away_team": "Summerside Western Capitals"},
+            overlay_game_label="Game 2",
+            overlay_series_title="EastLink South Semi-Final 1 vs Summerside Western Capitals",
+            series_context={
+                "game_label": "Game 2",
+                "series_title": "EastLink South Semi-Final 1 vs Summerside Western Capitals",
+                "series_status_after": "Series tied 1-1",
+                "venue": "Amherst Stadium",
+                "attendance": 1500,
+            },
+        ),
+    ]
+
+    class DummyTeam:
+        def __init__(self, name: str):
+            self.name = name
+            self.slug = name.lower().replace(" ", "-")
+            self.logo_path = REPO_ROOT / "assets" / "logos" / "fallback.png"
+
+    monkeypatch.setattr(module, "_find_team_info", lambda name, league, db: DummyTeam(name))
+    monkeypatch.setattr(module, "_render_game_intro_card_png", lambda *args, **kwargs: None)
+    monkeypatch.setattr(module, "_render_game_break_card_png", lambda *args, **kwargs: None)
+
+    def _fake_render_static(image_path, out_path, *, duration_seconds, fps):
+        out_path.write_bytes(b"fake")
+
+    monkeypatch.setattr(module, "_render_static_card_video", _fake_render_static)
+
+    rendered = module._insert_game_intro_cards(
+        items,
+        output_dir=tmp_path,
+        teams_db={},
+        video_size=(1920, 1080),
+        fps="60",
+        duration_seconds=3.5,
+    )
+
+    assert len(rendered) == 4
+    assert rendered[0].segment_kind == "game_intro"
+    assert rendered[0].clip_path.name == "game_intro_01.mp4"
+    assert rendered[2].segment_kind == "game_intro"
+    assert rendered[2].clip_path.name == "game_intro_02.mp4"
