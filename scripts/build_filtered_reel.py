@@ -629,6 +629,11 @@ def main() -> int:
     parser.add_argument("--disable-auto-detect-start", action="store_true", help="Skip game-start auto detection and start OCR at the beginning of the file")
     parser.add_argument("--disable-goal-clock-refinement", action="store_true", help="Skip the post-match goal clock-stop refinement pass")
     parser.add_argument("--disable-local-ocr-refinement", action="store_true", help="Skip the generic post-match local OCR refinement pass")
+    parser.add_argument(
+        "--goal-legacy-timing-fallback",
+        action="store_true",
+        help="Allow legacy approximate goal timing fallbacks for broken/unreadable scorebugs. Normal runs should leave this off.",
+    )
     parser.add_argument("--render-style", choices=("plain", "production"), default="plain", help="Final reel render style")
     parser.add_argument("--title", default="", help="Optional series/title label for production overlays and output manifest")
     parser.add_argument("--game-label-mode", choices=("none", "date", "series_game"), default="none", help="How to label each source game in production overlays")
@@ -692,6 +697,7 @@ def main() -> int:
         "auto_detect_start": False if args.disable_auto_detect_start else None,
         "refine_goal_clock": False if args.disable_goal_clock_refinement else None,
         "refine_local_ocr": False if args.disable_local_ocr_refinement else None,
+        "goal_legacy_timing_fallback": True if args.goal_legacy_timing_fallback else None,
     }
 
     for source_index, (game_date, video_path) in enumerate(ordered_sources, 1):

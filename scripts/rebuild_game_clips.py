@@ -254,6 +254,11 @@ def main() -> int:
     parser.add_argument("--before-seconds", type=float, default=15.0, help="Seconds before goals to include")
     parser.add_argument("--after-seconds", type=float, default=4.0, help="Seconds after goals to include")
     parser.add_argument(
+        "--goal-legacy-timing-fallback",
+        action="store_true",
+        help="Allow legacy approximate goal timing fallbacks for broken/unreadable scorebugs.",
+    )
+    parser.add_argument(
         "--audio-delay-seconds",
         type=float,
         default=0.0,
@@ -354,6 +359,7 @@ def main() -> int:
         pipeline_kwargs["source_game_info_override"] = dict(game_context)
 
     pipeline = HighlightPipeline(**pipeline_kwargs)
+    pipeline._goal_legacy_timing_fallback_override = bool(args.goal_legacy_timing_fallback)
     if not pipeline.video_processor.load_video():
         raise RuntimeError(f"Failed to load video: {video_path}")
 
@@ -378,6 +384,7 @@ def main() -> int:
         pipeline._refine_goal_events_by_clock_stop(pipeline.matched_events)
     except Exception:
         pass
+    pipeline._finalize_goal_timing_verification(pipeline.matched_events)
 
     _write_json(events_path, pipeline.matched_events)
     print(f"[rebuild] Wrote: {events_path}")

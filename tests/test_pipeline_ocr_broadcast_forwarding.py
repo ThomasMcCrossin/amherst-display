@@ -96,7 +96,7 @@ def test_pipeline_forwards_broadcast_type_to_local_refinement(tmp_path: Path):
     assert any(call.get("broadcast_type") == "mhl_summerside" for call in ocr_engine.calls)
 
 
-def test_goals_only_local_refinement_skips_non_goals_and_only_clock_stop_refined(tmp_path: Path):
+def test_goals_only_local_refinement_skips_goals_without_legacy_fallback(tmp_path: Path):
     config = SimpleNamespace(DEFAULT_REEL_MODE="goals_only")
     pipeline = HighlightPipeline(
         config=config,
@@ -124,10 +124,43 @@ def test_goals_only_local_refinement_skips_non_goals_and_only_clock_stop_refined
 
     refined = pipeline._refine_low_confidence_events_by_local_ocr(matched_events)
 
+    assert refined == 0
+    assert scanned == []
+
+
+def test_goal_local_refinement_requires_explicit_legacy_fallback(tmp_path: Path):
+    config = SimpleNamespace(
+        DEFAULT_REEL_MODE="goals_only",
+        GOAL_ENABLE_LEGACY_TIMING_FALLBACK=True,
+    )
+    pipeline = HighlightPipeline(
+        config=config,
+        video_path=tmp_path / "dummy.mp4",
+        video_processor=RefinementVideoProcessor(),
+        ocr_engine=RecordingOcrEngine(),
+        event_matcher=StubEventMatcher(),
+    )
+    pipeline.reel_mode = "goals_only"
+
+    scanned = []
+
+    def fake_refine(event, *, approx_video_time):
+        scanned.append((event.get("type"), event.get("time"), approx_video_time))
+        return approx_video_time - 1.0
+
+    pipeline._refine_event_video_time_by_local_ocr = fake_refine  # type: ignore[method-assign]
+
+    matched_events = [
+        {"type": "goal", "time": "8:00", "video_time": 30.0, "match_confidence": 0.1, "match_time_diff_seconds": 20.0, "match_unreliable": True, "refined_by": "closest_clock"},
+        {"type": "goal", "time": "7:00", "video_time": 40.0, "match_confidence": 0.1, "match_time_diff_seconds": 20.0, "match_unreliable": True},
+    ]
+
+    refined = pipeline._refine_low_confidence_events_by_local_ocr(matched_events)
+
     assert refined == 2
     assert scanned == [("goal", "8:00", 30.0), ("goal", "7:00", 40.0)]
-    assert matched_events[2]["refined_by"] == "local_ocr"
-    assert matched_events[3]["refined_by"] == "local_ocr"
+    assert matched_events[0]["refined_by"] == "local_ocr"
+    assert matched_events[1]["refined_by"] == "local_ocr"
 
 
 def test_pipeline_hydrates_goal_events_from_typed_matches(tmp_path: Path):

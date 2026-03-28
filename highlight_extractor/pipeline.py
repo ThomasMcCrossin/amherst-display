@@ -152,6 +152,7 @@ class HighlightPipeline:
         self.reel_mode = str(getattr(self.config, "DEFAULT_REEL_MODE", "goals_only"))
         self._refine_goal_clock = True
         self._refine_local_ocr = True
+        self._goal_legacy_timing_fallback_override: Optional[bool] = None
         self._detected_game_start_time: Optional[float] = None
         self._game_context: Dict = {}
         if game_info_override:
@@ -252,6 +253,108 @@ class HighlightPipeline:
 
     def _period_time_to_absolute_seconds(self, period: int, time_remaining_seconds: int) -> int:
         return period_time_to_absolute_seconds(period, time_remaining_seconds, self._clock_rules)
+
+    def _goal_legacy_timing_fallback_enabled(self) -> bool:
+        if self._goal_legacy_timing_fallback_override is not None:
+            return bool(self._goal_legacy_timing_fallback_override)
+        return bool(getattr(self.config, "GOAL_ENABLE_LEGACY_TIMING_FALLBACK", False))
+
+    def _goal_projected_clock_fallback_enabled(self, event: Optional[Dict] = None) -> bool:
+        enabled = self._goal_legacy_timing_fallback_enabled() or bool(
+            getattr(self.config, "GOAL_ENABLE_PROJECTED_CLOCK_FALLBACK", False)
+        )
+        if not enabled:
+            return False
+        requires_unreliable = bool(
+            getattr(self.config, "GOAL_PROJECTED_CLOCK_FALLBACK_REQUIRES_UNRELIABLE", True)
+        )
+        return (not requires_unreliable) or bool((event or {}).get("match_unreliable"))
+
+    def _goal_local_ocr_fallback_enabled(self, event: Optional[Dict] = None) -> bool:
+        enabled = self._goal_legacy_timing_fallback_enabled() or bool(
+            getattr(self.config, "GOAL_ENABLE_LOCAL_OCR_CLOSEST_FALLBACK", False)
+        )
+        if not enabled:
+            return False
+        requires_unreliable = bool(
+            getattr(self.config, "GOAL_LOCAL_OCR_CLOSEST_FALLBACK_REQUIRES_UNRELIABLE", True)
+        )
+        return (not requires_unreliable) or bool((event or {}).get("match_unreliable"))
+
+    @staticmethod
+    def _set_event_unreliable(event: Dict, reason: str) -> None:
+        text = str(reason or "").strip()
+        if not text:
+            return
+        existing = str(event.get("match_unreliable_reason") or "").strip()
+        if existing:
+            existing_parts = [part.strip() for part in existing.split(";") if part.strip()]
+            if text not in existing_parts:
+                event["match_unreliable_reason"] = "; ".join([*existing_parts, text])
+        else:
+            event["match_unreliable_reason"] = text
+        event["match_unreliable"] = True
+
+    @staticmethod
+    def _clear_event_unreliable(event: Dict) -> None:
+        event["match_unreliable"] = False
+        event.pop("match_unreliable_reason", None)
+
+    def _finalize_goal_timing_verification(self, matched_events: List[Dict]) -> None:
+        """
+        Make goal timing status explicit.
+
+        Normal runs only treat `clock_stop` and `manual_source_review` as verified.
+        Approximate or legacy fallback timings stay flagged so they cannot quietly
+        pass as authoritative.
+        """
+        for event in matched_events:
+            if str(event.get("type") or "").strip().lower() != "goal":
+                continue
+
+            refined_by = str(event.get("refined_by") or "").strip().lower()
+            if refined_by == "manual_source_review":
+                event["goal_clock_verified"] = True
+                event["goal_timing_source"] = "manual_source_review"
+                self._clear_event_unreliable(event)
+                continue
+
+            if refined_by == "clock_stop":
+                event["goal_clock_verified"] = True
+                event["goal_timing_source"] = "exact_clock_stop"
+                self._clear_event_unreliable(event)
+                continue
+
+            if refined_by == "closest_clock_projected":
+                event["goal_clock_verified"] = False
+                event["goal_timing_source"] = "legacy_projected_clock_fallback"
+                self._set_event_unreliable(
+                    event,
+                    "Goal timing used legacy projected clock fallback",
+                )
+                continue
+
+            if refined_by == "local_ocr":
+                event["goal_clock_verified"] = False
+                event["goal_timing_source"] = "legacy_local_ocr_fallback"
+                self._set_event_unreliable(
+                    event,
+                    "Goal timing used legacy local OCR fallback",
+                )
+                continue
+
+            if event.get("video_time") is None:
+                event["goal_clock_verified"] = False
+                event["goal_timing_source"] = "unmatched"
+                self._set_event_unreliable(event, "No goal video timestamp available")
+                continue
+
+            event["goal_clock_verified"] = False
+            event["goal_timing_source"] = "unverified_match_approximation"
+            self._set_event_unreliable(
+                event,
+                "Exact goal clock-stop verification not found",
+            )
 
     def _normalize_reel_mode(self, reel_mode: Optional[str]) -> str:
         mode = str(reel_mode or getattr(self.config, "DEFAULT_REEL_MODE", "goals_only")).strip().lower()
@@ -374,6 +477,7 @@ class HighlightPipeline:
         auto_detect_start: bool = True,
         refine_goal_clock: bool = True,
         refine_local_ocr: bool = True,
+        goal_legacy_timing_fallback: Optional[bool] = None,
         reel_mode: Optional[str] = None,
         build_reel: bool = True,
         build_description: bool = True,
@@ -393,6 +497,8 @@ class HighlightPipeline:
             auto_detect_start: Auto-detect game start to skip pre-game content (default True)
             refine_goal_clock: Use the goal clock-stop refinement pass after matching
             refine_local_ocr: Use the local OCR fallback refinement pass after matching
+            goal_legacy_timing_fallback: Allow legacy approximate goal timing fallbacks.
+                Leave unset/False for the normal exact clock-stop rule.
             reel_mode: Reel composition mode (goals_only, goals_with_pp_penalties,
                 goals_with_approved_majors, full_production)
             build_reel: Build the per-game stitched highlights reel after creating clips
@@ -404,6 +510,9 @@ class HighlightPipeline:
         self.reel_mode = self._normalize_reel_mode(reel_mode)
         self._refine_goal_clock = bool(refine_goal_clock)
         self._refine_local_ocr = bool(refine_local_ocr)
+        self._goal_legacy_timing_fallback_override = (
+            None if goal_legacy_timing_fallback is None else bool(goal_legacy_timing_fallback)
+        )
 
         self._pending_broadcast_type = str(broadcast_type or 'auto')
         if self._pending_broadcast_type != 'auto':
@@ -935,6 +1044,8 @@ class HighlightPipeline:
         else:
             logger.info("Skipping local OCR refinement")
 
+        self._finalize_goal_timing_verification(self.matched_events)
+
         # Filter to only events with successful matches
         valid_events = [e for e in self.matched_events if e.get('video_time') is not None]
 
@@ -1151,13 +1262,6 @@ class HighlightPipeline:
             0,
             int(getattr(self.config, "GOAL_CLOCK_STOP_ALLOW_CLOSE_SECONDS", 0) or 0),
         )
-        allow_projected_fallback = bool(
-            getattr(self.config, "GOAL_ENABLE_PROJECTED_CLOCK_FALLBACK", False)
-        )
-        projected_requires_unreliable = bool(
-            getattr(self.config, "GOAL_PROJECTED_CLOCK_FALLBACK_REQUIRES_UNRELIABLE", True)
-        )
-
         for event in matched_events:
             if str(event.get("type") or "").strip().lower() != "goal":
                 continue
@@ -1270,9 +1374,7 @@ class HighlightPipeline:
                         refined_method = "clock_stop"
                         break
 
-                fallback_allowed = allow_projected_fallback and (
-                    not projected_requires_unreliable or bool(event.get("match_unreliable"))
-                )
+                fallback_allowed = self._goal_projected_clock_fallback_enabled(event)
                 if not fallback_allowed:
                     continue
 
@@ -1327,8 +1429,9 @@ class HighlightPipeline:
         For low-confidence matches, run a small local OCR scan around the approximate
         video timestamp and snap to the best persistent clock reading.
 
-        This is a generic fallback (goals + penalties) and is intentionally conservative
-        to avoid slowing down healthy runs.
+        This is a generic fallback for non-goal events. Goal timing defaults to the
+        dedicated exact clock-stop pass; goal fallback only participates when an
+        explicit legacy/broken-scorebug mode is enabled.
         """
         if not matched_events:
             return 0
@@ -1339,14 +1442,17 @@ class HighlightPipeline:
             if video_time is None:
                 continue
 
+            is_goal = str(event.get("type") or "").strip().lower() == "goal"
+
             # Goals-only reels do not benefit from rescanning penalties or other
             # non-goal events during the generic local-OCR fallback.
-            if self.reel_mode == "goals_only" and str(event.get("type") or "").strip().lower() != "goal":
+            if self.reel_mode == "goals_only" and not is_goal:
+                continue
+
+            if is_goal and not self._goal_local_ocr_fallback_enabled(event):
                 continue
 
             # Skip events already refined by the stronger clock-stop mechanism.
-            # "closest_clock" is only a best-effort fallback and still benefits
-            # from the generic local OCR pass.
             if str(event.get("refined_by") or "") in {"clock_stop", "manual_source_review"}:
                 continue
 
@@ -1416,6 +1522,8 @@ class HighlightPipeline:
 
         event_type = str(event.get("type") or "").strip().lower()
         is_goal = event_type == "goal"
+        if is_goal and not self._goal_local_ocr_fallback_enabled(event):
+            return None
         window_seconds = float(getattr(self.config, "EVENT_LOCAL_OCR_WINDOW_SECONDS", 60.0))
         step_seconds = float(getattr(self.config, "EVENT_LOCAL_OCR_STEP_SECONDS", 0.5))
         persistence_window_seconds = float(getattr(self.config, "EVENT_LOCAL_OCR_PERSISTENCE_WINDOW_SECONDS", 6.0))
@@ -1425,20 +1533,7 @@ class HighlightPipeline:
             0,
             int(getattr(self.config, "GOAL_LOCAL_OCR_ALLOW_CLOSE_SECONDS", 0) or 0),
         )
-        goal_allow_closest_fallback = bool(
-            getattr(self.config, "GOAL_ENABLE_LOCAL_OCR_CLOSEST_FALLBACK", False)
-        )
-        goal_closest_requires_unreliable = bool(
-            getattr(self.config, "GOAL_LOCAL_OCR_CLOSEST_FALLBACK_REQUIRES_UNRELIABLE", True)
-        )
-        goal_closest_active = (
-            is_goal
-            and goal_allow_closest_fallback
-            and (
-                not goal_closest_requires_unreliable
-                or bool(event.get("match_unreliable"))
-            )
-        )
+        goal_closest_active = is_goal and self._goal_local_ocr_fallback_enabled(event)
 
         if window_seconds <= 0:
             return None

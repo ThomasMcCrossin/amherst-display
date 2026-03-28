@@ -149,6 +149,7 @@ GOAL_OT_AFTER_SECONDS = 4.0
 # Default goal timing rule: the goal moment is the first stable scoreboard clock
 # freeze at the official goal time. Keep legacy near-match / projected fallbacks
 # disabled unless a specific broken-scorebug run needs them.
+GOAL_ENABLE_LEGACY_TIMING_FALLBACK = False
 GOAL_CLOCK_STOP_ALLOW_CLOSE_SECONDS = 0
 GOAL_ENABLE_PROJECTED_CLOCK_FALLBACK = False
 GOAL_PROJECTED_CLOCK_FALLBACK_REQUIRES_UNRELIABLE = True

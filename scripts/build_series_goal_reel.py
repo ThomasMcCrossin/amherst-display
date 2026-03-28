@@ -35,6 +35,11 @@ def main() -> int:
     parser.add_argument("--disable-auto-detect-start", action="store_true", help="Skip game-start auto detection")
     parser.add_argument("--disable-goal-clock-refinement", action="store_true", help="Skip the goal clock-stop refinement pass")
     parser.add_argument("--disable-local-ocr-refinement", action="store_true", help="Skip the generic local OCR refinement pass")
+    parser.add_argument(
+        "--goal-legacy-timing-fallback",
+        action="store_true",
+        help="Allow legacy approximate goal timing fallbacks for broken/unreadable scorebugs.",
+    )
     parser.add_argument("--render-style", choices=("plain", "production"), default="production", help="Final series render style")
     parser.add_argument("--title", default="", help="Optional series title label for production overlays")
     parser.add_argument("--game-label-mode", choices=("none", "date", "series_game"), default="series_game", help="How to label each game in production overlays")
@@ -75,6 +80,7 @@ def main() -> int:
         *(["--disable-auto-detect-start"] if args.disable_auto_detect_start else []),
         *(["--disable-goal-clock-refinement"] if args.disable_goal_clock_refinement else []),
         *(["--disable-local-ocr-refinement"] if args.disable_local_ocr_refinement else []),
+        *(["--goal-legacy-timing-fallback"] if args.goal_legacy_timing_fallback else []),
         "--render-style",
         str(args.render_style),
         "--title",
