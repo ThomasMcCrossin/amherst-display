@@ -10,7 +10,10 @@ These helpers are intentionally narrow:
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Iterable, Optional
+
+RESUMABLE_UPLOAD_THRESHOLD_BYTES = 64 * 1024 * 1024
+RESUMABLE_UPLOAD_CHUNK_SIZE = 8 * 1024 * 1024
 
 
 def get_drive_service(credentials_path: str):
@@ -107,6 +110,8 @@ def upsert_file(service, *, local_path: Path, parent_id: str, drive_id: str, rem
         raise FileNotFoundError(local_path)
 
     remote_name = str(remote_name or local_path.name)
+    file_size = int(local_path.stat().st_size)
+    resumable = file_size >= RESUMABLE_UPLOAD_THRESHOLD_BYTES
     safe_name = remote_name.replace("'", "\\'")
     query = f"'{parent_id}' in parents and trashed=false and name='{safe_name}'"
     params: Dict[str, Any] = {
@@ -121,17 +126,34 @@ def upsert_file(service, *, local_path: Path, parent_id: str, drive_id: str, rem
         params["driveId"] = drive_id
 
     existing = service.files().list(**params).execute().get("files", []) or []
-    media = MediaFileUpload(str(local_path), resumable=False)
+    media_kwargs = {
+        "filename": str(local_path),
+        "resumable": resumable,
+    }
+    if resumable:
+        media_kwargs["chunksize"] = RESUMABLE_UPLOAD_CHUNK_SIZE
+    media = MediaFileUpload(**media_kwargs)
+
+    def _execute_upload(request):
+        if not resumable:
+            return request.execute()
+
+        response = None
+        while response is None:
+            _, response = request.next_chunk(num_retries=5)
+        return response
+
     if existing:
         file_id = str(existing[0].get("id") or "")
-        service.files().update(
+        request = service.files().update(
             fileId=file_id,
             media_body=media,
             supportsAllDrives=True,
-        ).execute()
+        )
+        _execute_upload(request)
         return file_id
 
-    created = (
+    request = (
         service.files()
         .create(
             body={"name": remote_name, "parents": [parent_id]},
@@ -139,22 +161,44 @@ def upsert_file(service, *, local_path: Path, parent_id: str, drive_id: str, rem
             fields="id",
             supportsAllDrives=True,
         )
-        .execute()
     )
+    created = _execute_upload(request)
     return str(created.get("id") or "")
 
 
-def upload_tree(service, *, src_dir: Path, dst_parent_id: str, drive_id: str) -> None:
+def upload_tree(
+    service,
+    *,
+    src_dir: Path,
+    dst_parent_id: str,
+    drive_id: str,
+    skip_names: Optional[Iterable[str]] = None,
+    skip_prefixes: Optional[Iterable[str]] = None,
+) -> None:
     src_dir = Path(src_dir).expanduser().resolve()
     if not src_dir.exists() or not src_dir.is_dir():
         return
 
+    skip_names = {str(name) for name in (skip_names or [])}
+    skip_prefixes = tuple(str(prefix) for prefix in (skip_prefixes or []))
+
     for child in sorted(src_dir.iterdir(), key=lambda item: item.name.lower()):
         if child.name.startswith("."):
             continue
+        if child.name in skip_names:
+            continue
+        if skip_prefixes and child.name.startswith(skip_prefixes):
+            continue
         if child.is_dir():
             subfolder_id = ensure_folder(service, parent_id=dst_parent_id, name=child.name, drive_id=drive_id)
-            upload_tree(service, src_dir=child, dst_parent_id=subfolder_id, drive_id=drive_id)
+            upload_tree(
+                service,
+                src_dir=child,
+                dst_parent_id=subfolder_id,
+                drive_id=drive_id,
+                skip_names=skip_names,
+                skip_prefixes=skip_prefixes,
+            )
             continue
         if child.is_file():
             upsert_file(service, local_path=child, parent_id=dst_parent_id, drive_id=drive_id)
