@@ -154,7 +154,8 @@ def process_video(
     video_path: Path,
     provider: AmherstBoxScoreProvider,
     game: dict,
-    dry_run: bool = False
+    dry_run: bool = False,
+    reel_mode: str = None,
 ):
     """Process a video file with pre-fetched box score data"""
 
@@ -170,6 +171,7 @@ def process_video(
     print(f"Date: {game.get('date')}")
     print(f"Matchup: {'Amherst Ramblers' if is_home else opponent} vs {opponent if is_home else 'Amherst Ramblers'}")
     print(f"Goals in game: {len(game.get('scoring', []))}")
+    print(f"Reel mode: {reel_mode or getattr(config, 'DEFAULT_REEL_MODE', 'goals_only')}")
     print("=" * 70)
 
     if dry_run:
@@ -197,6 +199,7 @@ def process_video(
         parallel_ocr=True,
         ocr_workers=4,
         broadcast_type='auto',
+        reel_mode=reel_mode,
     )
 
     # Print results
@@ -254,6 +257,14 @@ def main():
         '--games-json',
         help='Path to amherst-ramblers.json file'
     )
+    parser.add_argument(
+        '--reel-mode',
+        default=getattr(config, 'DEFAULT_REEL_MODE', 'goals_only'),
+        help=(
+            "Reel composition mode "
+            f"({', '.join(getattr(config, 'SUPPORTED_REEL_MODES', ('goals_only',)))})"
+        ),
+    )
 
     args = parser.parse_args()
 
@@ -298,7 +309,7 @@ def main():
         sys.exit(1)
 
     # Process the video
-    process_video(video_path, provider, game, dry_run=args.dry_run)
+    process_video(video_path, provider, game, dry_run=args.dry_run, reel_mode=args.reel_mode)
 
 
 if __name__ == '__main__':

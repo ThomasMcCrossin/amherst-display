@@ -313,3 +313,135 @@ def test_pipeline_clock_stop_goals_get_extra_preroll(tmp_path: Path):
 
     assert clip["before_seconds"] == config.GOAL_CLOCK_STOP_BEFORE_SECONDS
     assert clip["after_seconds"] == config.GOAL_CLOCK_STOP_AFTER_SECONDS
+
+
+def test_pipeline_includes_all_penalties_in_chronological_order(tmp_path: Path):
+    import config
+    from highlight_extractor.pipeline import HighlightPipeline
+
+    class FakeVideoProcessor:
+        duration = 10_000.0
+
+        def create_highlight_clips(self, events, clips_dir: Path, before_seconds=8.0, after_seconds=6.0):
+            clips_dir.mkdir(parents=True, exist_ok=True)
+            created = []
+            for idx, event in enumerate(events, 1):
+                clip_path = clips_dir / f"{idx:02d}_{event['type']}.mp4"
+                clip_path.write_bytes(b"0")
+                created.append((event, clip_path))
+            return created
+
+    pipeline = HighlightPipeline(
+        config=config,
+        video_path=tmp_path / "dummy.mp4",
+        video_processor=FakeVideoProcessor(),
+    )
+    game_dir = tmp_path / "game"
+    pipeline.game_folders = {
+        "game_dir": game_dir,
+        "clips_dir": game_dir / "clips",
+        "data_dir": game_dir / "data",
+        "output_dir": game_dir / "output",
+        "logs_dir": game_dir / "logs",
+    }
+    for path in pipeline.game_folders.values():
+        Path(path).mkdir(parents=True, exist_ok=True)
+    pipeline.reel_mode = "goals_with_all_penalties"
+    pipeline.matched_events = [
+        {
+            "type": "goal",
+            "period": 2,
+            "time": "6:30",
+            "team": "Amherst Ramblers",
+            "scorer": "A",
+            "assist1": "",
+            "assist2": "",
+            "video_time": 1000.0,
+        }
+    ]
+    pipeline.video_timestamps = [
+        {"video_time": 600.0, "period": 2, "game_time": "15:00", "game_time_seconds": 900},
+        {"video_time": 1000.0, "period": 2, "game_time": "13:30", "game_time_seconds": 810},
+        {"video_time": 1500.0, "period": 2, "game_time": "10:00", "game_time_seconds": 600},
+    ]
+    pipeline.box_score = {
+        "SiteKit": {
+            "Gamesummary": {
+                "penalties": [
+                    {
+                        "period": 2,
+                        "time": "5:00",
+                        "team": "Truro Bearcats",
+                        "player": {"name": "John Smith", "number": None},
+                        "infraction": "Hooking - Minor",
+                        "minutes": 2,
+                    },
+                    {
+                        "period": 2,
+                        "time": "10:00",
+                        "team": "Amherst Ramblers",
+                        "player": {"name": "Player Two", "number": 7},
+                        "infraction": "Tripping - Minor",
+                        "minutes": 2,
+                    },
+                ]
+            }
+        }
+    }
+
+    pipeline._step6_create_clips(before_seconds=15.0, after_seconds=4.0)
+
+    manifest = json.loads((pipeline.game_folders["data_dir"] / "clips_manifest.json").read_text())
+    clips = manifest["clips"]
+    assert [clip["type"] for clip in clips] == ["penalty", "goal", "penalty"]
+    assert clips[0]["player"]["name"] == "John Smith"
+    assert clips[2]["player"]["name"] == "Player Two"
+
+
+def test_all_penalties_mode_skips_major_review_workflow(tmp_path: Path):
+    import config
+    from highlight_extractor.pipeline import HighlightPipeline
+
+    class FakeVideoProcessor:
+        duration = 10_000.0
+
+    pipeline = HighlightPipeline(
+        config=config,
+        video_path=tmp_path / "dummy.mp4",
+        video_processor=FakeVideoProcessor(),
+    )
+    pipeline.reel_mode = "goals_with_all_penalties"
+    pipeline.box_score = {
+        "SiteKit": {
+            "Gamesummary": {
+                "penalties": [
+                    {
+                        "period": 2,
+                        "time": "14:45",
+                        "team": "Amherst Ramblers",
+                        "player": {"name": "Austin Walker", "number": 17},
+                        "infraction": "Fighting - Major",
+                        "minutes": 5,
+                    }
+                ]
+            }
+        }
+    }
+
+    pipeline._step6_5_process_major_penalties()
+
+    assert pipeline.paused_for_review is False
+
+
+def test_invalid_reel_mode_returns_structured_failure(tmp_path: Path):
+    import config
+    from highlight_extractor.pipeline import HighlightPipeline
+
+    pipeline = HighlightPipeline(config=config, video_path=tmp_path / "dummy.mp4", video_processor=object())
+
+    result = pipeline.execute(reel_mode="not-a-mode")
+
+    assert result.success is False
+    assert result.failed_reason == "pipeline_failed"
+    assert result.exception_type == "ValueError"
+    assert any("Unsupported reel mode" in error for error in result.errors)
