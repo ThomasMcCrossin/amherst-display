@@ -53,3 +53,13 @@ credentials/
 .env.*
 !.env.example
 .envfromCurlysBooks
+
+# Local credentials and camera imports
+*.pem
+*.key
+*.p12
+*.pfx
+*credentials*.json
+*service-account*.json
+/IMG*.heic
+/IMG*.HEIC

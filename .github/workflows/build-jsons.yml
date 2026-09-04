@@ -68,7 +68,7 @@ jobs:
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "actions@users.noreply.github.com"
-          git add -A
+          git add games.json next_games.json standings_mhl.json ccmha_games.json league_stats.json games/ rosters/ assets/headshots/ assets/standings/
           if git diff --cached --quiet; then
             echo "No changes"
           else
