@@ -9,7 +9,7 @@ imageio-ffmpeg==0.6.0
 # OCR for scoreboard time extraction
 pytesseract==0.3.10
 opencv-python==4.12.0.88
-Pillow==11.3.0
+Pillow==12.3.0
 
 # Optional OCR fallback (heavier dependency; only used if installed)
 # easyocr==1.7.2
