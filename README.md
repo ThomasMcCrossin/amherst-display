@@ -120,14 +120,14 @@ the nearest upcoming game, then the latest past game; provider array order and
 team-name matching do not choose the game. Scores, period, clock and explicit
 intermission are source observations, not inferred phases. Scheduled status `1`
 with `00:00` stays scheduled; status `4` stays final. Null values remain unknown.
-The clock is never locally decremented. Source status text is escaped, not HTML.
+The clock is never locally decremented. Source status text is escaped, not HTML. Each game retains its selected source/capture provenance. Camera capture, feed receipt and delayed-video timing are labelled separately; explicit fallback displays Backup source. Clock basis distinguishes remaining, elapsed and as-reported values. A supplied delay estimate is displayed as an estimate, never subtracted or used to synchronize the video. Collection current describes acquisition freshness, not guaranteed physical-clock accuracy.
 
 Observation age updates every second using source sample timestamps, including
 when the upstream returns the same JSON or stops responding. The DTO supplies
 `stale_after_seconds`. Stale/error observations are marked **Last known, not live**;
 transport failures preserve the last useful observation. Requests time out after
 10 seconds, and delayed/older responses cannot overwrite newer data. Empty and
-unavailable sources are explicit. Static data errors do not block live polling.
+unavailable sources are explicit. Static data errors do not block live polling. Empty cached schedules do not prove the season ended: those sections are labelled cached rather than Season Complete, independently of the live panel.
 Landscape keeps the slide layout; narrow screens wrap the live panel and allow
 scrolling the existing wide slide content.
 

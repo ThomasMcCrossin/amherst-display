@@ -410,7 +410,7 @@
 
     if (upcoming.length === 0) {
       if (dot) dot.style.background = 'var(--muted)';
-      if (text) text.textContent = 'Season complete';
+      if (text) text.textContent = 'Cached schedule';
       return;
     }
 
@@ -586,12 +586,12 @@
             <div class="seasonBrand">
               <div class="seasonLogo">${logoHtml({ slug: CONFIG.team, name: CONFIG.teamName })}</div>
               <div>
-                <div class="seasonTitle">Season Complete</div>
+                <div class="seasonTitle">Cached Team Summary</div>
                 <div class="seasonSub">${standingsRow ? esc(`${standingsRow.w || 0}-${standingsRow.l || 0}-${standingsRow.otl || 0} • ${standingsRow.pts || 0} PTS`) : '—'}</div>
               </div>
             </div>
             <div class="seasonMeta">
-              <div class="pill"><span class="ic">🏁</span><b>Finish</b> ${divRank ? `#${divRank} South` : '--'}</div>
+              <div class="pill"><span class="ic">🏁</span><b>Cached rank</b> ${divRank ? `#${divRank} South` : '--'}</div>
               ${standingsRow ? `<div class="pill"><span class="ic">🥅</span><b>GF/GA</b> ${standingsRow.gf || 0}/${standingsRow.ga || 0}</div>` : ''}
               ${standingsRow ? `<div class="pill"><span class="ic">➕</span><b>Diff</b> ${(standingsRow.diff > 0 ? '+' : '') + (standingsRow.diff || 0)}</div>` : ''}
             </div>
@@ -702,7 +702,7 @@
           </div>
         </div>
       `;
-    }).join('') || '<div class="row">No upcoming home games</div>';
+    }).join('') || '<div class="row">No upcoming home games in cached schedule</div>';
 
     // Subtitle
     if (nextSub) {
@@ -1653,7 +1653,7 @@
           ' — ' + score(game.home?.score) + ' ' + esc(text(game.home?.name)) + '</strong>' +
           '<span>' + esc(phase) + ' · ' + esc(scheduled) + ' Atlantic</span></div>' +
           '<div class="live-state"><strong>' + esc(text(game.status?.text)) + '</strong>' +
-          '<span>Period ' + esc(text(game.period_name ?? game.period)) + ' · Clock ' + esc(text(game.clock)) + esc(intermission) + '</span></div>' +
+          '<span>Period ' + esc(text(game.period_name ?? game.period)) + ' · Clock (' + esc(['remaining', 'elapsed'].includes(game.clock_semantics) ? game.clock_semantics : 'as reported') + ') ' + esc(text(game.clock)) + esc(intermission) + '</span></div>' +
           '<div class="live-observed">' + esc(source.name || 'Provider observation') + (backup ? ' · Backup source' : '') + ' · ' + esc(basis + delay) + '</div>' +
           '<div class="live-observed">' + (age === null ? 'Observation time unknown' :
             'Observed ' + esc(new Date(observed).toLocaleTimeString('en-CA', {timeZone: 'America/Halifax', hour12: false})) +
