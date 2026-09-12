@@ -1058,6 +1058,34 @@
       .faceCard .hs{ width: 54px; height: 54px; border-radius: 16px; }
       .hs{ width: 50px; height: 50px; border-radius: 14px; }
     }
+    /* Persistent source observations, independent of the rotating slides. */
+    .topbar,.ticker{ flex-shrink:0; }
+    .stage{ flex:1; min-height:0; height:auto; }
+    .live-game{ flex-shrink:0; margin:12px var(--pad) 0; padding:14px 20px;
+      border:1px solid var(--accent2); border-radius:var(--r); background:var(--surface);
+      display:grid; grid-template-columns:180px minmax(0,1.2fr) minmax(0,1fr); gap:6px 24px; }
+    .live-heading h2{ font-size:18px; text-transform:uppercase; }
+    .live-heading>strong{ color:var(--warn); font-size:14px; }
+    .live-game[data-health="current"] .live-heading>strong{ color:var(--good); }
+    .live-match,.live-state{ display:flex; flex-direction:column; gap:3px; min-width:0; overflow-wrap:anywhere; }
+    .live-match>strong{ font-size:24px; }
+    .live-state>strong{ font-size:20px; }
+    .live-match>span,.live-state>span,.live-empty,.live-observed{ color:var(--muted); font-size:15px; }
+    .live-observed{ grid-column:2 / -1; }
+    @media(max-width:700px){
+      :root{ --pad:12px; }
+      body{ overflow:auto; }
+      .app{ min-height:100%; height:auto; }
+      .topbar{ height:auto; flex-wrap:wrap; gap:12px; }
+      .brand{ min-width:0; }
+      .topbar-mid{ display:none; }
+      .live-game{ grid-template-columns:minmax(0,1fr); padding:14px; gap:10px; }
+      .live-observed{ grid-column:auto; }
+      .live-match>strong{ font-size:22px; }
+      .stage{ flex:none; height:650px; overflow:auto; }
+      .slides{ min-width:900px; }
+    }
+
   </style>
 </head>
 <body>
@@ -1090,6 +1118,7 @@
       </div>
     </header>
 
+    <section class="live-game" id="liveGame" aria-label="Ramblers live game observations"></section>
     <main class="stage">
       <div class="slides" id="slides">
         <div class="watermark" id="watermark" aria-hidden="true"></div>
