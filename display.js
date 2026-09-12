@@ -1633,7 +1633,7 @@
       const stale = !!game && (age === null || age > feed.stale_after_seconds || observed > Date.now() + 60000);
       const sourceOK = feed?.source_status === 'ok' && !failure;
       const health = !configured ? 'Not configured' : failure ||
-        (!feed ? 'Connecting' : !sourceOK ? 'Source ' + feed.source_status : stale ? 'Stale source' : !game ? 'No Amherst game' : 'Source current');
+        (!feed ? 'Connecting' : !sourceOK ? 'Source ' + feed.source_status : stale ? 'Stale source' : !game ? 'No Amherst game' : 'Collection current');
       panel.dataset.health = sourceOK && !stale && game ? 'current' : 'unavailable';
       let detail = '<div class="live-empty">Static schedule and stats remain available.</div>';
       if (game) {
@@ -1643,11 +1643,18 @@
           game.intermission === true ? 'Intermission' : 'Current game';
         const intermission = code === '1' || code === '4' ? '' :
           ' · Intermission: ' + (game.intermission === true ? 'Yes' : game.intermission === false ? 'No' : 'Unknown');
+        const source = game.source || feed.source || {};
+        const timing = source.timing || {};
+        const backup = feed.selection?.primary_source_instance && source.instance_key && source.instance_key !== feed.selection.primary_source_instance;
+        const basis = {camera_capture: 'Camera capture time', media_pts: 'Video timeline; delay not corrected', collector_received: 'Feed receipt time; upstream delay unknown', operator_reported: 'Operator timing', source_reported: 'Provider timestamp'}[timing.time_basis] || 'Observation timing';
+        const delay = Number.isFinite(timing.delay_estimate_seconds) ? ' · Delay estimate ' + timing.delay_estimate_seconds + 's (' + text(timing.delay_basis) + ')' : '';
+        const scheduled = Number.isFinite(timestamp(game.scheduled_start_at)) ? new Date(game.scheduled_start_at).toLocaleString('en-CA', {timeZone: 'America/Halifax', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit'}) : 'Time unknown';
         detail = '<div class="live-match"><strong>' + esc(text(game.away?.name)) + ' ' + score(game.away?.score) +
           ' — ' + score(game.home?.score) + ' ' + esc(text(game.home?.name)) + '</strong>' +
-          '<span>' + esc(phase) + ' · ' + esc(fmtDateTime(game.scheduled_start_at)) + '</span></div>' +
+          '<span>' + esc(phase) + ' · ' + esc(scheduled) + ' Atlantic</span></div>' +
           '<div class="live-state"><strong>' + esc(text(game.status?.text)) + '</strong>' +
           '<span>Period ' + esc(text(game.period_name ?? game.period)) + ' · Clock ' + esc(text(game.clock)) + esc(intermission) + '</span></div>' +
+          '<div class="live-observed">' + esc(source.name || 'Provider observation') + (backup ? ' · Backup source' : '') + ' · ' + esc(basis + delay) + '</div>' +
           '<div class="live-observed">' + (age === null ? 'Observation time unknown' :
             'Observed ' + esc(new Date(observed).toLocaleTimeString('en-CA', {timeZone: 'America/Halifax', hour12: false})) +
             ' Atlantic · ' + age + 's ago') + ((!sourceOK || stale) ? ' · Last known, not live' : '') + '</div>';
