@@ -1640,7 +1640,7 @@
         const code = String(game.status?.code);
         // Only explicit source states; zero clock is never evidence of intermission.
         const phase = code === '4' ? 'Final' : code === '1' ? 'Scheduled' :
-          game.intermission === true ? 'Intermission' : 'Current game';
+          game.intermission === true ? 'Intermission' : 'Game observation';
         const intermission = code === '1' || code === '4' ? '' :
           ' · Intermission: ' + (game.intermission === true ? 'Yes' : game.intermission === false ? 'No' : 'Unknown');
         const source = game.source || feed.source || {};
