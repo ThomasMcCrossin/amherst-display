@@ -33,8 +33,8 @@ A modern, automated sports display system for showcasing Amherst Ramblers (MHL) 
 
 ### ⚙️ **Auto-Updating Data**
 - Automated daily updates via GitHub Actions (3:30 AM Atlantic)
-- Display refreshes every 10 minutes
-- All data served as static JSON files
+- Static schedule/stats refresh independently every 5 minutes
+- Optional Canteen live-game observations refresh every 15 seconds (see below)
 
 ## Data Sources
 
@@ -92,6 +92,49 @@ A modern, automated sports display system for showcasing Amherst Ramblers (MHL) 
    npx http-server -p 8080
    # Visit: http://localhost:8080
    ```
+
+## Live game observations (opt-in)
+
+The persistent Ramblers game panel consumes the read-only `canteen.live-game.v1`
+DTO from Canteen Ops, independently of the daily JSON build and rotating slides.
+It never polls HockeyTech. No endpoint is enabled by default: the panel says
+`Not configured` and the existing schedule, stats, slides and ticker still work.
+
+Configure a **public, credential-free DTO endpoint** explicitly:
+
+```text
+http://localhost:8080/?liveFeedUrl=%2Flive-game.json
+```
+
+Alternatively set `window.AMHERST_DISPLAY_CONFIG = { liveFeedUrl: "/live-game.json" };`
+in an operator-owned script before `display.js`. A `liveFeedUrl` query parameter
+overrides that setting; `?liveFeedUrl=` disables it. Use HTTP(S), not a file URL.
+Cross-origin hosting requires endpoint CORS permission; HTTPS boards require an
+HTTPS endpoint. Do not put export tokens, passwords or provider URLs in this URL,
+repository, HTML or browser configuration. Publish/proxy only the safe DTO through
+an operator-approved read-only boundary. The browser omits credentials and referrers.
+
+The panel chooses Amherst by MHL team ID `1`, qualifying game identity with client,
+season and game IDs. Recent games scheduled within 12 hours take precedence, then
+the nearest upcoming game, then the latest past game; provider array order and
+team-name matching do not choose the game. Scores, period, clock and explicit
+intermission are source observations, not inferred phases. Scheduled status `1`
+with `00:00` stays scheduled; status `4` stays final. Null values remain unknown.
+The clock is never locally decremented. Source status text is escaped, not HTML.
+
+Observation age updates every second using source sample timestamps, including
+when the upstream returns the same JSON or stops responding. The DTO supplies
+`stale_after_seconds`. Stale/error observations are marked **Last known, not live**;
+transport failures preserve the last useful observation. Requests time out after
+10 seconds, and delayed/older responses cannot overwrite newer data. Empty and
+unavailable sources are explicit. Static data errors do not block live polling.
+Landscape keeps the slide layout; narrow screens wrap the live panel and allow
+scrolling the existing wide slide content.
+
+Deployment is a separate operator-approved cutover. These assets do not configure
+the endpoint host, enable a collector, run GitHub Actions, update a Pi, change
+`file:///opt/canteen-kiosk/content/index.html`, or control mpv/HLS/video.
+Do not replace the current Pi board or stream merely to enable this feature.
 
 ## Highlight Pipeline
 

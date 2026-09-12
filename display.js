@@ -27,6 +27,9 @@
     defaultSlideTime: 18000,
     // Refresh interval
     refreshInterval: 5 * 60 * 1000, // 5 min
+    // Public Canteen DTO endpoint only; an empty query value disables it.
+    liveFeedUrl: window.AMHERST_DISPLAY_CONFIG?.liveFeedUrl || '',
+    liveRefreshInterval: 15000,
   };
 
   // ===========================================================================
@@ -1585,6 +1588,128 @@
     }
   }
 
+  // Live observations are independent of the daily/static slide data.
+  function startLiveGame() {
+    const panel = document.getElementById('liveGame');
+    if (!panel) return;
+    const query = new URLSearchParams(window.location.search);
+    const configured = query.has('liveFeedUrl') ? query.get('liveFeedUrl') : CONFIG.liveFeedUrl;
+    let endpoint;
+    let feed = null;
+    let failure = '';
+    let requestId = 0;
+    let latestGenerated = -Infinity;
+    const timestamp = value => typeof value === 'string' && /(?:Z|[+-]\d{2}:\d{2})$/.test(value)
+      ? Date.parse(value) : NaN;
+    const text = value => value == null || value === '' ? 'Unknown' : String(value);
+    const score = value => Number.isInteger(value) && value >= 0 ? value : '—';
+    const identity = game => game.client_code + ':' + game.season_id + ':' + game.game_id;
+
+    function selectGame(games) {
+      const now = Date.now();
+      const candidates = games.filter(game => game && game.client_code === 'mhl' &&
+        game.season_id && game.game_id &&
+        (String(game.home?.id) === '1' || String(game.away?.id) === '1') &&
+        Number.isFinite(timestamp(game.scheduled_start_at)));
+      // Today's active/recent game before the next scheduled game; old rows cannot
+      // win just because the provider returned them first. IDs break date ties.
+      function rank(game) {
+        const start = timestamp(game.scheduled_start_at);
+        if (start <= now && start >= now - 12 * 3600000) return 0;
+        if (start >= now) return 1;
+        return 2;
+      }
+      candidates.sort((a, b) => rank(a) - rank(b) ||
+        (rank(a) === 1 ? timestamp(a.scheduled_start_at) - timestamp(b.scheduled_start_at)
+          : timestamp(b.scheduled_start_at) - timestamp(a.scheduled_start_at)) ||
+        identity(a).localeCompare(identity(b)));
+      return candidates[0];
+    }
+
+    function render() {
+      const game = feed && selectGame(feed.games);
+      const observed = game ? Math.min(timestamp(game.sampled_at), timestamp(feed.sampled_at)) : NaN;
+      const age = Number.isFinite(observed) ? Math.max(0, Math.floor((Date.now() - observed) / 1000)) : null;
+      const stale = !!game && (age === null || age > feed.stale_after_seconds || observed > Date.now() + 60000);
+      const sourceOK = feed?.source_status === 'ok' && !failure;
+      const health = !configured ? 'Not configured' : failure ||
+        (!feed ? 'Connecting' : !sourceOK ? 'Source ' + feed.source_status : stale ? 'Stale source' : !game ? 'No Amherst game' : 'Source current');
+      panel.dataset.health = sourceOK && !stale && game ? 'current' : 'unavailable';
+      let detail = '<div class="live-empty">Static schedule and stats remain available.</div>';
+      if (game) {
+        const code = String(game.status?.code);
+        // Only explicit source states; zero clock is never evidence of intermission.
+        const phase = code === '4' ? 'Final' : code === '1' ? 'Scheduled' :
+          game.intermission === true ? 'Intermission' : 'Current game';
+        const intermission = code === '1' || code === '4' ? '' :
+          ' · Intermission: ' + (game.intermission === true ? 'Yes' : game.intermission === false ? 'No' : 'Unknown');
+        detail = '<div class="live-match"><strong>' + esc(text(game.away?.name)) + ' ' + score(game.away?.score) +
+          ' — ' + score(game.home?.score) + ' ' + esc(text(game.home?.name)) + '</strong>' +
+          '<span>' + esc(phase) + ' · ' + esc(fmtDateTime(game.scheduled_start_at)) + '</span></div>' +
+          '<div class="live-state"><strong>' + esc(text(game.status?.text)) + '</strong>' +
+          '<span>Period ' + esc(text(game.period_name ?? game.period)) + ' · Clock ' + esc(text(game.clock)) + esc(intermission) + '</span></div>' +
+          '<div class="live-observed">' + (age === null ? 'Observation time unknown' :
+            'Observed ' + esc(new Date(observed).toLocaleTimeString('en-CA', {timeZone: 'America/Halifax', hour12: false})) +
+            ' Atlantic · ' + age + 's ago') + ((!sourceOK || stale) ? ' · Last known, not live' : '') + '</div>';
+      }
+      panel.innerHTML = '<div class="live-heading"><h2>Ramblers game</h2><strong>' + esc(health) + '</strong></div>' + detail;
+    }
+
+    render();
+    if (!configured) return;
+    try {
+      endpoint = new URL(configured, window.location.href);
+      if (!['http:', 'https:'].includes(endpoint.protocol) || endpoint.username || endpoint.password ||
+          /(^|\.)hockeytech\.com$/i.test(endpoint.hostname)) throw new Error();
+    } catch {
+      failure = 'Invalid live feed configuration';
+      render();
+      return;
+    }
+    // Age last-good observations even if requests hang or the upstream JSON stops changing.
+    setInterval(render, 1000);
+    async function refresh() {
+      const id = ++requestId;
+      const controller = new AbortController();
+      const timeout = setTimeout(() => {
+        if (id !== requestId) return;
+        ++requestId; // Even a fetch implementation ignoring abort cannot apply its late result.
+        controller.abort();
+        failure = 'Live feed timeout';
+        render();
+      }, 10000);
+      try {
+        const response = await fetch(endpoint.href, {cache: 'no-store', credentials: 'omit', referrerPolicy: 'no-referrer', signal: controller.signal});
+        if (!response.ok) throw new Error();
+        const next = await response.json();
+        if (id !== requestId) return;
+        const generated = timestamp(next.generated_at);
+        if (next.schema_version !== 'canteen.live-game.v1' || !Array.isArray(next.games) ||
+            !['ok', 'error', 'empty', 'unavailable'].includes(next.source_status) ||
+            !Number.isFinite(generated) || generated > Date.now() + 60000 ||
+            !Number.isInteger(next.stale_after_seconds) || next.stale_after_seconds <= 0) throw new Error();
+        if (generated < latestGenerated || (feed?.sampled_at && next.sampled_at &&
+            timestamp(next.sampled_at) < timestamp(feed.sampled_at))) {
+          failure = 'Out-of-order live feed';
+        } else {
+          latestGenerated = generated;
+          // Empty/error attempts must not erase the last useful score observation.
+          if (next.source_status === 'ok') feed = next;
+          else feed = {...next, games: feed?.games || next.games, sampled_at: feed?.sampled_at || next.sampled_at};
+          failure = '';
+        }
+      } catch {
+        if (id === requestId) failure = 'Live feed unavailable';
+      } finally {
+        clearTimeout(timeout);
+        render();
+      }
+    }
+    refresh();
+    setInterval(refresh, CONFIG.liveRefreshInterval);
+  }
+
+
   // ===========================================================================
   // INIT
   // ===========================================================================
@@ -1597,6 +1722,7 @@
     setWatermark();
     updateClock();
     setInterval(updateClock, 1000);
+    startLiveGame();
 
     // Load data
     await loadAllData();
