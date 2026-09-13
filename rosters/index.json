@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-03-25T07:35:09.036Z",
-  "season": "2024-25",
-  "season_id": 41,
+  "generated_at": "2026-09-13T01:56:43.196Z",
+  "season": "2026-27",
+  "season_id": 46,
   "api_source": "HockeyTech",
   "league": "MHL",
   "team_count": 12,
@@ -11,7 +11,7 @@
       "team_name": "Amherst-Ramblers",
       "league": "MHL",
       "team_id": 1,
-      "player_count": 41,
+      "player_count": 23,
       "file": "rosters/amherst-ramblers.json"
     },
     {
@@ -19,7 +19,7 @@
       "team_name": "Edmundston-Blizzard",
       "league": "MHL",
       "team_id": 2,
-      "player_count": 35,
+      "player_count": 20,
       "file": "rosters/edmundston-blizzard.json"
     },
     {
@@ -27,7 +27,7 @@
       "team_name": "Truro-Bearcats",
       "league": "MHL",
       "team_id": 3,
-      "player_count": 40,
+      "player_count": 27,
       "file": "rosters/truro-bearcats.json"
     },
     {
@@ -35,7 +35,7 @@
       "team_name": "Valley-Wildcats",
       "league": "MHL",
       "team_id": 4,
-      "player_count": 53,
+      "player_count": 23,
       "file": "rosters/valley-wildcats.json"
     },
     {
@@ -43,7 +43,7 @@
       "team_name": "Yarmouth-Mariners",
       "league": "MHL",
       "team_id": 5,
-      "player_count": 39,
+      "player_count": 23,
       "file": "rosters/yarmouth-mariners.json"
     },
     {
@@ -51,7 +51,7 @@
       "team_name": "West-Kent-Steamers",
       "league": "MHL",
       "team_id": 6,
-      "player_count": 39,
+      "player_count": 23,
       "file": "rosters/west-kent-steamers.json"
     },
     {
@@ -59,7 +59,7 @@
       "team_name": "Pictou-County-Crushers",
       "league": "MHL",
       "team_id": 7,
-      "player_count": 36,
+      "player_count": 22,
       "file": "rosters/pictou-county-crushers.json"
     },
     {
@@ -67,7 +67,7 @@
       "team_name": "Campbellton-Tigers",
       "league": "MHL",
       "team_id": 8,
-      "player_count": 40,
+      "player_count": 24,
       "file": "rosters/campbellton-tigers.json"
     },
     {
@@ -75,7 +75,7 @@
       "team_name": "Miramichi-Timberwolves",
       "league": "MHL",
       "team_id": 9,
-      "player_count": 44,
+      "player_count": 24,
       "file": "rosters/miramichi-timberwolves.json"
     },
     {
@@ -83,7 +83,7 @@
       "team_name": "Summerside-Capitals",
       "league": "MHL",
       "team_id": 10,
-      "player_count": 43,
+      "player_count": 21,
       "file": "rosters/summerside-capitals.json"
     },
     {
@@ -91,7 +91,7 @@
       "team_name": "Grand-Falls-Rapids",
       "league": "MHL",
       "team_id": 12,
-      "player_count": 33,
+      "player_count": 23,
       "file": "rosters/grand-falls-rapids.json"
     },
     {
@@ -99,7 +99,7 @@
       "team_name": "Chaleur-Lightning",
       "league": "MHL",
       "team_id": 21,
-      "player_count": 47,
+      "player_count": 23,
       "file": "rosters/chaleur-lightning.json"
     }
   ]
