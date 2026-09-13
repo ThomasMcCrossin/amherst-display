@@ -1,0 +1,18 @@
+{
+  "client_code": "mhl",
+  "league_id": "1",
+  "team_id": "1",
+  "site_id": "3",
+  "base_feed_url": "https://lscluster.hockeytech.com/feed/index.php",
+  "season_ids": [
+    "46"
+  ],
+  "season_label": "2026-27",
+  "monitoring": {
+    "active_seconds": 30,
+    "before_minutes": 5,
+    "after_hours": 8,
+    "plan_refresh_seconds": 3600,
+    "plan_max_age_seconds": 172800
+  }
+}

@@ -40,11 +40,11 @@ A modern, automated sports display system for showcasing Amherst Ramblers (MHL) 
 
 | Data Type | Source | Update Frequency |
 |-----------|--------|------------------|
-| **Ramblers Schedule** | HockeyTech ICS Calendar | Daily |
+| **Ramblers Schedule / monitor plan** | HockeyTech modulekit schedule (same acquisition) | Daily |
 | **MHL Rosters** | HockeyTech API | Daily |
 | **Player Stats** | HockeyTech API | Daily |
 | **Game Summaries** | HockeyTech API | Daily |
-| **MHL Standings** | MHL Website (Puppeteer) | Daily |
+| **MHL Standings** | HockeyTech statviewfeed (snapshot rendered locally) | Daily |
 | **Minor Hockey** | GrayJay Leagues API | Daily |
 
 ## Quick Start
@@ -186,16 +186,16 @@ Notes:
 
 ### Required Secret
 
-To ensure fresh schedule data, set the following repository secret:
+The required central metadata credential is passed as an environment input; do not put it in config or logs:
 
 1. Go to: **Settings → Secrets and variables → Actions → New repository secret**
-2. Name: `RAMBLERS_ICS_URL`
-3. Value: Your HockeyTech calendar ICS URL (e.g., `https://lscluster.hockeytech.com/...`)
+2. Name: `HOCKEYTECH_API_KEY`
+3. Value: The MHL public application key. The workflow binds this secret to the Node build.
 
 ### Workflow Schedule
 
 The automated build runs:
-- **Daily at 6:30 AM UTC** (3:30 AM Atlantic / 2:30 AM EDT)
+- **Daily at 6:30 AM UTC** (03:30 ADT / 02:30 AST)
 - **On manual trigger** (Actions tab → "Build display JSONs" → Run workflow)
 - **On code changes** to scripts or data files (for testing)
 
@@ -225,8 +225,8 @@ amherst-display/
 │   └── bg/                    # Background images
 ├── scripts/
 │   ├── build_all.mjs          # Main orchestrator
-│   ├── schedules.mjs          # ICS parsing
-│   ├── standings.mjs          # MHL standings scraping
+│   ├── schedules.mjs          # Shared schedule → display events and monitor plan
+│   ├── standings.mjs          # Current-season HockeyTech standings
 │   ├── rosters.mjs            # HockeyTech roster fetching
 │   ├── games.mjs              # Game summaries & box scores
 │   └── ccmha.mjs              # GrayJay API integration
@@ -238,9 +238,8 @@ amherst-display/
 
 ```
 Data Sources
-    ├── HockeyTech ICS (Ramblers schedule)
-    ├── HockeyTech API (rosters, stats, game summaries)
-    ├── MHL Website (standings)
+    ├── HockeyTech modulekit (one schedule acquisition; seasons and rosters)
+    ├── HockeyTech statviewfeed (stats, summaries, standings)
     ├── GrayJay API (minor hockey)
     └── teams.json (team metadata)
          ↓
@@ -258,9 +257,36 @@ Yodeck Display (index.html fetches JSON every 10 min)
 
 Set `HOCKEYTECH_API_KEY` before running the HockeyTech-backed scripts locally or in CI.
 
-Optional overrides:
-- `HOCKEYTECH_SEASON_IDS=41,44` to merge the 2025-26 regular season plus playoff schedule into `games/amherst-ramblers.json`
-- `HOCKEYTECH_SEASON_LABEL=2025-26` to override the season label written into that file
+The only source configuration is `config/hockeytech.json`: MHL client `mhl`, league/team `1`,
+site `3`, season `46` (`2026-27`), endpoint and worker monitoring policy. There are no per-script
+season overrides or ICS dependencies. Update this config intentionally for season rollover;
+the season catalog must agree with the configured identity and label before publication.
+
+The central build uses one cached modulekit schedule for `games.json`, `next_games.json`,
+completed-game acquisition and `monitor_plan.json`. The plan is `amherst.monitor-plan.v1`,
+with an aware successful-acquisition timestamp, exact source season/game/team IDs, explicit
+Final evidence, and every source row accounted for. Unknown/TBD starts are null and
+non-monitorable with a reason; postponed/cancelled games are also non-monitorable.
+Its source block includes only the nonsecret endpoint/request fields, row counts and SHA-256
+hashes of the schedule row arrays, never the key or raw API Parameters.
+
+Required MHL stages and the current-season PNG snapshot run in a disposable local staging
+directory. A missing key, wrong season, missing/invalid/empty schedule, incomplete roster or
+standings, summary/stats error, or snapshot failure exits nonzero without publishing staged
+outputs. Actions uses bash pipefail through tee, uploads the log even on failure, and commits
+the JSONs, plan, build receipt and PNG together only after success. `metadata_build.json`
+records row coverage, snapshot success and explicit optional warnings. Optional GrayJay and
+box-score enrichment failures retain prior data (box scores matched by exact game ID).
+Existing archive files are not rewritten. Image-download failures retain existing local files.
+
+The public plan is published at the repository root alongside the display metadata:
+`https://raw.githubusercontent.com/ThomasMcCrossin/amherst-display/main/monitor_plan.json`.
+The [game-only worker](docs/live-game-worker.md) consumes this plan; it does not independently discover daily schedules.
+
+Node 22.12 or newer is required by the pinned Puppeteer dependency (Actions uses Node 22).
+Run the scoped acquisition regressions with `node --test tests/central_metadata.test.mjs`.
+For local builds, export `HOCKEYTECH_API_KEY`, run `npm ci` and
+`npx puppeteer browsers install chrome`, then `npm run build` (including the PNG gate).
 
 ## Key Design Decisions
 
@@ -300,10 +326,10 @@ The system updates once per day (3:30 AM) to avoid:
 
 ### Display Shows "No upcoming games"
 
-**Cause:** Schedule data is outdated or ICS file has old dates.
+**Cause:** The latest required central acquisition failed, so prior published metadata was retained.
 
 **Fix:**
-1. Check that `RAMBLERS_ICS_URL` secret is set correctly
+1. Check the `HOCKEYTECH_API_KEY` binding and `config/hockeytech.json` season against the build log
 2. Manually trigger GitHub Actions workflow
 3. Verify `games.json` has future dates: `cat games.json | grep start`
 
@@ -323,7 +349,7 @@ The system updates once per day (3:30 AM) to avoid:
 **Fix:**
 1. Check **Actions** tab → Latest run → View logs
 2. Look for errors in standings.mjs or rosters.mjs steps
-3. Update selectors in `scripts/standings.mjs` if website changed
+3. Fix the reported API schema/coverage or snapshot error; do not publish empty fallback files
 
 ### Player Headshots Not Loading
 
@@ -389,12 +415,14 @@ Logos and team names are property of their respective organizations.
 
 ## Support
 
-For issues, bugs, or feature requests:
 - Open an issue on GitHub
 - Check the Actions tab for build logs
 - Review recent commits for changes
 
 ## Changelog
+
+### September 2026 - Central MHL Acquisition Repair
+- Centralized season/source configuration, replaced stale ICS acquisition with a complete API-derived monitor plan, and gated publication on required metadata and snapshot success.
 
 ### November 2025 - Enhanced Display
 - ✨ Added MHL standings table with Amherst highlighted

@@ -1,0 +1,503 @@
+{
+  "schema_version": "amherst.monitor-plan.v1",
+  "generated_at": "2026-09-13T01:56:37.049Z",
+  "complete": true,
+  "client_code": "mhl",
+  "league_id": "1",
+  "team_id": "1",
+  "season_ids": [
+    "46"
+  ],
+  "monitoring": {
+    "active_seconds": 30,
+    "before_minutes": 5,
+    "after_hours": 8,
+    "plan_refresh_seconds": 3600,
+    "plan_max_age_seconds": 172800
+  },
+  "games": [
+    {
+      "game_id": "4992",
+      "season_id": "46",
+      "starts_at": "2026-09-10T19:00:00-03:00",
+      "home_team_id": "7",
+      "away_team_id": "1",
+      "final": true,
+      "monitorable": true
+    },
+    {
+      "game_id": "4996",
+      "season_id": "46",
+      "starts_at": "2026-09-12T19:00:00-03:00",
+      "home_team_id": "1",
+      "away_team_id": "12",
+      "final": true,
+      "monitorable": true
+    },
+    {
+      "game_id": "5002",
+      "season_id": "46",
+      "starts_at": "2026-09-16T19:00:00-03:00",
+      "home_team_id": "4",
+      "away_team_id": "1",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5008",
+      "season_id": "46",
+      "starts_at": "2026-09-19T19:00:00-03:00",
+      "home_team_id": "12",
+      "away_team_id": "1",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5011",
+      "season_id": "46",
+      "starts_at": "2026-09-20T15:00:00-03:00",
+      "home_team_id": "2",
+      "away_team_id": "1",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5015",
+      "season_id": "46",
+      "starts_at": "2026-09-24T19:00:00-03:00",
+      "home_team_id": "6",
+      "away_team_id": "1",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5019",
+      "season_id": "46",
+      "starts_at": "2026-09-26T19:00:00-03:00",
+      "home_team_id": "1",
+      "away_team_id": "9",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5033",
+      "season_id": "46",
+      "starts_at": "2026-10-03T19:00:00-03:00",
+      "home_team_id": "1",
+      "away_team_id": "7",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5042",
+      "season_id": "46",
+      "starts_at": "2026-10-09T19:00:00-03:00",
+      "home_team_id": "1",
+      "away_team_id": "21",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5045",
+      "season_id": "46",
+      "starts_at": "2026-10-10T19:00:00-03:00",
+      "home_team_id": "10",
+      "away_team_id": "1",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5051",
+      "season_id": "46",
+      "starts_at": "2026-10-12T14:00:00-03:00",
+      "home_team_id": "1",
+      "away_team_id": "10",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5054",
+      "season_id": "46",
+      "starts_at": "2026-10-15T19:00:00-03:00",
+      "home_team_id": "7",
+      "away_team_id": "1",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5057",
+      "season_id": "46",
+      "starts_at": "2026-10-17T19:00:00-03:00",
+      "home_team_id": "1",
+      "away_team_id": "8",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5064",
+      "season_id": "46",
+      "starts_at": "2026-10-18T16:00:00-03:00",
+      "home_team_id": "5",
+      "away_team_id": "1",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5067",
+      "season_id": "46",
+      "starts_at": "2026-10-23T19:00:00-03:00",
+      "home_team_id": "8",
+      "away_team_id": "1",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5072",
+      "season_id": "46",
+      "starts_at": "2026-10-24T19:00:00-03:00",
+      "home_team_id": "21",
+      "away_team_id": "1",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5081",
+      "season_id": "46",
+      "starts_at": "2026-10-30T19:00:00-03:00",
+      "home_team_id": "1",
+      "away_team_id": "3",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5098",
+      "season_id": "46",
+      "starts_at": "2026-11-07T19:00:00-04:00",
+      "home_team_id": "1",
+      "away_team_id": "3",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5104",
+      "season_id": "46",
+      "starts_at": "2026-11-11T14:00:00-04:00",
+      "home_team_id": "1",
+      "away_team_id": "5",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5110",
+      "season_id": "46",
+      "starts_at": "2026-11-14T19:00:00-04:00",
+      "home_team_id": "1",
+      "away_team_id": "7",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5122",
+      "season_id": "46",
+      "starts_at": "2026-11-21T19:00:00-04:00",
+      "home_team_id": "1",
+      "away_team_id": "4",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5128",
+      "season_id": "46",
+      "starts_at": "2026-11-22T15:00:00-04:00",
+      "home_team_id": "4",
+      "away_team_id": "1",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5137",
+      "season_id": "46",
+      "starts_at": "2026-11-28T19:00:00-04:00",
+      "home_team_id": "3",
+      "away_team_id": "1",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5146",
+      "season_id": "46",
+      "starts_at": "2026-12-04T19:00:00-04:00",
+      "home_team_id": "5",
+      "away_team_id": "1",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5148",
+      "season_id": "46",
+      "starts_at": "2026-12-05T19:00:00-04:00",
+      "home_team_id": "1",
+      "away_team_id": "4",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5155",
+      "season_id": "46",
+      "starts_at": "2026-12-10T19:00:00-04:00",
+      "home_team_id": "7",
+      "away_team_id": "1",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5163",
+      "season_id": "46",
+      "starts_at": "2026-12-12T19:00:00-04:00",
+      "home_team_id": "3",
+      "away_team_id": "1",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5167",
+      "season_id": "46",
+      "starts_at": "2026-12-15T11:00:00-04:00",
+      "home_team_id": "10",
+      "away_team_id": "1",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5171",
+      "season_id": "46",
+      "starts_at": "2026-12-18T19:00:00-04:00",
+      "home_team_id": "1",
+      "away_team_id": "5",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5176",
+      "season_id": "46",
+      "starts_at": "2026-12-19T19:00:00-04:00",
+      "home_team_id": "4",
+      "away_team_id": "1",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5179",
+      "season_id": "46",
+      "starts_at": "2026-12-31T14:00:00-04:00",
+      "home_team_id": "1",
+      "away_team_id": "10",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5180",
+      "season_id": "46",
+      "starts_at": "2027-01-02T19:00:00-04:00",
+      "home_team_id": "1",
+      "away_team_id": "5",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5193",
+      "season_id": "46",
+      "starts_at": "2027-01-08T19:00:00-04:00",
+      "home_team_id": "3",
+      "away_team_id": "1",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5195",
+      "season_id": "46",
+      "starts_at": "2027-01-09T19:00:00-04:00",
+      "home_team_id": "1",
+      "away_team_id": "6",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5201",
+      "season_id": "46",
+      "starts_at": "2027-01-15T19:00:00-04:00",
+      "home_team_id": "1",
+      "away_team_id": "4",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5209",
+      "season_id": "46",
+      "starts_at": "2027-01-16T19:00:00-04:00",
+      "home_team_id": "5",
+      "away_team_id": "1",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5215",
+      "season_id": "46",
+      "starts_at": "2027-01-22T19:00:00-04:00",
+      "home_team_id": "1",
+      "away_team_id": "2",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5219",
+      "season_id": "46",
+      "starts_at": "2027-01-23T19:00:00-04:00",
+      "home_team_id": "1",
+      "away_team_id": "7",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5227",
+      "season_id": "46",
+      "starts_at": "2027-01-29T19:00:00-04:00",
+      "home_team_id": "1",
+      "away_team_id": "10",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5234",
+      "season_id": "46",
+      "starts_at": "2027-01-30T19:00:00-04:00",
+      "home_team_id": "10",
+      "away_team_id": "1",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5238",
+      "season_id": "46",
+      "starts_at": "2027-02-04T19:00:00-04:00",
+      "home_team_id": "10",
+      "away_team_id": "1",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5241",
+      "season_id": "46",
+      "starts_at": "2027-02-05T19:00:00-04:00",
+      "home_team_id": "1",
+      "away_team_id": "4",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5253",
+      "season_id": "46",
+      "starts_at": "2027-02-12T19:00:00-04:00",
+      "home_team_id": "1",
+      "away_team_id": "7",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5255",
+      "season_id": "46",
+      "starts_at": "2027-02-13T19:00:00-04:00",
+      "home_team_id": "1",
+      "away_team_id": "5",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5263",
+      "season_id": "46",
+      "starts_at": "2027-02-15T14:00:00-04:00",
+      "home_team_id": "1",
+      "away_team_id": "3",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5265",
+      "season_id": "46",
+      "starts_at": "2027-02-17T19:00:00-04:00",
+      "home_team_id": "3",
+      "away_team_id": "1",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5273",
+      "season_id": "46",
+      "starts_at": "2027-02-20T19:00:00-04:00",
+      "home_team_id": "1",
+      "away_team_id": "3",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5279",
+      "season_id": "46",
+      "starts_at": "2027-02-21T14:00:00-04:00",
+      "home_team_id": "9",
+      "away_team_id": "1",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5281",
+      "season_id": "46",
+      "starts_at": "2027-02-25T19:00:00-04:00",
+      "home_team_id": "7",
+      "away_team_id": "1",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5287",
+      "season_id": "46",
+      "starts_at": "2027-02-26T19:00:00-04:00",
+      "home_team_id": "5",
+      "away_team_id": "1",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5296",
+      "season_id": "46",
+      "starts_at": "2027-03-05T19:00:00-04:00",
+      "home_team_id": "4",
+      "away_team_id": "1",
+      "final": false,
+      "monitorable": true
+    },
+    {
+      "game_id": "5297",
+      "season_id": "46",
+      "starts_at": "2027-03-06T19:00:00-04:00",
+      "home_team_id": "1",
+      "away_team_id": "10",
+      "final": false,
+      "monitorable": true
+    }
+  ],
+  "source": {
+    "endpoint": "https://lscluster.hockeytech.com/feed/index.php",
+    "client_code": "mhl",
+    "league_id": "1",
+    "requests": [
+      {
+        "feed": "modulekit",
+        "view": "schedule",
+        "season_id": "46",
+        "team_id": "1",
+        "row_count": 52,
+        "sha256": "df87cc73d43ad16d849eaaba9a648bef958c640741878425caa13321cb5ca66e"
+      }
+    ]
+  }
+}

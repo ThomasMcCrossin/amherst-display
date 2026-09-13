@@ -18,17 +18,10 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT_DIR = path.resolve(__dirname, '..');
+const ROOT_DIR = process.env.METADATA_OUTPUT_DIR || path.resolve(__dirname, '..');
 
-// HockeyTech statviewfeed API (different from modulekit!)
-const API_KEY = (process.env.HOCKEYTECH_API_KEY || '').trim();
-const CLIENT_CODE = 'mhl';
-const SITE_ID = 2;
-const SEASON_ID = 41; // 2024-25
-
-if (!API_KEY) {
-  throw new Error('HOCKEYTECH_API_KEY is required');
-}
+import { config, statView, statSections } from './hockeytech.mjs';
+const SEASON_ID = Number(config.season_ids[0]);
 
 const nowISO = () => new Date().toISOString();
 
@@ -36,33 +29,9 @@ const nowISO = () => new Date().toISOString();
  * Fetch from statviewfeed API
  */
 async function fetchStatView(view, params = {}) {
-  const url = new URL('https://lscluster.hockeytech.com/feed/index.php');
-  url.searchParams.set('feed', 'statviewfeed');
-  url.searchParams.set('view', view);
-  url.searchParams.set('key', API_KEY);
-  url.searchParams.set('client_code', CLIENT_CODE);
-  url.searchParams.set('site_id', SITE_ID);
-  url.searchParams.set('season', SEASON_ID);
-
-  for (const [key, value] of Object.entries(params)) {
-    url.searchParams.set(key, value);
-  }
-
-  console.log(`[league] Fetching ${view}...`);
-
-  const response = await fetch(url.toString());
-  if (!response.ok) {
-    throw new Error(`HTTP ${response.status}`);
-  }
-
-  let text = await response.text();
-
-  // HockeyTech wraps JSONP responses in parentheses
-  if (text.startsWith('(') && text.endsWith(')')) {
-    text = text.slice(1, -1);
-  }
-
-  return JSON.parse(text);
+  const data = await statView(view, params);
+  statSections(data);
+  return data;
 }
 
 /**
@@ -75,7 +44,7 @@ async function fetchLeaguePlayers(position = 'skaters') {
     rookies: 0,
     statsType: 'standard',
     rosterstatus: 'undefined',
-    league_id: 1,
+    league_id: config.league_id,
     division: -1,
     sort: 'points',
     order_direction: 'DESC',
@@ -271,7 +240,7 @@ function normalizeTeam(t) {
     // Goals
     gf: parseInt(t.goals_for) || 0,
     ga: parseInt(t.goals_against) || 0,
-    diff: parseInt(t.goal_differential) || 0,
+    diff: parseInt(t.goals_diff) || 0,
     // Win types
     rw: parseInt(t.regulation_wins) || 0,
     otw: parseInt(t.ot_wins) || 0,
@@ -305,17 +274,11 @@ function extractPlayersFromResponse(data) {
  * Extract team data from statviewfeed response
  */
 function extractTeamsFromResponse(data) {
-  if (Array.isArray(data) && data[0]?.sections) {
-    return data[0].sections.flatMap(section =>
-      (section.data || []).map(item => item.row || item)
-    );
-  }
-  if (data?.sections) {
-    return data.sections.flatMap(section =>
-      (section.data || []).map(item => item.row || item)
-    );
-  }
-  return data.teams || data || [];
+  return statSections(data).flatMap(section => section.data.map(item => ({
+    ...item.row,
+    team_id: item.prop?.name?.teamLink ?? item.row?.team_id,
+    division_long_name: section.headers?.name?.properties?.label
+  })));
 }
 
 /**
@@ -443,14 +406,13 @@ export async function buildLeagueStats() {
       };
       console.log(`[league] Found PP stats for ${results.special_teams.powerplay.length} teams`);
     } catch (e) {
-      console.warn('[league] Could not fetch special teams:', e.message);
-      results.special_teams = { powerplay: [], penaltykill: [] };
+      throw e;
     }
 
     // Write output file
     const output = {
       generated_at: nowISO(),
-      season: '2024-25',
+      season: config.season_label,
       season_id: SEASON_ID,
       league: 'MHL',
       ...results

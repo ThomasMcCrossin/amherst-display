@@ -76,7 +76,7 @@ export async function fetchCCMHAGames({ daysAhead = 7 } = {}) {
       headers: {
         'User-Agent': 'Mozilla/5.0 (compatible; AmherstDisplay/1.0)'
       },
-      timeout: 30000
+      signal: AbortSignal.timeout(30000)
     });
 
     if (!response.ok) {
@@ -89,7 +89,8 @@ export async function fetchCCMHAGames({ daysAhead = 7 } = {}) {
       throw new Error(`API returned status: ${data.status}`);
     }
 
-    const items = data.data || [];
+    const items = data.data;
+    if (!Array.isArray(items)) throw new Error('CCMHA missing schedule array');
     console.log(`[CCMHA] API returned ${items.length} total schedule items`);
 
     // Filter by date range and venue
@@ -159,6 +160,6 @@ export async function fetchCCMHAGames({ daysAhead = 7 } = {}) {
 
   } catch (error) {
     console.error(`[CCMHA] Failed to fetch schedule: ${error.message}`);
-    return [];
+    throw error;
   }
 }

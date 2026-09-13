@@ -1,10 +1,32 @@
 {
-  "generated_at": "2026-03-25T07:35:36Z",
+  "generated_at": "2026-09-13T01:56:37.049Z",
   "timezone": "America/Halifax",
   "teams": [
     {
       "team_slug": "amherst-ramblers",
-      "games": []
+      "games": [
+        {
+          "opponent_slug": "valley-wildcats",
+          "home": false,
+          "start": "2026-09-16T19:00:00-03:00",
+          "venue": "Kings Mutual Century Centre",
+          "city": ""
+        },
+        {
+          "opponent_slug": "grand-falls-rapids",
+          "home": false,
+          "start": "2026-09-19T19:00:00-03:00",
+          "venue": "E. & P. Sénéchal Centre",
+          "city": ""
+        },
+        {
+          "opponent_slug": "edmundston-blizzard",
+          "home": false,
+          "start": "2026-09-20T15:00:00-03:00",
+          "venue": "Centre Jean Daigle",
+          "city": ""
+        }
+      ]
     }
   ]
 }

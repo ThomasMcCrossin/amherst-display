@@ -2,7 +2,7 @@ name: Build display JSONs & standings snapshots
 
 on:
   schedule:
-    # Run once daily at 6:30 AM UTC (3:30 AM Atlantic / 2:30 AM Atlantic DST)
+    # Run daily at 06:30 UTC (03:30 ADT / 02:30 AST).
     # This updates all data: schedules, standings, rosters, game summaries
     - cron: '30 6 * * *'
   # Allow manual trigger from Actions tab
@@ -12,20 +12,23 @@ on:
     paths:
       - 'scripts/**'
       - 'teams.json'
-      - 'data/**'
+      - 'config/hockeytech.json'
+      - '.github/workflows/build-jsons.yml'
       - 'package.json'
       - 'package-lock.json'
 
 permissions:
   contents: write
 
+concurrency:
+  group: central-mhl-metadata
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      # IMPORTANT: Set RAMBLERS_ICS_URL secret with fresh ICS calendar URL
-      # Without this, schedule data will be stale (uses data/ramblers.ics fallback)
-      RAMBLERS_ICS_URL: ${{ secrets.RAMBLERS_ICS_URL }}
+      HOCKEYTECH_API_KEY: ${{ secrets.HOCKEYTECH_API_KEY }}
 
     steps:
       - name: Checkout
@@ -34,41 +37,45 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
 
       - name: Install deps
-        run: npm install
+        run: npm ci
 
       # Cache Chrome/Chromium that Puppeteer downloads
       - name: Cache Puppeteer browsers
         uses: actions/cache@v4
         with:
           path: ~/.cache/puppeteer
-          key: puppeteer-chrome-${{ runner.os }}-v131
+          key: puppeteer-chrome-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
 
       # Install Chrome for Puppeteer (v23+ no auto-download)
       - name: Install Chrome for Puppeteer
         run: npx puppeteer browsers install chrome
 
-      - name: Build JSONs (tee logs)
-        run: node scripts/build_all.mjs 2>&1 | tee build.log
-
-      # Standings snapshots (PNG)
-      - name: Snapshot standings to PNGs
-        run: npm run snap
+      - name: Build and validate metadata, plan and snapshot (tee logs)
+        id: metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/build_all.mjs 2>&1 | tee build.log
 
       - name: Upload build log
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: build-log
           path: build.log
 
       - name: Commit & push if changed
+        if: success() && steps.metadata.outcome == 'success'
+        shell: bash
         run: |
+          set -euo pipefail
           git config --global user.name "github-actions"
           git config --global user.email "actions@users.noreply.github.com"
-          git add -A
+          git add games.json next_games.json monitor_plan.json metadata_build.json standings_mhl.json ccmha_games.json league_stats.json games/ rosters/ assets/headshots/ assets/standings/
           if git diff --cached --quiet; then
             echo "No changes"
           else

@@ -1,0 +1,12 @@
+{
+  "generated_at": "2026-09-13T01:56:37.049Z",
+  "completed_at": "2026-09-13T01:56:54.665Z",
+  "complete": true,
+  "season_ids": [
+    "46"
+  ],
+  "schedule_rows": 52,
+  "plan_games": 52,
+  "snapshot": "success",
+  "optional_warnings": []
+}

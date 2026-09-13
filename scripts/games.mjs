@@ -13,34 +13,13 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT_DIR = path.resolve(__dirname, '..');
+const ROOT_DIR = process.env.METADATA_OUTPUT_DIR || path.resolve(__dirname, '..');
 
-// HockeyTech API configuration
-const HOCKEYTECH_API_KEY = (process.env.HOCKEYTECH_API_KEY || '').trim();
-const HOCKEYTECH_CLIENT = 'mhl';
-const HOCKEYTECH_BASE_URL = 'https://lscluster.hockeytech.com/feed/';
-const DEFAULT_SEASON_IDS = [41, 44]; // 2025-26 regular season + playoffs
-const SEASON_LABEL = (process.env.HOCKEYTECH_SEASON_LABEL || '2025-26').trim();
-const AMHERST_TEAM_ID = 1;
-
-function parseSeasonIds(rawValue) {
-  const value = String(rawValue || '').trim();
-  if (!value) return [...DEFAULT_SEASON_IDS];
-
-  const parsed = value
-    .split(',')
-    .map((item) => Number.parseInt(item.trim(), 10))
-    .filter((item) => Number.isInteger(item) && item > 0);
-
-  return parsed.length > 0 ? parsed : [...DEFAULT_SEASON_IDS];
-}
-
-const SEASON_IDS = parseSeasonIds(process.env.HOCKEYTECH_SEASON_IDS || DEFAULT_SEASON_IDS.join(','));
+import { config, acquireSchedule, statView } from './hockeytech.mjs';
+const SEASON_IDS = config.season_ids.map(Number);
 const PRIMARY_SEASON_ID = SEASON_IDS[0];
-
-if (!HOCKEYTECH_API_KEY) {
-  throw new Error('HOCKEYTECH_API_KEY is required');
-}
+const SEASON_LABEL = config.season_label;
+const AMHERST_TEAM_ID = Number(config.team_id);
 
 const nowISO = () => new Date().toISOString();
 
@@ -67,48 +46,8 @@ async function loadRoster() {
 
     return playerMap;
   } catch (e) {
-    console.warn('[games] Could not load roster:', e.message);
-    return new Map();
+    throw new Error('Required current-season roster unavailable');
   }
-}
-
-/**
- * Fetch Amherst Ramblers schedule
- */
-async function fetchRamblersSchedule(seasonId) {
-  const url = new URL(HOCKEYTECH_BASE_URL);
-  url.searchParams.set('feed', 'modulekit');
-  url.searchParams.set('view', 'schedule');
-  url.searchParams.set('team_id', AMHERST_TEAM_ID);
-  url.searchParams.set('season_id', seasonId);
-  url.searchParams.set('key', HOCKEYTECH_API_KEY);
-  url.searchParams.set('fmt', 'json');
-  url.searchParams.set('client_code', HOCKEYTECH_CLIENT);
-
-  console.log(`[games] Fetching Ramblers schedule for season ${seasonId}...`);
-
-  const response = await fetch(url.toString());
-  if (!response.ok) {
-    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-  }
-
-  const data = await response.json();
-  return data.SiteKit?.Schedule || [];
-}
-
-async function fetchCombinedRamblersSchedule() {
-  const merged = new Map();
-
-  for (const seasonId of SEASON_IDS) {
-    const schedule = await fetchRamblersSchedule(seasonId);
-    for (const game of schedule) {
-      const gameId = String(game?.game_id || game?.id || '');
-      if (!gameId) continue;
-      merged.set(gameId, { ...game, season_id: String(game.season_id || seasonId) });
-    }
-  }
-
-  return Array.from(merged.values());
 }
 
 function isPlayoffGame(game) {
@@ -124,27 +63,9 @@ function isPlayoffGame(game) {
  * Fetch detailed game summary (scoring, penalties, stats)
  */
 async function fetchGameSummary(gameId) {
-  const url = new URL(HOCKEYTECH_BASE_URL + 'index.php');
-  url.searchParams.set('feed', 'statviewfeed');
-  url.searchParams.set('view', 'gameSummary');
-  url.searchParams.set('game_id', gameId);
-  url.searchParams.set('key', HOCKEYTECH_API_KEY);
-  url.searchParams.set('client_code', HOCKEYTECH_CLIENT);
-  url.searchParams.set('fmt', 'json');
-
-  const response = await fetch(url.toString());
-  if (!response.ok) {
-    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-  }
-
-  let text = await response.text();
-
-  // HockeyTech wraps response in parentheses - strip them
-  if (text.startsWith('(') && text.endsWith(')')) {
-    text = text.slice(1, -1);
-  }
-
-  return JSON.parse(text);
+  const data = await statView('gameSummary', { game_id: gameId });
+  if (!Array.isArray(data.periods)) throw new Error(`Game ${gameId}: incomplete summary`);
+  return data;
 }
 
 /**
@@ -347,7 +268,7 @@ async function processGames(schedule, playerMap) {
       player_stats = parsePlayerStats(gameSummary, playerMap, isHomeGame);
       console.log(`[games] Fetched summary for game ${game.game_id} (${scoring.length} goals, ${penalties.length} penalties)`);
     } catch (e) {
-      console.warn(`[games] Could not fetch summary for game ${game.game_id}:`, e.message);
+      throw new Error(`Game ${game.game_id}: required summary failed`);
     }
 
     const gameData = {
@@ -444,7 +365,7 @@ function calculateSeasonSummary(games) {
 /**
  * Build Ramblers games
  */
-export async function buildRamblersGames() {
+export async function buildRamblersGames(acquisition = null) {
   console.log('[games] Starting Ramblers games build...');
 
   const gamesDir = path.join(ROOT_DIR, 'games');
@@ -454,7 +375,7 @@ export async function buildRamblersGames() {
     const playerMap = await loadRoster();
     console.log(`[games] Loaded roster with ${playerMap.size} players`);
 
-    const schedule = await fetchCombinedRamblersSchedule();
+    const schedule = (acquisition || await acquireSchedule()).rows;
     const games = await processGames(schedule, playerMap);
     const summary = calculateSeasonSummary(games);
     const playoffSummary = calculateSeasonSummary(games.filter((game) => game.playoff).map((game) => ({ ...game, playoff: false })));
