@@ -1,84 +1,49 @@
-// Snap just the standings table into PNGs for clean display (no page chrome).
-// Saves: assets/standings/standings_mhl.png
-
-import fs from 'fs/promises';
-import path from 'path';
+// Render the successfully acquired season, never an independently scraped page default.
+import fs from 'node:fs/promises';
 import puppeteer from 'puppeteer';
+import { pathToFileURL } from 'node:url';
+import { config } from './hockeytech.mjs';
 
-const OUT_DIR = 'assets/standings';
-await fs.mkdir(OUT_DIR, { recursive: true });
-
-const TARGETS = [
-  {
-    league: 'mhl',
-    url: 'https://www.themhl.ca/stats/standings',
-    selector: 'table',
-    darkCSS: `
-      html,body { background:#0b0c10 !important; }
-      header,nav,footer,.cookie,.cookies,.ad,[role="banner"],[role="contentinfo"] { display:none !important; }
-      table { background:#11151e !important; color:#f5f7fb !important; border-collapse:collapse; }
-      th,td { border:1px solid #2a2f37 !important; padding:6px 10px !important; font-size:14px !important; }
-      thead th { background:#171b23 !important; font-weight:800 !important; }
-    `
+const escape = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
+export function standingsHTML(data) {
+  if (data.season !== config.season_label || !Array.isArray(data.rows) || !data.rows.length || data.rows.some(r => !r.team || !r.division)) {
+    throw new Error('Snapshot requires validated current-season standings');
   }
-];
-
-function pickLargestTableRect() {
-  const tables = Array.from(document.querySelectorAll('table'));
-  let best = null, bestArea = 0;
-  for (const t of tables) {
-    const r = t.getBoundingClientRect();
-    const area = r.width * r.height;
-    if (area > bestArea) { best = r; bestArea = area; }
-  }
-  return best;
+  const columns = [['team', 'Team'], ['gp', 'GP'], ['w', 'W'], ['l', 'L'], ['otl', 'OTL'], ['sol', 'SOL'], ['pts', 'PTS'], ['gf', 'GF'], ['ga', 'GA'], ['diff', '+/-']];
+  const divisions = [...new Set(data.rows.map(row => row.division))];
+  return `<!doctype html><html><head><meta charset="utf-8"><style>
+    html,body { margin:0; background:#0b0c10; color:#f5f7fb; font:18px Arial,sans-serif; }
+    main { width:1100px; padding:16px; } h1 { font-size:24px; margin:0 0 16px; }
+    table { width:100%; border-collapse:collapse; background:#11151e; }
+    th,td { border:1px solid #2a2f37; padding:10px; text-align:center; }
+    th:first-child,td:first-child { text-align:left; } th { background:#171b23; }
+    .division th { color:#c9b7ff; padding-top:16px; }
+  </style></head><body><main><h1>MHL Standings — ${escape(data.season)}</h1><table>
+  ${divisions.map(division => `<tbody><tr class="division"><th colspan="10">${escape(division)}</th></tr>
+    <tr>${columns.map(([, label]) => `<th>${label}</th>`).join('')}</tr>
+    ${data.rows.filter(row => row.division === division).map(row => `<tr>${columns.map(([key]) => `<td>${escape(row[key])}</td>`).join('')}</tr>`).join('')}</tbody>`).join('')}
+  </table></main></body></html>`;
 }
-
-async function snapOne(browser, { league, url, selector, darkCSS }) {
-  const page = await browser.newPage();
-  await page.setViewport({ width: 1920, height: 1080, deviceScaleFactor: 2 });
-  await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
-
-  // JS-rendered pages (MHL) need a moment
-  await page.waitForTimeout(3500);
-  await page.addStyleTag({ content: darkCSS });
-
-  const hasTable = await page.$(selector);
-  if (!hasTable) await page.waitForSelector(selector, { timeout: 10000 }).catch(()=>{});
-
-  const rect = await page.evaluate(pickLargestTableRect);
-  if (!rect || rect.width < 200 || rect.height < 100) {
-    console.warn(`[snap] No suitable table on ${url} — skipping ${league}`);
-    await page.close();
-    return false;
-  }
-
-  const pad = 16;
-  const clip = {
-    x: Math.max(0, rect.x - pad),
-    y: Math.max(0, rect.y - pad),
-    width: rect.width + pad * 2,
-    height: rect.height + pad * 2
-  };
-
-  const outPath = path.join(OUT_DIR, `standings_${league}.png`);
-  await page.screenshot({ path: outPath, clip, type: 'png' });
-  await page.close();
-  console.log(`[snap] Saved ${outPath} (${Math.round(clip.width)}x${Math.round(clip.height)})`);
-  return true;
+export async function snapshotStandings() {
+  const data = JSON.parse(await fs.readFile('standings_mhl.json', 'utf8'));
+  const html = standingsHTML(data);
+  const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+  try {
+    const page = await browser.newPage();
+    await page.setViewport({ width: 1200, height: 1200, deviceScaleFactor: 2 });
+    await page.setContent(html, { waitUntil: 'load' });
+    await page.waitForSelector('table tbody tr td', { visible: true, timeout: 10000 });
+    await page.evaluate(() => document.fonts.ready);
+    const surface = await page.$('main');
+    const rect = await surface.boundingBox();
+    if (!rect || rect.width < 200 || rect.height < 100) throw new Error('No suitable standings snapshot surface');
+    await fs.mkdir('assets/standings', { recursive: true });
+    const output = 'assets/standings/standings_mhl.png';
+    await surface.screenshot({ path: output + '.tmp', type: 'png' });
+    await fs.rename(output + '.tmp', output);
+    console.log(`[snap] Saved ${output} (${data.rows.length} teams, ${data.season})`);
+  } finally { await browser.close(); }
 }
-
-(async () => {
-  const browser = await puppeteer.launch({
-    channel: 'chrome',                         // use the Chrome we install in the workflow
-    headless: 'new',
-    args: ['--no-sandbox','--disable-setuid-sandbox']
-  });
-
-  for (const tgt of TARGETS) {
-    try { await snapOne(browser, tgt); }
-    catch (e) { console.warn(`[snap] ${tgt.league} failed: ${e.message}`); }
-  }
-
-  await browser.close();
-})();
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  snapshotStandings().catch(error => { console.error('[snap]', error.message); process.exitCode = 1; });
+}

@@ -14,20 +14,12 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT_DIR = path.resolve(__dirname, '..');
+const ROOT_DIR = process.env.METADATA_OUTPUT_DIR || path.resolve(__dirname, '..');
 
-// HockeyTech API configuration
-const HOCKEYTECH_API_KEY = (process.env.HOCKEYTECH_API_KEY || '').trim();
-const HOCKEYTECH_CLIENT = 'mhl';
-const HOCKEYTECH_BASE_URL = 'https://lscluster.hockeytech.com/feed/';
-const SEASON_ID = 41; // 2024-25 season
+import { config as sourceConfig, request, moduleRows } from './hockeytech.mjs';
+const SEASON_ID = Number(sourceConfig.season_ids[0]);
 
-if (!HOCKEYTECH_API_KEY) {
-  throw new Error('HOCKEYTECH_API_KEY is required');
-}
-
-// Team configuration: { slug: { name, team_id } }
-// All MHL teams for 2024-25 season
+// Stable roster consumer identities (different from display aliases for two teams).
 const TEAMS = {
   'amherst-ramblers': { name: 'Amherst-Ramblers', team_id: 1, league: 'MHL' },
   'edmundston-blizzard': { name: 'Edmundston-Blizzard', team_id: 2, league: 'MHL' },
@@ -53,36 +45,15 @@ const ensureDir = async (fp) => {
  * Fetch player stats from HockeyTech API
  */
 async function fetchPlayerStats(teamId) {
-  const skatersUrl = new URL(HOCKEYTECH_BASE_URL);
-  skatersUrl.searchParams.set('feed', 'modulekit');
-  skatersUrl.searchParams.set('view', 'statviewtype');
-  skatersUrl.searchParams.set('type', 'topscorers');
-  skatersUrl.searchParams.set('team_id', teamId);
-  skatersUrl.searchParams.set('season_id', SEASON_ID);
-  skatersUrl.searchParams.set('key', HOCKEYTECH_API_KEY);
-  skatersUrl.searchParams.set('fmt', 'json');
-  skatersUrl.searchParams.set('client_code', HOCKEYTECH_CLIENT);
-
-  const goaliesUrl = new URL(HOCKEYTECH_BASE_URL);
-  goaliesUrl.searchParams.set('feed', 'modulekit');
-  goaliesUrl.searchParams.set('view', 'statviewtype');
-  goaliesUrl.searchParams.set('type', 'goalies');
-  goaliesUrl.searchParams.set('team_id', teamId);
-  goaliesUrl.searchParams.set('season_id', SEASON_ID);
-  goaliesUrl.searchParams.set('key', HOCKEYTECH_API_KEY);
-  goaliesUrl.searchParams.set('fmt', 'json');
-  goaliesUrl.searchParams.set('client_code', HOCKEYTECH_CLIENT);
-
+  const params = { feed: 'modulekit', view: 'statviewtype', team_id: teamId, season_id: SEASON_ID };
   console.log(`[rosters] Fetching stats from API: team_id=${teamId}`);
 
   try {
-    const [skatersRes, goaliesRes] = await Promise.all([
-      fetch(skatersUrl.toString()),
-      fetch(goaliesUrl.toString())
+    const [skatersData, goaliesData] = await Promise.all([
+      request({ ...params, type: 'topscorers' }), request({ ...params, type: 'goalies' })
     ]);
-
-    const skatersData = skatersRes.ok ? await skatersRes.json() : { SiteKit: { Statviewtype: [] } };
-    const goaliesData = goaliesRes.ok ? await goaliesRes.json() : { SiteKit: { Statviewtype: [] } };
+    moduleRows(skatersData, 'Statviewtype');
+    moduleRows(goaliesData, 'Statviewtype');
 
     const statsMap = new Map();
 
@@ -126,33 +97,30 @@ async function fetchPlayerStats(teamId) {
 
     return statsMap;
   } catch (e) {
-    console.warn(`[rosters] Error fetching stats: ${e.message}`);
-    return new Map();
+    throw e;
   }
 }
 
 /**
  * Fetch roster data from HockeyTech API
  */
-async function fetchRosterFromAPI(teamId) {
-  const url = new URL(HOCKEYTECH_BASE_URL);
-  url.searchParams.set('feed', 'modulekit');
-  url.searchParams.set('view', 'roster');
-  url.searchParams.set('team_id', teamId);
-  url.searchParams.set('season_id', SEASON_ID);
-  url.searchParams.set('key', HOCKEYTECH_API_KEY);
-  url.searchParams.set('fmt', 'json');
-  url.searchParams.set('client_code', HOCKEYTECH_CLIENT);
-
-  console.log(`[rosters] Fetching from API: team_id=${teamId}`);
-
-  const response = await fetch(url.toString());
-  if (!response.ok) {
-    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+export function rosterPlayers(rows) {
+  const players = [];
+  for (const record of rows) {
+    if (Array.isArray(record)) {
+      if (record.some(staff => !staff?.role_id || !staff.id)) throw new Error('Invalid roster staff section');
+      continue; // HockeyTech appends a nested staff section; staff are not player records.
+    }
+    if (!record || !/^\d+$/.test(record.id) || !(record.name || record.first_name)) throw new Error('Invalid roster player');
+    players.push(record);
   }
+  if (!players.length) throw new Error('Empty required player roster');
+  return players;
+}
 
-  const data = await response.json();
-  return data.SiteKit?.Roster || [];
+async function fetchRosterFromAPI(teamId) {
+  const data = await request({ feed: 'modulekit', view: 'roster', team_id: teamId, season_id: SEASON_ID });
+  return rosterPlayers(moduleRows(data, 'Roster'));
 }
 
 /**
@@ -166,7 +134,7 @@ async function downloadImage(url, outputPath) {
       return false;
     }
 
-    const response = await fetch(url);
+    const response = await fetch(url, { signal: AbortSignal.timeout(30000) });
     if (!response.ok) {
       console.warn(`[rosters] Failed to download image: ${url} (${response.status})`);
       return false;
@@ -253,7 +221,8 @@ async function processRoster(teamSlug, teamName, rawPlayers, statsMap) {
       const headshotDir = path.join(ROOT_DIR, 'assets', 'headshots', teamName);
       const localPath = path.join(headshotDir, filename);
       const success = await downloadImage(rawPlayer.player_image, localPath);
-      if (success) {
+      const priorExists = await fs.access(localPath).then(() => true, () => false);
+      if (success || priorExists) {
         headshotPath = `assets/headshots/${teamName}/${filename}`;
       }
     }
@@ -315,6 +284,11 @@ async function processRoster(teamSlug, teamName, rawPlayers, statsMap) {
  */
 export async function buildRosters() {
   console.log('[rosters] Starting roster build for all MHL teams...');
+  const sourceTeams = moduleRows(await request({ feed: 'modulekit', view: 'teamsbyseason', season_id: SEASON_ID }), 'Teamsbyseason');
+  const expectedIds = new Set(Object.values(TEAMS).map(team => String(team.team_id)));
+  if (sourceTeams.length !== expectedIds.size || sourceTeams.some(team => !expectedIds.delete(String(team.id))) || expectedIds.size) {
+    throw new Error('MHL roster consumer directory does not cover source season teams');
+  }
 
   const rostersDir = path.join(ROOT_DIR, 'rosters');
   await ensureDir(rostersDir);
@@ -334,7 +308,7 @@ export async function buildRosters() {
         team_slug: teamSlug,
         team_name: config.name,
         league: config.league,
-        season: '2024-25',
+        season: sourceConfig.season_label,
         season_id: SEASON_ID,
         team_id: config.team_id,
         updated_at: nowISO(),
@@ -358,34 +332,7 @@ export async function buildRosters() {
       });
 
     } catch (e) {
-      console.error(`[rosters/${teamSlug}] Error:`, e.message);
-
-      const errorData = {
-        team_slug: teamSlug,
-        team_name: config.name,
-        league: config.league,
-        season: '2024-25',
-        season_id: SEASON_ID,
-        team_id: config.team_id,
-        updated_at: nowISO(),
-        player_count: 0,
-        players: [],
-        error: e.message
-      };
-
-      // Still write the file even on error
-      const teamFilePath = path.join(rostersDir, `${teamSlug}.json`);
-      await fs.writeFile(teamFilePath, JSON.stringify(errorData, null, 2));
-
-      teamIndex.push({
-        team_slug: teamSlug,
-        team_name: config.name,
-        league: config.league,
-        team_id: config.team_id,
-        player_count: 0,
-        file: `rosters/${teamSlug}.json`,
-        error: e.message
-      });
+      throw new Error('Required roster failed for ' + teamSlug + ': ' + e.message);
     }
   }
 
@@ -393,7 +340,7 @@ export async function buildRosters() {
   const indexPath = path.join(rostersDir, 'index.json');
   const indexData = {
     generated_at: nowISO(),
-    season: '2024-25',
+    season: sourceConfig.season_label,
     season_id: SEASON_ID,
     api_source: 'HockeyTech',
     league: 'MHL',

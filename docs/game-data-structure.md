@@ -1,6 +1,10 @@
 # Game Data Structure
 
 This document describes the detailed game data structure in `games/amherst-ramblers.json`.
+The central builder takes season IDs and label from `config/hockeytech.json`. Its validated
+modulekit schedule is also used for `games.json`, `next_games.json` and the complete
+`monitor_plan.json`; no independent ICS acquisition is used. Required acquisition and PNG
+snapshot failures preserve published data rather than replacing it with fresh empty files.
 
 ## Overview
 
@@ -17,9 +21,10 @@ Each game now includes:
   "team_slug": "amherst-ramblers",
   "team_name": "Amherst Ramblers",
   "team_id": 1,
-  "season": "2024-25",
-  "season_id": 41,
-  "updated_at": "2025-11-09T...",
+  "season": "2026-27",
+  "season_id": 46,
+  "season_ids": [46],
+  "updated_at": "2026-09-12T21:02:35.018Z",
   "summary": { /* season totals */ },
   "games": [ /* array of game objects */ ]
 }
@@ -27,7 +32,7 @@ Each game now includes:
 
 ## Game Object
 
-Each game in the `games` array contains:
+Each game in the `games` array contains the fields below (historical illustrative game/player values):
 
 ```json
 {

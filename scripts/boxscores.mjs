@@ -20,10 +20,12 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT_DIR = path.resolve(__dirname, '..');
+const ROOT_DIR = process.env.METADATA_OUTPUT_DIR || path.resolve(__dirname, '..');
 
 const MHL_BASE_URL = 'https://www.themhl.ca/stats/game-summary/';
-const AMHERST_TEAM_ID = 1;
+import { config } from './hockeytech.mjs';
+import puppeteer from 'puppeteer';
+const AMHERST_TEAM_ID = Number(config.team_id);
 
 const nowISO = () => new Date().toISOString();
 
@@ -573,6 +575,11 @@ async function scrapeGameBoxScore(page, gameId, isHomeGame) {
       return result;
     });
 
+    if (!boxScore.tables.shots || boxScore.tables.shots.length < 2 ||
+        !boxScore.tables.scoring || boxScore.tables.scoring.length < 2) {
+      throw new Error('Completed game box score is missing team shots/scoring tables');
+    }
+
     // Parse the extracted tables
     // Try both penalty formats - column-based and period-based (MHL style)
     let penalties = parsePenaltiesTable(boxScore.tables.penalties, isHomeGame);
@@ -659,6 +666,7 @@ export async function scrapeRamblersBoxScores(options = {}) {
   console.log(`[boxscores] Scraping ${gamesToScrape.length} games...`);
 
   const browser = await chromium.launch({
+    executablePath: await puppeteer.executablePath(),
     headless: true,
     args: ['--no-sandbox', '--disable-setuid-sandbox']
   });
@@ -680,6 +688,7 @@ export async function scrapeRamblersBoxScores(options = {}) {
   }
 
   await browser.close();
+  if (boxScores.some(score => score.error)) throw new Error('Optional box score acquisition incomplete; retaining previous enrichments');
 
   // Merge box score data with existing games data
   const enhancedGames = gamesData.games.map(game => {

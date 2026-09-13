@@ -1,261 +1,88 @@
-// scripts/build_all.mjs
-// Orchestrates: standings → schedules → JSON outputs
-// - Reads teams.json (aliases -> slug map)
-// - Builds MHL standings via ./standings.mjs
-// - Builds games.json + next_games.json via ./schedules.mjs
-// - Writes sane fallbacks if any stage fails
-
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
-import { fetchRamblersFromICS } from './schedules.mjs';
+// Required acquisition and snapshot generation happen in a disposable staging directory.
+// No output (especially no fresh plan) is published after a failed required stage.
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
+import { acquireSchedule, config } from './hockeytech.mjs';
+import { buildScheduleOutputs } from './schedules.mjs';
 import { buildMHLStandings } from './standings.mjs';
-import { fetchCCMHAGames } from './ccmha.mjs';
-import { buildRosters } from './rosters.mjs';
-import { buildRamblersGames } from './games.mjs';
-import { buildLeagueStats } from './league_stats.mjs';
-import { scrapeRamblersBoxScores } from './boxscores.mjs';
 
-const TZ = 'America/Halifax';
-
-// UTC timestamp (no ICU needed)
-function nowISO(){
-  const d = new Date();
-  const pad = n => String(n).padStart(2,'0');
-  return `${d.getUTCFullYear()}-${pad(d.getUTCMonth()+1)}-${pad(d.getUTCDate())}T${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}:${pad(d.getUTCSeconds())}Z`;
+const ROOT = fileURLToPath(new URL('../', import.meta.url));
+const OUTPUTS = ['games.json', 'next_games.json', 'standings_mhl.json', 'ccmha_games.json', 'league_stats.json',
+  'games', 'rosters', 'assets/headshots', 'assets/standings', 'metadata_build.json', 'monitor_plan.json'];
+const writeJSON = (file, data) => fs.writeFile(file, JSON.stringify(data, null, 2) + '\n');
+async function copyIfPresent(from, to) {
+  try { await fs.cp(from, to, { recursive: true }); }
+  catch (error) { if (error.code !== 'ENOENT') throw error; }
 }
-
-// teams.json → name/alias → slug map (case-insensitive)
-function loadTeamDirectory() {
-  try{
-    const raw = JSON.parse(readFileSync('teams.json','utf8'));
-    const m = new Map();
-    for (const t of (raw.teams||[])) {
-      if (t.name) m.set(t.name.toLowerCase().trim(), t.slug);
-      for (const a of (t.aliases||[])) m.set(String(a).toLowerCase().trim(), t.slug);
+export async function optionalStage(name, run, warnings) {
+  try { return await run(); }
+  catch (error) {
+    const warning = { stage: name, status: 'failed_preserved_prior_data', message: error.message };
+    warnings.push(warning);
+    console.warn(`[optional/${name}] ${error.message}; prior data retained`);
+  }
+}
+export async function buildAll() {
+  // Check key, season identity, full source row coverage and display aliases before any staging writes.
+  const acquisition = await acquireSchedule();
+  const directory = JSON.parse(await fs.readFile(path.join(ROOT, 'teams.json'), 'utf8'));
+  const nameToSlug = new Map();
+  for (const team of directory.teams) {
+    for (const name of [team.name, ...(team.aliases || [])]) nameToSlug.set(name.toLowerCase().trim(), team.slug);
+  }
+  const schedule = buildScheduleOutputs(acquisition, nameToSlug);
+  const stage = await fs.mkdtemp(path.join(ROOT, '.metadata-stage-'));
+  const previousCwd = process.cwd(), previousOutput = process.env.METADATA_OUTPUT_DIR;
+  try {
+    for (const file of OUTPUTS) await copyIfPresent(path.join(ROOT, file), path.join(stage, file));
+    process.env.METADATA_OUTPUT_DIR = stage;
+    process.chdir(stage);
+    const [{ buildRosters }, { buildRamblersGames }, { buildLeagueStats }, { fetchCCMHAGames }, { snapshotStandings }] = await Promise.all([
+      import('./rosters.mjs'), import('./games.mjs'), import('./league_stats.mjs'), import('./ccmha.mjs'), import('./snap_standings.mjs')
+    ]);
+    const warnings = [];
+    await buildRosters();
+    let priorGames = [];
+    try { priorGames = JSON.parse(await fs.readFile('games/amherst-ramblers.json', 'utf8')).games; }
+    catch (error) { if (error.code !== 'ENOENT') throw error; }
+    const gameData = await buildRamblersGames(acquisition);
+    // Keep optional enrichments by exact source game ID if their independent source is unavailable.
+    const priorById = new Map(priorGames.map(game => [String(game.game_id), game]));
+    for (const game of gameData.games) {
+      const previous = priorById.get(String(game.game_id));
+      if (previous?.box_score) game.box_score = previous.box_score;
+      if (previous?.game_info) game.game_info = previous.game_info;
     }
-    return m;
-  }catch(e){
-    console.warn('[teams] teams.json not found or invalid; continuing without alias mapping');
-    return new Map();
+    await writeJSON('games/amherst-ramblers.json', gameData);
+    await optionalStage('boxscores', async () => {
+      const { scrapeRamblersBoxScores } = await import('./boxscores.mjs');
+      await scrapeRamblersBoxScores();
+    }, warnings);
+    await writeJSON('standings_mhl.json', await buildMHLStandings({ nameToSlug }));
+    await buildLeagueStats();
+    await optionalStage('ccmha', async () => {
+      const games = await fetchCCMHAGames({ daysAhead: 7 });
+      await writeJSON('ccmha_games.json', { generated_at: new Date().toISOString(), timezone: 'America/Halifax', games });
+    }, warnings);
+    await writeJSON('games.json', schedule.games);
+    await writeJSON('next_games.json', schedule.next);
+    await snapshotStandings();
+    await writeJSON('monitor_plan.json', schedule.plan);
+    await writeJSON('metadata_build.json', { generated_at: acquisition.generated_at, completed_at: new Date().toISOString(),
+      complete: true, season_ids: config.season_ids, schedule_rows: acquisition.rows.length,
+      plan_games: schedule.plan.games.length, snapshot: 'success', optional_warnings: warnings });
+    // GitHub publishes these together in one commit only after this command exits successfully.
+    for (const file of OUTPUTS) await copyIfPresent(path.join(stage, file), path.join(ROOT, file));
+    console.log(`[build] Complete: ${schedule.plan.games.length} source games, season ${config.season_label}; optional warnings=${warnings.length}`);
+    return schedule.plan;
+  } finally {
+    process.chdir(previousCwd);
+    if (previousOutput === undefined) delete process.env.METADATA_OUTPUT_DIR;
+    else process.env.METADATA_OUTPUT_DIR = previousOutput;
+    await fs.rm(stage, { recursive: true, force: true });
   }
 }
-
-function writeJson(file, obj){
-  writeFileSync(file, JSON.stringify(obj, null, 2));
-  return file;
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  buildAll().catch(error => { console.error('[build] Required stage failed:', error.message); process.exitCode = 1; });
 }
-
-// Helpful validation + de-dup for events
-function sanitizeEvents(list){
-  const out = [];
-  const seen = new Set();
-  let bad = 0, dup = 0;
-
-  for(const e of list){
-    if(!e || !e.start || !e.home_slug || !e.away_slug){
-      bad++; continue;
-    }
-    const t = new Date(e.start);
-    if (isNaN(t)) { bad++; continue; }
-
-    const key = `${e.league||''}|${e.home_slug}|${e.away_slug}|${new Date(e.start).toISOString()}`;
-    if (seen.has(key)) { dup++; continue; }
-    seen.add(key);
-    out.push(e);
-  }
-
-  if (bad || dup) {
-    console.warn(`[schedules] dropped ${bad} invalid and ${dup} duplicate event(s)`);
-  }
-  // sort ascending by start
-  out.sort((a,b)=> new Date(a.start) - new Date(b.start));
-  return out;
-}
-
-async function buildSchedules() {
-  const nameToSlug = loadTeamDirectory();
-  let ramblers = [];
-
-  try{
-    ramblers = await fetchRamblersFromICS({ nameToSlug });
-  }catch(e){
-    console.warn('[schedules/ICS] failed:', e.message);
-  }
-
-  let events = sanitizeEvents([ ...ramblers ]);
-
-  writeJson('games.json', {
-    generated_at: nowISO(),
-    timezone: TZ,
-    events
-  });
-
-  // Helper: next N FUTURE games for a team (home OR away)
-  const nextN = (teamSlug, n=3) => {
-    const now = new Date();
-    return events
-      .filter(e => (e.home_slug===teamSlug || e.away_slug===teamSlug) && new Date(e.start) >= now)
-      .sort((a,b)=> new Date(a.start)-new Date(b.start))
-      .slice(0,n)
-      .map(e => ({
-        opponent_slug: e.home_slug===teamSlug ? e.away_slug : e.home_slug,
-        home: e.home_slug===teamSlug,
-        start: e.start,
-        venue: e.location || '',
-        city: ''
-      }));
-  };
-
-  writeJson('next_games.json', {
-    generated_at: nowISO(),
-    timezone: TZ,
-    teams: [
-      { team_slug: 'amherst-ramblers', games: nextN('amherst-ramblers', 3) }
-    ]
-  });
-
-  console.log(`[schedules] events=${events.length}  ramblers=${ramblers.length}`);
-}
-
-async function buildStandings() {
-  const nameToSlug = loadTeamDirectory();
-
-  let mhl = { generated_at: nowISO(), league: 'MHL', season: '', rows: [] };
-
-  try{
-    const res = await buildMHLStandings({ nameToSlug });
-    if (res && Array.isArray(res.rows)) mhl = res;
-  }catch(e){
-    console.warn('[standings/MHL] failed:', e.message);
-  }
-
-  writeJson('standings_mhl.json',  mhl);
-
-  console.log(`[standings] mhlRows=${mhl.rows?.length||0}`);
-}
-
-async function buildCCMHA() {
-  let ccmhaGames = [];
-
-  try {
-    ccmhaGames = await fetchCCMHAGames({ daysAhead: 7 });
-  } catch(e) {
-    console.warn('[ccmha] failed:', e.message);
-  }
-
-  writeJson('ccmha_games.json', {
-    generated_at: nowISO(),
-    timezone: TZ,
-    games: ccmhaGames
-  });
-
-  console.log(`[ccmha] games=${ccmhaGames.length}`);
-}
-
-async function buildRostersWrapper() {
-  try {
-    const index = await buildRosters();
-    console.log(`[rosters] Complete! Teams=${index.team_count}`);
-  } catch(e) {
-    console.warn('[rosters] failed:', e.message);
-    // Write empty index as fallback
-    const rostersDir = 'rosters';
-    try {
-      mkdirSync(rostersDir, { recursive: true });
-    } catch {}
-    writeJson('rosters/index.json', {
-      generated_at: nowISO(),
-      league: 'MHL',
-      team_count: 0,
-      teams: []
-    });
-  }
-}
-
-async function buildGamesWrapper() {
-  try {
-    const gamesData = await buildRamblersGames();
-    console.log(`[games] Complete! Games=${gamesData.games.length}`);
-  } catch(e) {
-    console.warn('[games] failed:', e.message);
-    // Write empty games file as fallback
-    const gamesDir = 'games';
-    try {
-      mkdirSync(gamesDir, { recursive: true });
-    } catch {}
-    writeJson('games/amherst-ramblers.json', {
-      generated_at: nowISO(),
-      team_slug: 'amherst-ramblers',
-      team_name: 'Amherst Ramblers',
-      season: '2024-25',
-      summary: {},
-      games: []
-    });
-  }
-}
-
-async function buildLeagueStatsWrapper() {
-  try {
-    const stats = await buildLeagueStats();
-    console.log(`[league] Complete! Leaders=${stats.leaders?.points?.length || 0}`);
-  } catch(e) {
-    console.warn('[league] failed:', e.message);
-    // Write empty league stats as fallback
-    writeJson('league_stats.json', {
-      generated_at: nowISO(),
-      season: '2024-25',
-      league: 'MHL',
-      leaders: { points: [], goals: [], assists: [], ppg: [], rookies: [] },
-      goalies: { sv_pct: [], gaa: [], wins: [], shutouts: [] },
-      streaks: { goals: [], points: [] },
-      standings: [],
-      special_teams: { powerplay: [], penaltykill: [] }
-    });
-  }
-}
-
-async function buildBoxScoresWrapper() {
-  try {
-    // BOXSCORE_LIMIT env var controls how many games to scrape (0 = all)
-    const limit = parseInt(process.env.BOXSCORE_LIMIT || '0') || 0;
-    const data = await scrapeRamblersBoxScores({ limit });
-    const gamesWithBoxScore = data.games.filter(g => g.box_score).length;
-    console.log(`[boxscores] Complete! Enhanced ${gamesWithBoxScore} games with box score data`);
-  } catch(e) {
-    console.warn('[boxscores] failed:', e.message);
-    // Box scores are optional - games.json still has base data
-  }
-}
-
-async function main(){
-  // 1) Rosters (can take time, but good to do early)
-  await buildRostersWrapper();
-
-  // 2) Ramblers game summaries (from API)
-  await buildGamesWrapper();
-
-  // 3) Enhanced box scores (from Playwright scraping)
-  await buildBoxScoresWrapper();
-
-  // 4) Standings (fast feedback if selectors change)
-  await buildStandings();
-
-  // 5) Schedules
-  await buildSchedules();
-
-  // 6) CCMHA minor hockey games
-  await buildCCMHA();
-
-  // 7) League-wide stats (leaders, streaks, special teams)
-  await buildLeagueStatsWrapper();
-
-  // 8) Ensure base files exist (first run safety)
-  if (!existsSync('rosters/index.json'))          writeJson('rosters/index.json',          { generated_at: nowISO(), league: 'MHL', team_count: 0, teams: [] });
-  if (!existsSync('games/amherst-ramblers.json')) writeJson('games/amherst-ramblers.json', { generated_at: nowISO(), team_slug: 'amherst-ramblers', season: '2024-25', summary: {}, games: [] });
-  if (!existsSync('games.json'))                  writeJson('games.json',                  { generated_at: nowISO(), timezone: TZ, events: [] });
-  if (!existsSync('next_games.json'))             writeJson('next_games.json',             { generated_at: nowISO(), timezone: TZ, teams: [] });
-  if (!existsSync('standings_mhl.json'))          writeJson('standings_mhl.json',          { generated_at: nowISO(), season: '', league: 'MHL',  rows: [] });
-  if (!existsSync('ccmha_games.json'))            writeJson('ccmha_games.json',            { generated_at: nowISO(), timezone: TZ, games: [] });
-  if (!existsSync('league_stats.json'))           writeJson('league_stats.json',           { generated_at: nowISO(), season: '2024-25', league: 'MHL', leaders: {}, goalies: {}, streaks: {}, standings: [], special_teams: {} });
-}
-
-main().catch(e => { console.error(e); process.exit(1); });
