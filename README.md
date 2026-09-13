@@ -100,6 +100,11 @@ DTO from Canteen Ops, independently of the daily JSON build and rotating slides.
 It never polls HockeyTech. No endpoint is enabled by default: the panel says
 `Not configured` and the existing schedule, stats, slides and ticker still work.
 
+The Next Up panel and header use future team fixtures from the daily central
+`games.json` schedule (team slugs and offset-qualified start times). Completed
+results remain sourced from `games/amherst-ramblers.json`; absence of future
+box scores is not evidence of an empty schedule or a completed season.
+
 Configure a **public, credential-free DTO endpoint** explicitly:
 
 ```text

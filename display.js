@@ -193,6 +193,21 @@
     return game.result != null || game.home_score != null || game.homeScore != null;
   }
 
+  // Daily central schedule owns future fixtures; team game files contain results.
+  function upcomingTeamGames() {
+    const now = Date.now();
+    return STATE.schedule
+      .filter(g => (g.home_slug === CONFIG.team || g.away_slug === CONFIG.team) && Date.parse(g.start) > now)
+      .sort((a, b) => Date.parse(a.start) - Date.parse(b.start))
+      .map(g => ({
+        game_id: g.game_id, season_id: g.season_id, date: g.start,
+        home_game: g.home_slug === CONFIG.team,
+        home_team: g.home_team, away_team: g.away_team,
+        home_team_slug: g.home_slug, away_team_slug: g.away_slug,
+        venue: g.location,
+      }));
+  }
+
   // Logo URL for team
   function logoUrl(slug) {
     if (!slug) return '';
@@ -402,11 +417,7 @@
       return;
     }
 
-    // Find next game (not yet completed)
-    const now = new Date();
-    const upcoming = STATE.games
-      .filter(g => !isCompleted(g))
-      .sort((a, b) => new Date(a.date || a.date_time || a.game_date) - new Date(b.date || b.date_time || b.game_date));
+    const upcoming = upcomingTeamGames();
 
     if (upcoming.length === 0) {
       if (dot) dot.style.background = 'var(--muted)';
@@ -485,7 +496,6 @@
 
     if (!hero || !lastFive || !stadiumNext) return;
 
-    const now = new Date();
     const games = STATE.games || [];
 
     // Past games (completed games, most recent first)
@@ -493,10 +503,7 @@
       .filter(g => isCompleted(g))
       .sort((a, b) => new Date(b.date || b.date_time || b.game_date) - new Date(a.date || a.date_time || a.game_date));
 
-    // Future games (not completed)
-    const future = games
-      .filter(g => !isCompleted(g))
-      .sort((a, b) => new Date(a.date || a.date_time || a.game_date) - new Date(b.date || b.date_time || b.game_date));
+    const future = upcomingTeamGames();
 
     // Home games upcoming
     const homeGames = future.filter(g => isHomeGame(g)).slice(0, 3);
