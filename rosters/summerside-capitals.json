@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 10,
-  "updated_at": "2026-09-14T13:09:15.055Z",
+  "updated_at": "2026-09-15T11:58:53.454Z",
   "player_count": 21,
   "players": [
     {
@@ -25,6 +25,8 @@
       "hometown": "Sorel-Tracy, QC",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/1-max-picard.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4069.jpg",
       "stats": {
         "games_played": 0,
         "wins": 0,
@@ -143,6 +145,8 @@
       "hometown": "Elmsdale, PE",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/4-max-gamble.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3665.jpg",
       "stats": {
         "games_played": 1,
         "goals": 0,
@@ -250,6 +254,8 @@
       "hometown": "Stratford, PE",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/9-declan-maclauchlan.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4133.jpg",
       "stats": {
         "games_played": 1,
         "goals": 0,
@@ -622,6 +628,8 @@
       "hometown": "St. Constant, QC",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/29-vincent-gladu.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4125.jpg",
       "stats": {
         "games_played": 1,
         "wins": 0,
@@ -658,6 +666,8 @@
       "hometown": "Newmarket, ON",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/42-matthew-andersen.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4132.jpg",
       "stats": {
         "games_played": 1,
         "goals": 0,
@@ -825,6 +835,8 @@
       "birthplace": "Stratford, PE, PE",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/81-ashton-campbell.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3770.jpg",
       "stats": {
         "games_played": 1,
         "goals": 0,
