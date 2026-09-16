@@ -7,7 +7,7 @@
   "season_ids": [
     46
   ],
-  "updated_at": "2026-09-15T11:59:05.347Z",
+  "updated_at": "2026-09-16T11:54:50.422Z",
   "summary": {
     "games_played": 2,
     "wins": 1,
@@ -90,9 +90,9 @@
           },
           "assists": [
             {
-              "player_id": "mhl-3545",
-              "name": "Christian White",
-              "number": 4
+              "player_id": "mhl-3562",
+              "name": "Elliot Wright",
+              "number": 13
             },
             {
               "player_id": "mhl-3867",
@@ -195,12 +195,7 @@
             "number": 4,
             "position": "D"
           },
-          "assists": [
-            {
-              "name": "Declan Kennedy",
-              "number": 66
-            }
-          ],
+          "assists": [],
           "power_play": false,
           "short_handed": false,
           "game_winning": false,
@@ -705,8 +700,8 @@
         "mhl-3545": {
           "position": "D",
           "goals": 0,
-          "assists": 1,
-          "points": 1,
+          "assists": 0,
+          "points": 0,
           "penalty_minutes": 2,
           "shots": 0,
           "plus_minus": "0",
@@ -783,8 +778,8 @@
         "mhl-3562": {
           "position": "C",
           "goals": 1,
-          "assists": 1,
-          "points": 2,
+          "assists": 2,
+          "points": 3,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -938,8 +933,8 @@
         },
         "mhl-3766": {
           "position": "G",
-          "saves": 48,
-          "shots_against": 49,
+          "saves": 34,
+          "shots_against": 35,
           "goals_against": 1,
           "save_percentage": "0.000",
           "time_on_ice": "60:00"
@@ -957,15 +952,15 @@
         "shots_by_period": {
           "ramblers": {
             "period1": 12,
-            "period2": 12,
-            "period3": 9,
-            "total": 33
+            "period2": 11,
+            "period3": 6,
+            "total": 29
           },
           "opponent": {
             "period1": 9,
-            "period2": 20,
-            "period3": 20,
-            "total": 49
+            "period2": 11,
+            "period3": 15,
+            "total": 35
           }
         },
         "scoring_by_period": {
@@ -1001,8 +996,8 @@
             {
               "name": "Brandon Lavoie",
               "time_on_ice": "60:00",
-              "saves": 48,
-              "shots_against": 49,
+              "saves": 34,
+              "shots_against": 35,
               "on_ice": "1st/0:00",
               "off_ice": "3rd/20:00",
               "decision": "W"
@@ -1012,8 +1007,8 @@
             {
               "name": "Dax Robichaud",
               "time_on_ice": "60:00",
-              "saves": 28,
-              "shots_against": 33,
+              "saves": 24,
+              "shots_against": 29,
               "on_ice": "1st/0:00",
               "off_ice": "3rd/20:00",
               "decision": "L"
@@ -1339,6 +1334,10 @@
             {
               "name": "Mac Wallace",
               "number": 93
+            },
+            {
+              "name": "Ethan Percy",
+              "number": 14
             }
           ],
           "power_play": false,
@@ -1364,9 +1363,9 @@
               "number": 13
             },
             {
-              "player_id": "mhl-3545",
-              "name": "Christian White",
-              "number": 4
+              "player_id": "mhl-3848",
+              "name": "Ty Peddigrew",
+              "number": 7
             }
           ],
           "power_play": true,
@@ -1576,8 +1575,8 @@
         "mhl-3545": {
           "position": "D",
           "goals": 0,
-          "assists": 1,
-          "points": 1,
+          "assists": 0,
+          "points": 0,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -1589,8 +1588,8 @@
         "mhl-3848": {
           "position": "C",
           "goals": 0,
-          "assists": 0,
-          "points": 0,
+          "assists": 1,
+          "points": 1,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -1809,8 +1808,8 @@
         },
         "mhl-3766": {
           "position": "G",
-          "saves": 39,
-          "shots_against": 42,
+          "saves": 35,
+          "shots_against": 38,
           "goals_against": 3,
           "save_percentage": "0.000",
           "time_on_ice": "59:21"
@@ -1827,16 +1826,16 @@
       "box_score": {
         "shots_by_period": {
           "ramblers": {
-            "period1": 15,
-            "period2": 12,
-            "period3": 13,
-            "total": 40
+            "period1": 12,
+            "period2": 8,
+            "period3": 10,
+            "total": 30
           },
           "opponent": {
-            "period1": 14,
-            "period2": 15,
-            "period3": 13,
-            "total": 42
+            "period1": 16,
+            "period2": 10,
+            "period3": 12,
+            "total": 38
           }
         },
         "scoring_by_period": {
@@ -1872,8 +1871,8 @@
             {
               "name": "Brandon Lavoie",
               "time_on_ice": "59:21",
-              "saves": 39,
-              "shots_against": 42,
+              "saves": 35,
+              "shots_against": 38,
               "on_ice": "1st/0:00",
               "off_ice": "3rd/19:21",
               "decision": "L"
@@ -1883,8 +1882,8 @@
             {
               "name": "George Gallant",
               "time_on_ice": "60:00",
-              "saves": 38,
-              "shots_against": 40,
+              "saves": 28,
+              "shots_against": 30,
               "on_ice": "1st/0:00",
               "off_ice": "3rd/20:00",
               "decision": "W"

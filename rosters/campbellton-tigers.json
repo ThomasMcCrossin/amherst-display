@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 8,
-  "updated_at": "2026-09-15T11:58:51.029Z",
+  "updated_at": "2026-09-16T11:54:30.692Z",
   "player_count": 24,
   "players": [
     {
@@ -175,23 +175,7 @@
       "veteran": false,
       "headshot": "assets/headshots/Campbellton-Tigers/11-nathan-lebrasseur.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3854.jpg",
-      "stats": {
-        "games_played": 1,
-        "goals": 0,
-        "assists": 0,
-        "points": 0,
-        "plus_minus": 0,
-        "penalty_minutes": 0,
-        "power_play_goals": 0,
-        "power_play_assists": 0,
-        "power_play_points": 0,
-        "short_handed_goals": 0,
-        "short_handed_assists": 0,
-        "short_handed_points": 0,
-        "game_winning_goals": 0,
-        "overtime_goals": 0,
-        "points_per_game": 0
-      },
+      "stats": {},
       "hockeytech_id": "3854",
       "person_id": "4482",
       "flags": []
@@ -297,8 +281,8 @@
       "stats": {
         "games_played": 1,
         "goals": 0,
-        "assists": 1,
-        "points": 1,
+        "assists": 0,
+        "points": 0,
         "plus_minus": 0,
         "penalty_minutes": 0,
         "power_play_goals": 0,
@@ -309,7 +293,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 1
+        "points_per_game": 0
       },
       "hockeytech_id": "3964",
       "person_id": "4635",
@@ -333,7 +317,23 @@
       "birthplace": "Campbellton, NB, NB",
       "rookie": false,
       "veteran": false,
-      "stats": {},
+      "stats": {
+        "games_played": 1,
+        "goals": 0,
+        "assists": 1,
+        "points": 1,
+        "plus_minus": 0,
+        "penalty_minutes": 0,
+        "power_play_goals": 0,
+        "power_play_assists": 0,
+        "power_play_points": 0,
+        "short_handed_goals": 0,
+        "short_handed_assists": 0,
+        "short_handed_points": 0,
+        "game_winning_goals": 0,
+        "overtime_goals": 0,
+        "points_per_game": 1
+      },
       "hockeytech_id": "4123",
       "person_id": "4797",
       "flags": [
@@ -716,11 +716,11 @@
         "losses": 0,
         "ot_losses": 0,
         "minutes_played": 60,
-        "saves": 50,
-        "shots": 51,
+        "saves": 51,
+        "shots": 52,
         "goals_against": 1,
         "shutouts": 0,
-        "save_percentage": 0.98,
+        "save_percentage": 0.981,
         "goals_against_average": 1
       },
       "hockeytech_id": "3000",
@@ -789,8 +789,8 @@
       "stats": {
         "games_played": 1,
         "goals": 0,
-        "assists": 0,
-        "points": 0,
+        "assists": 2,
+        "points": 2,
         "plus_minus": 0,
         "penalty_minutes": 0,
         "power_play_goals": 0,
@@ -801,7 +801,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0
+        "points_per_game": 2
       },
       "hockeytech_id": "3989",
       "person_id": "4660",

@@ -5,8 +5,8 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 2,
-  "updated_at": "2026-09-15T11:58:42.025Z",
-  "player_count": 21,
+  "updated_at": "2026-09-16T11:54:16.775Z",
+  "player_count": 22,
   "players": [
     {
       "player_id": "mhl-3332",
@@ -71,8 +71,33 @@
       "veteran": true,
       "headshot": "assets/headshots/Edmundston-Blizzard/6-colby-train.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2722.jpg",
+      "stats": {},
+      "hockeytech_id": "2722",
+      "person_id": "3149",
+      "flags": [
+        "ht-played-major-junior"
+      ]
+    },
+    {
+      "player_id": "mhl-4142",
+      "number": "7",
+      "first_name": "Robin",
+      "last_name": "Poitras",
+      "name": "Robin Poitras",
+      "position": "RW",
+      "height": "5'10",
+      "height_inches": 70,
+      "weight": 165,
+      "shoots": "R",
+      "birthdate": "2008-09-02",
+      "birth_year": "'08",
+      "age": 18,
+      "hometown": "Baie-Comeau, QC",
+      "birthplace": "Baie-Comeau, QC, ",
+      "rookie": false,
+      "veteran": false,
       "stats": {
-        "games_played": 1,
+        "games_played": 0,
         "goals": 0,
         "assists": 0,
         "points": 0,
@@ -88,11 +113,9 @@
         "overtime_goals": 0,
         "points_per_game": 0
       },
-      "hockeytech_id": "2722",
-      "person_id": "3149",
-      "flags": [
-        "ht-played-major-junior"
-      ]
+      "hockeytech_id": "4142",
+      "person_id": "4827",
+      "flags": []
     },
     {
       "player_id": "mhl-3688",
@@ -494,8 +517,8 @@
       "stats": {
         "games_played": 1,
         "goals": 0,
-        "assists": 0,
-        "points": 0,
+        "assists": 1,
+        "points": 1,
         "plus_minus": 0,
         "penalty_minutes": 0,
         "power_play_goals": 0,
@@ -506,7 +529,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0
+        "points_per_game": 1
       },
       "hockeytech_id": "3839",
       "person_id": "4457",
@@ -577,11 +600,11 @@
         "losses": 1,
         "ot_losses": 0,
         "minutes_played": 60,
-        "saves": 31,
-        "shots": 35,
+        "saves": 22,
+        "shots": 26,
         "goals_against": 4,
         "shutouts": 0,
-        "save_percentage": 0.886,
+        "save_percentage": 0.846,
         "goals_against_average": 4
       },
       "hockeytech_id": "3114",
