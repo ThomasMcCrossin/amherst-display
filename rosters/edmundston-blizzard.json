@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 2,
-  "updated_at": "2026-09-16T11:54:16.775Z",
+  "updated_at": "2026-09-17T11:57:04.279Z",
   "player_count": 22,
   "players": [
     {
@@ -96,6 +96,8 @@
       "birthplace": "Baie-Comeau, QC, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Edmundston-Blizzard/7-robin-poitras.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4142.jpg",
       "stats": {
         "games_played": 0,
         "goals": 0,
@@ -629,6 +631,8 @@
       "birthplace": "Shawinigan, QC, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Edmundston-Blizzard/44-anthony-dontigny.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4141.jpg",
       "stats": {
         "games_played": 0,
         "goals": 0,

@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 5,
-  "updated_at": "2026-09-16T11:54:24.398Z",
+  "updated_at": "2026-09-17T11:57:06.227Z",
   "player_count": 24,
   "players": [
     {
@@ -265,7 +265,7 @@
       "headshot": "assets/headshots/Yarmouth-Mariners/11-owen-king.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4101.jpg",
       "stats": {
-        "games_played": 1,
+        "games_played": 0,
         "goals": 0,
         "assists": 0,
         "points": 0,
