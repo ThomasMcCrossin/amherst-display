@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 9,
-  "updated_at": "2026-09-18T11:36:01.391Z",
+  "updated_at": "2026-09-19T11:19:01.105Z",
   "player_count": 24,
   "players": [
     {
@@ -409,6 +409,49 @@
       ]
     },
     {
+      "player_id": "mhl-3596",
+      "number": "18",
+      "first_name": "Eliot",
+      "last_name": "Tozer",
+      "name": "Eliot Tozer",
+      "position": "C",
+      "height": "6'0",
+      "height_inches": 72,
+      "weight": 182,
+      "shoots": "L",
+      "birthdate": "2009-02-26",
+      "birth_year": "'09",
+      "age": 17,
+      "hometown": "Quispamsis, NB",
+      "birthplace": "Quispamsis, NB, ",
+      "rookie": true,
+      "veteran": false,
+      "headshot": "assets/headshots/Miramichi-Timberwolves/18-eliot-tozer.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3596.jpg",
+      "stats": {
+        "games_played": 3,
+        "goals": 1,
+        "assists": 1,
+        "points": 2,
+        "plus_minus": 0,
+        "penalty_minutes": 0,
+        "power_play_goals": 1,
+        "power_play_assists": 0,
+        "power_play_points": 1,
+        "short_handed_goals": 0,
+        "short_handed_assists": 0,
+        "short_handed_points": 0,
+        "game_winning_goals": 0,
+        "overtime_goals": 0,
+        "points_per_game": 0.67
+      },
+      "hockeytech_id": "3596",
+      "person_id": "4211",
+      "flags": [
+        "ht-rookie"
+      ]
+    },
+    {
       "player_id": "mhl-3769",
       "number": "19",
       "first_name": "Cam",
@@ -516,49 +559,6 @@
       "hockeytech_id": "3799",
       "person_id": "4417",
       "flags": []
-    },
-    {
-      "player_id": "mhl-3596",
-      "number": "25",
-      "first_name": "Eliot",
-      "last_name": "Tozer",
-      "name": "Eliot Tozer",
-      "position": "C",
-      "height": "6'0",
-      "height_inches": 72,
-      "weight": 182,
-      "shoots": "L",
-      "birthdate": "2009-02-26",
-      "birth_year": "'09",
-      "age": 17,
-      "hometown": "Quispamsis, NB",
-      "birthplace": "Quispamsis, NB, ",
-      "rookie": true,
-      "veteran": false,
-      "headshot": "assets/headshots/Miramichi-Timberwolves/25-eliot-tozer.jpg",
-      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3596.jpg",
-      "stats": {
-        "games_played": 3,
-        "goals": 1,
-        "assists": 1,
-        "points": 2,
-        "plus_minus": 0,
-        "penalty_minutes": 0,
-        "power_play_goals": 1,
-        "power_play_assists": 0,
-        "power_play_points": 1,
-        "short_handed_goals": 0,
-        "short_handed_assists": 0,
-        "short_handed_points": 0,
-        "game_winning_goals": 0,
-        "overtime_goals": 0,
-        "points_per_game": 0.67
-      },
-      "hockeytech_id": "3596",
-      "person_id": "4211",
-      "flags": [
-        "ht-rookie"
-      ]
     },
     {
       "player_id": "mhl-2900",
