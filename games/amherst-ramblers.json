@@ -7,28 +7,28 @@
   "season_ids": [
     46
   ],
-  "updated_at": "2026-09-13T01:56:53.122Z",
+  "updated_at": "2026-09-22T17:48:30.357Z",
   "summary": {
-    "games_played": 2,
-    "wins": 1,
-    "losses": 1,
+    "games_played": 5,
+    "wins": 3,
+    "losses": 2,
     "ot_losses": 0,
     "shootout_losses": 0,
-    "points": 2,
-    "goals_for": 7,
-    "goals_against": 4,
+    "points": 6,
+    "goals_for": 19,
+    "goals_against": 19,
     "home_record": {
       "wins": 1,
       "losses": 0,
       "ot_losses": 0
     },
     "away_record": {
-      "wins": 0,
-      "losses": 1,
+      "wins": 2,
+      "losses": 2,
       "ot_losses": 0
     },
-    "goal_differential": 3,
-    "record": "1-1-0"
+    "goal_differential": 0,
+    "record": "3-2-0"
   },
   "playoff_summary": {
     "games_played": 0,
@@ -53,6 +53,2601 @@
     "record": "0-0-0"
   },
   "games": [
+    {
+      "game_id": "5011",
+      "season_id": 46,
+      "date": "2026-09-20",
+      "date_time": "2026-09-20T15:00:00-03:00",
+      "opponent": {
+        "team_id": 2,
+        "team_name": "Edmundston Blizzard",
+        "team_code": "EDM"
+      },
+      "home_game": false,
+      "playoff": false,
+      "schedule_notes": "",
+      "venue": "Centre Jean Daigle",
+      "result": {
+        "won": false,
+        "ramblers_score": 1,
+        "opponent_score": 6,
+        "overtime": false,
+        "shootout": false,
+        "final_score": "1-6"
+      },
+      "attendance": 2035,
+      "scoring": [
+        {
+          "period": 1,
+          "period_name": "1st",
+          "time": "6:14",
+          "team": "opponent",
+          "scorer": {
+            "player_id": "mhl-3647",
+            "name": "Charles-Éric Tremblay",
+            "number": 28,
+            "position": "LW"
+          },
+          "assists": [
+            {
+              "player_id": "mhl-3322",
+              "name": "Noah Larochelle",
+              "number": 24
+            },
+            {
+              "name": "Colby Train",
+              "number": 6
+            }
+          ],
+          "power_play": true,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 1,
+          "period_name": "1st",
+          "time": "11:38",
+          "team": "opponent",
+          "scorer": {
+            "name": "Michael Arsenault",
+            "number": 71,
+            "position": "LW"
+          },
+          "assists": [
+            {
+              "player_id": "mhl-2760",
+              "name": "Alexis Chénard",
+              "number": 18
+            },
+            {
+              "player_id": "mhl-3647",
+              "name": "Charles-Éric Tremblay",
+              "number": 28
+            }
+          ],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": true,
+          "empty_net": false
+        },
+        {
+          "period": 1,
+          "period_name": "1st",
+          "time": "18:51",
+          "team": "opponent",
+          "scorer": {
+            "name": "Justin Bouchard",
+            "number": 8,
+            "position": "D"
+          },
+          "assists": [
+            {
+              "name": "William Labranche",
+              "number": 79
+            },
+            {
+              "name": "Michael Arsenault",
+              "number": 71
+            }
+          ],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "11:34",
+          "team": "opponent",
+          "scorer": {
+            "name": "Michael Arsenault",
+            "number": 71,
+            "position": "LW"
+          },
+          "assists": [
+            {
+              "player_id": "mhl-3647",
+              "name": "Charles-Éric Tremblay",
+              "number": 28
+            },
+            {
+              "name": "William Labranche",
+              "number": 79
+            }
+          ],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "14:27",
+          "team": "opponent",
+          "scorer": {
+            "player_id": "mhl-3322",
+            "name": "Noah Larochelle",
+            "number": 24,
+            "position": "RW"
+          },
+          "assists": [],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "6:15",
+          "team": "amherst-ramblers",
+          "scorer": {
+            "player_id": "mhl-3433",
+            "name": "Nathan Weber",
+            "number": 11,
+            "position": "LW"
+          },
+          "assists": [
+            {
+              "player_id": "mhl-4119",
+              "name": "Elliott Duval",
+              "number": 27
+            },
+            {
+              "player_id": "mhl-3756",
+              "name": "Zach Wheeler",
+              "number": 19
+            }
+          ],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "19:13",
+          "team": "opponent",
+          "scorer": {
+            "player_id": "mhl-4119",
+            "name": "François-Xavier Mercier",
+            "number": 27,
+            "position": "RW"
+          },
+          "assists": [],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        }
+      ],
+      "penalties": [
+        {
+          "period": 1,
+          "period_name": "1st",
+          "time": "05:54",
+          "team": "ramblers",
+          "player": {
+            "player_id": "mhl-3192",
+            "name": "Ben Manos",
+            "number": 10,
+            "position": "D"
+          },
+          "infraction": "Tripping - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 1,
+          "period_name": "1st",
+          "time": "15:16",
+          "team": "opponent",
+          "player": {
+            "name": "Charles-Éric Tremblay",
+            "number": 28,
+            "position": "LW"
+          },
+          "infraction": "Slashing - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 1,
+          "period_name": "1st",
+          "time": "19:41",
+          "team": "ramblers",
+          "player": {
+            "player_id": "mhl-3545",
+            "name": "Christian White",
+            "number": 4,
+            "position": "D"
+          },
+          "infraction": "Checking From Behind - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "12:25",
+          "team": "opponent",
+          "player": {
+            "name": "Émile Fournier",
+            "number": 81,
+            "position": "C"
+          },
+          "infraction": "Cross Checking - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "04:04",
+          "team": "ramblers",
+          "player": {
+            "player_id": "mhl-3756",
+            "name": "Zach Wheeler",
+            "number": 19,
+            "position": "C"
+          },
+          "infraction": "Tripping - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "06:28",
+          "team": "opponent",
+          "player": {
+            "name": "Robin Poitras",
+            "number": 7,
+            "position": "RW"
+          },
+          "infraction": "High Sticking - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        }
+      ],
+      "player_stats": {
+        "mhl-3545": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 2,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-4025": {
+          "position": "C",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3192": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 2,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3433": {
+          "position": "LW",
+          "goals": 1,
+          "assists": 0,
+          "points": 1,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3562": {
+          "position": "C",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3243": {
+          "position": "C",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-2794": {
+          "position": "LW",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-2760": {
+          "position": "RW",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3756": {
+          "position": "C",
+          "goals": 0,
+          "assists": 1,
+          "points": 1,
+          "penalty_minutes": 2,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-4023": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3322": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-4119": {
+          "position": "C",
+          "goals": 0,
+          "assists": 1,
+          "points": 1,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3647": {
+          "position": "RW",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-4016": {
+          "position": "C",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3226": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3833": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-4018": {
+          "position": "C",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3867": {
+          "position": "LW",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3766": {
+          "position": "G",
+          "saves": 40,
+          "shots_against": 46,
+          "goals_against": 6,
+          "save_percentage": "0.000",
+          "time_on_ice": "60:00"
+        },
+        "mhl-3187": {
+          "position": "G",
+          "saves": 0,
+          "shots_against": 0,
+          "goals_against": 0,
+          "save_percentage": "0.000",
+          "time_on_ice": "00:00"
+        }
+      },
+      "box_score": {
+        "shots_by_period": {
+          "ramblers": {
+            "period1": 9,
+            "period2": 10,
+            "period3": 3,
+            "total": 22
+          },
+          "opponent": {
+            "period1": 13,
+            "period2": 18,
+            "period3": 15,
+            "total": 46
+          }
+        },
+        "scoring_by_period": {
+          "ramblers": {
+            "period1": 0,
+            "period2": 0,
+            "period3": 1,
+            "total": 1
+          },
+          "opponent": {
+            "period1": 3,
+            "period2": 2,
+            "period3": 1,
+            "total": 6
+          }
+        },
+        "power_play_summary": {
+          "ramblers": {
+            "power_play_goals": 0,
+            "power_play_opportunities": 3,
+            "penalty_minutes": 6,
+            "penalties": 3
+          },
+          "opponent": {
+            "power_play_goals": 1,
+            "power_play_opportunities": 3,
+            "penalty_minutes": 6,
+            "penalties": 3
+          }
+        },
+        "goaltenders": {
+          "ramblers": [
+            {
+              "name": "Brandon Lavoie",
+              "time_on_ice": "60:00",
+              "saves": 40,
+              "shots_against": 46,
+              "on_ice": "1st/0:00",
+              "off_ice": "3rd/20:00",
+              "decision": "L"
+            }
+          ],
+          "opponent": [
+            {
+              "name": "Olivier St-Onge",
+              "time_on_ice": "60:00",
+              "saves": 21,
+              "shots_against": 22,
+              "on_ice": "1st/0:00",
+              "off_ice": "3rd/20:00",
+              "decision": "W"
+            }
+          ]
+        },
+        "shootout": null,
+        "three_stars": null,
+        "penalties": [
+          {
+            "period": 1,
+            "time": "19:41",
+            "team": "ramblers",
+            "player": {
+              "name": "Christian White",
+              "number": null
+            },
+            "infraction": "Checking From Behind - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 1,
+            "time": "15:16",
+            "team": "opponent",
+            "player": {
+              "name": "Charles-Éric Tremblay",
+              "number": null
+            },
+            "infraction": "Slashing - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 1,
+            "time": "05:54",
+            "team": "ramblers",
+            "player": {
+              "name": "Ben Manos",
+              "number": null
+            },
+            "infraction": "Tripping - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 2,
+            "time": "12:25",
+            "team": "opponent",
+            "player": {
+              "name": "Émile Fournier",
+              "number": null
+            },
+            "infraction": "Cross Checking - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 3,
+            "time": "06:28",
+            "team": "opponent",
+            "player": {
+              "name": "Robin Poitras",
+              "number": null
+            },
+            "infraction": "High Sticking - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 3,
+            "time": "04:04",
+            "team": "ramblers",
+            "player": {
+              "name": "Zach Wheeler",
+              "number": null
+            },
+            "infraction": "Tripping - Minor",
+            "minutes": 2
+          }
+        ]
+      },
+      "game_info": {
+        "arena": "Centre Jean Daigle Attendance: 2035 Start: 3:07 pm ADT End: 5:14 pm ADT Length: 2:07",
+        "attendance": 2035,
+        "start_time": "3:07 pm ADT",
+        "end_time": "5:14 pm ADT",
+        "duration": "2:07",
+        "referees": [
+          {
+            "name": "Pierre Luc Martin",
+            "number": 0
+          },
+          {
+            "name": "Wesley McCluskey",
+            "number": 0
+          }
+        ],
+        "linesmen": [
+          {
+            "name": "Jason Bartlett",
+            "number": 0
+          },
+          {
+            "name": "Alexandre Sirois",
+            "number": 0
+          }
+        ]
+      }
+    },
+    {
+      "game_id": "5008",
+      "season_id": 46,
+      "date": "2026-09-19",
+      "date_time": "2026-09-19T19:00:00-03:00",
+      "opponent": {
+        "team_id": 12,
+        "team_name": "Grand Falls Rapids",
+        "team_code": "GFR"
+      },
+      "home_game": false,
+      "playoff": false,
+      "schedule_notes": "",
+      "venue": "E. & P. Sénéchal Centre",
+      "result": {
+        "won": true,
+        "ramblers_score": 6,
+        "opponent_score": 5,
+        "overtime": true,
+        "shootout": false,
+        "final_score": "6-5 (OT)"
+      },
+      "attendance": 867,
+      "scoring": [
+        {
+          "period": 1,
+          "period_name": "1st",
+          "time": "11:57",
+          "team": "opponent",
+          "scorer": {
+            "player_id": "mhl-2794",
+            "name": "Louis-Carl Tremblay",
+            "number": 16,
+            "position": "C"
+          },
+          "assists": [
+            {
+              "player_id": "mhl-3848",
+              "name": "Patrick Baxter",
+              "number": 7
+            },
+            {
+              "name": "Jayden Burtt-Munn",
+              "number": 20
+            }
+          ],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 1,
+          "period_name": "1st",
+          "time": "15:55",
+          "team": "opponent",
+          "scorer": {
+            "player_id": "mhl-4025",
+            "name": "Zackarie Michaud",
+            "number": 9,
+            "position": "C"
+          },
+          "assists": [
+            {
+              "player_id": "mhl-4023",
+              "name": "Jonah Leard",
+              "number": 21
+            },
+            {
+              "player_id": "mhl-4018",
+              "name": "Antoine L'Italien",
+              "number": 91
+            }
+          ],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 1,
+          "period_name": "1st",
+          "time": "19:10",
+          "team": "amherst-ramblers",
+          "scorer": {
+            "player_id": "mhl-3545",
+            "name": "Christian White",
+            "number": 4,
+            "position": "D"
+          },
+          "assists": [
+            {
+              "player_id": "mhl-4025",
+              "name": "Jonathan Lau",
+              "number": 9
+            },
+            {
+              "player_id": "mhl-3756",
+              "name": "Zach Wheeler",
+              "number": 19
+            }
+          ],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "8:25",
+          "team": "amherst-ramblers",
+          "scorer": {
+            "player_id": "mhl-4119",
+            "name": "Elliott Duval",
+            "number": 27,
+            "position": "C"
+          },
+          "assists": [
+            {
+              "player_id": "mhl-3647",
+              "name": "Ethan Fraser",
+              "number": 28
+            },
+            {
+              "player_id": "mhl-3192",
+              "name": "Ben Manos",
+              "number": 10
+            }
+          ],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "8:35",
+          "team": "opponent",
+          "scorer": {
+            "player_id": "mhl-3322",
+            "name": "Oliver Plante",
+            "number": 24,
+            "position": "LW"
+          },
+          "assists": [
+            {
+              "name": "Xavier Normand",
+              "number": 44
+            },
+            {
+              "name": "Kaden Bell",
+              "number": 88
+            }
+          ],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "16:15",
+          "team": "amherst-ramblers",
+          "scorer": {
+            "player_id": "mhl-3562",
+            "name": "Elliot Wright",
+            "number": 13,
+            "position": "C"
+          },
+          "assists": [
+            {
+              "player_id": "mhl-3867",
+              "name": "Brock Lyons",
+              "number": 95
+            },
+            {
+              "player_id": "mhl-3243",
+              "name": "Evan Nicholson",
+              "number": 15
+            }
+          ],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "19:43",
+          "team": "opponent",
+          "scorer": {
+            "player_id": "mhl-4023",
+            "name": "Jonah Leard",
+            "number": 21,
+            "position": "RW"
+          },
+          "assists": [
+            {
+              "player_id": "mhl-4018",
+              "name": "Antoine L'Italien",
+              "number": 91
+            },
+            {
+              "player_id": "mhl-4025",
+              "name": "Zackarie Michaud",
+              "number": 9
+            }
+          ],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "0:42",
+          "team": "opponent",
+          "scorer": {
+            "name": "Brayden Watson",
+            "number": 26,
+            "position": "RW"
+          },
+          "assists": [
+            {
+              "player_id": "mhl-3848",
+              "name": "Patrick Baxter",
+              "number": 7
+            }
+          ],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "0:56",
+          "team": "amherst-ramblers",
+          "scorer": {
+            "player_id": "mhl-4016",
+            "name": "Gabriel Boivin",
+            "number": 37,
+            "position": "C"
+          },
+          "assists": [
+            {
+              "player_id": "mhl-4119",
+              "name": "Elliott Duval",
+              "number": 27
+            },
+            {
+              "player_id": "mhl-3647",
+              "name": "Ethan Fraser",
+              "number": 28
+            }
+          ],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "18:32",
+          "team": "amherst-ramblers",
+          "scorer": {
+            "player_id": "mhl-3756",
+            "name": "Zach Wheeler",
+            "number": 19,
+            "position": "C"
+          },
+          "assists": [
+            {
+              "player_id": "mhl-4025",
+              "name": "Jonathan Lau",
+              "number": 9
+            }
+          ],
+          "power_play": true,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 4,
+          "period_name": "1st OT",
+          "time": "0:21",
+          "team": "amherst-ramblers",
+          "scorer": {
+            "player_id": "mhl-3756",
+            "name": "Zach Wheeler",
+            "number": 19,
+            "position": "C"
+          },
+          "assists": [
+            {
+              "player_id": "mhl-2794",
+              "name": "Coen Miller",
+              "number": 16
+            }
+          ],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": true,
+          "empty_net": false
+        }
+      ],
+      "penalties": [
+        {
+          "period": 1,
+          "period_name": "1st",
+          "time": "19:49",
+          "team": "ramblers",
+          "player": {
+            "player_id": "mhl-3545",
+            "name": "Christian White",
+            "number": 4,
+            "position": "D"
+          },
+          "infraction": "Roughing - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 1,
+          "period_name": "1st",
+          "time": "19:49",
+          "team": "ramblers",
+          "player": {
+            "player_id": "mhl-3545",
+            "name": "Christian White",
+            "number": 4,
+            "position": "D"
+          },
+          "infraction": "Cross Checking - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 1,
+          "period_name": "1st",
+          "time": "19:49",
+          "team": "opponent",
+          "player": {
+            "name": "Declan Kennedy",
+            "number": 66,
+            "position": "C"
+          },
+          "infraction": "Roughing - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "03:38",
+          "team": "opponent",
+          "player": {
+            "name": "Oliver Plante",
+            "number": 24,
+            "position": "LW"
+          },
+          "infraction": "Checking To The Head - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "09:04",
+          "team": "ramblers",
+          "player": {
+            "player_id": "mhl-3322",
+            "name": "Sawyer Harvey",
+            "number": 24,
+            "position": "D"
+          },
+          "infraction": "Roughing - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "02:37",
+          "team": "ramblers",
+          "player": {
+            "player_id": "mhl-3192",
+            "name": "Ben Manos",
+            "number": 10,
+            "position": "D"
+          },
+          "infraction": "Slashing - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "07:07",
+          "team": "opponent",
+          "player": {
+            "name": "Patrick Baxter",
+            "number": 7,
+            "position": "LW"
+          },
+          "infraction": "Cross Checking - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "09:36",
+          "team": "ramblers",
+          "player": {
+            "player_id": "mhl-4018",
+            "name": "Nathaniel Noah",
+            "number": 91,
+            "position": "C"
+          },
+          "infraction": "High Sticking - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "17:19",
+          "team": "opponent",
+          "player": {
+            "name": "Loic Gallant",
+            "number": 4,
+            "position": "D"
+          },
+          "infraction": "Boarding - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        }
+      ],
+      "player_stats": {
+        "mhl-3545": {
+          "position": "D",
+          "goals": 1,
+          "assists": 0,
+          "points": 1,
+          "penalty_minutes": 4,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-4025": {
+          "position": "C",
+          "goals": 0,
+          "assists": 2,
+          "points": 2,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3192": {
+          "position": "D",
+          "goals": 0,
+          "assists": 1,
+          "points": 1,
+          "penalty_minutes": 2,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3433": {
+          "position": "LW",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3562": {
+          "position": "C",
+          "goals": 1,
+          "assists": 0,
+          "points": 1,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3243": {
+          "position": "C",
+          "goals": 0,
+          "assists": 1,
+          "points": 1,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-2794": {
+          "position": "LW",
+          "goals": 0,
+          "assists": 1,
+          "points": 1,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-2760": {
+          "position": "RW",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3756": {
+          "position": "C",
+          "goals": 2,
+          "assists": 1,
+          "points": 3,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-4023": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3322": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 2,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-4119": {
+          "position": "C",
+          "goals": 1,
+          "assists": 1,
+          "points": 2,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3647": {
+          "position": "RW",
+          "goals": 0,
+          "assists": 2,
+          "points": 2,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-4016": {
+          "position": "C",
+          "goals": 1,
+          "assists": 0,
+          "points": 1,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3226": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3833": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-4018": {
+          "position": "C",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 2,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3867": {
+          "position": "LW",
+          "goals": 0,
+          "assists": 1,
+          "points": 1,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3766": {
+          "position": "G",
+          "saves": 10,
+          "shots_against": 10,
+          "goals_against": 0,
+          "save_percentage": "0.000",
+          "time_on_ice": "19:39"
+        },
+        "mhl-3187": {
+          "position": "G",
+          "saves": 29,
+          "shots_against": 34,
+          "goals_against": 5,
+          "save_percentage": "0.000",
+          "time_on_ice": "40:42"
+        }
+      },
+      "box_score": {
+        "shots_by_period": {
+          "ramblers": {
+            "period1": 7,
+            "period2": 15,
+            "period3": 19,
+            "total": 42,
+            "overtime": 1
+          },
+          "opponent": {
+            "period1": 13,
+            "period2": 20,
+            "period3": 11,
+            "total": 44,
+            "overtime": 0
+          }
+        },
+        "scoring_by_period": {
+          "ramblers": {
+            "period1": 1,
+            "period2": 2,
+            "period3": 2,
+            "total": 1
+          },
+          "opponent": {
+            "period1": 2,
+            "period2": 2,
+            "period3": 1,
+            "total": 0
+          }
+        },
+        "power_play_summary": {
+          "ramblers": {
+            "power_play_goals": 1,
+            "power_play_opportunities": 3,
+            "penalty_minutes": 10,
+            "penalties": 5
+          },
+          "opponent": {
+            "power_play_goals": 0,
+            "power_play_opportunities": 4,
+            "penalty_minutes": 8,
+            "penalties": 4
+          }
+        },
+        "goaltenders": {
+          "ramblers": [
+            {
+              "name": "Hudson Bradley ()",
+              "time_on_ice": "40:42",
+              "saves": 29,
+              "shots_against": 34,
+              "on_ice": "1st/0:00",
+              "off_ice": "3rd/0:42",
+              "decision": null
+            },
+            {
+              "name": "Brandon Lavoie",
+              "time_on_ice": "19:39",
+              "saves": 10,
+              "shots_against": 10,
+              "on_ice": "3rd/0:42",
+              "off_ice": "1st OT/0:21",
+              "decision": "W"
+            }
+          ],
+          "opponent": [
+            {
+              "name": "Noah-Preston Moore (OTL)",
+              "time_on_ice": "60:21",
+              "saves": 36,
+              "shots_against": 42,
+              "on_ice": "1st/0:00",
+              "off_ice": "1st OT/0:21",
+              "decision": null
+            }
+          ]
+        },
+        "shootout": null,
+        "three_stars": null,
+        "penalties": [
+          {
+            "period": 1,
+            "time": "19:49",
+            "team": "ramblers",
+            "player": {
+              "name": "Christian White",
+              "number": null
+            },
+            "infraction": "Roughing - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 1,
+            "time": "19:49",
+            "team": "ramblers",
+            "player": {
+              "name": "Christian White",
+              "number": null
+            },
+            "infraction": "Cross Checking - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 1,
+            "time": "19:49",
+            "team": "opponent",
+            "player": {
+              "name": "Declan Kennedy",
+              "number": null
+            },
+            "infraction": "Roughing - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 2,
+            "time": "09:04",
+            "team": "ramblers",
+            "player": {
+              "name": "Sawyer Harvey",
+              "number": null
+            },
+            "infraction": "Roughing - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 2,
+            "time": "03:38",
+            "team": "opponent",
+            "player": {
+              "name": "Oliver Plante",
+              "number": null
+            },
+            "infraction": "Checking To The Head - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 3,
+            "time": "17:19",
+            "team": "opponent",
+            "player": {
+              "name": "Loic Gallant",
+              "number": null
+            },
+            "infraction": "Boarding - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 3,
+            "time": "09:36",
+            "team": "ramblers",
+            "player": {
+              "name": "Nathaniel Noah",
+              "number": null
+            },
+            "infraction": "High Sticking - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 3,
+            "time": "07:07",
+            "team": "opponent",
+            "player": {
+              "name": "Patrick Baxter",
+              "number": null
+            },
+            "infraction": "Cross Checking - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 3,
+            "time": "02:37",
+            "team": "ramblers",
+            "player": {
+              "name": "Ben Manos",
+              "number": null
+            },
+            "infraction": "Slashing - Minor",
+            "minutes": 2
+          }
+        ]
+      },
+      "game_info": {
+        "arena": "E. & P. Sénéchal Centre Attendance: 867 Start: 7:10 pm ADT End: 9:36 pm ADT Length: 2:26",
+        "attendance": 867,
+        "start_time": "7:10 pm ADT",
+        "end_time": "9:36 pm ADT",
+        "duration": "2:26",
+        "referees": [
+          {
+            "name": "Andrew Fairweather",
+            "number": 0
+          },
+          {
+            "name": "Pierre Luc Martin",
+            "number": 0
+          }
+        ],
+        "linesmen": [
+          {
+            "name": "Alexandre Sirois",
+            "number": 0
+          },
+          {
+            "name": "Jason Bartlett",
+            "number": 0
+          }
+        ]
+      }
+    },
+    {
+      "game_id": "5002",
+      "season_id": 46,
+      "date": "2026-09-16",
+      "date_time": "2026-09-16T19:00:00-03:00",
+      "opponent": {
+        "team_id": 4,
+        "team_name": "Valley Wildcats",
+        "team_code": "VAL"
+      },
+      "home_game": false,
+      "playoff": false,
+      "schedule_notes": "",
+      "venue": "Kings Mutual Century Centre",
+      "result": {
+        "won": true,
+        "ramblers_score": 5,
+        "opponent_score": 4,
+        "overtime": true,
+        "shootout": false,
+        "final_score": "5-4 (OT)"
+      },
+      "attendance": 465,
+      "scoring": [
+        {
+          "period": 1,
+          "period_name": "1st",
+          "time": "0:34",
+          "team": "amherst-ramblers",
+          "scorer": {
+            "player_id": "mhl-3756",
+            "name": "Zach Wheeler",
+            "number": 19,
+            "position": "C"
+          },
+          "assists": [
+            {
+              "player_id": "mhl-2794",
+              "name": "Coen Miller",
+              "number": 16
+            },
+            {
+              "player_id": "mhl-3562",
+              "name": "Elliot Wright",
+              "number": 13
+            }
+          ],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 1,
+          "period_name": "1st",
+          "time": "3:43",
+          "team": "opponent",
+          "scorer": {
+            "name": "Drew Lutz",
+            "number": 20,
+            "position": "RW"
+          },
+          "assists": [
+            {
+              "player_id": "mhl-3545",
+              "name": "Jacob Seaman",
+              "number": 4
+            },
+            {
+              "player_id": "mhl-2794",
+              "name": "Etienne Dupere",
+              "number": 16
+            }
+          ],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 1,
+          "period_name": "1st",
+          "time": "10:34",
+          "team": "opponent",
+          "scorer": {
+            "name": "Riley Cave",
+            "number": 6,
+            "position": "C"
+          },
+          "assists": [
+            {
+              "name": "Dylan Pelletier",
+              "number": 17
+            }
+          ],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 1,
+          "period_name": "1st",
+          "time": "15:53",
+          "team": "amherst-ramblers",
+          "scorer": {
+            "player_id": "mhl-4119",
+            "name": "Elliott Duval",
+            "number": 27,
+            "position": "C"
+          },
+          "assists": [
+            {
+              "player_id": "mhl-3867",
+              "name": "Brock Lyons",
+              "number": 95
+            },
+            {
+              "player_id": "mhl-3226",
+              "name": "Jeremie Richard",
+              "number": 77
+            }
+          ],
+          "power_play": true,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "6:29",
+          "team": "opponent",
+          "scorer": {
+            "player_id": "mhl-3322",
+            "name": "Colin Boulianne",
+            "number": 24,
+            "position": "RW"
+          },
+          "assists": [
+            {
+              "player_id": "mhl-3192",
+              "name": "Jack Brown",
+              "number": 10
+            },
+            {
+              "player_id": "mhl-4025",
+              "name": "Felix Belanger",
+              "number": 9
+            }
+          ],
+          "power_play": true,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "9:19",
+          "team": "amherst-ramblers",
+          "scorer": {
+            "player_id": "mhl-2794",
+            "name": "Coen Miller",
+            "number": 16,
+            "position": "LW"
+          },
+          "assists": [
+            {
+              "player_id": "mhl-4018",
+              "name": "Nathaniel Noah",
+              "number": 91
+            }
+          ],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "10:24",
+          "team": "amherst-ramblers",
+          "scorer": {
+            "player_id": "mhl-3562",
+            "name": "Elliot Wright",
+            "number": 13,
+            "position": "C"
+          },
+          "assists": [
+            {
+              "player_id": "mhl-3867",
+              "name": "Brock Lyons",
+              "number": 95
+            }
+          ],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "18:08",
+          "team": "opponent",
+          "scorer": {
+            "name": "Drew Lutz",
+            "number": 20,
+            "position": "RW"
+          },
+          "assists": [],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        }
+      ],
+      "penalties": [
+        {
+          "period": 1,
+          "period_name": "1st",
+          "time": "07:18",
+          "team": "ramblers",
+          "player": {
+            "player_id": "mhl-4023",
+            "name": "Louis-Thomas Bédard",
+            "number": 21,
+            "position": "D"
+          },
+          "infraction": "Roughing - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 1,
+          "period_name": "1st",
+          "time": "13:55",
+          "team": "opponent",
+          "player": {
+            "name": "Colin Boulianne",
+            "number": 24,
+            "position": "RW"
+          },
+          "infraction": "Holding - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 1,
+          "period_name": "1st",
+          "time": "13:55",
+          "team": "opponent",
+          "player": {
+            "name": "Jacob Denomme",
+            "number": 27,
+            "position": "D"
+          },
+          "infraction": "Hooking - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "01:19",
+          "team": "opponent",
+          "player": {
+            "name": "Colin Boulianne",
+            "number": 24,
+            "position": "RW"
+          },
+          "infraction": "Checking To The Head - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "02:21",
+          "team": "opponent",
+          "player": {
+            "name": "Riley Cave",
+            "number": 6,
+            "position": "C"
+          },
+          "infraction": "Tripping - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "04:53",
+          "team": "ramblers",
+          "player": {
+            "player_id": "mhl-3756",
+            "name": "Zach Wheeler",
+            "number": 19,
+            "position": "C"
+          },
+          "infraction": "Tripping - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "09:56",
+          "team": "ramblers",
+          "player": {
+            "player_id": "mhl-3226",
+            "name": "Jeremie Richard",
+            "number": 77,
+            "position": "D"
+          },
+          "infraction": "Roughing - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "09:56",
+          "team": "opponent",
+          "player": {
+            "name": "Jack Brown",
+            "number": 10,
+            "position": "D"
+          },
+          "infraction": "Roughing - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "14:44",
+          "team": "ramblers",
+          "player": {
+            "player_id": "mhl-3545",
+            "name": "Christian White",
+            "number": 4,
+            "position": "D"
+          },
+          "infraction": "Interference - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "15:38",
+          "team": "opponent",
+          "player": {
+            "name": "Ryan Fletcher",
+            "number": 26,
+            "position": "D"
+          },
+          "infraction": "Holding - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "00:53",
+          "team": "ramblers",
+          "player": {
+            "player_id": "mhl-3192",
+            "name": "Ben Manos",
+            "number": 10,
+            "position": "D"
+          },
+          "infraction": "Cross Checking - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "07:13",
+          "team": "ramblers",
+          "player": {
+            "player_id": "mhl-4023",
+            "name": "Louis-Thomas Bédard",
+            "number": 21,
+            "position": "D"
+          },
+          "infraction": "Hooking - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "14:48",
+          "team": "ramblers",
+          "player": {
+            "player_id": "mhl-3226",
+            "name": "Jeremie Richard",
+            "number": 77,
+            "position": "D"
+          },
+          "infraction": "Roughing - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "14:48",
+          "team": "opponent",
+          "player": {
+            "name": "Etienne Dupere",
+            "number": 16,
+            "position": "C"
+          },
+          "infraction": "Holding - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 4,
+          "period_name": "1st OT",
+          "time": "05:00",
+          "team": "opponent",
+          "player": {
+            "name": "Etienne Dupere",
+            "number": 16,
+            "position": "C"
+          },
+          "infraction": "Tripping - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        }
+      ],
+      "player_stats": {
+        "mhl-3545": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 2,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3848": {
+          "position": "C",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-4025": {
+          "position": "C",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3192": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 2,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3433": {
+          "position": "LW",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3402": {
+          "position": "LW",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3562": {
+          "position": "C",
+          "goals": 1,
+          "assists": 1,
+          "points": 2,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3243": {
+          "position": "C",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-2794": {
+          "position": "LW",
+          "goals": 1,
+          "assists": 1,
+          "points": 2,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3756": {
+          "position": "C",
+          "goals": 1,
+          "assists": 0,
+          "points": 1,
+          "penalty_minutes": 2,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-4023": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 4,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3322": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-4119": {
+          "position": "C",
+          "goals": 1,
+          "assists": 0,
+          "points": 1,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3647": {
+          "position": "RW",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3226": {
+          "position": "D",
+          "goals": 0,
+          "assists": 1,
+          "points": 1,
+          "penalty_minutes": 4,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3833": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-4018": {
+          "position": "C",
+          "goals": 0,
+          "assists": 1,
+          "points": 1,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3867": {
+          "position": "LW",
+          "goals": 0,
+          "assists": 2,
+          "points": 2,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3766": {
+          "position": "G",
+          "saves": 35,
+          "shots_against": 39,
+          "goals_against": 4,
+          "save_percentage": "0.000",
+          "time_on_ice": "65:00"
+        },
+        "mhl-3187": {
+          "position": "G",
+          "saves": 0,
+          "shots_against": 0,
+          "goals_against": 0,
+          "save_percentage": "0.000",
+          "time_on_ice": "00:00"
+        }
+      },
+      "box_score": {
+        "shots_by_period": {
+          "ramblers": {
+            "period1": 14,
+            "period2": 7,
+            "period3": 10,
+            "total": 1,
+            "overtime": 0
+          },
+          "opponent": {
+            "period1": 18,
+            "period2": 14,
+            "period3": 7,
+            "total": 0,
+            "overtime": 0
+          }
+        },
+        "scoring_by_period": {
+          "ramblers": {
+            "period1": 2,
+            "period2": 0,
+            "period3": 2,
+            "total": 0
+          },
+          "opponent": {
+            "period1": 2,
+            "period2": 1,
+            "period3": 1,
+            "total": 0
+          }
+        },
+        "power_play_summary": {
+          "ramblers": {
+            "power_play_goals": 1,
+            "power_play_opportunities": 5,
+            "penalty_minutes": 14,
+            "penalties": 7
+          },
+          "opponent": {
+            "power_play_goals": 1,
+            "power_play_opportunities": 5,
+            "penalty_minutes": 16,
+            "penalties": 8
+          }
+        },
+        "goaltenders": {
+          "ramblers": [
+            {
+              "name": "Brandon Lavoie",
+              "time_on_ice": "65:00",
+              "saves": 35,
+              "shots_against": 39,
+              "on_ice": "1st/0:00",
+              "off_ice": "1st OT/5:00",
+              "decision": "W"
+            }
+          ],
+          "opponent": [
+            {
+              "name": "Jack Bell (SOL)",
+              "time_on_ice": "65:00",
+              "saves": 27,
+              "shots_against": 31,
+              "on_ice": "1st/0:00",
+              "off_ice": "1st OT/5:00",
+              "decision": null
+            }
+          ]
+        },
+        "shootout": null,
+        "three_stars": null,
+        "penalties": [
+          {
+            "period": 1,
+            "time": "13:55",
+            "team": "opponent",
+            "player": {
+              "name": "Colin Boulianne",
+              "number": null
+            },
+            "infraction": "Holding - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 1,
+            "time": "13:55",
+            "team": "opponent",
+            "player": {
+              "name": "Jacob Denomme",
+              "number": null
+            },
+            "infraction": "Hooking - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 1,
+            "time": "07:18",
+            "team": "ramblers",
+            "player": {
+              "name": "Louis-Thomas Bédard",
+              "number": null
+            },
+            "infraction": "Roughing - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 2,
+            "time": "15:38",
+            "team": "opponent",
+            "player": {
+              "name": "Ryan Fletcher",
+              "number": null
+            },
+            "infraction": "Holding - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 2,
+            "time": "14:44",
+            "team": "ramblers",
+            "player": {
+              "name": "Christian White",
+              "number": null
+            },
+            "infraction": "Interference - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 2,
+            "time": "09:56",
+            "team": "ramblers",
+            "player": {
+              "name": "Jeremie Richard",
+              "number": null
+            },
+            "infraction": "Roughing - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 2,
+            "time": "09:56",
+            "team": "opponent",
+            "player": {
+              "name": "Jack Brown",
+              "number": null
+            },
+            "infraction": "Roughing - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 2,
+            "time": "04:53",
+            "team": "ramblers",
+            "player": {
+              "name": "Zach Wheeler",
+              "number": null
+            },
+            "infraction": "Tripping - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 2,
+            "time": "02:21",
+            "team": "opponent",
+            "player": {
+              "name": "Riley Cave",
+              "number": null
+            },
+            "infraction": "Tripping - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 2,
+            "time": "01:19",
+            "team": "opponent",
+            "player": {
+              "name": "Colin Boulianne",
+              "number": null
+            },
+            "infraction": "Checking To The Head - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 3,
+            "time": "14:48",
+            "team": "ramblers",
+            "player": {
+              "name": "Jeremie Richard",
+              "number": null
+            },
+            "infraction": "Roughing - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 3,
+            "time": "14:48",
+            "team": "opponent",
+            "player": {
+              "name": "Etienne Dupere",
+              "number": null
+            },
+            "infraction": "Holding - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 3,
+            "time": "07:13",
+            "team": "ramblers",
+            "player": {
+              "name": "Louis-Thomas Bédard",
+              "number": null
+            },
+            "infraction": "Hooking - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 3,
+            "time": "05:00",
+            "team": "opponent",
+            "player": {
+              "name": "Etienne Dupere",
+              "number": null
+            },
+            "infraction": "Tripping - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 3,
+            "time": "00:53",
+            "team": "ramblers",
+            "player": {
+              "name": "Ben Manos",
+              "number": null
+            },
+            "infraction": "Cross Checking - Minor",
+            "minutes": 2
+          }
+        ]
+      },
+      "game_info": {
+        "arena": "Kings Mutual Century Centre Attendance: 465 Start: 7:00 pm ADT End: 9:38 pm ADT Length: 2:38",
+        "attendance": 465,
+        "start_time": "7:00 pm ADT",
+        "end_time": "9:38 pm ADT",
+        "duration": "2:38",
+        "referees": [
+          {
+            "name": "Dylan Dauphinee",
+            "number": 0
+          },
+          {
+            "name": "JC Blais",
+            "number": 0
+          }
+        ],
+        "linesmen": [
+          {
+            "name": "Brandon Marshall",
+            "number": 0
+          },
+          {
+            "name": "Pierre Olivier-Courtoure",
+            "number": 0
+          }
+        ]
+      }
+    },
     {
       "game_id": "4996",
       "season_id": 46,
@@ -90,9 +2685,9 @@
           },
           "assists": [
             {
-              "player_id": "mhl-3545",
-              "name": "Christian White",
-              "number": 4
+              "player_id": "mhl-3562",
+              "name": "Elliot Wright",
+              "number": 13
             },
             {
               "player_id": "mhl-3867",
@@ -195,12 +2790,7 @@
             "number": 4,
             "position": "D"
           },
-          "assists": [
-            {
-              "name": "Declan Kennedy",
-              "number": 66
-            }
-          ],
+          "assists": [],
           "power_play": false,
           "short_handed": false,
           "game_winning": false,
@@ -705,8 +3295,8 @@
         "mhl-3545": {
           "position": "D",
           "goals": 0,
-          "assists": 1,
-          "points": 1,
+          "assists": 0,
+          "points": 0,
           "penalty_minutes": 2,
           "shots": 0,
           "plus_minus": "0",
@@ -783,8 +3373,8 @@
         "mhl-3562": {
           "position": "C",
           "goals": 1,
-          "assists": 1,
-          "points": 2,
+          "assists": 2,
+          "points": 3,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -938,8 +3528,8 @@
         },
         "mhl-3766": {
           "position": "G",
-          "saves": 48,
-          "shots_against": 49,
+          "saves": 34,
+          "shots_against": 35,
           "goals_against": 1,
           "save_percentage": "0.000",
           "time_on_ice": "60:00"
@@ -957,15 +3547,15 @@
         "shots_by_period": {
           "ramblers": {
             "period1": 12,
-            "period2": 12,
-            "period3": 9,
-            "total": 33
+            "period2": 11,
+            "period3": 6,
+            "total": 29
           },
           "opponent": {
             "period1": 9,
-            "period2": 20,
-            "period3": 20,
-            "total": 49
+            "period2": 11,
+            "period3": 15,
+            "total": 35
           }
         },
         "scoring_by_period": {
@@ -1001,8 +3591,8 @@
             {
               "name": "Brandon Lavoie",
               "time_on_ice": "60:00",
-              "saves": 48,
-              "shots_against": 49,
+              "saves": 34,
+              "shots_against": 35,
               "on_ice": "1st/0:00",
               "off_ice": "3rd/20:00",
               "decision": "W"
@@ -1012,8 +3602,8 @@
             {
               "name": "Dax Robichaud",
               "time_on_ice": "60:00",
-              "saves": 28,
-              "shots_against": 33,
+              "saves": 24,
+              "shots_against": 29,
               "on_ice": "1st/0:00",
               "off_ice": "3rd/20:00",
               "decision": "L"
@@ -1339,6 +3929,10 @@
             {
               "name": "Mac Wallace",
               "number": 93
+            },
+            {
+              "name": "Ethan Percy",
+              "number": 14
             }
           ],
           "power_play": false,
@@ -1364,9 +3958,9 @@
               "number": 13
             },
             {
-              "player_id": "mhl-3545",
-              "name": "Christian White",
-              "number": 4
+              "player_id": "mhl-3848",
+              "name": "Ty Peddigrew",
+              "number": 7
             }
           ],
           "power_play": true,
@@ -1576,8 +4170,8 @@
         "mhl-3545": {
           "position": "D",
           "goals": 0,
-          "assists": 1,
-          "points": 1,
+          "assists": 0,
+          "points": 0,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -1589,8 +4183,8 @@
         "mhl-3848": {
           "position": "C",
           "goals": 0,
-          "assists": 0,
-          "points": 0,
+          "assists": 1,
+          "points": 1,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -1809,8 +4403,8 @@
         },
         "mhl-3766": {
           "position": "G",
-          "saves": 39,
-          "shots_against": 42,
+          "saves": 35,
+          "shots_against": 38,
           "goals_against": 3,
           "save_percentage": "0.000",
           "time_on_ice": "59:21"
@@ -1827,16 +4421,16 @@
       "box_score": {
         "shots_by_period": {
           "ramblers": {
-            "period1": 15,
-            "period2": 12,
-            "period3": 13,
-            "total": 40
+            "period1": 12,
+            "period2": 8,
+            "period3": 10,
+            "total": 30
           },
           "opponent": {
-            "period1": 14,
-            "period2": 15,
-            "period3": 13,
-            "total": 42
+            "period1": 16,
+            "period2": 10,
+            "period3": 12,
+            "total": 38
           }
         },
         "scoring_by_period": {
@@ -1872,8 +4466,8 @@
             {
               "name": "Brandon Lavoie",
               "time_on_ice": "59:21",
-              "saves": 39,
-              "shots_against": 42,
+              "saves": 35,
+              "shots_against": 38,
               "on_ice": "1st/0:00",
               "off_ice": "3rd/19:21",
               "decision": "L"
@@ -1883,8 +4477,8 @@
             {
               "name": "George Gallant",
               "time_on_ice": "60:00",
-              "saves": 38,
-              "shots_against": 40,
+              "saves": 28,
+              "shots_against": 30,
               "on_ice": "1st/0:00",
               "off_ice": "3rd/20:00",
               "decision": "W"
