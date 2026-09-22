@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 8,
-  "updated_at": "2026-09-21T13:07:39.408Z",
+  "updated_at": "2026-09-22T11:55:49.258Z",
   "player_count": 25,
   "players": [
     {
@@ -876,7 +876,10 @@
       "last_name": "Doucet",
       "name": "William Doucet",
       "position": "G",
+      "weight": 0,
       "shoots": "R",
+      "birthdate": "0000-00-00",
+      "birth_year": "'00",
       "rookie": false,
       "veteran": false,
       "stats": {

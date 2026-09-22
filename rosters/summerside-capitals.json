@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 10,
-  "updated_at": "2026-09-21T13:07:41.536Z",
+  "updated_at": "2026-09-22T11:55:54.279Z",
   "player_count": 22,
   "players": [
     {
@@ -238,6 +238,31 @@
       ]
     },
     {
+      "player_id": "mhl-3465",
+      "number": "8",
+      "first_name": "Dylan",
+      "last_name": "MacLean",
+      "name": "Dylan MacLean",
+      "position": "LW",
+      "height": "6'0",
+      "height_inches": 72,
+      "weight": 175,
+      "shoots": "L",
+      "birthdate": "2008-06-23",
+      "birth_year": "'08",
+      "age": 18,
+      "hometown": "New Haven, PE",
+      "birthplace": "New Haven, PE, PE",
+      "rookie": false,
+      "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/8-dylan-maclean.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3465.jpg",
+      "stats": {},
+      "hockeytech_id": "3465",
+      "person_id": "4028",
+      "flags": []
+    },
+    {
       "player_id": "mhl-4133",
       "number": "9",
       "first_name": "Declan",
@@ -278,45 +303,6 @@
       "flags": [
         "ht-rookie"
       ]
-    },
-    {
-      "player_id": "mhl-4030",
-      "number": "10",
-      "first_name": "Dixon",
-      "last_name": "Beatty",
-      "name": "Dixon Beatty",
-      "position": "C",
-      "height": "5'9\"",
-      "height_inches": 69,
-      "weight": 170,
-      "shoots": "L",
-      "birthdate": "2009-09-25",
-      "birth_year": "'09",
-      "age": 17,
-      "hometown": "Quispamsis, NB, NB",
-      "birthplace": "Quispamsis, NB, NB",
-      "rookie": false,
-      "veteran": false,
-      "stats": {
-        "games_played": 2,
-        "goals": 0,
-        "assists": 0,
-        "points": 0,
-        "plus_minus": 0,
-        "penalty_minutes": 2,
-        "power_play_goals": 0,
-        "power_play_assists": 0,
-        "power_play_points": 0,
-        "short_handed_goals": 0,
-        "short_handed_assists": 0,
-        "short_handed_points": 0,
-        "game_winning_goals": 0,
-        "overtime_goals": 0,
-        "points_per_game": 0
-      },
-      "hockeytech_id": "4030",
-      "person_id": "4702",
-      "flags": []
     },
     {
       "player_id": "mhl-3067",
@@ -483,31 +469,6 @@
       "flags": []
     },
     {
-      "player_id": "mhl-3465",
-      "number": "17",
-      "first_name": "Dylan",
-      "last_name": "MacLean",
-      "name": "Dylan MacLean",
-      "position": "LW",
-      "height": "6'0",
-      "height_inches": 72,
-      "weight": 175,
-      "shoots": "L",
-      "birthdate": "2008-06-23",
-      "birth_year": "'08",
-      "age": 18,
-      "hometown": "New Haven, PE",
-      "birthplace": "New Haven, PE, PE",
-      "rookie": false,
-      "veteran": false,
-      "headshot": "assets/headshots/Summerside-Capitals/17-dylan-maclean.jpg",
-      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3465.jpg",
-      "stats": {},
-      "hockeytech_id": "3465",
-      "person_id": "4028",
-      "flags": []
-    },
-    {
       "player_id": "mhl-3796",
       "number": "18",
       "first_name": "Cade",
@@ -632,6 +593,47 @@
       "person_id": "3150",
       "flags": [
         "ht-played-major-junior"
+      ]
+    },
+    {
+      "player_id": "mhl-4030",
+      "number": "28",
+      "first_name": "Dixon",
+      "last_name": "Beatty",
+      "name": "Dixon Beatty",
+      "position": "C",
+      "height": "5'9\"",
+      "height_inches": 69,
+      "weight": 170,
+      "shoots": "L",
+      "birthdate": "2009-09-25",
+      "birth_year": "'09",
+      "age": 17,
+      "hometown": "Quispamsis, NB",
+      "birthplace": "Quispamsis, NB, NB",
+      "rookie": false,
+      "veteran": false,
+      "stats": {
+        "games_played": 2,
+        "goals": 0,
+        "assists": 0,
+        "points": 0,
+        "plus_minus": 0,
+        "penalty_minutes": 2,
+        "power_play_goals": 0,
+        "power_play_assists": 0,
+        "power_play_points": 0,
+        "short_handed_goals": 0,
+        "short_handed_assists": 0,
+        "short_handed_points": 0,
+        "game_winning_goals": 0,
+        "overtime_goals": 0,
+        "points_per_game": 0
+      },
+      "hockeytech_id": "4030",
+      "person_id": "4702",
+      "flags": [
+        "ht-affiliate"
       ]
     },
     {
