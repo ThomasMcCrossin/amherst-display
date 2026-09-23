@@ -5,8 +5,8 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 5,
-  "updated_at": "2026-09-22T11:55:43.107Z",
-  "player_count": 24,
+  "updated_at": "2026-09-23T11:55:32.100Z",
+  "player_count": 23,
   "players": [
     {
       "player_id": "mhl-4096",
@@ -31,8 +31,8 @@
       "stats": {
         "games_played": 4,
         "goals": 0,
-        "assists": 2,
-        "points": 2,
+        "assists": 3,
+        "points": 3,
         "plus_minus": 0,
         "penalty_minutes": 0,
         "power_play_goals": 0,
@@ -43,7 +43,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.5
+        "points_per_game": 0.75
       },
       "hockeytech_id": "4096",
       "person_id": "4768",
@@ -462,8 +462,8 @@
       "stats": {
         "games_played": 4,
         "goals": 1,
-        "assists": 1,
-        "points": 2,
+        "assists": 0,
+        "points": 1,
         "plus_minus": 0,
         "penalty_minutes": 0,
         "power_play_goals": 1,
@@ -474,7 +474,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.5
+        "points_per_game": 0.25
       },
       "hockeytech_id": "3386",
       "person_id": "3948",
@@ -672,45 +672,6 @@
       "flags": []
     },
     {
-      "player_id": "mhl-3905",
-      "number": "29",
-      "first_name": "Maxime",
-      "last_name": "Giguère",
-      "name": "Maxime Giguère",
-      "position": "G",
-      "height": "6'2",
-      "height_inches": 74,
-      "weight": 201,
-      "shoots": "R",
-      "birthdate": "2007-04-04",
-      "birth_year": "'07",
-      "age": 19,
-      "hometown": "Laguna Hills, CA, USA",
-      "birthplace": "Laguna Hills, CA, USA, ",
-      "rookie": false,
-      "veteran": false,
-      "headshot": "assets/headshots/Yarmouth-Mariners/29-maxime-gigu-re.jpg",
-      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3905.jpg",
-      "stats": {
-        "games_played": 1,
-        "wins": 0,
-        "losses": 0,
-        "ot_losses": 0,
-        "minutes_played": 39,
-        "saves": 21,
-        "shots": 26,
-        "goals_against": 5,
-        "shutouts": 0,
-        "save_percentage": 0.808,
-        "goals_against_average": 7.76
-      },
-      "hockeytech_id": "3905",
-      "person_id": "4553",
-      "flags": [
-        "ht-import"
-      ]
-    },
-    {
       "player_id": "mhl-4140",
       "number": "29",
       "first_name": "Brett",
@@ -736,11 +697,11 @@
         "losses": 2,
         "ot_losses": 0,
         "minutes_played": 173,
-        "saves": 93,
-        "shots": 104,
+        "saves": 90,
+        "shots": 101,
         "goals_against": 11,
         "shutouts": 0,
-        "save_percentage": 0.894,
+        "save_percentage": 0.891,
         "goals_against_average": 3.8
       },
       "hockeytech_id": "4140",
@@ -773,11 +734,11 @@
         "losses": 1,
         "ot_losses": 0,
         "minutes_played": 28,
-        "saves": 22,
-        "shots": 28,
+        "saves": 14,
+        "shots": 20,
         "goals_against": 6,
         "shutouts": 0,
-        "save_percentage": 0.786,
+        "save_percentage": 0.7,
         "goals_against_average": 12.93
       },
       "hockeytech_id": "3551",

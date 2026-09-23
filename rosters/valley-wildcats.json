@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 4,
-  "updated_at": "2026-09-22T11:55:40.207Z",
+  "updated_at": "2026-09-23T11:55:30.756Z",
   "player_count": 24,
   "players": [
     {
@@ -317,7 +317,23 @@
       "veteran": true,
       "headshot": "assets/headshots/Valley-Wildcats/11-ash-mitchelmore.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4104.jpg",
-      "stats": {},
+      "stats": {
+        "games_played": 3,
+        "goals": 0,
+        "assists": 1,
+        "points": 1,
+        "plus_minus": 0,
+        "penalty_minutes": 0,
+        "power_play_goals": 0,
+        "power_play_assists": 0,
+        "power_play_points": 0,
+        "short_handed_goals": 0,
+        "short_handed_assists": 0,
+        "short_handed_points": 0,
+        "game_winning_goals": 0,
+        "overtime_goals": 0,
+        "points_per_game": 0.33
+      },
       "hockeytech_id": "4104",
       "person_id": "4778",
       "flags": []
@@ -431,19 +447,19 @@
       "stats": {
         "games_played": 4,
         "goals": 3,
-        "assists": 3,
-        "points": 6,
+        "assists": 4,
+        "points": 7,
         "plus_minus": 0,
         "penalty_minutes": 6,
         "power_play_goals": 1,
-        "power_play_assists": 0,
-        "power_play_points": 1,
+        "power_play_assists": 1,
+        "power_play_points": 2,
         "short_handed_goals": 0,
         "short_handed_assists": 1,
         "short_handed_points": 1,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 1.5
+        "points_per_game": 1.75
       },
       "hockeytech_id": "4109",
       "person_id": "4783",
@@ -472,8 +488,8 @@
       "stats": {
         "games_played": 4,
         "goals": 1,
-        "assists": 2,
-        "points": 3,
+        "assists": 1,
+        "points": 2,
         "plus_minus": 0,
         "penalty_minutes": 0,
         "power_play_goals": 0,
@@ -484,7 +500,7 @@
         "short_handed_points": 1,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.75
+        "points_per_game": 0.5
       },
       "hockeytech_id": "3377",
       "person_id": "3939",
@@ -515,8 +531,8 @@
       "stats": {
         "games_played": 4,
         "goals": 1,
-        "assists": 2,
-        "points": 3,
+        "assists": 3,
+        "points": 4,
         "plus_minus": 0,
         "penalty_minutes": 0,
         "power_play_goals": 0,
@@ -527,7 +543,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.75
+        "points_per_game": 1
       },
       "hockeytech_id": "3844",
       "person_id": "4471",
@@ -556,19 +572,19 @@
       "stats": {
         "games_played": 4,
         "goals": 1,
-        "assists": 2,
-        "points": 3,
+        "assists": 1,
+        "points": 2,
         "plus_minus": 0,
         "penalty_minutes": 2,
         "power_play_goals": 0,
-        "power_play_assists": 1,
-        "power_play_points": 1,
+        "power_play_assists": 0,
+        "power_play_points": 0,
         "short_handed_goals": 0,
         "short_handed_assists": 0,
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.75
+        "points_per_game": 0.5
       },
       "hockeytech_id": "3072",
       "person_id": "3590",
@@ -681,8 +697,8 @@
       "stats": {
         "games_played": 4,
         "goals": 1,
-        "assists": 6,
-        "points": 7,
+        "assists": 7,
+        "points": 8,
         "plus_minus": 0,
         "penalty_minutes": 0,
         "power_play_goals": 1,
@@ -693,7 +709,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 1.75
+        "points_per_game": 2
       },
       "hockeytech_id": "3043",
       "person_id": "3561",
@@ -918,11 +934,11 @@
         "losses": 0,
         "ot_losses": 0,
         "minutes_played": 125,
-        "saves": 59,
-        "shots": 64,
+        "saves": 65,
+        "shots": 70,
         "goals_against": 5,
         "shutouts": 0,
-        "save_percentage": 0.922,
+        "save_percentage": 0.929,
         "goals_against_average": 2.4
       },
       "hockeytech_id": "3859",

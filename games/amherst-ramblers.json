@@ -7,7 +7,7 @@
   "season_ids": [
     46
   ],
-  "updated_at": "2026-09-22T11:56:21.241Z",
+  "updated_at": "2026-09-23T11:56:02.750Z",
   "summary": {
     "games_played": 5,
     "wins": 3,
@@ -937,9 +937,9 @@
               "number": 95
             },
             {
-              "player_id": "mhl-3243",
-              "name": "Evan Nicholson",
-              "number": 15
+              "player_id": "mhl-3226",
+              "name": "Jeremie Richard",
+              "number": 77
             }
           ],
           "power_play": false,
@@ -1064,6 +1064,11 @@
               "player_id": "mhl-2794",
               "name": "Coen Miller",
               "number": 16
+            },
+            {
+              "player_id": "mhl-3833",
+              "name": "Owen Dyke",
+              "number": 82
             }
           ],
           "power_play": false,
@@ -1283,8 +1288,8 @@
         "mhl-3243": {
           "position": "C",
           "goals": 0,
-          "assists": 1,
-          "points": 1,
+          "assists": 0,
+          "points": 0,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -1400,8 +1405,8 @@
         "mhl-3226": {
           "position": "D",
           "goals": 0,
-          "assists": 0,
-          "points": 0,
+          "assists": 1,
+          "points": 1,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -1413,8 +1418,8 @@
         "mhl-3833": {
           "position": "D",
           "goals": 0,
-          "assists": 0,
-          "points": 0,
+          "assists": 1,
+          "points": 1,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -1451,16 +1456,16 @@
         },
         "mhl-3766": {
           "position": "G",
-          "saves": 10,
-          "shots_against": 10,
+          "saves": 13,
+          "shots_against": 13,
           "goals_against": 0,
           "save_percentage": "0.000",
           "time_on_ice": "19:39"
         },
         "mhl-3187": {
           "position": "G",
-          "saves": 29,
-          "shots_against": 34,
+          "saves": 31,
+          "shots_against": 36,
           "goals_against": 5,
           "save_percentage": "0.000",
           "time_on_ice": "40:42"
@@ -1469,17 +1474,17 @@
       "box_score": {
         "shots_by_period": {
           "ramblers": {
-            "period1": 7,
-            "period2": 15,
-            "period3": 19,
-            "total": 42,
+            "period1": 12,
+            "period2": 18,
+            "period3": 20,
+            "total": 51,
             "overtime": 1
           },
           "opponent": {
-            "period1": 13,
-            "period2": 20,
-            "period3": 11,
-            "total": 44,
+            "period1": 19,
+            "period2": 16,
+            "period3": 14,
+            "total": 49,
             "overtime": 0
           }
         },
@@ -1516,8 +1521,8 @@
             {
               "name": "Hudson Bradley ()",
               "time_on_ice": "40:42",
-              "saves": 29,
-              "shots_against": 34,
+              "saves": 31,
+              "shots_against": 36,
               "on_ice": "1st/0:00",
               "off_ice": "3rd/0:42",
               "decision": null
@@ -1525,8 +1530,8 @@
             {
               "name": "Brandon Lavoie",
               "time_on_ice": "19:39",
-              "saves": 10,
-              "shots_against": 10,
+              "saves": 13,
+              "shots_against": 13,
               "on_ice": "3rd/0:42",
               "off_ice": "1st OT/0:21",
               "decision": "W"
@@ -1536,8 +1541,8 @@
             {
               "name": "Noah-Preston Moore (OTL)",
               "time_on_ice": "60:21",
-              "saves": 36,
-              "shots_against": 42,
+              "saves": 45,
+              "shots_against": 51,
               "on_ice": "1st/0:00",
               "off_ice": "1st OT/0:21",
               "decision": null
@@ -1767,8 +1772,9 @@
           },
           "assists": [
             {
-              "name": "Dylan Pelletier",
-              "number": 17
+              "player_id": "mhl-3433",
+              "name": "Ash Mitchelmore",
+              "number": 11
             }
           ],
           "power_play": false,
@@ -1871,6 +1877,11 @@
               "player_id": "mhl-3867",
               "name": "Brock Lyons",
               "number": 95
+            },
+            {
+              "player_id": "mhl-3833",
+              "name": "Owen Dyke",
+              "number": 82
             }
           ],
           "power_play": false,
@@ -1888,7 +1899,12 @@
             "number": 20,
             "position": "RW"
           },
-          "assists": [],
+          "assists": [
+            {
+              "name": "Aidan Bent",
+              "number": 22
+            }
+          ],
           "power_play": false,
           "short_handed": false,
           "game_winning": false,
@@ -2328,8 +2344,8 @@
         "mhl-3833": {
           "position": "D",
           "goals": 0,
-          "assists": 0,
-          "points": 0,
+          "assists": 1,
+          "points": 1,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -2366,8 +2382,8 @@
         },
         "mhl-3766": {
           "position": "G",
-          "saves": 35,
-          "shots_against": 39,
+          "saves": 39,
+          "shots_against": 43,
           "goals_against": 4,
           "save_percentage": "0.000",
           "time_on_ice": "65:00"
@@ -2384,16 +2400,16 @@
       "box_score": {
         "shots_by_period": {
           "ramblers": {
-            "period1": 14,
-            "period2": 7,
+            "period1": 12,
+            "period2": 9,
             "period3": 10,
             "total": 1,
             "overtime": 0
           },
           "opponent": {
             "period1": 18,
-            "period2": 14,
-            "period3": 7,
+            "period2": 15,
+            "period3": 10,
             "total": 0,
             "overtime": 0
           }
@@ -2431,8 +2447,8 @@
             {
               "name": "Brandon Lavoie",
               "time_on_ice": "65:00",
-              "saves": 35,
-              "shots_against": 39,
+              "saves": 39,
+              "shots_against": 43,
               "on_ice": "1st/0:00",
               "off_ice": "1st OT/5:00",
               "decision": "W"
