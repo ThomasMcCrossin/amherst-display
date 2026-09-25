@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T12:03:41.467Z",
+  "generated_at": "2026-09-25T12:04:02.909Z",
   "season": "2026-27",
   "season_id": 46,
   "api_source": "HockeyTech",
@@ -83,7 +83,7 @@
       "team_name": "Summerside-Capitals",
       "league": "MHL",
       "team_id": 10,
-      "player_count": 22,
+      "player_count": 23,
       "file": "rosters/summerside-capitals.json"
     },
     {
@@ -99,7 +99,7 @@
       "team_name": "Chaleur-Lightning",
       "league": "MHL",
       "team_id": 21,
-      "player_count": 23,
+      "player_count": 22,
       "file": "rosters/chaleur-lightning.json"
     }
   ]

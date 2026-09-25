@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 8,
-  "updated_at": "2026-09-24T12:03:34.524Z",
+  "updated_at": "2026-09-25T12:03:52.939Z",
   "player_count": 23,
   "players": [
     {
@@ -173,7 +173,23 @@
       "veteran": false,
       "headshot": "assets/headshots/Campbellton-Tigers/11-nathan-lebrasseur.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3854.jpg",
-      "stats": {},
+      "stats": {
+        "games_played": 1,
+        "goals": 0,
+        "assists": 0,
+        "points": 0,
+        "plus_minus": 0,
+        "penalty_minutes": 0,
+        "power_play_goals": 0,
+        "power_play_assists": 0,
+        "power_play_points": 0,
+        "short_handed_goals": 0,
+        "short_handed_assists": 0,
+        "short_handed_points": 0,
+        "game_winning_goals": 0,
+        "overtime_goals": 0,
+        "points_per_game": 0
+      },
       "hockeytech_id": "3854",
       "person_id": "4482",
       "flags": []
