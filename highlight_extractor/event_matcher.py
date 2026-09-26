@@ -1438,6 +1438,26 @@ class EventMatcher:
         period, count = max(votes.items(), key=lambda kv: kv[1])
         return period if count >= min_votes and count * 2 > sum(votes.values()) else 1
 
+    @staticmethod
+    def _jump_confirmed(sorted_ts: List[Dict], index: int, new_remaining: int, slack: float,
+                        lookahead: int = 4, needed: int = 3) -> bool:
+        """
+        True when the readings right after a forward clock jump keep counting down from the
+        new value. A lone fast-forward is a misread; one the following readings agree with is
+        a Flo operator catching a frozen clock up (09-12: 15:24 -> 5:17), and discarding it
+        would throw away the rest of the period.
+        """
+        start = sorted_ts[index]
+        agree = 0
+        for ts in sorted_ts[index + 1:index + 1 + lookahead]:
+            remaining = ts.get('game_time_seconds')
+            if remaining is None or ts.get('video_time') is None:
+                continue
+            elapsed = float(ts['video_time']) - float(start['video_time'])
+            if new_remaining - elapsed - slack <= int(remaining) <= new_remaining + slack:
+                agree += 1
+        return agree >= needed
+
     def _normalize_video_timestamps(
         self,
         video_timestamps: List[Dict],
@@ -1483,7 +1503,7 @@ class EventMatcher:
         # period transition (0:00 → 20:00) and shift all periods by +1.
         seen_near_start_in_period = False
 
-        for ts in sorted_ts:
+        for index, ts in enumerate(sorted_ts):
             video_time = ts.get('video_time')
             if video_time is None:
                 continue
@@ -1527,7 +1547,9 @@ class EventMatcher:
                 if last_video_time is not None and video_time > last_video_time:
                     dt = video_time - last_video_time
                     clock_drop = last_time_remaining - time_remaining
-                    if clock_drop > (dt + max_rate_slack_seconds):
+                    if clock_drop > (dt + max_rate_slack_seconds) and not self._jump_confirmed(
+                        sorted_ts, index, time_remaining, max_rate_slack_seconds
+                    ):
                         norm_logger.add_entry(NormalizationLogEntry(
                             video_time=video_time,
                             original_period=ts_period,

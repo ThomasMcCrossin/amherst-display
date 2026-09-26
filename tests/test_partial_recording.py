@@ -57,3 +57,17 @@ def test_clock_that_jumps_ahead_after_a_freeze_still_matches():
     event = {"type": "penalty", "period": 1, "time": "7:14"}
     match = em._find_closest_timestamp_with_confidence(event, readings, 30, recording_game_start_time=2640.0)
     assert match is not None and 2700 <= match[0] <= 2860
+
+
+def test_confirmed_clock_catch_up_is_kept_and_a_lone_misread_is_not():
+    em = EventMatcher(config)
+    # 09-12 Grand Falls: 15:24 frozen, then the operator jumps it to 5:32 and it runs on.
+    frozen = [_ts(6400 + 5 * i, 2, 924) for i in range(20)]
+    caught_up = [_ts(7370 + 5 * i, 2, 332 - 5 * i) for i in range(10)]
+    out = em._normalize_video_timestamps(frozen + caught_up)
+    assert any(t["game_time_seconds"] < 340 for t in out)
+
+    em = EventMatcher(config)
+    lone = frozen[:10] + [_ts(6452, 2, 332)] + [_ts(6455 + 5 * i, 2, 924) for i in range(5)]
+    out = em._normalize_video_timestamps(lone)
+    assert all(t["game_time_seconds"] == 924 for t in out)
