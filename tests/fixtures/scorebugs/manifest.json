@@ -1,0 +1,77 @@
+{
+  "flo_strip_3rd_12-46.png": {
+    "frame_size": [
+      1280,
+      720
+    ],
+    "offset": [
+      700,
+      0
+    ],
+    "layout": "flo_strip",
+    "expect": [
+      3,
+      "12:46"
+    ]
+  },
+  "flo_strip_3rd_9-32.png": {
+    "frame_size": [
+      1280,
+      720
+    ],
+    "offset": [
+      700,
+      0
+    ],
+    "layout": "flo_strip",
+    "expect": [
+      3,
+      "9:32"
+    ]
+  },
+  "flo_corner_2nd_10-25.png": {
+    "frame_size": [
+      1280,
+      720
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "layout": "flo_corner_period_first",
+    "expect": [
+      2,
+      "10:25"
+    ]
+  },
+  "flo_stacked_1st_13-03.png": {
+    "frame_size": [
+      1920,
+      1080
+    ],
+    "offset": [
+      500,
+      90
+    ],
+    "layout": "flo_stacked_topleft",
+    "expect": [
+      1,
+      "13:03"
+    ]
+  },
+  "flo_stacked_2nd_9-13.png": {
+    "frame_size": [
+      1920,
+      1080
+    ],
+    "offset": [
+      500,
+      90
+    ],
+    "layout": "flo_stacked_topleft",
+    "expect": [
+      2,
+      "9:13"
+    ]
+  }
+}

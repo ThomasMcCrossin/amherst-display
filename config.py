@@ -181,7 +181,7 @@ SUPPORTED_REEL_MODES = (
     "full_production",
 )
 
-DEFAULT_HIGHLIGHT_EXECUTION_PROFILE = "flohockey_recording"
+DEFAULT_HIGHLIGHT_EXECUTION_PROFILE = "flo_strip_recording"
 HIGHLIGHT_EXECUTION_PROFILES = {
     # Dense, scorebug-first OCR profile for local Flo recordings.
     "flohockey_recording": {
@@ -205,6 +205,42 @@ HIGHLIGHT_EXECUTION_PROFILES = {
         "parallel_ocr": True,
         "ocr_workers": 4,
         "broadcast_type": "flohockey",
+        "auto_detect_start": True,
+        "reel_mode": DEFAULT_REEL_MODE,
+    },
+    # Flo standard MHL strip (default): right-side period/clock block.
+    "flo_strip_recording": {
+        "sample_interval": 5,
+        "tolerance_seconds": 30,
+        "before_seconds": 8.0,
+        "after_seconds": 6.0,
+        "parallel_ocr": True,
+        "ocr_workers": 4,
+        "broadcast_type": "flo_strip",
+        "auto_detect_start": True,
+        "reel_mode": DEFAULT_REEL_MODE,
+    },
+    # 2026-27 Flo two-row top-left box: clock stacked over period.
+    "flo_stacked_recording": {
+        "sample_interval": 5,
+        "tolerance_seconds": 30,
+        "before_seconds": 8.0,
+        "after_seconds": 6.0,
+        "parallel_ocr": True,
+        "ocr_workers": 4,
+        "broadcast_type": "flo_stacked_topleft",
+        "auto_detect_start": True,
+        "reel_mode": DEFAULT_REEL_MODE,
+    },
+    # Flo top-left corner bar with period and clock first.
+    "flo_corner_recording": {
+        "sample_interval": 5,
+        "tolerance_seconds": 30,
+        "before_seconds": 8.0,
+        "after_seconds": 6.0,
+        "parallel_ocr": True,
+        "ocr_workers": 4,
+        "broadcast_type": "flo_corner_period_first",
         "auto_detect_start": True,
         "reel_mode": DEFAULT_REEL_MODE,
     },

@@ -148,12 +148,12 @@ The highlight workflow is local-first and does not require Drive ingest for norm
 - HockeyTech/MHL box-score times are elapsed in period.
 - Broadcast OCR scorebug times are remaining in period.
 - Goal timing defaults to one rule: the goal event is the first stable scoreboard clock-stop at the official box-score time.
-- The default local Flo recording profile is `flohockey_recording`.
+- The default local Flo recording profile is `flo_strip_recording` (Flo's standard MHL strip). The pre-2026-27 top-right banner stays available as `flohockey_recording`.
 - The seeded non-standard profile is `yarmouth_recording` for Yarmouth home broadcasts.
 - The default automatic reel mode is `goals_only`.
 - PP penalty inserts and major-review clips are opt-in reel modes, not part of the default automatic reel.
 - Legacy approximate goal fallback is opt-in for broken scorebugs via `--goal-legacy-timing-fallback`; otherwise unverified goal timings stay flagged instead of being silently treated as exact.
-- Known scorebug handling now lives in `scorebug_profiles.py`, with auto-probe fallback for unknown layouts.
+- Known scorebug handling lives in `scorebug_profiles.py`, with auto-probe fallback for unknown layouts. Box layouts (period and clock as separate boxes, stitched before OCR) live in `SCOREBUG_BOX_LAYOUTS` in `highlight_extractor/ocr_engine.py`; a new broadcast layout is one entry there, one profile, and a crop in `tests/fixtures/scorebugs/` so `tests/test_scorebug_layouts.py` guards it.
 - Shared Drive bootstrap/config now uses generic `HIGHLIGHTS_*` env names with legacy `RAMBLERS_DRIVE_ID` / `DRIVE_*` aliases still supported.
 
 Common local commands:
