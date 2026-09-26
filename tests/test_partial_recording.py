@@ -46,3 +46,14 @@ def test_minimum_video_time_counts_from_the_game_time_the_recording_joined_at():
     minimum = em.minimum_video_time_for_event({"type": "goal", "period": 2, "time": "6:29"},
                                                recording_game_start_time=982.0)
     assert minimum < 1922.0  # the real goal stoppage (clock held at 13:31)
+
+
+def test_clock_that_jumps_ahead_after_a_freeze_still_matches():
+    em = EventMatcher(config)
+    # 09-24 West Kent: bug held 20:00 until ~2640 s, then the operator jumped it ahead.
+    readings = [_ts(2640 + 5 * i, 1, 1200) for i in range(4)]
+    readings += [_ts(2700 + 5 * i, 1, 800 - 5 * i) for i in range(30)]  # 12:46 at ~2735 s
+    readings += [_ts(1500, 1, 766)]  # a warm-up countdown that happens to show 12:46
+    event = {"type": "penalty", "period": 1, "time": "7:14"}
+    match = em._find_closest_timestamp_with_confidence(event, readings, 30, recording_game_start_time=2640.0)
+    assert match is not None and 2700 <= match[0] <= 2860

@@ -1013,15 +1013,10 @@ class EventMatcher:
             if ts.get('period') == event_period
         ]
 
-        minimum_video_time = self.minimum_video_time_for_event(
-            event,
+        period_timestamps = self._apply_min_video_time_guard(
+            event, event_seconds, period_timestamps, tolerance_seconds,
             recording_game_start_time=recording_game_start_time,
         )
-        if minimum_video_time is not None:
-            period_timestamps = [
-                ts for ts in period_timestamps
-                if float(ts.get("video_time", -1.0) or -1.0) >= minimum_video_time
-            ]
 
         if not period_timestamps:
             # Try interpolation if we have timestamps before and after this period
@@ -1090,15 +1085,10 @@ class EventMatcher:
             if ts.get('period') == event_period
         ]
 
-        minimum_video_time = self.minimum_video_time_for_event(
-            event,
+        period_timestamps = self._apply_min_video_time_guard(
+            event, event_seconds, period_timestamps, tolerance_seconds,
             recording_game_start_time=recording_game_start_time,
         )
-        if minimum_video_time is not None:
-            period_timestamps = [
-                ts for ts in period_timestamps
-                if float(ts.get("video_time", -1.0) or -1.0) >= minimum_video_time
-            ]
 
         if not period_timestamps:
             # Try interpolation if we have timestamps before and after this period
@@ -1266,6 +1256,41 @@ class EventMatcher:
         """Public wrapper for event time → remaining seconds conversion."""
         return self._event_time_to_remaining_seconds(period, time_str)
 
+    def _min_video_time_buffer_seconds(self) -> float:
+        try:
+            buffer_seconds = float(getattr(self.config, "EVENT_MIN_VIDEO_TIME_BUFFER_SECONDS", 240.0) or 240.0)
+        except Exception:
+            buffer_seconds = 240.0
+        return max(0.0, buffer_seconds)
+
+    def _apply_min_video_time_guard(
+        self,
+        event: Dict,
+        event_seconds: int,
+        period_timestamps: List[Dict],
+        tolerance_seconds: float,
+        *,
+        recording_game_start_time: Optional[float] = None,
+    ) -> List[Dict]:
+        minimum_video_time = self.minimum_video_time_for_event(
+            event,
+            recording_game_start_time=recording_game_start_time,
+        )
+        if minimum_video_time is None:
+            return period_timestamps
+
+        def after(limit: float) -> List[Dict]:
+            return [ts for ts in period_timestamps if float(ts.get("video_time", -1.0) or -1.0) >= limit]
+
+        guarded = after(minimum_video_time)
+        if any(abs(event_seconds - int(ts.get("game_time_seconds", 0) or 0)) <= tolerance_seconds for ts in guarded):
+            return guarded
+        # The guard assumes the clock ran at real speed from the detected start. A Flo
+        # operator who un-freezes a stuck clock jumps it ahead (09-24: 20:00 held for ten
+        # minutes of play), so real readings land before the guard. Warm-up clocks all run
+        # before the start, so a start-only guard still rejects them.
+        return after(max(0.0, float(recording_game_start_time) - self._min_video_time_buffer_seconds()))
+
     def minimum_video_time_for_event(
         self,
         event: Dict,
@@ -1301,11 +1326,7 @@ class EventMatcher:
         except Exception:
             return None
 
-        try:
-            buffer_seconds = float(getattr(self.config, "EVENT_MIN_VIDEO_TIME_BUFFER_SECONDS", 240.0) or 240.0)
-        except Exception:
-            buffer_seconds = 240.0
-        buffer_seconds = max(0.0, buffer_seconds)
+        buffer_seconds = self._min_video_time_buffer_seconds()
 
         # Measure from the game time on screen when the recording's readings begin, so a
         # recording that joins mid-game (09-16 joined in the 1st intermission) isn't held
