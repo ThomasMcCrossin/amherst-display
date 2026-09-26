@@ -157,7 +157,9 @@ def detect_scorebug_profile(
     ranked = sorted(hits.items(), key=lambda kv: kv[1], reverse=True)
     best_id, best = ranked[0]
     runner_up = ranked[1][1] if len(ranked) > 1 else 0
-    if best >= min_hits and best > runner_up:
+    # Layouts can overlap (Summerside's crop sits on the Flo strip's clock block), so a
+    # win needs a margin: the runner-up must have under two thirds of the winner's reads.
+    if best >= min_hits and runner_up * 3 < best * 2:
         report["method"] = "ocr_vote"
         return by_id[best_id], report
 
@@ -169,5 +171,8 @@ def detect_scorebug_profile(
     if choice:
         report["method"] = "vision"
         return by_id[choice], report
+    if best >= min_hits:
+        report["method"] = "ocr_vote_close"
+        return by_id[best_id], report
     report["method"] = "undecided"
     return None, report

@@ -33,6 +33,22 @@ def test_weak_ocr_falls_back_to_vision(monkeypatch):
     assert calls
 
 
+def test_close_ocr_vote_asks_vision(monkeypatch):
+    # 09-12 Grand Falls: the Summerside crop also reads the Flo strip's clock block.
+    calls = _patch(monkeypatch, {"mhl_summerside_home_banner": 4, "mhl_flo_strip": 3}, vision_choice="mhl_flo_strip")
+    profile, report = scorebug_detect.detect_scorebug_profile("game.mp4")
+    assert profile.profile_id == "mhl_flo_strip"
+    assert report["method"] == "vision"
+    assert calls
+
+
+def test_close_ocr_vote_keeps_the_leader_without_vision(monkeypatch):
+    _patch(monkeypatch, {"mhl_summerside_home_banner": 4, "mhl_flo_strip": 3}, vision_choice=None)
+    profile, report = scorebug_detect.detect_scorebug_profile("game.mp4")
+    assert profile.profile_id == "mhl_summerside_home_banner"
+    assert report["method"] == "ocr_vote_close"
+
+
 def test_undecided_returns_none(monkeypatch):
     _patch(monkeypatch, {}, vision_choice=None)
     profile, report = scorebug_detect.detect_scorebug_profile("game.mp4")
