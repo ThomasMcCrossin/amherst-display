@@ -43,8 +43,9 @@ from scorebug_detect import DEFAULT_VISION_BASE_URL, DEFAULT_VISION_MODEL, _jpeg
 # ~10-40 s of the goal (after the celebration / during the replay), but a Flo operator can
 # take minutes (09-16: Valley's P2 goal was still 2-2 on the bug a minute later), so the
 # late offsets reach further; any offset at or past the next goal is dropped.
-OFFSETS = [-30, -12, -3, 0, 3, 15, 35, 60, 120, 240]
-FULL_FRAME_OFFSETS = {-3, 0, 3}
+OFFSETS = [-30, -12, -3, 0, 3, 8, 15, 35, 60, 120, 240]
+# Celebrations peak ~5-15 s after the goal, so full pictures run past it.
+FULL_FRAME_OFFSETS = {-3, 0, 3, 8, 15}
 CLOCK_TOLERANCE_SECONDS = 6
 PERIOD_SECONDS = 20 * 60
 
