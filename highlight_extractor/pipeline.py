@@ -1716,6 +1716,43 @@ class HighlightPipeline:
 
         return (float(clip_before), float(clip_after))
 
+    # Shootout attempts are not box-score goals, so a shootout gets one clip spanning the
+    # whole shootout: from the end of overtime (scorebug reads OT 0:00) to the last sample
+    # still showing OT 0:00, capped. HockeyTech's "SO" status lags the broadcast by minutes,
+    # so the scorebug is the start signal, not the game status.
+    SHOOTOUT_LEAD_SECONDS = 10.0
+    SHOOTOUT_TAIL_SECONDS = 20.0
+    SHOOTOUT_MIN_SECONDS = 180.0
+    SHOOTOUT_MAX_SECONDS = 720.0
+
+    def _shootout_event(self) -> Optional[Dict]:
+        if not (self.game_info and getattr(self.game_info, "shootout", False)):
+            return None
+        ot_zero = sorted(
+            float(ts["video_time"])
+            for ts in (self.video_timestamps or [])
+            if ts.get("video_time") is not None
+            and int(ts.get("period") or 0) == 4
+            and int(ts.get("game_time_seconds") if ts.get("game_time_seconds") is not None else -1) == 0
+        )
+        if not ot_zero:
+            logger.warning("Game went to a shootout but no OT 0:00 scorebug samples were found; no shootout clip")
+            return None
+        start = ot_zero[0]
+        end = ot_zero[-1] + self.SHOOTOUT_TAIL_SECONDS
+        length = min(max(end - start, self.SHOOTOUT_MIN_SECONDS), self.SHOOTOUT_MAX_SECONDS)
+        logger.info("Shootout clip: %.0fs from video %.0fs (end of OT)", length, start)
+        return {
+            "type": "shootout",
+            "period": 5,
+            "time": "0:00",
+            "team": "",
+            "description": "Shootout",
+            "video_time": start,
+            "before_seconds": self.SHOOTOUT_LEAD_SECONDS,
+            "after_seconds": length,
+        }
+
     def _step6_create_clips(
         self,
         before_seconds: float = 15.0,
@@ -1857,6 +1894,10 @@ class HighlightPipeline:
             goal['after_seconds'] = goal_after
 
             final_events.append(goal)
+
+        shootout = self._shootout_event()
+        if shootout is not None:
+            final_events.append(shootout)
 
         logger.info(
             "Creating %s highlight clips (%s inserted penalty clips + %s goal clips)...",
