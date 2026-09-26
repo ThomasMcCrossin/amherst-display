@@ -6,10 +6,12 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { acquireSchedule, config } from './hockeytech.mjs';
 import { buildScheduleOutputs } from './schedules.mjs';
 import { buildMHLStandings } from './standings.mjs';
+import { buildRamblersICS } from './ics.mjs';
 
 const ROOT = fileURLToPath(new URL('../', import.meta.url));
 const OUTPUTS = ['games.json', 'next_games.json', 'standings_mhl.json', 'ccmha_games.json', 'league_stats.json',
-  'games', 'rosters', 'assets/headshots', 'assets/standings', 'metadata_build.json', 'monitor_plan.json'];
+  'games', 'rosters', 'assets/headshots', 'assets/standings', 'metadata_build.json', 'monitor_plan.json',
+  'ramblers.ics', 'data/ramblers.ics'];
 const writeJSON = (file, data) => fs.writeFile(file, JSON.stringify(data, null, 2) + '\n');
 async function copyIfPresent(from, to) {
   try { await fs.cp(from, to, { recursive: true }); }
@@ -66,6 +68,11 @@ export async function buildAll() {
       await writeJSON('ccmha_games.json', { generated_at: new Date().toISOString(), timezone: 'America/Halifax', games });
     }, warnings);
     await writeJSON('games.json', schedule.games);
+    const ics = buildRamblersICS(schedule.games.events, { seasonLabel: config.season_label,
+      results: new Map(gameData.games.map(game => [String(game.game_id), game])) });
+    await fs.mkdir('data', { recursive: true });
+    await fs.writeFile('ramblers.ics', ics);
+    await fs.writeFile('data/ramblers.ics', ics);
     await writeJSON('next_games.json', schedule.next);
     await snapshotStandings();
     await writeJSON('monitor_plan.json', schedule.plan);
