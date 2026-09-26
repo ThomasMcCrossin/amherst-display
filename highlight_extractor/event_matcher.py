@@ -678,6 +678,9 @@ class EventMatcher:
         self.config = config
         self.scoreboard_health: Optional[ScoreboardHealth] = None
         self.clock_rules = game_clock_rules_from_context()
+        # Game time (seconds since puck drop) the scorebug showed when the recording's
+        # readings begin; 0 for a recording that starts at the 1st. Set by normalization.
+        self.recording_start_game_seconds = 0.0
 
     def set_game_context(self, game_context: Optional[Dict] = None) -> None:
         """Install game-specific clock rules (playoff vs regular season OT)."""
@@ -1272,8 +1275,8 @@ class EventMatcher:
         """
         Return the earliest plausible video timestamp for an event.
 
-        For recorded full-game inputs, a goal at P1 15:21 cannot happen before
-        15:21 of *game elapsed* time after puck drop. This guard rejects warmup
+        A goal at P1 15:21 cannot happen before 15:21 of *game elapsed* time after puck
+        drop (measured from the game time shown when the recording's readings begin). This guard rejects warmup
         samples that happen to show the same period/clock later used in-game.
         """
         if recording_game_start_time is None:
@@ -1304,7 +1307,11 @@ class EventMatcher:
             buffer_seconds = 240.0
         buffer_seconds = max(0.0, buffer_seconds)
 
-        return max(0.0, start_time + absolute_game_seconds - buffer_seconds)
+        # Measure from the game time on screen when the recording's readings begin, so a
+        # recording that joins mid-game (09-16 joined in the 1st intermission) isn't held
+        # to a full 1st period of video before its 2nd-period events.
+        elapsed_since_start = max(0.0, absolute_game_seconds - float(self.recording_start_game_seconds or 0.0))
+        return max(0.0, start_time + elapsed_since_start - buffer_seconds)
 
     def _time_to_seconds(self, time_str: str) -> int:
         """
@@ -1651,6 +1658,11 @@ class EventMatcher:
         # Write normalization logs
         norm_logger.write_logs()
 
+        if normalized:
+            self.recording_start_game_seconds = float(min(
+                self._event_to_absolute_time(int(t['period']), int(t['game_time_seconds']))
+                for t in normalized[:5]
+            ))
         return normalized
 
     def filter_events_by_type(

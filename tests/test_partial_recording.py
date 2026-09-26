@@ -37,3 +37,12 @@ def test_event_outside_the_recording_is_not_clamped_to_its_edge():
     assert em._interpolate_timestamp(goal_after_end, covered) is None
     goal_inside = {"type": "goal", "period": 3, "time": "10:00"}  # 10:00 left, inside the covered range
     assert em._interpolate_timestamp(goal_inside, covered) is not None
+
+
+def test_minimum_video_time_counts_from_the_game_time_the_recording_joined_at():
+    em = EventMatcher(config)
+    # 09-16 Valley: readings begin at 20:00 of the 2nd, 982 s into the video.
+    em._normalize_video_timestamps([_ts(1022 + 5 * i, 2, 1200 - 5 * i) for i in range(20)])
+    minimum = em.minimum_video_time_for_event({"type": "goal", "period": 2, "time": "6:29"},
+                                               recording_game_start_time=982.0)
+    assert minimum < 1922.0  # the real goal stoppage (clock held at 13:31)

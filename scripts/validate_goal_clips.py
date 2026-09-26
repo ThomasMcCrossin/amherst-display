@@ -105,16 +105,28 @@ def ask_vision(frames: List[Dict[str, Any]], goal: Dict[str, Any]) -> Dict[str, 
     return {"answer": answer, "usage": payload.get("usage", {}), "model": model}
 
 
-def judge(event: Dict[str, Any], answer: Dict[str, Any]) -> Dict[str, Any]:
+def _label_matches(key: str, name: str) -> bool:
+    return bool(key) and bool(name) and (key in name or name in key or name[:3] == key[:3])
+
+
+def judge(event: Dict[str, Any], answer: Dict[str, Any], opponent: str = "") -> Dict[str, Any]:
     """Deterministic verdict from the model's per-frame reads."""
     key = _team_key(event.get("team", ""))
+    other = _team_key(opponent)
     reads = {f.get("label"): f for f in answer.get("frames") or []}
 
     def score_for_team(read) -> Optional[int]:
-        for t in (read or {}).get("teams") or []:
-            name = str(t.get("name") or "").lower()
-            if key and (key in name or name in key or name[:3] == key[:3]) and isinstance(t.get("score"), int):
+        teams = [t for t in (read or {}).get("teams") or [] if isinstance(t.get("score"), int)]
+        names = [str(t.get("name") or "").lower() for t in teams]
+        for t, name in zip(teams, names):
+            if _label_matches(key, name):
                 return t["score"]
+        # Bugs don't always use the nickname (09-16 showed Valley as "Red Wings"): with two
+        # teams on the bug and the opponent recognised, the scorer is the other one.
+        if len(teams) == 2 and other:
+            hits = [i for i, name in enumerate(names) if _label_matches(other, name)]
+            if len(hits) == 1:
+                return teams[1 - hits[0]]["score"]
         return None
 
     before = [score_for_team(reads.get(f"t{o:+d}")) for o in OFFSETS if o < 0]
@@ -160,6 +172,9 @@ def _covered(event: Dict[str, Any], readings: List[Dict[str, Any]]) -> bool:
 
 def validate(game_dir: Path, video: Path) -> Dict[str, Any]:
     log = json.loads((game_dir / "data" / "event_matching_log.json").read_text())
+    meta_path = game_dir / "data" / "game_metadata.json"
+    info = (json.loads(meta_path.read_text()).get("game_info") or {}) if meta_path.exists() else {}
+    teams = [str(info.get("home_team") or ""), str(info.get("away_team") or "")]
     readings_path = game_dir / "data" / "video_timestamps.json"
     readings = json.loads(readings_path.read_text()) if readings_path.exists() else []
     clips = json.loads((game_dir / "data" / "clips_manifest.json").read_text()).get("clips", [])
@@ -197,7 +212,8 @@ def validate(game_dir: Path, video: Path) -> Dict[str, Any]:
                 continue
             for k in usage:
                 usage[k] += int(vision["usage"].get(k) or 0)
-            row.update(video_time=t0, **judge(event, vision["answer"]), reads=vision["answer"].get("frames"))
+            row.update(video_time=t0, **judge(event, vision["answer"], opponent=next(
+                (t for t in teams if t and t != event.get("team")), "")), reads=vision["answer"].get("frames"))
             results.append(row)
     finally:
         cap.release()
