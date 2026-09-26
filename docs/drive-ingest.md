@@ -11,7 +11,7 @@ For a new empty Shared Drive, bootstrap the canonical tree first:
 ./venv/bin/python scripts/setup_highlight_drive.py \
   --drive-id <shared_drive_id> \
   --creds-path /path/to/service-account.json \
-  --program-manifest programs/mhl-amherst-ramblers-2025-26.json \
+  --program-manifest programs/mhl-amherst-ramblers-2026-27.json \
   --write-env ~/.local/state/amherst-display/highlight-drive.env \
   --write-manifest ~/.local/state/amherst-display/highlight-drive.manifest.json
 ```
