@@ -12,7 +12,8 @@ the model:
               clock at the goal agrees with HockeyTech (remaining time, within tolerance)
   suspect     the model's reads disagree with HockeyTech (score or clock); look at it
   unclear     the bug could not be read well enough to decide
-  missed      HockeyTech has the goal but the pipeline made no clip for it
+  missed      HockeyTech has the goal, the recording covers that moment, but no clip was made
+  not_recorded the goal happened outside what the recording covers (joined late, ended early)
 
 Writes <game-dir>/data/goal_validation.json and prints a one-line summary per goal.
 
@@ -142,8 +143,18 @@ def judge(event: Dict[str, Any], answer: Dict[str, Any]) -> Dict[str, Any]:
             "goal_visible": answer.get("goal_visible"), "notes": answer.get("notes")}
 
 
+def _covered(event: Dict[str, Any], readings: List[Dict[str, Any]]) -> bool:
+    """True when scorebug readings in the goal's period bracket its remaining time."""
+    remaining = event.get("time_remaining_seconds")
+    clocks = [int(r["game_time_seconds"]) for r in readings
+              if r.get("period") == event.get("period") and r.get("game_time_seconds") is not None]
+    return remaining is not None and bool(clocks) and min(clocks) <= int(remaining) <= max(clocks)
+
+
 def validate(game_dir: Path, video: Path) -> Dict[str, Any]:
     log = json.loads((game_dir / "data" / "event_matching_log.json").read_text())
+    readings_path = game_dir / "data" / "video_timestamps.json"
+    readings = json.loads(readings_path.read_text()) if readings_path.exists() else []
     clips = json.loads((game_dir / "data" / "clips_manifest.json").read_text()).get("clips", [])
     clip_by_key = {(c.get("period"), c.get("time")): c for c in clips if c.get("type") == "goal"}
     cap = cv2.VideoCapture(str(video))
@@ -158,7 +169,8 @@ def validate(game_dir: Path, video: Path) -> Dict[str, Any]:
                                    "team": event.get("team"), "player": event.get("player"),
                                    "clip": (clip or {}).get("clip_filename")}
             if not clip:
-                row.update(verdict="missed", reason=(entry.get("match_result") or {}).get("unreliable_reason"))
+                row.update(verdict="missed" if _covered(event, readings) else "not_recorded",
+                           reason=(entry.get("match_result") or {}).get("unreliable_reason"))
                 results.append(row)
                 continue
             t0 = float(clip["video_time"])
@@ -197,10 +209,10 @@ def main() -> int:
     args = ap.parse_args()
     report = validate(args.game_dir.resolve(), args.video.resolve())
     for r in report["goals"]:
-        extra = "" if r["verdict"] == "missed" else (
+        extra = "" if r["verdict"] in ("missed", "not_recorded") else (
             f' score {r.get("score_before")}->{r.get("score_after")} clock_diff={r.get("clock_diff_seconds")}'
             f' visible={r.get("goal_visible")}')
-        print(f'{r["verdict"]:9} P{r["period"]} {r["time_elapsed"]} {r["team"]} {r["player"]}{extra}')
+        print(f'{r["verdict"]:12} P{r["period"]} {r["time_elapsed"]} {r["team"]} {r["player"]}{extra}')
     print(f'counts={report["counts"]} usage={report["usage"]}')
     return 0
 
