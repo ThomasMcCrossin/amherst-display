@@ -23,11 +23,11 @@ aliases still used by older scripts.
 
 Canonical tree for the seeded Amherst program:
 
-- `Programs/MHL/Amherst Ramblers/2025-26/01_Ingest/Inbox`
-- `Programs/MHL/Amherst Ramblers/2025-26/02_Games`
-- `Programs/MHL/Amherst Ramblers/2025-26/03_Reels/Games`
-- `Programs/MHL/Amherst Ramblers/2025-26/04_Review/Major Penalties/Incoming`
-- `Programs/MHL/Amherst Ramblers/2025-26/05_Reference`
+- `Programs/MHL/Amherst Ramblers/2026-27/01_Ingest/Inbox`
+- `Programs/MHL/Amherst Ramblers/2026-27/02_Games`
+- `Programs/MHL/Amherst Ramblers/2026-27/03_Reels/Games`
+- `Programs/MHL/Amherst Ramblers/2026-27/04_Review/Major Penalties/Incoming`
+- `Programs/MHL/Amherst Ramblers/2026-27/05_Reference`
 
 The ingest script expects a single **ingest folder** and will create/manage
 these subfolders inside `01_Ingest/Inbox`:
