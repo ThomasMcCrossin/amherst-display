@@ -224,6 +224,7 @@ amherst-display/
 ├── rosters/*.json             # Player rosters for all MHL teams (generated)
 ├── games/amherst-ramblers.json  # Detailed game summaries (generated)
 ├── ccmha_games.json           # Minor hockey games (generated)
+├── ramblers.ics               # Ramblers season calendar, also at data/ramblers.ics (generated)
 ├── assets/
 │   ├── logos/                 # Team and league logos
 │   ├── headshots/             # Player headshots (NOT for Amherst)
@@ -234,6 +235,7 @@ amherst-display/
 │   ├── standings.mjs          # Current-season HockeyTech standings
 │   ├── rosters.mjs            # HockeyTech roster fetching
 │   ├── games.mjs              # Game summaries & box scores
+│   ├── ics.mjs                # Season calendar from games.json + results
 │   └── ccmha.mjs              # GrayJay API integration
 └── .github/workflows/
     └── build-jsons.yml        # Automated daily build
@@ -250,6 +252,7 @@ Data Sources
          ↓
 Node.js Scripts (GitHub Actions)
     ├── schedules.mjs  → games.json, next_games.json
+    ├── ics.mjs        → ramblers.ics, data/ramblers.ics (subscribe: https://thomasmccrossin.github.io/amherst-display/ramblers.ics)
     ├── rosters.mjs    → rosters/*.json
     ├── games.mjs      → games/amherst-ramblers.json
     ├── standings.mjs  → standings_*.json
