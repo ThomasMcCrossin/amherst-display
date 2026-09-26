@@ -598,7 +598,8 @@ class OCREngine:
         self,
         frame: np.ndarray,
         roi: Optional[Tuple[int, int, int, int]] = None,
-        broadcast_type: str = 'auto'
+        broadcast_type: str = 'auto',
+        precropped: bool = False,
     ) -> Tuple[Optional[Tuple[int, str]], str, float, str, str, Optional[Tuple[int, int, int, int]], str]:
         """
         Extract game time from video frame, also returning raw OCR metadata for logging.
@@ -633,7 +634,8 @@ class OCREngine:
             if used_roi is None:
                 return None, "", 0.0, "unknown", used_broadcast, None, "standard"
 
-            scoreboard = crop_scoreboard(frame, used_roi, used_broadcast)
+            # Parallel sampling passes the already-cropped (and, for box layouts, stitched) scorebug.
+            scoreboard = frame if precropped else crop_scoreboard(frame, used_roi, used_broadcast)
 
             # Choose preprocess style (cached for auto; otherwise default for broadcast).
             preprocess_style = getattr(self, "_preprocess_style", None)
@@ -1925,6 +1927,7 @@ class OCREngine:
                     crop,
                     roi=full_roi,
                     broadcast_type=str(payload.get("broadcast_type") or "standard"),
+                    precropped=True,
                 )
                 return {
                     "video_time": sample_time,

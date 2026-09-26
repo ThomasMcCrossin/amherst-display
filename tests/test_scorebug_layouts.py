@@ -52,3 +52,15 @@ def test_fixture_does_not_read_with_other_layouts(engine, name):
         if layout == entry["layout"]:
             continue
         assert engine.extract_time_from_frame(_frame(name), broadcast_type=layout) is None, layout
+
+
+@pytest.mark.parametrize("name", sorted(MANIFEST))
+def test_fixture_reads_through_the_parallel_crop_path(engine, name):
+    # Parallel sampling crops first, then OCRs the crop; box layouts must not be re-cropped.
+    entry = MANIFEST[name]
+    frame = _frame(name)
+    roi = engine.detect_scoreboard_roi(frame, method=entry["layout"])
+    crop = engine._extract_scorebug_crop(frame, roi, entry["layout"])
+    parsed, *_ = engine._extract_time_from_frame_with_meta(
+        crop, roi=(0, 0, crop.shape[1], crop.shape[0]), broadcast_type=entry["layout"], precropped=True)
+    assert parsed == tuple(entry["expect"])
