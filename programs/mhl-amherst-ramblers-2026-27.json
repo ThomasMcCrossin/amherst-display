@@ -1,0 +1,43 @@
+{
+  "program_id": "mhl-amherst-ramblers-2026-27",
+  "league": "MHL",
+  "team": "Amherst Ramblers",
+  "season": "2026-27",
+  "provider": {
+    "type": "amherst_box_score",
+    "games_cache": "games/amherst-ramblers.json"
+  },
+  "defaults": {
+    "execution_profile": "auto",
+    "reel_mode": "goals_only"
+  },
+  "scorebug_profiles": [
+    "mhl_flo_strip",
+    "mhl_flo_stacked_topleft",
+    "flo_corner_period_first",
+    "mhl_summerside_home_banner",
+    "mhl_yarmouth_home",
+    "flo_legacy_right_banner",
+    "generic_standard_fallback"
+  ],
+  "drive_layout": {
+    "root_folder": "Programs",
+    "program_root_path": "Programs/MHL/Amherst Ramblers/2026-27",
+    "ingest_root_path": "Programs/MHL/Amherst Ramblers/2026-27/01_Ingest",
+    "ingest_inbox_path": "Programs/MHL/Amherst Ramblers/2026-27/01_Ingest/Inbox",
+    "games_root_path": "Programs/MHL/Amherst Ramblers/2026-27/02_Games",
+    "reels_root_path": "Programs/MHL/Amherst Ramblers/2026-27/03_Reels",
+    "reels_games_path": "Programs/MHL/Amherst Ramblers/2026-27/03_Reels/Games",
+    "reels_series_path": "Programs/MHL/Amherst Ramblers/2026-27/03_Reels/Series",
+    "reels_players_path": "Programs/MHL/Amherst Ramblers/2026-27/03_Reels/Players",
+    "reels_special_projects_path": "Programs/MHL/Amherst Ramblers/2026-27/03_Reels/Special Projects",
+    "review_root_path": "Programs/MHL/Amherst Ramblers/2026-27/04_Review",
+    "major_review_root_path": "Programs/MHL/Amherst Ramblers/2026-27/04_Review/Major Penalties",
+    "major_review_incoming_path": "Programs/MHL/Amherst Ramblers/2026-27/04_Review/Major Penalties/Incoming",
+    "major_review_approved_path": "Programs/MHL/Amherst Ramblers/2026-27/04_Review/Major Penalties/Approved",
+    "reference_root_path": "Programs/MHL/Amherst Ramblers/2026-27/05_Reference",
+    "ocr_samples_path": "Programs/MHL/Amherst Ramblers/2026-27/05_Reference/OCR Samples",
+    "ocr_notes_path": "Programs/MHL/Amherst Ramblers/2026-27/05_Reference/OCR Notes",
+    "run_manifests_path": "Programs/MHL/Amherst Ramblers/2026-27/05_Reference/Run Manifests"
+  }
+}

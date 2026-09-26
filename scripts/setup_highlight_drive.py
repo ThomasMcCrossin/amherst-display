@@ -18,6 +18,7 @@ import sys
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT))
 
+from season import season_label  # noqa: E402
 from drive_config import (  # noqa: E402
     build_bootstrap_env,
     build_program_drive_layout,
@@ -152,10 +153,10 @@ def main() -> int:
     parser.add_argument("--drive-id", required=True, help="Shared Drive ID or URL")
     parser.add_argument("--creds-path", type=Path, required=True, help="Service-account JSON path")
     parser.add_argument("--program-manifest", type=Path, default=None, help="Optional JSON program manifest to prefill league/team/season/layout")
-    parser.add_argument("--program-path", default="", help="Program path like Programs/MHL/Amherst Ramblers/2025-26")
+    parser.add_argument("--program-path", default="", help="Program path like Programs/MHL/Amherst Ramblers/<season>")
     parser.add_argument("--league", default="MHL", help="League name when --program-path is not provided")
     parser.add_argument("--team", default="Amherst Ramblers", help="Team/program name when --program-path is not provided")
-    parser.add_argument("--season", default="2025-26", help="Season label when --program-path is not provided")
+    parser.add_argument("--season", default=season_label(), help="Season label when --program-path is not provided (default: config/hockeytech.json)")
     parser.add_argument("--root-folder", default="Programs", help="Top-level folder name for program trees")
     parser.add_argument("--write-env", action="append", default=[], help="Write generated env vars to this file. Repeat as needed.")
     parser.add_argument("--write-manifest", type=Path, default=None, help="Write the bootstrap manifest JSON to this path")

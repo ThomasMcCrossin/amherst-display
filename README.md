@@ -148,12 +148,14 @@ The highlight workflow is local-first and does not require Drive ingest for norm
 - HockeyTech/MHL box-score times are elapsed in period.
 - Broadcast OCR scorebug times are remaining in period.
 - Goal timing defaults to one rule: the goal event is the first stable scoreboard clock-stop at the official box-score time.
-- The default local Flo recording profile is `flohockey_recording`.
+- The default local Flo recording profile is `flo_strip_recording` (Flo's standard MHL strip). The pre-2026-27 top-right banner stays available as `flohockey_recording`.
 - The seeded non-standard profile is `yarmouth_recording` for Yarmouth home broadcasts.
 - The default automatic reel mode is `goals_only`.
 - PP penalty inserts and major-review clips are opt-in reel modes, not part of the default automatic reel.
 - Legacy approximate goal fallback is opt-in for broken scorebugs via `--goal-legacy-timing-fallback`; otherwise unverified goal timings stay flagged instead of being silently treated as exact.
-- Known scorebug handling now lives in `scorebug_profiles.py`, with auto-probe fallback for unknown layouts.
+- Known scorebug handling lives in `scorebug_profiles.py`, with auto-probe fallback for unknown layouts. Box layouts (period and clock as separate boxes, stitched before OCR) live in `SCOREBUG_BOX_LAYOUTS` in `highlight_extractor/ocr_engine.py`; a new broadcast layout is one entry there, one profile, and a crop in `tests/fixtures/scorebugs/` so `tests/test_scorebug_layouts.py` guards it. `scorebug_detect.py` picks the layout per recording before the OCR pass: a free OCR vote across known layouts, then (if `DEEPSEEK_API_KEY` or `SCOREBUG_VISION_API_KEY` is set) a vision check against the reference crops in `assets/scorebugs/`, about 1.7k tokens per call. The generic engine is mirrored to the public [HockeyHighlightExtractor](https://github.com/ThomasMcCrossin/HockeyHighlightExtractor) with `scripts/sync_public_engine.sh <checkout>` after engine changes.
+- `scripts/validate_goal_clips.py --game-dir <game> --video <recording>` checks every HockeyTech goal against the source: the vision model reads the scorebug on both sides of the matched time, and the script marks each goal `confirmed` (score went up for the scoring team and the bug clock agrees), `suspect`, `unclear` or `missed` (no clip). Output: `data/goal_validation.json`, about 2.5k prompt tokens per goal.
+- The production reel (`scripts/build_production_highlight_reel.py`) renders overlays with Playwright. On a new host run `npx playwright install chromium-headless-shell` once after `npm install`, or the reel step fails and only `highlights.mp4` is built.
 - Shared Drive bootstrap/config now uses generic `HIGHLIGHTS_*` env names with legacy `RAMBLERS_DRIVE_ID` / `DRIVE_*` aliases still supported.
 
 Common local commands:
@@ -182,7 +184,7 @@ Notes:
 - `scripts/build_filtered_reel.py` reuses existing processed game folders when present unless `--force-reprocess` is set.
 - `scripts/build_production_highlight_reel.py` now reads `matched_events.json` by default and can skip approved majors with `--skip-major-approved`.
 - `scripts/setup_highlight_drive.py` bootstraps the canonical shared-drive tree and writes local env/manifest outputs for future ingest and archive flows.
-- The seeded program manifest is `programs/mhl-amherst-ramblers-2025-26.json`.
+- The current program manifest is `programs/mhl-amherst-ramblers-2026-27.json`. Season rollover: update `season_ids`/`season_label` in `config/hockeytech.json`, add `programs/<team>-<season>.json`, then re-run `scripts/setup_highlight_drive.py --program-manifest ... --write-env ...` (see `season.py`).
 - For multi-machine setups, keep processing local to each machine and use the Shared Drive tree as the shared archive/review surface after processing completes.
 - `highlight_extractor.amherst_integration.find_amherst_display_path()` now prefers `AMHERST_DISPLAY_DIR` and sibling repo layouts before falling back to `~/amherst-display`, so side-by-side clones on WSL or another Ubuntu box work without server-specific paths.
 - Windows/WSL-specific conveniences such as mounted-drive source paths or copying review files into Windows `Downloads` are operator-local workflow choices, not committed pipeline requirements. The repo itself stays Linux/env-path driven so pure Ubuntu runs keep using their own local paths.

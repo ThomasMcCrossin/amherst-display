@@ -1219,16 +1219,10 @@ class EventMatcher:
                         f"Interpolated P{event_period} {event_time} to {interpolated_time:.1f}s"
                     )
                     return interpolated_time
+                return before['video_time']  # a reading at exactly the event time
 
-            # If only before or after exists, use that
-            if before:
-                logger.debug(f"Using nearest timestamp before event: {before['video_time']:.1f}s")
-                return before['video_time']
-
-            if after:
-                logger.debug(f"Using nearest timestamp after event: {after['video_time']:.1f}s")
-                return after['video_time']
-
+            # Only one side: the event is outside what the recording covers (joined late or
+            # ended early). Clamping to the edge would clip the wrong moment, so report no match.
             return None
 
         except Exception as e:
@@ -1400,6 +1394,22 @@ class EventMatcher:
 
         return matched_goals
 
+    @staticmethod
+    def _initial_period(sorted_ts: List[Dict], window: int = 12, min_votes: int = 3) -> int:
+        """Most common OCR period among the first readings, or 1 without a clear majority."""
+        votes: Dict[int, int] = {}
+        for ts in sorted_ts[:window]:
+            try:
+                period = int(ts.get('period') or 0)
+            except (TypeError, ValueError):
+                continue
+            if period >= 1:
+                votes[period] = votes.get(period, 0) + 1
+        if not votes:
+            return 1
+        period, count = max(votes.items(), key=lambda kv: kv[1])
+        return period if count >= min_votes and count * 2 > sum(votes.values()) else 1
+
     def _normalize_video_timestamps(
         self,
         video_timestamps: List[Dict],
@@ -1433,7 +1443,9 @@ class EventMatcher:
         sorted_ts = sorted(video_timestamps, key=lambda t: t.get('video_time', 0))
         normalized = []
 
-        current_period = 1
+        # A recording can join mid-game (late start, restart after a crash), so start from
+        # the period the scorebug shows at the beginning instead of assuming the 1st.
+        current_period = self._initial_period(sorted_ts)
         last_time_remaining = None
         last_video_time = None
         last_confidence = None
