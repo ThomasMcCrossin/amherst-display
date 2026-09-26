@@ -103,7 +103,7 @@ SCOREBUG_PROFILES: tuple[ScorebugProfile, ...] = (
     ),
     ScorebugProfile(
         profile_id="mhl_flo_stacked_topleft",
-        description="2026-27 Flo two-row box, top-left, clock over period",
+        description="Two stacked rows (one per team) in a dark box at the top-left, clock above period at the right",
         execution_profile_name="flo_stacked_recording",
         broadcast_type="flo_stacked_topleft",
         roi_method="flo_stacked_topleft",
@@ -114,7 +114,7 @@ SCOREBUG_PROFILES: tuple[ScorebugProfile, ...] = (
     ),
     ScorebugProfile(
         profile_id="mhl_flo_strip",
-        description="Flo standard MHL strip: FLOHOCKEY | team | score | team | score | period | clock",
+        description="One light-grey row centred at the top: FLOHOCKEY | logo score | logo score | period | clock",
         execution_profile_name="flo_strip_recording",
         broadcast_type="flo_strip",
         roi_method="flo_strip",
@@ -124,7 +124,7 @@ SCOREBUG_PROFILES: tuple[ScorebugProfile, ...] = (
     ),
     ScorebugProfile(
         profile_id="flo_corner_period_first",
-        description="Flo corner bar, top-left: period | clock | team | score | team | score",
+        description="One row at the top-left starting with period then clock, FLOHOCKEY tag underneath",
         execution_profile_name="flo_corner_recording",
         broadcast_type="flo_corner_period_first",
         roi_method="flo_corner_period_first",
