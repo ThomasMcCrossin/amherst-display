@@ -40,8 +40,10 @@ sys.path.insert(0, str(REPO))
 from scorebug_detect import DEFAULT_VISION_BASE_URL, DEFAULT_VISION_MODEL, _jpeg_data_url  # noqa: E402
 
 # Seconds relative to the matched goal time. The bug usually updates the score within
-# ~10-40 s of the goal (after the celebration / during the replay).
-OFFSETS = [-30, -12, -3, 0, 3, 15, 35, 60]
+# ~10-40 s of the goal (after the celebration / during the replay), but a Flo operator can
+# take minutes (09-16: Valley's P2 goal was still 2-2 on the bug a minute later), so the
+# late offsets reach further; any offset at or past the next goal is dropped.
+OFFSETS = [-30, -12, -3, 0, 3, 15, 35, 60, 120, 240]
 FULL_FRAME_OFFSETS = {-3, 0, 3}
 CLOCK_TOLERANCE_SECONDS = 6
 PERIOD_SECONDS = 20 * 60
@@ -196,8 +198,12 @@ def validate(game_dir: Path, video: Path) -> Dict[str, Any]:
                 results.append(row)
                 continue
             t0 = float(clip["video_time"])
+            next_goal = min((float(c["video_time"]) for c in clips
+                             if c.get("type") == "goal" and float(c.get("video_time") or 0) > t0 + 5), default=None)
             frames = []
             for o in OFFSETS:
+                if next_goal is not None and o > 3 and t0 + o >= next_goal - 5:
+                    continue
                 frame = _grab(cap, t0 + o)
                 if frame is None:
                     continue
