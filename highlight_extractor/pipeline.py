@@ -300,6 +300,28 @@ class HighlightPipeline:
         event["match_unreliable"] = False
         event.pop("match_unreliable_reason", None)
 
+    def _locate_goals_by_vision(self, matched_events: List[Dict]) -> None:
+        """Place goals the scorebug couldn't time (frozen bug) from the broadcast itself."""
+        pending = [
+            e for e in matched_events
+            if str(e.get("type") or "").strip().lower() == "goal"
+            and str(e.get("refined_by") or "").strip().lower() not in {"clock_stop", "manual_source_review"}
+        ]
+        if not pending:
+            return
+        import goal_locator
+
+        report = goal_locator.locate_goals(
+            str(self.video_path),
+            pending,
+            self.video_timestamps,
+            lambda g: self.event_matcher._event_time_to_remaining_seconds(g.get("period"), g.get("time", "00:00")),
+        )
+        data_dir = (self.game_folders or {}).get("data_dir")
+        if data_dir:
+            with open(Path(data_dir) / "goal_locator.json", "w") as f:
+                json.dump(report, f, indent=2)
+
     def _finalize_goal_timing_verification(self, matched_events: List[Dict]) -> None:
         """
         Make goal timing status explicit.
@@ -316,6 +338,13 @@ class HighlightPipeline:
             if refined_by == "manual_source_review":
                 event["goal_clock_verified"] = True
                 event["goal_timing_source"] = "manual_source_review"
+                self._clear_event_unreliable(event)
+                continue
+
+            if refined_by == "vision_celebration":
+                # Timed from the celebration, not the clock: placed, but not clock-verified.
+                event["goal_clock_verified"] = False
+                event["goal_timing_source"] = "vision_celebration"
                 self._clear_event_unreliable(event)
                 continue
 
@@ -1044,6 +1073,12 @@ class HighlightPipeline:
         else:
             logger.info("Skipping local OCR refinement")
 
+        if getattr(self.config, "GOAL_VISION_LOCATOR", True):
+            try:
+                self._locate_goals_by_vision(self.matched_events)
+            except Exception as e:  # best-effort; never block highlights on it
+                logger.warning(f"Vision goal locator failed: {e}")
+
         self._finalize_goal_timing_verification(self.matched_events)
 
         # Filter to only events with successful matches
@@ -1664,7 +1699,13 @@ class HighlightPipeline:
         clip_before = float(before_seconds)
         clip_after = float(after_seconds)
 
-        if refined_by in {"clock_stop", "manual_source_review"}:
+        if refined_by == "vision_celebration":
+            clip_before = max(
+                clip_before,
+                float(getattr(self.config, "GOAL_CLOCK_STOP_BEFORE_SECONDS", 32.0) or 32.0),
+            )
+            clip_after = float(getattr(self.config, "GOAL_VISION_AFTER_SECONDS", 10.0) or 10.0)
+        elif refined_by in {"clock_stop", "manual_source_review"}:
             clip_before = max(
                 clip_before,
                 float(getattr(self.config, "GOAL_CLOCK_STOP_BEFORE_SECONDS", 32.0) or 32.0),

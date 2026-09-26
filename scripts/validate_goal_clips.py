@@ -10,6 +10,7 @@ the model:
 
   confirmed   the scoring team's score goes up by one across the goal time and the bug
               clock at the goal agrees with HockeyTech (remaining time, within tolerance)
+  visual      the bug was frozen, so only the picture could be checked, and it shows a goal
   suspect     the model's reads disagree with HockeyTech (score or clock); look at it
   unclear     the bug could not be read well enough to decide
   missed      HockeyTech has the goal, the recording covers that moment, but no clip was made
@@ -132,13 +133,19 @@ def judge(event: Dict[str, Any], answer: Dict[str, Any]) -> Dict[str, Any]:
         clock_diff = min(abs(c - int(expected)) for c in at_goal)
         clock_ok = clock_diff <= CLOCK_TOLERANCE_SECONDS
 
-    if score_ok is True and clock_ok is not False:
+    clocks_seen = [f.get("clock") for f in reads.values() if f.get("clock")]
+    frozen_bug = len(clocks_seen) >= 4 and len(set(clocks_seen)) == 1
+    if frozen_bug:
+        # The bug itself is stuck (Flo operator), so neither score nor clock can confirm;
+        # fall back on what the picture shows.
+        verdict = "visual" if answer.get("goal_visible") else "unclear"
+    elif score_ok is True and clock_ok is not False:
         verdict = "confirmed"
     elif score_ok is False or clock_ok is False:
         verdict = "suspect"
     else:
         verdict = "unclear"
-    return {"verdict": verdict, "score_before": before, "score_after": after, "score_increment_ok": score_ok,
+    return {"verdict": verdict, "frozen_bug": frozen_bug, "score_before": before, "score_after": after, "score_increment_ok": score_ok,
             "clock_at_goal": at_goal, "clock_diff_seconds": clock_diff, "clock_ok": clock_ok,
             "goal_visible": answer.get("goal_visible"), "notes": answer.get("notes")}
 
