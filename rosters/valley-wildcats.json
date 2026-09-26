@@ -5,8 +5,8 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 4,
-  "updated_at": "2026-09-25T12:03:42.852Z",
-  "player_count": 24,
+  "updated_at": "2026-09-26T09:38:37.125Z",
+  "player_count": 25,
   "players": [
     {
       "player_id": "mhl-4145",
@@ -797,6 +797,31 @@
       },
       "hockeytech_id": "4120",
       "person_id": "4794",
+      "flags": [
+        "ht-rookie"
+      ]
+    },
+    {
+      "player_id": "mhl-4146",
+      "number": "25",
+      "first_name": "Morgan",
+      "last_name": "Flemming",
+      "name": "Morgan Flemming",
+      "position": "RW",
+      "height": "6'02",
+      "height_inches": 74,
+      "weight": 180,
+      "shoots": "R",
+      "birthdate": "2010-04-12",
+      "birth_year": "'10",
+      "age": 16,
+      "hometown": "Wolfville, NS, NS",
+      "birthplace": "Wolfville, NS, NS",
+      "rookie": true,
+      "veteran": false,
+      "stats": {},
+      "hockeytech_id": "4146",
+      "person_id": "4834",
       "flags": [
         "ht-rookie"
       ]
