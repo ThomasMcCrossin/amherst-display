@@ -72,9 +72,9 @@ UID:mhl-5019@amherst-display
 DTSTAMP:20260926T220000Z
 DTSTART:20260926T220000Z
 DTEND:20260927T010000Z
-SUMMARY:Miramichi Timberwolves @ Amherst Ramblers
+SUMMARY:Miramichi Timberwolves @ Amherst Ramblers (L 2-6)
 LOCATION:Amherst Stadium
-DESCRIPTION:MHL\nHockeyTech game 5019
+DESCRIPTION:MHL\nHockeyTech game 5019\nFinal: L 2-6
 STATUS:CONFIRMED
 END:VEVENT
 BEGIN:VEVENT
