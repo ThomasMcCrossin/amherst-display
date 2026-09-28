@@ -24,6 +24,9 @@ from drive_api import (
 )
 from drive_config import resolve_drive_config
 
+DATA_DRIVE_SKIP_NAMES = {"ocr_scorebug_crops"}
+DATA_DRIVE_SKIP_PREFIXES = ("debug_ocr_frame_",)
+
 
 def _sanitize_drive_name(value: str) -> str:
     normalized = unicodedata.normalize("NFKD", str(value or ""))
@@ -181,6 +184,16 @@ def _trash_duplicate_raw_clips(service, *, clips_parent_id: str, drive_id: str) 
             continue
         file_id = str(item.get("id") or "")
         if file_id:
+            trash_file(service, file_id=file_id)
+
+
+def _prune_debug_data_artifacts(service, *, data_parent_id: str, drive_id: str) -> None:
+    for item in list_child_files(service, parent_id=data_parent_id, drive_id=drive_id):
+        name = str(item.get("name") or "")
+        file_id = str(item.get("id") or "")
+        if not file_id:
+            continue
+        if name in DATA_DRIVE_SKIP_NAMES or name.startswith(DATA_DRIVE_SKIP_PREFIXES):
             trash_file(service, file_id=file_id)
 
 
@@ -356,11 +369,6 @@ def sync_local_game_archive_to_drive(
     archive_status_path.write_text(json.dumps(archive_status, indent=2) + "\n", encoding="utf-8")
     upsert_file(service, local_path=archive_status_path, parent_id=output_id, drive_id=drive_id)
 
-    upload_tree(service, src_dir=game_dir / "data", dst_parent_id=data_id, drive_id=drive_id)
-    upload_tree(service, src_dir=game_dir / "output", dst_parent_id=output_id, drive_id=drive_id)
-    upload_tree(service, src_dir=game_dir / "logs", dst_parent_id=logs_id, drive_id=drive_id)
-    _trash_duplicate_raw_clips(service, clips_parent_id=clips_id, drive_id=drive_id)
-
     source_file_id = upsert_file(
         service,
         local_path=source_video,
@@ -385,5 +393,18 @@ def sync_local_game_archive_to_drive(
     )
     archive_status_path.write_text(json.dumps(archive_status, indent=2) + "\n", encoding="utf-8")
     upsert_file(service, local_path=archive_status_path, parent_id=output_id, drive_id=drive_id)
+
+    upload_tree(
+        service,
+        src_dir=game_dir / "data",
+        dst_parent_id=data_id,
+        drive_id=drive_id,
+        skip_names=DATA_DRIVE_SKIP_NAMES,
+        skip_prefixes=DATA_DRIVE_SKIP_PREFIXES,
+    )
+    _prune_debug_data_artifacts(service, data_parent_id=data_id, drive_id=drive_id)
+    upload_tree(service, src_dir=game_dir / "output", dst_parent_id=output_id, drive_id=drive_id)
+    upload_tree(service, src_dir=game_dir / "logs", dst_parent_id=logs_id, drive_id=drive_id)
+    _trash_duplicate_raw_clips(service, clips_parent_id=clips_id, drive_id=drive_id)
 
     return str(payload["drive_archive"]["game_folder_url"])
