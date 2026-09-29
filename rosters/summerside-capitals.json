@@ -5,8 +5,8 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 10,
-  "updated_at": "2026-09-28T14:17:48.867Z",
-  "player_count": 23,
+  "updated_at": "2026-09-29T13:12:19.788Z",
+  "player_count": 24,
   "players": [
     {
       "player_id": "mhl-4069",
@@ -135,7 +135,14 @@
       "last_name": "Swain",
       "name": "Eli Swain",
       "position": "RW",
+      "height": "5'8",
+      "height_inches": 68,
+      "weight": 140,
       "shoots": "R",
+      "birthdate": "2010-03-28",
+      "birth_year": "'10",
+      "age": 16,
+      "hometown": "New Glasgow, NS",
       "rookie": false,
       "veteran": false,
       "stats": {
@@ -157,7 +164,9 @@
       },
       "hockeytech_id": "4029",
       "person_id": "4701",
-      "flags": []
+      "flags": [
+        "ht-affiliate"
+      ]
     },
     {
       "player_id": "mhl-3665",
@@ -197,6 +206,46 @@
       },
       "hockeytech_id": "3665",
       "person_id": "4280",
+      "flags": [
+        "ht-rookie"
+      ]
+    },
+    {
+      "player_id": "mhl-4147",
+      "number": "5",
+      "first_name": "Kaidan",
+      "last_name": "Sahajpal",
+      "name": "Kaidan Sahajpal",
+      "position": "C",
+      "height": "5'11",
+      "height_inches": 71,
+      "weight": 174,
+      "shoots": "R",
+      "birthdate": "2008-09-11",
+      "birth_year": "'08",
+      "age": 18,
+      "hometown": "Mount Pearl, NL",
+      "rookie": true,
+      "veteran": false,
+      "stats": {
+        "games_played": 0,
+        "goals": 0,
+        "assists": 0,
+        "points": 0,
+        "plus_minus": 0,
+        "penalty_minutes": 0,
+        "power_play_goals": 0,
+        "power_play_assists": 0,
+        "power_play_points": 0,
+        "short_handed_goals": 0,
+        "short_handed_assists": 0,
+        "short_handed_points": 0,
+        "game_winning_goals": 0,
+        "overtime_goals": 0,
+        "points_per_game": 0
+      },
+      "hockeytech_id": "4147",
+      "person_id": "4835",
       "flags": [
         "ht-rookie"
       ]
