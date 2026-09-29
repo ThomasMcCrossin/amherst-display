@@ -9,6 +9,15 @@ import { buildScheduleOutputs } from '../scripts/schedules.mjs';
 import { rosterPlayers } from '../scripts/rosters.mjs';
 
 const root = new URL('../', import.meta.url);
+
+// Retire this guard in one step by deleting this test block; dated evidence is excluded.
+test('current image guidance avoids rights and public-use nudges', async () => {
+  const readme = await fs.readFile(new URL('README.md', root), 'utf8');
+  const agents = await fs.readFile(new URL('AGENTS.md', root), 'utf8');
+  assert.match(agents, /retain privacy, source provenance, caching, image-quality checks, and publication-safety gates/);
+  const current = readme + '\n' + agents.replace(/^Do not add photo or image licensing[^\n]*/m, '');
+  assert.doesNotMatch(current, /(?:photo|image|headshot|logo|personal use)[^\n.]{0,100}(?:licen[cs]|copyright|rights|ownership|permission|approval|public.use)|(?:licen[cs]|copyright|rights|ownership|permission|approval|public.use)[^\n.]{0,100}(?:photo|image|headshot|logo)/i);
+});
 const row = { game_id: '4996', season_id: '46', home_team: '1', visiting_team: '12', final: '0', status: '1',
   home_team_name: 'Amherst Ramblers', visiting_team_name: 'Grand Falls Rapids',
   date_tbd: '0', time_tbd: '0', GameDateISO8601: '2026-09-12T19:00:00-03:00', home_goal_count: '0', visiting_goal_count: '0' };
