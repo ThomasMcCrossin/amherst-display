@@ -300,7 +300,7 @@ For local builds, export `HOCKEYTECH_API_KEY`, run `npm ci` and
 
 ### Amherst Ramblers Headshots Served from API
 
-**Why:** To avoid storing player photos in the GitHub repository (privacy/licensing concerns).
+**Why:** To keep player photos out of the GitHub repository for privacy. The display uses the source URL for Amherst; other teams retain their existing local cache.
 
 **How:** The `headshot_url` field points directly to HockeyTech's API:
 ```json
@@ -412,14 +412,12 @@ All CSS is inline in `index.html` for easy customization. Look for the `<style>`
 | **GitHub Actions** | CI/CD automation |
 | **GitHub Pages** | Static hosting |
 
-## License
+## Data sources
 
-This project is for personal use at Amherst Stadium. Hockey data is sourced from:
+Hockey data is sourced from:
 - **HockeyTech** (rosters, stats, game summaries)
 - **MHL** (standings)
 - **GrayJay Leagues** (minor hockey)
-
-Logos and team names are property of their respective organizations.
 
 ## Support
 
