@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 12,
-  "updated_at": "2026-09-29T13:12:22.127Z",
+  "updated_at": "2026-09-30T12:52:58.218Z",
   "player_count": 23,
   "players": [
     {
@@ -28,23 +28,7 @@
       "veteran": false,
       "headshot": "assets/headshots/Grand-Falls-Rapids/2-sebastien-savoie.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3738.jpg",
-      "stats": {
-        "games_played": 1,
-        "goals": 0,
-        "assists": 0,
-        "points": 0,
-        "plus_minus": 0,
-        "penalty_minutes": 0,
-        "power_play_goals": 0,
-        "power_play_assists": 0,
-        "power_play_points": 0,
-        "short_handed_goals": 0,
-        "short_handed_assists": 0,
-        "short_handed_points": 0,
-        "game_winning_goals": 0,
-        "overtime_goals": 0,
-        "points_per_game": 0
-      },
+      "stats": {},
       "hockeytech_id": "3738",
       "person_id": "4354",
       "flags": [
@@ -74,19 +58,19 @@
       "stats": {
         "games_played": 6,
         "goals": 1,
-        "assists": 0,
-        "points": 1,
+        "assists": 1,
+        "points": 2,
         "plus_minus": 0,
         "penalty_minutes": 2,
         "power_play_goals": 0,
-        "power_play_assists": 0,
-        "power_play_points": 0,
+        "power_play_assists": 1,
+        "power_play_points": 1,
         "short_handed_goals": 0,
         "short_handed_assists": 0,
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.17
+        "points_per_game": 0.33
       },
       "hockeytech_id": "3806",
       "person_id": "4424",
@@ -156,8 +140,8 @@
       "stats": {
         "games_played": 6,
         "goals": 1,
-        "assists": 5,
-        "points": 6,
+        "assists": 4,
+        "points": 5,
         "plus_minus": 0,
         "penalty_minutes": 6,
         "power_play_goals": 0,
@@ -168,7 +152,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 1
+        "points_per_game": 0.83
       },
       "hockeytech_id": "3399",
       "person_id": "3961",
@@ -194,7 +178,23 @@
       "veteran": false,
       "headshot": "assets/headshots/Grand-Falls-Rapids/8-vincent-desmarais.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4087.jpg",
-      "stats": {},
+      "stats": {
+        "games_played": 6,
+        "goals": 0,
+        "assists": 1,
+        "points": 1,
+        "plus_minus": 0,
+        "penalty_minutes": 0,
+        "power_play_goals": 0,
+        "power_play_assists": 0,
+        "power_play_points": 0,
+        "short_handed_goals": 0,
+        "short_handed_assists": 0,
+        "short_handed_points": 0,
+        "game_winning_goals": 0,
+        "overtime_goals": 0,
+        "points_per_game": 0.17
+      },
       "hockeytech_id": "4087",
       "person_id": "4759",
       "flags": []
@@ -222,8 +222,8 @@
       "stats": {
         "games_played": 4,
         "goals": 1,
-        "assists": 3,
-        "points": 4,
+        "assists": 4,
+        "points": 5,
         "plus_minus": 0,
         "penalty_minutes": 2,
         "power_play_goals": 0,
@@ -234,7 +234,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 1
+        "points_per_game": 1.25
       },
       "hockeytech_id": "3149",
       "person_id": "3668",
@@ -469,8 +469,8 @@
       "stats": {
         "games_played": 6,
         "goals": 4,
-        "assists": 2,
-        "points": 6,
+        "assists": 1,
+        "points": 5,
         "plus_minus": 0,
         "penalty_minutes": 2,
         "power_play_goals": 0,
@@ -481,7 +481,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 1
+        "points_per_game": 0.83
       },
       "hockeytech_id": "3150",
       "person_id": "3669",
@@ -681,11 +681,11 @@
         "losses": 1,
         "ot_losses": 1,
         "minutes_played": 240,
-        "saves": 148,
-        "shots": 165,
+        "saves": 149,
+        "shots": 166,
         "goals_against": 17,
         "shutouts": 0,
-        "save_percentage": 0.897,
+        "save_percentage": 0.898,
         "goals_against_average": 4.24
       },
       "hockeytech_id": "4100",

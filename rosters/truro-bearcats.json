@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 3,
-  "updated_at": "2026-09-29T13:12:02.243Z",
+  "updated_at": "2026-09-30T12:52:38.153Z",
   "player_count": 27,
   "players": [
     {
@@ -315,8 +315,8 @@
       "stats": {
         "games_played": 5,
         "goals": 0,
-        "assists": 3,
-        "points": 3,
+        "assists": 2,
+        "points": 2,
         "plus_minus": 0,
         "penalty_minutes": 2,
         "power_play_goals": 0,
@@ -327,7 +327,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.6
+        "points_per_game": 0.4
       },
       "hockeytech_id": "3414",
       "person_id": "3976",
@@ -356,8 +356,8 @@
       "stats": {
         "games_played": 5,
         "goals": 0,
-        "assists": 1,
-        "points": 1,
+        "assists": 2,
+        "points": 2,
         "plus_minus": 0,
         "penalty_minutes": 0,
         "power_play_goals": 0,
@@ -368,7 +368,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.2
+        "points_per_game": 0.4
       },
       "hockeytech_id": "4127",
       "person_id": "4801",
@@ -503,23 +503,7 @@
       "veteran": false,
       "headshot": "assets/headshots/Truro-Bearcats/27-zach-gill.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4131.jpg",
-      "stats": {
-        "games_played": 5,
-        "goals": 0,
-        "assists": 1,
-        "points": 1,
-        "plus_minus": 0,
-        "penalty_minutes": 8,
-        "power_play_goals": 0,
-        "power_play_assists": 0,
-        "power_play_points": 0,
-        "short_handed_goals": 0,
-        "short_handed_assists": 0,
-        "short_handed_points": 0,
-        "game_winning_goals": 0,
-        "overtime_goals": 0,
-        "points_per_game": 0.2
-      },
+      "stats": {},
       "hockeytech_id": "4131",
       "person_id": "4814",
       "flags": [
@@ -552,11 +536,11 @@
         "losses": 0,
         "ot_losses": 0,
         "minutes_played": 60,
-        "saves": 21,
-        "shots": 22,
+        "saves": 25,
+        "shots": 26,
         "goals_against": 1,
         "shutouts": 0,
-        "save_percentage": 0.955,
+        "save_percentage": 0.962,
         "goals_against_average": 1
       },
       "hockeytech_id": "4007",
@@ -798,8 +782,8 @@
       "stats": {
         "games_played": 5,
         "goals": 0,
-        "assists": 1,
-        "points": 1,
+        "assists": 2,
+        "points": 2,
         "plus_minus": 0,
         "penalty_minutes": 12,
         "power_play_goals": 0,
@@ -810,7 +794,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.2
+        "points_per_game": 0.4
       },
       "hockeytech_id": "3655",
       "person_id": "4270",
@@ -921,7 +905,23 @@
       "birthplace": "Valley, NS, ",
       "rookie": false,
       "veteran": false,
-      "stats": {},
+      "stats": {
+        "games_played": 0,
+        "goals": 0,
+        "assists": 0,
+        "points": 0,
+        "plus_minus": 0,
+        "penalty_minutes": 0,
+        "power_play_goals": 0,
+        "power_play_assists": 0,
+        "power_play_points": 0,
+        "short_handed_goals": 0,
+        "short_handed_assists": 0,
+        "short_handed_points": 0,
+        "game_winning_goals": 0,
+        "overtime_goals": 0,
+        "points_per_game": 0
+      },
       "hockeytech_id": "3763",
       "person_id": "4379",
       "flags": [

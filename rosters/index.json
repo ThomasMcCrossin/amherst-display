@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T13:12:24.454Z",
+  "generated_at": "2026-09-30T12:53:00.739Z",
   "season": "2026-27",
   "season_id": 46,
   "api_source": "HockeyTech",
@@ -67,7 +67,7 @@
       "team_name": "Campbellton-Tigers",
       "league": "MHL",
       "team_id": 8,
-      "player_count": 24,
+      "player_count": 22,
       "file": "rosters/campbellton-tigers.json"
     },
     {

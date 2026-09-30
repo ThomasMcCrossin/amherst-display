@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 5,
-  "updated_at": "2026-09-29T13:12:07.678Z",
+  "updated_at": "2026-09-30T12:52:43.852Z",
   "player_count": 24,
   "players": [
     {
@@ -540,23 +540,7 @@
       "veteran": false,
       "headshot": "assets/headshots/Yarmouth-Mariners/19-grayson-pardy.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3809.jpg",
-      "stats": {
-        "games_played": 6,
-        "goals": 0,
-        "assists": 1,
-        "points": 1,
-        "plus_minus": 0,
-        "penalty_minutes": 0,
-        "power_play_goals": 0,
-        "power_play_assists": 0,
-        "power_play_points": 0,
-        "short_handed_goals": 0,
-        "short_handed_assists": 0,
-        "short_handed_points": 0,
-        "game_winning_goals": 0,
-        "overtime_goals": 0,
-        "points_per_game": 0.17
-      },
+      "stats": {},
       "hockeytech_id": "3809",
       "person_id": "4427",
       "flags": []
@@ -627,8 +611,8 @@
       "stats": {
         "games_played": 6,
         "goals": 4,
-        "assists": 2,
-        "points": 6,
+        "assists": 3,
+        "points": 7,
         "plus_minus": 0,
         "penalty_minutes": 8,
         "power_play_goals": 1,
@@ -639,7 +623,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 1
+        "points_per_game": 1.17
       },
       "hockeytech_id": "3330",
       "person_id": "3892",
@@ -756,11 +740,11 @@
         "losses": 3,
         "ot_losses": 0,
         "minutes_played": 291,
-        "saves": 175,
-        "shots": 195,
+        "saves": 183,
+        "shots": 203,
         "goals_against": 20,
         "shutouts": 0,
-        "save_percentage": 0.897,
+        "save_percentage": 0.901,
         "goals_against_average": 4.12
       },
       "hockeytech_id": "4140",
@@ -915,8 +899,8 @@
       "stats": {
         "games_played": 6,
         "goals": 0,
-        "assists": 2,
-        "points": 2,
+        "assists": 1,
+        "points": 1,
         "plus_minus": 0,
         "penalty_minutes": 14,
         "power_play_goals": 0,
@@ -927,7 +911,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.33
+        "points_per_game": 0.17
       },
       "hockeytech_id": "3030",
       "person_id": "3536",
