@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 3,
-  "updated_at": "2026-10-02T12:58:15.696Z",
+  "updated_at": "2026-10-03T11:52:53.261Z",
   "player_count": 27,
   "players": [
     {
@@ -97,9 +97,9 @@
     {
       "player_id": "mhl-4126",
       "number": "9",
-      "first_name": "Cedrik",
+      "first_name": "Cédrik",
       "last_name": "Laberge",
-      "name": "Cedrik Laberge",
+      "name": "Cédrik Laberge",
       "position": "C",
       "height": "6'0",
       "height_inches": 72,
@@ -112,7 +112,7 @@
       "birthplace": "Sainte-Therese, QC, ",
       "rookie": true,
       "veteran": false,
-      "headshot": "assets/headshots/Truro-Bearcats/9-cedrik-laberge.jpg",
+      "headshot": "assets/headshots/Truro-Bearcats/9-c-drik-laberge.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4126.jpg",
       "stats": {
         "games_played": 5,

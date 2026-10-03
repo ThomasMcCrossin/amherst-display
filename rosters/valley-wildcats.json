@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 4,
-  "updated_at": "2026-10-02T12:58:16.083Z",
+  "updated_at": "2026-10-03T11:52:53.930Z",
   "player_count": 25,
   "players": [
     {
@@ -794,7 +794,7 @@
       "position": "RW",
       "height": "6'02",
       "height_inches": 74,
-      "weight": 180,
+      "weight": 179,
       "shoots": "R",
       "birthdate": "2010-04-12",
       "birth_year": "'10",
