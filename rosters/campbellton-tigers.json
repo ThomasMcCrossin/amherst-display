@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 8,
-  "updated_at": "2026-10-05T15:05:59.316Z",
+  "updated_at": "2026-10-06T13:29:46.469Z",
   "player_count": 22,
   "players": [
     {
@@ -31,8 +31,8 @@
       "stats": {
         "games_played": 6,
         "goals": 1,
-        "assists": 2,
-        "points": 3,
+        "assists": 1,
+        "points": 2,
         "plus_minus": 0,
         "penalty_minutes": 2,
         "power_play_goals": 1,
@@ -43,7 +43,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.5
+        "points_per_game": 0.33
       },
       "hockeytech_id": "4143",
       "person_id": "4828",
@@ -113,8 +113,8 @@
       "stats": {
         "games_played": 7,
         "goals": 3,
-        "assists": 4,
-        "points": 7,
+        "assists": 5,
+        "points": 8,
         "plus_minus": 0,
         "penalty_minutes": 0,
         "power_play_goals": 1,
@@ -125,7 +125,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 2,
         "overtime_goals": 0,
-        "points_per_game": 1
+        "points_per_game": 1.14
       },
       "hockeytech_id": "3432",
       "person_id": "3995",
@@ -154,8 +154,8 @@
       "stats": {
         "games_played": 7,
         "goals": 5,
-        "assists": 1,
-        "points": 6,
+        "assists": 2,
+        "points": 7,
         "plus_minus": 0,
         "penalty_minutes": 4,
         "power_play_goals": 2,
@@ -166,7 +166,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.86
+        "points_per_game": 1
       },
       "hockeytech_id": "3152",
       "person_id": "3671",
@@ -272,7 +272,7 @@
       "age": 18,
       "hometown": "Fredericton, NB",
       "birthplace": "Fredericton, NB, ",
-      "rookie": false,
+      "rookie": true,
       "veteran": false,
       "headshot": "assets/headshots/Campbellton-Tigers/14-matthew-fournier.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3319.jpg",
@@ -295,7 +295,9 @@
       },
       "hockeytech_id": "3319",
       "person_id": "3881",
-      "flags": []
+      "flags": [
+        "ht-rookie"
+      ]
     },
     {
       "player_id": "mhl-3964",
@@ -377,7 +379,7 @@
       "birthdate": "2008-04-23",
       "birth_year": "'08",
       "age": 18,
-      "hometown": "Campbellton",
+      "hometown": "Campbellton, NB",
       "birthplace": "Campbellton, NB, NB",
       "rookie": false,
       "veteran": false,
@@ -428,8 +430,8 @@
       "stats": {
         "games_played": 7,
         "goals": 2,
-        "assists": 4,
-        "points": 6,
+        "assists": 5,
+        "points": 7,
         "plus_minus": 0,
         "penalty_minutes": 0,
         "power_play_goals": 0,
@@ -440,7 +442,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.86
+        "points_per_game": 1
       },
       "hockeytech_id": "3787",
       "person_id": "4405",
@@ -482,9 +484,9 @@
       "last_name": "Austin",
       "name": "Alex Austin",
       "position": "LW",
-      "height": "5'10",
-      "height_inches": 70,
-      "weight": 165,
+      "height": "6'1",
+      "height_inches": 73,
+      "weight": 190,
       "shoots": "L",
       "birthdate": "2008-11-17",
       "birth_year": "'08",
@@ -534,14 +536,16 @@
       "age": 18,
       "hometown": "Fredericton, NB",
       "birthplace": "Fredericton, NB, ",
-      "rookie": false,
+      "rookie": true,
       "veteran": false,
       "headshot": "assets/headshots/Campbellton-Tigers/24-matthew-goodine.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3633.jpg",
       "stats": {},
       "hockeytech_id": "3633",
       "person_id": "4248",
-      "flags": []
+      "flags": [
+        "ht-rookie"
+      ]
     },
     {
       "player_id": "mhl-2815",
@@ -610,11 +614,11 @@
         "losses": 1,
         "ot_losses": 0,
         "minutes_played": 99,
-        "saves": 54,
-        "shots": 68,
+        "saves": 49,
+        "shots": 63,
         "goals_against": 14,
         "shutouts": 0,
-        "save_percentage": 0.794,
+        "save_percentage": 0.778,
         "goals_against_average": 8.51
       },
       "hockeytech_id": "3905",
@@ -713,11 +717,11 @@
         "losses": 3,
         "ot_losses": 0,
         "minutes_played": 300,
-        "saves": 229,
-        "shots": 246,
+        "saves": 223,
+        "shots": 240,
         "goals_against": 17,
         "shutouts": 0,
-        "save_percentage": 0.931,
+        "save_percentage": 0.929,
         "goals_against_average": 3.4
       },
       "hockeytech_id": "3000",
@@ -788,8 +792,8 @@
       "stats": {
         "games_played": 7,
         "goals": 0,
-        "assists": 2,
-        "points": 2,
+        "assists": 3,
+        "points": 3,
         "plus_minus": 0,
         "penalty_minutes": 4,
         "power_play_goals": 0,
@@ -800,7 +804,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.29
+        "points_per_game": 0.43
       },
       "hockeytech_id": "3989",
       "person_id": "4660",

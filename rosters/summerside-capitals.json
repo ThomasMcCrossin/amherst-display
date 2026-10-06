@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 10,
-  "updated_at": "2026-10-05T15:06:01.228Z",
+  "updated_at": "2026-10-06T13:29:47.381Z",
   "player_count": 24,
   "players": [
     {
@@ -33,11 +33,11 @@
         "losses": 1,
         "ot_losses": 0,
         "minutes_played": 176,
-        "saves": 76,
-        "shots": 87,
+        "saves": 79,
+        "shots": 90,
         "goals_against": 11,
         "shutouts": 0,
-        "save_percentage": 0.874,
+        "save_percentage": 0.878,
         "goals_against_average": 3.76
       },
       "hockeytech_id": "4069",
@@ -68,8 +68,8 @@
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3935.jpg",
       "stats": {
         "games_played": 6,
-        "goals": 0,
-        "assists": 4,
+        "goals": 1,
+        "assists": 3,
         "points": 4,
         "plus_minus": 0,
         "penalty_minutes": 0,
@@ -298,8 +298,8 @@
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3925.jpg",
       "stats": {
         "games_played": 7,
-        "goals": 4,
-        "assists": 2,
+        "goals": 3,
+        "assists": 3,
         "points": 6,
         "plus_minus": 0,
         "penalty_minutes": 6,
@@ -589,8 +589,8 @@
       "stats": {
         "games_played": 7,
         "goals": 1,
-        "assists": 4,
-        "points": 5,
+        "assists": 3,
+        "points": 4,
         "plus_minus": 0,
         "penalty_minutes": 0,
         "power_play_goals": 1,
@@ -601,7 +601,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.71
+        "points_per_game": 0.57
       },
       "hockeytech_id": "3796",
       "person_id": "4414",
@@ -743,11 +743,11 @@
         "losses": 2,
         "ot_losses": 0,
         "minutes_played": 249,
-        "saves": 102,
-        "shots": 120,
+        "saves": 93,
+        "shots": 111,
         "goals_against": 18,
         "shutouts": 0,
-        "save_percentage": 0.85,
+        "save_percentage": 0.838,
         "goals_against_average": 4.34
       },
       "hockeytech_id": "4125",

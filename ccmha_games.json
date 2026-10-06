@@ -1,7 +1,16 @@
 {
-  "generated_at": "2026-10-05T15:06:36.834Z",
+  "generated_at": "2026-10-06T13:30:22.021Z",
   "timezone": "America/Halifax",
   "games": [
+    {
+      "league": "U11-A",
+      "home_team": "Shediac Predateurs",
+      "away_team": "Cumberland Ramblers",
+      "start": "2026-10-10T12:00:00-03:00",
+      "end": "2026-10-10T13:30:00-03:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
     {
       "league": "U13-AA",
       "home_team": "Pictou County Crushers",

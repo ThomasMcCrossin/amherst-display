@@ -7,7 +7,7 @@
   "season_ids": [
     46
   ],
-  "updated_at": "2026-10-05T15:06:35.584Z",
+  "updated_at": "2026-10-06T13:30:20.736Z",
   "summary": {
     "games_played": 8,
     "wins": 3,
@@ -115,12 +115,13 @@
           },
           "assists": [
             {
-              "name": "Carson MacKenzie",
-              "number": 6
+              "player_id": "mhl-3756",
+              "name": "Brady Matheson",
+              "number": 19
             },
             {
-              "name": "Christian Luke",
-              "number": 5
+              "name": "Carson MacKenzie",
+              "number": 6
             }
           ],
           "power_play": false,
@@ -144,10 +145,6 @@
               "player_id": "mhl-4018",
               "name": "Tanner Hayden",
               "number": 91
-            },
-            {
-              "name": "Trent Stewart",
-              "number": 47
             }
           ],
           "power_play": false,
@@ -165,11 +162,16 @@
             "number": 26,
             "position": "LW"
           },
-          "assists": [],
+          "assists": [
+            {
+              "name": "Christian Luke",
+              "number": 5
+            }
+          ],
           "power_play": false,
           "short_handed": false,
           "game_winning": false,
-          "empty_net": false
+          "empty_net": true
         },
         {
           "period": 3,
@@ -541,11 +543,11 @@
         },
         "mhl-3766": {
           "position": "G",
-          "saves": 30,
-          "shots_against": 33,
+          "saves": 27,
+          "shots_against": 30,
           "goals_against": 3,
           "save_percentage": "0.000",
-          "time_on_ice": "59:38"
+          "time_on_ice": "59:40"
         },
         "mhl-3187": {
           "position": "G",
@@ -559,16 +561,16 @@
       "box_score": {
         "shots_by_period": {
           "ramblers": {
-            "period1": 17,
-            "period2": 20,
+            "period1": 16,
+            "period2": 19,
             "period3": 10,
-            "total": 47
+            "total": 45
           },
           "opponent": {
-            "period1": 13,
-            "period2": 11,
+            "period1": 11,
+            "period2": 10,
             "period3": 10,
-            "total": 34
+            "total": 31
           }
         },
         "scoring_by_period": {
@@ -604,18 +606,18 @@
             {
               "name": "Brandon Lavoie",
               "time_on_ice": "57:09",
-              "saves": 30,
-              "shots_against": 33,
+              "saves": 27,
+              "shots_against": 30,
               "on_ice": "1st/0:00",
               "off_ice": "3rd/17:09",
               "decision": "L"
             },
             {
               "name": "Brandon Lavoie",
-              "time_on_ice": "02:29",
+              "time_on_ice": "02:31",
               "saves": 0,
               "shots_against": 0,
-              "on_ice": "3rd/17:31",
+              "on_ice": "3rd/17:29",
               "off_ice": "3rd/20:00",
               "decision": "L"
             }
@@ -624,8 +626,8 @@
             {
               "name": "George Gallant",
               "time_on_ice": "60:00",
-              "saves": 46,
-              "shots_against": 47,
+              "saves": 44,
+              "shots_against": 45,
               "on_ice": "1st/0:00",
               "off_ice": "3rd/20:00",
               "decision": "W"

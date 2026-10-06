@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 7,
-  "updated_at": "2026-10-05T15:05:58.501Z",
+  "updated_at": "2026-10-06T13:29:45.862Z",
   "player_count": 25,
   "players": [
     {
@@ -458,8 +458,8 @@
       "stats": {
         "games_played": 3,
         "goals": 0,
-        "assists": 0,
-        "points": 0,
+        "assists": 1,
+        "points": 1,
         "plus_minus": 0,
         "penalty_minutes": 0,
         "power_play_goals": 0,
@@ -470,7 +470,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0
+        "points_per_game": 0.33
       },
       "hockeytech_id": "3995",
       "person_id": "4666",
@@ -501,8 +501,8 @@
       "stats": {
         "games_played": 8,
         "goals": 1,
-        "assists": 4,
-        "points": 5,
+        "assists": 3,
+        "points": 4,
         "plus_minus": 0,
         "penalty_minutes": 2,
         "power_play_goals": 0,
@@ -513,7 +513,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.63
+        "points_per_game": 0.5
       },
       "hockeytech_id": "3470",
       "person_id": "4033",
@@ -627,11 +627,11 @@
         "losses": 4,
         "ot_losses": 0,
         "minutes_played": 359,
-        "saves": 213,
-        "shots": 236,
+        "saves": 211,
+        "shots": 234,
         "goals_against": 23,
         "shutouts": 0,
-        "save_percentage": 0.903,
+        "save_percentage": 0.902,
         "goals_against_average": 3.84
       },
       "hockeytech_id": "2773",
@@ -664,11 +664,11 @@
         "losses": 1,
         "ot_losses": 0,
         "minutes_played": 125,
-        "saves": 62,
-        "shots": 70,
+        "saves": 68,
+        "shots": 76,
         "goals_against": 8,
         "shutouts": 0,
-        "save_percentage": 0.886,
+        "save_percentage": 0.895,
         "goals_against_average": 3.84
       },
       "hockeytech_id": "3794",
@@ -698,8 +698,8 @@
       "stats": {
         "games_played": 8,
         "goals": 1,
-        "assists": 3,
-        "points": 4,
+        "assists": 2,
+        "points": 3,
         "plus_minus": 0,
         "penalty_minutes": 0,
         "power_play_goals": 0,
@@ -710,7 +710,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.5
+        "points_per_game": 0.38
       },
       "hockeytech_id": "3166",
       "person_id": "3686",
