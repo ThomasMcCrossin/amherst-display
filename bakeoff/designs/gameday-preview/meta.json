@@ -1,0 +1,1 @@
+{"name": "Game Day (all four modes)", "concept": "Preview of the Game Day board in its four calendar modes, each iframe pinned with ?now=.", "panels": ["Home game day","Away game day","Day-after recap","Off day"], "frames": 1, "frame_ms": 3000}

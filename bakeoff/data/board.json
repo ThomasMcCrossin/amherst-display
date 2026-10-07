@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-07T19:32:14.663Z",
+ "generated_at": "2026-10-07T19:49:17.762Z",
  "season": "2026-27",
  "team": {
   "id": 1,
@@ -1582,7 +1582,7 @@
     "against": 4
    },
    "result": "W",
-   "ot_so": "OT",
+   "ot_so": "SO",
    "attendance": 465,
    "scorers": [
     {

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Ramblers Jumbotron</title>
+<meta name="viewport" content="width=1920">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07020d;--pur:#5B2D8C;--pur2:#2a1245;--gold:#FFC629;--w:#fff;--red:#ff6b81}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--w);font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800}
+.big{font-family:Anton,Impact,'Arial Narrow',sans-serif;font-weight:400;line-height:.9;letter-spacing:.01em}
+#top{position:absolute;left:0;top:0;width:1920px;height:84px;background:var(--pur);display:flex;align-items:center;padding:0 48px;gap:24px;font-size:44px;letter-spacing:.12em;text-transform:uppercase;border-bottom:6px solid var(--gold)}
+#top .lg{width:60px;height:60px;border-radius:50%;background:#fff;object-fit:contain}
+#top b{color:var(--gold);font-weight:800}#top .sp{flex:1}
+#clock{font-family:Anton,Impact,sans-serif;font-weight:400;letter-spacing:.06em}
+#foot{position:absolute;left:0;bottom:0;width:1920px;height:44px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#b9a6d1;letter-spacing:.04em;background:#000}
+#bar{position:absolute;left:0;bottom:44px;height:8px;width:1920px;background:var(--gold);transform-origin:0 0;transform:scaleX(0)}
+.p{position:absolute;left:0;top:90px;width:1920px;height:946px;opacity:0;transition:opacity .5s;overflow:hidden;background:radial-gradient(ellipse at 50% 45%,#3a1a5c 0%,#150726 55%,var(--bg) 100%)}
+.p.on{opacity:1}
+.tag{position:absolute;left:0;top:26px;width:1920px;text-align:center;font-size:64px;letter-spacing:.2em;color:var(--gold);text-transform:uppercase}
+.abs{position:absolute;text-align:center;width:1920px;left:0}
+.disc{position:absolute;border-radius:50%;background:#fff;overflow:hidden;display:flex;align-items:center;justify-content:center;border:10px solid var(--gold)}
+.disc img{width:100%;height:100%;object-fit:contain}
+.disc.head img{object-fit:cover}
+.gold{color:var(--gold)}.mut{color:#cdbbe6}
+/* P1 */
+#p1 .disc{width:380px;height:380px;top:120px}
+#p1 .dl{left:320px}#p1 .dr{left:1220px}
+#p1 .vs{top:230px;font-size:190px}
+#p1 .ab{top:545px;font-size:84px;letter-spacing:.14em;width:400px;text-align:center}
+#p1 .when{top:560px;font-size:176px}
+#p1 .cd{top:750px;font-size:150px;color:var(--gold)}
+#p1 .sub{top:895px;font-size:36px;color:#cdbbe6;letter-spacing:.14em}
+/* P2 */
+#p2 .score{top:110px;font-size:560px;color:#fff;line-height:1}
+#p2 .score i{color:var(--gold);font-style:normal;padding:0 40px}
+#p2 .res{top:660px;font-size:130px}
+#p2 .scr{top:800px;font-size:50px;color:#fff}
+#p2 .disc{width:230px;height:230px;top:300px}
+#p2 .dl{left:140px}#p2 .dr{left:1550px}
+#p2 .nm{position:absolute;top:545px;width:230px;text-align:center;font-size:56px;letter-spacing:.1em}
+/* P3 */
+#p3 .disc{width:560px;height:560px;left:140px;top:200px}
+#p3 .no{position:absolute;left:760px;top:140px;font-size:150px;color:var(--gold);text-align:left;width:1100px}
+#p3 .nm{position:absolute;left:760px;top:300px;font-size:140px;text-align:left;width:1100px;text-transform:uppercase}
+#p3 .num{position:absolute;left:740px;top:440px;font-size:420px;color:#fff;text-align:left;width:700px}
+#p3 .lb{position:absolute;left:1130px;top:690px;font-size:120px;color:var(--gold);text-align:left}
+#p3 .ga{position:absolute;left:760px;top:830px;font-size:78px;text-align:left;width:1100px;letter-spacing:.08em}
+/* P4 */
+#p4 .tag{top:10px;font-size:56px}
+#p4 .row{position:absolute;left:260px;width:1400px;height:122px;display:flex;align-items:center;border-radius:14px;background:#24103c;font-size:90px;padding:0 36px;gap:30px}
+#p4 .row.me{background:var(--gold);color:#1a0b2e}
+#p4 .row .rk{width:90px;text-align:center}
+#p4 .row .disc{position:static;width:96px;height:96px;border-width:4px;flex:none}
+#p4 .row .ab{width:300px;text-align:left;letter-spacing:.06em}
+#p4 .row .gp{flex:1;text-align:right;font-size:60px;opacity:.85}
+#p4 .row .pt{width:190px;text-align:right}
+#p4 .hd{position:absolute;left:260px;width:1400px;top:92px;font-size:44px;color:#cdbbe6;letter-spacing:.14em;display:flex;padding:0 36px}
+/* P5/6 */
+.st .val{top:150px;font-size:560px;color:#fff;line-height:1}
+.st .val.sm{font-size:500px;top:190px}
+.st .val.xs{font-size:380px;top:230px}
+.st .lab{top:720px;font-size:104px;text-transform:uppercase;letter-spacing:.06em;color:var(--gold);line-height:1}
+.st .det{top:850px;font-size:48px;color:#e3d6f3;padding:0 160px;width:1920px}
+</style></head><body>
+<div id="top"><img class="lg" id="tlogo" alt=""><span>Amherst <b>Ramblers</b></span><span class="sp"></span><span id="trec"></span><span id="clock"></span></div>
+
+<section class="p" id="p1"><div class="tag abs" id="p1tag"></div>
+ <div class="disc dl"><img id="p1l" alt=""></div><div class="abs big vs gold">VS</div><div class="disc dr"><img id="p1r" alt=""></div>
+ 
+ <div class="abs big when" id="p1when"></div><div class="abs big cd" id="p1cd"></div><div class="abs sub" id="p1sub"></div></section>
+
+<section class="p" id="p2"><div class="tag abs" id="p2tag"></div>
+ <div class="disc dl"><img id="p2l" alt=""></div><div class="nm" style="left:140px">AMH</div>
+ <div class="abs big score" id="p2sc"></div>
+ <div class="disc dr"><img id="p2r" alt=""></div><div class="nm" style="left:1550px" id="p2on"></div>
+ <div class="abs big res" id="p2res"></div><div class="abs scr" id="p2scr"></div></section>
+
+<section class="p" id="p3"><div class="tag abs">Ramblers points leader</div>
+ <div class="disc head"><img id="p3img" alt=""></div>
+ <div class="no big" id="p3no"></div><div class="nm big" id="p3nm"></div>
+ <div class="num big" id="p3pts"></div><div class="lb big">PTS</div><div class="ga big" id="p3ga"></div></section>
+
+<section class="p" id="p4"><div class="tag abs" id="p4tag"></div><div class="hd"><span style="width:120px">#</span><span style="width:420px">TEAM</span><span style="flex:1;text-align:right">GP</span><span style="width:190px;text-align:right">PTS</span></div></section>
+
+<section class="p st" id="p5"><div class="tag abs" id="p5tag"></div><div class="abs big val" id="p5val"></div><div class="abs big lab" id="p5lab"></div><div class="abs det" id="p5det"></div></section>
+<section class="p st" id="p6"><div class="tag abs" id="p6tag"></div><div class="abs big val" id="p6val"></div><div class="abs big lab" id="p6lab"></div><div class="abs det" id="p6det"></div></section>
+
+<div id="bar"></div>
+<div id="foot"></div>
+<script src="app.js"></script>
+</body></html>

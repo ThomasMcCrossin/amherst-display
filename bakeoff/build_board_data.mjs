@@ -67,7 +67,7 @@ function gameView(g) {
   const oppId = home ? g.visiting_team : g.home_team;
   const mine = num(home ? g.home_goal_count : g.visiting_goal_count);
   const theirs = num(home ? g.visiting_goal_count : g.home_goal_count);
-  const ot = g.overtime === '1', so = g.shootout === '1';
+  const ot = g.overtime === '1', so = g.shootout !== '0' && g.shootout !== '' && g.shootout != null; // feed sets 1 or 2 (side that won), not a boolean
   let result = null;
   if (isFinal(g)) result = mine > theirs ? 'W' : (ot || so ? (so ? 'SOL' : 'OTL') : 'L');
   return {

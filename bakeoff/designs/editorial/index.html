@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>The Ramblers Gazette</title>
+<meta name="viewport" content="width=1920">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Barlow+Condensed:wght@600;700;800&family=Source+Serif+4:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head>
+<body>
+<div id="stage">
+  <header id="mast">
+    <div class="mast-l">Amherst Ramblers <i>/</i> Game Day Gazette</div>
+    <div class="mast-r" id="mast-date"></div>
+  </header>
+
+  <main id="panels">
+    <!-- 1 NEXT GAME -->
+    <section class="panel" data-key="next">
+      <div class="lead">
+        <div class="kicker" id="n-kicker"></div>
+        <h1 class="hl" id="n-hl"></h1>
+        <p class="deck" id="n-deck"></p>
+        <div class="stats3" id="n-stats">
+          <div class="st"><b></b><span></span></div><div class="st"><b></b><span></span></div><div class="st"><b></b><span></span></div>
+        </div>
+        <p class="note" id="n-note"></p>
+      </div>
+      <aside class="hero">
+        <div class="vs">
+          <div class="disc big"><img id="n-logo-me" alt=""></div>
+          <div class="vs-t">VS</div>
+          <div class="disc big"><img id="n-logo-opp" alt=""></div>
+        </div>
+        <div class="person" id="n-person"><div class="photo"><img alt=""></div><div class="pt"><small></small><strong></strong><em></em></div></div>
+      </aside>
+    </section>
+
+    <!-- 2 INSIGHT -->
+    <section class="panel" data-key="insight">
+      <div class="lead">
+        <div class="kicker" id="i-kicker"></div>
+        <h1 class="hl" id="i-hl"></h1>
+        <p class="deck" id="i-deck"></p>
+      </div>
+      <aside class="hero center">
+        <div class="photo tall" id="i-photo"><img alt=""></div>
+        <div class="bignum" id="i-num"><b></b><span></span></div>
+      </aside>
+    </section>
+
+    <!-- 3 LAST RESULT -->
+    <section class="panel" data-key="result">
+      <div class="lead">
+        <div class="kicker" id="r-kicker"></div>
+        <h1 class="hl" id="r-hl"></h1>
+        <p class="deck" id="r-deck"></p>
+        <div class="stats3" id="r-stats">
+          <div class="st"><b></b><span></span></div><div class="st"><b></b><span></span></div><div class="st"><b></b><span></span></div>
+        </div>
+      </div>
+      <aside class="hero">
+        <div class="stars-t">Three stars</div>
+        <div class="star" id="r-s1"><div class="photo"><img alt=""></div><div class="pt"><small></small><strong></strong><em></em></div></div>
+        <div class="star small" id="r-s2"><div class="pt"><small></small><strong></strong><em></em></div></div>
+        <div class="star small" id="r-s3"><div class="pt"><small></small><strong></strong><em></em></div></div>
+        <div class="form" id="r-form"></div>
+      </aside>
+    </section>
+
+    <!-- 4 PLAYER -->
+    <section class="panel" data-key="player">
+      <div class="lead">
+        <div class="kicker" id="p-kicker"></div>
+        <h1 class="hl" id="p-hl"></h1>
+        <p class="deck" id="p-deck"></p>
+        <div class="stats3" id="p-stats">
+          <div class="st"><b></b><span></span></div><div class="st"><b></b><span></span></div><div class="st"><b></b><span></span></div>
+        </div>
+        <p class="note" id="p-note"></p>
+      </div>
+      <aside class="hero">
+        <div class="photo xl" id="p-photo"><img alt=""></div>
+        <div class="list-t">Also scoring</div>
+        <ol class="mini" id="p-list"><li></li><li></li><li></li><li></li></ol>
+      </aside>
+    </section>
+
+    <!-- 5 STANDINGS -->
+    <section class="panel" data-key="standings">
+      <div class="lead wide">
+        <div class="kicker" id="s-kicker"></div>
+        <h1 class="hl m" id="s-hl"></h1>
+        <table class="tbl" id="s-tbl">
+          <thead><tr><th></th><th></th><th class="l">Team</th><th>GP</th><th>W</th><th>L</th><th>OT</th><th>GD</th><th class="pts">PTS</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <aside class="hero side">
+        <div class="list-t" id="s-side-t">By the numbers</div>
+        <div class="stat-stack" id="s-stats">
+          <div class="st"><b></b><span></span></div><div class="st"><b></b><span></span></div><div class="st"><b></b><span></span></div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- 6 SCHEDULE -->
+    <section class="panel" data-key="schedule">
+      <div class="lead wide">
+        <div class="kicker" id="c-kicker"></div>
+        <h1 class="hl m" id="c-hl"></h1>
+        <div class="sched" id="c-list"></div>
+      </div>
+      <aside class="hero side">
+        <div class="list-t">Home or away</div>
+        <div class="stat-stack" id="c-stats">
+          <div class="st"><b></b><span></span></div><div class="st"><b></b><span></span></div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer id="foot"><span id="copy"></span><span id="dots"></span></footer>
+</div>
+<script src="app.js"></script>
+</body></html>
