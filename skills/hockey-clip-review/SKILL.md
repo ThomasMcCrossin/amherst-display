@@ -79,7 +79,9 @@ You are given a packet directory. Everything is relative to it.
   10-30 s before the goal (`bounds.lead_min`..`lead_max`).
 - **Goal out-point**: when the live celebration ends (fist bumps done, players skating off) or
   the first replay/graphic wipe, whichever comes first, and at least `bounds.tail_min` (8 s)
-  after the puck crosses the line. Set `replay_t` when you see the replay start.
+  after the puck crosses the line. Set `replay_t` when you see the replay start; if it starts
+  sooner than 8 s, end at the replay, but never less than `bounds.tail_min_replay` (5 s) after
+  the goal (a "replay" 2 s after the goal is usually still the live celebration).
 - **Minor**: in 2-3 s before the foul (8 s before the whistle if you cannot see the foul);
   out at the referee's signal or the player heading to the box.
 - **Major / scrum**: in a few seconds before the hit or the shoving starts; out when it is
@@ -159,7 +161,17 @@ You get another reviewer's verdict and contact sheets of the **proposed final cl
   `replay_included`, `wrong_incident` (a neighbour's event, or not this team's goal),
   `foul_not_in_clip`, `too_long`, `drop_unjustified` (a dropped or `unsure` event is visible
   in the frames), `other`.
-- Do not object on taste: a boundary within about 2 s of yours is fine. Agree when none apply.
+- Object only to **material** faults, judged by the cut rules above, not by taste:
+  - `starts_too_early` only with more than ~20 s of play unrelated to the scoring play (or
+    to the incident) before it. A 5-30 s lead-in that shows the play developing is wanted.
+  - `ends_early` only when the clip stops less than `bounds.tail_min` after the event, or
+    while a fight is still on, or mid-celebration with the scorer still celebrating on screen.
+  - `replay_included` only when at least ~1.5 s of replay is inside the clip; a replay that
+    starts at the out-point is correct.
+  - `too_long` only past `bounds.len_max` or with long dead time (more than ~15 s) after the
+    celebration/whistle.
+  - A boundary within about 3 s of where you would put it is fine.
+  Agree when none apply. Disputes cost a second review, so a weak objection is a wrong one.
 
 Write `hockey-clip-review/adversary@1` JSON to the path you were given and run
 `check_verdict.py` on it:

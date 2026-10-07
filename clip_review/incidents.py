@@ -19,7 +19,8 @@ WANTED_RE = re.compile(r"fight|major|misconduct|match penalty|game misconduct|gr
 # clamps a reviewer's window into these and rejects a verdict that still breaks them.
 BOUNDS: Dict[str, Dict[str, float]] = {
     "goal":  {"lead_min": 3, "lead_max": 45, "tail_min": 8, "tail_max": 25, "len_min": 8, "len_max": 60,
-              "near": 30, "relocate_max": 240, "drop_min_confidence": 0.8},
+              "near": 30, "relocate_max": 240, "drop_min_confidence": 0.8,
+              "tail_min_replay": 5},
     "minor": {"lead_min": 1, "lead_max": 20, "tail_min": 2, "tail_max": 25, "len_min": 9, "len_max": 40,
               "near": 30, "relocate_max": 240, "drop_min_confidence": 0.6},
     "major": {"lead_min": 2, "lead_max": 45, "tail_min": 5, "tail_max": 60, "len_min": 10, "len_max": 90,
@@ -30,6 +31,7 @@ BOUNDS: Dict[str, Dict[str, float]] = {
 for _b in BOUNDS.values():
     _b.setdefault("fight_pre", 10)
     _b.setdefault("fight_post", 10)
+    _b.setdefault("tail_min_replay", 2)
 
 # Coarse contact-sheet range per class: (before, after, step). Scorebug-alert games search wider
 # for goals because the anchor can be far off.

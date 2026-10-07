@@ -237,7 +237,12 @@ class ApiBackend:
                 f"The final clip is labels {ai['final_in_t']:+.1f} to {ai['final_out_t']:+.1f}; the sheets show it with ~2 s margin. "
                 "Look for: the event not in the clip, the clip ending before the puck crosses the line / the foul, starting mid-play, "
                 "a long unrelated lead-in, the celebration or fight cut off, a replay included, a neighbour's event instead of this "
-                "one, a dropped/unsure event that is actually visible. Boundaries within ~2 s are fine. "
+                "one, a dropped/unsure event that is actually visible. Object ONLY to material faults: starts_too_early only with "
+                "more than ~20 s of play unrelated to this play before it (a 5-30 s lead-in showing the play develop is wanted); "
+                f"ends_early only when the clip stops less than {inc['bounds']['tail_min']:.0f} s after the event, mid-fight, or "
+                "mid-celebration with the scorer still celebrating on screen; replay_included only with at least 1.5 s of replay "
+                "inside the clip (a replay starting at the out-point is correct); too_long only past the length cap or with more "
+                "than ~15 s of dead time. Boundaries within ~3 s of where you would put them are fine. A weak objection is a wrong one. "
                 'Reply with JSON only: {"agree": true/false, "objections": [{"kind": "event_not_in_clip|cut_before_event|starts_mid_play|'
                 'starts_too_early|ends_early|replay_included|wrong_incident|fight_cut_off|foul_not_in_clip|too_long|drop_unjustified|other", '
                 '"t": <label or null>, "detail": "..."}], "suggested_in_t": <label or null>, "suggested_out_t": <label or null>, '

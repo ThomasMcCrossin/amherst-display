@@ -155,7 +155,7 @@ def check(verdict: Dict[str, Any], incident: Dict[str, Any]) -> Tuple[List[str],
         if lead > b["lead_max"] + 0.01:
             errors.append(f"in_t is {lead:.1f} s before the event; at most {b['lead_max']:.0f} s")
         replay = _num(verdict.get("replay_t"))
-        tail_min = b["tail_min"] if replay is None or replay <= ev else min(b["tail_min"], max(2.0, replay - ev))
+        tail_min = b["tail_min"] if replay is None or replay <= ev else min(b["tail_min"], max(b.get("tail_min_replay", 2.0), replay - ev))
         if tail < tail_min - 0.01:
             errors.append(f"out_t is only {tail:.1f} s after the event; need >= {tail_min:.0f} s")
         if tail > b["tail_max"] + 0.01:
@@ -165,7 +165,7 @@ def check(verdict: Dict[str, Any], incident: Dict[str, Any]) -> Tuple[List[str],
     if length > b["len_max"] + 0.01:
         errors.append(f"clip is {length:.1f} s; maximum {b['len_max']:.0f} s")
     replay = _num(verdict.get("replay_t"))
-    if replay is not None and ev < replay < t_out - 0.5:
+    if replay is not None and ev + b.get("tail_min_replay", 2.0) < replay < t_out - 0.5:
         errors.append(f"replay starts at {replay:+.1f}, inside the clip: end at or before the replay")
     if incident["kind"] == "penalty" and verdict.get("foul_visible") is None:
         errors.append("penalties need foul_visible true/false")
@@ -204,9 +204,9 @@ def clamp(verdict: Dict[str, Any], incident: Dict[str, Any]) -> Tuple[Dict[str, 
             t_in = ev - b["lead_max"]; note(f"in-point clamped to {b['lead_max']:.0f} s before the event")
         if ev - t_in < b["lead_min"]:
             t_in = ev - b["lead_min"]; note(f"in-point pulled back to {b['lead_min']:.0f} s before the event")
-        if replay is not None and ev < replay < t_out:
+        if replay is not None and ev + b.get("tail_min_replay", 2.0) < replay < t_out:
             t_out = replay; note("out-point moved to the start of the replay")
-        tail_min = b["tail_min"] if replay is None or replay <= ev else min(b["tail_min"], max(2.0, replay - ev))
+        tail_min = b["tail_min"] if replay is None or replay <= ev else min(b["tail_min"], max(b.get("tail_min_replay", 2.0), replay - ev))
         if t_out - ev < tail_min:
             t_out = ev + tail_min; note(f"out-point extended to {tail_min:.0f} s after the event")
         if t_out - ev > b["tail_max"]:
