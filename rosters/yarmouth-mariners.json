@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 5,
-  "updated_at": "2026-10-07T13:41:51.901Z",
+  "updated_at": "2026-10-07T20:20:59.000Z",
   "player_count": 24,
   "players": [
     {
@@ -440,7 +440,7 @@
         "assists": 5,
         "points": 8,
         "plus_minus": 0,
-        "penalty_minutes": 21,
+        "penalty_minutes": 18,
         "power_play_goals": 0,
         "power_play_assists": 2,
         "power_play_points": 2,
