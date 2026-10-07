@@ -63,3 +63,6 @@ credentials/
 *service-account*.json
 /IMG*.heic
 /IMG*.HEIC
+
+# Board bakeoff raw API responses (never commit)
+bakeoff/data/raw/

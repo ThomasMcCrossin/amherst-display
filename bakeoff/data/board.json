@@ -1,0 +1,5780 @@
+{
+ "generated_at": "2026-10-07T19:32:14.663Z",
+ "season": "2026-27",
+ "team": {
+  "id": 1,
+  "name": "Amherst Ramblers",
+  "abbr": "AMH",
+  "nickname": "Ramblers",
+  "city": "Amherst",
+  "division": "Eastlink South",
+  "logo_url": "https://assets.leaguestat.com/mhl/logos/1.jpg",
+  "colors": null,
+  "colors_note": "HockeyTech exposes no team colors; set in the page theme."
+ },
+ "next_game": {
+  "id": 5042,
+  "start_iso": "2026-10-09T19:00:00-03:00",
+  "home": true,
+  "venue": "Amherst Stadium",
+  "status": "7:00 pm ADT",
+  "tickets_url": null,
+  "flo_url": null,
+  "opponent": {
+   "id": 21,
+   "name": "Chaleur Lightning",
+   "abbr": "CHA",
+   "logo_url": "https://assets.leaguestat.com/mhl/logos/21_46.jpg",
+   "division": "Eastlink North",
+   "nickname": "Lightning",
+   "standings": {
+    "rank": 3,
+    "team": "Chaleur Lightning",
+    "abbr": "CHA",
+    "team_id": 21,
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/21_46.jpg",
+    "is_ramblers": false,
+    "gp": 7,
+    "w": 4,
+    "l": 3,
+    "otl": 0,
+    "sol": 0,
+    "pts": 8,
+    "pct": 0.571,
+    "rw": 3,
+    "gf": 34,
+    "ga": 29,
+    "diff": 5,
+    "pim": 209,
+    "streak": "2-0-0-0",
+    "last10": "4-3-0-0",
+    "pp_pct": 28.6,
+    "pk_pct": 71.4,
+    "pp": "8/28",
+    "playoff_position": true
+   },
+   "record": {
+    "overall": "4-3-0-0",
+    "home": "2-1-0-0",
+    "away": "2-2-0-0",
+    "last10": "4-3-0-0",
+    "streak": "2-0-0-0"
+   },
+   "gf": 33,
+   "ga": 29,
+   "pp": {
+    "power_plays": 28,
+    "power_player_goals": 0,
+    "power_play_goals": 8,
+    "percentage": 28.57
+   },
+   "pk": {
+    "times_short_handed": 28,
+    "power_player_goals_against": 0,
+    "power_play_goals_against": 8,
+    "percentage": 71.43
+   },
+   "leading_scorers": [
+    {
+     "id": 3495,
+     "name": "Jack Hayne",
+     "number": 2,
+     "gp": null,
+     "g": 4,
+     "a": 5,
+     "pts": 9,
+     "pim": 16,
+     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3495.jpg"
+    },
+    {
+     "id": 3070,
+     "name": "Zachary Rushton",
+     "number": 13,
+     "gp": null,
+     "g": 3,
+     "a": 5,
+     "pts": 8,
+     "pim": 18,
+     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3070.jpg"
+    },
+    {
+     "id": 2849,
+     "name": "Alex Symes",
+     "number": 12,
+     "gp": null,
+     "g": 2,
+     "a": 6,
+     "pts": 8,
+     "pim": 12,
+     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2849.jpg"
+    },
+    {
+     "id": 4115,
+     "name": "Emrik Drolet",
+     "number": 92,
+     "gp": null,
+     "g": 2,
+     "a": 6,
+     "pts": 8,
+     "pim": 2,
+     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4115.jpg"
+    },
+    {
+     "id": 3718,
+     "name": "Carter Bromley",
+     "number": 10,
+     "gp": null,
+     "g": 3,
+     "a": 4,
+     "pts": 7,
+     "pim": 0,
+     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3718.jpg"
+    }
+   ],
+   "goalies": [
+    {
+     "id": 3716,
+     "name": "Will Morgan",
+     "number": 30,
+     "gp": 5,
+     "w": 2,
+     "l": 1,
+     "otl": 0,
+     "sv_pct": 0.867,
+     "gaa": 3.53,
+     "so": 0,
+     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3716.jpg",
+     "starts_last5": 3
+    },
+    {
+     "id": 3354,
+     "name": "Will Cole",
+     "number": 33,
+     "gp": 4,
+     "w": 2,
+     "l": 2,
+     "otl": 0,
+     "sv_pct": 0.876,
+     "gaa": 4.74,
+     "so": 0,
+     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3354.jpg",
+     "starts_last5": 2
+    }
+   ],
+   "goalie_starts_last5": [
+    {
+     "date": "2026-09-20",
+     "game_id": 5010,
+     "id": 3716,
+     "name": "Will Morgan",
+     "sa": 16,
+     "ga": 1
+    },
+    {
+     "date": "2026-09-26",
+     "game_id": 5022,
+     "id": 3716,
+     "name": "Will Morgan",
+     "sa": 25,
+     "ga": 4
+    },
+    {
+     "date": "2026-09-27",
+     "game_id": 5025,
+     "id": 3354,
+     "name": "Will Cole",
+     "sa": 40,
+     "ga": 7
+    },
+    {
+     "date": "2026-10-02",
+     "game_id": 5032,
+     "id": 3716,
+     "name": "Will Morgan",
+     "sa": 29,
+     "ga": 4
+    },
+    {
+     "date": "2026-10-03",
+     "game_id": 5034,
+     "id": 3354,
+     "name": "Will Cole",
+     "sa": 27,
+     "ga": 3
+    }
+   ]
+  },
+  "ramblers": {
+   "record": {
+    "overall": "3-4-0-1",
+    "home": "1-2-0-0",
+    "away": "2-2-0-1",
+    "last10": "3-4-0-1",
+    "streak": "0-3-0-1"
+   }
+  },
+  "h2h_this_season": [],
+  "h2h_last_season": [
+   {
+    "date": "2025-09-27",
+    "home": true,
+    "score": {
+     "for": 3,
+     "against": 4
+    },
+    "result": "L",
+    "ot_so": null,
+    "attendance": 1285
+   },
+   {
+    "date": "2025-11-15",
+    "home": false,
+    "score": {
+     "for": 3,
+     "against": 2
+    },
+    "result": "W",
+    "ot_so": null,
+    "attendance": 1175
+   }
+  ],
+  "h2h_records": {
+   "this_season": {
+    "home_team": {
+     "name": "Amherst Ramblers",
+     "w": 0,
+     "l": 0,
+     "otl": 0,
+     "sl": 0,
+     "t": 0,
+     "otw": 0,
+     "sw": 0
+    },
+    "visiting_team": {
+     "name": "Chaleur Lightning",
+     "w": 0,
+     "l": 0,
+     "otl": 0,
+     "sl": 0,
+     "t": 0,
+     "otw": 0,
+     "sw": 0
+    }
+   },
+   "last_season": {
+    "home_team": {
+     "name": "Amherst",
+     "w": 1,
+     "l": 1,
+     "otl": 0,
+     "sl": 0,
+     "t": 0,
+     "otw": 0,
+     "sw": 0
+    },
+    "visiting_team": {
+     "name": "Chaleur",
+     "w": 1,
+     "l": 1,
+     "otl": 0,
+     "sl": 0,
+     "t": 0,
+     "otw": 0,
+     "sw": 0
+    }
+   },
+   "last_5_years": {
+    "home_team": {
+     "name": "Amherst",
+     "w": 1,
+     "l": 1,
+     "otl": 0,
+     "sl": 0,
+     "t": 0,
+     "otw": 0,
+     "sw": 0
+    },
+    "visiting_team": {
+     "name": "Chaleur",
+     "w": 1,
+     "l": 1,
+     "otl": 0,
+     "sl": 0,
+     "t": 0,
+     "otw": 0,
+     "sw": 0
+    }
+   }
+  },
+  "opponent_form": {
+   "last5": [
+    {
+     "date": "2026-10-03",
+     "home": true,
+     "opp": "SWC",
+     "gf": 7,
+     "ga": 3,
+     "result": "W"
+    },
+    {
+     "date": "2026-10-02",
+     "home": false,
+     "opp": "GFR",
+     "gf": 5,
+     "ga": 4,
+     "result": "W"
+    },
+    {
+     "date": "2026-09-27",
+     "home": false,
+     "opp": "VAL",
+     "gf": 3,
+     "ga": 9,
+     "result": "L"
+    },
+    {
+     "date": "2026-09-26",
+     "home": false,
+     "opp": "YAR",
+     "gf": 3,
+     "ga": 4,
+     "result": "L"
+    },
+    {
+     "date": "2026-09-20",
+     "home": true,
+     "opp": "MIR",
+     "gf": 4,
+     "ga": 5,
+     "result": "L"
+    }
+   ],
+   "last10": "4-3-0-0",
+   "streak": "2-0-0-0"
+  },
+  "official_starters": {
+   "home": null,
+   "away": null
+  },
+  "lineup_note": "official_starters stays null until HockeyTech publishes a lineup with the start flag; never inferred."
+ },
+ "upcoming": [
+  {
+   "id": 5042,
+   "start_iso": "2026-10-09T19:00:00-03:00",
+   "home": true,
+   "opp": {
+    "id": 21,
+    "name": "Chaleur Lightning",
+    "abbr": "CHA",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/21_46.jpg",
+    "division": "Eastlink North"
+   },
+   "venue": "Amherst Stadium",
+   "status": "7:00 pm ADT"
+  },
+  {
+   "id": 5045,
+   "start_iso": "2026-10-10T19:00:00-03:00",
+   "home": false,
+   "opp": {
+    "id": 10,
+    "name": "Summerside Western Capitals",
+    "abbr": "SWC",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/10.jpg",
+    "division": "Eastlink South"
+   },
+   "venue": "Credit Union Place",
+   "status": "7:00 pm ADT"
+  },
+  {
+   "id": 5051,
+   "start_iso": "2026-10-12T14:00:00-03:00",
+   "home": true,
+   "opp": {
+    "id": 10,
+    "name": "Summerside Western Capitals",
+    "abbr": "SWC",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/10.jpg",
+    "division": "Eastlink South"
+   },
+   "venue": "Amherst Stadium",
+   "status": "2:00 pm ADT"
+  },
+  {
+   "id": 5054,
+   "start_iso": "2026-10-15T19:00:00-03:00",
+   "home": false,
+   "opp": {
+    "id": 7,
+    "name": "Pictou County Weeks Crushers",
+    "abbr": "PCC",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/7.jpg",
+    "division": "Eastlink South"
+   },
+   "venue": "Pictou County Wellness Centre",
+   "status": "7:00 pm ADT"
+  },
+  {
+   "id": 5057,
+   "start_iso": "2026-10-17T19:00:00-03:00",
+   "home": true,
+   "opp": {
+    "id": 8,
+    "name": "Campbellton Tigers",
+    "abbr": "CAM",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/8.jpg",
+    "division": "Eastlink North"
+   },
+   "venue": "Amherst Stadium",
+   "status": "7:00 pm ADT"
+  },
+  {
+   "id": 5064,
+   "start_iso": "2026-10-18T16:00:00-03:00",
+   "home": false,
+   "opp": {
+    "id": 5,
+    "name": "Yarmouth Mariners",
+    "abbr": "YAR",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/5.jpg",
+    "division": "Eastlink South"
+   },
+   "venue": "Mariners Centre",
+   "status": "4:00 pm ADT"
+  },
+  {
+   "id": 5067,
+   "start_iso": "2026-10-23T19:00:00-03:00",
+   "home": false,
+   "opp": {
+    "id": 8,
+    "name": "Campbellton Tigers",
+    "abbr": "CAM",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/8.jpg",
+    "division": "Eastlink North"
+   },
+   "venue": "Campbellton Memorial Civic Centre",
+   "status": "7:00 pm ADT"
+  }
+ ],
+ "recent": [
+  {
+   "id": 5033,
+   "date": "2026-10-03",
+   "start_iso": "2026-10-03T19:00:00-03:00",
+   "home": true,
+   "opp": {
+    "id": 7,
+    "name": "Pictou County Weeks Crushers",
+    "abbr": "PCC",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/7.jpg",
+    "division": "Eastlink South"
+   },
+   "venue": "Amherst Stadium",
+   "status": "Final",
+   "final": true,
+   "score": {
+    "for": 1,
+    "against": 4
+   },
+   "result": "L",
+   "ot_so": null,
+   "attendance": 793,
+   "scorers": [
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "3rd",
+     "time": "19:24",
+     "scorer": "Ethan Fraser",
+     "scorer_id": 3647,
+     "assists": [
+      "Ty Peddigrew"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    }
+   ],
+   "goals": [
+    {
+     "team": "PCC",
+     "mine": false,
+     "period": "1st",
+     "time": "14:10",
+     "scorer": "Trent Stewart",
+     "scorer_id": 3166,
+     "assists": [
+      "Ryan Walsh",
+      "Carson MacKenzie"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "PCC",
+     "mine": false,
+     "period": "1st",
+     "time": "17:59",
+     "scorer": "Ethan Percy",
+     "scorer_id": 3990,
+     "assists": [
+      "Brady Matheson",
+      "Carson MacKenzie"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": true
+    },
+    {
+     "team": "PCC",
+     "mine": false,
+     "period": "2nd",
+     "time": "15:52",
+     "scorer": "Ryan Walsh",
+     "scorer_id": 3548,
+     "assists": [
+      "Tanner Hayden"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "PCC",
+     "mine": false,
+     "period": "3rd",
+     "time": "17:29",
+     "scorer": "Brody Ford",
+     "scorer_id": 3376,
+     "assists": [
+      "Christian Luke"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": true,
+     "gwg": false
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "3rd",
+     "time": "19:24",
+     "scorer": "Ethan Fraser",
+     "scorer_id": 3647,
+     "assists": [
+      "Ty Peddigrew"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    }
+   ],
+   "three_stars": [
+    {
+     "star": 1,
+     "name": "George Gallant",
+     "number": 29,
+     "team": "PCC",
+     "id": 2773,
+     "line": "44 saves"
+    },
+    {
+     "star": 2,
+     "name": "Trent Stewart",
+     "number": 47,
+     "team": "PCC",
+     "id": 3166,
+     "line": "1G 0A"
+    },
+    {
+     "star": 3,
+     "name": "Ryan Walsh",
+     "number": 18,
+     "team": "PCC",
+     "id": 3548,
+     "line": "1G 1A"
+    }
+   ],
+   "shots": {
+    "for": 45,
+    "against": 31
+   },
+   "pp": {
+    "for": "0/4",
+    "against": "0/1"
+   },
+   "pim": {
+    "for": 4,
+    "against": 10
+   },
+   "starting_goalie": {
+    "for": {
+     "id": 3766,
+     "name": "Brandon Lavoie",
+     "sa": 30,
+     "ga": 3,
+     "sv": 27,
+     "toi": "59:40"
+    },
+    "against": {
+     "id": 2773,
+     "name": "George Gallant",
+     "sa": 45,
+     "ga": 1,
+     "sv": 44,
+     "toi": "60:00"
+    }
+   }
+  },
+  {
+   "id": 5019,
+   "date": "2026-09-26",
+   "start_iso": "2026-09-26T19:00:00-03:00",
+   "home": true,
+   "opp": {
+    "id": 9,
+    "name": "Miramichi Timberwolves",
+    "abbr": "MIR",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/9.jpg",
+    "division": "Eastlink North"
+   },
+   "venue": "Amherst Stadium",
+   "status": "Final",
+   "final": true,
+   "score": {
+    "for": 2,
+    "against": 6
+   },
+   "result": "L",
+   "ot_so": null,
+   "attendance": 710,
+   "scorers": [
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "1st",
+     "time": "15:22",
+     "scorer": "Coen Miller",
+     "scorer_id": 2794,
+     "assists": [
+      "Jeremie Richard",
+      "Zach Wheeler"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "2nd",
+     "time": "13:19",
+     "scorer": "Brock Lyons",
+     "scorer_id": 3867,
+     "assists": [
+      "Jonathan Lau"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    }
+   ],
+   "goals": [
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "1st",
+     "time": "15:22",
+     "scorer": "Coen Miller",
+     "scorer_id": 2794,
+     "assists": [
+      "Jeremie Richard",
+      "Zach Wheeler"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "MIR",
+     "mine": false,
+     "period": "2nd",
+     "time": "10:33",
+     "scorer": "Jacob Lachance",
+     "scorer_id": 4111,
+     "assists": [
+      "Victor Lanoue",
+      "Hudson Sisk"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "MIR",
+     "mine": false,
+     "period": "2nd",
+     "time": "12:48",
+     "scorer": "Harlan Eustace",
+     "scorer_id": 3173,
+     "assists": [
+      "Anthony Morin",
+      "Cody MacLoon"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "2nd",
+     "time": "13:19",
+     "scorer": "Brock Lyons",
+     "scorer_id": 3867,
+     "assists": [
+      "Jonathan Lau"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "MIR",
+     "mine": false,
+     "period": "3rd",
+     "time": "0:35",
+     "scorer": "Thatcher Hughes",
+     "scorer_id": 3178,
+     "assists": [
+      "Alexis Doucet"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": true
+    },
+    {
+     "team": "MIR",
+     "mine": false,
+     "period": "3rd",
+     "time": "8:42",
+     "scorer": "Jack Bartlett",
+     "scorer_id": 3929,
+     "assists": [
+      "Austin Walker"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "MIR",
+     "mine": false,
+     "period": "3rd",
+     "time": "10:38",
+     "scorer": "Eliot Tozer",
+     "scorer_id": 3596,
+     "assists": [
+      "Alexis Doucet",
+      "Thatcher Hughes"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "MIR",
+     "mine": false,
+     "period": "3rd",
+     "time": "12:30",
+     "scorer": "Charles-Olivier Giguère",
+     "scorer_id": 3790,
+     "assists": [
+      "Jacob Lachance",
+      "Kaden McNeil"
+     ],
+     "pp": true,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    }
+   ],
+   "three_stars": [
+    {
+     "star": 1,
+     "name": "Jacob Lachance",
+     "number": 86,
+     "team": "MIR",
+     "id": 4111,
+     "line": "1G 1A"
+    },
+    {
+     "star": 2,
+     "name": "Thatcher Hughes",
+     "number": 37,
+     "team": "MIR",
+     "id": 3178,
+     "line": "1G 1A"
+    },
+    {
+     "star": 3,
+     "name": "Alexis Doucet",
+     "number": 9,
+     "team": "MIR",
+     "id": 3791,
+     "line": "0G 2A"
+    }
+   ],
+   "shots": {
+    "for": 22,
+    "against": 50
+   },
+   "pp": {
+    "for": "0/2",
+    "against": "1/4"
+   },
+   "pim": {
+    "for": 8,
+    "against": 4
+   },
+   "starting_goalie": {
+    "for": {
+     "id": 3766,
+     "name": "Brandon Lavoie",
+     "sa": 50,
+     "ga": 6,
+     "sv": 44,
+     "toi": "60:00"
+    },
+    "against": {
+     "id": 4013,
+     "name": "Alexandro Montoya",
+     "sa": 22,
+     "ga": 2,
+     "sv": 20,
+     "toi": "60:00"
+    }
+   }
+  },
+  {
+   "id": 5015,
+   "date": "2026-09-24",
+   "start_iso": "2026-09-24T19:00:00-03:00",
+   "home": false,
+   "opp": {
+    "id": 6,
+    "name": "West Kent Steamers",
+    "abbr": "WKS",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/6.jpg",
+    "division": "Eastlink North"
+   },
+   "venue": "J. K. Irving Centre",
+   "status": "Final SO",
+   "final": true,
+   "score": {
+    "for": 1,
+    "against": 2
+   },
+   "result": "SOL",
+   "ot_so": "SO",
+   "attendance": 521,
+   "scorers": [
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "3rd",
+     "time": "19:06",
+     "scorer": "Coen Miller",
+     "scorer_id": 2794,
+     "assists": [
+      "Ty Peddigrew",
+      "Owen Dyke"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    }
+   ],
+   "goals": [
+    {
+     "team": "WKS",
+     "mine": false,
+     "period": "1st",
+     "time": "12:02",
+     "scorer": "Austin Sanchez",
+     "scorer_id": 2845,
+     "assists": [
+      "Tyler Wood",
+      "Olivier Leblanc"
+     ],
+     "pp": true,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "3rd",
+     "time": "19:06",
+     "scorer": "Coen Miller",
+     "scorer_id": 2794,
+     "assists": [
+      "Ty Peddigrew",
+      "Owen Dyke"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    }
+   ],
+   "three_stars": [
+    {
+     "star": 1,
+     "name": "Niko Boudreau",
+     "number": 31,
+     "team": "WKS",
+     "id": 3231,
+     "line": "35 saves"
+    },
+    {
+     "star": 2,
+     "name": "Brandon Lavoie",
+     "number": 29,
+     "team": "AMH",
+     "id": 3766,
+     "line": "36 saves"
+    },
+    {
+     "star": 3,
+     "name": "Samuel Fontaine",
+     "number": 18,
+     "team": "WKS",
+     "id": 4064,
+     "line": "0G 0A"
+    }
+   ],
+   "shots": {
+    "for": 36,
+    "against": 38
+   },
+   "pp": {
+    "for": "0/4",
+    "against": "1/4"
+   },
+   "pim": {
+    "for": 22,
+    "against": 22
+   },
+   "starting_goalie": {
+    "for": {
+     "id": 3766,
+     "name": "Brandon Lavoie",
+     "sa": 37,
+     "ga": 1,
+     "sv": 36,
+     "toi": "65:00"
+    },
+    "against": {
+     "id": 3231,
+     "name": "Niko Boudreau",
+     "sa": 36,
+     "ga": 1,
+     "sv": 35,
+     "toi": "65:00"
+    }
+   }
+  },
+  {
+   "id": 5011,
+   "date": "2026-09-20",
+   "start_iso": "2026-09-20T15:00:00-03:00",
+   "home": false,
+   "opp": {
+    "id": 2,
+    "name": "Edmundston Blizzard",
+    "abbr": "EDM",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/2.jpg",
+    "division": "Eastlink North"
+   },
+   "venue": "Centre Jean Daigle",
+   "status": "Final",
+   "final": true,
+   "score": {
+    "for": 1,
+    "against": 6
+   },
+   "result": "L",
+   "ot_so": null,
+   "attendance": 2035,
+   "scorers": [
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "3rd",
+     "time": "6:15",
+     "scorer": "Nathan Weber",
+     "scorer_id": 3433,
+     "assists": [
+      "Elliott Duval",
+      "Zach Wheeler"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    }
+   ],
+   "goals": [
+    {
+     "team": "EDM",
+     "mine": false,
+     "period": "1st",
+     "time": "6:14",
+     "scorer": "Charles-Éric Tremblay",
+     "scorer_id": 3839,
+     "assists": [
+      "Noah Larochelle",
+      "Colby Train"
+     ],
+     "pp": true,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "EDM",
+     "mine": false,
+     "period": "1st",
+     "time": "11:38",
+     "scorer": "Michael Arsenault",
+     "scorer_id": 3022,
+     "assists": [
+      "Alexis Chénard",
+      "Charles-Éric Tremblay"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": true
+    },
+    {
+     "team": "EDM",
+     "mine": false,
+     "period": "1st",
+     "time": "18:51",
+     "scorer": "Justin Bouchard",
+     "scorer_id": 4144,
+     "assists": [
+      "William Labranche",
+      "Michael Arsenault"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "EDM",
+     "mine": false,
+     "period": "2nd",
+     "time": "11:34",
+     "scorer": "Michael Arsenault",
+     "scorer_id": 3022,
+     "assists": [
+      "Charles-Éric Tremblay"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "EDM",
+     "mine": false,
+     "period": "2nd",
+     "time": "14:27",
+     "scorer": "Noah Larochelle",
+     "scorer_id": 3597,
+     "assists": [
+      "Hayden Aubin"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "3rd",
+     "time": "6:15",
+     "scorer": "Nathan Weber",
+     "scorer_id": 3433,
+     "assists": [
+      "Elliott Duval",
+      "Zach Wheeler"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "EDM",
+     "mine": false,
+     "period": "3rd",
+     "time": "19:13",
+     "scorer": "François-Xavier Mercier",
+     "scorer_id": 3697,
+     "assists": [],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    }
+   ],
+   "three_stars": [
+    {
+     "star": 1,
+     "name": "Charles-Éric Tremblay",
+     "number": 28,
+     "team": "EDM",
+     "id": 3839,
+     "line": "1G 2A"
+    },
+    {
+     "star": 2,
+     "name": "Michael Arsenault",
+     "number": 71,
+     "team": "EDM",
+     "id": 3022,
+     "line": "2G 1A"
+    },
+    {
+     "star": 3,
+     "name": "Lucas Hannay",
+     "number": 4,
+     "team": "EDM",
+     "id": 3332,
+     "line": "0G 0A"
+    }
+   ],
+   "shots": {
+    "for": 27,
+    "against": 64
+   },
+   "pp": {
+    "for": "0/3",
+    "against": "1/3"
+   },
+   "pim": {
+    "for": 6,
+    "against": 6
+   },
+   "starting_goalie": {
+    "for": {
+     "id": 3766,
+     "name": "Brandon Lavoie",
+     "sa": 64,
+     "ga": 6,
+     "sv": 58,
+     "toi": "60:00"
+    },
+    "against": {
+     "id": 3114,
+     "name": "Olivier St-Onge",
+     "sa": 27,
+     "ga": 1,
+     "sv": 26,
+     "toi": "60:00"
+    }
+   }
+  },
+  {
+   "id": 5008,
+   "date": "2026-09-19",
+   "start_iso": "2026-09-19T19:00:00-03:00",
+   "home": false,
+   "opp": {
+    "id": 12,
+    "name": "Grand Falls Rapids",
+    "abbr": "GFR",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/12_46.jpg",
+    "division": "Eastlink North"
+   },
+   "venue": "E. & P. Sénéchal Centre",
+   "status": "Final OT",
+   "final": true,
+   "score": {
+    "for": 6,
+    "against": 5
+   },
+   "result": "W",
+   "ot_so": "OT",
+   "attendance": 867,
+   "scorers": [
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "1st",
+     "time": "19:10",
+     "scorer": "Christian White",
+     "scorer_id": 3545,
+     "assists": [
+      "Jonathan Lau",
+      "Zach Wheeler"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "2nd",
+     "time": "8:25",
+     "scorer": "Elliott Duval",
+     "scorer_id": 4119,
+     "assists": [
+      "Ethan Fraser",
+      "Ben Manos"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "2nd",
+     "time": "16:15",
+     "scorer": "Elliot Wright",
+     "scorer_id": 3562,
+     "assists": [
+      "Brock Lyons",
+      "Jeremie Richard"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "3rd",
+     "time": "0:56",
+     "scorer": "Gabriel Boivin",
+     "scorer_id": 4016,
+     "assists": [
+      "Elliott Duval",
+      "Ethan Fraser"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "3rd",
+     "time": "18:32",
+     "scorer": "Zach Wheeler",
+     "scorer_id": 3756,
+     "assists": [
+      "Jonathan Lau"
+     ],
+     "pp": true,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "1st OT",
+     "time": "0:21",
+     "scorer": "Zach Wheeler",
+     "scorer_id": 3756,
+     "assists": [
+      "Coen Miller",
+      "Owen Dyke"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": true
+    }
+   ],
+   "goals": [
+    {
+     "team": "GFR",
+     "mine": false,
+     "period": "1st",
+     "time": "11:57",
+     "scorer": "Louis-Carl Tremblay",
+     "scorer_id": 3813,
+     "assists": [
+      "Patrick Baxter",
+      "Jayden Burtt-Munn"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "GFR",
+     "mine": false,
+     "period": "1st",
+     "time": "15:55",
+     "scorer": "Zackarie Michaud",
+     "scorer_id": 3149,
+     "assists": [
+      "Jonah Leard",
+      "Antoine L'Italien"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "1st",
+     "time": "19:10",
+     "scorer": "Christian White",
+     "scorer_id": 3545,
+     "assists": [
+      "Jonathan Lau",
+      "Zach Wheeler"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "2nd",
+     "time": "8:25",
+     "scorer": "Elliott Duval",
+     "scorer_id": 4119,
+     "assists": [
+      "Ethan Fraser",
+      "Ben Manos"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "GFR",
+     "mine": false,
+     "period": "2nd",
+     "time": "8:35",
+     "scorer": "Oliver Plante",
+     "scorer_id": 3784,
+     "assists": [
+      "Xavier Normand",
+      "Kaden Bell"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "2nd",
+     "time": "16:15",
+     "scorer": "Elliot Wright",
+     "scorer_id": 3562,
+     "assists": [
+      "Brock Lyons",
+      "Jeremie Richard"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "GFR",
+     "mine": false,
+     "period": "2nd",
+     "time": "19:43",
+     "scorer": "Jonah Leard",
+     "scorer_id": 3150,
+     "assists": [
+      "Antoine L'Italien",
+      "Zackarie Michaud"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "GFR",
+     "mine": false,
+     "period": "3rd",
+     "time": "0:42",
+     "scorer": "Brayden Watson",
+     "scorer_id": 4089,
+     "assists": [
+      "Patrick Baxter"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "3rd",
+     "time": "0:56",
+     "scorer": "Gabriel Boivin",
+     "scorer_id": 4016,
+     "assists": [
+      "Elliott Duval",
+      "Ethan Fraser"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "3rd",
+     "time": "18:32",
+     "scorer": "Zach Wheeler",
+     "scorer_id": 3756,
+     "assists": [
+      "Jonathan Lau"
+     ],
+     "pp": true,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "1st OT",
+     "time": "0:21",
+     "scorer": "Zach Wheeler",
+     "scorer_id": 3756,
+     "assists": [
+      "Coen Miller",
+      "Owen Dyke"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": true
+    }
+   ],
+   "three_stars": [
+    {
+     "star": 1,
+     "name": "Jonah Leard",
+     "number": 21,
+     "team": "GFR",
+     "id": 3150,
+     "line": "1G 1A"
+    },
+    {
+     "star": 2,
+     "name": "Zackarie Michaud",
+     "number": 9,
+     "team": "GFR",
+     "id": 3149,
+     "line": "1G 1A"
+    },
+    {
+     "star": 3,
+     "name": "Elliott Duval",
+     "number": 27,
+     "team": "AMH",
+     "id": 4119,
+     "line": "1G 1A"
+    }
+   ],
+   "shots": {
+    "for": 51,
+    "against": 49
+   },
+   "pp": {
+    "for": "1/3",
+    "against": "0/4"
+   },
+   "pim": {
+    "for": 10,
+    "against": 8
+   },
+   "starting_goalie": {
+    "for": {
+     "id": 3187,
+     "name": "Hudson Bradley",
+     "sa": 36,
+     "ga": 5,
+     "sv": 31,
+     "toi": "40:42"
+    },
+    "against": {
+     "id": 4100,
+     "name": "Noah-Preston Moore",
+     "sa": 51,
+     "ga": 6,
+     "sv": 45,
+     "toi": "60:21"
+    }
+   }
+  },
+  {
+   "id": 5002,
+   "date": "2026-09-16",
+   "start_iso": "2026-09-16T19:00:00-03:00",
+   "home": false,
+   "opp": {
+    "id": 4,
+    "name": "Valley Wildcats",
+    "abbr": "VAL",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/4.jpg",
+    "division": "Eastlink South"
+   },
+   "venue": "Kings Mutual Century Centre",
+   "status": "Final SO",
+   "final": true,
+   "score": {
+    "for": 5,
+    "against": 4
+   },
+   "result": "W",
+   "ot_so": "OT",
+   "attendance": 465,
+   "scorers": [
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "1st",
+     "time": "0:34",
+     "scorer": "Zach Wheeler",
+     "scorer_id": 3756,
+     "assists": [
+      "Coen Miller",
+      "Elliot Wright"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "1st",
+     "time": "15:53",
+     "scorer": "Elliott Duval",
+     "scorer_id": 4119,
+     "assists": [
+      "Brock Lyons",
+      "Jeremie Richard"
+     ],
+     "pp": true,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "3rd",
+     "time": "9:19",
+     "scorer": "Coen Miller",
+     "scorer_id": 2794,
+     "assists": [
+      "Nathaniel Noah"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "3rd",
+     "time": "10:24",
+     "scorer": "Elliot Wright",
+     "scorer_id": 3562,
+     "assists": [
+      "Brock Lyons",
+      "Owen Dyke"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    }
+   ],
+   "goals": [
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "1st",
+     "time": "0:34",
+     "scorer": "Zach Wheeler",
+     "scorer_id": 3756,
+     "assists": [
+      "Coen Miller",
+      "Elliot Wright"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "VAL",
+     "mine": false,
+     "period": "1st",
+     "time": "3:43",
+     "scorer": "Drew Lutz",
+     "scorer_id": 2778,
+     "assists": [
+      "Jacob Seaman",
+      "Etienne Dupere"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "VAL",
+     "mine": false,
+     "period": "1st",
+     "time": "10:34",
+     "scorer": "Riley Cave",
+     "scorer_id": 4108,
+     "assists": [
+      "Ash Mitchelmore"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "1st",
+     "time": "15:53",
+     "scorer": "Elliott Duval",
+     "scorer_id": 4119,
+     "assists": [
+      "Brock Lyons",
+      "Jeremie Richard"
+     ],
+     "pp": true,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "VAL",
+     "mine": false,
+     "period": "2nd",
+     "time": "6:29",
+     "scorer": "Colin Boulianne",
+     "scorer_id": 4120,
+     "assists": [
+      "Jack Brown",
+      "Felix Belanger"
+     ],
+     "pp": true,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "3rd",
+     "time": "9:19",
+     "scorer": "Coen Miller",
+     "scorer_id": 2794,
+     "assists": [
+      "Nathaniel Noah"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "3rd",
+     "time": "10:24",
+     "scorer": "Elliot Wright",
+     "scorer_id": 3562,
+     "assists": [
+      "Brock Lyons",
+      "Owen Dyke"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "VAL",
+     "mine": false,
+     "period": "3rd",
+     "time": "18:08",
+     "scorer": "Drew Lutz",
+     "scorer_id": 2778,
+     "assists": [
+      "Aidan Bent"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    }
+   ],
+   "three_stars": [
+    {
+     "star": 1,
+     "name": "Brandon Lavoie",
+     "number": 29,
+     "team": "AMH",
+     "id": 3766,
+     "line": "39 saves"
+    },
+    {
+     "star": 2,
+     "name": "Drew Lutz",
+     "number": 20,
+     "team": "VAL",
+     "id": 2778,
+     "line": "2G 0A"
+    },
+    {
+     "star": 3,
+     "name": "Riley Cave",
+     "number": 6,
+     "team": "VAL",
+     "id": 4108,
+     "line": "1G 0A"
+    }
+   ],
+   "shots": {
+    "for": 31,
+    "against": 43
+   },
+   "pp": {
+    "for": "1/5",
+    "against": "1/5"
+   },
+   "pim": {
+    "for": 14,
+    "against": 16
+   },
+   "starting_goalie": {
+    "for": {
+     "id": 3766,
+     "name": "Brandon Lavoie",
+     "sa": 43,
+     "ga": 4,
+     "sv": 39,
+     "toi": "65:00"
+    },
+    "against": {
+     "id": 3859,
+     "name": "Jack Bell",
+     "sa": 31,
+     "ga": 4,
+     "sv": 27,
+     "toi": "65:00"
+    }
+   }
+  },
+  {
+   "id": 4996,
+   "date": "2026-09-12",
+   "start_iso": "2026-09-12T19:00:00-03:00",
+   "home": true,
+   "opp": {
+    "id": 12,
+    "name": "Grand Falls Rapids",
+    "abbr": "GFR",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/12_46.jpg",
+    "division": "Eastlink North"
+   },
+   "venue": "Amherst Stadium",
+   "status": "Final",
+   "final": true,
+   "score": {
+    "for": 5,
+    "against": 1
+   },
+   "result": "W",
+   "ot_so": null,
+   "attendance": 775,
+   "scorers": [
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "1st",
+     "time": "3:58",
+     "scorer": "Zach Wheeler",
+     "scorer_id": 3756,
+     "assists": [
+      "Elliot Wright",
+      "Brock Lyons"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "2nd",
+     "time": "8:28",
+     "scorer": "Elliot Wright",
+     "scorer_id": 3562,
+     "assists": [
+      "Zach Wheeler",
+      "Jonathan Lau"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": true
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "2nd",
+     "time": "18:33",
+     "scorer": "Brock Lyons",
+     "scorer_id": 3867,
+     "assists": [
+      "Jonathan Lau"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "3rd",
+     "time": "1:57",
+     "scorer": "Zach Wheeler",
+     "scorer_id": 3756,
+     "assists": [
+      "Elliot Wright",
+      "Coen Miller"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "3rd",
+     "time": "15:54",
+     "scorer": "Jonathan Lau",
+     "scorer_id": 4025,
+     "assists": [
+      "Brock Lyons",
+      "Ty Peddigrew"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    }
+   ],
+   "goals": [
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "1st",
+     "time": "3:58",
+     "scorer": "Zach Wheeler",
+     "scorer_id": 3756,
+     "assists": [
+      "Elliot Wright",
+      "Brock Lyons"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "2nd",
+     "time": "8:28",
+     "scorer": "Elliot Wright",
+     "scorer_id": 3562,
+     "assists": [
+      "Zach Wheeler",
+      "Jonathan Lau"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": true
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "2nd",
+     "time": "18:33",
+     "scorer": "Brock Lyons",
+     "scorer_id": 3867,
+     "assists": [
+      "Jonathan Lau"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "3rd",
+     "time": "1:57",
+     "scorer": "Zach Wheeler",
+     "scorer_id": 3756,
+     "assists": [
+      "Elliot Wright",
+      "Coen Miller"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "GFR",
+     "mine": false,
+     "period": "3rd",
+     "time": "8:14",
+     "scorer": "Loic Gallant",
+     "scorer_id": 3806,
+     "assists": [],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "3rd",
+     "time": "15:54",
+     "scorer": "Jonathan Lau",
+     "scorer_id": 4025,
+     "assists": [
+      "Brock Lyons",
+      "Ty Peddigrew"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    }
+   ],
+   "three_stars": [
+    {
+     "star": 1,
+     "name": "Zach Wheeler",
+     "number": 19,
+     "team": "AMH",
+     "id": 3756,
+     "line": "2G 1A"
+    },
+    {
+     "star": 2,
+     "name": "Brock Lyons",
+     "number": 95,
+     "team": "AMH",
+     "id": 3867,
+     "line": "1G 2A"
+    },
+    {
+     "star": 3,
+     "name": "Brandon Lavoie",
+     "number": 29,
+     "team": "AMH",
+     "id": 3766,
+     "line": "34 saves"
+    }
+   ],
+   "shots": {
+    "for": 29,
+    "against": 35
+   },
+   "pp": {
+    "for": "0/4",
+    "against": "0/3"
+   },
+   "pim": {
+    "for": 60,
+    "against": 72
+   },
+   "starting_goalie": {
+    "for": {
+     "id": 3766,
+     "name": "Brandon Lavoie",
+     "sa": 35,
+     "ga": 1,
+     "sv": 34,
+     "toi": "60:00"
+    },
+    "against": {
+     "id": 3732,
+     "name": "Dax Robichaud",
+     "sa": 29,
+     "ga": 5,
+     "sv": 24,
+     "toi": "60:00"
+    }
+   }
+  },
+  {
+   "id": 4992,
+   "date": "2026-09-10",
+   "start_iso": "2026-09-10T19:00:00-03:00",
+   "home": false,
+   "opp": {
+    "id": 7,
+    "name": "Pictou County Weeks Crushers",
+    "abbr": "PCC",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/7.jpg",
+    "division": "Eastlink South"
+   },
+   "venue": "Pictou County Wellness Centre",
+   "status": "Final",
+   "final": true,
+   "score": {
+    "for": 2,
+    "against": 3
+   },
+   "result": "L",
+   "ot_so": null,
+   "attendance": 1350,
+   "scorers": [
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "2nd",
+     "time": "18:21",
+     "scorer": "Coen Miller",
+     "scorer_id": 2794,
+     "assists": [
+      "Elliot Wright",
+      "Ty Peddigrew"
+     ],
+     "pp": true,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "3rd",
+     "time": "14:15",
+     "scorer": "Brock Lyons",
+     "scorer_id": 3867,
+     "assists": [
+      "Ben Manos",
+      "Zach Wheeler"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    }
+   ],
+   "goals": [
+    {
+     "team": "PCC",
+     "mine": false,
+     "period": "2nd",
+     "time": "7:16",
+     "scorer": "Brennan O'Donnell",
+     "scorer_id": 3293,
+     "assists": [],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "PCC",
+     "mine": false,
+     "period": "2nd",
+     "time": "8:23",
+     "scorer": "Carson MacKenzie",
+     "scorer_id": 3008,
+     "assists": [
+      "Mac Wallace",
+      "Ethan Percy"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "2nd",
+     "time": "18:21",
+     "scorer": "Coen Miller",
+     "scorer_id": 2794,
+     "assists": [
+      "Elliot Wright",
+      "Ty Peddigrew"
+     ],
+     "pp": true,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    },
+    {
+     "team": "PCC",
+     "mine": false,
+     "period": "3rd",
+     "time": "5:19",
+     "scorer": "Brody Ford",
+     "scorer_id": 3376,
+     "assists": [
+      "Brennan O'Donnell",
+      "Rory Pilling"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": true
+    },
+    {
+     "team": "AMH",
+     "mine": true,
+     "period": "3rd",
+     "time": "14:15",
+     "scorer": "Brock Lyons",
+     "scorer_id": 3867,
+     "assists": [
+      "Ben Manos",
+      "Zach Wheeler"
+     ],
+     "pp": false,
+     "sh": false,
+     "en": false,
+     "gwg": false
+    }
+   ],
+   "three_stars": [
+    {
+     "star": 1,
+     "name": "Brennan O'Donnell",
+     "number": 7,
+     "team": "PCC",
+     "id": 3293,
+     "line": "1G 1A"
+    },
+    {
+     "star": 2,
+     "name": "Brandon Lavoie",
+     "number": 29,
+     "team": "AMH",
+     "id": 3766,
+     "line": "35 saves"
+    },
+    {
+     "star": 3,
+     "name": "George Gallant",
+     "number": 29,
+     "team": "PCC",
+     "id": 2773,
+     "line": "28 saves"
+    }
+   ],
+   "shots": {
+    "for": 30,
+    "against": 38
+   },
+   "pp": {
+    "for": "1/1",
+    "against": "0/2"
+   },
+   "pim": {
+    "for": 21,
+    "against": 19
+   },
+   "starting_goalie": {
+    "for": {
+     "id": 3766,
+     "name": "Brandon Lavoie",
+     "sa": 38,
+     "ga": 3,
+     "sv": 35,
+     "toi": "59:21"
+    },
+    "against": {
+     "id": 2773,
+     "name": "George Gallant",
+     "sa": 30,
+     "ga": 2,
+     "sv": 28,
+     "toi": "60:00"
+    }
+   }
+  }
+ ],
+ "standings": {
+  "divisions": [
+   {
+    "name": "Eastlink South",
+    "rows": [
+     {
+      "rank": 1,
+      "team": "Valley Wildcats",
+      "abbr": "VAL",
+      "team_id": 4,
+      "logo_url": "https://assets.leaguestat.com/mhl/logos/4.jpg",
+      "is_ramblers": false,
+      "gp": 10,
+      "w": 7,
+      "l": 2,
+      "otl": 0,
+      "sol": 1,
+      "pts": 15,
+      "pct": 0.75,
+      "rw": 7,
+      "gf": 53,
+      "ga": 30,
+      "diff": 23,
+      "pim": 208,
+      "streak": "1-0-0-0",
+      "last10": "7-2-0-1",
+      "pp_pct": 31.6,
+      "pk_pct": 80.4,
+      "pp": "12/38",
+      "playoff_position": true
+     },
+     {
+      "rank": 2,
+      "team": "Truro Bearcats",
+      "abbr": "TRU",
+      "team_id": 3,
+      "logo_url": "https://assets.leaguestat.com/mhl/logos/3.jpg",
+      "is_ramblers": false,
+      "gp": 6,
+      "w": 6,
+      "l": 0,
+      "otl": 0,
+      "sol": 0,
+      "pts": 12,
+      "pct": 1,
+      "rw": 6,
+      "gf": 33,
+      "ga": 15,
+      "diff": 18,
+      "pim": 88,
+      "streak": "6-0-0-0",
+      "last10": "6-0-0-0",
+      "pp_pct": 36,
+      "pk_pct": 77.3,
+      "pp": "9/25",
+      "playoff_position": true
+     },
+     {
+      "rank": 3,
+      "team": "Summerside Western Capitals",
+      "abbr": "SWC",
+      "team_id": 10,
+      "logo_url": "https://assets.leaguestat.com/mhl/logos/10.jpg",
+      "is_ramblers": false,
+      "gp": 7,
+      "w": 4,
+      "l": 3,
+      "otl": 0,
+      "sol": 0,
+      "pts": 8,
+      "pct": 0.571,
+      "rw": 3,
+      "gf": 30,
+      "ga": 30,
+      "diff": 0,
+      "pim": 145,
+      "streak": "0-1-0-0",
+      "last10": "4-3-0-0",
+      "pp_pct": 37.9,
+      "pk_pct": 84,
+      "pp": "11/29",
+      "playoff_position": true
+     },
+     {
+      "rank": 4,
+      "team": "Amherst Ramblers",
+      "abbr": "AMH",
+      "team_id": 1,
+      "logo_url": "https://assets.leaguestat.com/mhl/logos/1.jpg",
+      "is_ramblers": true,
+      "gp": 8,
+      "w": 3,
+      "l": 4,
+      "otl": 0,
+      "sol": 1,
+      "pts": 7,
+      "pct": 0.438,
+      "rw": 1,
+      "gf": 23,
+      "ga": 31,
+      "diff": -8,
+      "pim": 145,
+      "streak": "0-3-0-1",
+      "last10": "3-4-0-1",
+      "pp_pct": 11.5,
+      "pk_pct": 84.6,
+      "pp": "3/26",
+      "playoff_position": true
+     },
+     {
+      "rank": 5,
+      "team": "Yarmouth Mariners",
+      "abbr": "YAR",
+      "team_id": 5,
+      "logo_url": "https://assets.leaguestat.com/mhl/logos/5.jpg",
+      "is_ramblers": false,
+      "gp": 9,
+      "w": 3,
+      "l": 6,
+      "otl": 0,
+      "sol": 0,
+      "pts": 6,
+      "pct": 0.333,
+      "rw": 3,
+      "gf": 24,
+      "ga": 46,
+      "diff": -22,
+      "pim": 140,
+      "streak": "0-1-0-0",
+      "last10": "3-6-0-0",
+      "pp_pct": 17.1,
+      "pk_pct": 59.4,
+      "pp": "6/35",
+      "playoff_position": false
+     },
+     {
+      "rank": 6,
+      "team": "Pictou County Weeks Crushers",
+      "abbr": "PCC",
+      "team_id": 7,
+      "logo_url": "https://assets.leaguestat.com/mhl/logos/7.jpg",
+      "is_ramblers": false,
+      "gp": 8,
+      "w": 2,
+      "l": 5,
+      "otl": 0,
+      "sol": 1,
+      "pts": 5,
+      "pct": 0.313,
+      "rw": 2,
+      "gf": 21,
+      "ga": 33,
+      "diff": -12,
+      "pim": 136,
+      "streak": "1-0-0-0",
+      "last10": "2-5-0-1",
+      "pp_pct": 6.9,
+      "pk_pct": 65.4,
+      "pp": "2/29",
+      "playoff_position": false
+     }
+    ]
+   },
+   {
+    "name": "Eastlink North",
+    "rows": [
+     {
+      "rank": 1,
+      "team": "Miramichi Timberwolves",
+      "abbr": "MIR",
+      "team_id": 9,
+      "logo_url": "https://assets.leaguestat.com/mhl/logos/9.jpg",
+      "is_ramblers": false,
+      "gp": 9,
+      "w": 5,
+      "l": 3,
+      "otl": 1,
+      "sol": 0,
+      "pts": 11,
+      "pct": 0.611,
+      "rw": 5,
+      "gf": 42,
+      "ga": 37,
+      "diff": 5,
+      "pim": 184,
+      "streak": "1-0-0-0",
+      "last10": "5-3-1-0",
+      "pp_pct": 31,
+      "pk_pct": 82.4,
+      "pp": "9/29",
+      "playoff_position": true
+     },
+     {
+      "rank": 2,
+      "team": "Edmundston Blizzard",
+      "abbr": "EDM",
+      "team_id": 2,
+      "logo_url": "https://assets.leaguestat.com/mhl/logos/2.jpg",
+      "is_ramblers": false,
+      "gp": 6,
+      "w": 5,
+      "l": 1,
+      "otl": 0,
+      "sol": 0,
+      "pts": 10,
+      "pct": 0.833,
+      "rw": 5,
+      "gf": 35,
+      "ga": 17,
+      "diff": 18,
+      "pim": 117,
+      "streak": "5-0-0-0",
+      "last10": "5-1-0-0",
+      "pp_pct": 33.3,
+      "pk_pct": 88,
+      "pp": "5/15",
+      "playoff_position": true
+     },
+     {
+      "rank": 3,
+      "team": "Chaleur Lightning",
+      "abbr": "CHA",
+      "team_id": 21,
+      "logo_url": "https://assets.leaguestat.com/mhl/logos/21_46.jpg",
+      "is_ramblers": false,
+      "gp": 7,
+      "w": 4,
+      "l": 3,
+      "otl": 0,
+      "sol": 0,
+      "pts": 8,
+      "pct": 0.571,
+      "rw": 3,
+      "gf": 34,
+      "ga": 29,
+      "diff": 5,
+      "pim": 209,
+      "streak": "2-0-0-0",
+      "last10": "4-3-0-0",
+      "pp_pct": 28.6,
+      "pk_pct": 71.4,
+      "pp": "8/28",
+      "playoff_position": true
+     },
+     {
+      "rank": 4,
+      "team": "West Kent Steamers",
+      "abbr": "WKS",
+      "team_id": 6,
+      "logo_url": "https://assets.leaguestat.com/mhl/logos/6.jpg",
+      "is_ramblers": false,
+      "gp": 9,
+      "w": 4,
+      "l": 5,
+      "otl": 0,
+      "sol": 0,
+      "pts": 8,
+      "pct": 0.444,
+      "rw": 2,
+      "gf": 29,
+      "ga": 34,
+      "diff": -5,
+      "pim": 238,
+      "streak": "1-0-0-0",
+      "last10": "4-5-0-0",
+      "pp_pct": 27.8,
+      "pk_pct": 70.6,
+      "pp": "10/36",
+      "playoff_position": true
+     },
+     {
+      "rank": 5,
+      "team": "Grand Falls Rapids",
+      "abbr": "GFR",
+      "team_id": 12,
+      "logo_url": "https://assets.leaguestat.com/mhl/logos/12_46.jpg",
+      "is_ramblers": false,
+      "gp": 8,
+      "w": 2,
+      "l": 3,
+      "otl": 2,
+      "sol": 1,
+      "pts": 7,
+      "pct": 0.438,
+      "rw": 1,
+      "gf": 29,
+      "ga": 38,
+      "diff": -9,
+      "pim": 167,
+      "streak": "1-0-1-1",
+      "last10": "2-3-2-1",
+      "pp_pct": 10,
+      "pk_pct": 72,
+      "pp": "3/30",
+      "playoff_position": false
+     },
+     {
+      "rank": 6,
+      "team": "Campbellton Tigers",
+      "abbr": "CAM",
+      "team_id": 8,
+      "logo_url": "https://assets.leaguestat.com/mhl/logos/8.jpg",
+      "is_ramblers": false,
+      "gp": 7,
+      "w": 2,
+      "l": 5,
+      "otl": 0,
+      "sol": 0,
+      "pts": 4,
+      "pct": 0.286,
+      "rw": 2,
+      "gf": 20,
+      "ga": 33,
+      "diff": -13,
+      "pim": 92,
+      "streak": "0-3-0-0",
+      "last10": "2-5-0-0",
+      "pp_pct": 24.1,
+      "pk_pct": 71.4,
+      "pp": "7/29",
+      "playoff_position": false
+     }
+    ]
+   }
+  ],
+  "playoff_format": "Top 4 per division qualify",
+  "note": "rank is division rank; otl and sol are separate; pts as published"
+ },
+ "team_stats": {
+  "record": "3-4-0-1",
+  "record_note": "W-L-OTL-SOL",
+  "gp": 8,
+  "pts": 7,
+  "pct": 0.438,
+  "division_rank": 4,
+  "home": "1-2-0-0",
+  "away": "2-2-0-1",
+  "last10": "3-4-0-1",
+  "streak": "0-3-0-1",
+  "gf": 23,
+  "ga": 31,
+  "diff": -8,
+  "gf_pg": 2.88,
+  "ga_pg": 3.88,
+  "pp_pct": 11.5,
+  "pk_pct": 84.6,
+  "pp": "3/26",
+  "pim": 145,
+  "pim_pg": 18.1,
+  "shots_for_pg": 33.9,
+  "shots_against_pg": 43.5,
+  "shots_sample_games": 8,
+  "league_ranks": {
+   "gf": 10,
+   "ga": 6,
+   "pp_pct": 10,
+   "pk_pct": 2,
+   "pim": 7,
+   "points_pct": 8,
+   "of_teams": 12
+  },
+  "attendance": {
+   "home_games": 3,
+   "avg_home": 759
+  }
+ },
+ "skaters": [
+  {
+   "id": 3756,
+   "name": "Zach Wheeler",
+   "number": 19,
+   "pos": "C",
+   "shoots": "R",
+   "age": 19,
+   "birthdate": "Jan 16, 2007",
+   "hometown": "Moncton, NB",
+   "height": "6'02",
+   "weight": 168,
+   "rookie": false,
+   "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3756.jpg",
+   "gp": 8,
+   "g": 5,
+   "a": 5,
+   "pts": 10,
+   "ppg": 1.25,
+   "pim": 20,
+   "plus_minus": 0,
+   "pp_goals": 1,
+   "pp_points": 1,
+   "sh_goals": 0,
+   "gwg": 1,
+   "ot_goals": 1,
+   "last5": [
+    {
+     "game_id": 5033,
+     "date": "2026-10-03",
+     "home": true,
+     "opp": "PCC",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5019,
+     "date": "2026-09-26",
+     "home": true,
+     "opp": "MIR",
+     "g": 0,
+     "a": 1,
+     "pts": 1,
+     "pim": 0
+    },
+    {
+     "game_id": 5015,
+     "date": "2026-09-24",
+     "home": false,
+     "opp": "WKS",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 2
+    },
+    {
+     "game_id": 5011,
+     "date": "2026-09-20",
+     "home": false,
+     "opp": "EDM",
+     "g": 0,
+     "a": 1,
+     "pts": 1,
+     "pim": 2
+    },
+    {
+     "game_id": 5008,
+     "date": "2026-09-19",
+     "home": false,
+     "opp": "GFR",
+     "g": 2,
+     "a": 1,
+     "pts": 3,
+     "pim": 0
+    }
+   ],
+   "career": {
+    "gp": 53,
+    "g": 13,
+    "a": 14,
+    "pts": 27
+   }
+  },
+  {
+   "id": 3867,
+   "name": "Brock Lyons",
+   "number": 95,
+   "pos": "LW",
+   "shoots": "L",
+   "age": 17,
+   "birthdate": "Feb 18, 2009",
+   "hometown": "Quispamsis, NB",
+   "height": "6'01",
+   "weight": 185,
+   "rookie": true,
+   "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3867.jpg",
+   "gp": 8,
+   "g": 3,
+   "a": 5,
+   "pts": 8,
+   "ppg": 1,
+   "pim": 2,
+   "plus_minus": 0,
+   "pp_goals": 0,
+   "pp_points": 1,
+   "sh_goals": 0,
+   "gwg": 0,
+   "ot_goals": 0,
+   "last5": [
+    {
+     "game_id": 5033,
+     "date": "2026-10-03",
+     "home": true,
+     "opp": "PCC",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5019,
+     "date": "2026-09-26",
+     "home": true,
+     "opp": "MIR",
+     "g": 1,
+     "a": 0,
+     "pts": 1,
+     "pim": 0
+    },
+    {
+     "game_id": 5015,
+     "date": "2026-09-24",
+     "home": false,
+     "opp": "WKS",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 2
+    },
+    {
+     "game_id": 5011,
+     "date": "2026-09-20",
+     "home": false,
+     "opp": "EDM",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5008,
+     "date": "2026-09-19",
+     "home": false,
+     "opp": "GFR",
+     "g": 0,
+     "a": 1,
+     "pts": 1,
+     "pim": 0
+    }
+   ],
+   "career": {
+    "gp": 11,
+    "g": 3,
+    "a": 5,
+    "pts": 8
+   }
+  },
+  {
+   "id": 2794,
+   "name": "Coen Miller",
+   "number": 16,
+   "pos": "LW",
+   "shoots": "L",
+   "age": 20,
+   "birthdate": "Feb 27, 2006",
+   "hometown": "Bedford, NS",
+   "height": "5'11",
+   "weight": 165,
+   "rookie": false,
+   "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2794.jpg",
+   "gp": 8,
+   "g": 4,
+   "a": 3,
+   "pts": 7,
+   "ppg": 0.88,
+   "pim": 29,
+   "plus_minus": 0,
+   "pp_goals": 1,
+   "pp_points": 1,
+   "sh_goals": 0,
+   "gwg": 0,
+   "ot_goals": 0,
+   "last5": [
+    {
+     "game_id": 5033,
+     "date": "2026-10-03",
+     "home": true,
+     "opp": "PCC",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5019,
+     "date": "2026-09-26",
+     "home": true,
+     "opp": "MIR",
+     "g": 1,
+     "a": 0,
+     "pts": 1,
+     "pim": 0
+    },
+    {
+     "game_id": 5015,
+     "date": "2026-09-24",
+     "home": false,
+     "opp": "WKS",
+     "g": 1,
+     "a": 0,
+     "pts": 1,
+     "pim": 0
+    },
+    {
+     "game_id": 5011,
+     "date": "2026-09-20",
+     "home": false,
+     "opp": "EDM",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5008,
+     "date": "2026-09-19",
+     "home": false,
+     "opp": "GFR",
+     "g": 0,
+     "a": 1,
+     "pts": 1,
+     "pim": 0
+    }
+   ],
+   "career": {
+    "gp": 75,
+    "g": 47,
+    "a": 56,
+    "pts": 103
+   }
+  },
+  {
+   "id": 3562,
+   "name": "Elliot Wright",
+   "number": 13,
+   "pos": "C",
+   "shoots": "L",
+   "age": 19,
+   "birthdate": "Mar  1, 2007",
+   "hometown": "St. John's, NL",
+   "height": "6'03",
+   "weight": 195,
+   "rookie": false,
+   "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3562.jpg",
+   "gp": 8,
+   "g": 3,
+   "a": 4,
+   "pts": 7,
+   "ppg": 0.88,
+   "pim": 4,
+   "plus_minus": 0,
+   "pp_goals": 0,
+   "pp_points": 1,
+   "sh_goals": 0,
+   "gwg": 1,
+   "ot_goals": 0,
+   "last5": [
+    {
+     "game_id": 5033,
+     "date": "2026-10-03",
+     "home": true,
+     "opp": "PCC",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 2
+    },
+    {
+     "game_id": 5019,
+     "date": "2026-09-26",
+     "home": true,
+     "opp": "MIR",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 2
+    },
+    {
+     "game_id": 5015,
+     "date": "2026-09-24",
+     "home": false,
+     "opp": "WKS",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5011,
+     "date": "2026-09-20",
+     "home": false,
+     "opp": "EDM",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5008,
+     "date": "2026-09-19",
+     "home": false,
+     "opp": "GFR",
+     "g": 1,
+     "a": 0,
+     "pts": 1,
+     "pim": 0
+    }
+   ],
+   "career": {
+    "gp": 80,
+    "g": 23,
+    "a": 25,
+    "pts": 48
+   }
+  },
+  {
+   "id": 4025,
+   "name": "Jonathan Lau",
+   "number": 9,
+   "pos": "C",
+   "shoots": "R",
+   "age": 18,
+   "birthdate": "Jan  3, 2008",
+   "hometown": "Montréal, QC",
+   "height": "5'09",
+   "weight": 161,
+   "rookie": true,
+   "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4025.jpg",
+   "gp": 8,
+   "g": 1,
+   "a": 5,
+   "pts": 6,
+   "ppg": 0.75,
+   "pim": 0,
+   "plus_minus": 0,
+   "pp_goals": 0,
+   "pp_points": 1,
+   "sh_goals": 0,
+   "gwg": 0,
+   "ot_goals": 0,
+   "last5": [
+    {
+     "game_id": 5033,
+     "date": "2026-10-03",
+     "home": true,
+     "opp": "PCC",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5019,
+     "date": "2026-09-26",
+     "home": true,
+     "opp": "MIR",
+     "g": 0,
+     "a": 1,
+     "pts": 1,
+     "pim": 0
+    },
+    {
+     "game_id": 5015,
+     "date": "2026-09-24",
+     "home": false,
+     "opp": "WKS",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5011,
+     "date": "2026-09-20",
+     "home": false,
+     "opp": "EDM",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5008,
+     "date": "2026-09-19",
+     "home": false,
+     "opp": "GFR",
+     "g": 0,
+     "a": 2,
+     "pts": 2,
+     "pim": 0
+    }
+   ],
+   "career": {
+    "gp": 8,
+    "g": 1,
+    "a": 5,
+    "pts": 6
+   }
+  },
+  {
+   "id": 4119,
+   "name": "Elliott Duval",
+   "number": 27,
+   "pos": "C",
+   "shoots": "L",
+   "age": 17,
+   "birthdate": "Nov 14, 2008",
+   "hometown": "Blainville, QC",
+   "height": "6'01",
+   "weight": 161,
+   "rookie": true,
+   "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4119.jpg",
+   "gp": 7,
+   "g": 2,
+   "a": 2,
+   "pts": 4,
+   "ppg": 0.57,
+   "pim": 0,
+   "plus_minus": 0,
+   "pp_goals": 1,
+   "pp_points": 1,
+   "sh_goals": 0,
+   "gwg": 0,
+   "ot_goals": 0,
+   "last5": [
+    {
+     "game_id": 5033,
+     "date": "2026-10-03",
+     "home": true,
+     "opp": "PCC",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5015,
+     "date": "2026-09-24",
+     "home": false,
+     "opp": "WKS",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5011,
+     "date": "2026-09-20",
+     "home": false,
+     "opp": "EDM",
+     "g": 0,
+     "a": 1,
+     "pts": 1,
+     "pim": 0
+    },
+    {
+     "game_id": 5008,
+     "date": "2026-09-19",
+     "home": false,
+     "opp": "GFR",
+     "g": 1,
+     "a": 1,
+     "pts": 2,
+     "pim": 0
+    },
+    {
+     "game_id": 5002,
+     "date": "2026-09-16",
+     "home": false,
+     "opp": "VAL",
+     "g": 1,
+     "a": 0,
+     "pts": 1,
+     "pim": 0
+    }
+   ],
+   "career": {
+    "gp": 7,
+    "g": 2,
+    "a": 2,
+    "pts": 4
+   }
+  },
+  {
+   "id": 3848,
+   "name": "Ty Peddigrew",
+   "number": 7,
+   "pos": "C",
+   "shoots": "L",
+   "age": 19,
+   "birthdate": "Mar  2, 2007",
+   "hometown": "St. John's, NL",
+   "height": "6'00",
+   "weight": 175,
+   "rookie": false,
+   "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3848.jpg",
+   "gp": 6,
+   "g": 0,
+   "a": 4,
+   "pts": 4,
+   "ppg": 0.67,
+   "pim": 0,
+   "plus_minus": 0,
+   "pp_goals": 0,
+   "pp_points": 1,
+   "sh_goals": 0,
+   "gwg": 0,
+   "ot_goals": 0,
+   "last5": [
+    {
+     "game_id": 5033,
+     "date": "2026-10-03",
+     "home": true,
+     "opp": "PCC",
+     "g": 0,
+     "a": 1,
+     "pts": 1,
+     "pim": 0
+    },
+    {
+     "game_id": 5019,
+     "date": "2026-09-26",
+     "home": true,
+     "opp": "MIR",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5015,
+     "date": "2026-09-24",
+     "home": false,
+     "opp": "WKS",
+     "g": 0,
+     "a": 1,
+     "pts": 1,
+     "pim": 0
+    },
+    {
+     "game_id": 5002,
+     "date": "2026-09-16",
+     "home": false,
+     "opp": "VAL",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 4996,
+     "date": "2026-09-12",
+     "home": true,
+     "opp": "GFR",
+     "g": 0,
+     "a": 1,
+     "pts": 1,
+     "pim": 0
+    }
+   ],
+   "career": {
+    "gp": 53,
+    "g": 14,
+    "a": 18,
+    "pts": 32
+   }
+  },
+  {
+   "id": 3647,
+   "name": "Ethan Fraser",
+   "number": 28,
+   "pos": "RW",
+   "shoots": "R",
+   "age": 17,
+   "birthdate": "Oct  8, 2008",
+   "hometown": "Amherst, NS",
+   "height": "6'03",
+   "weight": 180,
+   "rookie": false,
+   "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3647.jpg",
+   "gp": 8,
+   "g": 1,
+   "a": 2,
+   "pts": 3,
+   "ppg": 0.38,
+   "pim": 0,
+   "plus_minus": 0,
+   "pp_goals": 0,
+   "pp_points": 0,
+   "sh_goals": 0,
+   "gwg": 0,
+   "ot_goals": 0,
+   "last5": [
+    {
+     "game_id": 5033,
+     "date": "2026-10-03",
+     "home": true,
+     "opp": "PCC",
+     "g": 1,
+     "a": 0,
+     "pts": 1,
+     "pim": 0
+    },
+    {
+     "game_id": 5019,
+     "date": "2026-09-26",
+     "home": true,
+     "opp": "MIR",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5015,
+     "date": "2026-09-24",
+     "home": false,
+     "opp": "WKS",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5011,
+     "date": "2026-09-20",
+     "home": false,
+     "opp": "EDM",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5008,
+     "date": "2026-09-19",
+     "home": false,
+     "opp": "GFR",
+     "g": 0,
+     "a": 2,
+     "pts": 2,
+     "pim": 0
+    }
+   ],
+   "career": {
+    "gp": 10,
+    "g": 1,
+    "a": 2,
+    "pts": 3
+   }
+  },
+  {
+   "id": 3226,
+   "name": "Jeremie Richard",
+   "number": 77,
+   "pos": "D",
+   "shoots": "L",
+   "age": 20,
+   "birthdate": "Jan 20, 2006",
+   "hometown": "Moncton, NB",
+   "height": "6'01",
+   "weight": 180,
+   "rookie": false,
+   "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3226.jpg",
+   "gp": 8,
+   "g": 0,
+   "a": 3,
+   "pts": 3,
+   "ppg": 0.38,
+   "pim": 10,
+   "plus_minus": 0,
+   "pp_goals": 0,
+   "pp_points": 1,
+   "sh_goals": 0,
+   "gwg": 0,
+   "ot_goals": 0,
+   "last5": [
+    {
+     "game_id": 5033,
+     "date": "2026-10-03",
+     "home": true,
+     "opp": "PCC",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5019,
+     "date": "2026-09-26",
+     "home": true,
+     "opp": "MIR",
+     "g": 0,
+     "a": 1,
+     "pts": 1,
+     "pim": 4
+    },
+    {
+     "game_id": 5015,
+     "date": "2026-09-24",
+     "home": false,
+     "opp": "WKS",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 2
+    },
+    {
+     "game_id": 5011,
+     "date": "2026-09-20",
+     "home": false,
+     "opp": "EDM",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5008,
+     "date": "2026-09-19",
+     "home": false,
+     "opp": "GFR",
+     "g": 0,
+     "a": 1,
+     "pts": 1,
+     "pim": 0
+    }
+   ],
+   "career": {
+    "gp": 118,
+    "g": 4,
+    "a": 30,
+    "pts": 34
+   }
+  },
+  {
+   "id": 3833,
+   "name": "Owen Dyke",
+   "number": 82,
+   "pos": "D",
+   "shoots": "L",
+   "age": 17,
+   "birthdate": "Oct  8, 2008",
+   "hometown": "Spaniards Bay, NL",
+   "height": "6'00",
+   "weight": 190,
+   "rookie": false,
+   "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3833.jpg",
+   "gp": 8,
+   "g": 0,
+   "a": 3,
+   "pts": 3,
+   "ppg": 0.38,
+   "pim": 0,
+   "plus_minus": 0,
+   "pp_goals": 0,
+   "pp_points": 0,
+   "sh_goals": 0,
+   "gwg": 0,
+   "ot_goals": 0,
+   "last5": [
+    {
+     "game_id": 5033,
+     "date": "2026-10-03",
+     "home": true,
+     "opp": "PCC",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5019,
+     "date": "2026-09-26",
+     "home": true,
+     "opp": "MIR",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5015,
+     "date": "2026-09-24",
+     "home": false,
+     "opp": "WKS",
+     "g": 0,
+     "a": 1,
+     "pts": 1,
+     "pim": 0
+    },
+    {
+     "game_id": 5011,
+     "date": "2026-09-20",
+     "home": false,
+     "opp": "EDM",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5008,
+     "date": "2026-09-19",
+     "home": false,
+     "opp": "GFR",
+     "g": 0,
+     "a": 1,
+     "pts": 1,
+     "pim": 0
+    }
+   ],
+   "career": {
+    "gp": 50,
+    "g": 0,
+    "a": 6,
+    "pts": 6
+   }
+  },
+  {
+   "id": 3192,
+   "name": "Ben Manos",
+   "number": 10,
+   "pos": "D",
+   "shoots": "L",
+   "age": 20,
+   "birthdate": "Jul 25, 2006",
+   "hometown": "New Glasgow, NS",
+   "height": "6'00",
+   "weight": 183,
+   "rookie": false,
+   "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3192.jpg",
+   "gp": 8,
+   "g": 0,
+   "a": 2,
+   "pts": 2,
+   "ppg": 0.25,
+   "pim": 18,
+   "plus_minus": 0,
+   "pp_goals": 0,
+   "pp_points": 0,
+   "sh_goals": 0,
+   "gwg": 0,
+   "ot_goals": 0,
+   "last5": [
+    {
+     "game_id": 5033,
+     "date": "2026-10-03",
+     "home": true,
+     "opp": "PCC",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 2
+    },
+    {
+     "game_id": 5019,
+     "date": "2026-09-26",
+     "home": true,
+     "opp": "MIR",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 2
+    },
+    {
+     "game_id": 5015,
+     "date": "2026-09-24",
+     "home": false,
+     "opp": "WKS",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 2
+    },
+    {
+     "game_id": 5011,
+     "date": "2026-09-20",
+     "home": false,
+     "opp": "EDM",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 2
+    },
+    {
+     "game_id": 5008,
+     "date": "2026-09-19",
+     "home": false,
+     "opp": "GFR",
+     "g": 0,
+     "a": 1,
+     "pts": 1,
+     "pim": 2
+    }
+   ],
+   "career": {
+    "gp": 108,
+    "g": 3,
+    "a": 14,
+    "pts": 17
+   }
+  },
+  {
+   "id": 3545,
+   "name": "Christian White",
+   "number": 4,
+   "pos": "D",
+   "shoots": "L",
+   "age": 19,
+   "birthdate": "Oct 26, 2006",
+   "hometown": "Ottawa, ON",
+   "height": "6'02",
+   "weight": 200,
+   "rookie": false,
+   "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3545.jpg",
+   "gp": 7,
+   "g": 1,
+   "a": 0,
+   "pts": 1,
+   "ppg": 0.14,
+   "pim": 10,
+   "plus_minus": 0,
+   "pp_goals": 0,
+   "pp_points": 0,
+   "sh_goals": 0,
+   "gwg": 0,
+   "ot_goals": 0,
+   "last5": [
+    {
+     "game_id": 5033,
+     "date": "2026-10-03",
+     "home": true,
+     "opp": "PCC",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5015,
+     "date": "2026-09-24",
+     "home": false,
+     "opp": "WKS",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5011,
+     "date": "2026-09-20",
+     "home": false,
+     "opp": "EDM",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 2
+    },
+    {
+     "game_id": 5008,
+     "date": "2026-09-19",
+     "home": false,
+     "opp": "GFR",
+     "g": 1,
+     "a": 0,
+     "pts": 1,
+     "pim": 4
+    },
+    {
+     "game_id": 5002,
+     "date": "2026-09-16",
+     "home": false,
+     "opp": "VAL",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 2
+    }
+   ],
+   "career": {
+    "gp": 79,
+    "g": 7,
+    "a": 21,
+    "pts": 28
+   }
+  },
+  {
+   "id": 3433,
+   "name": "Nathan Weber",
+   "number": 11,
+   "pos": "LW",
+   "shoots": "L",
+   "age": 19,
+   "birthdate": "Feb 27, 2007",
+   "hometown": "Riverview, NB",
+   "height": "5'08",
+   "weight": 175,
+   "rookie": false,
+   "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3433.jpg",
+   "gp": 8,
+   "g": 1,
+   "a": 0,
+   "pts": 1,
+   "ppg": 0.13,
+   "pim": 0,
+   "plus_minus": 0,
+   "pp_goals": 0,
+   "pp_points": 0,
+   "sh_goals": 0,
+   "gwg": 0,
+   "ot_goals": 0,
+   "last5": [
+    {
+     "game_id": 5033,
+     "date": "2026-10-03",
+     "home": true,
+     "opp": "PCC",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5019,
+     "date": "2026-09-26",
+     "home": true,
+     "opp": "MIR",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5015,
+     "date": "2026-09-24",
+     "home": false,
+     "opp": "WKS",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5011,
+     "date": "2026-09-20",
+     "home": false,
+     "opp": "EDM",
+     "g": 1,
+     "a": 0,
+     "pts": 1,
+     "pim": 0
+    },
+    {
+     "game_id": 5008,
+     "date": "2026-09-19",
+     "home": false,
+     "opp": "GFR",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    }
+   ],
+   "career": {
+    "gp": 55,
+    "g": 6,
+    "a": 5,
+    "pts": 11
+   }
+  },
+  {
+   "id": 4016,
+   "name": "Gabriel Boivin",
+   "number": 37,
+   "pos": "C",
+   "shoots": "R",
+   "age": 18,
+   "birthdate": "Jan 25, 2008",
+   "hometown": "Beloeil, QC",
+   "height": "6'00",
+   "weight": 168,
+   "rookie": true,
+   "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4016.jpg",
+   "gp": 5,
+   "g": 1,
+   "a": 0,
+   "pts": 1,
+   "ppg": 0.2,
+   "pim": 12,
+   "plus_minus": 0,
+   "pp_goals": 0,
+   "pp_points": 0,
+   "sh_goals": 0,
+   "gwg": 0,
+   "ot_goals": 0,
+   "last5": [
+    {
+     "game_id": 5033,
+     "date": "2026-10-03",
+     "home": true,
+     "opp": "PCC",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5011,
+     "date": "2026-09-20",
+     "home": false,
+     "opp": "EDM",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5008,
+     "date": "2026-09-19",
+     "home": false,
+     "opp": "GFR",
+     "g": 1,
+     "a": 0,
+     "pts": 1,
+     "pim": 0
+    },
+    {
+     "game_id": 4996,
+     "date": "2026-09-12",
+     "home": true,
+     "opp": "GFR",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 12
+    },
+    {
+     "game_id": 4992,
+     "date": "2026-09-10",
+     "home": false,
+     "opp": "PCC",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    }
+   ],
+   "career": {
+    "gp": 5,
+    "g": 1,
+    "a": 0,
+    "pts": 1
+   }
+  },
+  {
+   "id": 4018,
+   "name": "Nathaniel Noah",
+   "number": 91,
+   "pos": "C",
+   "shoots": "R",
+   "age": 18,
+   "birthdate": "Sep 15, 2008",
+   "hometown": "St-Augustin-de-Desmaures,",
+   "height": "5'11",
+   "weight": 176,
+   "rookie": true,
+   "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4018.jpg",
+   "gp": 4,
+   "g": 0,
+   "a": 1,
+   "pts": 1,
+   "ppg": 0.25,
+   "pim": 2,
+   "plus_minus": 0,
+   "pp_goals": 0,
+   "pp_points": 0,
+   "sh_goals": 0,
+   "gwg": 0,
+   "ot_goals": 0,
+   "last5": [
+    {
+     "game_id": 5019,
+     "date": "2026-09-26",
+     "home": true,
+     "opp": "MIR",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5011,
+     "date": "2026-09-20",
+     "home": false,
+     "opp": "EDM",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5008,
+     "date": "2026-09-19",
+     "home": false,
+     "opp": "GFR",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 2
+    },
+    {
+     "game_id": 5002,
+     "date": "2026-09-16",
+     "home": false,
+     "opp": "VAL",
+     "g": 0,
+     "a": 1,
+     "pts": 1,
+     "pim": 0
+    }
+   ],
+   "career": {
+    "gp": 4,
+    "g": 0,
+    "a": 1,
+    "pts": 1
+   }
+  },
+  {
+   "id": 4118,
+   "name": "Cohen McNeil",
+   "number": 0,
+   "pos": "C",
+   "shoots": "R",
+   "age": 18,
+   "birthdate": "Sep  4, 2008",
+   "hometown": "Reserve Mines, NS",
+   "height": "6'03",
+   "weight": 175,
+   "rookie": false,
+   "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4118.jpg",
+   "gp": 0,
+   "g": 0,
+   "a": 0,
+   "pts": 0,
+   "ppg": 0,
+   "pim": 0,
+   "plus_minus": 0,
+   "pp_goals": 0,
+   "pp_points": 0,
+   "sh_goals": 0,
+   "gwg": 0,
+   "ot_goals": 0,
+   "last5": [],
+   "career": {
+    "gp": 0,
+    "g": 0,
+    "a": 0,
+    "pts": 0
+   }
+  },
+  {
+   "id": 3402,
+   "name": "Aidan Silvaggio",
+   "number": 12,
+   "pos": "LW",
+   "shoots": "L",
+   "age": 19,
+   "birthdate": "Sep  7, 2007",
+   "hometown": "Charlottetown, PE",
+   "height": "6'03",
+   "weight": 189,
+   "rookie": false,
+   "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3402.jpg",
+   "gp": 5,
+   "g": 0,
+   "a": 0,
+   "pts": 0,
+   "ppg": 0,
+   "pim": 2,
+   "plus_minus": 0,
+   "pp_goals": 0,
+   "pp_points": 0,
+   "sh_goals": 0,
+   "gwg": 0,
+   "ot_goals": 0,
+   "last5": [
+    {
+     "game_id": 5019,
+     "date": "2026-09-26",
+     "home": true,
+     "opp": "MIR",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5015,
+     "date": "2026-09-24",
+     "home": false,
+     "opp": "WKS",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5002,
+     "date": "2026-09-16",
+     "home": false,
+     "opp": "VAL",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 4996,
+     "date": "2026-09-12",
+     "home": true,
+     "opp": "GFR",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 2
+    },
+    {
+     "game_id": 4992,
+     "date": "2026-09-10",
+     "home": false,
+     "opp": "PCC",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    }
+   ],
+   "career": {
+    "gp": 34,
+    "g": 1,
+    "a": 6,
+    "pts": 7
+   }
+  },
+  {
+   "id": 3243,
+   "name": "Evan Nicholson",
+   "number": 15,
+   "pos": "C",
+   "shoots": "L",
+   "age": 20,
+   "birthdate": "Jun 22, 2006",
+   "hometown": "Pownal, PE",
+   "height": "6'00",
+   "weight": 185,
+   "rookie": false,
+   "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3243.jpg",
+   "gp": 8,
+   "g": 0,
+   "a": 0,
+   "pts": 0,
+   "ppg": 0,
+   "pim": 0,
+   "plus_minus": 0,
+   "pp_goals": 0,
+   "pp_points": 0,
+   "sh_goals": 0,
+   "gwg": 0,
+   "ot_goals": 0,
+   "last5": [
+    {
+     "game_id": 5033,
+     "date": "2026-10-03",
+     "home": true,
+     "opp": "PCC",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5019,
+     "date": "2026-09-26",
+     "home": true,
+     "opp": "MIR",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5015,
+     "date": "2026-09-24",
+     "home": false,
+     "opp": "WKS",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5011,
+     "date": "2026-09-20",
+     "home": false,
+     "opp": "EDM",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5008,
+     "date": "2026-09-19",
+     "home": false,
+     "opp": "GFR",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    }
+   ],
+   "career": {
+    "gp": 89,
+    "g": 5,
+    "a": 11,
+    "pts": 16
+   }
+  },
+  {
+   "id": 2760,
+   "name": "Darien Reynolds",
+   "number": 18,
+   "pos": "RW",
+   "shoots": "R",
+   "age": 20,
+   "birthdate": "Jan 26, 2006",
+   "hometown": "Sydney, NS",
+   "height": "6'04",
+   "weight": 210,
+   "rookie": false,
+   "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2760.jpg",
+   "gp": 5,
+   "g": 0,
+   "a": 0,
+   "pts": 0,
+   "ppg": 0,
+   "pim": 12,
+   "plus_minus": 0,
+   "pp_goals": 0,
+   "pp_points": 0,
+   "sh_goals": 0,
+   "gwg": 0,
+   "ot_goals": 0,
+   "last5": [
+    {
+     "game_id": 5033,
+     "date": "2026-10-03",
+     "home": true,
+     "opp": "PCC",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5019,
+     "date": "2026-09-26",
+     "home": true,
+     "opp": "MIR",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5015,
+     "date": "2026-09-24",
+     "home": false,
+     "opp": "WKS",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 12
+    },
+    {
+     "game_id": 5011,
+     "date": "2026-09-20",
+     "home": false,
+     "opp": "EDM",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5008,
+     "date": "2026-09-19",
+     "home": false,
+     "opp": "GFR",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    }
+   ],
+   "career": {
+    "gp": 50,
+    "g": 11,
+    "a": 11,
+    "pts": 22
+   }
+  },
+  {
+   "id": 4023,
+   "name": "Louis-Thomas Bédard",
+   "number": 21,
+   "pos": "D",
+   "shoots": "R",
+   "age": 18,
+   "birthdate": "Oct 20, 2007",
+   "hometown": "Bécancour, QC",
+   "height": "6'00",
+   "weight": 178,
+   "rookie": true,
+   "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4023.jpg",
+   "gp": 7,
+   "g": 0,
+   "a": 0,
+   "pts": 0,
+   "ppg": 0,
+   "pim": 18,
+   "plus_minus": 0,
+   "pp_goals": 0,
+   "pp_points": 0,
+   "sh_goals": 0,
+   "gwg": 0,
+   "ot_goals": 0,
+   "last5": [
+    {
+     "game_id": 5019,
+     "date": "2026-09-26",
+     "home": true,
+     "opp": "MIR",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5015,
+     "date": "2026-09-24",
+     "home": false,
+     "opp": "WKS",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5011,
+     "date": "2026-09-20",
+     "home": false,
+     "opp": "EDM",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5008,
+     "date": "2026-09-19",
+     "home": false,
+     "opp": "GFR",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5002,
+     "date": "2026-09-16",
+     "home": false,
+     "opp": "VAL",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 4
+    }
+   ],
+   "career": {
+    "gp": 7,
+    "g": 0,
+    "a": 0,
+    "pts": 0
+   }
+  },
+  {
+   "id": 3322,
+   "name": "Sawyer Harvey",
+   "number": 24,
+   "pos": "D",
+   "shoots": "L",
+   "age": 19,
+   "birthdate": "Aug 13, 2007",
+   "hometown": "Amherst, NS",
+   "height": "6'01",
+   "weight": 180,
+   "rookie": false,
+   "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3322.jpg",
+   "gp": 8,
+   "g": 0,
+   "a": 0,
+   "pts": 0,
+   "ppg": 0,
+   "pim": 4,
+   "plus_minus": 0,
+   "pp_goals": 0,
+   "pp_points": 0,
+   "sh_goals": 0,
+   "gwg": 0,
+   "ot_goals": 0,
+   "last5": [
+    {
+     "game_id": 5033,
+     "date": "2026-10-03",
+     "home": true,
+     "opp": "PCC",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5019,
+     "date": "2026-09-26",
+     "home": true,
+     "opp": "MIR",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5015,
+     "date": "2026-09-24",
+     "home": false,
+     "opp": "WKS",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5011,
+     "date": "2026-09-20",
+     "home": false,
+     "opp": "EDM",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5008,
+     "date": "2026-09-19",
+     "home": false,
+     "opp": "GFR",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 2
+    }
+   ],
+   "career": {
+    "gp": 104,
+    "g": 0,
+    "a": 15,
+    "pts": 15
+   }
+  },
+  {
+   "id": 3766,
+   "name": "Brandon Lavoie",
+   "number": 29,
+   "pos": "G",
+   "shoots": "L",
+   "age": 20,
+   "birthdate": "Mar  3, 2006",
+   "hometown": "Lower Sackville, NS",
+   "height": "6'02",
+   "weight": 165,
+   "rookie": false,
+   "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3766.jpg",
+   "gp": 8,
+   "g": 0,
+   "a": 0,
+   "pts": 0,
+   "ppg": 0,
+   "pim": 0,
+   "plus_minus": 0,
+   "pp_goals": 0,
+   "pp_points": 0,
+   "sh_goals": 0,
+   "gwg": 0,
+   "ot_goals": 0,
+   "last5": [
+    {
+     "game_id": 5033,
+     "date": "2026-10-03",
+     "home": true,
+     "opp": "PCC",
+     "g": null,
+     "a": null,
+     "pts": null,
+     "pim": null
+    },
+    {
+     "game_id": 5019,
+     "date": "2026-09-26",
+     "home": true,
+     "opp": "MIR",
+     "g": null,
+     "a": null,
+     "pts": null,
+     "pim": null
+    },
+    {
+     "game_id": 5015,
+     "date": "2026-09-24",
+     "home": false,
+     "opp": "WKS",
+     "g": null,
+     "a": null,
+     "pts": null,
+     "pim": null
+    },
+    {
+     "game_id": 5011,
+     "date": "2026-09-20",
+     "home": false,
+     "opp": "EDM",
+     "g": null,
+     "a": null,
+     "pts": null,
+     "pim": null
+    },
+    {
+     "game_id": 5008,
+     "date": "2026-09-19",
+     "home": false,
+     "opp": "GFR",
+     "g": null,
+     "a": null,
+     "pts": null,
+     "pim": null
+    }
+   ],
+   "career": {
+    "gp": 38,
+    "g": null,
+    "a": null,
+    "pts": null
+   }
+  },
+  {
+   "id": 3187,
+   "name": "Hudson Bradley",
+   "number": 30,
+   "pos": "G",
+   "shoots": "L",
+   "age": 18,
+   "birthdate": "Nov 27, 2007",
+   "hometown": "Charlottetown, PE",
+   "height": "6'01",
+   "weight": 157,
+   "rookie": false,
+   "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3187.jpg",
+   "gp": 1,
+   "g": 0,
+   "a": 0,
+   "pts": 0,
+   "ppg": 0,
+   "pim": 0,
+   "plus_minus": 0,
+   "pp_goals": 0,
+   "pp_points": 0,
+   "sh_goals": 0,
+   "gwg": 0,
+   "ot_goals": 0,
+   "last5": [
+    {
+     "game_id": 5008,
+     "date": "2026-09-19",
+     "home": false,
+     "opp": "GFR",
+     "g": null,
+     "a": null,
+     "pts": null,
+     "pim": null
+    }
+   ],
+   "career": {
+    "gp": 24,
+    "g": null,
+    "a": null,
+    "pts": null
+   }
+  },
+  {
+   "id": 4138,
+   "name": "Max Sheppard",
+   "number": 58,
+   "pos": "D",
+   "shoots": "R",
+   "age": 17,
+   "birthdate": "Dec 25, 2008",
+   "hometown": "St. John's, NL",
+   "height": "5'11",
+   "weight": 168,
+   "rookie": false,
+   "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4138.jpg",
+   "gp": 2,
+   "g": 0,
+   "a": 0,
+   "pts": 0,
+   "ppg": 0,
+   "pim": 0,
+   "plus_minus": 0,
+   "pp_goals": 0,
+   "pp_points": 0,
+   "sh_goals": 0,
+   "gwg": 0,
+   "ot_goals": 0,
+   "last5": [
+    {
+     "game_id": 5033,
+     "date": "2026-10-03",
+     "home": true,
+     "opp": "PCC",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    },
+    {
+     "game_id": 5019,
+     "date": "2026-09-26",
+     "home": true,
+     "opp": "MIR",
+     "g": 0,
+     "a": 0,
+     "pts": 0,
+     "pim": 0
+    }
+   ],
+   "career": {
+    "gp": 2,
+    "g": 0,
+    "a": 0,
+    "pts": 0
+   }
+  }
+ ],
+ "goalies": [
+  {
+   "id": 3766,
+   "name": "Brandon Lavoie",
+   "number": 29,
+   "catches": "L",
+   "age": 20,
+   "birthdate": "Mar  3, 2006",
+   "hometown": "Lower Sackville, NS",
+   "height": "6'02",
+   "weight": 165,
+   "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3766.jpg",
+   "gp": 8,
+   "gs": 7,
+   "gs_source": "box score starting flag, completed games",
+   "w": 3,
+   "l": 4,
+   "otl": 0,
+   "sol": 1,
+   "sv_pct": 0.923,
+   "gaa": 3.21,
+   "so": 0,
+   "saves": 286,
+   "shots_against": 310,
+   "ga": 24,
+   "minutes": 449,
+   "last_start_date": "2026-10-03",
+   "recent_games": [
+    {
+     "game_id": 5033,
+     "date": "2026-10-03",
+     "home": true,
+     "opp": "PCC",
+     "dec": "L",
+     "ga": 3,
+     "sa": 30,
+     "sv": 27,
+     "sv_pct": 0.9,
+     "min": "59:40",
+     "started": true
+    },
+    {
+     "game_id": 5019,
+     "date": "2026-09-26",
+     "home": true,
+     "opp": "MIR",
+     "dec": "L",
+     "ga": 6,
+     "sa": 50,
+     "sv": 44,
+     "sv_pct": 0.88,
+     "min": "60:00",
+     "started": true
+    },
+    {
+     "game_id": 5015,
+     "date": "2026-09-24",
+     "home": false,
+     "opp": "WKS",
+     "dec": "SOL",
+     "ga": 1,
+     "sa": 37,
+     "sv": 36,
+     "sv_pct": 0.973,
+     "min": "65:00",
+     "started": true
+    },
+    {
+     "game_id": 5011,
+     "date": "2026-09-20",
+     "home": false,
+     "opp": "EDM",
+     "dec": "L",
+     "ga": 6,
+     "sa": 64,
+     "sv": 58,
+     "sv_pct": 0.906,
+     "min": "60:00",
+     "started": true
+    },
+    {
+     "game_id": 5008,
+     "date": "2026-09-19",
+     "home": false,
+     "opp": "GFR",
+     "dec": "W",
+     "ga": 0,
+     "sa": 13,
+     "sv": 13,
+     "sv_pct": 1,
+     "min": "19:39",
+     "started": false
+    }
+   ]
+  },
+  {
+   "id": 3187,
+   "name": "Hudson Bradley",
+   "number": 30,
+   "catches": "L",
+   "age": 18,
+   "birthdate": "Nov 27, 2007",
+   "hometown": "Charlottetown, PE",
+   "height": "6'01",
+   "weight": 157,
+   "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3187.jpg",
+   "gp": 1,
+   "gs": 1,
+   "gs_source": "box score starting flag, completed games",
+   "w": 0,
+   "l": 0,
+   "otl": 0,
+   "sol": 0,
+   "sv_pct": 0.861,
+   "gaa": 7.37,
+   "so": 0,
+   "saves": 31,
+   "shots_against": 36,
+   "ga": 5,
+   "minutes": 41,
+   "last_start_date": "2026-09-19",
+   "recent_games": [
+    {
+     "game_id": 5008,
+     "date": "2026-09-19",
+     "home": false,
+     "opp": "GFR",
+     "dec": null,
+     "ga": 5,
+     "sa": 36,
+     "sv": 31,
+     "sv_pct": 0.861,
+     "min": "40:42",
+     "started": true
+    }
+   ]
+  }
+ ],
+ "league_leaders": {
+  "points": [
+   {
+    "id": 2778,
+    "name": "Drew Lutz",
+    "team": "VAL",
+    "pos": "RW",
+    "number": 20,
+    "gp": 10,
+    "g": 7,
+    "a": 10,
+    "pts": 17,
+    "ppg": 1.7,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2778.jpg"
+   },
+   {
+    "id": 2712,
+    "name": "Ethan Dickson",
+    "team": "MIR",
+    "pos": "C",
+    "number": 91,
+    "gp": 9,
+    "g": 5,
+    "a": 10,
+    "pts": 15,
+    "ppg": 1.67,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2712.jpg"
+   },
+   {
+    "id": 4111,
+    "name": "Jacob Lachance",
+    "team": "MIR",
+    "pos": "C",
+    "number": 86,
+    "gp": 9,
+    "g": 6,
+    "a": 8,
+    "pts": 14,
+    "ppg": 1.56,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4111.jpg"
+   },
+   {
+    "id": 4109,
+    "name": "Etienne Dupere",
+    "team": "VAL",
+    "pos": "C",
+    "number": 16,
+    "gp": 10,
+    "g": 6,
+    "a": 8,
+    "pts": 14,
+    "ppg": 1.4,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4109.jpg"
+   },
+   {
+    "id": 3839,
+    "name": "Charles-Éric Tremblay",
+    "team": "EDM",
+    "pos": "LW",
+    "number": 28,
+    "gp": 6,
+    "g": 3,
+    "a": 11,
+    "pts": 14,
+    "ppg": 2.33,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3839.jpg"
+   },
+   {
+    "id": 3043,
+    "name": "Aidan Bent",
+    "team": "VAL",
+    "pos": "LW",
+    "number": 22,
+    "gp": 10,
+    "g": 4,
+    "a": 9,
+    "pts": 13,
+    "ppg": 1.3,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3043.jpg"
+   },
+   {
+    "id": 3814,
+    "name": "Callum Aucoin",
+    "team": "TRU",
+    "pos": "LW",
+    "number": 11,
+    "gp": 6,
+    "g": 6,
+    "a": 6,
+    "pts": 12,
+    "ppg": 2,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3814.jpg"
+   },
+   {
+    "id": 4126,
+    "name": "Cédrik Laberge",
+    "team": "TRU",
+    "pos": "C",
+    "number": 9,
+    "gp": 6,
+    "g": 6,
+    "a": 6,
+    "pts": 12,
+    "ppg": 2,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4126.jpg"
+   },
+   {
+    "id": 3569,
+    "name": "William Labranche",
+    "team": "EDM",
+    "pos": "LW",
+    "number": 79,
+    "gp": 6,
+    "g": 6,
+    "a": 6,
+    "pts": 12,
+    "ppg": 2,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3569.jpg"
+   },
+   {
+    "id": 3022,
+    "name": "Michael Arsenault",
+    "team": "EDM",
+    "pos": "LW",
+    "number": 71,
+    "gp": 6,
+    "g": 5,
+    "a": 7,
+    "pts": 12,
+    "ppg": 2,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3022.jpg"
+   }
+  ],
+  "goals": [
+   {
+    "id": 2778,
+    "name": "Drew Lutz",
+    "team": "VAL",
+    "pos": "RW",
+    "number": 20,
+    "gp": 10,
+    "g": 7,
+    "a": 10,
+    "pts": 17,
+    "ppg": 1.7,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2778.jpg"
+   },
+   {
+    "id": 4111,
+    "name": "Jacob Lachance",
+    "team": "MIR",
+    "pos": "C",
+    "number": 86,
+    "gp": 9,
+    "g": 6,
+    "a": 8,
+    "pts": 14,
+    "ppg": 1.56,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4111.jpg"
+   },
+   {
+    "id": 4109,
+    "name": "Etienne Dupere",
+    "team": "VAL",
+    "pos": "C",
+    "number": 16,
+    "gp": 10,
+    "g": 6,
+    "a": 8,
+    "pts": 14,
+    "ppg": 1.4,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4109.jpg"
+   },
+   {
+    "id": 3814,
+    "name": "Callum Aucoin",
+    "team": "TRU",
+    "pos": "LW",
+    "number": 11,
+    "gp": 6,
+    "g": 6,
+    "a": 6,
+    "pts": 12,
+    "ppg": 2,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3814.jpg"
+   },
+   {
+    "id": 4126,
+    "name": "Cédrik Laberge",
+    "team": "TRU",
+    "pos": "C",
+    "number": 9,
+    "gp": 6,
+    "g": 6,
+    "a": 6,
+    "pts": 12,
+    "ppg": 2,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4126.jpg"
+   },
+   {
+    "id": 3569,
+    "name": "William Labranche",
+    "team": "EDM",
+    "pos": "LW",
+    "number": 79,
+    "gp": 6,
+    "g": 6,
+    "a": 6,
+    "pts": 12,
+    "ppg": 2,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3569.jpg"
+   },
+   {
+    "id": 3728,
+    "name": "Parker MacDonald",
+    "team": "VAL",
+    "pos": "LW",
+    "number": 14,
+    "gp": 10,
+    "g": 6,
+    "a": 5,
+    "pts": 11,
+    "ppg": 1.1,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3728.jpg"
+   },
+   {
+    "id": 2712,
+    "name": "Ethan Dickson",
+    "team": "MIR",
+    "pos": "C",
+    "number": 91,
+    "gp": 9,
+    "g": 5,
+    "a": 10,
+    "pts": 15,
+    "ppg": 1.67,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2712.jpg"
+   },
+   {
+    "id": 3022,
+    "name": "Michael Arsenault",
+    "team": "EDM",
+    "pos": "LW",
+    "number": 71,
+    "gp": 6,
+    "g": 5,
+    "a": 7,
+    "pts": 12,
+    "ppg": 2,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3022.jpg"
+   },
+   {
+    "id": 3597,
+    "name": "Noah Larochelle",
+    "team": "EDM",
+    "pos": "RW",
+    "number": 24,
+    "gp": 6,
+    "g": 5,
+    "a": 6,
+    "pts": 11,
+    "ppg": 1.83,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3597.jpg"
+   }
+  ],
+  "assists": [
+   {
+    "id": 3839,
+    "name": "Charles-Éric Tremblay",
+    "team": "EDM",
+    "pos": "LW",
+    "number": 28,
+    "gp": 6,
+    "g": 3,
+    "a": 11,
+    "pts": 14,
+    "ppg": 2.33,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3839.jpg"
+   },
+   {
+    "id": 2778,
+    "name": "Drew Lutz",
+    "team": "VAL",
+    "pos": "RW",
+    "number": 20,
+    "gp": 10,
+    "g": 7,
+    "a": 10,
+    "pts": 17,
+    "ppg": 1.7,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2778.jpg"
+   },
+   {
+    "id": 2712,
+    "name": "Ethan Dickson",
+    "team": "MIR",
+    "pos": "C",
+    "number": 91,
+    "gp": 9,
+    "g": 5,
+    "a": 10,
+    "pts": 15,
+    "ppg": 1.67,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2712.jpg"
+   },
+   {
+    "id": 3043,
+    "name": "Aidan Bent",
+    "team": "VAL",
+    "pos": "LW",
+    "number": 22,
+    "gp": 10,
+    "g": 4,
+    "a": 9,
+    "pts": 13,
+    "ppg": 1.3,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3043.jpg"
+   },
+   {
+    "id": 3615,
+    "name": "Felix Belanger",
+    "team": "VAL",
+    "pos": "C",
+    "number": 9,
+    "gp": 10,
+    "g": 3,
+    "a": 9,
+    "pts": 12,
+    "ppg": 1.2,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3615.jpg"
+   },
+   {
+    "id": 4111,
+    "name": "Jacob Lachance",
+    "team": "MIR",
+    "pos": "C",
+    "number": 86,
+    "gp": 9,
+    "g": 6,
+    "a": 8,
+    "pts": 14,
+    "ppg": 1.56,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4111.jpg"
+   },
+   {
+    "id": 4109,
+    "name": "Etienne Dupere",
+    "team": "VAL",
+    "pos": "C",
+    "number": 16,
+    "gp": 10,
+    "g": 6,
+    "a": 8,
+    "pts": 14,
+    "ppg": 1.4,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4109.jpg"
+   },
+   {
+    "id": 2987,
+    "name": "Ryan Fletcher",
+    "team": "VAL",
+    "pos": "D",
+    "number": 26,
+    "gp": 10,
+    "g": 1,
+    "a": 8,
+    "pts": 9,
+    "ppg": 0.9,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2987.jpg"
+   },
+   {
+    "id": 3022,
+    "name": "Michael Arsenault",
+    "team": "EDM",
+    "pos": "LW",
+    "number": 71,
+    "gp": 6,
+    "g": 5,
+    "a": 7,
+    "pts": 12,
+    "ppg": 2,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3022.jpg"
+   },
+   {
+    "id": 3924,
+    "name": "Antoine Fontaine",
+    "team": "TRU",
+    "pos": "RW",
+    "number": 91,
+    "gp": 6,
+    "g": 3,
+    "a": 7,
+    "pts": 10,
+    "ppg": 1.67,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3924.jpg"
+   }
+  ],
+  "goalies": {
+   "sv_pct": [
+    {
+     "id": 3000,
+     "name": "Samuel Quimper",
+     "team": "CAM",
+     "number": 70,
+     "gp": 5,
+     "w": 2,
+     "l": 3,
+     "sv_pct": 0.929,
+     "gaa": 3.4,
+     "so": 0,
+     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3000.jpg"
+    },
+    {
+     "id": 3859,
+     "name": "Jack Bell",
+     "team": "VAL",
+     "number": 29,
+     "gp": 5,
+     "w": 4,
+     "l": 0,
+     "sv_pct": 0.925,
+     "gaa": 2.36,
+     "so": 0,
+     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3859.jpg"
+    },
+    {
+     "id": 3766,
+     "name": "Brandon Lavoie",
+     "team": "AMH",
+     "number": 29,
+     "gp": 8,
+     "w": 3,
+     "l": 4,
+     "sv_pct": 0.923,
+     "gaa": 3.21,
+     "so": 0,
+     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3766.jpg"
+    },
+    {
+     "id": 3114,
+     "name": "Olivier St-Onge",
+     "team": "EDM",
+     "number": 33,
+     "gp": 4,
+     "w": 3,
+     "l": 1,
+     "sv_pct": 0.92,
+     "gaa": 2.25,
+     "so": 0,
+     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3114.jpg"
+    },
+    {
+     "id": 3618,
+     "name": "Sean Hogan",
+     "team": "VAL",
+     "number": 70,
+     "gp": 5,
+     "w": 3,
+     "l": 2,
+     "sv_pct": 0.914,
+     "gaa": 3.25,
+     "so": 0,
+     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3618.jpg"
+    }
+   ],
+   "gaa": [
+    {
+     "id": 3114,
+     "name": "Olivier St-Onge",
+     "team": "EDM",
+     "number": 33,
+     "gp": 4,
+     "w": 3,
+     "l": 1,
+     "sv_pct": 0.92,
+     "gaa": 2.25,
+     "so": 0,
+     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3114.jpg"
+    },
+    {
+     "id": 3859,
+     "name": "Jack Bell",
+     "team": "VAL",
+     "number": 29,
+     "gp": 5,
+     "w": 4,
+     "l": 0,
+     "sv_pct": 0.925,
+     "gaa": 2.36,
+     "so": 0,
+     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3859.jpg"
+    },
+    {
+     "id": 3767,
+     "name": "Louca Connolly",
+     "team": "TRU",
+     "number": 35,
+     "gp": 5,
+     "w": 5,
+     "l": 0,
+     "sv_pct": 0.891,
+     "gaa": 2.8,
+     "so": 0,
+     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3767.jpg"
+    },
+    {
+     "id": 3766,
+     "name": "Brandon Lavoie",
+     "team": "AMH",
+     "number": 29,
+     "gp": 8,
+     "w": 3,
+     "l": 4,
+     "sv_pct": 0.923,
+     "gaa": 3.21,
+     "so": 0,
+     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3766.jpg"
+    },
+    {
+     "id": 3231,
+     "name": "Niko Boudreau",
+     "team": "WKS",
+     "number": 31,
+     "gp": 7,
+     "w": 4,
+     "l": 3,
+     "sv_pct": 0.898,
+     "gaa": 3.24,
+     "so": 0,
+     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3231.jpg"
+    }
+   ],
+   "wins": [
+    {
+     "id": 3767,
+     "name": "Louca Connolly",
+     "team": "TRU",
+     "number": 35,
+     "gp": 5,
+     "w": 5,
+     "l": 0,
+     "sv_pct": 0.891,
+     "gaa": 2.8,
+     "so": 0,
+     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3767.jpg"
+    },
+    {
+     "id": 3859,
+     "name": "Jack Bell",
+     "team": "VAL",
+     "number": 29,
+     "gp": 5,
+     "w": 4,
+     "l": 0,
+     "sv_pct": 0.925,
+     "gaa": 2.36,
+     "so": 0,
+     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3859.jpg"
+    },
+    {
+     "id": 3231,
+     "name": "Niko Boudreau",
+     "team": "WKS",
+     "number": 31,
+     "gp": 7,
+     "w": 4,
+     "l": 3,
+     "sv_pct": 0.898,
+     "gaa": 3.24,
+     "so": 0,
+     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3231.jpg"
+    },
+    {
+     "id": 3114,
+     "name": "Olivier St-Onge",
+     "team": "EDM",
+     "number": 33,
+     "gp": 4,
+     "w": 3,
+     "l": 1,
+     "sv_pct": 0.92,
+     "gaa": 2.25,
+     "so": 0,
+     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3114.jpg"
+    },
+    {
+     "id": 3766,
+     "name": "Brandon Lavoie",
+     "team": "AMH",
+     "number": 29,
+     "gp": 8,
+     "w": 3,
+     "l": 4,
+     "sv_pct": 0.923,
+     "gaa": 3.21,
+     "so": 0,
+     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3766.jpg"
+    }
+   ],
+   "min_gp": 3
+  },
+  "ramblers_ranks": {
+   "points": [
+    {
+     "id": 3756,
+     "name": "Zach Wheeler",
+     "rank": 16,
+     "value": 10
+    },
+    {
+     "id": 3867,
+     "name": "Brock Lyons",
+     "rank": 34,
+     "value": 8
+    },
+    {
+     "id": 2794,
+     "name": "Coen Miller",
+     "rank": 46,
+     "value": 7
+    }
+   ],
+   "goals": [
+    {
+     "id": 3756,
+     "name": "Zach Wheeler",
+     "rank": 13,
+     "value": 5
+    },
+    {
+     "id": 2794,
+     "name": "Coen Miller",
+     "rank": 27,
+     "value": 4
+    },
+    {
+     "id": 3867,
+     "name": "Brock Lyons",
+     "rank": 43,
+     "value": 3
+    }
+   ],
+   "assists": [
+    {
+     "id": 3756,
+     "name": "Zach Wheeler",
+     "rank": 30,
+     "value": 5
+    },
+    {
+     "id": 3867,
+     "name": "Brock Lyons",
+     "rank": 37,
+     "value": 5
+    },
+    {
+     "id": 4025,
+     "name": "Jonathan Lau",
+     "rank": 42,
+     "value": 5
+    }
+   ]
+  }
+ },
+ "milestones_near": [
+  {
+   "id": 3187,
+   "name": "Hudson Bradley",
+   "number": 30,
+   "stat": "career MHL games",
+   "current": 24,
+   "milestone": 25,
+   "needs": 1,
+   "scope": "MHL regular season"
+  },
+  {
+   "id": 3562,
+   "name": "Elliot Wright",
+   "number": 13,
+   "stat": "career MHL points",
+   "current": 48,
+   "milestone": 50,
+   "needs": 2,
+   "scope": "MHL regular season"
+  },
+  {
+   "id": 3562,
+   "name": "Elliot Wright",
+   "number": 13,
+   "stat": "career MHL goals",
+   "current": 23,
+   "milestone": 25,
+   "needs": 2,
+   "scope": "MHL regular season"
+  },
+  {
+   "id": 2794,
+   "name": "Coen Miller",
+   "number": 16,
+   "stat": "career MHL goals",
+   "current": 47,
+   "milestone": 50,
+   "needs": 3,
+   "scope": "MHL regular season"
+  },
+  {
+   "id": 3545,
+   "name": "Christian White",
+   "number": 4,
+   "stat": "career MHL goals",
+   "current": 7,
+   "milestone": 10,
+   "needs": 3,
+   "scope": "MHL regular season"
+  },
+  {
+   "id": 2760,
+   "name": "Darien Reynolds",
+   "number": 18,
+   "stat": "career MHL points",
+   "current": 22,
+   "milestone": 25,
+   "needs": 3,
+   "scope": "MHL regular season"
+  }
+ ],
+ "streaks": {
+  "note": "Season-best consecutive-game streaks (HockeyTech streaks_player). games = streak length; active = feed says to=\"present\".",
+  "goal_streaks": [
+   {
+    "kind": "goals",
+    "id": 3814,
+    "name": "Callum Aucoin",
+    "team": "TRU",
+    "games": 4,
+    "g": 6,
+    "a": 3,
+    "pts": 9,
+    "from": "Sep 11, 2026",
+    "to": "Sep 18, 2026",
+    "active": false,
+    "ramblers": false
+   },
+   {
+    "kind": "goals",
+    "id": 4111,
+    "name": "Jacob Lachance",
+    "team": "MIR",
+    "games": 4,
+    "g": 5,
+    "a": 4,
+    "pts": 9,
+    "from": "Sep 20, 2026",
+    "to": "Sep 30, 2026",
+    "active": false,
+    "ramblers": false
+   },
+   {
+    "kind": "goals",
+    "id": 3904,
+    "name": "Justin Ouellette",
+    "team": "SWC",
+    "games": 4,
+    "g": 5,
+    "a": 3,
+    "pts": 8,
+    "from": "Sep 20, 2026",
+    "to": "Oct  2, 2026",
+    "active": false,
+    "ramblers": false
+   },
+   {
+    "kind": "goals",
+    "id": 3152,
+    "name": "Neka Jean",
+    "team": "CAM",
+    "games": 4,
+    "g": 5,
+    "a": 1,
+    "pts": 6,
+    "from": "Sep 20, 2026",
+    "to": "Oct  2, 2026",
+    "active": false,
+    "ramblers": false
+   },
+   {
+    "kind": "goals",
+    "id": 3993,
+    "name": "Tanner Hayden",
+    "team": "PCC",
+    "games": 4,
+    "g": 5,
+    "a": 0,
+    "pts": 5,
+    "from": "Sep 26, 2026",
+    "to": "Oct  1, 2026",
+    "active": false,
+    "ramblers": false
+   },
+   {
+    "kind": "goals",
+    "id": 3150,
+    "name": "Jonah Leard",
+    "team": "GFR",
+    "games": 4,
+    "g": 4,
+    "a": 1,
+    "pts": 5,
+    "from": "Sep 19, 2026",
+    "to": "Sep 27, 2026",
+    "active": false,
+    "ramblers": false
+   },
+   {
+    "kind": "goals",
+    "id": 3022,
+    "name": "Michael Arsenault",
+    "team": "EDM",
+    "games": 3,
+    "g": 5,
+    "a": 4,
+    "pts": 9,
+    "from": "Sep 19, 2026",
+    "to": "Sep 25, 2026",
+    "active": false,
+    "ramblers": false
+   },
+   {
+    "kind": "goals",
+    "id": 3569,
+    "name": "William Labranche",
+    "team": "EDM",
+    "games": 3,
+    "g": 4,
+    "a": 4,
+    "pts": 8,
+    "from": "Sep 25, 2026",
+    "to": "present",
+    "active": true,
+    "ramblers": false
+   }
+  ],
+  "point_streaks": [
+   {
+    "kind": "points",
+    "id": 4109,
+    "name": "Etienne Dupere",
+    "team": "VAL",
+    "games": 9,
+    "g": 6,
+    "a": 8,
+    "pts": 14,
+    "from": "Sep 11, 2026",
+    "to": "Oct  3, 2026",
+    "active": false,
+    "ramblers": false
+   },
+   {
+    "kind": "points",
+    "id": 3790,
+    "name": "Charles-Olivier Giguère",
+    "team": "MIR",
+    "games": 7,
+    "g": 4,
+    "a": 6,
+    "pts": 10,
+    "from": "Sep 17, 2026",
+    "to": "present",
+    "active": true,
+    "ramblers": false
+   },
+   {
+    "kind": "points",
+    "id": 3923,
+    "name": "Tyler Wood",
+    "team": "WKS",
+    "games": 7,
+    "g": 5,
+    "a": 4,
+    "pts": 9,
+    "from": "Sep 11, 2026",
+    "to": "Sep 25, 2026",
+    "active": false,
+    "ramblers": false
+   },
+   {
+    "kind": "points",
+    "id": 3993,
+    "name": "Tanner Hayden",
+    "team": "PCC",
+    "games": 7,
+    "g": 5,
+    "a": 3,
+    "pts": 8,
+    "from": "Sep 17, 2026",
+    "to": "present",
+    "active": true,
+    "ramblers": false
+   },
+   {
+    "kind": "points",
+    "id": 3839,
+    "name": "Charles-Éric Tremblay",
+    "team": "EDM",
+    "games": 6,
+    "g": 3,
+    "a": 11,
+    "pts": 14,
+    "from": "Sep 11, 2026",
+    "to": "present",
+    "active": true,
+    "ramblers": false
+   },
+   {
+    "kind": "points",
+    "id": 3814,
+    "name": "Callum Aucoin",
+    "team": "TRU",
+    "games": 6,
+    "g": 6,
+    "a": 6,
+    "pts": 12,
+    "from": "Sep 11, 2026",
+    "to": "present",
+    "active": true,
+    "ramblers": false
+   },
+   {
+    "kind": "points",
+    "id": 4111,
+    "name": "Jacob Lachance",
+    "team": "MIR",
+    "games": 6,
+    "g": 5,
+    "a": 7,
+    "pts": 12,
+    "from": "Sep 20, 2026",
+    "to": "present",
+    "active": true,
+    "ramblers": false
+   },
+   {
+    "kind": "points",
+    "id": 3597,
+    "name": "Noah Larochelle",
+    "team": "EDM",
+    "games": 6,
+    "g": 5,
+    "a": 6,
+    "pts": 11,
+    "from": "Sep 11, 2026",
+    "to": "present",
+    "active": true,
+    "ramblers": false
+   }
+  ],
+  "ramblers": [
+   {
+    "kind": "goals",
+    "id": 3756,
+    "name": "Zach Wheeler",
+    "team": "AMH",
+    "games": 3,
+    "g": 5,
+    "a": 2,
+    "pts": 7,
+    "from": "Sep 12, 2026",
+    "to": "Sep 19, 2026",
+    "active": false,
+    "ramblers": true
+   },
+   {
+    "kind": "goals",
+    "id": 3562,
+    "name": "Elliot Wright",
+    "team": "AMH",
+    "games": 3,
+    "g": 3,
+    "a": 3,
+    "pts": 6,
+    "from": "Sep 12, 2026",
+    "to": "Sep 19, 2026",
+    "active": false,
+    "ramblers": true
+   },
+   {
+    "kind": "points",
+    "id": 3756,
+    "name": "Zach Wheeler",
+    "team": "AMH",
+    "games": 5,
+    "g": 5,
+    "a": 4,
+    "pts": 9,
+    "from": "Sep 10, 2026",
+    "to": "Sep 20, 2026",
+    "active": false,
+    "ramblers": true
+   }
+  ],
+  "team_streaks": [
+   {
+    "team": "Truro Bearcats",
+    "longest_win": 6,
+    "win_from": "Sep 11/26",
+    "win_to": "Oct 3/26",
+    "longest_losing": null,
+    "longest_undefeated": 6
+   },
+   {
+    "team": "Edmundston Blizzard",
+    "longest_win": 5,
+    "win_from": "Sep 19/26",
+    "win_to": "Oct 2/26",
+    "longest_losing": 1,
+    "longest_undefeated": 5
+   },
+   {
+    "team": "Miramichi Timberwolves",
+    "longest_win": 4,
+    "win_from": "Sep 20/26",
+    "win_to": "Sep 30/26",
+    "longest_losing": 3,
+    "longest_undefeated": 4
+   },
+   {
+    "team": "Summerside Western Capitals",
+    "longest_win": 4,
+    "win_from": "Sep 20/26",
+    "win_to": "Oct 2/26",
+    "longest_losing": 2,
+    "longest_undefeated": 4
+   },
+   {
+    "team": "Amherst Ramblers",
+    "longest_win": 3,
+    "win_from": "Sep 12/26",
+    "win_to": "Sep 19/26",
+    "longest_losing": 4,
+    "longest_undefeated": 3
+   },
+   {
+    "team": "Valley Wildcats",
+    "longest_win": 3,
+    "win_from": "Sep 27/26",
+    "win_to": "Oct 1/26",
+    "longest_losing": 1,
+    "longest_undefeated": 3
+   },
+   {
+    "team": "West Kent Steamers",
+    "longest_win": 3,
+    "win_from": "Sep 17/26",
+    "win_to": "Sep 24/26",
+    "longest_losing": 3,
+    "longest_undefeated": 3
+   },
+   {
+    "team": "Chaleur Lightning",
+    "longest_win": 2,
+    "win_from": "Sep 12/26",
+    "win_to": "Sep 19/26",
+    "longest_losing": 3,
+    "longest_undefeated": 2
+   },
+   {
+    "team": "Yarmouth Mariners",
+    "longest_win": 1,
+    "win_from": "Sep 13/26",
+    "win_to": "Sep 13/26",
+    "longest_losing": 3,
+    "longest_undefeated": 1
+   },
+   {
+    "team": "Pictou County Weeks Crushers",
+    "longest_win": 1,
+    "win_from": "Sep 10/26",
+    "win_to": "Sep 10/26",
+    "longest_losing": 6,
+    "longest_undefeated": 1
+   },
+   {
+    "team": "Campbellton Tigers",
+    "longest_win": 1,
+    "win_from": "Sep 11/26",
+    "win_to": "Sep 11/26",
+    "longest_losing": 3,
+    "longest_undefeated": 1
+   },
+   {
+    "team": "Grand Falls Rapids",
+    "longest_win": 1,
+    "win_from": "Sep 13/26",
+    "win_to": "Sep 13/26",
+    "longest_losing": 3,
+    "longest_undefeated": 1
+   }
+  ],
+  "current_team_streak": "0-3-0-1"
+ },
+ "sources": [
+  "modulekit teamsbyseason/schedule/statviewtype",
+  "statviewfeed gameSummary/gameCenterPreview/player/players/teams/streaks_player/streaks_team",
+  "feed=gc gamesummary/preview"
+ ],
+ "copyright": "Official statistics provided by Maritime Hockey League. Powered by HockeyTech.com"
+}
