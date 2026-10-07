@@ -81,7 +81,7 @@ test('required failure after schedule acquisition preserves all previously publi
   const tmp = await fs.mkdtemp(path.join(os.tmpdir(), 'central-metadata-'));
   try {
     await fs.mkdir(path.join(tmp, 'scripts'));
-    for (const name of ['build_all.mjs', 'hockeytech.mjs', 'schedules.mjs', 'standings.mjs', 'rosters.mjs', 'games.mjs', 'league_stats.mjs', 'ccmha.mjs', 'snap_standings.mjs']) {
+    for (const name of ['build_all.mjs', 'hockeytech.mjs', 'schedules.mjs', 'ics.mjs', 'standings.mjs', 'rosters.mjs', 'games.mjs', 'league_stats.mjs', 'ccmha.mjs', 'snap_standings.mjs']) {
       await fs.copyFile(new URL('scripts/' + name, root), path.join(tmp, 'scripts', name));
     }
     await fs.cp(new URL('config/', root), path.join(tmp, 'config'), { recursive: true });
