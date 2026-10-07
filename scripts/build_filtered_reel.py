@@ -26,6 +26,7 @@ sys.path.insert(0, str(REPO_ROOT))
 import config  # noqa: E402
 from drive_api import ensure_folder, get_drive_service, resolve_folder_path, upsert_file  # noqa: E402
 from drive_config import build_program_drive_layout, resolve_drive_config  # noqa: E402
+from season import season_label  # noqa: E402
 from highlight_extractor import HighlightPipeline  # noqa: E402
 from highlight_extractor.amherst_integration import AmherstBoxScoreProvider  # noqa: E402
 from highlight_extractor.file_manager import FileManager  # noqa: E402
@@ -443,7 +444,7 @@ def resolve_drive_section_path(section: str) -> str:
     drive_cfg = resolve_drive_config()
     league = str(os.environ.get("HIGHLIGHTS_PROGRAM_LEAGUE") or "MHL").strip() or "MHL"
     team = str(os.environ.get("HIGHLIGHTS_PROGRAM_TEAM") or "Amherst Ramblers").strip() or "Amherst Ramblers"
-    season = str(os.environ.get("HIGHLIGHTS_PROGRAM_SEASON") or "2025-26").strip() or "2025-26"
+    season = str(os.environ.get("HIGHLIGHTS_PROGRAM_SEASON") or "").strip() or season_label()
     root_path = str(os.environ.get("HIGHLIGHTS_PROGRAM_ROOT_PATH") or "").strip()
     root_folder = root_path.split("/", 1)[0] if root_path else "Programs"
     layout = build_program_drive_layout(league=league, team=team, season=season, root_folder=root_folder)

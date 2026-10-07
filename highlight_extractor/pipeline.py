@@ -300,6 +300,28 @@ class HighlightPipeline:
         event["match_unreliable"] = False
         event.pop("match_unreliable_reason", None)
 
+    def _locate_goals_by_vision(self, matched_events: List[Dict]) -> None:
+        """Place goals the scorebug couldn't time (frozen bug) from the broadcast itself."""
+        pending = [
+            e for e in matched_events
+            if str(e.get("type") or "").strip().lower() == "goal"
+            and str(e.get("refined_by") or "").strip().lower() not in {"clock_stop", "manual_source_review"}
+        ]
+        if not pending:
+            return
+        import goal_locator
+
+        report = goal_locator.locate_goals(
+            str(self.video_path),
+            pending,
+            self.video_timestamps,
+            lambda g: self.event_matcher._event_time_to_remaining_seconds(g.get("period"), g.get("time", "00:00")),
+        )
+        data_dir = (self.game_folders or {}).get("data_dir")
+        if data_dir:
+            with open(Path(data_dir) / "goal_locator.json", "w") as f:
+                json.dump(report, f, indent=2)
+
     def _finalize_goal_timing_verification(self, matched_events: List[Dict]) -> None:
         """
         Make goal timing status explicit.
@@ -316,6 +338,13 @@ class HighlightPipeline:
             if refined_by == "manual_source_review":
                 event["goal_clock_verified"] = True
                 event["goal_timing_source"] = "manual_source_review"
+                self._clear_event_unreliable(event)
+                continue
+
+            if refined_by == "vision_celebration":
+                # Timed from the celebration, not the clock: placed, but not clock-verified.
+                event["goal_clock_verified"] = False
+                event["goal_timing_source"] = "vision_celebration"
                 self._clear_event_unreliable(event)
                 continue
 
@@ -1089,6 +1118,12 @@ class HighlightPipeline:
         else:
             logger.info("Skipping local OCR refinement")
 
+        if getattr(self.config, "GOAL_VISION_LOCATOR", True):
+            try:
+                self._locate_goals_by_vision(self.matched_events)
+            except Exception as e:  # best-effort; never block highlights on it
+                logger.warning(f"Vision goal locator failed: {e}")
+
         self._finalize_goal_timing_verification(self.matched_events)
 
         # Filter to only events with successful matches
@@ -1709,7 +1744,13 @@ class HighlightPipeline:
         clip_before = float(before_seconds)
         clip_after = float(after_seconds)
 
-        if refined_by in {"clock_stop", "manual_source_review"}:
+        if refined_by == "vision_celebration":
+            clip_before = max(
+                clip_before,
+                float(getattr(self.config, "GOAL_CLOCK_STOP_BEFORE_SECONDS", 32.0) or 32.0),
+            )
+            clip_after = float(getattr(self.config, "GOAL_VISION_AFTER_SECONDS", 10.0) or 10.0)
+        elif refined_by in {"clock_stop", "manual_source_review"}:
             clip_before = max(
                 clip_before,
                 float(getattr(self.config, "GOAL_CLOCK_STOP_BEFORE_SECONDS", 32.0) or 32.0),
@@ -1760,6 +1801,43 @@ class HighlightPipeline:
                 clip_after += abs(float(projection_delta))
 
         return (float(clip_before), float(clip_after))
+
+    # Shootout attempts are not box-score goals, so a shootout gets one clip spanning the
+    # whole shootout: from the end of overtime (scorebug reads OT 0:00) to the last sample
+    # still showing OT 0:00, capped. HockeyTech's "SO" status lags the broadcast by minutes,
+    # so the scorebug is the start signal, not the game status.
+    SHOOTOUT_LEAD_SECONDS = 10.0
+    SHOOTOUT_TAIL_SECONDS = 20.0
+    SHOOTOUT_MIN_SECONDS = 180.0
+    SHOOTOUT_MAX_SECONDS = 720.0
+
+    def _shootout_event(self) -> Optional[Dict]:
+        if not (self.game_info and getattr(self.game_info, "shootout", False)):
+            return None
+        ot_zero = sorted(
+            float(ts["video_time"])
+            for ts in (self.video_timestamps or [])
+            if ts.get("video_time") is not None
+            and int(ts.get("period") or 0) == 4
+            and int(ts.get("game_time_seconds") if ts.get("game_time_seconds") is not None else -1) == 0
+        )
+        if not ot_zero:
+            logger.warning("Game went to a shootout but no OT 0:00 scorebug samples were found; no shootout clip")
+            return None
+        start = ot_zero[0]
+        end = ot_zero[-1] + self.SHOOTOUT_TAIL_SECONDS
+        length = min(max(end - start, self.SHOOTOUT_MIN_SECONDS), self.SHOOTOUT_MAX_SECONDS)
+        logger.info("Shootout clip: %.0fs from video %.0fs (end of OT)", length, start)
+        return {
+            "type": "shootout",
+            "period": 5,
+            "time": "0:00",
+            "team": "",
+            "description": "Shootout",
+            "video_time": start,
+            "before_seconds": self.SHOOTOUT_LEAD_SECONDS,
+            "after_seconds": length,
+        }
 
     def _step6_create_clips(
         self,
@@ -1936,6 +2014,10 @@ class HighlightPipeline:
             final_events.extend(all_penalty_events)
             final_events.sort(key=self._event_sort_key)
             inserted_penalty_clips = len(all_penalty_events)
+
+        shootout = self._shootout_event()
+        if shootout is not None:
+            final_events.append(shootout)
 
         logger.info(
             "Creating %s highlight clips (%s inserted penalty clips + %s goal clips)...",

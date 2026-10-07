@@ -678,6 +678,9 @@ class EventMatcher:
         self.config = config
         self.scoreboard_health: Optional[ScoreboardHealth] = None
         self.clock_rules = game_clock_rules_from_context()
+        # Game time (seconds since puck drop) the scorebug showed when the recording's
+        # readings begin; 0 for a recording that starts at the 1st. Set by normalization.
+        self.recording_start_game_seconds = 0.0
 
     def set_game_context(self, game_context: Optional[Dict] = None) -> None:
         """Install game-specific clock rules (playoff vs regular season OT)."""
@@ -1010,15 +1013,10 @@ class EventMatcher:
             if ts.get('period') == event_period
         ]
 
-        minimum_video_time = self.minimum_video_time_for_event(
-            event,
+        period_timestamps = self._apply_min_video_time_guard(
+            event, event_seconds, period_timestamps, tolerance_seconds,
             recording_game_start_time=recording_game_start_time,
         )
-        if minimum_video_time is not None:
-            period_timestamps = [
-                ts for ts in period_timestamps
-                if float(ts.get("video_time", -1.0) or -1.0) >= minimum_video_time
-            ]
 
         if not period_timestamps:
             # Try interpolation if we have timestamps before and after this period
@@ -1087,15 +1085,10 @@ class EventMatcher:
             if ts.get('period') == event_period
         ]
 
-        minimum_video_time = self.minimum_video_time_for_event(
-            event,
+        period_timestamps = self._apply_min_video_time_guard(
+            event, event_seconds, period_timestamps, tolerance_seconds,
             recording_game_start_time=recording_game_start_time,
         )
-        if minimum_video_time is not None:
-            period_timestamps = [
-                ts for ts in period_timestamps
-                if float(ts.get("video_time", -1.0) or -1.0) >= minimum_video_time
-            ]
 
         if not period_timestamps:
             # Try interpolation if we have timestamps before and after this period
@@ -1219,16 +1212,10 @@ class EventMatcher:
                         f"Interpolated P{event_period} {event_time} to {interpolated_time:.1f}s"
                     )
                     return interpolated_time
+                return before['video_time']  # a reading at exactly the event time
 
-            # If only before or after exists, use that
-            if before:
-                logger.debug(f"Using nearest timestamp before event: {before['video_time']:.1f}s")
-                return before['video_time']
-
-            if after:
-                logger.debug(f"Using nearest timestamp after event: {after['video_time']:.1f}s")
-                return after['video_time']
-
+            # Only one side: the event is outside what the recording covers (joined late or
+            # ended early). Clamping to the edge would clip the wrong moment, so report no match.
             return None
 
         except Exception as e:
@@ -1269,6 +1256,41 @@ class EventMatcher:
         """Public wrapper for event time → remaining seconds conversion."""
         return self._event_time_to_remaining_seconds(period, time_str)
 
+    def _min_video_time_buffer_seconds(self) -> float:
+        try:
+            buffer_seconds = float(getattr(self.config, "EVENT_MIN_VIDEO_TIME_BUFFER_SECONDS", 240.0) or 240.0)
+        except Exception:
+            buffer_seconds = 240.0
+        return max(0.0, buffer_seconds)
+
+    def _apply_min_video_time_guard(
+        self,
+        event: Dict,
+        event_seconds: int,
+        period_timestamps: List[Dict],
+        tolerance_seconds: float,
+        *,
+        recording_game_start_time: Optional[float] = None,
+    ) -> List[Dict]:
+        minimum_video_time = self.minimum_video_time_for_event(
+            event,
+            recording_game_start_time=recording_game_start_time,
+        )
+        if minimum_video_time is None:
+            return period_timestamps
+
+        def after(limit: float) -> List[Dict]:
+            return [ts for ts in period_timestamps if float(ts.get("video_time", -1.0) or -1.0) >= limit]
+
+        guarded = after(minimum_video_time)
+        if any(abs(event_seconds - int(ts.get("game_time_seconds", 0) or 0)) <= tolerance_seconds for ts in guarded):
+            return guarded
+        # The guard assumes the clock ran at real speed from the detected start. A Flo
+        # operator who un-freezes a stuck clock jumps it ahead (09-24: 20:00 held for ten
+        # minutes of play), so real readings land before the guard. Warm-up clocks all run
+        # before the start, so a start-only guard still rejects them.
+        return after(max(0.0, float(recording_game_start_time) - self._min_video_time_buffer_seconds()))
+
     def minimum_video_time_for_event(
         self,
         event: Dict,
@@ -1278,8 +1300,8 @@ class EventMatcher:
         """
         Return the earliest plausible video timestamp for an event.
 
-        For recorded full-game inputs, a goal at P1 15:21 cannot happen before
-        15:21 of *game elapsed* time after puck drop. This guard rejects warmup
+        A goal at P1 15:21 cannot happen before 15:21 of *game elapsed* time after puck
+        drop (measured from the game time shown when the recording's readings begin). This guard rejects warmup
         samples that happen to show the same period/clock later used in-game.
         """
         if recording_game_start_time is None:
@@ -1304,13 +1326,13 @@ class EventMatcher:
         except Exception:
             return None
 
-        try:
-            buffer_seconds = float(getattr(self.config, "EVENT_MIN_VIDEO_TIME_BUFFER_SECONDS", 240.0) or 240.0)
-        except Exception:
-            buffer_seconds = 240.0
-        buffer_seconds = max(0.0, buffer_seconds)
+        buffer_seconds = self._min_video_time_buffer_seconds()
 
-        return max(0.0, start_time + absolute_game_seconds - buffer_seconds)
+        # Measure from the game time on screen when the recording's readings begin, so a
+        # recording that joins mid-game (09-16 joined in the 1st intermission) isn't held
+        # to a full 1st period of video before its 2nd-period events.
+        elapsed_since_start = max(0.0, absolute_game_seconds - float(self.recording_start_game_seconds or 0.0))
+        return max(0.0, start_time + elapsed_since_start - buffer_seconds)
 
     def _time_to_seconds(self, time_str: str) -> int:
         """
@@ -1400,6 +1422,42 @@ class EventMatcher:
 
         return matched_goals
 
+    @staticmethod
+    def _initial_period(sorted_ts: List[Dict], window: int = 12, min_votes: int = 3) -> int:
+        """Most common OCR period among the first readings, or 1 without a clear majority."""
+        votes: Dict[int, int] = {}
+        for ts in sorted_ts[:window]:
+            try:
+                period = int(ts.get('period') or 0)
+            except (TypeError, ValueError):
+                continue
+            if period >= 1:
+                votes[period] = votes.get(period, 0) + 1
+        if not votes:
+            return 1
+        period, count = max(votes.items(), key=lambda kv: kv[1])
+        return period if count >= min_votes and count * 2 > sum(votes.values()) else 1
+
+    @staticmethod
+    def _jump_confirmed(sorted_ts: List[Dict], index: int, new_remaining: int, slack: float,
+                        lookahead: int = 4, needed: int = 3) -> bool:
+        """
+        True when the readings right after a forward clock jump keep counting down from the
+        new value. A lone fast-forward is a misread; one the following readings agree with is
+        a Flo operator catching a frozen clock up (09-12: 15:24 -> 5:17), and discarding it
+        would throw away the rest of the period.
+        """
+        start = sorted_ts[index]
+        agree = 0
+        for ts in sorted_ts[index + 1:index + 1 + lookahead]:
+            remaining = ts.get('game_time_seconds')
+            if remaining is None or ts.get('video_time') is None:
+                continue
+            elapsed = float(ts['video_time']) - float(start['video_time'])
+            if new_remaining - elapsed - slack <= int(remaining) <= new_remaining + slack:
+                agree += 1
+        return agree >= needed
+
     def _normalize_video_timestamps(
         self,
         video_timestamps: List[Dict],
@@ -1433,7 +1491,9 @@ class EventMatcher:
         sorted_ts = sorted(video_timestamps, key=lambda t: t.get('video_time', 0))
         normalized = []
 
-        current_period = 1
+        # A recording can join mid-game (late start, restart after a crash), so start from
+        # the period the scorebug shows at the beginning instead of assuming the 1st.
+        current_period = self._initial_period(sorted_ts)
         last_time_remaining = None
         last_video_time = None
         last_confidence = None
@@ -1443,7 +1503,7 @@ class EventMatcher:
         # period transition (0:00 → 20:00) and shift all periods by +1.
         seen_near_start_in_period = False
 
-        for ts in sorted_ts:
+        for index, ts in enumerate(sorted_ts):
             video_time = ts.get('video_time')
             if video_time is None:
                 continue
@@ -1487,7 +1547,9 @@ class EventMatcher:
                 if last_video_time is not None and video_time > last_video_time:
                     dt = video_time - last_video_time
                     clock_drop = last_time_remaining - time_remaining
-                    if clock_drop > (dt + max_rate_slack_seconds):
+                    if clock_drop > (dt + max_rate_slack_seconds) and not self._jump_confirmed(
+                        sorted_ts, index, time_remaining, max_rate_slack_seconds
+                    ):
                         norm_logger.add_entry(NormalizationLogEntry(
                             video_time=video_time,
                             original_period=ts_period,
@@ -1639,6 +1701,11 @@ class EventMatcher:
         # Write normalization logs
         norm_logger.write_logs()
 
+        if normalized:
+            self.recording_start_game_seconds = float(min(
+                self._event_to_absolute_time(int(t['period']), int(t['game_time_seconds']))
+                for t in normalized[:5]
+            ))
         return normalized
 
     def filter_events_by_type(

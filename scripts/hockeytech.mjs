@@ -69,7 +69,10 @@ export function statView(view, params = {}) {
 export function validateSeasons(rows, settings = config) {
   for (const id of settings.season_ids) {
     const season = rows.find(row => String(row.season_id) === id);
-    if (!season || !String(season.start_date).startsWith(settings.season_label.slice(0, 4)) ||
+    // Playoff seasons start in the label's second calendar year (2026-27 playoffs start in 2027).
+    const startYear = Number(settings.season_label.slice(0, 4));
+    const seasonYear = Number(String(season?.start_date).slice(0, 4));
+    if (!season || ![startYear, startYear + 1].includes(seasonYear) ||
         !String(season.season_name).includes(settings.season_label)) throw new Error(`HockeyTech season ${id} does not match ${settings.season_label}`);
   }
 }

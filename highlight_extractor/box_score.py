@@ -22,6 +22,16 @@ from .time_utils import time_string_to_seconds
 logger = logging.getLogger(__name__)
 
 
+def _current_mhl_season_id() -> Optional[str]:
+    """First season id from config/hockeytech.json; None lets HockeyTech pick its default."""
+    try:
+        from season import season_ids
+        ids = season_ids()
+        return ids[0] if ids else None
+    except Exception:
+        return None
+
+
 class BoxScoreFetcher:
     """Fetches box score data from HockeyTech API"""
 
@@ -33,7 +43,7 @@ class BoxScoreFetcher:
         'MHL': {
             'client_code': 'mhl',
             'league_id': '1',
-            'season_id': None  # Will be determined dynamically
+            'season_id': _current_mhl_season_id(),
         },
         'BSHL': {
             'client_code': 'bshl',
