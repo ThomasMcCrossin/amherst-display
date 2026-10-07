@@ -91,6 +91,7 @@ def main() -> int:
             time_str=canonical_game_info["time"],
         )
         game_dir = Path(folders["game_dir"])
+        print(f"{game_date}: syncing {video_path.name} -> {game_dir}", flush=True)
         url = sync_local_game_archive_to_drive(
             game_dir=game_dir,
             source_video=video_path,

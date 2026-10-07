@@ -29,7 +29,7 @@ from .time_utils import (
     OT_LENGTH_SECONDS,
     period_time_to_absolute_seconds,
 )
-from .penalty_analyzer import analyze_game_penalties, PenaltyInfo
+from .penalty_analyzer import analyze_game_penalties, parse_penalties, PenaltyInfo
 from .description_generator import generate_and_save_description
 from .major_penalty_handler import process_major_penalties, detect_major_penalties
 from .version import __version__ as HIGHLIGHT_EXTRACTOR_VERSION
@@ -368,8 +368,53 @@ class HighlightPipeline:
     def _include_pp_penalty_clips(self) -> bool:
         return self.reel_mode in {"goals_with_pp_penalties", "full_production"}
 
+    def _include_all_penalty_clips(self) -> bool:
+        return self.reel_mode == "goals_with_all_penalties"
+
     def _requires_major_review_workflow(self) -> bool:
         return self.reel_mode in {"goals_with_approved_majors", "full_production"}
+
+    def _build_penalty_event(
+        self,
+        penalty_info: PenaltyInfo,
+        *,
+        before_seconds: float,
+        after_seconds: float,
+        linked_to_goal: Optional[int] = None,
+    ) -> Dict:
+        event = {
+            "type": "penalty",
+            "period": penalty_info.period,
+            "time": penalty_info.time,
+            "time_seconds": penalty_info.time_seconds,
+            "team": penalty_info.team,
+            "video_time": penalty_info.video_time,
+            "before_seconds": before_seconds,
+            "after_seconds": after_seconds,
+            "player": {
+                "name": penalty_info.player_name,
+                "number": penalty_info.player_number,
+            },
+            "infraction": penalty_info.infraction,
+            "minutes": penalty_info.minutes,
+            "is_major": penalty_info.is_major,
+        }
+        if linked_to_goal is not None:
+            event["linked_to_goal"] = linked_to_goal
+        return event
+
+    def _event_sort_key(self, event: Dict) -> tuple:
+        event_type = str(event.get("type") or "").strip().lower()
+        period = int(event.get("period") or 1)
+        time_seconds = event.get("time_seconds")
+        if time_seconds is None:
+            time_seconds = self.event_matcher.event_time_to_remaining_seconds(
+                period, str(event.get("time", "0:00"))
+            )
+        absolute_seconds = self._period_time_to_absolute_seconds(period, int(time_seconds))
+        type_priority = 0 if event_type == "penalty" else 1
+        video_time = float(event.get("video_time") or 0.0)
+        return (absolute_seconds, type_priority, video_time)
 
     def _ensure_ocr_engine(self) -> OCREngine:
         if self.ocr_engine is None:
@@ -500,14 +545,13 @@ class HighlightPipeline:
             goal_legacy_timing_fallback: Allow legacy approximate goal timing fallbacks.
                 Leave unset/False for the normal exact clock-stop rule.
             reel_mode: Reel composition mode (goals_only, goals_with_pp_penalties,
-                goals_with_approved_majors, full_production)
+                goals_with_all_penalties, goals_with_approved_majors, full_production)
             build_reel: Build the per-game stitched highlights reel after creating clips
             build_description: Generate the YouTube description sidecar after processing
 
         Returns:
             PipelineResult with success status and metrics
         """
-        self.reel_mode = self._normalize_reel_mode(reel_mode)
         self._refine_goal_clock = bool(refine_goal_clock)
         self._refine_local_ocr = bool(refine_local_ocr)
         self._goal_legacy_timing_fallback_override = (
@@ -522,6 +566,7 @@ class HighlightPipeline:
         warnings = []
 
         try:
+            self.reel_mode = self._normalize_reel_mode(reel_mode)
             # If the caller pre-created folders (e.g., Drive ingest), attach the per-game logger now.
             self._configure_pipeline_logging()
 
@@ -1747,13 +1792,53 @@ class HighlightPipeline:
         except Exception as e:
             logger.warning(f"Could not clear existing clips: {e}")
 
+        penalties_data = []
+        if self.box_score:
+            penalties_data = (self.box_score.get('SiteKit', {})
+                              .get('Gamesummary', {})
+                              .get('penalties', []))
+
         pp_penalty_map = {}
-        if self._include_pp_penalty_clips():
-            penalties_data = []
-            if self.box_score:
-                penalties_data = (self.box_score.get('SiteKit', {})
-                                  .get('Gamesummary', {})
-                                  .get('penalties', []))
+        all_penalty_events = []
+        if self._include_all_penalty_clips():
+            penalty_before = getattr(
+                self.config,
+                'PENALTY_ALL_BEFORE_SECONDS',
+                getattr(self.config, 'PENALTY_PP_BEFORE_SECONDS', 3.0),
+            )
+            penalty_after = getattr(
+                self.config,
+                'PENALTY_ALL_AFTER_SECONDS',
+                getattr(self.config, 'PENALTY_PP_AFTER_SECONDS', 3.0),
+            )
+            if penalties_data:
+                logger.info(f"Matching {len(penalties_data)} penalties for all-penalty reel mode...")
+                time_is_elapsed = bool(getattr(self.config, 'BOX_SCORE_TIME_IS_ELAPSED', True))
+                for penalty_info in parse_penalties(
+                    penalties_data,
+                    our_team='ramblers',
+                    time_is_elapsed=time_is_elapsed,
+                ):
+                    if penalty_info.video_time is None:
+                        penalty_info.video_time = self._find_penalty_video_time(penalty_info)
+                    if penalty_info.video_time is None:
+                        logger.warning(
+                            "Could not find video time for penalty P%s %s (%s)",
+                            penalty_info.period,
+                            penalty_info.time,
+                            penalty_info.player_name,
+                        )
+                        continue
+                    all_penalty_events.append(
+                        self._build_penalty_event(
+                            penalty_info,
+                            before_seconds=penalty_before,
+                            after_seconds=penalty_after,
+                        )
+                    )
+            else:
+                logger.info("No penalties in box score, skipping all-penalty clip creation")
+        elif self._include_pp_penalty_clips():
             if penalties_data:
                 logger.info(f"Analyzing {len(penalties_data)} penalties for PP goal linking...")
                 time_is_elapsed = bool(getattr(self.config, 'BOX_SCORE_TIME_IS_ELAPSED', True))
@@ -1812,7 +1897,7 @@ class HighlightPipeline:
                         except Exception:
                             pass
         else:
-            logger.info("Skipping PP penalty clip insertion for reel mode '%s'", self.reel_mode)
+            logger.info("Skipping penalty clip insertion for reel mode '%s'", self.reel_mode)
 
         # Build final events list with penalty clips inserted before PP goals
         final_events = []
@@ -1825,23 +1910,12 @@ class HighlightPipeline:
             if i in pp_penalty_map:
                 penalty_info = pp_penalty_map[i]
                 if penalty_info.video_time is not None:
-                    # Create penalty event dict for clip creation
-                    penalty_event = {
-                        'type': 'penalty',
-                        'period': penalty_info.period,
-                        'time': penalty_info.time,
-                        'team': penalty_info.team,
-                        'video_time': penalty_info.video_time,
-                        'before_seconds': penalty_before,
-                        'after_seconds': penalty_after,
-                        'player': {
-                            'name': penalty_info.player_name,
-                            'number': penalty_info.player_number
-                        },
-                        'infraction': penalty_info.infraction,
-                        'minutes': penalty_info.minutes,
-                        'linked_to_goal': i,  # Track which goal this penalty leads to
-                    }
+                    penalty_event = self._build_penalty_event(
+                        penalty_info,
+                        before_seconds=penalty_before,
+                        after_seconds=penalty_after,
+                        linked_to_goal=i,
+                    )
                     final_events.append(penalty_event)
                     inserted_penalty_clips += 1
                     logger.info(f"Adding penalty clip: {penalty_info.player_name} - {penalty_info.infraction} ({penalty_info.minutes} min)")
@@ -1857,6 +1931,11 @@ class HighlightPipeline:
             goal['after_seconds'] = goal_after
 
             final_events.append(goal)
+
+        if self._include_all_penalty_clips():
+            final_events.extend(all_penalty_events)
+            final_events.sort(key=self._event_sort_key)
+            inserted_penalty_clips = len(all_penalty_events)
 
         logger.info(
             "Creating %s highlight clips (%s inserted penalty clips + %s goal clips)...",
@@ -2130,7 +2209,6 @@ class HighlightPipeline:
         logger.info(f"Found {sum(len(g) for g in major_groups)} major penalties in {len(major_groups)} groups")
 
         # Assign video times to major penalties
-        from .penalty_analyzer import parse_penalties
         all_penalties = parse_penalties(penalties_data)
         for penalty in all_penalties:
             if penalty.is_major and penalty.video_time is None:
