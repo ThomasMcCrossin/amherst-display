@@ -136,11 +136,19 @@ EVENT_MIN_VIDEO_TIME_BUFFER_SECONDS = 240.0
 PENALTY_PP_BEFORE_SECONDS = 2.0  # 2 seconds before the penalty call
 PENALTY_PP_AFTER_SECONDS = 3.0   # 3 seconds after (5s total clip)
 
+# Generic all-penalty mode (includes every penalty call in chronological order)
+PENALTY_ALL_BEFORE_SECONDS = 2.0
+PENALTY_ALL_AFTER_SECONDS = 3.0
+
 # Goal clips refined from the scoreboard clock-stop are typically anchored at the
 # whistle/stoppage, not the puck crossing the line. Give them more lead-in so the
 # scoring play is actually visible.
 GOAL_CLOCK_STOP_BEFORE_SECONDS = 32.0
 GOAL_CLOCK_STOP_AFTER_SECONDS = 3.0
+# Goals the clock can't time (frozen Flo bug) are placed from the broadcast's celebration by a
+# vision model (goal_locator.py; needs DEEPSEEK_API_KEY or SCOREBUG_VISION_API_KEY). False disables.
+GOAL_VISION_LOCATOR = True
+GOAL_VISION_AFTER_SECONDS = 10.0
 GOAL_FALLBACK_BEFORE_SECONDS = 20.0
 GOAL_FALLBACK_AFTER_SECONDS = 4.0
 GOAL_OT_BEFORE_SECONDS = 60.0
@@ -177,11 +185,12 @@ DEFAULT_REEL_MODE = "goals_only"
 SUPPORTED_REEL_MODES = (
     "goals_only",
     "goals_with_pp_penalties",
+    "goals_with_all_penalties",
     "goals_with_approved_majors",
     "full_production",
 )
 
-DEFAULT_HIGHLIGHT_EXECUTION_PROFILE = "flohockey_recording"
+DEFAULT_HIGHLIGHT_EXECUTION_PROFILE = "flo_strip_recording"
 HIGHLIGHT_EXECUTION_PROFILES = {
     # Dense, scorebug-first OCR profile for local Flo recordings.
     "flohockey_recording": {
@@ -205,6 +214,42 @@ HIGHLIGHT_EXECUTION_PROFILES = {
         "parallel_ocr": True,
         "ocr_workers": 4,
         "broadcast_type": "flohockey",
+        "auto_detect_start": True,
+        "reel_mode": DEFAULT_REEL_MODE,
+    },
+    # Flo standard MHL strip (default): right-side period/clock block.
+    "flo_strip_recording": {
+        "sample_interval": 5,
+        "tolerance_seconds": 30,
+        "before_seconds": 8.0,
+        "after_seconds": 6.0,
+        "parallel_ocr": True,
+        "ocr_workers": 4,
+        "broadcast_type": "flo_strip",
+        "auto_detect_start": True,
+        "reel_mode": DEFAULT_REEL_MODE,
+    },
+    # 2026-27 Flo two-row top-left box: clock stacked over period.
+    "flo_stacked_recording": {
+        "sample_interval": 5,
+        "tolerance_seconds": 30,
+        "before_seconds": 8.0,
+        "after_seconds": 6.0,
+        "parallel_ocr": True,
+        "ocr_workers": 4,
+        "broadcast_type": "flo_stacked_topleft",
+        "auto_detect_start": True,
+        "reel_mode": DEFAULT_REEL_MODE,
+    },
+    # Flo top-left corner bar with period and clock first.
+    "flo_corner_recording": {
+        "sample_interval": 5,
+        "tolerance_seconds": 30,
+        "before_seconds": 8.0,
+        "after_seconds": 6.0,
+        "parallel_ocr": True,
+        "ocr_workers": 4,
+        "broadcast_type": "flo_corner_period_first",
         "auto_detect_start": True,
         "reel_mode": DEFAULT_REEL_MODE,
     },

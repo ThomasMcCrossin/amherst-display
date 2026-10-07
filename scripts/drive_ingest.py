@@ -1060,6 +1060,7 @@ def _process_one_video(
         "scorebug_profile": profile_selection["scorebug_profile"],
         "scorebug_context": profile_selection["scorebug_context"],
         "highlights_path": result.highlights_path,
+        "reel_mode": pipeline.reel_mode,
         "errors": result.errors,
         "warnings": result.warnings,
         "total_duration_seconds": result.total_duration_seconds,

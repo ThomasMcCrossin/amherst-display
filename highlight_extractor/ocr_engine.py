@@ -31,14 +31,34 @@ from .ocr_backends import TesseractBackend, EasyOcrBackend
 
 logger = logging.getLogger(__name__)
 
+# Scorebug layouts described as boxes in frame fractions (x, y, w, h), read left to right.
+# Each box is cropped separately and the crops are stitched side by side before OCR, so a
+# layout that stacks the period under the clock parses like a one-line "1st 13:03" banner.
+# Adding a new broadcast layout is one entry here plus a ScorebugProfile.
+SCOREBUG_BOX_LAYOUTS: Dict[str, Tuple[Tuple[float, float, float, float], ...]] = {
+    # 2026-27 Flo two-row box, top-left: team rows, SOG column, clock over period at right.
+    "flo_stacked_topleft": (
+        (0.271, 0.134, 0.055, 0.030),  # period ("1st", "1st OT")
+        (0.271, 0.095, 0.055, 0.042),  # clock
+    ),
+    # Flo corner bar, top-left: "2ND | 10:25 | team | score | team | score".
+    "flo_corner_period_first": (
+        (0.036, 0.039, 0.119, 0.053),  # period + clock
+    ),
+}
+
 ROI_PINNED_BROADCAST_TYPES = {
     "flohockey",
+    "flo_strip",
+    *SCOREBUG_BOX_LAYOUTS,
     "yarmouth",
     "mhl_summerside",
     "mhl_amherst",
 }
 FLO_LIKE_BROADCAST_TYPES = {
     "flohockey",
+    "flo_strip",
+    *SCOREBUG_BOX_LAYOUTS,
     "mhl_summerside",
     "mhl_amherst",
 }
@@ -194,6 +214,51 @@ class OCRLogger:
             logger.error(f"Failed to write OCR text log: {e}")
 
 
+def _layout_boxes(layout: str, width: int, height: int) -> List[Tuple[int, int, int, int]]:
+    boxes = []
+    for fx, fy, fw, fh in SCOREBUG_BOX_LAYOUTS[layout]:
+        boxes.append((int(fx * width), int(fy * height), max(1, int(fw * width)), max(1, int(fh * height))))
+    return boxes
+
+
+def _union_box(boxes: List[Tuple[int, int, int, int]]) -> Tuple[int, int, int, int]:
+    x0 = min(b[0] for b in boxes)
+    y0 = min(b[1] for b in boxes)
+    x1 = max(b[0] + b[2] for b in boxes)
+    y1 = max(b[1] + b[3] for b in boxes)
+    return (x0, y0, x1 - x0, y1 - y0)
+
+
+def crop_scoreboard(
+    frame: np.ndarray,
+    roi: Optional[Tuple[int, int, int, int]],
+    broadcast_type: Optional[str] = None,
+) -> Optional[np.ndarray]:
+    """Crop the scorebug; box layouts are cropped per box and stitched left to right."""
+    layout = str(broadcast_type or "").lower()
+    if layout in SCOREBUG_BOX_LAYOUTS:
+        height, width = frame.shape[:2]
+        crops = [frame[y:y + h, x:x + w] for x, y, w, h in _layout_boxes(layout, width, height)]
+        if len(crops) == 1:
+            return crops[0].copy()
+        target_h = max(c.shape[0] for c in crops)
+        scaled = [cv2.resize(c, (max(1, int(c.shape[1] * target_h / c.shape[0])), target_h)) for c in crops]
+        # Pad with the first crop's border colour so the seam doesn't read as a glyph.
+        border = np.concatenate([scaled[0][0], scaled[0][-1]]).reshape(-1, scaled[0].shape[-1])
+        fill = np.median(border, axis=0).astype(scaled[0].dtype)
+        gap = np.full((target_h, max(8, target_h // 3), scaled[0].shape[-1]), fill, dtype=scaled[0].dtype)
+        parts = []
+        for c in scaled:
+            parts.extend([c, gap])
+        return np.hstack(parts[:-1])
+    if roi is None:
+        return None
+    x, y, w, h = roi
+    if w <= 0 or h <= 0:
+        return None
+    return frame[y:y + h, x:x + w].copy()
+
+
 class OCREngine:
     """Extracts time information from video scoreboards"""
 
@@ -306,7 +371,13 @@ class OCREngine:
                 logger.info(f"MHL Summerside ROI: {roi}")
                 return roi
 
-            elif method == 'mhl_amherst':
+            elif method in SCOREBUG_BOX_LAYOUTS:
+                roi = _union_box(_layout_boxes(method, width, height))
+                logger.info(f"{method} ROI: {roi}")
+                return roi
+
+            elif method in ('mhl_amherst', 'flo_strip'):
+                # Flo's standard MHL strip (2025-26 Amherst home, league-wide in 2026-27).
                 # Amherst home broadcasts use a lighter full-width strip. The right
                 # clock block is slightly wider than the Summerside layout.
                 y_start = 0
@@ -446,6 +517,8 @@ class OCREngine:
         ya = self.detect_scoreboard_roi(frame, method="yarmouth")
         if ya is not None:
             rois.append(("yarmouth", ya))
+        for layout in SCOREBUG_BOX_LAYOUTS:
+            rois.append((layout, self.detect_scoreboard_roi(frame, method=layout)))
 
         # Generic candidates (corners + top band).
         roi_h = max(20, int(height * 0.22))
@@ -471,8 +544,7 @@ class OCREngine:
         best = None  # (score, parsed, raw, conf, bt, roi, style, backend)
 
         for bt, candidate_roi in self._candidate_rois(frame):
-            x0, y0, w0, h0 = candidate_roi
-            probe = frame[y0:y0 + h0, x0:x0 + w0]
+            probe = crop_scoreboard(frame, candidate_roi, bt)
 
             preprocess_variants = self._preprocess_variants(
                 probe,
@@ -526,7 +598,8 @@ class OCREngine:
         self,
         frame: np.ndarray,
         roi: Optional[Tuple[int, int, int, int]] = None,
-        broadcast_type: str = 'auto'
+        broadcast_type: str = 'auto',
+        precropped: bool = False,
     ) -> Tuple[Optional[Tuple[int, str]], str, float, str, str, Optional[Tuple[int, int, int, int]], str]:
         """
         Extract game time from video frame, also returning raw OCR metadata for logging.
@@ -561,8 +634,8 @@ class OCREngine:
             if used_roi is None:
                 return None, "", 0.0, "unknown", used_broadcast, None, "standard"
 
-            x, y, w, h = used_roi
-            scoreboard = frame[y:y + h, x:x + w]
+            # Parallel sampling passes the already-cropped (and, for box layouts, stitched) scorebug.
+            scoreboard = frame if precropped else crop_scoreboard(frame, used_roi, used_broadcast)
 
             # Choose preprocess style (cached for auto; otherwise default for broadcast).
             preprocess_style = getattr(self, "_preprocess_style", None)
@@ -1130,7 +1203,7 @@ class OCREngine:
 
             style = str(style or "standard").lower()
 
-            if style in {'flohockey', 'mhl_summerside', 'mhl_amherst'}:
+            if style in FLO_LIKE_BROADCAST_TYPES:
                 # FloHockey: dark text on a light/gray banner. Hard thresholding
                 # can drop punctuation (:) or thin glyphs, producing noisy reads
                 # like "1244" instead of "12:44". Tesseract tends to do better on
@@ -1222,7 +1295,8 @@ class OCREngine:
             return None
 
         # FloHockey-style period tokens. These patterns intentionally allow the colon to be missing:
-        #   "1ST 19:56", "1ST1956", "1ST 19 56"
+        #   "1ST 19:56", "1ST1956", "1ST 19 56". Small-caps Flo period labels also misread as
+        #   "END 9:13" (2nd) and "8RD 9:32" (3rd).
         fh_patterns = [
             (
                 1,
@@ -1230,11 +1304,11 @@ class OCREngine:
             ),
             (
                 2,
-                r"\b[2Z@][ND]{2}[\]\|\)}\-_]*\s*([0-9UO]{1,2})\s*[:\.]?\s*([0-9UO]{2})\b",
+                r"\b[2Z@E][ND]{2}[\]\|\)}\-_]*\s*([0-9UO]{1,2})\s*[:\.]?\s*([0-9UO]{2})\b",
             ),
             (
                 3,
-                r"\b3[RD]{2}[\]\|\)}\-_]*\s*([0-9UO]{1,2})\s*[:\.]?\s*([0-9UO]{2})\b",
+                r"\b[38][RD]{2}[\]\|\)}\-_]*\s*([0-9UO]{1,2})\s*[:\.]?\s*([0-9UO]{2})\b",
             ),
         ]
         for p, pat in fh_patterns:
@@ -1335,15 +1409,11 @@ class OCREngine:
         self,
         frame: np.ndarray,
         roi: Optional[Tuple[int, int, int, int]],
+        broadcast_type: Optional[str] = None,
     ) -> Optional[np.ndarray]:
         """Crop the scorebug directly from the native frame without resizing the full image."""
-        if roi is None:
-            return None
         try:
-            x, y, w, h = roi
-            if w <= 0 or h <= 0:
-                return None
-            return frame[y:y + h, x:x + w].copy()
+            return crop_scoreboard(frame, roi, broadcast_type)
         except Exception:
             return None
 
@@ -1575,7 +1645,7 @@ class OCREngine:
                         frame,
                         broadcast_type=broadcast_type,
                     )
-                    scorebug_crop = self._extract_scorebug_crop(frame, used_roi or self.scoreboard_roi)
+                    scorebug_crop = self._extract_scorebug_crop(frame, used_roi or self.scoreboard_roi, used_broadcast)
                     sharpness_score = self._measure_sharpness(scorebug_crop)
 
                     if result:
@@ -1821,7 +1891,7 @@ class OCREngine:
                     debug_path = debug_dir / f"debug_ocr_frame_{idx:04d}_{sample_time:.1f}s.jpg"
                     self.save_debug_frame(frame, debug_path, pinned_roi)
 
-                crop = self._extract_scorebug_crop(frame, pinned_roi)
+                crop = self._extract_scorebug_crop(frame, pinned_roi, pinned_broadcast)
                 sample_payloads.append(
                     {
                         "idx": idx,
@@ -1857,6 +1927,7 @@ class OCREngine:
                     crop,
                     roi=full_roi,
                     broadcast_type=str(payload.get("broadcast_type") or "standard"),
+                    precropped=True,
                 )
                 return {
                     "video_time": sample_time,

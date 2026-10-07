@@ -1331,7 +1331,7 @@ def main() -> int:
             )
         home, away, home_roster, away_roster = score_cache[score_key]
 
-        if item.segment_kind in {"game_intro", "series_outro"} or clip_type in {"game_intro", "series_outro"}:
+        if item.segment_kind in {"game_intro", "series_outro"} or clip_type in {"game_intro", "series_outro", "shootout"}:
             _render_transparent_overlay_png(overlay_path, (overlay_w, overlay_h))
             overlay_paths.append(overlay_path)
             continue
