@@ -66,3 +66,4 @@ credentials/
 
 # Board bakeoff raw API responses (never commit)
 bakeoff/data/raw/
+bakeoff/node_modules
