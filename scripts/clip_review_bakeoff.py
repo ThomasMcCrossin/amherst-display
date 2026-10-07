@@ -134,9 +134,14 @@ def cmd_sample(a) -> None:
     scale = a.n / sum(want.values())
     want = {k: max(1, round(v * scale)) for k, v in want.items()}
     picked: List[Dict[str, Any]] = []
+    if (a.bake / "sample.json").exists() and not a.fresh:  # top up: keep earlier picks, fill quotas from new games
+        live = {(x["game"], x["incident_id"]) for x in idx}
+        picked = [x for x in jload(a.bake / "sample.json") if (x["game"], x["incident_id"]) in live]
+    have = {(x["game"], x["incident_id"]) for x in picked}
     spare = 0
     for k, n in want.items():
-        pool = by.get(k, [])
+        n -= sum(1 for x in picked if x["stratum"] == k)
+        pool = [x for x in by.get(k, []) if (x["game"], x["incident_id"]) not in have]
         # fights first inside rough: they are the rarest and the most wanted
         if k == "rough":
             fights = [x for x in pool if x["class"] == "fight"]
@@ -147,10 +152,10 @@ def cmd_sample(a) -> None:
         else:
             pool = pool[:]
             rng.shuffle(pool)
-        take = pool[:n]
-        spare += n - len(take)
+        take = pool[:max(0, n)]
+        spare += max(0, n - len(take))
         picked += [dict(x, stratum=k) for x in take]
-    if spare:  # fill shortfalls from the largest goal stratum
+    if spare and a.fill:  # fill shortfalls from the goal strata
         rest = [x for x in idx if (x["game"], x["incident_id"]) not in {(p["game"], p["incident_id"]) for p in picked} and x["kind"] == "goal"]
         rng.shuffle(rest)
         picked += [dict(x, stratum=stratum(x)) for x in rest[:spare]]
@@ -516,6 +521,8 @@ def main() -> int:
     ap.add_argument("--only-game", default="")
     ap.add_argument("--n", type=int, default=40)
     ap.add_argument("--seed", type=int, default=7)
+    ap.add_argument("--fresh", action="store_true", help="sample: discard earlier picks")
+    ap.add_argument("--fill", action="store_true", help="sample: fill strata shortfalls with other goals")
     ap.add_argument("--contestants", default="")
     ap.add_argument("--contestant", action="append", default=[], help="extra contestant name=kind:command")
     ap.add_argument("--run-tag", default="run1")

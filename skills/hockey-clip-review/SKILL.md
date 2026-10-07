@@ -149,8 +149,9 @@ times may be null.
 
 ## Adversary role
 
-You get another reviewer's verdict and contact sheets of the **proposed final clip** (listed in
-`adversary_input.json` in the packet, together with the verdict path). Try to refute it. Read
+You get another reviewer's verdict and contact sheets of the **proposed final clip**, both named
+in the adversary input file your prompt gives you (`verdict_path`, `final_sheets`; no sheets
+when the reviewer dropped the clip or was unsure: then check the coarse sheets). Try to refute it. Read
 `incident.json`, the verdict, the final-clip sheets, and any coarse sheet you need; use
 `frames.py` for more. Look for:
 
@@ -192,6 +193,6 @@ Write `hockey-clip-review/adversary@1` JSON to the path you were given and run
 
 ## Second review
 
-If the packet has `objection.json`, an adversary disputed a first review. Review the incident
+If your prompt names an objection file, an adversary disputed a first review. Review the incident
 fresh as the reviewer, read the objection, check it against the frames yourself (the
 adversary can be wrong too), and answer it in `objection_answer`.
