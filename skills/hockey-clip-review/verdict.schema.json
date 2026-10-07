@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hockey-clip-review/verdict.schema.json",
+  "title": "hockey-clip-review verdicts",
+  "description": "All *_t values are seconds relative to the packet anchor (the labels printed on the frames). check_verdict.py validates this schema plus the invariants in SKILL.md, using the bounds in incident.json.",
+  "$defs": {
+    "time": {"type": ["number", "null"]},
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["t", "what"],
+        "properties": {"t": {"type": "number"}, "what": {"type": "string"}}
+      }
+    },
+    "reviewer": {
+      "type": "object",
+      "required": ["schema", "role", "incident_id", "decision", "event_visible", "event_t", "in_t", "out_t", "confidence", "reason"],
+      "properties": {
+        "schema": {"enum": ["hockey-clip-review/verdict@1"]},
+        "role": {"enum": ["reviewer"]},
+        "incident_id": {"type": "string"},
+        "decision": {"enum": ["keep", "adjust", "relocate", "drop", "unsure"]},
+        "event_visible": {"type": "boolean"},
+        "event_t": {"$ref": "#/$defs/time"},
+        "in_t": {"$ref": "#/$defs/time"},
+        "out_t": {"$ref": "#/$defs/time"},
+        "in_kind": {"enum": ["faceoff", "zone_entry", "possession_change", "rush", "dump_in", "cycle", "pre_foul", "pre_whistle", "pre_confrontation", "other", null]},
+        "out_kind": {"enum": ["celebration_over", "cut_to_replay", "graphic", "whistle", "referee_signal", "to_penalty_box", "players_separated", "sent_off", "other", null]},
+        "replay_t": {"$ref": "#/$defs/time"},
+        "whistle_t": {"$ref": "#/$defs/time"},
+        "foul_visible": {"type": ["boolean", "null"]},
+        "foul_what": {"type": ["string", "null"]},
+        "fight": {
+          "type": ["object", "null"],
+          "required": ["gloves_drop_t", "separated_t"],
+          "properties": {"gloves_drop_t": {"type": "number"}, "separated_t": {"type": "number"}, "who": {"type": ["string", "null"]}}
+        },
+        "scorebug": {"enum": ["ok", "frozen", "lagging", "jumping", "missing", "unknown", null]},
+        "evidence": {"$ref": "#/$defs/evidence"},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "reason": {"type": "string"},
+        "objection_answer": {"type": ["string", "null"]}
+      }
+    },
+    "adversary": {
+      "type": "object",
+      "required": ["schema", "role", "incident_id", "agree", "objections", "confidence", "reason"],
+      "properties": {
+        "schema": {"enum": ["hockey-clip-review/adversary@1"]},
+        "role": {"enum": ["adversary"]},
+        "incident_id": {"type": "string"},
+        "agree": {"type": "boolean"},
+        "objections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["kind", "detail"],
+            "properties": {
+              "kind": {"enum": ["event_not_in_clip", "cut_before_event", "starts_mid_play", "starts_too_early", "ends_early", "replay_included", "wrong_incident", "fight_cut_off", "foul_not_in_clip", "too_long", "drop_unjustified", "other"]},
+              "t": {"$ref": "#/$defs/time"},
+              "detail": {"type": "string"}
+            }
+          }
+        },
+        "suggested_in_t": {"$ref": "#/$defs/time"},
+        "suggested_out_t": {"$ref": "#/$defs/time"},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "reason": {"type": "string"}
+      }
+    }
+  },
+  "oneOf": [{"$ref": "#/$defs/reviewer"}, {"$ref": "#/$defs/adversary"}]
+}
