@@ -8,8 +8,13 @@ and a cheap vision model (DeepSeek by default, see scorebug_detect) reads the sc
 each frame and says whether a goal is visible. The verdict is then computed here, not by
 the model:
 
-  confirmed   the scoring team's score goes up by one across the goal time and the bug
-              clock at the goal agrees with HockeyTech (remaining time, within tolerance)
+  confirmed   the scoring team's score goes up by one across the goal time, the bug clock at
+              the goal agrees with HockeyTech (remaining time, within tolerance), AND a frame
+              inside the clip window shows the goal itself (puck in net, goal light, the scorer's
+              celebration starting)
+  score_only  score and clock agree but no frame inside the clip window shows the goal: the
+              goal is in the game but maybe not in the clip (09-12 P1 3:58: anchor 34 s late,
+              the shipped clip missed the goal). Look at it.
   visual      the bug was frozen, so only the picture could be checked, and it shows a goal
   suspect     the model's reads disagree with HockeyTech (score or clock); look at it
   unclear     the bug could not be read well enough to decide
@@ -44,8 +49,9 @@ from scorebug_detect import DEFAULT_VISION_BASE_URL, DEFAULT_VISION_MODEL, _jpeg
 # take minutes (09-16: Valley's P2 goal was still 2-2 on the bug a minute later), so the
 # late offsets reach further; any offset at or past the next goal is dropped.
 OFFSETS = [-30, -12, -3, 0, 3, 8, 15, 35, 60, 120, 240]
-# Celebrations peak ~5-15 s after the goal, so full pictures run past it.
-FULL_FRAME_OFFSETS = {-3, 0, 3, 8, 15}
+# Celebrations peak ~5-15 s after the goal, so full pictures run past it; -12 covers the shot
+# in a clip that starts well before the clock stop.
+FULL_FRAME_OFFSETS = {-12, -3, 0, 3, 8, 15}
 CLOCK_TOLERANCE_SECONDS = 6
 PERIOD_SECONDS = 20 * 60
 
@@ -79,7 +85,9 @@ def ask_vision(frames: List[Dict[str, Any]], goal: Dict[str, Any]) -> Dict[str, 
         "For each labelled frame, read the on-screen scorebug: both team labels with their "
         "scores, the period, and the game clock exactly as shown. Use null for anything not "
         "visible (replays and graphics often hide the bug). Full frames are included near the "
-        "moment itself; say whether they show a goal (puck in net, goal light, celebration)."
+        "moment itself: for each full picture say whether it shows the goal itself (puck in or "
+        "entering the net, goal light, scorer's celebration starting on the ice). A replay, a graphic, "
+        "or ordinary play is not the goal."
     )}]
     for f in frames:
         content.append({"type": "text", "text": f'Frame "{f["label"]}" ({f["offset"]:+d} s), top band:'})
@@ -89,7 +97,8 @@ def ask_vision(frames: List[Dict[str, Any]], goal: Dict[str, Any]) -> Dict[str, 
             content.append({"type": "image_url", "image_url": {"url": _jpeg_data_url(f["full"], width=640)}})
     content.append({"type": "text", "text": (
         'Reply with JSON only: {"frames": [{"label": "...", "teams": [{"name": "...", "score": n}, '
-        '{"name": "...", "score": n}] or null, "period": "..." or null, "clock": "m:ss" or null}], '
+        '{"name": "...", "score": n}] or null, "period": "..." or null, "clock": "m:ss" or null, '
+        '"goal_on_screen": true/false/null (full pictures only, else null)}], '
         '"goal_visible": true/false/null, "notes": "one sentence"}'
     )})
     body: Dict[str, Any] = {
@@ -112,8 +121,13 @@ def _label_matches(key: str, name: str) -> bool:
     return bool(key) and bool(name) and (key in name or name in key or name[:3] == key[:3])
 
 
-def judge(event: Dict[str, Any], answer: Dict[str, Any], opponent: str = "") -> Dict[str, Any]:
-    """Deterministic verdict from the model's per-frame reads."""
+def judge(event: Dict[str, Any], answer: Dict[str, Any], opponent: str = "",
+          clip_window: Optional[tuple] = None) -> Dict[str, Any]:
+    """Deterministic verdict from the model's per-frame reads.
+
+    clip_window = (start, end) in seconds relative to the matched goal time; a goal only counts
+    as visible in the clip when a full picture inside that window shows it.
+    """
     key = _team_key(event.get("team", ""))
     other = _team_key(opponent)
     reads = {f.get("label"): f for f in answer.get("frames") or []}
@@ -148,6 +162,15 @@ def judge(event: Dict[str, Any], answer: Dict[str, Any], opponent: str = "") -> 
         clock_diff = min(abs(c - int(expected)) for c in at_goal)
         clock_ok = clock_diff <= CLOCK_TOLERANCE_SECONDS
 
+    lo, hi = clip_window if clip_window else (-3.0, 3.0)
+    in_clip = [o for o in sorted(FULL_FRAME_OFFSETS) if lo - 0.5 <= o <= hi + 0.5]
+    seen = [reads.get(f"t{o:+d}", {}).get("goal_on_screen") for o in in_clip]
+    if any(v is True for v in seen):
+        visible_in_clip = True
+    elif any(v is False for v in seen):
+        visible_in_clip = False
+    else:  # older answers without per-frame flags: only the aggregate is available
+        visible_in_clip = answer.get("goal_visible") if not in_clip else None
     clocks_seen = [f.get("clock") for f in reads.values() if f.get("clock")]
     frozen_bug = len(clocks_seen) >= 4 and len(set(clocks_seen)) == 1
     if frozen_bug:
@@ -155,14 +178,16 @@ def judge(event: Dict[str, Any], answer: Dict[str, Any], opponent: str = "") -> 
         # fall back on what the picture shows.
         verdict = "visual" if answer.get("goal_visible") else "unclear"
     elif score_ok is True and clock_ok is not False:
-        verdict = "confirmed"
+        # The bug proves the goal happened near here; only the picture proves it is in the clip.
+        verdict = "confirmed" if visible_in_clip is True else "score_only"
     elif score_ok is False or clock_ok is False:
         verdict = "suspect"
     else:
         verdict = "unclear"
     return {"verdict": verdict, "frozen_bug": frozen_bug, "score_before": before, "score_after": after, "score_increment_ok": score_ok,
             "clock_at_goal": at_goal, "clock_diff_seconds": clock_diff, "clock_ok": clock_ok,
-            "goal_visible": answer.get("goal_visible"), "notes": answer.get("notes")}
+            "goal_visible": answer.get("goal_visible"), "goal_visible_in_clip": visible_in_clip,
+            "clip_window_rel": [lo, hi], "notes": answer.get("notes")}
 
 
 def _covered(event: Dict[str, Any], readings: List[Dict[str, Any]]) -> bool:
@@ -173,7 +198,7 @@ def _covered(event: Dict[str, Any], readings: List[Dict[str, Any]]) -> bool:
     return remaining is not None and bool(clocks) and min(clocks) <= int(remaining) <= max(clocks)
 
 
-def validate(game_dir: Path, video: Path) -> Dict[str, Any]:
+def validate(game_dir: Path, video: Path, out: Optional[Path] = None) -> Dict[str, Any]:
     log = json.loads((game_dir / "data" / "event_matching_log.json").read_text())
     meta_path = game_dir / "data" / "game_metadata.json"
     info = (json.loads(meta_path.read_text()).get("game_info") or {}) if meta_path.exists() else {}
@@ -219,8 +244,10 @@ def validate(game_dir: Path, video: Path) -> Dict[str, Any]:
                 continue
             for k in usage:
                 usage[k] += int(vision["usage"].get(k) or 0)
+            window = (-float(clip.get("before_seconds") or 15.0), float(clip.get("after_seconds") or 4.0))
             row.update(video_time=t0, **judge(event, vision["answer"], opponent=next(
-                (t for t in teams if t and t != event.get("team")), "")), reads=vision["answer"].get("frames"))
+                (t for t in teams if t and t != event.get("team")), ""), clip_window=window),
+                reads=vision["answer"].get("frames"))
             results.append(row)
     finally:
         cap.release()
@@ -228,7 +255,7 @@ def validate(game_dir: Path, video: Path) -> Dict[str, Any]:
     for r in results:
         counts[r["verdict"]] = counts.get(r["verdict"], 0) + 1
     report = {"game_dir": str(game_dir), "video": str(video), "counts": counts, "usage": usage, "goals": results}
-    (game_dir / "data" / "goal_validation.json").write_text(json.dumps(report, indent=2))
+    (out or game_dir / "data" / "goal_validation.json").write_text(json.dumps(report, indent=2))
     return report
 
 
@@ -236,12 +263,13 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--game-dir", required=True, type=Path)
     ap.add_argument("--video", required=True, type=Path)
+    ap.add_argument("--out", type=Path, default=None, help="default: <game-dir>/data/goal_validation.json")
     args = ap.parse_args()
-    report = validate(args.game_dir.resolve(), args.video.resolve())
+    report = validate(args.game_dir.resolve(), args.video.resolve(), args.out)
     for r in report["goals"]:
         extra = "" if r["verdict"] in ("missed", "not_recorded") else (
             f' score {r.get("score_before")}->{r.get("score_after")} clock_diff={r.get("clock_diff_seconds")}'
-            f' visible={r.get("goal_visible")}')
+            f' visible={r.get("goal_visible")} in_clip={r.get("goal_visible_in_clip")}')
         print(f'{r["verdict"]:12} P{r["period"]} {r["time_elapsed"]} {r["team"]} {r["player"]}{extra}')
     print(f'counts={report["counts"]} usage={report["usage"]}')
     return 0

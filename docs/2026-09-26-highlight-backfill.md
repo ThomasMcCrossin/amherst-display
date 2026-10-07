@@ -38,7 +38,14 @@ Goal verdicts from `validate_goal_clips.py`, first run vs. after the fixes.
 | 09-16 Valley | joined in the 1st intermission | 8 | 2 confirmed, 1 missed, 1 unclear, 4 not recorded | 4 confirmed, 4 not recorded |
 | 09-24 West Kent | full game; bug held 20:00 for ten minutes | 2 + shootout | 2 confirmed | 2 confirmed, shootout clip (12:10) |
 
-Every goal the recordings contain now has a correct clip. 09-24 was last run before fix 6; its
+Every goal the recordings contain now has a correct clip.
+
+> **Correction (2026-10-07):** "correct clip" above overstates it. At the time `confirmed` only
+> needed the bug score to go up and the bug clock to agree; it did not need the goal on screen
+> inside the clip window. 4 of the 5 `confirmed` on 09-12 had `visible=False`, and one of them
+> (P1 3:58) was anchored 34 s after the real goal, so the shipped clip missed the goal. The
+> validator now reports those as `score_only`; a rerun on 09-12 gives 2 `confirmed`,
+> 3 `score_only`, 1 `unclear`. Issue #21. 09-24 was last run before fix 6; its
 two unmatched P1 penalties match on replay (16/16) and are not in the goals-only reel.
 Per-run logs: `~/.local/state/watch-rams/highlight-validate/backfill/` on canteenhub.
 
