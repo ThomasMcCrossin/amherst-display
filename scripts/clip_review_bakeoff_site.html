@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clip Review Judging</title>
+<style>
+:root { --bg:#f6f6f4; --fg:#1d1d1b; --muted:#6b6b66; --card:#fff; --line:#dddcd6; --accent:#412580; --ok:#1d7a46; --bad:#b3261e; }
+@media (prefers-color-scheme: dark) { :root { --bg:#151514; --fg:#ecebe6; --muted:#9a9993; --card:#1f1f1d; --line:#353532; --accent:#a58cf0; --ok:#5cc28a; --bad:#f08a80; } }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--fg); font:15px/1.45 system-ui, sans-serif; }
+header { position:sticky; top:0; z-index:5; background:var(--bg); border-bottom:1px solid var(--line); padding:10px 16px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+header h1 { font-size:17px; margin:0 12px 0 0; }
+button, select { font:inherit; padding:5px 10px; border:1px solid var(--line); border-radius:6px; background:var(--card); color:var(--fg); cursor:pointer; }
+button.primary { background:var(--accent); color:#fff; border-color:var(--accent); }
+main { padding:12px 16px 80px; max-width:1500px; margin:0 auto; }
+.item { background:var(--card); border:1px solid var(--line); border-radius:10px; margin:14px 0; padding:12px; }
+.item.done { border-left:5px solid var(--ok); }
+.item h2 { font-size:16px; margin:0 0 4px; }
+.meta { color:var(--muted); font-size:13px; }
+.rows { margin:6px 0 10px; font-size:14px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:12px; }
+.clip { border:1px solid var(--line); border-radius:8px; padding:8px; }
+.clip.best { outline:3px solid var(--accent); }
+.clip video { width:100%; background:#000; border-radius:4px; aspect-ratio:16/9; }
+.clip .head { display:flex; justify-content:space-between; font-weight:600; margin-bottom:4px; }
+.marks { display:flex; flex-wrap:wrap; gap:4px 10px; font-size:13px; margin-top:6px; }
+.marks label { white-space:nowrap; }
+.who { font-size:12px; color:var(--muted); display:none; }
+body.reveal .who { display:block; }
+textarea { width:100%; font:12px ui-monospace, monospace; }
+.note { width:100%; margin-top:4px; font:13px system-ui; padding:3px 6px; border:1px solid var(--line); border-radius:4px; background:var(--bg); color:var(--fg); }
+#exportBox { display:none; margin:10px 16px; }
+.tag { display:inline-block; font-size:12px; padding:1px 7px; border-radius:10px; border:1px solid var(--line); margin-left:6px; }
+.dropped { color:var(--bad); font-size:13px; margin-top:6px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Clip review judging</h1>
+  <span id="progress"></span>
+  <select id="filter"><option value="">all strata</option></select>
+  <label><input type="checkbox" id="todoOnly"> unjudged only</label>
+  <label><input type="checkbox" id="reveal"> reveal models</label>
+  <button class="primary" id="export">Export marks JSON</button>
+  <button id="import">Import</button>
+  <button id="clear">Clear all</button>
+</header>
+<div id="exportBox"><p>Copy this and paste it back (or use the downloaded file):</p><textarea id="exportText" rows="8"></textarea></div>
+<main id="list"></main>
+<script>
+const DATA = /*__DATA__*/null;
+const KEY = "clip-bakeoff-marks-v1";
+const LABELS = {correct:"correct", wrong_event:"wrong event", missing_goal:"missing goal/foul", starts_late:"starts late", ends_early:"ends early", too_long:"too long"};
+function load() { try { return JSON.parse(localStorage.getItem(KEY)) || {clips:{}, best:{}, notes:{}}; } catch (e) { return {clips:{}, best:{}, notes:{}}; } }
+let M = load();
+function save() { try { localStorage.setItem(KEY, JSON.stringify(M)); } catch (e) {} progress(); }
+function judged(it) { return it.cards.length && it.cards.every(c => Object.values(M.clips[c.clip_id] || {}).some(Boolean)); }
+function progress() {
+  const n = DATA.items.filter(judged).length;
+  document.getElementById("progress").textContent = `${n} / ${DATA.items.length} incidents judged`;
+  document.querySelectorAll(".item").forEach(el => el.classList.toggle("done", judged(DATA.items[+el.dataset.i])));
+}
+function esc(s) { return String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function rowText(it, r) {
+  if (it.class === "goal") return `GOAL ${esc(r.team)}: ${esc(r.scorer)}` + (r.assist1 ? ` (${esc([r.assist1, r.assist2].filter(Boolean).join(", "))})` : "") + (r.special ? ` [${esc(r.special)}]` : "");
+  return `PENALTY ${esc(r.team)}: ${esc(r.player)} - ${esc(r.infraction)} (${esc(r.minutes)} min)`;
+}
+function render() {
+  const f = document.getElementById("filter").value, todo = document.getElementById("todoOnly").checked;
+  const list = document.getElementById("list"); list.innerHTML = "";
+  DATA.items.forEach((it, i) => {
+    if (f && it.stratum !== f) return;
+    if (todo && judged(it)) return;
+    const el = document.createElement("section"); el.className = "item"; el.dataset.i = i;
+    el.innerHTML = `<h2>${esc(it.game)} &middot; P${esc(it.period)} ${esc(it.time_elapsed)} <span class="tag">${esc(it.stratum)}</span>${it.scorebug_alert ? '<span class="tag">scorebug alert</span>' : ""}</h2>
+      <div class="meta">${esc(it.teams.away)} at ${esc(it.teams.home)} &middot; ${esc(it.incident_id)} &middot; on-video seconds are relative to the engine's placed time</div>
+      <div class="rows">${it.rows.map(r => rowText(it, r)).join("<br>")}</div><div class="grid"></div>
+      ${it.dropped_by.length ? `<div class="dropped">Dropped (no clip) by: <span class="who" style="display:inline">${esc(it.dropped_by.join(", "))}</span> ${it.dropped_by.length} reviewer(s)</div>` : ""}`;
+    const grid = el.querySelector(".grid");
+    it.cards.forEach(c => {
+      const m = M.clips[c.clip_id] || {};
+      const d = document.createElement("div"); d.className = "clip" + (M.best[it.key] === c.clip_id ? " best" : "");
+      d.innerHTML = `<div class="head"><span>${esc(c.label)}</span><span class="meta">${c.in_t.toFixed(1)} to ${c.out_t.toFixed(1)} s &middot; ${c.length}s</span></div>
+        <video controls preload="none" src="${esc(c.file)}"></video>
+        <div class="who">${esc(c.who.join(", "))}</div>
+        <div class="marks">${Object.entries(LABELS).map(([k, l]) => `<label><input type="checkbox" data-k="${k}" ${m[k] ? "checked" : ""}> ${l}</label>`).join("")}
+          <label><input type="radio" name="best-${esc(it.key)}" ${M.best[it.key] === c.clip_id ? "checked" : ""}> best</label></div>
+        <input class="note" placeholder="note (optional)" value="${esc((M.notes || {})[c.clip_id] || "")}">`;
+      d.querySelectorAll("input[type=checkbox]").forEach(cb => cb.addEventListener("change", () => {
+        M.clips[c.clip_id] = Object.assign(M.clips[c.clip_id] || {}, {[cb.dataset.k]: cb.checked});
+        if (cb.dataset.k === "correct" && cb.checked) ["wrong_event","missing_goal","starts_late","ends_early","too_long"].forEach(k => { M.clips[c.clip_id][k] = false; d.querySelector(`[data-k=${k}]`).checked = false; });
+        else if (cb.dataset.k !== "correct" && cb.checked) { M.clips[c.clip_id].correct = false; d.querySelector("[data-k=correct]").checked = false; }
+        save();
+      }));
+      d.querySelector("input[type=radio]").addEventListener("change", () => { M.best[it.key] = c.clip_id; save(); grid.querySelectorAll(".clip").forEach(x => x.classList.remove("best")); d.classList.add("best"); });
+      d.querySelector(".note").addEventListener("input", e => { M.notes = M.notes || {}; M.notes[c.clip_id] = e.target.value; save(); });
+      grid.appendChild(d);
+    });
+    list.appendChild(el);
+  });
+  progress();
+}
+function init() {
+  const strata = [...new Set(DATA.items.map(i => i.stratum))];
+  const sel = document.getElementById("filter");
+  strata.forEach(s => { const o = document.createElement("option"); o.value = s; o.textContent = s; sel.appendChild(o); });
+  sel.onchange = render; document.getElementById("todoOnly").onchange = render;
+  document.getElementById("reveal").onchange = e => document.body.classList.toggle("reveal", e.target.checked);
+  document.getElementById("export").onclick = () => {
+    const out = JSON.stringify(Object.assign({exported_at: new Date().toISOString(), generated_at: DATA.generated_at}, M), null, 1);
+    const box = document.getElementById("exportBox"); box.style.display = "block";
+    const ta = document.getElementById("exportText"); ta.value = out; ta.select();
+    try { navigator.clipboard.writeText(out); } catch (e) {}
+    const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([out], {type: "application/json"})); a.download = "clip-bakeoff-marks.json"; a.click();
+  };
+  document.getElementById("import").onclick = () => {
+    const t = prompt("Paste exported marks JSON"); if (!t) return;
+    try { const m = JSON.parse(t); M = {clips: m.clips || {}, best: m.best || {}, notes: m.notes || {}}; save(); render(); } catch (e) { alert("not valid JSON"); }
+  };
+  document.getElementById("clear").onclick = () => { if (confirm("Clear all marks in this browser?")) { M = {clips:{}, best:{}, notes:{}}; save(); render(); } };
+  render();
+}
+if (DATA) init(); else document.getElementById("list").textContent = "No data: build this page with clip_review_bakeoff.py render.";
+</script>
+</body>
+</html>

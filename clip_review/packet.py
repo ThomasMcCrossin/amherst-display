@@ -94,9 +94,13 @@ def build_packet(inc: Dict[str, Any], game: Dict[str, Any], video: Path, duratio
 
 
 def build_packets(game_dir: Path, video: Path, root: Path, kinds: Optional[set] = None,
-                  only: Optional[List[str]] = None) -> Dict[str, Any]:
-    """All packets for one game. Returns {"game", "incidents", "packets": {id: path}, "unplaced": [...]}."""
+                  only: Optional[List[str]] = None, scorebug_alert: Optional[bool] = None) -> Dict[str, Any]:
+    """All packets for one game. Returns {"game", "incidents", "packets": {id: path}, "unplaced": [...]}.
+
+    scorebug_alert overrides the game dir's SCOREBOARD_ALERT.txt (e.g. a known-bad broadcast)."""
     game = game_info(game_dir)
+    if scorebug_alert is not None:
+        game["scorebug_alert"] = bool(scorebug_alert)
     incidents = build_incidents(game_dir)
     duration = video_duration(video)
     sel = [g for g in incidents if not kinds or g["kind"] in kinds or g["class"] in kinds

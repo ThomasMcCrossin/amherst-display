@@ -197,7 +197,8 @@ def review_incident(packet: Path, reviewer: Any, adversary: Optional[Any] = None
             if isinstance(v, (int, float)) and not s.get("cached"):
                 tot[k] = round(tot.get(k, 0) + v, 6)
     res["usage"] = tot
-    (out_dir / "result.json").write_text(json.dumps(res, indent=2, default=str))
+    name = "result.json" if not adversary else f"result_adv-{adversary.name}.json"
+    (out_dir / name).write_text(json.dumps(res, indent=2, default=str))
     return res
 
 
