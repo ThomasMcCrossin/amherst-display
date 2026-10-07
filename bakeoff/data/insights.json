@@ -1,0 +1,8 @@
+{
+  "generated_at": "2026-10-07T00:00:00Z",
+  "stub": true,
+  "items": [
+    {"id":"stub-1","kind":"streak","priority":1,"headline":"Placeholder streak headline","detail":"Stub item: the insights engine will replace this file.","stat":{"value":"5","label":"games"},"player_id":null,"confidence":"fact","sources":["board.json"]},
+    {"id":"stub-2","kind":"matchup","priority":2,"headline":"Placeholder matchup angle","detail":"Stub item for layout testing.","stat":null,"player_id":null,"confidence":"derived","sources":["board.json"]}
+  ]
+}
