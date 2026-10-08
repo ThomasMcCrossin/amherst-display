@@ -33,6 +33,12 @@ BOUNDS: Dict[str, Dict[str, float]] = {
     "fight": {"lead_min": 2, "lead_max": 45, "tail_min": 5, "tail_max": 60, "len_min": 10, "len_max": 75,
               "near": 45, "relocate_max": 360, "drop_min_confidence": 0.7, "fight_pre": 10, "fight_post": 10},
 }
+# Rule-based tail trim (2026-10-08, judges flagged 34-38% of glm/lean clips too_long: dead air
+# after the celebration or call). An override's out-point is cut to at most this many seconds
+# after the event. CLIP_REVIEW_TAIL_TRIM=0 turns it off. Fights are bounded by fight_post instead.
+TAIL_TRIM_ON = os.environ.get("CLIP_REVIEW_TAIL_TRIM", "1") != "0"
+for _cls, _trim in (("goal", 16.0), ("minor", 12.0), ("major", 35.0)):
+    BOUNDS[_cls]["tail_trim"] = _trim
 for _b in BOUNDS.values():
     _b.setdefault("fight_pre", 10)
     _b.setdefault("fight_post", 10)
@@ -44,9 +50,14 @@ def current_bounds(incident: Dict[str, Any]) -> Dict[str, Any]:
     (a packet written before a floor was raised still gets the new floor)."""
     cur = BOUNDS.get(incident.get("class") or "")
     b = incident.get("bounds") or {}
-    if not cur or b.get("lead_min", 0) >= cur["lead_min"]:
+    if not cur:
         return incident
-    return dict(incident, bounds=dict(b, lead_min=cur["lead_min"]))
+    nb = dict(b, lead_min=max(b.get("lead_min", 0), cur["lead_min"]))
+    if TAIL_TRIM_ON and "tail_trim" in cur:
+        nb["tail_trim"] = cur["tail_trim"]
+    else:
+        nb.pop("tail_trim", None)
+    return dict(incident, bounds=nb)
 
 # Coarse contact-sheet range per class: (before, after, step). Scorebug-alert games search wider
 # for goals because the anchor can be far off.

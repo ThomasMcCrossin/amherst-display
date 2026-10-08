@@ -67,7 +67,14 @@ def enforce(verdict: Optional[Dict[str, Any]], incident: Dict[str, Any]) -> Dict
         return out("unsure", eng, warnings=warnings)
     if dec == "drop":
         return out("drop", None, warnings=warnings)
-    return out("override", {"in_t": clamped["in_t"], "out_t": clamped["out_t"]}, clamps=notes, warnings=warnings,
+    t_in, t_out, ev = float(clamped["in_t"]), float(clamped["out_t"]), float(clamped["event_t"])
+    trim = b.get("tail_trim")
+    if trim is not None and not clamped.get("fight") and t_out - ev > trim:
+        new_out = max(ev + trim, t_in + b["len_min"])
+        if new_out < t_out:
+            notes = list(notes) + [f"tail trimmed from {t_out - ev:.1f} s to {new_out - ev:.1f} s after the event (rule)"]
+            t_out = new_out
+    return out("override", {"in_t": t_in, "out_t": t_out}, clamps=notes, warnings=warnings,
                event_t=clamped.get("event_t"), event=round(anchor + float(clamped["event_t"]), 2), decision=dec)
 
 

@@ -192,6 +192,8 @@ def cmd_reviewset(a) -> None:
 
 def load_set(a, default: str = "review") -> List[Dict[str, Any]]:
     name = getattr(a, "set", "") or default
+    if name.endswith(".json"):  # an explicit incident list, e.g. the frozen judged set
+        return jload(Path(name).expanduser() if "/" in name else a.bake / name)
     f = a.bake / ("review_set.json" if name == "review" else "sample.json")
     if not f.exists():
         f = a.bake / "sample.json"
@@ -774,7 +776,7 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("cmd", choices=("corpus", "packets", "sample", "reviewset", "run", "adversary", "render", "judge-packets",
                                     "provisional", "score"))
-    ap.add_argument("--set", default="", help="sample | review (default: review for run/adversary/provisional, sample for render)")
+    ap.add_argument("--set", default="", help="sample | review | <file>.json in the bake dir (default: review for run/adversary/provisional, sample for render)")
     ap.add_argument("--judge-root", type=Path, default=Path.home() / ".local/state/watch-rams/clip-judge")
     ap.add_argument("--cap", type=int, default=80)
     ap.add_argument("--agree-sample", type=int, default=12)

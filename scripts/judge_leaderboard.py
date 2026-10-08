@@ -110,10 +110,10 @@ def main() -> int:
             best_any = max(best_any, m)
             r = row(info["contestant"])
             r["scores"].append(m)
-            for k in SUBS:
-                sv = [v["candidates"][letter]["subs"][k] for v in verdicts if k in v["candidates"].get(letter, {}).get("subs", {})]
+            for sub in SUBS:
+                sv = [v["candidates"][letter]["subs"][sub] for v in verdicts if sub in v["candidates"].get(letter, {}).get("subs", {})]
                 if sv:
-                    r["subs"][k].append(statistics.mean(sv))
+                    r["subs"][sub].append(statistics.mean(sv))
             r["wins"].append(statistics.mean([1.0 if v.get("best") == letter else 0.0 for v in verdicts]))
             r["wins_eq"].append(statistics.mean([1.0 if v.get("best") and equiv(v["best"], letter) else 0.0 for v in verdicts]))
             for v in verdicts:

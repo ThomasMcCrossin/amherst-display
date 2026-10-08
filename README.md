@@ -222,7 +222,9 @@ stays within 240 s of the anchor (360 s for majors/fights); goals keep 15-45 s o
 before the goal (floor `CLIP_REVIEW_MIN_LEAD_S`, default 15; applied to saved verdicts too) and
 8-25 s after the goal (5 s minimum when a replay cuts in), 8-60 s total; minors 9-40 s;
 majors up to 90 s; fights from at most 10 s before the gloves drop to at most 10 s after the
-players are separated, 75 s cap. A window outside the bounds is clamped; a verdict that still
+players are separated, 75 s cap. A rule then trims dead air: an override ends at most 16 s
+after a goal, 12 s after a minor's foul and 35 s after a major's event (`CLIP_REVIEW_TAIL_TRIM=0`
+turns it off). A window outside the bounds is clamped; a verdict that still
 fails is discarded and the engine window kept. Reel modes (`--reel-mode`): `goals` (default,
 unchanged), `with-rough` (fights/majors in the main reel), `separate-rough` (separate
 rough-stuff reel).

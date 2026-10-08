@@ -1,0 +1,2056 @@
+{
+  "counts": {
+    "goals (scorebug-alert games)": 14,
+    "fights/majors": 5,
+    "goals (normal games)": 12,
+    "minors": 8
+  },
+  "categories": {
+    "goals (normal games)": {
+      "rows": [
+        {
+          "contestant": "pi-deepseek-v4.1-flash-lean",
+          "mean_score": 7.881944444444445,
+          "n": 12,
+          "win_rate": 0.2222222222222222
+        },
+        {
+          "contestant": "pi-glm-5.3-flash",
+          "mean_score": 7.6875,
+          "n": 12,
+          "win_rate": 0.1111111111111111
+        },
+        {
+          "contestant": "pi-deepseek-v4.1-flash",
+          "mean_score": 6.951388888888889,
+          "n": 12,
+          "win_rate": 0.041666666666666664
+        },
+        {
+          "contestant": "pi-gemma4-31b",
+          "mean_score": 6.944444444444445,
+          "n": 12,
+          "win_rate": 0.3055555555555556
+        },
+        {
+          "contestant": "engine",
+          "mean_score": 6.923611111111111,
+          "n": 12,
+          "win_rate": 0.20833333333333331
+        },
+        {
+          "contestant": "cu-deepseek-v4.1-flash",
+          "mean_score": 6.583333333333333,
+          "n": 12,
+          "win_rate": 0.1111111111111111
+        },
+        {
+          "contestant": "escalate",
+          "mean_score": 4.972222222222222,
+          "n": 12,
+          "win_rate": 0.0
+        },
+        {
+          "contestant": "api-deepseek-flash",
+          "mean_score": 4.972222222222222,
+          "n": 12,
+          "win_rate": 0.0
+        }
+      ],
+      "best_pick_agreement": 0.45,
+      "mean_abs_score_diff": 0.80625
+    },
+    "goals (scorebug-alert games)": {
+      "rows": [
+        {
+          "contestant": "pi-glm-5.3-flash",
+          "mean_score": 6.925,
+          "n": 10,
+          "win_rate": 0.2
+        },
+        {
+          "contestant": "escalate",
+          "mean_score": 6.409090909090909,
+          "n": 11,
+          "win_rate": 0.22727272727272727
+        },
+        {
+          "contestant": "pi-deepseek-v4.1-flash-lean",
+          "mean_score": 6.257575757575758,
+          "n": 11,
+          "win_rate": 0.0303030303030303
+        },
+        {
+          "contestant": "cu-deepseek-v4.1-flash",
+          "mean_score": 5.6893939393939394,
+          "n": 11,
+          "win_rate": 0.045454545454545456
+        },
+        {
+          "contestant": "pi-gemma4-31b",
+          "mean_score": 5.472222222222222,
+          "n": 12,
+          "win_rate": 0.375
+        },
+        {
+          "contestant": "pi-deepseek-v4.1-flash",
+          "mean_score": 4.9423076923076925,
+          "n": 13,
+          "win_rate": 0.0
+        },
+        {
+          "contestant": "engine",
+          "mean_score": 3.9761904761904763,
+          "n": 14,
+          "win_rate": 0.15476190476190477
+        },
+        {
+          "contestant": "api-deepseek-flash",
+          "mean_score": 2.8214285714285716,
+          "n": 14,
+          "win_rate": 0.14285714285714285
+        }
+      ],
+      "best_pick_agreement": 0.5454545454545454,
+      "mean_abs_score_diff": 0.8301282051282052
+    },
+    "minors": {
+      "rows": [
+        {
+          "contestant": "pi-glm-5.3-flash",
+          "mean_score": 6.604166666666667,
+          "n": 8,
+          "win_rate": 0.4166666666666667
+        },
+        {
+          "contestant": "cu-deepseek-v4.1-flash",
+          "mean_score": 5.96875,
+          "n": 8,
+          "win_rate": 0.4791666666666667
+        },
+        {
+          "contestant": "pi-deepseek-v4.1-flash",
+          "mean_score": 5.729166666666667,
+          "n": 8,
+          "win_rate": 0.10416666666666666
+        },
+        {
+          "contestant": "pi-deepseek-v4.1-flash-lean",
+          "mean_score": 5.239583333333333,
+          "n": 8,
+          "win_rate": 0.0
+        },
+        {
+          "contestant": "escalate",
+          "mean_score": 4.885416666666667,
+          "n": 8,
+          "win_rate": 0.0
+        },
+        {
+          "contestant": "pi-gemma4-31b",
+          "mean_score": 4.541666666666667,
+          "n": 8,
+          "win_rate": 0.0
+        },
+        {
+          "contestant": "api-deepseek-flash",
+          "mean_score": 4.291666666666667,
+          "n": 8,
+          "win_rate": 0.0
+        },
+        {
+          "contestant": "engine",
+          "mean_score": 2.1354166666666665,
+          "n": 8,
+          "win_rate": 0.0
+        }
+      ],
+      "best_pick_agreement": 0.5,
+      "mean_abs_score_diff": 0.675
+    },
+    "fights/majors": {
+      "rows": [
+        {
+          "contestant": "pi-glm-5.3-flash",
+          "mean_score": 6.783333333333333,
+          "n": 5,
+          "win_rate": 0.4
+        },
+        {
+          "contestant": "cu-deepseek-v4.1-flash",
+          "mean_score": 5.6,
+          "n": 5,
+          "win_rate": 0.0
+        },
+        {
+          "contestant": "pi-deepseek-v4.1-flash",
+          "mean_score": 5.433333333333334,
+          "n": 5,
+          "win_rate": 0.13333333333333333
+        },
+        {
+          "contestant": "pi-deepseek-v4.1-flash-lean",
+          "mean_score": 4.933333333333334,
+          "n": 5,
+          "win_rate": 0.26666666666666666
+        },
+        {
+          "contestant": "escalate",
+          "mean_score": 4.933333333333334,
+          "n": 5,
+          "win_rate": 0.1
+        },
+        {
+          "contestant": "engine",
+          "mean_score": 4.383333333333333,
+          "n": 5,
+          "win_rate": 0.0
+        },
+        {
+          "contestant": "pi-gemma4-31b",
+          "mean_score": 4.35,
+          "n": 5,
+          "win_rate": 0.1
+        },
+        {
+          "contestant": "api-deepseek-flash",
+          "mean_score": 3.55,
+          "n": 5,
+          "win_rate": 0.0
+        }
+      ],
+      "best_pick_agreement": 0.42857142857142855,
+      "mean_abs_score_diff": 1.2321428571428572
+    }
+  },
+  "incidents": {
+    "2026-03-14_06_goal_p1_15-21": {
+      "category": "goals (scorebug-alert games)",
+      "judges": 2,
+      "best": [
+        "D",
+        "D"
+      ],
+      "best_contestant": [
+        "pi-glm-5.3-flash",
+        "pi-glm-5.3-flash"
+      ],
+      "scores": {
+        "pi-deepseek-v4.1-flash-lean": [
+          7.5,
+          7.5
+        ],
+        "escalate": [
+          7.5,
+          7.5
+        ],
+        "pi-deepseek-v4.1-flash": [
+          8.5,
+          8
+        ],
+        "pi-glm-5.3-flash": [
+          9,
+          8.5
+        ],
+        "engine": [
+          4,
+          4
+        ],
+        "pi-gemma4-31b": [
+          8,
+          7.5
+        ],
+        "api-deepseek-flash": [
+          1,
+          1.5
+        ],
+        "cu-deepseek-v4.1-flash": [
+          8,
+          6.5
+        ]
+      }
+    },
+    "2026-03-14_08_goal_p2_2-49": {
+      "category": "goals (scorebug-alert games)",
+      "judges": 2,
+      "best": [
+        "C",
+        "G"
+      ],
+      "best_contestant": [
+        "escalate",
+        "pi-glm-5.3-flash"
+      ],
+      "scores": {
+        "pi-gemma4-31b": [
+          8.5,
+          8
+        ],
+        "pi-deepseek-v4.1-flash": [
+          5,
+          6
+        ],
+        "escalate": [
+          9,
+          9
+        ],
+        "api-deepseek-flash": [
+          4,
+          4
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          9,
+          9
+        ],
+        "engine": [
+          4,
+          5
+        ],
+        "pi-glm-5.3-flash": [
+          8.5,
+          9
+        ],
+        "cu-deepseek-v4.1-flash": [
+          5,
+          6
+        ]
+      }
+    },
+    "2026-03-14_10_goal_p2_4-54": {
+      "category": "goals (scorebug-alert games)",
+      "judges": 2,
+      "best": [
+        "A",
+        "D"
+      ],
+      "best_contestant": [
+        "escalate",
+        "cu-deepseek-v4.1-flash"
+      ],
+      "scores": {
+        "escalate": [
+          8,
+          8.5
+        ],
+        "pi-glm-5.3-flash": [
+          8,
+          8
+        ],
+        "pi-deepseek-v4.1-flash": [
+          8,
+          8.5
+        ],
+        "cu-deepseek-v4.1-flash": [
+          7,
+          9
+        ],
+        "api-deepseek-flash": [
+          5.5,
+          7.5
+        ],
+        "engine": [
+          5.5,
+          5
+        ],
+        "pi-gemma4-31b": [
+          7,
+          7
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          8,
+          8.5
+        ]
+      }
+    },
+    "2026-03-14_14_goal_p3_0-48": {
+      "category": "goals (scorebug-alert games)",
+      "judges": 2,
+      "best": [
+        "E",
+        "E"
+      ],
+      "best_contestant": [
+        "escalate",
+        "escalate"
+      ],
+      "scores": {
+        "pi-gemma4-31b": [
+          1,
+          1
+        ],
+        "cu-deepseek-v4.1-flash": [
+          7,
+          7
+        ],
+        "pi-deepseek-v4.1-flash": [
+          7,
+          7
+        ],
+        "api-deepseek-flash": [
+          1,
+          1
+        ],
+        "escalate": [
+          8,
+          8
+        ],
+        "pi-glm-5.3-flash": [
+          7,
+          7
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          8,
+          8
+        ],
+        "engine": [
+          5,
+          5
+        ]
+      }
+    },
+    "2026-03-14_15_goal_p3_2-47": {
+      "category": "goals (scorebug-alert games)",
+      "judges": 2,
+      "best": [
+        "A",
+        "E"
+      ],
+      "best_contestant": [
+        "pi-glm-5.3-flash",
+        "escalate"
+      ],
+      "scores": {
+        "pi-glm-5.3-flash": [
+          9,
+          8.5
+        ],
+        "pi-deepseek-v4.1-flash": [
+          9,
+          8.5
+        ],
+        "pi-gemma4-31b": [
+          6.5,
+          6.5
+        ],
+        "cu-deepseek-v4.1-flash": [
+          8.5,
+          8.5
+        ],
+        "escalate": [
+          8.5,
+          9
+        ],
+        "api-deepseek-flash": [
+          7.5,
+          6.5
+        ],
+        "engine": [
+          4,
+          3.5
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          8.5,
+          9
+        ]
+      }
+    },
+    "2026-03-21_08_goal_p2_3-26": {
+      "category": "goals (scorebug-alert games)",
+      "judges": 2,
+      "best": [
+        "A",
+        "A"
+      ],
+      "best_contestant": [
+        "pi-gemma4-31b",
+        "pi-gemma4-31b"
+      ],
+      "scores": {
+        "pi-gemma4-31b": [
+          1,
+          1
+        ],
+        "cu-deepseek-v4.1-flash": [
+          0,
+          0
+        ],
+        "pi-deepseek-v4.1-flash": [
+          0,
+          0
+        ],
+        "engine": [
+          0,
+          0
+        ],
+        "api-deepseek-flash": [
+          0,
+          0
+        ]
+      }
+    },
+    "2026-03-21_09_goal_p2_7-28": {
+      "category": "goals (scorebug-alert games)",
+      "judges": 2,
+      "best": [
+        "C",
+        "C"
+      ],
+      "best_contestant": [
+        "pi-gemma4-31b",
+        "pi-gemma4-31b"
+      ],
+      "scores": {
+        "api-deepseek-flash": [
+          0,
+          0
+        ],
+        "engine": [
+          0,
+          0
+        ],
+        "pi-gemma4-31b": [
+          1,
+          1
+        ]
+      }
+    },
+    "2026-03-21_11_goal_p2_12-07": {
+      "category": "goals (scorebug-alert games)",
+      "judges": 2,
+      "best": [
+        "A",
+        "A"
+      ],
+      "best_contestant": [
+        "api-deepseek-flash",
+        "api-deepseek-flash"
+      ],
+      "scores": {
+        "api-deepseek-flash": [
+          0,
+          0
+        ],
+        "pi-deepseek-v4.1-flash": [
+          0,
+          0
+        ],
+        "engine": [
+          0,
+          0
+        ]
+      }
+    },
+    "2026-03-21_15_goal_p3_9-21": {
+      "category": "goals (scorebug-alert games)",
+      "judges": 3,
+      "best": [
+        "B",
+        "G",
+        "B"
+      ],
+      "best_contestant": [
+        "pi-gemma4-31b",
+        "engine",
+        "pi-gemma4-31b"
+      ],
+      "scores": {
+        "api-deepseek-flash": [
+          4,
+          5,
+          4
+        ],
+        "pi-gemma4-31b": [
+          8.5,
+          8,
+          9
+        ],
+        "pi-deepseek-v4.1-flash": [
+          7.5,
+          8,
+          7
+        ],
+        "escalate": [
+          8,
+          8,
+          6.5
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          8,
+          8,
+          6.5
+        ],
+        "pi-glm-5.3-flash": [
+          8,
+          7.5,
+          6.5
+        ],
+        "engine": [
+          6.5,
+          9,
+          8.5
+        ],
+        "cu-deepseek-v4.1-flash": [
+          7.5,
+          6.5,
+          6
+        ]
+      }
+    },
+    "2026-03-21_16_goal_p5_8-58": {
+      "category": "goals (scorebug-alert games)",
+      "judges": 2,
+      "best": [
+        "C",
+        "C"
+      ],
+      "best_contestant": [
+        "api-deepseek-flash",
+        "api-deepseek-flash"
+      ],
+      "scores": {
+        "engine": [
+          0.5,
+          0.5
+        ],
+        "pi-deepseek-v4.1-flash": [
+          0.5,
+          0.5
+        ],
+        "api-deepseek-flash": [
+          1,
+          0.5
+        ],
+        "escalate": [
+          0.5,
+          0.5
+        ],
+        "cu-deepseek-v4.1-flash": [
+          0.5,
+          0.5
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          0.5,
+          0.5
+        ],
+        "pi-glm-5.3-flash": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    "2026-03-16_13_major_p3_12-55": {
+      "category": "fights/majors",
+      "judges": 2,
+      "best": [
+        "D",
+        "D"
+      ],
+      "best_contestant": [
+        "pi-glm-5.3-flash",
+        "pi-glm-5.3-flash"
+      ],
+      "scores": {
+        "pi-gemma4-31b": [
+          7,
+          6.5
+        ],
+        "engine": [
+          5,
+          5.5
+        ],
+        "cu-deepseek-v4.1-flash": [
+          6,
+          5
+        ],
+        "pi-glm-5.3-flash": [
+          8,
+          7.5
+        ],
+        "api-deepseek-flash": [
+          1,
+          1
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          1,
+          1
+        ],
+        "pi-deepseek-v4.1-flash": [
+          7,
+          6.5
+        ],
+        "escalate": [
+          1,
+          1
+        ]
+      }
+    },
+    "2026-09-10_01_fight_p3_08-24": {
+      "category": "fights/majors",
+      "judges": 2,
+      "best": [
+        "C",
+        "G"
+      ],
+      "best_contestant": [
+        "escalate",
+        "pi-glm-5.3-flash"
+      ],
+      "scores": {
+        "engine": [
+          3,
+          3
+        ],
+        "cu-deepseek-v4.1-flash": [
+          8,
+          6.5
+        ],
+        "escalate": [
+          9,
+          8
+        ],
+        "pi-gemma4-31b": [
+          5,
+          5
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          9,
+          8
+        ],
+        "pi-deepseek-v4.1-flash": [
+          7,
+          5.5
+        ],
+        "pi-glm-5.3-flash": [
+          8.5,
+          8.5
+        ],
+        "api-deepseek-flash": [
+          6.5,
+          7
+        ]
+      }
+    },
+    "2026-09-12_07_major_p2_12-11": {
+      "category": "fights/majors",
+      "judges": 3,
+      "best": [
+        "A",
+        "C",
+        "A"
+      ],
+      "best_contestant": [
+        "pi-deepseek-v4.1-flash",
+        "pi-deepseek-v4.1-flash-lean",
+        "pi-deepseek-v4.1-flash"
+      ],
+      "scores": {
+        "pi-deepseek-v4.1-flash": [
+          7,
+          1,
+          6
+        ],
+        "api-deepseek-flash": [
+          1,
+          1,
+          1
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          2,
+          6,
+          3
+        ],
+        "pi-gemma4-31b": [
+          1,
+          1,
+          1
+        ],
+        "cu-deepseek-v4.1-flash": [
+          3,
+          1,
+          5
+        ],
+        "engine": [
+          2,
+          6,
+          3
+        ],
+        "escalate": [
+          2,
+          6,
+          3
+        ],
+        "pi-glm-5.3-flash": [
+          7,
+          1,
+          6
+        ]
+      }
+    },
+    "2026-09-12_15_major_p3_17-38": {
+      "category": "fights/majors",
+      "judges": 2,
+      "best": [
+        "G",
+        "D"
+      ],
+      "best_contestant": [
+        "pi-gemma4-31b",
+        "pi-glm-5.3-flash"
+      ],
+      "scores": {
+        "cu-deepseek-v4.1-flash": [
+          6,
+          5.5
+        ],
+        "api-deepseek-flash": [
+          4,
+          4
+        ],
+        "escalate": [
+          5,
+          5
+        ],
+        "pi-glm-5.3-flash": [
+          8,
+          8
+        ],
+        "engine": [
+          5,
+          5
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          5,
+          5
+        ],
+        "pi-gemma4-31b": [
+          8.5,
+          7.5
+        ],
+        "pi-deepseek-v4.1-flash": [
+          4.5,
+          4.5
+        ]
+      }
+    },
+    "2026-09-24_06_major_p2_19-07": {
+      "category": "fights/majors",
+      "judges": 2,
+      "best": [
+        "C",
+        "C"
+      ],
+      "best_contestant": [
+        "pi-deepseek-v4.1-flash-lean",
+        "pi-deepseek-v4.1-flash-lean"
+      ],
+      "scores": {
+        "engine": [
+          5,
+          5
+        ],
+        "api-deepseek-flash": [
+          5,
+          5
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          6,
+          7
+        ],
+        "pi-gemma4-31b": [
+          1,
+          1
+        ],
+        "pi-glm-5.3-flash": [
+          5,
+          5
+        ],
+        "pi-deepseek-v4.1-flash": [
+          5,
+          5
+        ],
+        "escalate": [
+          6,
+          7
+        ],
+        "cu-deepseek-v4.1-flash": [
+          6,
+          7
+        ]
+      }
+    },
+    "2026-03-21_01_goal_p1_4-31": {
+      "category": "goals (scorebug-alert games)",
+      "judges": 2,
+      "best": [
+        "D",
+        "F"
+      ],
+      "best_contestant": [
+        "pi-gemma4-31b",
+        "engine"
+      ],
+      "scores": {
+        "escalate": [
+          6,
+          5
+        ],
+        "cu-deepseek-v4.1-flash": [
+          7,
+          6
+        ],
+        "pi-glm-5.3-flash": [
+          6,
+          6
+        ],
+        "pi-gemma4-31b": [
+          8,
+          7
+        ],
+        "pi-deepseek-v4.1-flash": [
+          6,
+          5
+        ],
+        "engine": [
+          7,
+          8
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          6,
+          5
+        ],
+        "api-deepseek-flash": [
+          5,
+          4
+        ]
+      }
+    },
+    "2026-03-21_06_goal_p1_19-56": {
+      "category": "goals (scorebug-alert games)",
+      "judges": 3,
+      "best": [
+        "F",
+        "H",
+        "H"
+      ],
+      "best_contestant": [
+        "pi-deepseek-v4.1-flash-lean",
+        "engine",
+        "engine"
+      ],
+      "scores": {
+        "escalate": [
+          7,
+          9,
+          7.5
+        ],
+        "pi-glm-5.3-flash": [
+          5.5,
+          7.5,
+          6
+        ],
+        "api-deepseek-flash": [
+          4.5,
+          6.5,
+          4.5
+        ],
+        "pi-gemma4-31b": [
+          6.5,
+          8,
+          5
+        ],
+        "pi-deepseek-v4.1-flash": [
+          7.5,
+          8,
+          5
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          9,
+          7.5,
+          7
+        ],
+        "cu-deepseek-v4.1-flash": [
+          7,
+          8,
+          5
+        ],
+        "engine": [
+          8,
+          9.5,
+          8.5
+        ]
+      }
+    },
+    "2026-03-21_10_goal_p2_8-32": {
+      "category": "goals (scorebug-alert games)",
+      "judges": 3,
+      "best": [
+        "A",
+        "A",
+        "A"
+      ],
+      "best_contestant": [
+        "pi-gemma4-31b",
+        "pi-gemma4-31b",
+        "pi-gemma4-31b"
+      ],
+      "scores": {
+        "pi-gemma4-31b": [
+          0.5,
+          7.5,
+          0
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          0,
+          0,
+          0
+        ],
+        "api-deepseek-flash": [
+          0,
+          0,
+          0
+        ],
+        "engine": [
+          0,
+          0,
+          0
+        ],
+        "pi-deepseek-v4.1-flash": [
+          0,
+          0,
+          0
+        ],
+        "escalate": [
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "2026-03-21_13_goal_p2_17-55": {
+      "category": "goals (scorebug-alert games)",
+      "judges": 3,
+      "best": [
+        "F",
+        "F",
+        "E"
+      ],
+      "best_contestant": [
+        "engine",
+        "engine",
+        "pi-gemma4-31b"
+      ],
+      "scores": {
+        "escalate": [
+          7.5,
+          8,
+          7.5
+        ],
+        "api-deepseek-flash": [
+          4,
+          5,
+          6
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          7.5,
+          3,
+          7.5
+        ],
+        "cu-deepseek-v4.1-flash": [
+          4.5,
+          6.5,
+          7
+        ],
+        "pi-gemma4-31b": [
+          7.5,
+          8,
+          8.5
+        ],
+        "engine": [
+          9,
+          8.5,
+          8
+        ],
+        "pi-glm-5.3-flash": [
+          8,
+          7.5,
+          8
+        ],
+        "pi-deepseek-v4.1-flash": [
+          4.5,
+          6.5,
+          7.5
+        ]
+      }
+    },
+    "2026-09-12_11_goal_p3_8-14": {
+      "category": "goals (normal games)",
+      "judges": 2,
+      "best": [
+        "C",
+        "E"
+      ],
+      "best_contestant": [
+        "pi-deepseek-v4.1-flash-lean",
+        "pi-gemma4-31b"
+      ],
+      "scores": {
+        "escalate": [
+          4,
+          6
+        ],
+        "engine": [
+          5,
+          5.5
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          9,
+          8.5
+        ],
+        "pi-glm-5.3-flash": [
+          7,
+          7
+        ],
+        "pi-gemma4-31b": [
+          8,
+          9
+        ],
+        "api-deepseek-flash": [
+          4,
+          6
+        ],
+        "cu-deepseek-v4.1-flash": [
+          5,
+          7
+        ],
+        "pi-deepseek-v4.1-flash": [
+          5,
+          7
+        ]
+      }
+    },
+    "2026-09-16_04_goal_p2_6-29": {
+      "category": "goals (normal games)",
+      "judges": 3,
+      "best": [
+        "E",
+        "C",
+        "E"
+      ],
+      "best_contestant": [
+        "pi-glm-5.3-flash",
+        "engine",
+        "pi-glm-5.3-flash"
+      ],
+      "scores": {
+        "cu-deepseek-v4.1-flash": [
+          7,
+          6,
+          5
+        ],
+        "api-deepseek-flash": [
+          4.5,
+          4,
+          3
+        ],
+        "engine": [
+          7,
+          9,
+          6
+        ],
+        "escalate": [
+          4.5,
+          4,
+          3
+        ],
+        "pi-glm-5.3-flash": [
+          8.5,
+          7.5,
+          8
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          8,
+          8,
+          8
+        ],
+        "pi-gemma4-31b": [
+          7,
+          6.5,
+          7
+        ],
+        "pi-deepseek-v4.1-flash": [
+          7.5,
+          6,
+          7
+        ]
+      }
+    },
+    "2026-09-16_10_goal_p3_9-19": {
+      "category": "goals (normal games)",
+      "judges": 2,
+      "best": [
+        "F",
+        "F"
+      ],
+      "best_contestant": [
+        "pi-gemma4-31b",
+        "pi-gemma4-31b"
+      ],
+      "scores": {
+        "api-deepseek-flash": [
+          7.5,
+          6
+        ],
+        "escalate": [
+          7.5,
+          6
+        ],
+        "engine": [
+          6,
+          6
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          6.5,
+          8
+        ],
+        "pi-deepseek-v4.1-flash": [
+          7,
+          7.5
+        ],
+        "pi-gemma4-31b": [
+          8.5,
+          8.5
+        ],
+        "cu-deepseek-v4.1-flash": [
+          7,
+          7.5
+        ],
+        "pi-glm-5.3-flash": [
+          6.5,
+          7
+        ]
+      }
+    },
+    "2026-09-16_11_goal_p3_10-24": {
+      "category": "goals (normal games)",
+      "judges": 2,
+      "best": [
+        "E",
+        "E"
+      ],
+      "best_contestant": [
+        "cu-deepseek-v4.1-flash",
+        "cu-deepseek-v4.1-flash"
+      ],
+      "scores": {
+        "pi-deepseek-v4.1-flash": [
+          6.5,
+          6.5
+        ],
+        "pi-gemma4-31b": [
+          0,
+          0.5
+        ],
+        "engine": [
+          6.5,
+          6.5
+        ],
+        "pi-glm-5.3-flash": [
+          8.5,
+          8
+        ],
+        "cu-deepseek-v4.1-flash": [
+          9,
+          8.5
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          7,
+          7
+        ],
+        "escalate": [
+          0,
+          0.5
+        ],
+        "api-deepseek-flash": [
+          0,
+          0.5
+        ]
+      }
+    },
+    "2026-09-26_03_goal_p1_15-22": {
+      "category": "goals (normal games)",
+      "judges": 3,
+      "best": [
+        "A",
+        "F",
+        "F"
+      ],
+      "best_contestant": [
+        "pi-glm-5.3-flash",
+        "pi-deepseek-v4.1-flash-lean",
+        "pi-deepseek-v4.1-flash-lean"
+      ],
+      "scores": {
+        "pi-glm-5.3-flash": [
+          9,
+          8,
+          9
+        ],
+        "cu-deepseek-v4.1-flash": [
+          5,
+          5,
+          7
+        ],
+        "pi-gemma4-31b": [
+          8,
+          7,
+          8.5
+        ],
+        "api-deepseek-flash": [
+          5,
+          5,
+          6
+        ],
+        "engine": [
+          6,
+          6,
+          6.5
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          7,
+          9,
+          9.5
+        ],
+        "escalate": [
+          5,
+          5,
+          6
+        ],
+        "pi-deepseek-v4.1-flash": [
+          5,
+          5,
+          6.5
+        ]
+      }
+    },
+    "2026-09-26_06_goal_p2_10-33": {
+      "category": "goals (normal games)",
+      "judges": 3,
+      "best": [
+        "E",
+        "D",
+        "D"
+      ],
+      "best_contestant": [
+        "pi-glm-5.3-flash",
+        "engine",
+        "engine"
+      ],
+      "scores": {
+        "pi-gemma4-31b": [
+          7.5,
+          8,
+          8
+        ],
+        "pi-deepseek-v4.1-flash": [
+          8,
+          6,
+          6.5
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          7,
+          7.5,
+          8
+        ],
+        "engine": [
+          7.5,
+          8.5,
+          8.5
+        ],
+        "pi-glm-5.3-flash": [
+          8.5,
+          7.5,
+          8
+        ],
+        "escalate": [
+          7,
+          6.5,
+          6.5
+        ],
+        "api-deepseek-flash": [
+          7,
+          6.5,
+          6.5
+        ],
+        "cu-deepseek-v4.1-flash": [
+          7.5,
+          6,
+          7
+        ]
+      }
+    },
+    "2026-09-26_11_goal_p3_8-42": {
+      "category": "goals (normal games)",
+      "judges": 2,
+      "best": [
+        "E",
+        "E"
+      ],
+      "best_contestant": [
+        "engine",
+        "engine"
+      ],
+      "scores": {
+        "pi-glm-5.3-flash": [
+          8,
+          7.5
+        ],
+        "api-deepseek-flash": [
+          6.5,
+          5.5
+        ],
+        "pi-deepseek-v4.1-flash": [
+          4.5,
+          5
+        ],
+        "cu-deepseek-v4.1-flash": [
+          3.5,
+          4.5
+        ],
+        "engine": [
+          9,
+          9
+        ],
+        "escalate": [
+          6.5,
+          5.5
+        ],
+        "pi-gemma4-31b": [
+          7,
+          7
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          9,
+          9
+        ]
+      }
+    },
+    "2026-09-26_12_goal_p3_10-38": {
+      "category": "goals (normal games)",
+      "judges": 2,
+      "best": [
+        "E",
+        "E"
+      ],
+      "best_contestant": [
+        "pi-deepseek-v4.1-flash-lean",
+        "pi-deepseek-v4.1-flash-lean"
+      ],
+      "scores": {
+        "pi-glm-5.3-flash": [
+          6.5,
+          7.5
+        ],
+        "pi-deepseek-v4.1-flash": [
+          8,
+          8
+        ],
+        "cu-deepseek-v4.1-flash": [
+          6.5,
+          7
+        ],
+        "pi-gemma4-31b": [
+          6,
+          6.5
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          8.5,
+          8.5
+        ],
+        "escalate": [
+          5,
+          5
+        ],
+        "api-deepseek-flash": [
+          5,
+          5
+        ],
+        "engine": [
+          7.5,
+          8
+        ]
+      }
+    },
+    "2026-10-03_04_goal_p1_17-59": {
+      "category": "goals (normal games)",
+      "judges": 2,
+      "best": [
+        "B",
+        "B"
+      ],
+      "best_contestant": [
+        "pi-gemma4-31b",
+        "pi-gemma4-31b"
+      ],
+      "scores": {
+        "api-deepseek-flash": [
+          5,
+          6.5
+        ],
+        "pi-gemma4-31b": [
+          9,
+          9
+        ],
+        "pi-deepseek-v4.1-flash": [
+          8.5,
+          8.5
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          8,
+          8
+        ],
+        "escalate": [
+          5,
+          6.5
+        ],
+        "engine": [
+          7.5,
+          6.5
+        ],
+        "pi-glm-5.3-flash": [
+          6.5,
+          7.5
+        ],
+        "cu-deepseek-v4.1-flash": [
+          3.5,
+          6
+        ]
+      }
+    },
+    "2026-10-03_06_goal_p2_15-52": {
+      "category": "goals (normal games)",
+      "judges": 2,
+      "best": [
+        "E",
+        "A"
+      ],
+      "best_contestant": [
+        "engine",
+        "pi-deepseek-v4.1-flash-lean"
+      ],
+      "scores": {
+        "pi-deepseek-v4.1-flash-lean": [
+          7,
+          8
+        ],
+        "escalate": [
+          4.5,
+          5
+        ],
+        "pi-gemma4-31b": [
+          4.5,
+          5
+        ],
+        "cu-deepseek-v4.1-flash": [
+          7.5,
+          7.5
+        ],
+        "engine": [
+          7.5,
+          7
+        ],
+        "pi-glm-5.3-flash": [
+          7,
+          8
+        ],
+        "pi-deepseek-v4.1-flash": [
+          7,
+          8
+        ],
+        "api-deepseek-flash": [
+          4.5,
+          5
+        ]
+      }
+    },
+    "2026-10-03_10_goal_p3_17-29": {
+      "category": "goals (normal games)",
+      "judges": 3,
+      "best": [
+        "G",
+        "A",
+        "A"
+      ],
+      "best_contestant": [
+        "cu-deepseek-v4.1-flash",
+        "pi-gemma4-31b",
+        "pi-gemma4-31b"
+      ],
+      "scores": {
+        "pi-gemma4-31b": [
+          7,
+          8.5,
+          8
+        ],
+        "engine": [
+          4,
+          6.5,
+          5
+        ],
+        "api-deepseek-flash": [
+          5,
+          6,
+          5
+        ],
+        "pi-glm-5.3-flash": [
+          8,
+          8,
+          7.5
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          6,
+          7.5,
+          7
+        ],
+        "escalate": [
+          5,
+          6,
+          5
+        ],
+        "cu-deepseek-v4.1-flash": [
+          9,
+          7,
+          6.5
+        ],
+        "pi-deepseek-v4.1-flash": [
+          8.5,
+          6.5,
+          6
+        ]
+      }
+    },
+    "2026-10-03_11_goal_p3_19-24": {
+      "category": "goals (normal games)",
+      "judges": 2,
+      "best": [
+        "B",
+        "F"
+      ],
+      "best_contestant": [
+        "pi-deepseek-v4.1-flash",
+        "pi-gemma4-31b"
+      ],
+      "scores": {
+        "engine": [
+          8,
+          7
+        ],
+        "pi-deepseek-v4.1-flash": [
+          9,
+          8.5
+        ],
+        "escalate": [
+          5,
+          5
+        ],
+        "pi-glm-5.3-flash": [
+          9,
+          8
+        ],
+        "cu-deepseek-v4.1-flash": [
+          8.5,
+          7.5
+        ],
+        "pi-gemma4-31b": [
+          8.5,
+          9
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          8.5,
+          7
+        ],
+        "api-deepseek-flash": [
+          5,
+          5
+        ]
+      }
+    },
+    "2026-03-14_09_minor_p2_04-46": {
+      "category": "minors",
+      "judges": 2,
+      "best": [
+        "B",
+        "B"
+      ],
+      "best_contestant": [
+        "cu-deepseek-v4.1-flash",
+        "cu-deepseek-v4.1-flash"
+      ],
+      "scores": {
+        "pi-gemma4-31b": [
+          5,
+          6
+        ],
+        "cu-deepseek-v4.1-flash": [
+          8,
+          8.5
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          7.5,
+          7.5
+        ],
+        "pi-glm-5.3-flash": [
+          7,
+          7
+        ],
+        "pi-deepseek-v4.1-flash": [
+          7,
+          7
+        ],
+        "engine": [
+          2.5,
+          3
+        ],
+        "escalate": [
+          7.5,
+          7.5
+        ],
+        "api-deepseek-flash": [
+          5,
+          5.5
+        ]
+      }
+    },
+    "2026-03-14_16_minor_p3_10-05": {
+      "category": "minors",
+      "judges": 2,
+      "best": [
+        "F",
+        "E"
+      ],
+      "best_contestant": [
+        "pi-glm-5.3-flash",
+        "pi-deepseek-v4.1-flash"
+      ],
+      "scores": {
+        "pi-gemma4-31b": [
+          5.5,
+          5.5
+        ],
+        "escalate": [
+          6,
+          5
+        ],
+        "cu-deepseek-v4.1-flash": [
+          6.5,
+          6.5
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          6,
+          6.5
+        ],
+        "pi-deepseek-v4.1-flash": [
+          7,
+          8.5
+        ],
+        "pi-glm-5.3-flash": [
+          8.5,
+          7.5
+        ],
+        "api-deepseek-flash": [
+          7.5,
+          8
+        ],
+        "engine": [
+          2.5,
+          1.5
+        ]
+      }
+    },
+    "2026-09-10_02_minor_p3_10-28": {
+      "category": "minors",
+      "judges": 2,
+      "best": [
+        "G",
+        "G"
+      ],
+      "best_contestant": [
+        "cu-deepseek-v4.1-flash",
+        "cu-deepseek-v4.1-flash"
+      ],
+      "scores": {
+        "pi-gemma4-31b": [
+          2.5,
+          1
+        ],
+        "api-deepseek-flash": [
+          1.5,
+          2
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          3,
+          4
+        ],
+        "escalate": [
+          3,
+          4
+        ],
+        "pi-deepseek-v4.1-flash": [
+          2.5,
+          3
+        ],
+        "engine": [
+          1.5,
+          2
+        ],
+        "cu-deepseek-v4.1-flash": [
+          4,
+          4
+        ],
+        "pi-glm-5.3-flash": [
+          3.5,
+          4
+        ]
+      }
+    },
+    "2026-09-16_12_minor_p3_14-48": {
+      "category": "minors",
+      "judges": 2,
+      "best": [
+        "G",
+        "G"
+      ],
+      "best_contestant": [
+        "pi-glm-5.3-flash",
+        "pi-glm-5.3-flash"
+      ],
+      "scores": {
+        "api-deepseek-flash": [
+          2,
+          3
+        ],
+        "engine": [
+          0.5,
+          1
+        ],
+        "escalate": [
+          2,
+          3
+        ],
+        "pi-deepseek-v4.1-flash": [
+          2,
+          3
+        ],
+        "cu-deepseek-v4.1-flash": [
+          1,
+          1
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          2,
+          3
+        ],
+        "pi-glm-5.3-flash": [
+          7,
+          7
+        ],
+        "pi-gemma4-31b": [
+          1,
+          1
+        ]
+      }
+    },
+    "2026-09-24_07_minor_p3_03-18": {
+      "category": "minors",
+      "judges": 2,
+      "best": [
+        "D",
+        "D"
+      ],
+      "best_contestant": [
+        "cu-deepseek-v4.1-flash",
+        "cu-deepseek-v4.1-flash"
+      ],
+      "scores": {
+        "pi-deepseek-v4.1-flash": [
+          8,
+          7.5
+        ],
+        "pi-glm-5.3-flash": [
+          7,
+          7
+        ],
+        "engine": [
+          3,
+          4.5
+        ],
+        "cu-deepseek-v4.1-flash": [
+          9,
+          8
+        ],
+        "escalate": [
+          6,
+          6
+        ],
+        "api-deepseek-flash": [
+          6,
+          6
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          7,
+          6.5
+        ],
+        "pi-gemma4-31b": [
+          6,
+          7.5
+        ]
+      }
+    },
+    "2026-09-26_04_minor_p2_07-20": {
+      "category": "minors",
+      "judges": 2,
+      "best": [
+        "A",
+        "H"
+      ],
+      "best_contestant": [
+        "pi-glm-5.3-flash",
+        "cu-deepseek-v4.1-flash"
+      ],
+      "scores": {
+        "pi-glm-5.3-flash": [
+          7,
+          6.5
+        ],
+        "pi-gemma4-31b": [
+          5.5,
+          5
+        ],
+        "api-deepseek-flash": [
+          2,
+          1.5
+        ],
+        "pi-deepseek-v4.1-flash": [
+          5,
+          4.5
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          5,
+          4.5
+        ],
+        "engine": [
+          2,
+          1.5
+        ],
+        "escalate": [
+          5,
+          4.5
+        ],
+        "cu-deepseek-v4.1-flash": [
+          6,
+          7
+        ]
+      }
+    },
+    "2026-09-26_05_minor_p2_08-03": {
+      "category": "minors",
+      "judges": 2,
+      "best": [
+        "F",
+        "F"
+      ],
+      "best_contestant": [
+        "pi-glm-5.3-flash",
+        "pi-glm-5.3-flash"
+      ],
+      "scores": {
+        "engine": [
+          2,
+          2
+        ],
+        "api-deepseek-flash": [
+          5,
+          2
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          6,
+          5
+        ],
+        "escalate": [
+          5,
+          2
+        ],
+        "pi-deepseek-v4.1-flash": [
+          6.5,
+          5.5
+        ],
+        "pi-glm-5.3-flash": [
+          7,
+          6
+        ],
+        "cu-deepseek-v4.1-flash": [
+          6,
+          5
+        ],
+        "pi-gemma4-31b": [
+          3,
+          4.5
+        ]
+      }
+    },
+    "2026-10-03_05_minor_p2_08-18": {
+      "category": "minors",
+      "judges": 3,
+      "best": [
+        "A",
+        "B",
+        "H"
+      ],
+      "best_contestant": [
+        "pi-deepseek-v4.1-flash",
+        "pi-glm-5.3-flash",
+        "cu-deepseek-v4.1-flash"
+      ],
+      "scores": {
+        "pi-deepseek-v4.1-flash": [
+          8,
+          7,
+          7
+        ],
+        "pi-glm-5.3-flash": [
+          6,
+          8.5,
+          6
+        ],
+        "pi-gemma4-31b": [
+          7.5,
+          6.5,
+          6.5
+        ],
+        "escalate": [
+          6,
+          6,
+          5.5
+        ],
+        "pi-deepseek-v4.1-flash-lean": [
+          5.5,
+          5.5,
+          4.5
+        ],
+        "api-deepseek-flash": [
+          6,
+          6,
+          5.5
+        ],
+        "engine": [
+          2,
+          3,
+          2
+        ],
+        "cu-deepseek-v4.1-flash": [
+          7.5,
+          7.5,
+          7.5
+        ]
+      }
+    }
+  }
+}
