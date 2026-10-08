@@ -436,7 +436,7 @@ class AgentBackend:
 # ======================================================================================
 # escalate: api first, an agent only where the cheap call is weak
 # ======================================================================================
-ESCALATE_MIN_CONFIDENCE = float(os.environ.get("CLIP_REVIEW_ESCALATE_MIN_CONFIDENCE", "0.75"))
+ESCALATE_MIN_CONFIDENCE = float(os.environ.get("CLIP_REVIEW_ESCALATE_MIN_CONFIDENCE", "0.6"))
 
 
 def should_escalate(verdict: Optional[Dict[str, Any]], incident: Dict[str, Any], error: Optional[str] = None) -> Optional[str]:

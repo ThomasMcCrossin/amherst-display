@@ -236,7 +236,7 @@ with `scripts/frames.py`, writes the verdict and checks it. The command is confi
 `{prompt}` is replaced by the prompt (without it the prompt goes on stdin) and `{skill}` by the
 skill directory. `escalate` runs `api` on every incident and hands off to the agent command only
 for a low-confidence, unsure or failed call, a scorebug-alert game, or a fight/major
-(`CLIP_REVIEW_ESCALATE_MIN_CONFIDENCE`, default 0.75); `summary.json` reports the hand-off rate.
+(`CLIP_REVIEW_ESCALATE_MIN_CONFIDENCE`, default 0.6: the api model reports 0.6 for most ordinary calls, so 0.75 handed off 95% in the bake-off); `summary.json` reports the hand-off rate.
 
 Agents have a budget (SKILL.md: about 20 turns and 12 frame pulls per incident) and a hard
 guard in the command: `claude --max-turns N`; pi has no turn flag, so load the skill's
