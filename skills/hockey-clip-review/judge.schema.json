@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hockey-clip-review/judge.schema.json",
+  "title": "hockey-clip-review blinded judge verdict",
+  "description": "One judge's verdict on one blinded judge packet (packets/<incident_id>/judge-<judge>.json). Candidates are the anonymous clips A.mp4, B.mp4, ... in the packet; context.mp4 is a wider window for reference. Scores: 10 = the clip shows the whole event from the start of the play to the end of the celebration/whistle with nothing extra; 0 = the event is not in the clip. Flags use the same list as the human judging page.",
+  "type": "object",
+  "required": ["schema", "incident_id", "judge", "candidates", "best", "reasoning"],
+  "properties": {
+    "schema": {"enum": ["hockey-clip-review/judge@1"]},
+    "incident_id": {"type": "string"},
+    "judge": {"type": "string", "description": "free label for this judge run, e.g. sonnet-1"},
+    "event_seen_in_context": {"type": ["boolean", "null"], "description": "is the game-sheet event visible anywhere in context.mp4"},
+    "event_context_s": {"type": ["number", "null"], "description": "seconds into context.mp4 where the event happens (goal: puck crosses the line; penalty: the foul or whistle; fight: gloves drop)"},
+    "candidates": {
+      "type": "object",
+      "description": "one entry per candidate letter present in the packet",
+      "patternProperties": {
+        "^[A-Z]$": {
+          "type": "object",
+          "required": ["score", "flags"],
+          "properties": {
+            "score": {"type": "number", "minimum": 0, "maximum": 10},
+            "flags": {"type": "array", "items": {"enum": ["correct", "wrong_event", "missing_goal", "starts_late", "ends_early", "too_long"]}},
+            "notes": {"type": "string"}
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "best": {"type": ["string", "null"], "pattern": "^[A-Z]$"},
+    "reasoning": {"type": "string"}
+  }
+}

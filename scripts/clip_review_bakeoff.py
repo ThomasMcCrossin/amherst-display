@@ -11,10 +11,12 @@ and cross-model agreement.
   B=~/.local/state/watch-rams/clip-bakeoff
   clip_review_bakeoff.py corpus      --bake $B [--games-root DIR ...]      # discover game dirs + recordings
   clip_review_bakeoff.py packets     --bake $B                              # all packets, all games
-  clip_review_bakeoff.py sample      --bake $B [--n 40] [--seed 7]          # stratified sample
+  clip_review_bakeoff.py sample      --bake $B [--n 40] [--seed 7]          # stratified sample (tops up)
+  clip_review_bakeoff.py reviewset   --bake $B                              # + every alert-game goal and major/fight
   clip_review_bakeoff.py run         --bake $B [--contestants a,b] [--run-tag run2 --subset 12]
   clip_review_bakeoff.py adversary   --bake $B --pairs reviewer:adversary,...
-  clip_review_bakeoff.py render      --bake $B                              # clips + site/
+  clip_review_bakeoff.py render      --bake $B                              # clips + site/ (human judging page)
+  clip_review_bakeoff.py judge-packets --bake $B [--cap 80]                 # blinded packets + key for judge agents
   clip_review_bakeoff.py provisional --bake $B                              # leaderboard_provisional.{json,md}
   clip_review_bakeoff.py score       --bake $B --marks marks.json           # leaderboard_final.{json,md}
 
@@ -167,6 +169,24 @@ def cmd_sample(a) -> None:
     print(f"{len(picked)} sampled: {counts}; available: { {k: len(v) for k, v in by.items()} }")
 
 
+def cmd_reviewset(a) -> None:
+    """sample + every goal from a scorebug-alert game + every major/fight (what the blinded judges need)."""
+    sample = jload(a.bake / "sample.json")
+    have = {(x["game"], x["incident_id"]) for x in sample}
+    extra = [dict(x, stratum=stratum(x)) for x in jload(a.bake / "packets.json") if x["packet"]
+             and (x["game"], x["incident_id"]) not in have and stratum(x) in ("goal_alert", "rough")]
+    jdump(a.bake / "review_set.json", sample + extra)
+    print(f"review set: {len(sample)} sampled + {len(extra)} extra (alert-game goals, majors/fights) = {len(sample) + len(extra)}")
+
+
+def load_set(a, default: str = "review") -> List[Dict[str, Any]]:
+    name = getattr(a, "set", "") or default
+    f = a.bake / ("review_set.json" if name == "review" else "sample.json")
+    if not f.exists():
+        f = a.bake / "sample.json"
+    return jload(f)
+
+
 # ======================================================================================
 # run reviewers / adversaries
 # ======================================================================================
@@ -186,7 +206,7 @@ def _subset(sample: List[Dict[str, Any]], n: int) -> List[Dict[str, Any]]:
 
 
 def cmd_run(a) -> None:
-    sample = _subset(jload(a.bake / "sample.json"), a.subset)
+    sample = _subset(load_set(a), a.subset)
     names = [c for c in (a.contestants.split(",") if a.contestants else CONTESTANTS)]
 
     def one_contestant(name: str) -> str:
@@ -209,7 +229,7 @@ def cmd_run(a) -> None:
 
 
 def cmd_adversary(a) -> None:
-    sample = [x for x in jload(a.bake / "sample.json") if x["class"] in ("goal", "major", "fight")]
+    sample = [x for x in load_set(a) if x["class"] in ("goal", "major", "fight")]
     pairs = [p.split(":") for p in a.pairs.split(",")]
 
     def one_pair(pair):
@@ -272,7 +292,7 @@ def render_small(video: Path, start: float, end: float, anchor: float, dest: Pat
 
 
 def cmd_render(a) -> None:
-    sample = jload(a.bake / "sample.json")
+    sample = load_set(a, "sample")
     names = list(CONTESTANTS)
     site = a.bake / "site"
     (site / "clips").mkdir(parents=True, exist_ok=True)
@@ -317,6 +337,110 @@ def cmd_render(a) -> None:
 
 
 # ======================================================================================
+# blinded judge packets (for independent judge agents)
+# ======================================================================================
+def render_judge(video: Path, start: float, end: float, dest: Path) -> None:
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    cmd = ["nice", "-n", "10", "ffmpeg", "-v", "error", "-nostdin", "-y", "-ss", f"{start:.3f}", "-t", f"{end - start:.3f}",
+           "-i", str(video), "-vf", "scale=-2:'min(720,ih)'", "-c:v", "libx264", "-preset", "veryfast", "-crf", "24",
+           "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "96k", "-map_metadata", "-1", "-movflags", "+faststart",
+           "-threads", "2", str(dest)]
+    subprocess.run(cmd, check=True)
+
+
+def _disagree(ws: Dict[str, Dict[str, Any]], tol: float = 3.0) -> bool:
+    vals = list(ws.values())
+    clipped = {w.get("in_t") is not None for w in vals}
+    if len(clipped) > 1:
+        return True
+    vis = {bool(w.get("event_visible")) for n, w in ws.items() if n != ENGINE and w.get("event_visible") is not None}
+    if len(vis) > 1:
+        return True
+    ins = [w["in_t"] for w in vals if w.get("in_t") is not None]
+    outs = [w["out_t"] for w in vals if w.get("out_t") is not None]
+    return bool(ins) and (max(ins) - min(ins) > tol or max(outs) - min(outs) > tol)
+
+
+def cmd_judge_packets(a) -> None:
+    pool = load_set(a)
+    names = list(CONTESTANTS)
+    root = a.judge_root.expanduser()
+    rng = random.Random(a.seed)
+    must, disagree, agree = [], [], []
+    for x in pool:
+        ws = windows_for(x, names)
+        if len(ws) < 1 + len(names) // 2:  # too few reviewers finished this one
+            continue
+        if (x["kind"] == "goal" and x["scorebug_alert"]) or x["class"] in ("major", "fight"):
+            must.append((x, ws))
+        elif _disagree(ws):
+            disagree.append((x, ws))
+        else:
+            agree.append((x, ws))
+    rng.shuffle(agree)
+    chosen = must + disagree
+    if len(chosen) > a.cap:
+        rng.shuffle(disagree)
+        chosen = must + disagree[:max(0, a.cap - len(must))]
+    chosen += agree[:max(0, min(a.agree_sample, a.cap - len(chosen)))]
+    key: Dict[str, Any] = {}
+    jobs = []
+    for x, ws in chosen:
+        inc = jload(Path(x["packet"]) / "incident.json")
+        jid = f'{inc["game"]["date"]}_{x["incident_id"]}'
+        anchor, video, b = float(inc["anchor"]), Path(inc["video"]), inc["bounds"]
+        cands = [(who, w) for who, w in ws.items() if w.get("in_t") is not None]
+        letters = [chr(65 + i) for i in range(len(cands))]
+        rng.shuffle(cands)
+        ins = [w["in_t"] for _, w in cands] or [0.0]
+        outs = [w["out_t"] for _, w in cands] or [0.0]
+        c_lo = max(b["video_from"], min(-120.0, min(ins) - 10))
+        c_hi = min(b["video_to"], max(60.0, max(outs) + 10))
+        if c_hi - c_lo > 360:
+            c_lo = max(c_lo, c_hi - 360)
+        pk = root / "packets" / jid
+        cand_doc, key_letters = {}, {}
+        for letter, (who, w) in zip(letters, cands):
+            jobs.append((video, anchor + w["in_t"], anchor + w["out_t"], pk / f"{letter}.mp4"))
+            cand_doc[letter] = {"file": f"{letter}.mp4", "duration_s": round(w["out_t"] - w["in_t"], 1),
+                                "start_in_context_s": round(w["in_t"] - c_lo, 1)}
+            key_letters[letter] = {"contestant": who, "in_t": w["in_t"], "out_t": w["out_t"]}
+        jobs.append((video, anchor + c_lo, anchor + c_hi, pk / "context.mp4"))
+        el = inc["time_elapsed"]
+        etype = {"goal": "goal", "minor": "minor penalty", "major": "major penalty / misconduct", "fight": "fight"}[inc["class"]]
+        if inc["kind"] == "goal":
+            r = inc["sheet_rows"][0]
+            desc = f'Goal by {r.get("team")}: {r.get("scorer")}' + (
+                f' (assists: {", ".join(v for v in (r.get("assist1"), r.get("assist2")) if v)})' if r.get("assist1") else " (unassisted)") + (
+                f' [{r["special"]}]' if r.get("special") else "") + (" [empty net]" if r.get("empty_net") else "")
+        else:
+            desc = "; ".join(f'{r.get("team")}: {r.get("player")} - {r.get("infraction")} ({r.get("minutes")} min)' for r in inc["sheet_rows"])
+        doc = {"schema": "hockey-clip-review/judge-incident@1", "incident_id": jid,
+               "game": {"date": inc["game"]["date"], "home": inc["teams"]["home"], "away": inc["teams"]["away"]},
+               "period": inc["period"], "clock_elapsed": el, "clock_remaining": inc.get("time_remaining"),
+               "event_type": etype, "description": desc, "sheet_rows": inc["sheet_rows"], "scorebug_alert": inc["scorebug_alert"],
+               "candidates": cand_doc, "context": {"file": "context.mp4", "duration_s": round(c_hi - c_lo, 1)},
+               "flags": list(MARKS), "verdict_schema": str(REPO / "skills" / "hockey-clip-review" / "judge.schema.json"),
+               "instructions": ("Each candidate is a proposed highlight clip of this one game-sheet event. Score each 0-10: 10 = shows the "
+                                "whole event from the start of the play that produced it (faceoff win, zone entry, turnover; for a penalty "
+                                "the foul; for a fight the gloves dropping) through the end of the celebration / whistle / players separated, "
+                                "with no replay and little dead time; 0 = the event is not in the clip. context.mp4 is a wider window; use it "
+                                "to see what a candidate missed. Write judge-<your label>.json in this directory following verdict_schema.")}
+        pk.mkdir(parents=True, exist_ok=True)
+        jdump(pk / "incident.json", doc)
+        key[jid] = {"letters": key_letters, "dropped_by": [w for w, v in ws.items() if v.get("in_t") is None],
+                    "source": {"game": x["game"], "incident_id": x["incident_id"], "packet": x["packet"], "stratum": x["stratum"]},
+                    "context_from_t": round(c_lo, 2)}
+    todo = [j for j in jobs if not j[3].exists()]
+    print(f"judge packets: {len(chosen)} incidents ({len(must)} must, {len(disagree)} disagree, "
+          f"{len(chosen) - len(must) - min(len(disagree), len(chosen) - len(must))} agreeing sample); rendering {len(todo)} files", flush=True)
+    with cf.ThreadPoolExecutor(max_workers=a.workers) as pool_:
+        list(pool_.map(lambda j: render_judge(*j), todo))
+    jdump(root / "key.json", key)
+    print(f"packets: {root / 'packets'}  key: {root / 'key.json'}")
+
+
+# ======================================================================================
 # provisional leaderboard: objective checks + cross-model agreement
 # ======================================================================================
 def _median(v: List[float]) -> Optional[float]:
@@ -336,7 +460,7 @@ def consensus_event(ws: Dict[str, Dict[str, Any]], tol: float = 5.0) -> Optional
 
 
 def cmd_provisional(a) -> None:
-    sample = jload(a.bake / "sample.json")
+    sample = load_set(a)
     names = list(CONTESTANTS)
     who = [ENGINE] + names
     agg: Dict[str, Dict[str, List[float]]] = {n: {} for n in who}
@@ -515,7 +639,12 @@ def cmd_score(a) -> None:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
-    ap.add_argument("cmd", choices=("corpus", "packets", "sample", "run", "adversary", "render", "provisional", "score"))
+    ap.add_argument("cmd", choices=("corpus", "packets", "sample", "reviewset", "run", "adversary", "render", "judge-packets",
+                                    "provisional", "score"))
+    ap.add_argument("--set", default="", help="sample | review (default: review for run/adversary/provisional, sample for render)")
+    ap.add_argument("--judge-root", type=Path, default=Path.home() / ".local/state/watch-rams/clip-judge")
+    ap.add_argument("--cap", type=int, default=80)
+    ap.add_argument("--agree-sample", type=int, default=12)
     ap.add_argument("--bake", type=Path, default=Path.home() / ".local/state/watch-rams/clip-bakeoff")
     ap.add_argument("--games-root", action="append")
     ap.add_argument("--only-game", default="")
@@ -542,7 +671,7 @@ def main() -> int:
         prev = jload(a.bake / "adversary_pairs.json") if (a.bake / "adversary_pairs.json").exists() else []
         new = [p.split(":") for p in a.pairs.split(",") if p]
         jdump(a.bake / "adversary_pairs.json", prev + [p for p in new if p not in prev])
-    globals()[f"cmd_{a.cmd}"](a)
+    globals()[f"cmd_{a.cmd.replace('-', '_')}"](a)
     return 0
 
 
