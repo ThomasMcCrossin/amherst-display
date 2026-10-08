@@ -112,8 +112,8 @@ def run_role(backend: Any, role: str, packet: Path, out_dir: Path, tag: str, inc
         res = call(packet, path, retry_note=note, **{k: v for k, v in kw.items() if k != "cache_salt"})
         for k, v in (res.get("stats") or {}).items():
             if isinstance(v, (int, float)) and not isinstance(v, bool) and k not in ("returncode",):
-                total[k] = round(total.get(k, 0) + v, 6) if v is not None else total.get(k)
-            elif k not in total:
+                total[k] = round((total.get(k) or 0) + v, 6)
+            elif total.get(k) is None:
                 total[k] = v
         v = res.get("verdict")
         if v is None:
