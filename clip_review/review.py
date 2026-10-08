@@ -191,12 +191,16 @@ def review_incident(packet: Path, reviewer: Any, adversary: Optional[Any] = None
             res["dispute"] = "none"
     res["wall_s"] = round(time.time() - t0, 1)
     tot: Dict[str, float] = {}
+    tot_all: Dict[str, float] = {}
     for s in res["steps"]:
         for k in ("input_tokens", "output_tokens", "cache_read_tokens", "cost_usd", "wall_s"):
             v = (s.get("stats") or {}).get(k)
-            if isinstance(v, (int, float)) and not s.get("cached"):
-                tot[k] = round(tot.get(k, 0) + v, 6)
-    res["usage"] = tot
+            if isinstance(v, (int, float)):
+                tot_all[k] = round(tot_all.get(k, 0) + v, 6)
+                if not s.get("cached"):
+                    tot[k] = round(tot.get(k, 0) + v, 6)
+    res["usage"] = tot  # spent by this invocation
+    res["usage_original"] = tot_all  # what the verdicts cost when first produced (cache hits included)
     name = "result.json" if not adversary else f"result_adv-{adversary.name}.json"
     (out_dir / name).write_text(json.dumps(res, indent=2, default=str))
     return res

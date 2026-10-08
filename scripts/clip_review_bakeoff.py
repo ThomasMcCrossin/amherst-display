@@ -271,7 +271,8 @@ def windows_for(x: Dict[str, Any], names: List[str]) -> Dict[str, Dict[str, Any]
             v = r.get("r1") or {}
             out[n] = {"status": f.get("status"), "in_t": f.get("in_t"), "out_t": f.get("out_t"), "event_t": v.get("event_t"),
                       "event_visible": v.get("event_visible"), "decision": v.get("decision"), "foul_visible": v.get("foul_visible"),
-                      "fight": v.get("fight"), "malformed": r.get("malformed"), "wall_s": r.get("wall_s"), "usage": r.get("usage"),
+                      "fight": v.get("fight"), "malformed": r.get("malformed"), "wall_s": (r.get("usage_original") or {}).get("wall_s", r.get("wall_s")),
+                      "usage": r.get("usage_original") or r.get("usage"),
                       "attempts": (r.get("steps") or [{}])[0].get("attempts"), "reason": v.get("reason")}
     return out
 
