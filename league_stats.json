@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T20:21:45.416Z",
+  "generated_at": "2026-10-08T02:08:19.201Z",
   "season": "2026-27",
   "season_id": 46,
   "league": "MHL",
@@ -2465,26 +2465,26 @@
         "so_sv_pct": 0
       },
       {
-        "player_id": "3716",
-        "name": "Will Morgan",
-        "number": "30",
-        "team": "CHA",
+        "player_id": "3779",
+        "name": "Jessy Cormier",
+        "number": "33",
+        "team": "MIR",
         "gp": 5,
-        "wins": 2,
-        "losses": 1,
+        "wins": 3,
+        "losses": 0,
         "otl": 0,
         "sol": 0,
-        "minutes": 221,
-        "ga": 13,
-        "gaa": 3.53,
-        "saves": 85,
+        "minutes": 238,
+        "ga": 18,
+        "gaa": 4.53,
+        "saves": 136,
         "shots_against": 0,
-        "sv_pct": 0.867,
+        "sv_pct": 0.883,
         "shutouts": 0,
-        "so_gp": 1,
-        "so_wins": 1,
+        "so_gp": 0,
+        "so_wins": 0,
         "so_attempts": 0,
-        "so_goals_against": 1,
+        "so_goals_against": 0,
         "so_sv_pct": 0
       }
     ],
@@ -2837,6 +2837,29 @@
         "so_sv_pct": 0
       },
       {
+        "player_id": "3779",
+        "name": "Jessy Cormier",
+        "number": "33",
+        "team": "MIR",
+        "gp": 5,
+        "wins": 3,
+        "losses": 0,
+        "otl": 0,
+        "sol": 0,
+        "minutes": 238,
+        "ga": 18,
+        "gaa": 4.53,
+        "saves": 136,
+        "shots_against": 0,
+        "sv_pct": 0.883,
+        "shutouts": 0,
+        "so_gp": 0,
+        "so_wins": 0,
+        "so_attempts": 0,
+        "so_goals_against": 0,
+        "so_sv_pct": 0
+      },
+      {
         "player_id": "3000",
         "name": "Samuel Quimper",
         "number": "70",
@@ -2926,29 +2949,6 @@
         "so_wins": 0,
         "so_attempts": 0,
         "so_goals_against": 2,
-        "so_sv_pct": 0
-      },
-      {
-        "player_id": "4125",
-        "name": "Vincent Gladu",
-        "number": "29",
-        "team": "SWC",
-        "gp": 5,
-        "wins": 2,
-        "losses": 2,
-        "otl": 0,
-        "sol": 0,
-        "minutes": 249,
-        "ga": 18,
-        "gaa": 4.34,
-        "saves": 93,
-        "shots_against": 0,
-        "sv_pct": 0.838,
-        "shutouts": 0,
-        "so_gp": 0,
-        "so_wins": 0,
-        "so_attempts": 0,
-        "so_goals_against": 0,
         "so_sv_pct": 0
       }
     ],
@@ -3255,7 +3255,7 @@
         "streak_length": 5,
         "assists": 0,
         "points": 5,
-        "active": true
+        "active": false
       },
       {
         "player_id": "3150",
@@ -3756,13 +3756,13 @@
       "sol": 0,
       "pts": 11,
       "pct": 0.611,
-      "gf": 42,
-      "ga": 37,
-      "diff": 5,
+      "gf": 45,
+      "ga": 45,
+      "diff": 0,
       "rw": 5,
       "otw": 0,
       "sow": 0,
-      "pim": 184,
+      "pim": 188,
       "streak": "1-0-0-0",
       "last_10": "5-3-1-0"
     },
@@ -3778,13 +3778,13 @@
       "sol": 0,
       "pts": 10,
       "pct": 0.833,
-      "gf": 35,
-      "ga": 17,
-      "diff": 18,
+      "gf": 43,
+      "ga": 20,
+      "diff": 23,
       "rw": 5,
       "otw": 0,
       "sow": 0,
-      "pim": 117,
+      "pim": 123,
       "streak": "5-0-0-0",
       "last_10": "5-1-0-0"
     },
@@ -3904,6 +3904,18 @@
         "shg_against": 2
       },
       {
+        "team_id": "9",
+        "name": "Miramichi Timberwolves",
+        "code": "MIR",
+        "gp": 9,
+        "pp_goals": 10,
+        "pp_opportunities": 29,
+        "pp_pct": 34.5,
+        "pk_pct": 82.4,
+        "shg_for": 0,
+        "shg_against": 1
+      },
+      {
         "team_id": "2",
         "name": "Edmundston Blizzard",
         "code": "EDM",
@@ -3911,7 +3923,7 @@
         "pp_goals": 5,
         "pp_opportunities": 15,
         "pp_pct": 33.3,
-        "pk_pct": 88,
+        "pk_pct": 84,
         "shg_for": 1,
         "shg_against": 1
       },
@@ -3925,18 +3937,6 @@
         "pp_pct": 31.6,
         "pk_pct": 80.4,
         "shg_for": 6,
-        "shg_against": 1
-      },
-      {
-        "team_id": "9",
-        "name": "Miramichi Timberwolves",
-        "code": "MIR",
-        "gp": 9,
-        "pp_goals": 9,
-        "pp_opportunities": 29,
-        "pp_pct": 31,
-        "pk_pct": 82.4,
-        "shg_for": 0,
         "shg_against": 1
       },
       {
@@ -4026,16 +4026,6 @@
     ],
     "penaltykill": [
       {
-        "team_id": "2",
-        "name": "Edmundston Blizzard",
-        "code": "EDM",
-        "gp": 6,
-        "pk_goals_against": 3,
-        "pk_times_shorthanded": 25,
-        "pk_pct": 88,
-        "pp_pct": 33.3
-      },
-      {
         "team_id": "1",
         "name": "Amherst Ramblers",
         "code": "AMH",
@@ -4056,6 +4046,16 @@
         "pp_pct": 37.9
       },
       {
+        "team_id": "2",
+        "name": "Edmundston Blizzard",
+        "code": "EDM",
+        "gp": 6,
+        "pk_goals_against": 4,
+        "pk_times_shorthanded": 25,
+        "pk_pct": 84,
+        "pp_pct": 33.3
+      },
+      {
         "team_id": "9",
         "name": "Miramichi Timberwolves",
         "code": "MIR",
@@ -4063,7 +4063,7 @@
         "pk_goals_against": 6,
         "pk_times_shorthanded": 34,
         "pk_pct": 82.4,
-        "pp_pct": 31
+        "pp_pct": 34.5
       },
       {
         "team_id": "4",
