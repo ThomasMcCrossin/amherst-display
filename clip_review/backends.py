@@ -6,6 +6,9 @@ Review backends. Each returns {"verdict": dict|None, "stats": {...}, "error": st
          (or DEEPSEEK_API_KEY), SCOREBUG_VISION_BASE_URL, SCOREBUG_VISION_MODEL.
   agent  an agent harness command (CLIP_REVIEW_AGENT_CMD / CLIP_REVIEW_ADVERSARY_CMD) run in the
          packet dir; it reads SKILL.md, looks at frames itself and writes the verdict file.
+         `{prompt}` in the command is the prompt (else stdin); `{skill}` is the skill dir.
+  escalate  the api backend for every incident, handing off to an agent backend only when
+         should_escalate() says so (low confidence, scorebug-alert game, fight or major).
 
 No harness command lives here; commands are configuration (see README for examples).
 """
@@ -120,8 +123,9 @@ class ApiBackend:
             + ("; ".join(f"{n['what']} at {n['placed_t']:+.0f}" for n in inc["neighbours"]) or "none") + ".\n\n")
         if kind == "goal":
             text += ("Find the goal. event_moment = puck crosses the line. play_start = first frame of the possession that "
-                     "produced the goal: the faceoff win, turnover, or zone entry that led directly to the shot (after a long "
-                     "offensive-zone cycle, about 8 s before the shot). play_end = last frame of the live celebration, or the "
+                     "produced the goal, to show the build-up: the zone entry, the possession change, or the faceoff win "
+                     "that led to the goal. When in doubt go earlier: never less than 15 s before the goal, up to 45 s when "
+                     "the play builds longer (cycle, sustained pressure, rush from its own zone). play_end = last frame of the live celebration, or the "
                      "first replay/graphic, whichever comes first. The clock freezes at the goal; the score digit changes later.\n")
         elif cls in ("major", "fight"):
             text += ("This is a major / misconduct / fight incident. Find it. If it is a fight, set fight.gloves_drop to when gloves "
@@ -186,7 +190,8 @@ class ApiBackend:
         else:
             rtext = (f"Hockey broadcast, one {cls}. A first pass proposed: start {p_in:+.1f} ({c.get('play_start_kind')}), end "
                      f"{p_out:+.1f} ({c.get('play_end_kind')}), event {moment:+.1f}. Confirm or correct each boundary on the dense sheets "
-                     "(0.5 s apart, labelled on the same scale). start = the first frame of the play that produced the event; end = last "
+                     "(0.5 s apart, labelled on the same scale). start = the first frame of the play that produced the event (for a goal the build-up: zone entry, possession change or "
+                     "faceoff win, at least 15 s before the goal; when in doubt earlier); end = last "
                      "frame worth keeping, before any replay/graphic/commercial.\n"
                      'Reply with JSON only: {"start": <label>, "end": <label>, "start_what": "...", "end_what": "..."}')
         rcontent: List[Dict[str, Any]] = [{"type": "text", "text": rtext}]
@@ -293,6 +298,7 @@ Run the skill scripts with: {python}
 Write the verdict JSON to: {out}
 Then run: {python} {skill}/scripts/check_verdict.py {out} --packet {packet}
 and fix the verdict until it prints OK.
+Budget: at most ~20 turns and ~12 frame pulls; coarse sheets first, dense frames only around the boundaries.
 {extra}Finish with one line: VERDICT {out}"""
 
 ADVERSARY_PROMPT = """You are the ADVERSARY for one hockey highlight incident.
@@ -303,6 +309,7 @@ Run the skill scripts with: {python}
 Write your adversary JSON to: {out}
 Then run: {python} {skill}/scripts/check_verdict.py {out} --packet {packet}
 and fix it until it prints OK.
+Budget: at most ~12 turns and ~6 frame pulls.
 Finish with one line: VERDICT {out}"""
 
 
@@ -370,7 +377,7 @@ class AgentBackend:
         return f"agent|{self.cmd}"
 
     def _argv(self, prompt: str) -> Tuple[List[str], Optional[str]]:
-        argv = shlex.split(self.cmd)
+        argv = [a.replace("{skill}", str(SKILL_DIR)) for a in shlex.split(self.cmd)]
         if "{prompt}" in argv:
             return [prompt if a == "{prompt}" else a for a in argv], None
         return argv, prompt  # no placeholder: prompt goes on stdin
@@ -424,3 +431,58 @@ class AgentBackend:
     @staticmethod
     def prompt_text() -> str:
         return REVIEW_PROMPT + ADVERSARY_PROMPT
+
+
+# ======================================================================================
+# escalate: api first, an agent only where the cheap call is weak
+# ======================================================================================
+ESCALATE_MIN_CONFIDENCE = float(os.environ.get("CLIP_REVIEW_ESCALATE_MIN_CONFIDENCE", "0.75"))
+
+
+def should_escalate(verdict: Optional[Dict[str, Any]], incident: Dict[str, Any], error: Optional[str] = None) -> Optional[str]:
+    """Why the api verdict needs the agent, or None. Shared by EscalateBackend and the bake-off."""
+    if incident.get("class") in ("major", "fight"):
+        return "fight_or_major"
+    if incident.get("scorebug_alert"):
+        return "scorebug_alert"
+    if error or not verdict:
+        return "no_verdict"
+    if verdict.get("decision") in ("unsure", "drop"):
+        return "unsure_or_drop"
+    if (_num(verdict.get("confidence")) or 0.0) < ESCALATE_MIN_CONFIDENCE:
+        return "low_confidence"
+    return None
+
+
+class EscalateBackend:
+    kind = "escalate"
+
+    def __init__(self, primary: ApiBackend, fallback: AgentBackend, name: str = "escalate"):
+        self.primary, self.fallback, self.name = primary, fallback, name
+
+    def identity(self) -> str:
+        return f"escalate|{self.primary.identity()}|{self.fallback.identity()}|{ESCALATE_MIN_CONFIDENCE}"
+
+    def review(self, packet: Path, out_path: Path, **kw: Any) -> Dict[str, Any]:
+        inc = json.loads((packet / "incident.json").read_text())
+        res = self.primary.review(packet, out_path, **kw)
+        why = should_escalate(res.get("verdict"), inc, res.get("error"))
+        if not why:
+            res["stats"] = dict(res.get("stats") or {}, escalated=None)
+            return res
+        first = res.get("stats") or {}
+        out = self.fallback.review(packet, out_path, **kw)
+        st = dict(out.get("stats") or {})
+        for k in ("input_tokens", "output_tokens", "cache_read_tokens", "cost_usd", "wall_s"):
+            if isinstance(first.get(k), (int, float)):
+                st[k] = round((st.get(k) or 0) + first[k], 6)
+        st["escalated"] = why
+        out["stats"] = st
+        return out
+
+    def adversary(self, packet: Path, out_path: Path, adv_input: Path, **kw: Any) -> Dict[str, Any]:
+        return self.primary.adversary(packet, out_path, adv_input, **kw)
+
+    @staticmethod
+    def prompt_text() -> str:
+        return AgentBackend.prompt_text()

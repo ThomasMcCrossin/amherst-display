@@ -51,11 +51,11 @@ textarea { width:100%; font:12px ui-monospace, monospace; }
 <script>
 const DATA = /*__DATA__*/null;
 const KEY = "clip-bakeoff-marks-v1";
-const LABELS = {correct:"correct", wrong_event:"wrong event", missing_goal:"missing goal/foul", starts_late:"starts late", ends_early:"ends early", too_long:"too long"};
-function load() { try { return JSON.parse(localStorage.getItem(KEY)) || {clips:{}, best:{}, notes:{}}; } catch (e) { return {clips:{}, best:{}, notes:{}}; } }
+const LABELS = {correct:"correct", wrong_event:"wrong event", missing_goal:"missing goal/foul", starts_late:"starts late (misses build-up)", ends_early:"ends early", too_long:"too long"};
+function load() { let m; try { m = JSON.parse(localStorage.getItem(KEY)); } catch (e) {} m = m || {}; return {clips: m.clips || {}, best: m.best || {}, notes: m.notes || {}, scores: m.scores || {}}; }
 let M = load();
 function save() { try { localStorage.setItem(KEY, JSON.stringify(M)); } catch (e) {} progress(); }
-function judged(it) { return it.cards.length && it.cards.every(c => Object.values(M.clips[c.clip_id] || {}).some(Boolean)); }
+function judged(it) { return it.cards.length && it.cards.every(c => M.scores[c.clip_id] !== undefined || Object.values(M.clips[c.clip_id] || {}).some(Boolean)); }
 function progress() {
   const n = DATA.items.filter(judged).length;
   document.getElementById("progress").textContent = `${n} / ${DATA.items.length} incidents judged`;
@@ -84,7 +84,7 @@ function render() {
       d.innerHTML = `<div class="head"><span>${esc(c.label)}</span><span class="meta">${c.in_t.toFixed(1)} to ${c.out_t.toFixed(1)} s &middot; ${c.length}s</span></div>
         <video controls preload="none" src="${esc(c.file)}"></video>
         <div class="who">${esc(c.who.join(", "))}</div>
-        <div class="marks">${Object.entries(LABELS).map(([k, l]) => `<label><input type="checkbox" data-k="${k}" ${m[k] ? "checked" : ""}> ${l}</label>`).join("")}
+        <div class="marks"><label>highlight score <select class="score"><option value="">-</option>${[...Array(11).keys()].map(n => `<option ${M.scores[c.clip_id] === n ? "selected" : ""}>${n}</option>`).join("")}</select></label>${Object.entries(LABELS).map(([k, l]) => `<label><input type="checkbox" data-k="${k}" ${m[k] ? "checked" : ""}> ${l}</label>`).join("")}
           <label><input type="radio" name="best-${esc(it.key)}" ${M.best[it.key] === c.clip_id ? "checked" : ""}> best</label></div>
         <input class="note" placeholder="note (optional)" value="${esc((M.notes || {})[c.clip_id] || "")}">`;
       d.querySelectorAll("input[type=checkbox]").forEach(cb => cb.addEventListener("change", () => {
@@ -94,6 +94,7 @@ function render() {
         save();
       }));
       d.querySelector("input[type=radio]").addEventListener("change", () => { M.best[it.key] = c.clip_id; save(); grid.querySelectorAll(".clip").forEach(x => x.classList.remove("best")); d.classList.add("best"); });
+      d.querySelector(".score").addEventListener("change", e => { if (e.target.value === "") delete M.scores[c.clip_id]; else M.scores[c.clip_id] = +e.target.value; save(); });
       d.querySelector(".note").addEventListener("input", e => { M.notes = M.notes || {}; M.notes[c.clip_id] = e.target.value; save(); });
       grid.appendChild(d);
     });
@@ -116,7 +117,7 @@ function init() {
   };
   document.getElementById("import").onclick = () => {
     const t = prompt("Paste exported marks JSON"); if (!t) return;
-    try { const m = JSON.parse(t); M = {clips: m.clips || {}, best: m.best || {}, notes: m.notes || {}}; save(); render(); } catch (e) { alert("not valid JSON"); }
+    try { const m = JSON.parse(t); M = {clips: m.clips || {}, best: m.best || {}, notes: m.notes || {}, scores: m.scores || {}}; save(); render(); } catch (e) { alert("not valid JSON"); }
   };
   document.getElementById("clear").onclick = () => { if (confirm("Clear all marks in this browser?")) { M = {clips:{}, best:{}, notes:{}}; save(); render(); } };
   render();

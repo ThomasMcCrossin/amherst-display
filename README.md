@@ -202,8 +202,8 @@ pre/post-roll. `scripts/review_game.py` reviews those clips against the recordin
    (goals -75/+40 s at 1 s, -120/+60 s at 1.5 s in scorebug-alert games; minors -60/+25 s;
    majors and fights -120/+120 s).
 2. **review**: a reviewer returns a `hockey-clip-review/verdict@1` JSON: `keep`, `adjust`
-   (new in/out from the play: faceoff win / zone entry / turnover to the end of the
-   celebration), `relocate` (event more than 30 s from the anchor, with frame evidence),
+   (new in/out from the play: for a goal the build-up, from the zone entry / possession change /
+   faceoff win that led to it, to the end of the celebration), `relocate` (event more than 30 s from the anchor, with frame evidence),
    `drop` (event not in the recording, with evidence) or `unsure`.
 3. **adversary** (`--adversary`, goals, majors and fights): a second model gets the proposed
    final clip as contact sheets and tries to refute it (goal not in clip, cut before the
@@ -218,7 +218,8 @@ pre/post-roll. `scripts/review_game.py` reviews those clips against the recordin
 
 Authority is enforced in code, not trusted to the model (`check_verdict.py`, used by both the
 agents and the pipeline): only game-sheet incidents; relocation needs two evidence frames and
-stays within 240 s of the anchor (360 s for majors/fights); goals keep 3-45 s of lead-in and
+stays within 240 s of the anchor (360 s for majors/fights); goals keep 15-45 s of build-up
+before the goal (floor `CLIP_REVIEW_MIN_LEAD_S`, default 15; applied to saved verdicts too) and
 8-25 s after the goal (5 s minimum when a replay cuts in), 8-60 s total; minors 9-40 s;
 majors up to 90 s; fights from at most 10 s before the gloves drop to at most 10 s after the
 players are separated, 75 s cap. A window outside the bounds is clamped; a verdict that still
@@ -232,20 +233,32 @@ then 0.5 s sheets around each boundary): `SCOREBUG_VISION_API_KEY` or `DEEPSEEK_
 (default `deepseek-flash`). `agent` runs any agent harness that can read images and run bash
 in the packet directory; it reads `skills/hockey-clip-review/SKILL.md`, pulls more frames itself
 with `scripts/frames.py`, writes the verdict and checks it. The command is configuration,
-`{prompt}` is replaced by the prompt (without it the prompt goes on stdin):
+`{prompt}` is replaced by the prompt (without it the prompt goes on stdin) and `{skill}` by the
+skill directory. `escalate` runs `api` on every incident and hands off to the agent command only
+for a low-confidence, unsure or failed call, a scorebug-alert game, or a fight/major
+(`CLIP_REVIEW_ESCALATE_MIN_CONFIDENCE`, default 0.75); `summary.json` reports the hand-off rate.
+
+Agents have a budget (SKILL.md: about 20 turns and 12 frame pulls per incident) and a hard
+guard in the command: `claude --max-turns N`; pi has no turn flag, so load the skill's
+`harness/pi-tool-budget.ts` extension (`-e {skill}/harness/pi-tool-budget.ts`, works with
+`--no-extensions`), which blocks frame pulls after `HCR_MAX_TOOL_CALLS` tool calls (default 24)
+and stops the run `HCR_TOOL_GRACE` (8) calls later:
 
 ```bash
 # api reviewer + api adversary, apply, goals-only reel
 python3 scripts/review_game.py --game-dir "Games/<game>" --video recording.mp4 --adversary --apply
 
 # agent reviewer (pi + any vision model), cross-model agent adversary, rough stuff in its own reel
-export CLIP_REVIEW_AGENT_CMD='pi -p --mode json --no-session --no-context-files --no-skills --no-extensions --tools read,bash --model ollama-cloud/deepseek-v4.1-flash {prompt}'
-export CLIP_REVIEW_ADVERSARY_CMD='pi -p --mode json --no-session --no-context-files --no-skills --no-extensions --tools read,bash --model ollama-cloud/gemma4:31b {prompt}'
+export CLIP_REVIEW_AGENT_CMD='env HCR_MAX_TOOL_CALLS=20 pi -p --mode json --no-session --no-context-files --no-skills --no-extensions -e {skill}/harness/pi-tool-budget.ts --tools read,bash --thinking off --model ollama-cloud/deepseek-v4.1-flash {prompt}'
+export CLIP_REVIEW_ADVERSARY_CMD='pi -p --mode json --no-session --no-context-files --no-skills --no-extensions -e {skill}/harness/pi-tool-budget.ts --tools read,bash --model ollama-cloud/gemma4:31b {prompt}'
 python3 scripts/review_game.py --game-dir "Games/<game>" --video recording.mp4 --backend agent --adversary \
   --apply --reel-mode separate-rough --build-reel
 
+# api first, the lean agent above only where needed
+python3 scripts/review_game.py --game-dir "Games/<game>" --video recording.mp4 --backend escalate --apply
+
 # Claude Code as the harness
-export CLIP_REVIEW_AGENT_CMD='claude -p --model <model> --output-format json --tools Read,Bash --permission-mode bypassPermissions {prompt}'
+export CLIP_REVIEW_AGENT_CMD='claude -p --model <model> --output-format json --max-turns 30 --tools Read,Bash --permission-mode bypassPermissions {prompt}'
 ```
 
 Other flags: `--kinds goal,penalty|wanted`, `--only <id prefix>`, `--workers` (default 4),

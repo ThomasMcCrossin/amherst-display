@@ -6,7 +6,10 @@ Reads <root>/packets/<incident>/judge-*.json (schema skills/hockey-clip-review/j
 and the unblinding key <root>/key.json (written by clip_review_bakeoff.py judge-packets), then
 per contestant (the engine's original window is one of them):
 
-  mean_score       mean over incidents of the judges' mean 0-10 score for its clip
+  mean_score       THE HEADLINE: mean over incidents of the judges' mean 0-10 overall highlight
+                   score for its clip (how good a highlight it is, not just whether the event is in it)
+  build_up, moment, ending, cleanliness   mean sub-scores (judge@2)
+  cost per incident  from <root>/costs.json (written by clip_review_bakeoff.py judge-packets)
   win_rate         share of incidents where a judge picked its letter as best (averaged over judges)
   win_rate_equiv   same, but a pick also counts for every contestant whose window is within 0.5 s
                    of the picked one (identical windows got separate letters)
@@ -29,7 +32,8 @@ import statistics
 from pathlib import Path
 from typing import Any, Dict, List
 
-FLAGS = ("correct", "wrong_event", "missing_goal", "starts_late", "ends_early", "too_long")
+SUBS = ("build_up", "moment", "ending", "cleanliness")
+FLAGS = ("correct", "wrong_event", "missing_goal", "starts_late", "ends_early", "too_long")  # starts_late = missing the build-up (primary)
 
 
 def load_verdicts(pk: Path) -> List[Dict[str, Any]]:
@@ -50,7 +54,14 @@ def load_verdicts(pk: Path) -> List[Dict[str, Any]]:
                 score = float(c.get("score"))
             except (TypeError, ValueError, AttributeError):
                 continue
-            clean[letter] = {"score": max(0.0, min(10.0, score)), "flags": [x for x in c.get("flags") or [] if x in FLAGS]}
+            subs = {}
+            for k in SUBS:
+                try:
+                    subs[k] = max(0.0, min(10.0, float((c.get("subscores") or {}).get(k))))
+                except (TypeError, ValueError):
+                    pass
+            clean[letter] = {"score": max(0.0, min(10.0, score)), "subs": subs,
+                             "flags": [x for x in c.get("flags") or [] if x in FLAGS]}
         out.append({"judge": v.get("judge") or f.stem[6:], "candidates": clean, "best": v.get("best"), "file": str(f)})
     return out
 
@@ -71,7 +82,7 @@ def main() -> int:
 
     def row(who: str) -> Dict[str, Any]:
         return per.setdefault(who, {"scores": [], "wins": [], "wins_eq": [], "flags": {f: 0 for f in FLAGS}, "clips": 0, "dropped": 0,
-                                    "dropped_scored": 0})
+                                    "dropped_scored": 0, "subs": {k: [] for k in SUBS}})
 
     for jid, k in key.items():
         verdicts = load_verdicts(root / "packets" / jid)
@@ -99,6 +110,10 @@ def main() -> int:
             best_any = max(best_any, m)
             r = row(info["contestant"])
             r["scores"].append(m)
+            for k in SUBS:
+                sv = [v["candidates"][letter]["subs"][k] for v in verdicts if k in v["candidates"].get(letter, {}).get("subs", {})]
+                if sv:
+                    r["subs"][k].append(statistics.mean(sv))
             r["wins"].append(statistics.mean([1.0 if v.get("best") == letter else 0.0 for v in verdicts]))
             r["wins_eq"].append(statistics.mean([1.0 if v.get("best") and equiv(v["best"], letter) else 0.0 for v in verdicts]))
             for v in verdicts:
@@ -123,6 +138,8 @@ def main() -> int:
                 if letter in v1["candidates"] and letter in v2["candidates"]:
                     score_diffs.append(abs(v1["candidates"][letter]["score"] - v2["candidates"][letter]["score"]))
 
+    costs_f = root / "costs.json"
+    costs = json.loads(costs_f.read_text()) if costs_f.exists() else {}
     rows = []
     for who, r in per.items():
         n = r["clips"] or 1
@@ -131,19 +148,29 @@ def main() -> int:
                      "win_rate": round(statistics.mean(r["wins"]), 3) if r["wins"] else None,
                      "win_rate_equiv": round(statistics.mean(r["wins_eq"]), 3) if r["wins_eq"] else None,
                      **{f"{f}_rate": round(r["flags"][f] / n, 3) for f in FLAGS},
-                     "dropped": r["dropped"], "dropped_but_event_seen": r["dropped_scored"]})
+                     **{k: (round(statistics.mean(r["subs"][k]), 2) if r["subs"][k] else None) for k in SUBS},
+                     "dropped": r["dropped"], "dropped_but_event_seen": r["dropped_scored"],
+                     "tokens_per_incident": (round((costs.get(who) or {}).get("tokens_in_mean", 0) + (costs.get(who) or {}).get("tokens_out_mean", 0))
+                                             if costs.get(who) else None),
+                     "cost_usd_per_incident": (costs.get(who) or {}).get("cost_usd_mean"),
+                     "wall_s_per_incident": (costs.get(who) or {}).get("wall_s_median"),
+                     "handoff_rate": (costs.get(who) or {}).get("handoff_rate")})
     rows.sort(key=lambda x: (-(x["mean_score"] or 0), -(x["win_rate_equiv"] or 0)))
     agreement = {"judges": sorted(judges_seen), "incidents_judged": judged, "judge_pairs": agree_pairs,
                  "best_pick_agreement": round(agree_hits / agree_pairs, 3) if agree_pairs else None,
                  "mean_abs_score_diff": round(statistics.mean(score_diffs), 2) if score_diffs else None}
     out = {"rows": rows, "agreement": agreement}
     (root / f"{a.out}.json").write_text(json.dumps(out, indent=2))
-    md = [f"# Judge leaderboard ({judged} incidents, judges: {', '.join(sorted(judges_seen)) or '-'})", "",
-          "| contestant | incidents | mean score | win rate | win rate (equiv. windows) | correct | wrong event | missing goal | starts late | ends early | too long | dropped (event seen) |",
-          "|---|---|---|---|---|---|---|---|---|---|---|---|"]
+    md = [f"# Judge leaderboard: highlight quality ({judged} incidents, judges: {', '.join(sorted(judges_seen)) or '-'})", "",
+          "Headline = mean overall highlight score (0-10) from the blinded judges, with spend per incident beside it. "
+          "Sub-scores and flags are diagnostics.", "",
+          "| contestant | incidents | **highlight score** | tokens / incident | cost $ / incident | wall s / incident | build-up | moment | ending | cleanliness | win rate (equiv.) | starts late (missing build-up) | wrong event | missing event | ends early | too long | dropped (event seen) |",
+          "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for r in rows:
-        md.append(f'| {r["contestant"]} | {r["incidents"]} | {r["mean_score"]} | {r["win_rate"]} | {r["win_rate_equiv"]} | {r["correct_rate"]} | '
-                  f'{r["wrong_event_rate"]} | {r["missing_goal_rate"]} | {r["starts_late_rate"]} | {r["ends_early_rate"]} | {r["too_long_rate"]} | '
+        md.append(f'| {r["contestant"]}' + (f' (hand-off {r["handoff_rate"]:.0%})' if r.get("handoff_rate") is not None else "") +
+                  f' | {r["incidents"]} | **{r["mean_score"]}** | {r["tokens_per_incident"]} | {r["cost_usd_per_incident"]} | {r["wall_s_per_incident"]} | '
+                  f'{r["build_up"]} | {r["moment"]} | {r["ending"]} | {r["cleanliness"]} | {r["win_rate_equiv"]} | {r["starts_late_rate"]} | '
+                  f'{r["wrong_event_rate"]} | {r["missing_goal_rate"]} | {r["ends_early_rate"]} | {r["too_long_rate"]} | '
                   f'{r["dropped"]} ({r["dropped_but_event_seen"]}) |')
     md += ["", f"Judge agreement: best pick {agreement['best_pick_agreement']} over {agree_pairs} judge pairs; "
                f"mean |score difference| {agreement['mean_abs_score_diff']}."]

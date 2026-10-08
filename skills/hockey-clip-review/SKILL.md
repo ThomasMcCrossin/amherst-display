@@ -1,6 +1,6 @@
 ---
 name: hockey-clip-review
-version: "1.0.0"
+version: "1.1.0"
 description: Review one hockey highlight incident (a goal, penalty, major or fight from the official game sheet) against the broadcast recording and choose the clip's in/out points from the play on screen, or refute another reviewer's clip as the adversary. Reads frame contact sheets, can pull more frames with a bundled script, writes a JSON verdict and checks it.
 allowed-tools: Bash, Read
 ---
@@ -33,6 +33,15 @@ You are given a packet directory. Everything is relative to it.
   the anchor (highlighted yellow). Negative = before it. Your verdict uses the same numbers.
 - Contact sheets: 5x4 frames, time order left to right then down.
 
+## Budget
+
+Every review bills against a shared plan. Per incident: **at most ~20 turns and ~12 frame
+pulls** (`frames.py` calls plus image reads beyond the coarse sheets). Coarse sheets first;
+pull dense frames only around the boundaries you are pinning (in-point, event, out-point),
+never a whole range at 0.5 s. One wider scan is allowed when the event is not in the coarse
+range. When the budget is spent, write the best verdict you have (`unsure` if you must). The
+harness may stop you at a hard limit, and a run with no verdict counts as a failure.
+
 ## Procedure (reviewer)
 
 1. Read `incident.json`, then Read every coarse sheet it lists.
@@ -44,7 +53,7 @@ You are given a packet directory. Everything is relative to it.
 3. Pin each boundary on dense frames (0.5 s), around the in-point, the event and the out-point:
    `python3 $SKILL_DIR/scripts/frames.py sheet --packet . --from -38 --to -26 --step 0.5 --name start`
    Use `frames.py frame --packet . --at <t> --width 960` for a single big frame (a scorebug,
-   a jersey number). Keep it to about 12 image reads; sheets beat single frames.
+   a jersey number). Stay inside the budget above; sheets beat single frames.
 4. Write the verdict JSON to the path you were given (schema below), then run
    `python3 $SKILL_DIR/scripts/check_verdict.py <verdict path> --packet .`
    Fix every ERROR and run it again until it prints OK. NOTE lines say how the code will clamp
@@ -73,10 +82,13 @@ You are given a packet directory. Everything is relative to it.
 
 ## Where to cut
 
-- **Goal in-point**: the start of the play that produced the goal: the faceoff win in that
-  zone, the turnover, the zone entry or the rush. After a long offensive-zone cycle, about
-  8 s before the shot. Never mid-shot; never a long stretch of unrelated play. Usually
-  10-30 s before the goal (`bounds.lead_min`..`lead_max`).
+- **Goal in-point: show the build-up.** Start where the scoring play starts: the zone entry,
+  the possession change (turnover, won battle), or the faceoff win that led to the goal.
+  **When in doubt, go earlier.** Never less than `bounds.lead_min` (15 s) before the goal;
+  up to `bounds.lead_max` (45 s) when the play genuinely builds longer (an offensive-zone
+  cycle, sustained pressure, a rush from its own zone). A clip that starts on the shot is a
+  failed highlight even when the goal is in it. The code pulls any in-point later than 15 s
+  back to 15 s.
 - **Goal out-point**: when the live celebration ends (fist bumps done, players skating off) or
   the first replay/graphic wipe, whichever comes first, and at least `bounds.tail_min` (8 s)
   after the puck crosses the line. Set `replay_t` when you see the replay start; if it starts
@@ -164,7 +176,9 @@ when the reviewer dropped the clip or was unsure: then check the coarse sheets).
   in the frames), `other`.
 - Object only to **material** faults, judged by the cut rules above, not by taste:
   - `starts_too_early` only with more than ~20 s of play unrelated to the scoring play (or
-    to the incident) before it. A 5-30 s lead-in that shows the play developing is wanted.
+    to the incident) before it. A 15-45 s lead-in that shows the play developing is wanted.
+  - For a goal, object `starts_mid_play` when the clip misses the build-up (it starts after
+    the zone entry / possession change that led to the goal). This is the main fault to catch.
   - `ends_early` only when the clip stops less than `bounds.tail_min` after the event, or
     while a fight is still on, or mid-celebration with the scorer still celebrating on screen.
   - `replay_included` only when at least ~1.5 s of replay is inside the clip; a replay that

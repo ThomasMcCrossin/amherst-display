@@ -40,19 +40,28 @@ from typing import Any, Dict, List, Optional
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
-from clip_review.backends import AgentBackend, ApiBackend  # noqa: E402
+from clip_review.backends import AgentBackend, ApiBackend, should_escalate  # noqa: E402
 from clip_review.packet import build_packets, slug  # noqa: E402
 from clip_review.review import enforce, review_incident  # noqa: E402
 
-PI = "pi -p --mode json --no-session --no-context-files --no-skills --no-extensions --tools read,bash --model {model} {{prompt}}"
+# Agent commands carry a hard budget guard: pi has no --max-turns, so the skill's
+# harness/pi-tool-budget.ts extension blocks frame pulls after HCR_MAX_TOOL_CALLS tool calls;
+# claude-unified gets --max-turns. ({skill} is the skill dir, {prompt} the prompt.)
+PI = ("env HCR_MAX_TOOL_CALLS={calls} pi -p --mode json --no-session --no-context-files --no-skills --no-extensions "
+      "-e {{skill}}/harness/pi-tool-budget.ts --tools read,bash{extra} --model {model} {{prompt}}")
 CONTESTANTS: Dict[str, Dict[str, str]] = {
     "api-deepseek-flash": {"kind": "api", "cmd": ""},
-    "pi-deepseek-v4.1-flash": {"kind": "agent", "cmd": PI.format(model="ollama-cloud/deepseek-v4.1-flash")},
-    "pi-gemma4-31b": {"kind": "agent", "cmd": PI.format(model="ollama-cloud/gemma4:31b")},
-    "pi-glm-5.3-flash": {"kind": "agent", "cmd": PI.format(model="ollama-cloud/glm-5.3-flash")},
-    "cu-deepseek-v4.1-flash": {"kind": "agent", "cmd": "claude-unified -p --model deepseek-v4.1-flash --output-format json "
+    "pi-deepseek-v4.1-flash": {"kind": "agent", "cmd": PI.format(calls=32, extra="", model="ollama-cloud/deepseek-v4.1-flash")},
+    "pi-gemma4-31b": {"kind": "agent", "cmd": PI.format(calls=32, extra="", model="ollama-cloud/gemma4:31b")},
+    "pi-glm-5.3-flash": {"kind": "agent", "cmd": PI.format(calls=32, extra="", model="ollama-cloud/glm-5.3-flash")},
+    "cu-deepseek-v4.1-flash": {"kind": "agent", "cmd": "claude-unified -p --model deepseek-v4.1-flash --output-format json --max-turns 40 "
                                "--tools Read,Bash --permission-mode bypassPermissions --no-session-persistence {prompt}"},
+    # cheap variants: the same agent with thinking off and a tight budget, and api-first escalation
+    "pi-deepseek-v4.1-flash-lean": {"kind": "agent", "cmd": PI.format(calls=20, extra=" --thinking off", model="ollama-cloud/deepseek-v4.1-flash")},
+    # derived, not run: the api-deepseek-flash verdict, or the lean agent's where should_escalate() hands off
+    "escalate": {"kind": "derived", "cmd": "", "primary": "api-deepseek-flash", "fallback": "pi-deepseek-v4.1-flash-lean"},
 }
+RUNNABLE = [n for n, c in CONTESTANTS.items() if c["kind"] != "derived"]
 ENGINE = "engine"
 STRATA = {"goal_normal": 12, "goal_alert": 10, "minor": 8, "rough": 10}
 MARKS = ("correct", "wrong_event", "missing_goal", "starts_late", "ends_early", "too_long")
@@ -69,6 +78,8 @@ def jdump(p: Path, obj: Any) -> None:
 
 def backend(name: str, timeout: float = 900):
     c = CONTESTANTS[name]
+    if c["kind"] == "derived":
+        raise ValueError(f"{name} is derived from other contestants' results; it is not run")
     return ApiBackend(name=name) if c["kind"] == "api" else AgentBackend(c["cmd"], name, timeout=timeout)
 
 
@@ -207,7 +218,7 @@ def _subset(sample: List[Dict[str, Any]], n: int) -> List[Dict[str, Any]]:
 
 def cmd_run(a) -> None:
     sample = _subset(load_set(a), a.subset)
-    names = [c for c in (a.contestants.split(",") if a.contestants else CONTESTANTS)]
+    names = [c for c in (a.contestants.split(",") if a.contestants else RUNNABLE) if CONTESTANTS.get(c, {}).get("kind") != "derived"]
 
     def one_contestant(name: str) -> str:
         be = backend(name, a.timeout)
@@ -256,9 +267,45 @@ def cmd_adversary(a) -> None:
 # ======================================================================================
 # collect results
 # ======================================================================================
+def _refloor(r: Dict[str, Any], inc: Dict[str, Any]) -> Dict[str, Any]:
+    """Today's floors (e.g. the 15 s goal build-up) on a verdict made under older bounds; no model re-run."""
+    v = r.get("verdict") or r.get("r1")
+    f = r.get("final") or {}
+    if f.get("status") == "override" and isinstance(v, dict):
+        nf = enforce(v, inc)
+        if (nf.get("in_t"), nf.get("out_t")) != (f.get("in_t"), f.get("out_t")):
+            nf["refloored_from"] = [f.get("in_t"), f.get("out_t")]
+        r = dict(r, final=nf)
+    return r
+
+
 def load_result(x: Dict[str, Any], name: str, run_tag: str = "run1", adversary: Optional[str] = None) -> Optional[Dict[str, Any]]:
+    c = CONTESTANTS.get(name) or {}
+    if c.get("kind") == "derived":
+        return _escalated_result(x, c, run_tag)
     f = Path(x["packet"]) / "out" / name / run_tag / ("result.json" if not adversary else f"result_adv-{adversary}.json")
-    return jload(f) if f.exists() else None
+    if not f.exists():
+        return None
+    return _refloor(jload(f), jload(Path(x["packet"]) / "incident.json"))
+
+
+def _escalated_result(x: Dict[str, Any], c: Dict[str, Any], run_tag: str) -> Optional[Dict[str, Any]]:
+    p = load_result(x, c["primary"], run_tag)
+    if p is None:
+        return None
+    inc = jload(Path(x["packet"]) / "incident.json")
+    why = should_escalate(p.get("r1"), inc, None if (p.get("steps") or [{}])[0].get("valid", True) else "invalid")
+    if not why:
+        return dict(p, escalated=None)
+    fb = load_result(x, c["fallback"], run_tag)
+    if fb is None:
+        return None
+    use = {}
+    for k in ("input_tokens", "output_tokens", "cache_read_tokens", "cost_usd", "wall_s"):
+        vals = [(r.get("usage_original") or r.get("usage") or {}).get(k) for r in (p, fb)]
+        if any(isinstance(v, (int, float)) for v in vals):
+            use[k] = round(sum(v for v in vals if isinstance(v, (int, float))), 6)
+    return dict(fb, escalated=why, usage_original=use, wall_s=use.get("wall_s"))
 
 
 def windows_for(x: Dict[str, Any], names: List[str]) -> Dict[str, Dict[str, Any]]:
@@ -273,7 +320,8 @@ def windows_for(x: Dict[str, Any], names: List[str]) -> Dict[str, Dict[str, Any]
                       "event_visible": v.get("event_visible"), "decision": v.get("decision"), "foul_visible": v.get("foul_visible"),
                       "fight": v.get("fight"), "malformed": r.get("malformed"), "wall_s": (r.get("usage_original") or {}).get("wall_s", r.get("wall_s")),
                       "usage": r.get("usage_original") or r.get("usage"),
-                      "attempts": (r.get("steps") or [{}])[0].get("attempts"), "reason": v.get("reason")}
+                      "attempts": (r.get("steps") or [{}])[0].get("attempts"), "reason": v.get("reason"),
+                      "escalated": r.get("escalated"), "refloored_from": f.get("refloored_from")}
     return out
 
 
@@ -342,11 +390,16 @@ def cmd_render(a) -> None:
 # ======================================================================================
 def render_judge(video: Path, start: float, end: float, dest: Path) -> None:
     dest.parent.mkdir(parents=True, exist_ok=True)
+    stamp = dest.with_suffix(".window")
+    want = f"{video}|{start:.3f}|{end:.3f}"
+    if dest.exists() and stamp.exists() and stamp.read_text() == want:
+        return
     cmd = ["nice", "-n", "10", "ffmpeg", "-v", "error", "-nostdin", "-y", "-ss", f"{start:.3f}", "-t", f"{end - start:.3f}",
            "-i", str(video), "-vf", "scale=-2:'min(720,ih)'", "-c:v", "libx264", "-preset", "veryfast", "-crf", "24",
            "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "96k", "-map_metadata", "-1", "-movflags", "+faststart",
            "-threads", "2", str(dest)]
     subprocess.run(cmd, check=True)
+    stamp.write_text(want)
 
 
 def _disagree(ws: Dict[str, Dict[str, Any]], tol: float = 3.0) -> bool:
@@ -386,6 +439,13 @@ def cmd_judge_packets(a) -> None:
     chosen += agree[:max(0, min(a.agree_sample, a.cap - len(chosen)))]
     key: Dict[str, Any] = {}
     jobs = []
+    keep = {f'{jload(Path(x["packet"]) / "incident.json")["game"]["date"]}_{x["incident_id"]}' for x, _ in chosen}
+    for old in sorted((root / "packets").glob("*/")) if (root / "packets").exists() else []:
+        if old.name not in keep and not old.name.startswith("."):
+            for f in old.iterdir():
+                if f.is_file():
+                    f.unlink()
+            old.rmdir()
     for x, ws in chosen:
         inc = jload(Path(x["packet"]) / "incident.json")
         jid = f'{inc["game"]["date"]}_{x["incident_id"]}'
@@ -407,6 +467,9 @@ def cmd_judge_packets(a) -> None:
                                 "start_in_context_s": round(w["in_t"] - c_lo, 1)}
             key_letters[letter] = {"contestant": who, "in_t": w["in_t"], "out_t": w["out_t"]}
         jobs.append((video, anchor + c_lo, anchor + c_hi, pk / "context.mp4"))
+        for f in pk.glob("[A-Z].*") if pk.exists() else []:
+            if f.stem not in key_letters:
+                f.unlink()
         el = inc["time_elapsed"]
         etype = {"goal": "goal", "minor": "minor penalty", "major": "major penalty / misconduct", "fight": "fight"}[inc["class"]]
         if inc["kind"] == "goal":
@@ -422,11 +485,15 @@ def cmd_judge_packets(a) -> None:
                "event_type": etype, "description": desc, "sheet_rows": inc["sheet_rows"], "scorebug_alert": inc["scorebug_alert"],
                "candidates": cand_doc, "context": {"file": "context.mp4", "duration_s": round(c_hi - c_lo, 1)},
                "flags": list(MARKS), "verdict_schema": str(REPO / "skills" / "hockey-clip-review" / "judge.schema.json"),
-               "instructions": ("Each candidate is a proposed highlight clip of this one game-sheet event. Score each 0-10: 10 = shows the "
-                                "whole event from the start of the play that produced it (faceoff win, zone entry, turnover; for a penalty "
-                                "the foul; for a fight the gloves dropping) through the end of the celebration / whistle / players separated, "
-                                "with no replay and little dead time; 0 = the event is not in the clip. context.mp4 is a wider window; use it "
-                                "to see what a candidate missed. Write judge-<your label>.json in this directory following verdict_schema.")}
+               "instructions": ("Each candidate is a proposed highlight clip of this one game-sheet event. Judge it as a highlight a fan "
+                                "wants to watch, not just whether the event is in it. Overall score 0-10, plus sub-scores 0-10: build_up "
+                                "(for a goal it starts where the scoring play starts: zone entry, possession change or the faceoff win that "
+                                "led to it, normally at least 15 s before the goal, earlier when the play builds; for a penalty the lead-in "
+                                "to the foul; for a fight the confrontation starting), moment (the goal, foul or fight is clearly visible), "
+                                "ending (the celebration or the call is shown, not cut off), cleanliness (no dead air, replays, logo wipes "
+                                "or glitches; right incident). A goal clip that misses the build-up gets the starts_late flag and an overall "
+                                "score of at most 5. 0 = the event is not in the clip. context.mp4 is a wider window; use it to see what a "
+                                "candidate missed. Write judge-<your label>.json in this directory following verdict_schema.")}
         pk.mkdir(parents=True, exist_ok=True)
         jdump(pk / "incident.json", doc)
         key[jid] = {"letters": key_letters, "dropped_by": [w for w, v in ws.items() if v.get("in_t") is None],
@@ -438,7 +505,37 @@ def cmd_judge_packets(a) -> None:
     with cf.ThreadPoolExecutor(max_workers=a.workers) as pool_:
         list(pool_.map(lambda j: render_judge(*j), todo))
     jdump(root / "key.json", key)
-    print(f"packets: {root / 'packets'}  key: {root / 'key.json'}")
+    jdump(root / "costs.json", contestant_costs(pool, names))
+    print(f"packets: {root / 'packets'}  key: {root / 'key.json'}  costs: {root / 'costs.json'}")
+
+
+def contestant_costs(pool: List[Dict[str, Any]], names: List[str]) -> Dict[str, Any]:
+    """Per-contestant spend per incident (medians and means over the review set), for the leaderboards."""
+    acc: Dict[str, Dict[str, List[float]]] = {n: {} for n in names}
+    esc: Dict[str, List[int]] = {}
+    for x in pool:
+        for n, w in windows_for(x, names).items():
+            if n == ENGINE:
+                continue
+            u = w.get("usage") or {}
+            vals = {"tokens_in": (u.get("input_tokens") or 0) + (u.get("cache_read_tokens") or 0),
+                    "tokens_out": u.get("output_tokens"), "wall_s": w.get("wall_s"), "cost_usd": u.get("cost_usd")}
+            for k, v in vals.items():
+                if isinstance(v, (int, float)):
+                    acc[n].setdefault(k, []).append(float(v))
+            if CONTESTANTS.get(n, {}).get("kind") == "derived":
+                esc.setdefault(n, []).append(1 if w.get("escalated") else 0)
+    out: Dict[str, Any] = {"_note": ("tokens_in includes cache reads. cost_usd is the provider bill for api; ollama-cloud (pi) is "
+                                     "flat-rate (0); claude-unified reports list price of a mapped model, not a real bill.")}
+    for n, d in acc.items():
+        if not d:
+            continue
+        out[n] = {f"{k}_median": round(statistics.median(v), 4) for k, v in d.items()}
+        out[n].update({f"{k}_mean": round(statistics.mean(v), 4) for k, v in d.items()})
+        out[n]["incidents"] = max(len(v) for v in d.values())
+        if n in esc:
+            out[n]["handoff_rate"] = round(sum(esc[n]) / len(esc[n]), 3)
+    return out
 
 
 # ======================================================================================
@@ -572,7 +669,10 @@ def cmd_provisional(a) -> None:
     rows.sort(key=lambda r: (-(r["goal_in_clip"] or 0), -(r["event_in_clip"] or 0), r["in_dev_s"] or 99))
     jdump(a.bake / "leaderboard_provisional.json", {"provisional": True, "rows": rows, "adversary": adv_rows,
                                                     "note": "objective checks + cross-model agreement; not human-judged"})
-    md = ["# PROVISIONAL clip-review leaderboard (no human marks yet)", "",
+    md = ["# PROVISIONAL diagnostics: agreement and objective checks, NOT the ranking", "",
+          "This is not a highlight-quality ranking. The ranking is the judged highlight score (blinded Sonnet judges "
+          "via scripts/judge_leaderboard.py, and Tom's marks via `score`). The event being in the clip is the floor, not the "
+          "measure. Windows here already carry today's floors (15 s goal build-up) re-applied to the saved verdicts.", "",
           "Consensus event = median event time of the largest group of >=3 reviewers within 5 s; "
           "'in clip' = consensus event >= 2 s after in and >= 3 s before out. Deviations are from the reviewers' median window.", "",
           "| contestant | goal in clip | goal in clip (bug-alert games) | event in clip (goals+majors) | false drop | in dev s | out dev s | foul agree | fight bounds | malformed | retried | same status run2 | wall s | tokens in | tokens out |",
@@ -609,7 +709,7 @@ def cmd_score(a) -> None:
             continue
         judged_items.add(it["key"])
         for who in c["who"]:
-            s = agg.setdefault(who, {"judged": 0, **{k: 0 for k in MARKS}, "best": 0, "goal_judged": 0, "goal_correct": 0})
+            s = agg.setdefault(who, {"judged": 0, **{k: 0 for k in MARKS}, "best": 0, "goal_judged": 0, "goal_correct": 0, "scores": []})
             s["judged"] += 1
             for k in flags:
                 s[k] += 1
@@ -619,21 +719,35 @@ def cmd_score(a) -> None:
     for key, best_clip in (marks.get("best") or {}).items():
         if best_clip in by_clip:
             for who in by_clip[best_clip][1]["who"]:
-                agg.setdefault(who, {"judged": 0, **{k: 0 for k in MARKS}, "best": 0, "goal_judged": 0, "goal_correct": 0})["best"] += 1
+                agg.setdefault(who, {"judged": 0, **{k: 0 for k in MARKS}, "best": 0, "goal_judged": 0, "goal_correct": 0, "scores": []})["best"] += 1
+    for clip_id, sc in (marks.get("scores") or {}).items():
+        if clip_id in by_clip and isinstance(sc, (int, float)):
+            judged_items.add(by_clip[clip_id][0]["key"])
+            for who in by_clip[clip_id][1]["who"]:
+                agg.setdefault(who, {"judged": 0, **{k: 0 for k in MARKS}, "best": 0, "goal_judged": 0, "goal_correct": 0, "scores": []})["scores"].append(float(sc))
+    costs = contestant_costs(load_set(a), list(CONTESTANTS))
     rows = []
     for who, s in agg.items():
         j = s["judged"] or 1
-        rows.append({"contestant": who, "judged": s["judged"], "correct_rate": round(s["correct"] / j, 3),
+        c = costs.get(who) or {}
+        rows.append({"contestant": who, "highlight_score": round(statistics.mean(s["scores"]), 2) if s["scores"] else None,
+                     "scored_clips": len(s["scores"]),
+                     "tokens_per_incident": round(c.get("tokens_in_mean", 0) + c.get("tokens_out_mean", 0)) if c else None,
+                     "cost_usd_per_incident": c.get("cost_usd_mean"), "handoff_rate": c.get("handoff_rate"),
+                     "judged": s["judged"], "correct_rate": round(s["correct"] / j, 3),
                      "goal_correct_rate": round(s["goal_correct"] / s["goal_judged"], 3) if s["goal_judged"] else None,
                      **{k: s[k] for k in MARKS if k != "correct"}, "best_picks": s["best"]})
-    rows.sort(key=lambda r: (-r["correct_rate"], -r["best_picks"]))
+    rows.sort(key=lambda r: (-(r["highlight_score"] or -1), -r["best_picks"], -r["correct_rate"]))
     jdump(a.bake / "leaderboard_final.json", {"judged_incidents": len(judged_items), "rows": rows})
     md = [f"# Clip-review leaderboard (human-judged, {len(judged_items)} incidents)", "",
-          "| contestant | judged clips | correct | goal correct | wrong event | missing goal | starts late | ends early | too long | best picks |",
-          "|---|---|---|---|---|---|---|---|---|---|"]
+          "Headline = Tom's mean 0-10 highlight score; spend per incident beside it; the rest are diagnostics.", "",
+          "| contestant | **highlight score** (clips) | tokens / incident | cost $ / incident | best picks | starts late (missing build-up) | correct | goal correct | wrong event | missing goal | ends early | too long |",
+          "|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for r in rows:
-        md.append(f'| {r["contestant"]} | {r["judged"]} | {r["correct_rate"]} | {r["goal_correct_rate"]} | {r["wrong_event"]} | '
-                  f'{r["missing_goal"]} | {r["starts_late"]} | {r["ends_early"]} | {r["too_long"]} | {r["best_picks"]} |')
+        md.append(f'| {r["contestant"]}' + (f' (hand-off {r["handoff_rate"]:.0%})' if r.get("handoff_rate") is not None else "") +
+                  f' | **{r["highlight_score"]}** ({r["scored_clips"]}) | {r["tokens_per_incident"]} | {r["cost_usd_per_incident"]} | {r["best_picks"]} | '
+                  f'{r["starts_late"]} | {r["correct_rate"]} | {r["goal_correct_rate"]} | {r["wrong_event"]} | '
+                  f'{r["missing_goal"]} | {r["ends_early"]} | {r["too_long"]} |')
     (a.bake / "leaderboard_final.md").write_text("\n".join(md) + "\n")
     print("\n".join(md))
 

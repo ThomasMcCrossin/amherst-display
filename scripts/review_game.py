@@ -9,14 +9,16 @@ goal/major verdict (dispute -> second review -> held_for_human); --apply writes 
 cuts reviewed clips and reel manifests; --build-reel renders them.
 
   .venv/bin/python scripts/review_game.py --game-dir "Games/<game>" --video <recording.mp4> \
-      [--backend api|agent] [--adversary] [--apply [--reel-mode goals|with-rough|separate-rough] [--build-reel]]
+      [--backend api|agent|escalate] [--adversary] [--apply [--reel-mode goals|with-rough|separate-rough] [--build-reel]]
 
 Backends:
   api    OpenAI-compatible vision endpoint (default DeepSeek). Env SCOREBUG_VISION_API_KEY or
          DEEPSEEK_API_KEY, SCOREBUG_VISION_BASE_URL, SCOREBUG_VISION_MODEL.
   agent  any agent harness that can Read images and run bash: CLIP_REVIEW_AGENT_CMD (reviewer),
          CLIP_REVIEW_ADVERSARY_CMD (adversary). "{prompt}" in the command is replaced by the
-         prompt; without it the prompt goes on stdin. Examples in README.md.
+         prompt; without it the prompt goes on stdin; "{skill}" is the skill dir. Examples in README.md.
+  escalate  api for every incident; the agent (CLIP_REVIEW_AGENT_CMD) re-reviews only a low-confidence,
+         unsure or failed call, a scorebug-alert game, or a fight/major. summary.json reports the hand-off rate.
 
 Writes <out-dir>/summary.json (default out-dir: <game-dir>/data/review), packets under
 <out-dir>/packets/, overrides.json with --apply. Exits 0 once the summary is written, even when
@@ -38,7 +40,7 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
 from clip_review.apply import REEL_MODES, apply_overrides, write_overrides  # noqa: E402
-from clip_review.backends import AgentBackend, ApiBackend  # noqa: E402
+from clip_review.backends import AgentBackend, ApiBackend, EscalateBackend  # noqa: E402
 from clip_review.packet import build_packets, slug  # noqa: E402
 from clip_review.review import review_incident  # noqa: E402
 
@@ -46,6 +48,8 @@ from clip_review.review import review_incident  # noqa: E402
 def make_backend(kind: str, cmd: str, name: str, timeout: float):
     if kind == "api":
         return ApiBackend(name=name or None)
+    if kind == "escalate":
+        return EscalateBackend(ApiBackend(), AgentBackend(cmd, "escalate-agent", timeout=timeout), name=name or "escalate")
     return AgentBackend(cmd, name or ("agent-" + slug(" ".join(cmd.split()[:1] + [w for w in cmd.split() if "/" in w or ":" in w][:1]))[:40]),
                         timeout=timeout)
 
@@ -56,7 +60,7 @@ def main() -> int:
     ap.add_argument("--game-dir", required=True, type=Path)
     ap.add_argument("--video", required=True, type=Path)
     ap.add_argument("--out-dir", type=Path, default=None, help="default: <game-dir>/data/review")
-    ap.add_argument("--backend", choices=("api", "agent"), default=env("CLIP_REVIEW_BACKEND") or "api")
+    ap.add_argument("--backend", choices=("api", "agent", "escalate"), default=env("CLIP_REVIEW_BACKEND") or "api")
     ap.add_argument("--agent-cmd", default=env("CLIP_REVIEW_AGENT_CMD") or "")
     ap.add_argument("--agent-name", default=env("CLIP_REVIEW_AGENT_NAME") or "", help="label for this reviewer's results")
     ap.add_argument("--adversary", action="store_true", default=bool(env("CLIP_REVIEW_ADVERSARY")))
@@ -83,8 +87,8 @@ def main() -> int:
     if not video.exists():
         print(f"video not found: {video}", file=sys.stderr)
         return 2
-    if args.backend == "agent" and not args.agent_cmd:
-        print("--backend agent needs --agent-cmd or CLIP_REVIEW_AGENT_CMD", file=sys.stderr)
+    if args.backend in ("agent", "escalate") and not args.agent_cmd:
+        print(f"--backend {args.backend} needs --agent-cmd or CLIP_REVIEW_AGENT_CMD", file=sys.stderr)
         return 2
     out_dir = (args.out_dir or game_dir / "data" / "review").resolve()
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -131,6 +135,11 @@ def main() -> int:
             counts[st] = counts.get(st, 0) + 1
             for k, v in (r.get("usage") or {}).items():
                 usage[k] = round(usage.get(k, 0) + v, 6)
+        if getattr(reviewer, "kind", "") == "escalate":
+            why = {i: ((r.get("steps") or [{}])[0].get("stats") or {}).get("escalated") for i, r in results.items()}
+            summary["escalation"] = {"handed_off": sum(1 for w in why.values() if w), "incidents": len(why),
+                                     "rate": round(sum(1 for w in why.values() if w) / len(why), 3) if why else None,
+                                     "why": {i: w for i, w in sorted(why.items()) if w}}
         summary.update(
             ok=True, counts=counts, usage=usage, unplaced=built["unplaced"],
             held_for_human=[i for i, r in results.items() if (r.get("final") or {}).get("status") == "held_for_human"],

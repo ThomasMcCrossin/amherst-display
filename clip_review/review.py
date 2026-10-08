@@ -16,11 +16,13 @@ from __future__ import annotations
 import hashlib
 import json
 import math
+import os
 import time
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from . import SKILL_DIR, checker, frames
+from .incidents import current_bounds
 
 ADVERSARY_CLASSES = {"goal", "major", "fight"}
 
@@ -40,6 +42,7 @@ def prompt_hash(backend: Any, role: str) -> str:
 # ---------------------------------------------------------------------------------------
 def enforce(verdict: Optional[Dict[str, Any]], incident: Dict[str, Any]) -> Dict[str, Any]:
     """Final window (relative + absolute) for a reviewer verdict, or the engine window."""
+    incident = current_bounds(incident)
     b, anchor = incident["bounds"], float(incident["anchor"])
     eng = {"in_t": b["engine_in"], "out_t": b["engine_out"]}
 
@@ -88,7 +91,10 @@ def _cached(path: Path, key: str) -> Optional[Dict[str, Any]]:
     if path.exists() and meta.exists():
         try:
             m = json.loads(meta.read_text())
-            if m.get("key") == key and m.get("ok"):
+            # CLIP_REVIEW_CACHE_ANY=1 reuses a verdict made under an older prompt/command (the
+            # bake-off adds incidents without re-paying for the old ones; enforce() still applies
+            # today's floors to it).
+            if m.get("ok") and (m.get("key") == key or os.environ.get("CLIP_REVIEW_CACHE_ANY") == "1"):
                 return {"verdict": json.loads(path.read_text()), "stats": m.get("stats") or {}, "error": None,
                         "attempts": m.get("attempts"), "cached": True, "log": m.get("log")}
         except ValueError:
@@ -142,7 +148,7 @@ def run_role(backend: Any, role: str, packet: Path, out_dir: Path, tag: str, inc
 # ---------------------------------------------------------------------------------------
 def review_incident(packet: Path, reviewer: Any, adversary: Optional[Any] = None, run_tag: str = "run1",
                     adversary_all: bool = False, attempts: int = 3) -> Dict[str, Any]:
-    incident = json.loads((packet / "incident.json").read_text())
+    incident = current_bounds(json.loads((packet / "incident.json").read_text()))
     out_dir = packet / "out" / reviewer.name / run_tag
     t0 = time.time()
     res: Dict[str, Any] = {"incident_id": incident["incident_id"], "class": incident["class"], "kind": incident["kind"],

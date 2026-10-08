@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -15,10 +16,14 @@ import config  # noqa: E402
 
 WANTED_RE = re.compile(r"fight|major|misconduct|match penalty|game misconduct|gross", re.I)
 
+# A goal clip must show the build-up: the in-point is never less than this many seconds
+# before the goal (Tom, 2026-10-08, issue #21). Up to lead_max (45 s) when the play builds longer.
+MIN_GOAL_LEAD_S = float(os.environ.get("CLIP_REVIEW_MIN_LEAD_S", "15"))
+
 # Authority bounds per incident class (seconds; *_t values relative to the anchor). The code
 # clamps a reviewer's window into these and rejects a verdict that still breaks them.
 BOUNDS: Dict[str, Dict[str, float]] = {
-    "goal":  {"lead_min": 3, "lead_max": 45, "tail_min": 8, "tail_max": 25, "len_min": 8, "len_max": 60,
+    "goal":  {"lead_min": MIN_GOAL_LEAD_S, "lead_max": 45, "tail_min": 8, "tail_max": 25, "len_min": 8, "len_max": 60,
               "near": 30, "relocate_max": 240, "drop_min_confidence": 0.8,
               "tail_min_replay": 5},
     "minor": {"lead_min": 1, "lead_max": 20, "tail_min": 2, "tail_max": 25, "len_min": 9, "len_max": 40,
@@ -32,6 +37,16 @@ for _b in BOUNDS.values():
     _b.setdefault("fight_pre", 10)
     _b.setdefault("fight_post", 10)
     _b.setdefault("tail_min_replay", 2)
+
+
+def current_bounds(incident: Dict[str, Any]) -> Dict[str, Any]:
+    """The incident with today's authority floors applied to bounds a packet was built with
+    (a packet written before a floor was raised still gets the new floor)."""
+    cur = BOUNDS.get(incident.get("class") or "")
+    b = incident.get("bounds") or {}
+    if not cur or b.get("lead_min", 0) >= cur["lead_min"]:
+        return incident
+    return dict(incident, bounds=dict(b, lead_min=cur["lead_min"]))
 
 # Coarse contact-sheet range per class: (before, after, step). Scorebug-alert games search wider
 # for goals because the anchor can be far off.
