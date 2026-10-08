@@ -437,15 +437,18 @@ def cmd_judge_packets(a) -> None:
         rng.shuffle(disagree)
         chosen = must + disagree[:max(0, a.cap - len(must))]
     chosen += agree[:max(0, min(a.agree_sample, a.cap - len(chosen)))]
+    # Packets already in key.json are frozen (judges may be working on them): never re-render,
+    # reshuffle, rewrite or delete them; new incidents become new packet dirs appended to the key.
+    key_f = root / "key.json"
+    frozen: Dict[str, Any] = jload(key_f) if key_f.exists() else {}
     key: Dict[str, Any] = {}
     jobs = []
-    keep = {f'{jload(Path(x["packet"]) / "incident.json")["game"]["date"]}_{x["incident_id"]}' for x, _ in chosen}
-    for old in sorted((root / "packets").glob("*/")) if (root / "packets").exists() else []:
-        if old.name not in keep and not old.name.startswith("."):
-            for f in old.iterdir():
-                if f.is_file():
-                    f.unlink()
-            old.rmdir()
+    def jid_of(x: Dict[str, Any]) -> str:
+        return f'{jload(Path(x["packet"]) / "incident.json")["game"]["date"]}_{x["incident_id"]}'
+    n_frozen = sum(1 for x, _ in chosen if jid_of(x) in frozen)
+    room = max(0, a.cap - len(frozen))
+    fresh = [(x, ws) for x, ws in chosen if jid_of(x) not in frozen]
+    chosen = fresh[:room]
     for x, ws in chosen:
         inc = jload(Path(x["packet"]) / "incident.json")
         jid = f'{inc["game"]["date"]}_{x["incident_id"]}'
@@ -460,6 +463,9 @@ def cmd_judge_packets(a) -> None:
         if c_hi - c_lo > 360:
             c_lo = max(c_lo, c_hi - 360)
         pk = root / "packets" / jid
+        if pk.exists() and any(pk.iterdir()):
+            print(f"skip {jid}: packet dir exists but is not in key.json (left untouched)")
+            continue
         cand_doc, key_letters = {}, {}
         for letter, (who, w) in zip(letters, cands):
             jobs.append((video, anchor + w["in_t"], anchor + w["out_t"], pk / f"{letter}.mp4"))
@@ -467,9 +473,6 @@ def cmd_judge_packets(a) -> None:
                                 "start_in_context_s": round(w["in_t"] - c_lo, 1)}
             key_letters[letter] = {"contestant": who, "in_t": w["in_t"], "out_t": w["out_t"]}
         jobs.append((video, anchor + c_lo, anchor + c_hi, pk / "context.mp4"))
-        for f in pk.glob("[A-Z].*") if pk.exists() else []:
-            if f.stem not in key_letters:
-                f.unlink()
         el = inc["time_elapsed"]
         etype = {"goal": "goal", "minor": "minor penalty", "major": "major penalty / misconduct", "fight": "fight"}[inc["class"]]
         if inc["kind"] == "goal":
@@ -500,13 +503,28 @@ def cmd_judge_packets(a) -> None:
                     "source": {"game": x["game"], "incident_id": x["incident_id"], "packet": x["packet"], "stratum": x["stratum"]},
                     "context_from_t": round(c_lo, 2)}
     todo = [j for j in jobs if not j[3].exists()]
-    print(f"judge packets: {len(chosen)} incidents ({len(must)} must, {len(disagree)} disagree, "
-          f"{len(chosen) - len(must) - min(len(disagree), len(chosen) - len(must))} agreeing sample); rendering {len(todo)} files", flush=True)
+    print(f"judge packets: {len(frozen)} frozen ({n_frozen} still selected), {len(key)} new "
+          f"(pool: {len(must)} must, {len(disagree)} disagree, {len(agree)} agree; cap {a.cap}); rendering {len(todo)} files", flush=True)
     with cf.ThreadPoolExecutor(max_workers=a.workers) as pool_:
         list(pool_.map(lambda j: render_judge(*j), todo))
-    jdump(root / "key.json", key)
-    jdump(root / "costs.json", contestant_costs(pool, names))
-    print(f"packets: {root / 'packets'}  key: {root / 'key.json'}  costs: {root / 'costs.json'}")
+    if not key:
+        print("no new judge packets; key.json and costs.json left as they are")
+        return
+    _atomic_json(key_f, {**frozen, **{k: v for k, v in key.items() if k not in frozen}})
+    costs_f = root / "costs.json"
+    costs = jload(costs_f) if costs_f.exists() else {}
+    if not costs:
+        costs = contestant_costs(pool, names)
+    else:  # existing entries stay as the judges saw them; the current figures go beside them
+        costs = {**costs, "_current_review_set": contestant_costs(pool, names), "_current_at": time.strftime("%Y-%m-%dT%H:%M:%S")}
+    _atomic_json(costs_f, costs)
+    print(f"packets: {root / 'packets'}  key: {key_f}  costs: {costs_f}")
+
+
+def _atomic_json(path: Path, obj: Any) -> None:
+    tmp = path.with_name(f".{path.name}.tmp")
+    tmp.write_text(json.dumps(obj, indent=2))
+    tmp.replace(path)
 
 
 def contestant_costs(pool: List[Dict[str, Any]], names: List[str]) -> Dict[str, Any]:
