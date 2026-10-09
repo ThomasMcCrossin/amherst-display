@@ -27,7 +27,7 @@ IDs: Amherst `team_id=1`, `season_id=46` (2026-27 RS), `41` (2025-26 RS), `45` (
 | `statviewtype` `type=skaters` | `team_id=1&season_id=46` | full season line incl. PP/SH/GWG/OT goals, PPG, PIM, age, **birthdate, hometown**, headshot | after each game | yes (24 rows) | Skater table, "local kid" |
 | `statviewtype` `type=goalies` | `team_id=1&season_id=46` | GP, W, L, OTL, SOL, saves, shots, GA, SV%, GAA, SO, minutes, catches, hometown | after each game | yes | Goalie table. No GS column |
 | `statviewtype` `type=roster` | same | same as roster | | yes | skip |
-| `scorebar` | `numberofdaysback=7&numberofdaysahead=7` | league-wide games in the window: scores, clock, period, status, standings-ish W/L, Flo urls | live | yes (36 games) | Other scores tonight; live flag |
+| `scorebar` | `numberofdaysback=7&numberofdaysahead=7` | league-wide games in the window: scores, clock, period, status, standings-ish W/L, Flo urls | live | yes (36 games) | Other scores tonight; live flag. Built: `board.json league_scores` (back 7, ahead 3; ahead=N ends one day early) |
 | `transactions` | `season_id=46` | type, player, team, date | daily | yes (20 rows league-wide, none for Amherst yet) | Roster-move ticker, low value |
 | `gamesummary`, `standings`, `statviewtype type=standings/teams`, `leaders`, `streaks`, `playerstatsbyseason`, `gamebygame`, `teamrecord`, `lastgames`, `players`, `teamdetails`, `bootstrap` | various | `Undefined Tab ...` or empty array | | **no** | Use the statviewfeed equivalents |
 | `player`, `statviewtype type=teams` | | invalid (non-JSON) response | | no | |

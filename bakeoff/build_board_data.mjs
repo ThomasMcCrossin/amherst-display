@@ -318,6 +318,17 @@ const team_stats = {
 // ---------------------------------------------------------------- upcoming
 const upcoming = pending.slice(0, 7).map(g => { const v = gameView(g); return { id: v.id, start_iso: v.start_iso, home: v.home, opp: v.opp, venue: v.venue, status: v.status }; });
 
+// ---------------------------------------------------------------- league scores (Around the MHL)
+// scorebar = every MHL game in the window (its "ahead" count ends a day early: 1 stops at yesterday, so 3 reaches tomorrow). GameStatus: 1 scheduled, 2 in progress, 3 unofficial final, 4 final.
+const scorebar = (await mk('scorebar', 'scorebar', { numberofdaysback: '7', numberofdaysahead: '3' }, 60e3)).SiteKit?.Scorebar ?? [];
+const sbSide = (id, code, goals) => { const t = teams.get(String(id)); return { id: Number(id), abbr: code, name: t?.name ?? code, logo_url: t?.logo_url ?? null, goals: num(goals), is_ramblers: String(id) === TEAM_ID }; };
+const league_scores = scorebar.map(g => {
+  const st = g.GameStatus === '2' ? (g.Intermission === '1' ? 'intermission' : 'live') : (g.GameStatus === '3' || g.GameStatus === '4') ? 'final' : 'scheduled';
+  return { id: Number(g.ID), date: g.Date, start_iso: g.GameDateISO8601, status: st, status_text: g.GameStatusStringLong || g.GameStatusString,
+    period: g.PeriodNameLong || null, clock: st === 'live' ? g.GameClock : null, ot_so: /SO/.test(g.GameStatusString) ? 'SO' : /OT/.test(g.GameStatusString) ? 'OT' : null,
+    venue: g.venue_name || null, home: sbSide(g.HomeID, g.HomeCode, g.HomeGoals), away: sbSide(g.VisitorID, g.VisitorCode, g.VisitorGoals) };
+}).sort((x, y) => x.start_iso.localeCompare(y.start_iso));
+
 // ---------------------------------------------------------------- write
 const board = {
   generated_at: new Date().toISOString(), season: config.season_label,
@@ -325,8 +336,8 @@ const board = {
     colors: null, colors_note: 'HockeyTech exposes no team colors; set in the page theme.' },
   next_game: nextGame, upcoming, recent,
   standings: { divisions, playoff_format: 'Top 4 per division qualify', note: 'rank is division rank; otl and sol are separate; pts as published' },
-  team_stats, skaters, goalies, league_leaders, milestones_near, streaks,
-  sources: ['modulekit teamsbyseason/schedule/statviewtype', 'statviewfeed gameSummary/gameCenterPreview/player/players/teams/streaks_player/streaks_team', 'feed=gc gamesummary/preview'],
+  team_stats, skaters, goalies, league_leaders, milestones_near, streaks, league_scores,
+  sources: ['modulekit teamsbyseason/schedule/statviewtype', 'modulekit scorebar', 'statviewfeed gameSummary/gameCenterPreview/player/players/teams/streaks_player/streaks_team', 'feed=gc gamesummary/preview'],
   copyright: 'Official statistics provided by Maritime Hockey League. Powered by HockeyTech.com',
 };
 const json = JSON.stringify(board);
