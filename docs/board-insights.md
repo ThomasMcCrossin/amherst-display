@@ -15,6 +15,9 @@ or it needs a trivial extra fetch. **Blocked** = needs data the API does not giv
   plain facts. `validate()` fails the build on `likely / expected / projected / probable / should start / will start / gets the nod /
   in net / next game ...` near a goalie name or goalie word, and on any forecast word anywhere. `selfTest()` runs first and proves the
   checker rejects eight bad sentences and accepts three good ones. An item that names an upcoming opponent's goalie must be a `goalie` item.
+* Notability gate (Tom, 2026-10-09): a rank prints only when it is worth bragging about: player league rank top 10, rookie rank top 5,
+  team league rank top 3, division position as a badge 1st or 2nd. A weaker rank is dropped, never softened (`notable()` in the builder).
+  Standings context ("Ramblers are 5th with 7") is not a badge and stays.
 * No negativity about individual Ramblers (word filter on every item that names one). Team struggles are stated as numbers.
 * No trivial numbers: no 1-game streaks, streak items need 3+ points or 2+ goals, milestone items need a real mark.
 * Headline <= 60 characters, detail <= 140, priority 1 to 5, ids and headlines unique, no `undefined/null/NaN` in text.
