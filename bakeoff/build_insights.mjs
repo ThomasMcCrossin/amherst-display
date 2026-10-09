@@ -52,6 +52,9 @@ const parseBirth = s => { // "Oct  8, 2008"
 const halifaxDate = iso => new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Halifax' }).format(new Date(iso));
 const mdOfFeed = t => { const m = /^([A-Za-z]{3})\s+(\d{1,2}),/.exec(t ?? ''); return m ? `${m[1]} ${+m[2]}` : t; };
 const rank1 = (rows, key, who, desc = true) => 1 + rows.filter(r => (desc ? r[key] > who[key] : r[key] < who[key])).length;
+// Notability gate (Tom, #20): a rank is printed only when it is worth bragging about; a weaker rank is dropped, never softened.
+const NOTABLE_MAX = { player: 10, rookie: 5, team: 3, division: 2 };
+const notable = (scope, rank) => Number.isFinite(rank) && rank >= 1 && rank <= NOTABLE_MAX[scope];
 
 // ------------------------------------------------------------------ goalie rule checker
 const GOALIE_BANNED = /\b(likely|expected|projected|probable|should start|will start|to start|set to start|going to start|gets? the nod|slated|in net|between the pipes|in goal|starts? (tonight|friday|saturday|sunday|monday|tuesday|wednesday|thursday)|next game)\b/i;
@@ -195,9 +198,9 @@ export function buildItems(board, opts = {}) {
       const killed = against.op - against.gl;
       const killOk = against.op > 0 && Math.round(1000 * killed / against.op) / 10 === ams.pk_pct;
       add({ id: 'pp-vs-pk', kind: 'matchup', priority: 2, team_id: opp.id, valid_until: gameEndIso, confidence: 'derived',
-        headline: `${oTown}'s power play meets the MHL's No. ${pkRank} penalty kill`.slice(0, 60),
-        detail: `${oTown} scores on ${oRow.pp_pct}% of power plays (${oRow.pp.replace('/', ' for ')}, ${ord(ppRank)}). Ramblers kill ${ams.pk_pct}%${killOk ? ` (${killed} of ${against.op})` : ''}.`,
-        stat: { value: `${ams.pk_pct}%`, label: `Ramblers PK, ${ord(pkRank)} in MHL` }, sources: ['board.json:standings', 'board.json:recent[].pp'] });
+        headline: (notable('team', pkRank) ? `${oTown}'s power play meets the MHL's No. ${pkRank} penalty kill` : `${oTown}'s power play meets the Ramblers' penalty kill`).slice(0, 60),
+        detail: `${oTown} scores on ${oRow.pp_pct}% of power plays (${oRow.pp.replace('/', ' for ')}${notable('team', ppRank) ? `, ${ord(ppRank)}` : ''}). Ramblers kill ${ams.pk_pct}%${killOk ? ` (${killed} of ${against.op})` : ''}.`,
+        stat: { value: `${ams.pk_pct}%`, label: notable('team', pkRank) ? `Ramblers PK, ${ord(pkRank)} in MHL` : 'Ramblers PK' }, sources: ['board.json:standings', 'board.json:recent[].pp'] });
     }
 
     // opponent leader
@@ -276,7 +279,7 @@ export function buildItems(board, opts = {}) {
       if (ppRank <= 2) {
         add({ id: 'swc-pp', kind: 'matchup', priority: 3, team_id: swc.team_id, valid_until: endOfDay(swcGames[swcGames.length - 1].start_iso.slice(0, 10)),
           headline: `Summerside's PP is No. ${ppRank} in the MHL; we see them twice`.slice(0, 60),
-          detail: `${swc.pp_pct}% (${swc.pp.replace('/', ' for ')}) against a Ramblers kill that ranks ${ord(pkRank)} at ${ams.pk_pct}%. ${swcGames.map(u => `${dayOf(u.start_iso.slice(0, 10)).slice(0, 3)} ${u.home ? 'home' : 'away'}`).join(', ')}.`,
+          detail: `${swc.pp_pct}% (${swc.pp.replace('/', ' for ')}) against a Ramblers kill ${notable('team', pkRank) ? `that ranks ${ord(pkRank)} ` : ''}at ${ams.pk_pct}%. ${swcGames.map(u => `${dayOf(u.start_iso.slice(0, 10)).slice(0, 3)} ${u.home ? 'home' : 'away'}`).join(', ')}.`,
           stat: { value: `${swc.pp_pct}%`, label: 'Summerside PP' }, sources: ['board.json:standings', 'board.json:upcoming'] });
       }
     }
@@ -423,7 +426,7 @@ export function buildItems(board, opts = {}) {
     add({ id: 'division-race', kind: 'league', priority: 3, team_id: me.id, confidence: 'fact',
       headline: hl.length <= 60 ? hl : hl.slice(0, 57) + '...',
       detail: `Ramblers are ${ord(ams.rank)} with ${ams.pts} (${ams.gp} GP). ${south.filter(r => r.rank > ams.rank).map(r => `${town(r.abbr)} ${r.pts}`).join(', ')} follow. Top 4 qualify.`.slice(0, 140),
-      stat: { value: ord(ams.rank), label: 'in Eastlink South' }, sources: ['board.json:standings'] });
+      stat: notable('division', ams.rank) ? { value: ord(ams.rank), label: 'in Eastlink South' } : { value: String(ams.pts), label: 'Ramblers points' }, sources: ['board.json:standings'] });
     for (const u of unbeaten) {
       add({ id: `unbeaten-${u.abbr.toLowerCase()}`, kind: 'league', priority: 4, team_id: u.team_id,
         headline: `${town(u.abbr)} is ${u.w}-0, the MHL's only unbeaten team`,
@@ -462,7 +465,7 @@ export function buildItems(board, opts = {}) {
     const goalLead = [...skaterOnly].sort((a, b) => b.g - a.g)[0];
     playerItem(w, { id: 'team-points-leader', kind: 'player', priority: 3,
       headline: `${surname(w.name)} leads the Ramblers with ${w.pts} points`,
-      detail: `${w.g} goals, ${w.a} assists${mhlRank ? `; ${ord(mhlRank)} in MHL scoring` : ''}. Next: ${grouped.map(g => `${list(g.names)} ${g.pts}`).join(', ')}.`.slice(0, 140),
+      detail: `${w.g} goals, ${w.a} assists${notable('player', mhlRank) ? `; ${ord(mhlRank)} in MHL scoring` : ''}. Next: ${grouped.map(g => `${list(g.names)} ${g.pts}`).join(', ')}.`.slice(0, 140),
       stat: { value: String(w.pts), label: `${surname(w.name)} points` }, sources: [`board.json:skaters[id=${w.id}]`, 'board.json:league_leaders.ramblers_ranks'] });
     void goalLead;
   }
@@ -550,7 +553,7 @@ export function buildItems(board, opts = {}) {
         const rk = lg.filter(r => r.rookie === '1');
         const ahead = rk.filter(r => +r.points > topR.pts).length;
         const tiedN = rk.filter(r => +r.points === topR.pts).length;
-        if (rk.some(r => +r.player_id === topR.id) && lg.length >= 100 && Math.min(...lg.map(r => +r.points)) <= topR.pts)
+        if (notable('rookie', ahead + 1) && rk.some(r => +r.player_id === topR.id) && lg.length >= 100 && Math.min(...lg.map(r => +r.points)) <= topR.pts)
           rankTxt = ` ${tiedN > 1 ? 'Tied for ' : ''}${ord(ahead + 1)} among MHL rookies.`;
       }
       playerItem(topR, { id: `rookie-${topR.id}`, kind: 'player', priority: 2,
@@ -632,7 +635,7 @@ export function buildItems(board, opts = {}) {
     const g = board.goalies.slice().sort((a, b) => b.gp - a.gp)[0];
     const svBoard = board.league_leaders.goalies?.sv_pct ?? [];
     const idx = svBoard.findIndex(x => x.id === g.id);
-    if (g && idx >= 0 && idx <= 2) {
+    if (g && idx >= 0 && notable('player', idx + 1)) {
       add({ id: 'goalie-svpct-rank', kind: 'goalie', priority: 3, team_id: me.id, player_id: g.id, headshot_url: g.headshot_url,
         headline: `${surname(g.name)} ranks ${ord(idx + 1)} in the MHL in save percentage`.slice(0, 60),
         detail: `${String(g.sv_pct.toFixed(3)).slice(1)} over ${g.gp} games (${g.saves} saves on ${g.shots_against} shots), among goalies with ${board.league_leaders.goalies.min_gp}+ GP.`.slice(0, 140),

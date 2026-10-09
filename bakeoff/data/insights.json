@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-07T19:49:17.877Z",
-  "source_generated_at": "2026-10-07T19:49:17.762Z",
+  "generated_at": "2026-10-09T15:55:19.147Z",
+  "source_generated_at": "2026-10-09T15:54:27.169Z",
   "items": [
     {
       "id": "local-first-goal-3647",
@@ -27,7 +27,7 @@
       "kind": "matchup",
       "priority": 1,
       "headline": "Win Friday and the Ramblers climb to 3rd in the South",
-      "detail": "A win makes 9 points. Now 4th with 7; Summerside has 8 (7 GP). Top 4 make the playoffs.",
+      "detail": "A win makes 9 points. Now 5th with 7; Yarmouth has 8 (10 GP). Top 4 make the playoffs.",
       "stat": {
         "value": "9",
         "label": "points with a win"
@@ -40,26 +40,6 @@
       "sources": [
         "board.json:standings",
         "board.json:next_game"
-      ]
-    },
-    {
-      "id": "birthdays",
-      "kind": "fun",
-      "priority": 2,
-      "headline": "Birthday boys: Fraser and Dyke both turn 18 on Thursday",
-      "detail": "Ethan Fraser (#28, Amherst, NS, turning 18); Owen Dyke (#82, Spaniards Bay, NL, turning 18).",
-      "stat": {
-        "value": "18",
-        "label": "both turning"
-      },
-      "player_id": null,
-      "team_id": 1,
-      "headshot_url": null,
-      "valid_until": "2026-10-08T23:59:59-03:00",
-      "confidence": "fact",
-      "sources": [
-        "board.json:skaters[id=3647].birthdate",
-        "board.json:skaters[id=3833].birthdate"
       ]
     },
     {
@@ -188,7 +168,7 @@
       "kind": "matchup",
       "priority": 2,
       "headline": "Chaleur's power play meets the MHL's No. 2 penalty kill",
-      "detail": "Chaleur scores on 28.6% of power plays (8 for 28, 6th). Ramblers kill 84.6% (22 of 26).",
+      "detail": "Chaleur scores on 28.6% of power plays (8 for 28). Ramblers kill 84.6% (22 of 26).",
       "stat": {
         "value": "84.6%",
         "label": "Ramblers PK, 2nd in MHL"
@@ -224,7 +204,7 @@
       "kind": "player",
       "priority": 2,
       "headline": "17-year-old rookie Lyons has 8 points",
-      "detail": "3 goals, 5 assists. From Quispamsis, NB, youngest skater on the roster. 2nd on the team. Tied for 6th among MHL rookies.",
+      "detail": "3 goals, 5 assists. From Quispamsis, NB, youngest skater on the roster. 2nd on the team.",
       "stat": {
         "value": "8",
         "label": "rookie points"
@@ -235,8 +215,7 @@
       "valid_until": null,
       "confidence": "fact",
       "sources": [
-        "board.json:skaters[id=3867]",
-        "raw/league_skaters.json"
+        "board.json:skaters[id=3867]"
       ]
     },
     {
@@ -300,11 +279,11 @@
       "id": "division-race",
       "kind": "league",
       "priority": 3,
-      "headline": "South race: Valley 15, Truro 12, Summerside 8, Amherst 7",
-      "detail": "Ramblers are 4th with 7 (8 GP). Yarmouth 6, Pictou County 5 follow. Top 4 qualify.",
+      "headline": "South race: Valley 15, Truro 13, Summerside 8, Yarmouth 8",
+      "detail": "Ramblers are 5th with 7 (8 GP). Pictou County 5 follow. Top 4 qualify.",
       "stat": {
-        "value": "4th",
-        "label": "in Eastlink South"
+        "value": "7",
+        "label": "Ramblers points"
       },
       "player_id": null,
       "team_id": 1,
@@ -475,7 +454,7 @@
       "kind": "player",
       "priority": 3,
       "headline": "Wheeler leads the Ramblers with 10 points",
-      "detail": "5 goals, 5 assists; 16th in MHL scoring. Next: Lyons 8, Miller and Wright 7, Lau 6.",
+      "detail": "5 goals, 5 assists. Next: Lyons 8, Miller and Wright 7, Lau 6.",
       "stat": {
         "value": "10",
         "label": "Wheeler points"
@@ -665,25 +644,6 @@
       ]
     },
     {
-      "id": "unbeaten-tru",
-      "kind": "league",
-      "priority": 4,
-      "headline": "Truro is 6-0, the MHL's only unbeaten team",
-      "detail": "33-15 in goals over 6 games, 36% on the power play. They share our division.",
-      "stat": {
-        "value": "6-0",
-        "label": "TRU record"
-      },
-      "player_id": null,
-      "team_id": 3,
-      "headshot_url": null,
-      "valid_until": null,
-      "confidence": "fact",
-      "sources": [
-        "board.json:standings"
-      ]
-    },
-    {
       "id": "vs-last-year",
       "kind": "history",
       "priority": 4,
@@ -707,8 +667,8 @@
       "id": "league-hot-streak",
       "kind": "streak",
       "priority": 5,
-      "headline": "Charles-Olivier Giguère has a point in 7 straight",
-      "detail": "Miramichi: 4 goals and 6 assists since Sep 17. Longest active run on the MHL streaks list.",
+      "headline": "Charles-Éric Tremblay has a point in 7 straight",
+      "detail": "Edmundston: 5 goals and 11 assists since Sep 11. Longest active run on the MHL streaks list.",
       "stat": {
         "value": "7",
         "label": "game point streak"
@@ -727,7 +687,7 @@
       "kind": "league",
       "priority": 5,
       "headline": "MHL scoring race: Lutz (Valley) leads with 17",
-      "detail": "Dickson 15, Lachance 14, Dupere 14, Tremblay 14. Tremblay (Edmundston) is scoring 2.33 points a game.",
+      "detail": "Tremblay 16, Larochelle 15, Labranche 15, Dickson 15. Tremblay (Edmundston) is scoring 2.29 points a game.",
       "stat": {
         "value": "17",
         "label": "Lutz points"
