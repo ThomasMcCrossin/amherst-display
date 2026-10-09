@@ -24,7 +24,7 @@ from typing import Any, Dict, List, Optional
 from . import SKILL_DIR, checker, frames
 from .incidents import current_bounds
 
-ADVERSARY_CLASSES = {"goal", "major", "fight"}
+ADVERSARY_CLASSES = {"goal", "major", "scrum", "fight"}
 
 
 def prompt_hash(backend: Any, role: str) -> str:
