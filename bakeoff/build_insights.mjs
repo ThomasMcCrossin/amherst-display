@@ -220,7 +220,7 @@ export function buildItems(board, opts = {}) {
       for (const o of official) {
         add({ id: `starter-official-${o.side}`, kind: 'goalie', priority: 1, valid_until: gameEndIso, team_id: null,
           headline: `Official starter (${o.side}): ${o.name}`.slice(0, 60),
-          detail: `Confirmed in the published lineup. Source: ${o.source}.`, stat: null, player_id: o.id ?? null,
+          detail: `Listed as starting on the published game sheet. Source: MHL game sheet (HockeyTech).`, stat: null, player_id: o.id ?? null,
           sources: [`${srcNg}.official_starters.${o.side}`] });
       }
     } else {
@@ -715,7 +715,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     fake.next_game.official_starters = { home: { id: 3766, name: 'Brandon Lavoie', number: 29, source: 'statviewfeed gameSummary' }, away: null };
     const t = buildItems(fake, { raw: loadRaw() }).items.find(i => i.id === 'starter-official-home');
     if (!t || !/Source:/.test(t.detail)) throw new Error('official-starter path did not cite its source');
-    if (items.some(i => i.id.startsWith('starter-official'))) throw new Error('starter item produced without official_starters');
+    if (!board.next_game?.official_starters && items.some(i => i.id.startsWith('starter-official'))) throw new Error('starter item produced without official_starters');
   }
   items.sort((a, b) => a.priority - b.priority || a.id.localeCompare(b.id));
   const errs = validate(items, board);
