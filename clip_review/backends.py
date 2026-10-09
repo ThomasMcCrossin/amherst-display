@@ -293,21 +293,23 @@ _OBJ_KINDS = {"event_not_in_clip", "cut_before_event", "starts_mid_play", "start
 # ======================================================================================
 REVIEW_PROMPT = """You are the REVIEWER for one hockey highlight incident.
 Read the skill file {skill}/SKILL.md and follow its reviewer procedure exactly (SKILL_DIR={skill}).
-Packet directory: {packet} . Start by reading {packet}/incident.json.
+Packet directory: "{packet}". Start by reading "{packet}/incident.json".
+Paths can contain spaces: always quote them in shell commands.
 Run the skill scripts with: {python}
-Write the verdict JSON to: {out}
-Then run: {python} {skill}/scripts/check_verdict.py {out} --packet {packet}
+Write the verdict JSON to: "{out}"
+Then run: "{python}" "{skill}/scripts/check_verdict.py" "{out}" --packet "{packet}"
 and fix the verdict until it prints OK.
 Budget: at most ~20 turns and ~12 frame pulls; coarse sheets first, dense frames only around the boundaries.
 {extra}Finish with one line: VERDICT {out}"""
 
 ADVERSARY_PROMPT = """You are the ADVERSARY for one hockey highlight incident.
 Read the skill file {skill}/SKILL.md and follow its "Adversary role" section exactly (SKILL_DIR={skill}).
-Packet directory: {packet} . Read {packet}/incident.json, then the adversary input {adv_input}
+Packet directory: "{packet}". Read "{packet}/incident.json", then the adversary input "{adv_input}"
+Paths can contain spaces: always quote them in shell commands.
 (it names the reviewer's verdict and the contact sheets of the proposed final clip).
 Run the skill scripts with: {python}
-Write your adversary JSON to: {out}
-Then run: {python} {skill}/scripts/check_verdict.py {out} --packet {packet}
+Write your adversary JSON to: "{out}"
+Then run: "{python}" "{skill}/scripts/check_verdict.py" "{out}" --packet "{packet}"
 and fix it until it prints OK.
 Budget: at most ~12 turns and ~6 frame pulls.
 Finish with one line: VERDICT {out}"""
