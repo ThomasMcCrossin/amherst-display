@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-07T19:49:17.762Z",
+ "generated_at": "2026-10-09T15:57:33.847Z",
  "season": "2026-27",
  "team": {
   "id": 1,
@@ -28,7 +28,7 @@
    "division": "Eastlink North",
    "nickname": "Lightning",
    "standings": {
-    "rank": 3,
+    "rank": 4,
     "team": "Chaleur Lightning",
     "abbr": "CHA",
     "team_id": 21,
@@ -2318,23 +2318,23 @@
       "team_id": 3,
       "logo_url": "https://assets.leaguestat.com/mhl/logos/3.jpg",
       "is_ramblers": false,
-      "gp": 6,
+      "gp": 7,
       "w": 6,
       "l": 0,
-      "otl": 0,
+      "otl": 1,
       "sol": 0,
-      "pts": 12,
-      "pct": 1,
+      "pts": 13,
+      "pct": 0.929,
       "rw": 6,
-      "gf": 33,
-      "ga": 15,
-      "diff": 18,
-      "pim": 88,
-      "streak": "6-0-0-0",
-      "last10": "6-0-0-0",
-      "pp_pct": 36,
-      "pk_pct": 77.3,
-      "pp": "9/25",
+      "gf": 36,
+      "ga": 19,
+      "diff": 17,
+      "pim": 96,
+      "streak": "6-0-1-0",
+      "last10": "6-0-1-0",
+      "pp_pct": 34.5,
+      "pk_pct": 76,
+      "pp": "10/29",
       "playoff_position": true
      },
      {
@@ -2365,6 +2365,32 @@
      },
      {
       "rank": 4,
+      "team": "Yarmouth Mariners",
+      "abbr": "YAR",
+      "team_id": 5,
+      "logo_url": "https://assets.leaguestat.com/mhl/logos/5.jpg",
+      "is_ramblers": false,
+      "gp": 10,
+      "w": 4,
+      "l": 6,
+      "otl": 0,
+      "sol": 0,
+      "pts": 8,
+      "pct": 0.4,
+      "rw": 4,
+      "gf": 27,
+      "ga": 46,
+      "diff": -19,
+      "pim": 143,
+      "streak": "1-0-0-0",
+      "last10": "4-6-0-0",
+      "pp_pct": 18.4,
+      "pk_pct": 61.8,
+      "pp": "7/38",
+      "playoff_position": true
+     },
+     {
+      "rank": 5,
       "team": "Amherst Ramblers",
       "abbr": "AMH",
       "team_id": 1,
@@ -2387,32 +2413,6 @@
       "pp_pct": 11.5,
       "pk_pct": 84.6,
       "pp": "3/26",
-      "playoff_position": true
-     },
-     {
-      "rank": 5,
-      "team": "Yarmouth Mariners",
-      "abbr": "YAR",
-      "team_id": 5,
-      "logo_url": "https://assets.leaguestat.com/mhl/logos/5.jpg",
-      "is_ramblers": false,
-      "gp": 9,
-      "w": 3,
-      "l": 6,
-      "otl": 0,
-      "sol": 0,
-      "pts": 6,
-      "pct": 0.333,
-      "rw": 3,
-      "gf": 24,
-      "ga": 46,
-      "diff": -22,
-      "pim": 140,
-      "streak": "0-1-0-0",
-      "last10": "3-6-0-0",
-      "pp_pct": 17.1,
-      "pk_pct": 59.4,
-      "pp": "6/35",
       "playoff_position": false
      },
      {
@@ -2422,23 +2422,23 @@
       "team_id": 7,
       "logo_url": "https://assets.leaguestat.com/mhl/logos/7.jpg",
       "is_ramblers": false,
-      "gp": 8,
+      "gp": 9,
       "w": 2,
-      "l": 5,
+      "l": 6,
       "otl": 0,
       "sol": 1,
       "pts": 5,
-      "pct": 0.313,
+      "pct": 0.278,
       "rw": 2,
       "gf": 21,
-      "ga": 33,
-      "diff": -12,
-      "pim": 136,
-      "streak": "1-0-0-0",
-      "last10": "2-5-0-1",
-      "pp_pct": 6.9,
-      "pk_pct": 65.4,
-      "pp": "2/29",
+      "ga": 36,
+      "diff": -15,
+      "pim": 144,
+      "streak": "0-1-0-0",
+      "last10": "2-6-0-1",
+      "pp_pct": 6.5,
+      "pk_pct": 65.5,
+      "pp": "2/31",
       "playoff_position": false
      }
     ]
@@ -2448,58 +2448,84 @@
     "rows": [
      {
       "rank": 1,
-      "team": "Miramichi Timberwolves",
-      "abbr": "MIR",
-      "team_id": 9,
-      "logo_url": "https://assets.leaguestat.com/mhl/logos/9.jpg",
-      "is_ramblers": false,
-      "gp": 9,
-      "w": 5,
-      "l": 3,
-      "otl": 1,
-      "sol": 0,
-      "pts": 11,
-      "pct": 0.611,
-      "rw": 5,
-      "gf": 42,
-      "ga": 37,
-      "diff": 5,
-      "pim": 184,
-      "streak": "1-0-0-0",
-      "last10": "5-3-1-0",
-      "pp_pct": 31,
-      "pk_pct": 82.4,
-      "pp": "9/29",
-      "playoff_position": true
-     },
-     {
-      "rank": 2,
       "team": "Edmundston Blizzard",
       "abbr": "EDM",
       "team_id": 2,
       "logo_url": "https://assets.leaguestat.com/mhl/logos/2.jpg",
       "is_ramblers": false,
-      "gp": 6,
-      "w": 5,
+      "gp": 7,
+      "w": 6,
       "l": 1,
       "otl": 0,
       "sol": 0,
-      "pts": 10,
-      "pct": 0.833,
+      "pts": 12,
+      "pct": 0.857,
+      "rw": 6,
+      "gf": 43,
+      "ga": 20,
+      "diff": 23,
+      "pim": 123,
+      "streak": "6-0-0-0",
+      "last10": "6-1-0-0",
+      "pp_pct": 27.8,
+      "pk_pct": 85.7,
+      "pp": "5/18",
+      "playoff_position": true
+     },
+     {
+      "rank": 2,
+      "team": "Miramichi Timberwolves",
+      "abbr": "MIR",
+      "team_id": 9,
+      "logo_url": "https://assets.leaguestat.com/mhl/logos/9.jpg",
+      "is_ramblers": false,
+      "gp": 10,
+      "w": 5,
+      "l": 4,
+      "otl": 1,
+      "sol": 0,
+      "pts": 11,
+      "pct": 0.55,
       "rw": 5,
-      "gf": 35,
-      "ga": 17,
-      "diff": 18,
-      "pim": 117,
-      "streak": "5-0-0-0",
-      "last10": "5-1-0-0",
-      "pp_pct": 33.3,
-      "pk_pct": 88,
-      "pp": "5/15",
+      "gf": 45,
+      "ga": 45,
+      "diff": 0,
+      "pim": 190,
+      "streak": "0-1-0-0",
+      "last10": "5-4-1-0",
+      "pp_pct": 31.3,
+      "pk_pct": 83.8,
+      "pp": "10/32",
       "playoff_position": true
      },
      {
       "rank": 3,
+      "team": "West Kent Steamers",
+      "abbr": "WKS",
+      "team_id": 6,
+      "logo_url": "https://assets.leaguestat.com/mhl/logos/6.jpg",
+      "is_ramblers": false,
+      "gp": 10,
+      "w": 5,
+      "l": 5,
+      "otl": 0,
+      "sol": 0,
+      "pts": 10,
+      "pct": 0.5,
+      "rw": 2,
+      "gf": 33,
+      "ga": 37,
+      "diff": -4,
+      "pim": 248,
+      "streak": "2-0-0-0",
+      "last10": "5-5-0-0",
+      "pp_pct": 28.2,
+      "pk_pct": 71.1,
+      "pp": "11/39",
+      "playoff_position": true
+     },
+     {
+      "rank": 4,
       "team": "Chaleur Lightning",
       "abbr": "CHA",
       "team_id": 21,
@@ -2522,32 +2548,6 @@
       "pp_pct": 28.6,
       "pk_pct": 71.4,
       "pp": "8/28",
-      "playoff_position": true
-     },
-     {
-      "rank": 4,
-      "team": "West Kent Steamers",
-      "abbr": "WKS",
-      "team_id": 6,
-      "logo_url": "https://assets.leaguestat.com/mhl/logos/6.jpg",
-      "is_ramblers": false,
-      "gp": 9,
-      "w": 4,
-      "l": 5,
-      "otl": 0,
-      "sol": 0,
-      "pts": 8,
-      "pct": 0.444,
-      "rw": 2,
-      "gf": 29,
-      "ga": 34,
-      "diff": -5,
-      "pim": 238,
-      "streak": "1-0-0-0",
-      "last10": "4-5-0-0",
-      "pp_pct": 27.8,
-      "pk_pct": 70.6,
-      "pp": "10/36",
       "playoff_position": true
      },
      {
@@ -2614,7 +2614,7 @@
   "gp": 8,
   "pts": 7,
   "pct": 0.438,
-  "division_rank": 4,
+  "division_rank": 5,
   "home": "1-2-0-0",
   "away": "2-2-0-1",
   "last10": "3-4-0-1",
@@ -3241,7 +3241,7 @@
    "number": 28,
    "pos": "RW",
    "shoots": "R",
-   "age": 17,
+   "age": 18,
    "birthdate": "Oct  8, 2008",
    "hometown": "Amherst, NS",
    "height": "6'03",
@@ -3409,7 +3409,7 @@
    "number": 82,
    "pos": "D",
    "shoots": "L",
-   "age": 17,
+   "age": 18,
    "birthdate": "Oct  8, 2008",
    "hometown": "Spaniards Bay, NL",
    "height": "6'00",
@@ -4687,30 +4687,56 @@
     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2778.jpg"
    },
    {
+    "id": 3839,
+    "name": "Charles-Éric Tremblay",
+    "team": "EDM",
+    "pos": "LW",
+    "number": 28,
+    "gp": 7,
+    "g": 5,
+    "a": 11,
+    "pts": 16,
+    "ppg": 2.29,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3839.jpg"
+   },
+   {
+    "id": 3597,
+    "name": "Noah Larochelle",
+    "team": "EDM",
+    "pos": "RW",
+    "number": 24,
+    "gp": 7,
+    "g": 8,
+    "a": 7,
+    "pts": 15,
+    "ppg": 2.14,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3597.jpg"
+   },
+   {
+    "id": 3569,
+    "name": "William Labranche",
+    "team": "EDM",
+    "pos": "LW",
+    "number": 79,
+    "gp": 7,
+    "g": 6,
+    "a": 9,
+    "pts": 15,
+    "ppg": 2.14,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3569.jpg"
+   },
+   {
     "id": 2712,
     "name": "Ethan Dickson",
     "team": "MIR",
     "pos": "C",
     "number": 91,
-    "gp": 9,
+    "gp": 10,
     "g": 5,
     "a": 10,
     "pts": 15,
-    "ppg": 1.67,
+    "ppg": 1.5,
     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2712.jpg"
-   },
-   {
-    "id": 4111,
-    "name": "Jacob Lachance",
-    "team": "MIR",
-    "pos": "C",
-    "number": 86,
-    "gp": 9,
-    "g": 6,
-    "a": 8,
-    "pts": 14,
-    "ppg": 1.56,
-    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4111.jpg"
    },
    {
     "id": 4109,
@@ -4726,43 +4752,17 @@
     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4109.jpg"
    },
    {
-    "id": 3839,
-    "name": "Charles-Éric Tremblay",
-    "team": "EDM",
-    "pos": "LW",
-    "number": 28,
-    "gp": 6,
-    "g": 3,
-    "a": 11,
-    "pts": 14,
-    "ppg": 2.33,
-    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3839.jpg"
-   },
-   {
-    "id": 3043,
-    "name": "Aidan Bent",
-    "team": "VAL",
-    "pos": "LW",
-    "number": 22,
+    "id": 4111,
+    "name": "Jacob Lachance",
+    "team": "MIR",
+    "pos": "C",
+    "number": 86,
     "gp": 10,
-    "g": 4,
-    "a": 9,
-    "pts": 13,
-    "ppg": 1.3,
-    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3043.jpg"
-   },
-   {
-    "id": 3814,
-    "name": "Callum Aucoin",
-    "team": "TRU",
-    "pos": "LW",
-    "number": 11,
-    "gp": 6,
     "g": 6,
-    "a": 6,
-    "pts": 12,
-    "ppg": 2,
-    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3814.jpg"
+    "a": 8,
+    "pts": 14,
+    "ppg": 1.4,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4111.jpg"
    },
    {
     "id": 4126,
@@ -4770,25 +4770,25 @@
     "team": "TRU",
     "pos": "C",
     "number": 9,
-    "gp": 6,
-    "g": 6,
+    "gp": 7,
+    "g": 7,
     "a": 6,
-    "pts": 12,
-    "ppg": 2,
+    "pts": 13,
+    "ppg": 1.86,
     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4126.jpg"
    },
    {
-    "id": 3569,
-    "name": "William Labranche",
-    "team": "EDM",
+    "id": 3814,
+    "name": "Callum Aucoin",
+    "team": "TRU",
     "pos": "LW",
-    "number": 79,
-    "gp": 6,
+    "number": 11,
+    "gp": 7,
     "g": 6,
-    "a": 6,
-    "pts": 12,
-    "ppg": 2,
-    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3569.jpg"
+    "a": 7,
+    "pts": 13,
+    "ppg": 1.86,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3814.jpg"
    },
    {
     "id": 3022,
@@ -4796,15 +4796,28 @@
     "team": "EDM",
     "pos": "LW",
     "number": 71,
-    "gp": 6,
+    "gp": 7,
     "g": 5,
-    "a": 7,
-    "pts": 12,
-    "ppg": 2,
+    "a": 8,
+    "pts": 13,
+    "ppg": 1.86,
     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3022.jpg"
    }
   ],
   "goals": [
+   {
+    "id": 3597,
+    "name": "Noah Larochelle",
+    "team": "EDM",
+    "pos": "RW",
+    "number": 24,
+    "gp": 7,
+    "g": 8,
+    "a": 7,
+    "pts": 15,
+    "ppg": 2.14,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3597.jpg"
+   },
    {
     "id": 2778,
     "name": "Drew Lutz",
@@ -4819,17 +4832,30 @@
     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2778.jpg"
    },
    {
-    "id": 4111,
-    "name": "Jacob Lachance",
-    "team": "MIR",
+    "id": 4126,
+    "name": "Cédrik Laberge",
+    "team": "TRU",
     "pos": "C",
-    "number": 86,
-    "gp": 9,
+    "number": 9,
+    "gp": 7,
+    "g": 7,
+    "a": 6,
+    "pts": 13,
+    "ppg": 1.86,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4126.jpg"
+   },
+   {
+    "id": 3569,
+    "name": "William Labranche",
+    "team": "EDM",
+    "pos": "LW",
+    "number": 79,
+    "gp": 7,
     "g": 6,
-    "a": 8,
-    "pts": 14,
-    "ppg": 1.56,
-    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4111.jpg"
+    "a": 9,
+    "pts": 15,
+    "ppg": 2.14,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3569.jpg"
    },
    {
     "id": 4109,
@@ -4845,43 +4871,30 @@
     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4109.jpg"
    },
    {
+    "id": 4111,
+    "name": "Jacob Lachance",
+    "team": "MIR",
+    "pos": "C",
+    "number": 86,
+    "gp": 10,
+    "g": 6,
+    "a": 8,
+    "pts": 14,
+    "ppg": 1.4,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4111.jpg"
+   },
+   {
     "id": 3814,
     "name": "Callum Aucoin",
     "team": "TRU",
     "pos": "LW",
     "number": 11,
-    "gp": 6,
+    "gp": 7,
     "g": 6,
-    "a": 6,
-    "pts": 12,
-    "ppg": 2,
+    "a": 7,
+    "pts": 13,
+    "ppg": 1.86,
     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3814.jpg"
-   },
-   {
-    "id": 4126,
-    "name": "Cédrik Laberge",
-    "team": "TRU",
-    "pos": "C",
-    "number": 9,
-    "gp": 6,
-    "g": 6,
-    "a": 6,
-    "pts": 12,
-    "ppg": 2,
-    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4126.jpg"
-   },
-   {
-    "id": 3569,
-    "name": "William Labranche",
-    "team": "EDM",
-    "pos": "LW",
-    "number": 79,
-    "gp": 6,
-    "g": 6,
-    "a": 6,
-    "pts": 12,
-    "ppg": 2,
-    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3569.jpg"
    },
    {
     "id": 3728,
@@ -4897,43 +4910,30 @@
     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3728.jpg"
    },
    {
+    "id": 3839,
+    "name": "Charles-Éric Tremblay",
+    "team": "EDM",
+    "pos": "LW",
+    "number": 28,
+    "gp": 7,
+    "g": 5,
+    "a": 11,
+    "pts": 16,
+    "ppg": 2.29,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3839.jpg"
+   },
+   {
     "id": 2712,
     "name": "Ethan Dickson",
     "team": "MIR",
     "pos": "C",
     "number": 91,
-    "gp": 9,
+    "gp": 10,
     "g": 5,
     "a": 10,
     "pts": 15,
-    "ppg": 1.67,
+    "ppg": 1.5,
     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2712.jpg"
-   },
-   {
-    "id": 3022,
-    "name": "Michael Arsenault",
-    "team": "EDM",
-    "pos": "LW",
-    "number": 71,
-    "gp": 6,
-    "g": 5,
-    "a": 7,
-    "pts": 12,
-    "ppg": 2,
-    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3022.jpg"
-   },
-   {
-    "id": 3597,
-    "name": "Noah Larochelle",
-    "team": "EDM",
-    "pos": "RW",
-    "number": 24,
-    "gp": 6,
-    "g": 5,
-    "a": 6,
-    "pts": 11,
-    "ppg": 1.83,
-    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3597.jpg"
    }
   ],
   "assists": [
@@ -4943,11 +4943,11 @@
     "team": "EDM",
     "pos": "LW",
     "number": 28,
-    "gp": 6,
-    "g": 3,
+    "gp": 7,
+    "g": 5,
     "a": 11,
-    "pts": 14,
-    "ppg": 2.33,
+    "pts": 16,
+    "ppg": 2.29,
     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3839.jpg"
    },
    {
@@ -4969,12 +4969,25 @@
     "team": "MIR",
     "pos": "C",
     "number": 91,
-    "gp": 9,
+    "gp": 10,
     "g": 5,
     "a": 10,
     "pts": 15,
-    "ppg": 1.67,
+    "ppg": 1.5,
     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2712.jpg"
+   },
+   {
+    "id": 3569,
+    "name": "William Labranche",
+    "team": "EDM",
+    "pos": "LW",
+    "number": 79,
+    "gp": 7,
+    "g": 6,
+    "a": 9,
+    "pts": 15,
+    "ppg": 2.14,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3569.jpg"
    },
    {
     "id": 3043,
@@ -5003,19 +5016,6 @@
     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3615.jpg"
    },
    {
-    "id": 4111,
-    "name": "Jacob Lachance",
-    "team": "MIR",
-    "pos": "C",
-    "number": 86,
-    "gp": 9,
-    "g": 6,
-    "a": 8,
-    "pts": 14,
-    "ppg": 1.56,
-    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4111.jpg"
-   },
-   {
     "id": 4109,
     "name": "Etienne Dupere",
     "team": "VAL",
@@ -5029,17 +5029,17 @@
     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4109.jpg"
    },
    {
-    "id": 2987,
-    "name": "Ryan Fletcher",
-    "team": "VAL",
-    "pos": "D",
-    "number": 26,
+    "id": 4111,
+    "name": "Jacob Lachance",
+    "team": "MIR",
+    "pos": "C",
+    "number": 86,
     "gp": 10,
-    "g": 1,
+    "g": 6,
     "a": 8,
-    "pts": 9,
-    "ppg": 0.9,
-    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2987.jpg"
+    "pts": 14,
+    "ppg": 1.4,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4111.jpg"
    },
    {
     "id": 3022,
@@ -5047,25 +5047,25 @@
     "team": "EDM",
     "pos": "LW",
     "number": 71,
-    "gp": 6,
+    "gp": 7,
     "g": 5,
-    "a": 7,
-    "pts": 12,
-    "ppg": 2,
+    "a": 8,
+    "pts": 13,
+    "ppg": 1.86,
     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3022.jpg"
    },
    {
-    "id": 3924,
-    "name": "Antoine Fontaine",
+    "id": 4137,
+    "name": "Caylen Blake",
     "team": "TRU",
-    "pos": "RW",
-    "number": 91,
-    "gp": 6,
-    "g": 3,
-    "a": 7,
+    "pos": "LW",
+    "number": 55,
+    "gp": 7,
+    "g": 2,
+    "a": 8,
     "pts": 10,
-    "ppg": 1.67,
-    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3924.jpg"
+    "ppg": 1.43,
+    "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4137.jpg"
    }
   ],
   "goalies": {
@@ -5177,6 +5177,19 @@
      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3767.jpg"
     },
     {
+     "id": 3231,
+     "name": "Niko Boudreau",
+     "team": "WKS",
+     "number": 31,
+     "gp": 8,
+     "w": 5,
+     "l": 3,
+     "sv_pct": 0.901,
+     "gaa": 3.18,
+     "so": 0,
+     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3231.jpg"
+    },
+    {
      "id": 3766,
      "name": "Brandon Lavoie",
      "team": "AMH",
@@ -5188,19 +5201,6 @@
      "gaa": 3.21,
      "so": 0,
      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3766.jpg"
-    },
-    {
-     "id": 3231,
-     "name": "Niko Boudreau",
-     "team": "WKS",
-     "number": 31,
-     "gp": 7,
-     "w": 4,
-     "l": 3,
-     "sv_pct": 0.898,
-     "gaa": 3.24,
-     "so": 0,
-     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3231.jpg"
     }
    ],
    "wins": [
@@ -5218,6 +5218,19 @@
      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3767.jpg"
     },
     {
+     "id": 3231,
+     "name": "Niko Boudreau",
+     "team": "WKS",
+     "number": 31,
+     "gp": 8,
+     "w": 5,
+     "l": 3,
+     "sv_pct": 0.901,
+     "gaa": 3.18,
+     "so": 0,
+     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3231.jpg"
+    },
+    {
      "id": 3859,
      "name": "Jack Bell",
      "team": "VAL",
@@ -5229,19 +5242,6 @@
      "gaa": 2.36,
      "so": 0,
      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3859.jpg"
-    },
-    {
-     "id": 3231,
-     "name": "Niko Boudreau",
-     "team": "WKS",
-     "number": 31,
-     "gp": 7,
-     "w": 4,
-     "l": 3,
-     "sv_pct": 0.898,
-     "gaa": 3.24,
-     "so": 0,
-     "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3231.jpg"
     },
     {
      "id": 3114,
@@ -5277,19 +5277,19 @@
     {
      "id": 3756,
      "name": "Zach Wheeler",
-     "rank": 16,
+     "rank": 18,
      "value": 10
     },
     {
      "id": 3867,
      "name": "Brock Lyons",
-     "rank": 34,
+     "rank": 41,
      "value": 8
     },
     {
      "id": 2794,
      "name": "Coen Miller",
-     "rank": 46,
+     "rank": 49,
      "value": 7
     }
    ],
@@ -5297,19 +5297,19 @@
     {
      "id": 3756,
      "name": "Zach Wheeler",
-     "rank": 13,
+     "rank": 14,
      "value": 5
     },
     {
      "id": 2794,
      "name": "Coen Miller",
-     "rank": 27,
+     "rank": 33,
      "value": 4
     },
     {
      "id": 3867,
      "name": "Brock Lyons",
-     "rank": 43,
+     "rank": 47,
      "value": 3
     }
    ],
@@ -5317,19 +5317,19 @@
     {
      "id": 3756,
      "name": "Zach Wheeler",
-     "rank": 30,
+     "rank": 33,
      "value": 5
     },
     {
      "id": 3867,
      "name": "Brock Lyons",
-     "rank": 37,
+     "rank": 41,
      "value": 5
     },
     {
      "id": 4025,
      "name": "Jonathan Lau",
-     "rank": 42,
+     "rank": 44,
      "value": 5
     }
    ]
@@ -5500,14 +5500,14 @@
    },
    {
     "kind": "goals",
-    "id": 3569,
-    "name": "William Labranche",
+    "id": 3597,
+    "name": "Noah Larochelle",
     "team": "EDM",
     "games": 3,
-    "g": 4,
+    "g": 5,
     "a": 4,
-    "pts": 8,
-    "from": "Sep 25, 2026",
+    "pts": 9,
+    "from": "Sep 26, 2026",
     "to": "present",
     "active": true,
     "ramblers": false
@@ -5530,6 +5530,62 @@
    },
    {
     "kind": "points",
+    "id": 3839,
+    "name": "Charles-Éric Tremblay",
+    "team": "EDM",
+    "games": 7,
+    "g": 5,
+    "a": 11,
+    "pts": 16,
+    "from": "Sep 11, 2026",
+    "to": "present",
+    "active": true,
+    "ramblers": false
+   },
+   {
+    "kind": "points",
+    "id": 3597,
+    "name": "Noah Larochelle",
+    "team": "EDM",
+    "games": 7,
+    "g": 8,
+    "a": 7,
+    "pts": 15,
+    "from": "Sep 11, 2026",
+    "to": "present",
+    "active": true,
+    "ramblers": false
+   },
+   {
+    "kind": "points",
+    "id": 3814,
+    "name": "Callum Aucoin",
+    "team": "TRU",
+    "games": 7,
+    "g": 6,
+    "a": 7,
+    "pts": 13,
+    "from": "Sep 11, 2026",
+    "to": "present",
+    "active": true,
+    "ramblers": false
+   },
+   {
+    "kind": "points",
+    "id": 3924,
+    "name": "Antoine Fontaine",
+    "team": "TRU",
+    "games": 7,
+    "g": 4,
+    "a": 7,
+    "pts": 11,
+    "from": "Sep 11, 2026",
+    "to": "present",
+    "active": true,
+    "ramblers": false
+   },
+   {
+    "kind": "points",
     "id": 3790,
     "name": "Charles-Olivier Giguère",
     "team": "MIR",
@@ -5538,8 +5594,8 @@
     "a": 6,
     "pts": 10,
     "from": "Sep 17, 2026",
-    "to": "present",
-    "active": true,
+    "to": "Oct  4, 2026",
+    "active": false,
     "ramblers": false
    },
    {
@@ -5566,64 +5622,8 @@
     "a": 3,
     "pts": 8,
     "from": "Sep 17, 2026",
-    "to": "present",
-    "active": true,
-    "ramblers": false
-   },
-   {
-    "kind": "points",
-    "id": 3839,
-    "name": "Charles-Éric Tremblay",
-    "team": "EDM",
-    "games": 6,
-    "g": 3,
-    "a": 11,
-    "pts": 14,
-    "from": "Sep 11, 2026",
-    "to": "present",
-    "active": true,
-    "ramblers": false
-   },
-   {
-    "kind": "points",
-    "id": 3814,
-    "name": "Callum Aucoin",
-    "team": "TRU",
-    "games": 6,
-    "g": 6,
-    "a": 6,
-    "pts": 12,
-    "from": "Sep 11, 2026",
-    "to": "present",
-    "active": true,
-    "ramblers": false
-   },
-   {
-    "kind": "points",
-    "id": 4111,
-    "name": "Jacob Lachance",
-    "team": "MIR",
-    "games": 6,
-    "g": 5,
-    "a": 7,
-    "pts": 12,
-    "from": "Sep 20, 2026",
-    "to": "present",
-    "active": true,
-    "ramblers": false
-   },
-   {
-    "kind": "points",
-    "id": 3597,
-    "name": "Noah Larochelle",
-    "team": "EDM",
-    "games": 6,
-    "g": 5,
-    "a": 6,
-    "pts": 11,
-    "from": "Sep 11, 2026",
-    "to": "present",
-    "active": true,
+    "to": "Oct  3, 2026",
+    "active": false,
     "ramblers": false
    }
   ],
@@ -5677,16 +5677,16 @@
     "longest_win": 6,
     "win_from": "Sep 11/26",
     "win_to": "Oct 3/26",
-    "longest_losing": null,
+    "longest_losing": 1,
     "longest_undefeated": 6
    },
    {
     "team": "Edmundston Blizzard",
-    "longest_win": 5,
+    "longest_win": 6,
     "win_from": "Sep 19/26",
-    "win_to": "Oct 2/26",
+    "win_to": "Oct 7/26",
     "longest_losing": 1,
-    "longest_undefeated": 5
+    "longest_undefeated": 6
    },
    {
     "team": "Miramichi Timberwolves",
@@ -5771,8 +5771,686 @@
   ],
   "current_team_streak": "0-3-0-1"
  },
+ "league_scores": [
+  {
+   "id": 5025,
+   "date": "2026-09-27",
+   "start_iso": "2026-09-27T15:00:00-03:00",
+   "status": "final",
+   "status_text": "Final",
+   "period": "3rd",
+   "clock": null,
+   "ot_so": null,
+   "venue": "Kings Mutual Century Centre",
+   "home": {
+    "id": 4,
+    "abbr": "VAL",
+    "name": "Valley Wildcats",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/4.jpg",
+    "goals": 9,
+    "is_ramblers": false
+   },
+   "away": {
+    "id": 21,
+    "abbr": "CHA",
+    "name": "Chaleur Lightning",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/21_46.jpg",
+    "goals": 3,
+    "is_ramblers": false
+   }
+  },
+  {
+   "id": 5023,
+   "date": "2026-09-27",
+   "start_iso": "2026-09-27T15:00:00-03:00",
+   "status": "final",
+   "status_text": "Final",
+   "period": "3rd",
+   "clock": null,
+   "ot_so": null,
+   "venue": "E. & P. Sénéchal Centre",
+   "home": {
+    "id": 12,
+    "abbr": "GFR",
+    "name": "Grand Falls Rapids",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/12_46.jpg",
+    "goals": 5,
+    "is_ramblers": false
+   },
+   "away": {
+    "id": 8,
+    "abbr": "CAM",
+    "name": "Campbellton Tigers",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/8.jpg",
+    "goals": 2,
+    "is_ramblers": false
+   }
+  },
+  {
+   "id": 5024,
+   "date": "2026-09-27",
+   "start_iso": "2026-09-27T19:00:00-03:00",
+   "status": "final",
+   "status_text": "Final",
+   "period": "3rd",
+   "clock": null,
+   "ot_so": null,
+   "venue": "Rath Eastlink Community Centre",
+   "home": {
+    "id": 3,
+    "abbr": "TRU",
+    "name": "Truro Bearcats",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/3.jpg",
+    "goals": 6,
+    "is_ramblers": false
+   },
+   "away": {
+    "id": 7,
+    "abbr": "PCC",
+    "name": "Pictou County Weeks Crushers",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/7.jpg",
+    "goals": 1,
+    "is_ramblers": false
+   }
+  },
+  {
+   "id": 5026,
+   "date": "2026-09-30",
+   "start_iso": "2026-09-30T19:00:00-03:00",
+   "status": "final",
+   "status_text": "Final",
+   "period": "3rd",
+   "clock": null,
+   "ot_so": null,
+   "venue": "Miramichi Civic Centre",
+   "home": {
+    "id": 9,
+    "abbr": "MIR",
+    "name": "Miramichi Timberwolves",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/9.jpg",
+    "goals": 8,
+    "is_ramblers": false
+   },
+   "away": {
+    "id": 5,
+    "abbr": "YAR",
+    "name": "Yarmouth Mariners",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/5.jpg",
+    "goals": 2,
+    "is_ramblers": false
+   }
+  },
+  {
+   "id": 5027,
+   "date": "2026-09-30",
+   "start_iso": "2026-09-30T19:00:00-03:00",
+   "status": "final",
+   "status_text": "Final",
+   "period": "3rd",
+   "clock": null,
+   "ot_so": null,
+   "venue": "Kings Mutual Century Centre",
+   "home": {
+    "id": 4,
+    "abbr": "VAL",
+    "name": "Valley Wildcats",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/4.jpg",
+    "goals": 5,
+    "is_ramblers": false
+   },
+   "away": {
+    "id": 7,
+    "abbr": "PCC",
+    "name": "Pictou County Weeks Crushers",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/7.jpg",
+    "goals": 2,
+    "is_ramblers": false
+   }
+  },
+  {
+   "id": 5028,
+   "date": "2026-10-01",
+   "start_iso": "2026-10-01T19:00:00-03:00",
+   "status": "final",
+   "status_text": "Final",
+   "period": "3rd",
+   "clock": null,
+   "ot_so": null,
+   "venue": "Pictou County Wellness Centre",
+   "home": {
+    "id": 7,
+    "abbr": "PCC",
+    "name": "Pictou County Weeks Crushers",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/7.jpg",
+    "goals": 3,
+    "is_ramblers": false
+   },
+   "away": {
+    "id": 4,
+    "abbr": "VAL",
+    "name": "Valley Wildcats",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/4.jpg",
+    "goals": 5,
+    "is_ramblers": false
+   }
+  },
+  {
+   "id": 5029,
+   "date": "2026-10-01",
+   "start_iso": "2026-10-01T19:00:00-03:00",
+   "status": "final",
+   "status_text": "Final",
+   "period": "3rd",
+   "clock": null,
+   "ot_so": null,
+   "venue": "J. K. Irving Centre",
+   "home": {
+    "id": 6,
+    "abbr": "WKS",
+    "name": "West Kent Steamers",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/6.jpg",
+    "goals": 2,
+    "is_ramblers": false
+   },
+   "away": {
+    "id": 5,
+    "abbr": "YAR",
+    "name": "Yarmouth Mariners",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/5.jpg",
+    "goals": 3,
+    "is_ramblers": false
+   }
+  },
+  {
+   "id": 5030,
+   "date": "2026-10-02",
+   "start_iso": "2026-10-02T19:00:00-03:00",
+   "status": "final",
+   "status_text": "Final",
+   "period": "3rd",
+   "clock": null,
+   "ot_so": null,
+   "venue": "Campbellton Memorial Civic Centre",
+   "home": {
+    "id": 8,
+    "abbr": "CAM",
+    "name": "Campbellton Tigers",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/8.jpg",
+    "goals": 3,
+    "is_ramblers": false
+   },
+   "away": {
+    "id": 10,
+    "abbr": "SWC",
+    "name": "Summerside Western Capitals",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/10.jpg",
+    "goals": 6,
+    "is_ramblers": false
+   }
+  },
+  {
+   "id": 5032,
+   "date": "2026-10-02",
+   "start_iso": "2026-10-02T19:00:00-03:00",
+   "status": "final",
+   "status_text": "Final SO",
+   "period": "1st OT",
+   "clock": null,
+   "ot_so": null,
+   "venue": "E. & P. Sénéchal Centre",
+   "home": {
+    "id": 12,
+    "abbr": "GFR",
+    "name": "Grand Falls Rapids",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/12_46.jpg",
+    "goals": 4,
+    "is_ramblers": false
+   },
+   "away": {
+    "id": 21,
+    "abbr": "CHA",
+    "name": "Chaleur Lightning",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/21_46.jpg",
+    "goals": 5,
+    "is_ramblers": false
+   }
+  },
+  {
+   "id": 5031,
+   "date": "2026-10-02",
+   "start_iso": "2026-10-02T19:30:00-03:00",
+   "status": "final",
+   "status_text": "Final",
+   "period": "3rd",
+   "clock": null,
+   "ot_so": null,
+   "venue": "Centre Jean Daigle",
+   "home": {
+    "id": 2,
+    "abbr": "EDM",
+    "name": "Edmundston Blizzard",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/2.jpg",
+    "goals": 8,
+    "is_ramblers": false
+   },
+   "away": {
+    "id": 9,
+    "abbr": "MIR",
+    "name": "Miramichi Timberwolves",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/9.jpg",
+    "goals": 2,
+    "is_ramblers": false
+   }
+  },
+  {
+   "id": 5033,
+   "date": "2026-10-03",
+   "start_iso": "2026-10-03T19:00:00-03:00",
+   "status": "final",
+   "status_text": "Final",
+   "period": "3rd",
+   "clock": null,
+   "ot_so": null,
+   "venue": "Amherst Stadium",
+   "home": {
+    "id": 1,
+    "abbr": "AMH",
+    "name": "Amherst Ramblers",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/1.jpg",
+    "goals": 1,
+    "is_ramblers": true
+   },
+   "away": {
+    "id": 7,
+    "abbr": "PCC",
+    "name": "Pictou County Weeks Crushers",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/7.jpg",
+    "goals": 4,
+    "is_ramblers": false
+   }
+  },
+  {
+   "id": 5034,
+   "date": "2026-10-03",
+   "start_iso": "2026-10-03T19:00:00-03:00",
+   "status": "final",
+   "status_text": "Final",
+   "period": "3rd",
+   "clock": null,
+   "ot_so": null,
+   "venue": "KC Irving Regional Centre",
+   "home": {
+    "id": 21,
+    "abbr": "CHA",
+    "name": "Chaleur Lightning",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/21_46.jpg",
+    "goals": 7,
+    "is_ramblers": false
+   },
+   "away": {
+    "id": 10,
+    "abbr": "SWC",
+    "name": "Summerside Western Capitals",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/10.jpg",
+    "goals": 3,
+    "is_ramblers": false
+   }
+  },
+  {
+   "id": 5035,
+   "date": "2026-10-03",
+   "start_iso": "2026-10-03T19:00:00-03:00",
+   "status": "final",
+   "status_text": "Final",
+   "period": "3rd",
+   "clock": null,
+   "ot_so": null,
+   "venue": "Rath Eastlink Community Centre",
+   "home": {
+    "id": 3,
+    "abbr": "TRU",
+    "name": "Truro Bearcats",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/3.jpg",
+    "goals": 5,
+    "is_ramblers": false
+   },
+   "away": {
+    "id": 4,
+    "abbr": "VAL",
+    "name": "Valley Wildcats",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/4.jpg",
+    "goals": 2,
+    "is_ramblers": false
+   }
+  },
+  {
+   "id": 5037,
+   "date": "2026-10-04",
+   "start_iso": "2026-10-04T14:00:00-03:00",
+   "status": "final",
+   "status_text": "Final",
+   "period": "3rd",
+   "clock": null,
+   "ot_so": null,
+   "venue": "Miramichi Civic Centre",
+   "home": {
+    "id": 9,
+    "abbr": "MIR",
+    "name": "Miramichi Timberwolves",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/9.jpg",
+    "goals": 9,
+    "is_ramblers": false
+   },
+   "away": {
+    "id": 8,
+    "abbr": "CAM",
+    "name": "Campbellton Tigers",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/8.jpg",
+    "goals": 2,
+    "is_ramblers": false
+   }
+  },
+  {
+   "id": 5036,
+   "date": "2026-10-04",
+   "start_iso": "2026-10-04T15:00:00-03:00",
+   "status": "final",
+   "status_text": "Final 1st OT",
+   "period": "1st OT",
+   "clock": null,
+   "ot_so": null,
+   "venue": "E. & P. Sénéchal Centre",
+   "home": {
+    "id": 12,
+    "abbr": "GFR",
+    "name": "Grand Falls Rapids",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/12_46.jpg",
+    "goals": 3,
+    "is_ramblers": false
+   },
+   "away": {
+    "id": 6,
+    "abbr": "WKS",
+    "name": "West Kent Steamers",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/6.jpg",
+    "goals": 4,
+    "is_ramblers": false
+   }
+  },
+  {
+   "id": 5038,
+   "date": "2026-10-04",
+   "start_iso": "2026-10-04T16:00:00-03:00",
+   "status": "final",
+   "status_text": "Final",
+   "period": "3rd",
+   "clock": null,
+   "ot_so": null,
+   "venue": "Mariners Centre",
+   "home": {
+    "id": 5,
+    "abbr": "YAR",
+    "name": "Yarmouth Mariners",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/5.jpg",
+    "goals": 1,
+    "is_ramblers": false
+   },
+   "away": {
+    "id": 4,
+    "abbr": "VAL",
+    "name": "Valley Wildcats",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/4.jpg",
+    "goals": 4,
+    "is_ramblers": false
+   }
+  },
+  {
+   "id": 5039,
+   "date": "2026-10-07",
+   "start_iso": "2026-10-07T19:00:00-03:00",
+   "status": "final",
+   "status_text": "Final",
+   "period": "3rd",
+   "clock": null,
+   "ot_so": null,
+   "venue": "Miramichi Civic Centre",
+   "home": {
+    "id": 9,
+    "abbr": "MIR",
+    "name": "Miramichi Timberwolves",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/9.jpg",
+    "goals": 3,
+    "is_ramblers": false
+   },
+   "away": {
+    "id": 2,
+    "abbr": "EDM",
+    "name": "Edmundston Blizzard",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/2.jpg",
+    "goals": 8,
+    "is_ramblers": false
+   }
+  },
+  {
+   "id": 5040,
+   "date": "2026-10-08",
+   "start_iso": "2026-10-08T19:00:00-03:00",
+   "status": "final",
+   "status_text": "Final",
+   "period": "3rd",
+   "clock": null,
+   "ot_so": null,
+   "venue": "Pictou County Wellness Centre",
+   "home": {
+    "id": 7,
+    "abbr": "PCC",
+    "name": "Pictou County Weeks Crushers",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/7.jpg",
+    "goals": 0,
+    "is_ramblers": false
+   },
+   "away": {
+    "id": 5,
+    "abbr": "YAR",
+    "name": "Yarmouth Mariners",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/5.jpg",
+    "goals": 3,
+    "is_ramblers": false
+   }
+  },
+  {
+   "id": 5041,
+   "date": "2026-10-08",
+   "start_iso": "2026-10-08T19:00:00-03:00",
+   "status": "final",
+   "status_text": "Final 1st OT",
+   "period": "1st OT",
+   "clock": null,
+   "ot_so": null,
+   "venue": "J. K. Irving Centre",
+   "home": {
+    "id": 6,
+    "abbr": "WKS",
+    "name": "West Kent Steamers",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/6.jpg",
+    "goals": 4,
+    "is_ramblers": false
+   },
+   "away": {
+    "id": 3,
+    "abbr": "TRU",
+    "name": "Truro Bearcats",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/3.jpg",
+    "goals": 3,
+    "is_ramblers": false
+   }
+  },
+  {
+   "id": 5042,
+   "date": "2026-10-09",
+   "start_iso": "2026-10-09T19:00:00-03:00",
+   "status": "scheduled",
+   "status_text": "7:00 PM ADT",
+   "period": "1st",
+   "clock": null,
+   "ot_so": null,
+   "venue": "Amherst Stadium",
+   "home": {
+    "id": 1,
+    "abbr": "AMH",
+    "name": "Amherst Ramblers",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/1.jpg",
+    "goals": 0,
+    "is_ramblers": true
+   },
+   "away": {
+    "id": 21,
+    "abbr": "CHA",
+    "name": "Chaleur Lightning",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/21_46.jpg",
+    "goals": 0,
+    "is_ramblers": false
+   }
+  },
+  {
+   "id": 5044,
+   "date": "2026-10-09",
+   "start_iso": "2026-10-09T19:00:00-03:00",
+   "status": "scheduled",
+   "status_text": "7:00 PM ADT",
+   "period": "1st",
+   "clock": null,
+   "ot_so": null,
+   "venue": "Kings Mutual Century Centre",
+   "home": {
+    "id": 4,
+    "abbr": "VAL",
+    "name": "Valley Wildcats",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/4.jpg",
+    "goals": 0,
+    "is_ramblers": false
+   },
+   "away": {
+    "id": 8,
+    "abbr": "CAM",
+    "name": "Campbellton Tigers",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/8.jpg",
+    "goals": 0,
+    "is_ramblers": false
+   }
+  },
+  {
+   "id": 5043,
+   "date": "2026-10-09",
+   "start_iso": "2026-10-09T19:30:00-03:00",
+   "status": "scheduled",
+   "status_text": "7:30 PM ADT",
+   "period": "1st",
+   "clock": null,
+   "ot_so": null,
+   "venue": "Centre Jean Daigle",
+   "home": {
+    "id": 2,
+    "abbr": "EDM",
+    "name": "Edmundston Blizzard",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/2.jpg",
+    "goals": 0,
+    "is_ramblers": false
+   },
+   "away": {
+    "id": 12,
+    "abbr": "GFR",
+    "name": "Grand Falls Rapids",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/12_46.jpg",
+    "goals": 0,
+    "is_ramblers": false
+   }
+  },
+  {
+   "id": 5045,
+   "date": "2026-10-10",
+   "start_iso": "2026-10-10T19:00:00-03:00",
+   "status": "scheduled",
+   "status_text": "7:00 PM ADT",
+   "period": "1st",
+   "clock": null,
+   "ot_so": null,
+   "venue": "Credit Union Place",
+   "home": {
+    "id": 10,
+    "abbr": "SWC",
+    "name": "Summerside Western Capitals",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/10.jpg",
+    "goals": 0,
+    "is_ramblers": false
+   },
+   "away": {
+    "id": 1,
+    "abbr": "AMH",
+    "name": "Amherst Ramblers",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/1.jpg",
+    "goals": 0,
+    "is_ramblers": true
+   }
+  },
+  {
+   "id": 5046,
+   "date": "2026-10-10",
+   "start_iso": "2026-10-10T19:00:00-03:00",
+   "status": "scheduled",
+   "status_text": "7:00 PM ADT",
+   "period": "1st",
+   "clock": null,
+   "ot_so": null,
+   "venue": "Rath Eastlink Community Centre",
+   "home": {
+    "id": 3,
+    "abbr": "TRU",
+    "name": "Truro Bearcats",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/3.jpg",
+    "goals": 0,
+    "is_ramblers": false
+   },
+   "away": {
+    "id": 9,
+    "abbr": "MIR",
+    "name": "Miramichi Timberwolves",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/9.jpg",
+    "goals": 0,
+    "is_ramblers": false
+   }
+  },
+  {
+   "id": 5047,
+   "date": "2026-10-10",
+   "start_iso": "2026-10-10T19:00:00-03:00",
+   "status": "scheduled",
+   "status_text": "7:00 PM ADT",
+   "period": "1st",
+   "clock": null,
+   "ot_so": null,
+   "venue": "Mariners Centre",
+   "home": {
+    "id": 5,
+    "abbr": "YAR",
+    "name": "Yarmouth Mariners",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/5.jpg",
+    "goals": 0,
+    "is_ramblers": false
+   },
+   "away": {
+    "id": 8,
+    "abbr": "CAM",
+    "name": "Campbellton Tigers",
+    "logo_url": "https://assets.leaguestat.com/mhl/logos/8.jpg",
+    "goals": 0,
+    "is_ramblers": false
+   }
+  }
+ ],
  "sources": [
   "modulekit teamsbyseason/schedule/statviewtype",
+  "modulekit scorebar",
   "statviewfeed gameSummary/gameCenterPreview/player/players/teams/streaks_player/streaks_team",
   "feed=gc gamesummary/preview"
  ],
