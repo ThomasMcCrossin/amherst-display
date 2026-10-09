@@ -1,6 +1,6 @@
 (function(){
 'use strict';
-var DWELL=12000, TZ='America/Halifax', REFRESH=300000, MAXP=8;
+var DWELL=12000, TZ='America/Halifax', REFRESH=60000, MAXP=8;
 var qs=new URLSearchParams(location.search), override=qs.get('now'), offset=0;
 if(override){var t0=Date.parse(override);if(!isNaN(t0))offset=t0-Date.now();else override=null;}
 function now(){return Date.now()+offset;}
