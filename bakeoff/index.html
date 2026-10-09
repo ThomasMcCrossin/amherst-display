@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Ramblers Board Bake-off</title>
+<title>Ramblers Game TV Board</title>
 <style>
 :root{--bg:#0d0e13;--card:#171922;--line:#2a2d3a;--text:#eef0f7;--muted:#9aa0b4;--accent:#8b5cf6;--good:#34d399}
 @media (prefers-color-scheme: light){:root:not([data-theme="dark"]){--bg:#f4f4f7;--card:#fff;--line:#dcdde5;--text:#16171d;--muted:#5d6273;--accent:#6d28d9;--good:#059669}}
@@ -25,13 +25,71 @@ main{max-width:1500px;margin:auto;padding:12px 16px 40px;display:grid;gap:22px}
 footer{max-width:1500px;margin:auto;padding:0 16px 30px}
 footer button{background:var(--accent);color:#fff;border:0;border-radius:8px;padding:8px 14px;font:inherit;cursor:pointer}
 footer pre{white-space:pre-wrap;color:var(--muted)}
+.sec{max-width:1500px;margin:auto;padding:8px 16px}
+.sec>h2{font-size:20px;margin:26px 0 4px}.sec>p{margin:0 0 12px;color:var(--muted)}
+.tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;padding:2px 8px;border-radius:99px;background:var(--accent);color:#fff;vertical-align:middle;margin-left:8px}
+.tag.old{background:var(--line);color:var(--muted)}
+.ask{background:var(--card);border:2px solid var(--accent);border-radius:12px;padding:14px 16px;margin:10px 0 4px}
+.ask b{display:block;margin-bottom:6px}.ask ol{margin:0;padding-left:20px}
+.go{display:inline-block;background:var(--accent);color:#fff;font-weight:700;text-decoration:none;border-radius:8px;padding:9px 16px;margin:8px 8px 0 0}
+.go.alt{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+.shots figure{margin:0}.shots img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:8px;border:1px solid var(--line);cursor:zoom-in;background:#000;display:block}
+.shots figcaption{font-size:14px;margin-top:5px}.shots figcaption b{display:block}.shots figcaption span{color:var(--muted)}
+details.sec>summary{cursor:pointer;font-size:20px;font-weight:700;margin:26px 0 8px}
+details.sec>summary small{font-weight:400;color:var(--muted);font-size:14px;margin-left:6px}
+#list{padding:0;max-width:none}
 </style>
 </head>
 <body>
-<header><h1>Ramblers Board Bake-off</h1>
-<p>Candidate boards for the Game TV (Pi 4, 1920×1080). Screenshots are taken every ~12 s, because each board rotates its panels. "Open live" shows the real page; press F11 for full screen. Scores stay in this browser. Use "Copy scores" and paste them back in chat.</p></header>
-<main id="list"><p style="color:var(--muted)">No designs yet: the agents are still building.</p></main>
-<footer><button id="copy">Copy scores</button><pre id="out"></pre></footer>
+<header><h1>Ramblers Game TV board</h1>
+<p>For the Game TV in the canteen (Pi 4, 1920&times;1080). Updated Fri Oct 9. Nothing here is on the TV yet.</p></header>
+
+<section class="sec">
+  <h2>1. The new board<span class="tag">REVIEW THIS</span></h2>
+  <p>Game Day's day-by-day modes in the Broadcast look. Ranks only show when they're impressive. It includes Around the MHL scores and a tickets page with a QR code on home-game days.</p>
+  <div class="ask"><b>What I need from you</b><ol>
+    <li>Open it live and watch one full loop (about 1.5 min).</li>
+    <li>Approve it, or write what to change in the notes box at the bottom.</li></ol>
+    <a class="go" href="designs/hybrid/index.html" target="_blank">Open the board live &#8599;</a>
+    <a class="go alt" href="designs/hybrid/index.html?fixture=fixture-live.json&amp;now=2026-10-09T20:20:00-03:00" target="_blank">See it mid-game (fake live scores) &#8599;</a>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>2. Home game day, in rotation order</h2>
+  <p>What fans see on a day like today. Each page shows for 12 seconds.</p>
+  <div class="shots">
+    <figure><img src="shots/hybrid-home-1-hero.png"><figcaption><b>1. Countdown</b><span>Big countdown to puck drop, both teams, last 5 results.</span></figcaption></figure>
+    <figure><img src="shots/hybrid-tix-gameday.png"><figcaption><b>2. Tickets (new)</b><span>QR code to curlys.ca/pucks. Pick up at Curly's Sports &amp; Supplements before 6:00 PM. Gone after the cutoff.</span></figcaption></figure>
+    <figure><img src="shots/hybrid-home-2-tape.png"><figcaption><b>3. Tale of the Tape</b><span>Ramblers vs tonight's opponent, stat by stat.</span></figcaption></figure>
+    <figure><img src="shots/hybrid-home-3-mhl.png"><figcaption><b>4. Around the MHL, tonight</b><span>Every league game today. Before puck drop it shows the start times.</span></figcaption></figure>
+    <figure><img src="shots/hybrid-live-3-mhl.png"><figcaption><b>4b. Around the MHL, during games</b><span>LIVE with period and clock, intermissions, finals. The Ramblers game is outlined in gold. (Fake scores for the demo.)</span></figcaption></figure>
+    <figure><img src="shots/hybrid-home-4-standings.png"><figcaption><b>5. Standings</b><span>Eastlink South.</span></figcaption></figure>
+    <figure><img src="shots/hybrid-home-5-leaders.png"><figcaption><b>6. Leaders</b><span>Ramblers scoring leaders and goalies.</span></figcaption></figure>
+    <figure><img src="shots/hybrid-home-6-stories.png"><figcaption><b>7. Storylines</b><span>Three stories per loop, rotating through about 38 written from today's stats.</span></figcaption></figure>
+  </div>
+</section>
+
+<details class="sec"><summary>3. Same board on other days <small>day after, away games, off days</small></summary>
+  <div class="shots">
+    <figure><img src="shots/hybrid-recap-1-last.png"><figcaption><b>Day after: last game</b><span>Final score, three stars, every goal.</span></figcaption></figure>
+    <figure><img src="shots/hybrid-away-1-hero.png"><figcaption><b>Away game day</b><span>Countdown plus "Watch live on FloHockey". No tickets page.</span></figcaption></figure>
+    <figure><img src="shots/hybrid-quiet-2-mhl.png"><figcaption><b>Off day: Around the MHL</b><span>Quieter. Latest scores and tomorrow's games, shown every other loop.</span></figcaption></figure>
+    <figure><img src="shots/hybrid-off-1-standings.png"><figcaption><b>Off day: standings</b></figcaption></figure>
+    <figure><img src="shots/hybrid-off-5-streaks.png"><figcaption><b>Off day: runs and milestones</b></figcaption></figure>
+    <figure><img src="shots/hybrid-off-6-sched.png"><figcaption><b>Off day: coming up</b></figcaption></figure>
+  </div>
+  <p><a class="go alt" href="designs/hybrid-preview/index.html" target="_blank">All four day modes side by side &#8599;</a></p>
+</details>
+
+<details class="sec"><summary>4. Old bake-off designs <span class="tag old">SUPERSEDED</span> <small>Oct 7, the five starting designs the new board was built from. Reference only.</small></summary>
+<main id="list"></main>
+</details>
+
+<section class="sec"><h2>Notes for me</h2><p>Write what to change. Your notes stay in this browser. Press "Copy notes" and paste them into chat.</p>
+<div class="rate" style="padding:0"><input id="hnote" placeholder="e.g. bigger standings, drop the leaders page, tickets page earlier..."></div></section>
+<footer><button id="copy">Copy notes</button><pre id="out"></pre></footer>
 <div id="zoom"><img alt=""></div>
 <script>
 const store={get(k){try{return JSON.parse(localStorage.getItem(k)||'{}')}catch{return{}}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
@@ -39,8 +97,8 @@ const scores=store.get('bakeoff-scores');
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 fetch('designs/manifest.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(m=>{
   if(!m||!m.designs.length)return;
-  const list=document.getElementById('list');list.innerHTML='';
-  for(const d of m.designs){
+  const list=document.getElementById('list');list.innerHTML='';list.style.display='grid';list.style.gap='22px';
+  for(const d of m.designs.filter(d=>!d.slug.startsWith('hybrid'))){
     const s=scores[d.slug]||{};
     const el=document.createElement('section');el.className='card';
     el.innerHTML=`<div class="top"><h2>${esc(d.name)}</h2><span class="c">${esc(d.concept)}</span><a href="designs/${esc(d.slug)}/index.html" target="_blank">Open live ↗</a></div>
@@ -54,6 +112,8 @@ fetch('designs/manifest.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).th
     list.appendChild(el);
   }
 });
+document.querySelectorAll('.shots img').forEach(i=>{i.loading='lazy';i.onclick=()=>{const z=document.getElementById('zoom');z.querySelector('img').src=i.src;z.style.display='flex'}});
+{const n=document.getElementById('hnote');n.value=(scores.hybrid||{}).note||'';n.oninput=e=>{scores.hybrid={...(scores.hybrid||{}),note:e.target.value};store.set('bakeoff-scores',scores)};}
 document.getElementById('zoom').onclick=e=>e.currentTarget.style.display='none';
 document.getElementById('copy').onclick=()=>{const t=Object.entries(scores).map(([k,v])=>`${k}: ${v.score??'-'}/5 ${v.note||''}`).join('\n')||'(no scores yet)';document.getElementById('out').textContent=t;navigator.clipboard?.writeText(t).catch(()=>{})};
 </script>
