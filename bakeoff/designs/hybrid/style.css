@@ -240,3 +240,16 @@ img{display:block}
 .qc .qt u{text-decoration:none;font-size:30px;color:var(--gold);margin-left:6px}
 .mt .ha2{font:800 32px/1 var(--disp);letter-spacing:.14em;color:var(--dim)}
 .mhl.c2{grid-template-columns:repeat(2,1fr)}
+
+/* tickets page: next game at home (QR encodes https://curlys.ca/pucks) */
+.tix{display:grid;grid-template-columns:1fr 560px;gap:56px;align-items:center;height:690px}
+.tix .t1{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:120px;line-height:1;color:#fff}
+.tix .t2{font-size:46px;line-height:1.3;color:#e6dcf5;margin-top:36px;max-width:1150px}
+.tix .t2 b{color:#fff}.tix .t2 b.gold{color:var(--gold,#f2b632)}
+.tix .t3{display:flex;gap:22px;margin-top:44px}
+.tix .t3 span{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:44px;color:#fff;background:rgba(255,255,255,.08);border-left:6px solid var(--gold,#f2b632);padding:10px 24px}
+.tix .tq{background:#fff;border-radius:28px;padding:30px 30px 22px;text-align:center}
+.tix .tq img{width:500px;height:500px;display:block}
+.tix .tq .scan{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:58px;color:#4b2a7b;line-height:1.1;margin-top:6px}
+.tix .tq .url{font-weight:700;font-size:34px;color:#1b1234}
+.tix .tq .nr{font-size:26px;color:#4a4060;margin-top:4px}
