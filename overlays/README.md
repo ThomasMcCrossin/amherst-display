@@ -80,3 +80,18 @@ python3 overlays/samples.py
 node overlays/render.mjs --theme <name>      # PNGs + checks.json under overlays/.bakeoff/out/<name>/
 python3 overlays/composite.py --theme <name> # over real frames in overlays/.bakeoff/bg/ (local only)
 ```
+
+## Producing overlays (pipelines)
+
+```python
+from overlays.spec import League, render
+mhl = League("mhl")                     # any pack under overlays/leagues/
+spec = mhl.spec("score", home="AMH", away="PCC", side="away", score=(1, 0), period="1",
+                time="14:10", headline="GOAL", subject=("Trent Stewart", "47"),
+                lines=["Assists: Ryan Walsh, Cole MacKenzie"])
+render(spec, "<theme>", "overlay.png")  # transparent 1920x1080; composite with ffmpeg overlay
+```
+
+Teams resolve by short code, provider id, slug, name, nickname or city. An unknown team
+gets the fallback logo and neutral colours.
+CLI: `node overlays/render.mjs --theme <name> --spec one.json --output one.png`.

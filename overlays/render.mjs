@@ -2,6 +2,7 @@
 // Render overlay specs through a theme into transparent 1920x1080 PNGs, plus layout checks.
 //
 //   node overlays/render.mjs --theme baseline [--samples overlays/samples] [--out overlays/.bakeoff/out]
+//   node overlays/render.mjs --theme baseline --spec one.json --output one.png   (production: one spec)
 //
 // A theme is overlays/themes/<name>/theme.mjs exporting `meta` and `render(spec, ctx)`
 // that returns { css, html } (see overlays/README.md). Writes <out>/<theme>/<sample>.png
@@ -63,8 +64,9 @@ async function main() {
   }
   const themeDir = path.join(HERE, "themes", a.theme);
   const theme = await import(pathToFileURL(path.join(themeDir, "theme.mjs")).href + `?t=${Date.now()}`);
-  const samplesDir = path.resolve(a.samples || path.join(HERE, "samples"));
-  const outDir = path.resolve(a.out || path.join(HERE, ".bakeoff/out"), a.theme);
+  const single = Boolean(a.spec);
+  const samplesDir = single ? path.dirname(path.resolve(a.spec)) : path.resolve(a.samples || path.join(HERE, "samples"));
+  const outDir = single ? path.dirname(path.resolve(a.output)) : path.resolve(a.out || path.join(HERE, ".bakeoff/out"), a.theme);
   await fs.mkdir(outDir, { recursive: true });
 
   let fontCss = "";
@@ -79,7 +81,7 @@ async function main() {
       `@font-face{font-family:"${family}";src:url("${await dataUri(path.join(themeDir, rel))}");font-weight:${weight};font-style:${style};}`,
   };
 
-  const names = (await fs.readdir(samplesDir)).filter((f) => f.endsWith(".json")).sort()
+  const names = single ? [path.basename(a.spec)] : (await fs.readdir(samplesDir)).filter((f) => f.endsWith(".json")).sort()
     .filter((f) => !a.only || f === `${a.only}.json`);
   const browser = await chromium.launch({ headless: true });
   const checks = {};
@@ -130,12 +132,17 @@ async function main() {
         return [...new Set(issues)];
       }, { lower: LOWER_KINDS.has(spec.kind), bug: SCOREBUG });
       problems.push(...found);
-      await page.screenshot({ path: path.join(outDir, `${name}.png`), omitBackground: true });
+      await page.screenshot({ path: single ? path.resolve(a.output) : path.join(outDir, `${name}.png`), omitBackground: true });
       await page.close();
       checks[name] = problems;
     }
   } finally {
     await browser.close();
+  }
+  if (single) {
+    const problems = Object.values(checks)[0] || [];
+    for (const p of problems) console.error(`overlay check: ${p}`);
+    process.exit(problems.some((p) => p.startsWith("render() threw")) ? 1 : 0);
   }
   await fs.writeFile(path.join(outDir, "checks.json"), JSON.stringify({ theme: a.theme, meta: theme.meta || {}, checks }, null, 2));
   const bad = Object.entries(checks).filter(([, v]) => v.length);
