@@ -1,0 +1,57 @@
+{
+  "id": "demo-soccer",
+  "name": "Coastal Soccer League (fictional test league)",
+  "short": "CSL",
+  "sport": "soccer",
+  "logo": "overlays/leagues/demo-soccer/logos/league.svg",
+  "primary": "#14213d",
+  "secondary": "#fca311",
+  "fallback_logo": "assets/logos/fallback.png",
+  "periods": {
+    "1": "1st half",
+    "2": "2nd half",
+    "3": "ET"
+  },
+  "clock": "elapsed",
+  "provider": {
+    "type": "none"
+  },
+  "teams": [
+    {
+      "id": "harbour-fc",
+      "provider_id": "HFC",
+      "short": "HFC",
+      "city": "Harbour",
+      "nickname": "FC",
+      "name": "Harbour FC",
+      "logo": "overlays/leagues/demo-soccer/logos/harbour-fc.svg",
+      "primary": "#0a7cc1",
+      "secondary": "#063a5c",
+      "text": "#ffffff"
+    },
+    {
+      "id": "ridgeway-united",
+      "provider_id": "RDG",
+      "short": "RDG",
+      "city": "Ridgeway",
+      "nickname": "United",
+      "name": "Ridgeway United",
+      "logo": "overlays/leagues/demo-soccer/logos/ridgeway-united.svg",
+      "primary": "#ffd23f",
+      "secondary": "#3a2f00",
+      "text": "#111111"
+    },
+    {
+      "id": "saint-clair-athletic",
+      "provider_id": "SCA",
+      "short": "SCA",
+      "city": "Saint-Clair-de-la-Rivi\u00e8re",
+      "nickname": "Athletic",
+      "name": "Saint-Clair-de-la-Rivi\u00e8re Athletic",
+      "logo": "overlays/leagues/demo-soccer/logos/saint-clair-athletic.svg",
+      "primary": "#e8e8e8",
+      "secondary": "#2b2b2b",
+      "text": "#111111"
+    }
+  ]
+}

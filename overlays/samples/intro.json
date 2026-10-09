@@ -1,0 +1,49 @@
+{
+  "kind": "intro",
+  "sport": "hockey",
+  "width": 1920,
+  "height": 1080,
+  "league": {
+    "id": "mhl",
+    "name": "Maritime Junior Hockey League",
+    "short": "MHL",
+    "logo": "assets/logos/league-mhl.png",
+    "primary": "#0b2d6b",
+    "secondary": "#c8102e"
+  },
+  "home": {
+    "id": "amherst-ramblers",
+    "name": "Amherst Ramblers",
+    "city": "Amherst",
+    "nickname": "Ramblers",
+    "short": "AMH",
+    "logo": "assets/logos/mhl/amherst-ramblers.png",
+    "primary": "#412580",
+    "secondary": "#24114f",
+    "text": "#ffffff"
+  },
+  "away": {
+    "id": "chaleur-lightning",
+    "name": "Chaleur Lightning",
+    "city": "Chaleur",
+    "nickname": "Lightning",
+    "short": "CHA",
+    "logo": "assets/logos/mhl/chaleur-lightning.png",
+    "primary": "#1f3f8f",
+    "secondary": "#0d1f4a",
+    "text": "#ffffff"
+  },
+  "side": null,
+  "score": null,
+  "clock": null,
+  "headline": "TONIGHT",
+  "subject": null,
+  "others": [],
+  "lines": [
+    "Amherst Stadium · 7:00 PM"
+  ],
+  "tags": [],
+  "badge": null,
+  "context": "MHL Regular Season · Fri Oct 9",
+  "stats": []
+}

@@ -1,0 +1,61 @@
+{
+  "kind": "score",
+  "sport": "hockey",
+  "width": 1920,
+  "height": 1080,
+  "league": {
+    "id": "mhl",
+    "name": "Maritime Junior Hockey League",
+    "short": "MHL",
+    "logo": "assets/logos/league-mhl.png",
+    "primary": "#0b2d6b",
+    "secondary": "#c8102e"
+  },
+  "home": {
+    "id": "campbellton-tigers",
+    "name": "Campbellton Tigers",
+    "city": "Campbellton",
+    "nickname": "Tigers",
+    "short": "CAM",
+    "logo": "assets/logos/mhl/campbellton-tigers.png",
+    "primary": "#f2a900",
+    "secondary": "#1a1a1a",
+    "text": "#111111"
+  },
+  "away": {
+    "id": "amherst-ramblers",
+    "name": "Amherst Ramblers",
+    "city": "Amherst",
+    "nickname": "Ramblers",
+    "short": "AMH",
+    "logo": "assets/logos/mhl/amherst-ramblers.png",
+    "primary": "#412580",
+    "secondary": "#24114f",
+    "text": "#ffffff"
+  },
+  "side": "home",
+  "score": {
+    "home": 4,
+    "away": 1
+  },
+  "clock": {
+    "period": "OT",
+    "time": "00:33",
+    "text": "OT · 0:33"
+  },
+  "headline": "GOAL",
+  "subject": {
+    "name": "Liam Fraser",
+    "number": "8"
+  },
+  "others": [],
+  "lines": [
+    "Unassisted"
+  ],
+  "tags": [
+    "EN"
+  ],
+  "badge": "UNVERIFIED",
+  "context": "",
+  "stats": []
+}

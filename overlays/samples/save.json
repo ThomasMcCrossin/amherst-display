@@ -1,0 +1,59 @@
+{
+  "kind": "save",
+  "sport": "hockey",
+  "width": 1920,
+  "height": 1080,
+  "league": {
+    "id": "mhl",
+    "name": "Maritime Junior Hockey League",
+    "short": "MHL",
+    "logo": "assets/logos/league-mhl.png",
+    "primary": "#0b2d6b",
+    "secondary": "#c8102e"
+  },
+  "home": {
+    "id": "amherst-ramblers",
+    "name": "Amherst Ramblers",
+    "city": "Amherst",
+    "nickname": "Ramblers",
+    "short": "AMH",
+    "logo": "assets/logos/mhl/amherst-ramblers.png",
+    "primary": "#412580",
+    "secondary": "#24114f",
+    "text": "#ffffff"
+  },
+  "away": {
+    "id": "miramichi-timberwolves",
+    "name": "Miramichi Timberwolves",
+    "city": "Miramichi",
+    "nickname": "Timberwolves",
+    "short": "MIR",
+    "logo": "assets/logos/mhl/miramichi-timberwolves.png",
+    "primary": "#7a1f2b",
+    "secondary": "#3b0d14",
+    "text": "#ffffff"
+  },
+  "side": "home",
+  "score": {
+    "home": 1,
+    "away": 1
+  },
+  "clock": {
+    "period": "2nd",
+    "time": "11:42",
+    "text": "2nd · 11:42"
+  },
+  "headline": "BIG SAVE",
+  "subject": {
+    "name": "Kaden Burke",
+    "number": "30"
+  },
+  "others": [],
+  "lines": [
+    "Breakaway stop"
+  ],
+  "tags": [],
+  "badge": null,
+  "context": "",
+  "stats": []
+}

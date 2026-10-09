@@ -1,0 +1,59 @@
+{
+  "kind": "penalty",
+  "sport": "hockey",
+  "width": 1920,
+  "height": 1080,
+  "league": {
+    "id": "mhl",
+    "name": "Maritime Junior Hockey League",
+    "short": "MHL",
+    "logo": "assets/logos/league-mhl.png",
+    "primary": "#0b2d6b",
+    "secondary": "#c8102e"
+  },
+  "home": {
+    "id": "amherst-ramblers",
+    "name": "Amherst Ramblers",
+    "city": "Amherst",
+    "nickname": "Ramblers",
+    "short": "AMH",
+    "logo": "assets/logos/mhl/amherst-ramblers.png",
+    "primary": "#412580",
+    "secondary": "#24114f",
+    "text": "#ffffff"
+  },
+  "away": {
+    "id": "truro-bearcats",
+    "name": "Truro Bearcats",
+    "city": "Truro",
+    "nickname": "Bearcats",
+    "short": "TRU",
+    "logo": "assets/logos/mhl/truro-bearcats.png",
+    "primary": "#6f51d8",
+    "secondary": "#2f2758",
+    "text": "#ffffff"
+  },
+  "side": "away",
+  "score": {
+    "home": 2,
+    "away": 2
+  },
+  "clock": {
+    "period": "2nd",
+    "time": "08:18",
+    "text": "2nd · 8:18"
+  },
+  "headline": "PENALTY",
+  "subject": {
+    "name": "Owen Doucette",
+    "number": "17"
+  },
+  "others": [],
+  "lines": [
+    "Tripping · 2 min"
+  ],
+  "tags": [],
+  "badge": null,
+  "context": "",
+  "stats": []
+}

@@ -1,0 +1,62 @@
+{
+  "kind": "score",
+  "sport": "hockey",
+  "width": 1920,
+  "height": 1080,
+  "league": {
+    "id": "mhl",
+    "name": "Maritime Junior Hockey League",
+    "short": "MHL",
+    "logo": "assets/logos/league-mhl.png",
+    "primary": "#0b2d6b",
+    "secondary": "#c8102e"
+  },
+  "home": {
+    "id": "amherst-ramblers",
+    "name": "Amherst Ramblers",
+    "city": "Amherst",
+    "nickname": "Ramblers",
+    "short": "AMH",
+    "logo": "assets/logos/mhl/amherst-ramblers.png",
+    "primary": "#412580",
+    "secondary": "#24114f",
+    "text": "#ffffff"
+  },
+  "away": {
+    "id": "summerside-western-capitals",
+    "name": "Summerside Western Capitals",
+    "city": "Summerside",
+    "nickname": "Western Capitals",
+    "short": "SWC",
+    "logo": "assets/logos/mhl/summerside-western-capitals.png",
+    "primary": "#cf4859",
+    "secondary": "#7e1827",
+    "text": "#ffffff"
+  },
+  "side": "away",
+  "score": {
+    "home": 2,
+    "away": 3
+  },
+  "clock": {
+    "period": "3rd",
+    "time": "02:31",
+    "text": "3rd · 2:31"
+  },
+  "headline": "POWER-PLAY GOAL",
+  "subject": {
+    "name": "Jean-Philippe Arsenault-Thibodeau",
+    "number": "91"
+  },
+  "others": [],
+  "lines": [
+    "Assists: Maximilien Bourgeois-Leblanc, Christopher Vanderhoeven"
+  ],
+  "tags": [
+    "PP",
+    "GWG"
+  ],
+  "badge": null,
+  "context": "",
+  "stats": []
+}

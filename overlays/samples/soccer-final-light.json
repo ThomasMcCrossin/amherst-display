@@ -1,0 +1,56 @@
+{
+  "kind": "final",
+  "sport": "soccer",
+  "width": 1920,
+  "height": 1080,
+  "league": {
+    "id": "demo-soccer",
+    "name": "Coastal Soccer League (fictional test league)",
+    "short": "CSL",
+    "logo": "overlays/leagues/demo-soccer/logos/league.svg",
+    "primary": "#14213d",
+    "secondary": "#fca311"
+  },
+  "home": {
+    "id": "ridgeway-united",
+    "name": "Ridgeway United",
+    "city": "Ridgeway",
+    "nickname": "United",
+    "short": "RDG",
+    "logo": "overlays/leagues/demo-soccer/logos/ridgeway-united.svg",
+    "primary": "#ffd23f",
+    "secondary": "#3a2f00",
+    "text": "#111111"
+  },
+  "away": {
+    "id": "saint-clair-athletic",
+    "name": "Saint-Clair-de-la-Rivière Athletic",
+    "city": "Saint-Clair-de-la-Rivière",
+    "nickname": "Athletic",
+    "short": "SCA",
+    "logo": "overlays/leagues/demo-soccer/logos/saint-clair-athletic.svg",
+    "primary": "#e8e8e8",
+    "secondary": "#2b2b2b",
+    "text": "#111111"
+  },
+  "side": null,
+  "score": {
+    "home": 2,
+    "away": 2
+  },
+  "clock": {
+    "period": "2nd half",
+    "time": "90+4'",
+    "text": "Full time"
+  },
+  "headline": "FULL TIME",
+  "subject": null,
+  "others": [],
+  "lines": [
+    "Ridgeway United 2 – 2 Saint-Clair-de-la-Rivière Athletic"
+  ],
+  "tags": [],
+  "badge": null,
+  "context": "",
+  "stats": []
+}

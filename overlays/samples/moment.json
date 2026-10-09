@@ -1,0 +1,52 @@
+{
+  "kind": "moment",
+  "sport": "hockey",
+  "width": 1920,
+  "height": 1080,
+  "league": {
+    "id": "mhl",
+    "name": "Maritime Junior Hockey League",
+    "short": "MHL",
+    "logo": "assets/logos/league-mhl.png",
+    "primary": "#0b2d6b",
+    "secondary": "#c8102e"
+  },
+  "home": {
+    "id": "amherst-ramblers",
+    "name": "Amherst Ramblers",
+    "city": "Amherst",
+    "nickname": "Ramblers",
+    "short": "AMH",
+    "logo": "assets/logos/mhl/amherst-ramblers.png",
+    "primary": "#412580",
+    "secondary": "#24114f",
+    "text": "#ffffff"
+  },
+  "away": {
+    "id": "yarmouth-mariners",
+    "name": "Yarmouth Mariners",
+    "city": "Yarmouth",
+    "nickname": "Mariners",
+    "short": "YAR",
+    "logo": "assets/logos/mhl/yarmouth-mariners.png",
+    "primary": "#18b58f",
+    "secondary": "#0f5f52",
+    "text": "#ffffff"
+  },
+  "side": "home",
+  "score": null,
+  "clock": null,
+  "headline": "MILESTONE",
+  "subject": {
+    "name": "Cole MacKenzie",
+    "number": "12"
+  },
+  "others": [],
+  "lines": [
+    "100th career MHL game"
+  ],
+  "tags": [],
+  "badge": null,
+  "context": "",
+  "stats": []
+}

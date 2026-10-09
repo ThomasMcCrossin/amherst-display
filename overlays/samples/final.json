@@ -1,0 +1,62 @@
+{
+  "kind": "final",
+  "sport": "hockey",
+  "width": 1920,
+  "height": 1080,
+  "league": {
+    "id": "mhl",
+    "name": "Maritime Junior Hockey League",
+    "short": "MHL",
+    "logo": "assets/logos/league-mhl.png",
+    "primary": "#0b2d6b",
+    "secondary": "#c8102e"
+  },
+  "home": {
+    "id": "amherst-ramblers",
+    "name": "Amherst Ramblers",
+    "city": "Amherst",
+    "nickname": "Ramblers",
+    "short": "AMH",
+    "logo": "assets/logos/mhl/amherst-ramblers.png",
+    "primary": "#412580",
+    "secondary": "#24114f",
+    "text": "#ffffff"
+  },
+  "away": {
+    "id": "pictou-county-weeks-crushers",
+    "name": "Pictou County Weeks Crushers",
+    "city": "Pictou County",
+    "nickname": "Weeks Crushers",
+    "short": "PCC",
+    "logo": "assets/logos/mhl/pictou-county-weeks-crushers.png",
+    "primary": "#c8102e",
+    "secondary": "#5a0a14",
+    "text": "#ffffff"
+  },
+  "side": null,
+  "score": {
+    "home": 1,
+    "away": 4
+  },
+  "clock": {
+    "period": "3rd",
+    "time": "00:00",
+    "text": "Final"
+  },
+  "headline": "FINAL",
+  "subject": null,
+  "others": [],
+  "lines": [
+    "Stars: Stewart (PCC), Walsh (PCC), Fraser (AMH)"
+  ],
+  "tags": [],
+  "badge": null,
+  "context": "",
+  "stats": [
+    {
+      "label": "Shots",
+      "home": 28,
+      "away": 35
+    }
+  ]
+}
