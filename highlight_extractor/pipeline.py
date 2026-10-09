@@ -30,6 +30,7 @@ from .time_utils import (
     period_time_to_absolute_seconds,
 )
 from .penalty_analyzer import analyze_game_penalties, parse_penalties, PenaltyInfo
+from penalty_incidents import cluster_by_stoppage, incident_kind, scrum_summary
 from .description_generator import generate_and_save_description
 from .major_penalty_handler import process_major_penalties, detect_major_penalties
 from .version import __version__ as HIGHLIGHT_EXTRACTOR_VERSION
@@ -430,6 +431,32 @@ class HighlightPipeline:
         }
         if linked_to_goal is not None:
             event["linked_to_goal"] = linked_to_goal
+        return event
+
+    def _build_incident_event(self, cluster: List[PenaltyInfo], kind: str) -> Dict:
+        """One clip for several penalties at one stoppage (or a lone major): kind "scrum" / "fight" / "major".
+
+        Stays a ``type: penalty`` event so naming, overlays and the manifest keep working; ``kind``
+        and ``penalties`` let overlays say "3 penalties: ..." and the rough-stuff reel pick it up.
+        The infraction happens before the whistle and the officials sort it out after, hence the
+        longer window (config.SCRUM_*).
+        """
+        primary = max(cluster, key=lambda p: (p.is_major, p.minutes))
+        event = self._build_penalty_event(
+            primary,
+            before_seconds=float(getattr(self.config, "SCRUM_BEFORE_SECONDS", 30.0)),
+            after_seconds=float(getattr(self.config, "SCRUM_AFTER_SECONDS", 30.0)),
+        )
+        penalties = [
+            {"team": p.team, "player": p.player_name, "infraction": p.infraction, "minutes": p.minutes}
+            for p in cluster
+        ]
+        event["kind"] = kind
+        event["penalties"] = penalties
+        event["penalty_count"] = len(penalties)
+        event["minutes"] = sum(p.minutes for p in cluster)
+        if kind == "scrum":
+            event["infraction"] = scrum_summary(penalties)
         return event
 
     def _event_sort_key(self, event: Dict) -> tuple:
@@ -1755,10 +1782,7 @@ class HighlightPipeline:
                 clip_before,
                 float(getattr(self.config, "GOAL_CLOCK_STOP_BEFORE_SECONDS", 32.0) or 32.0),
             )
-            clip_after = min(
-                clip_after,
-                float(getattr(self.config, "GOAL_CLOCK_STOP_AFTER_SECONDS", 3.0) or 3.0),
-            )
+            clip_after = float(getattr(self.config, "GOAL_CLOCK_STOP_AFTER_SECONDS", 16.0) or 16.0)
         else:
             extra = min(20.0, max(0.0, diff_f + 5.0))
             clip_before = max(
@@ -1892,28 +1916,40 @@ class HighlightPipeline:
             if penalties_data:
                 logger.info(f"Matching {len(penalties_data)} penalties for all-penalty reel mode...")
                 time_is_elapsed = bool(getattr(self.config, 'BOX_SCORE_TIME_IS_ELAPSED', True))
-                for penalty_info in parse_penalties(
+                parsed_penalties = parse_penalties(
                     penalties_data,
                     our_team='ramblers',
                     time_is_elapsed=time_is_elapsed,
+                )
+                # Penalties at one stoppage are one incident: a scrum or a major gets a single,
+                # longer clip (penalty_incidents.py); a lone ordinary penalty keeps its own.
+                for cluster in cluster_by_stoppage(
+                    parsed_penalties, lambda p: (p.period, p.time_seconds)
                 ):
-                    if penalty_info.video_time is None:
-                        penalty_info.video_time = self._find_penalty_video_time(penalty_info)
-                    if penalty_info.video_time is None:
+                    video_time = next((p.video_time for p in cluster if p.video_time is not None), None)
+                    if video_time is None:
+                        video_time = self._find_penalty_video_time(cluster[0])
+                    if video_time is None:
                         logger.warning(
                             "Could not find video time for penalty P%s %s (%s)",
-                            penalty_info.period,
-                            penalty_info.time,
-                            penalty_info.player_name,
+                            cluster[0].period,
+                            cluster[0].time,
+                            cluster[0].player_name,
                         )
                         continue
-                    all_penalty_events.append(
-                        self._build_penalty_event(
-                            penalty_info,
-                            before_seconds=penalty_before,
-                            after_seconds=penalty_after,
+                    for p in cluster:
+                        p.video_time = video_time
+                    kind = incident_kind([(p.infraction, p.minutes) for p in cluster])
+                    if kind == "minor":
+                        all_penalty_events.append(
+                            self._build_penalty_event(
+                                cluster[0],
+                                before_seconds=penalty_before,
+                                after_seconds=penalty_after,
+                            )
                         )
-                    )
+                    else:
+                        all_penalty_events.append(self._build_incident_event(cluster, kind))
             else:
                 logger.info("No penalties in box score, skipping all-penalty clip creation")
         elif self._include_pp_penalty_clips():
