@@ -133,18 +133,24 @@ EVENT_MIN_VIDEO_TIME_BUFFER_SECONDS = 240.0
 
 # ---------- Penalty clip settings ----------
 # PP contributing penalties (shown before powerplay goals)
-PENALTY_PP_BEFORE_SECONDS = 2.0  # 2 seconds before the penalty call
-PENALTY_PP_AFTER_SECONDS = 3.0   # 3 seconds after (5s total clip)
+# The penalty anchor is the first clock reading of the called time, i.e. the whistle, not the
+# foul. Judged windows (issue #25, scripts/eval_clip_windows.py) start 5-10 s ahead of it, so
+# the foul lead-in is in the clip, and run 10-16 s past it, so the referee's signal and the
+# walk to the box are too. The old 2 s / 3 s window sat on the stoppage and scored 2.2/10.
+PENALTY_PP_BEFORE_SECONDS = 9.0
+PENALTY_PP_AFTER_SECONDS = 14.0
 
 # Generic all-penalty mode (includes every penalty call in chronological order)
-PENALTY_ALL_BEFORE_SECONDS = 2.0
-PENALTY_ALL_AFTER_SECONDS = 3.0
+PENALTY_ALL_BEFORE_SECONDS = 9.0
+PENALTY_ALL_AFTER_SECONDS = 14.0
 
 # Goal clips refined from the scoreboard clock-stop are typically anchored at the
 # whistle/stoppage, not the puck crossing the line. Give them more lead-in so the
 # scoring play is actually visible.
 GOAL_CLOCK_STOP_BEFORE_SECONDS = 32.0
-GOAL_CLOCK_STOP_AFTER_SECONDS = 3.0
+# Judged celebration ends sit 10-20 s after the clock stop (median 14 s; the replay wipe
+# follows at about +10..+19 s). The old 3 s tail cut the celebration on 81% of clips.
+GOAL_CLOCK_STOP_AFTER_SECONDS = 16.0
 # Goals the clock can't time (frozen Flo bug) are placed from the broadcast's celebration by a
 # vision model (goal_locator.py; needs DEEPSEEK_API_KEY or SCOREBUG_VISION_API_KEY). False disables.
 GOAL_VISION_LOCATOR = True
@@ -164,6 +170,13 @@ GOAL_PROJECTED_CLOCK_FALLBACK_REQUIRES_UNRELIABLE = True
 GOAL_LOCAL_OCR_ALLOW_CLOSE_SECONDS = 0
 GOAL_ENABLE_LOCAL_OCR_CLOSEST_FALLBACK = False
 GOAL_LOCAL_OCR_CLOSEST_FALLBACK_REQUIRES_UNRELIABLE = True
+
+# Scrums and consequential stoppages (penalty_incidents.py): two or more penalties at one
+# stoppage, or a lone major / misconduct, become ONE clip. The infraction happens before the
+# whistle (judged major/scrum windows start 20-30 s ahead of the clock stop) and the officials
+# sorting it out run 12-36 s after it (issue #25).
+SCRUM_BEFORE_SECONDS = 30.0
+SCRUM_AFTER_SECONDS = 30.0
 
 # 5-minute major settings (require manual review)
 # Note: Clock freezes at penalty time for 10-30s while refs sort things out,

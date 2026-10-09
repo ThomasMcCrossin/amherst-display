@@ -156,6 +156,9 @@ The highlight workflow is local-first and does not require Drive ingest for norm
 - Known scorebug handling lives in `scorebug_profiles.py`, with auto-probe fallback for unknown layouts. Box layouts (period and clock as separate boxes, stitched before OCR) live in `SCOREBUG_BOX_LAYOUTS` in `highlight_extractor/ocr_engine.py`; a new broadcast layout is one entry there, one profile, and a crop in `tests/fixtures/scorebugs/` so `tests/test_scorebug_layouts.py` guards it. `scorebug_detect.py` picks the layout per recording before the OCR pass: a free OCR vote across known layouts (the winner needs a clear margin, since some crops overlap), then (if `DEEPSEEK_API_KEY` or `SCOREBUG_VISION_API_KEY` is set) a vision check against the reference crops in `assets/scorebugs/`, about 1.7k tokens per call. The generic engine is mirrored to the public [HockeyHighlightExtractor](https://github.com/ThomasMcCrossin/HockeyHighlightExtractor) with `scripts/sync_public_engine.sh <checkout>` after engine changes.
 - Flo's bug can freeze (clock and score) for minutes of play. Goals the clock can't time are placed by `goal_locator.py`: it brackets the goal from the readings around the freeze, has the vision model label frames across it, and uses the one group celebration it finds (timing source `vision_celebration`, about 30k prompt tokens per frozen stretch). `GOAL_VISION_LOCATOR = False` in `config.py` disables it; delete `goal_locator.py` and `_locate_goals_by_vision` to remove it.
 - `scripts/validate_goal_clips.py --game-dir <game> --video <recording>` checks every HockeyTech goal against the source: the vision model reads the scorebug on both sides of the matched time, and the script marks each goal `confirmed` (score went up for the scoring team, the bug clock agrees, and a frame inside the clip window shows the goal), `score_only` (score and clock agree but no frame inside the clip window shows the goal: the clip may miss it), `visual` (bug frozen, only the picture could confirm), `suspect`, `unclear`, `missed` (covered but no clip) or `not_recorded`. Output: `data/goal_validation.json` (or `--out`), about 3.5k prompt tokens per goal.
+- **Tiers.** The default engine needs no API key and no model: OCR of the scorebug clock, the box score, and code-only windows. Vision (`goal_locator.py`, `scorebug_detect.py` autodetect, `scripts/validate_goal_clips.py`, clip review) is an optional layer that skips cleanly when `SCOREBUG_VISION_API_KEY` / `DEEPSEEK_API_KEY` are absent (`tests/test_engine_without_ai.py`).
+- **Clip windows** are fitted to what blinded judges and vision reviewers rewarded (`docs/2026-10-09-clip-window-eval.md`, issue #25): goals anchored on the clock stop run `GOAL_CLOCK_STOP_BEFORE_SECONDS` 32 s before to `GOAL_CLOCK_STOP_AFTER_SECONDS` 16 s after (the celebration, not a 3 s cut); penalties run `PENALTY_ALL_BEFORE_SECONDS` 9 s / `PENALTY_ALL_AFTER_SECONDS` 14 s around the called time (the foul lead-in and the referee's signal). `scripts/eval_clip_windows.py` scores any window set against `docs/clip-window-labels.json`; re-run it before changing these constants.
+- **Scrums and consequential stoppages** (`penalty_incidents.py`): two or more penalties at one stoppage (same period, game clock within 5 s), or any major / misconduct / game misconduct / match penalty, are ONE incident with `kind` `scrum` (`fight` / `major` when it is one), one clip of `SCRUM_BEFORE_SECONDS` 30 s before to `SCRUM_AFTER_SECONDS` 30 s after the stoppage, and the clip carries `kind`, `penalties`, `penalty_count` and an overlay-ready `infraction` ("3 penalties: ..."). In clip review the class is `scrum` and it goes in the rough-stuff reel with majors and fights. The engine emits scrum clips in `all_penalties` mode; the major-review workflow is unchanged.
 - **Vision clip review** (`scripts/review_game.py`, package `clip_review/`, skill `skills/hockey-clip-review/`). Code finds candidates cheaply; cheap vision reviewers look at the frames and may overrule it. See [Vision clip review](#vision-clip-review) below.
 - The production reel (`scripts/build_production_highlight_reel.py`) renders overlays with Playwright. On a new host run `npx playwright install chromium-headless-shell` once after `npm install`, or the reel step fails and only `highlights.mp4` is built.
 - Shared Drive bootstrap/config now uses generic `HIGHLIGHTS_*` env names with legacy `RAMBLERS_DRIVE_ID` / `DRIVE_*` aliases still supported.
@@ -196,16 +199,16 @@ Notes:
 The engine places every game-sheet goal and penalty from the scorebug clock and cuts a fixed
 pre/post-roll. `scripts/review_game.py` reviews those clips against the recording:
 
-1. **packet** (code): one directory per incident (goal, or penalties grouped by period+clock)
+1. **packet** (code): one directory per incident (goal, or penalties grouped by stoppage: same period, clock within 5 s)
    with `incident.json` (game-sheet rows, anchor = the engine's placed time, engine window,
    neighbouring events, scorebug-alert flag, authority bounds) and coarse contact sheets
    (goals -75/+40 s at 1 s, -120/+60 s at 1.5 s in scorebug-alert games; minors -60/+25 s;
-   majors and fights -120/+120 s).
+   majors, scrums and fights -120/+120 s).
 2. **review**: a reviewer returns a `hockey-clip-review/verdict@1` JSON: `keep`, `adjust`
    (new in/out from the play: for a goal the build-up, from the zone entry / possession change /
    faceoff win that led to it, to the end of the celebration), `relocate` (event more than 30 s from the anchor, with frame evidence),
    `drop` (event not in the recording, with evidence) or `unsure`.
-3. **adversary** (`--adversary`, goals, majors and fights): a second model gets the proposed
+3. **adversary** (`--adversary`, goals, majors, scrums and fights): a second model gets the proposed
    final clip as contact sheets and tries to refute it (goal not in clip, cut before the
    puck crosses, starts mid-play, replay included, fight cut off, wrong incident). A dispute
    gets a fresh second review with the objection; still disputed = `held_for_human` (engine
@@ -226,7 +229,7 @@ players are separated, 75 s cap. A rule then trims dead air: an override ends at
 after a goal, 12 s after a minor's foul and 35 s after a major's event (`CLIP_REVIEW_TAIL_TRIM=0`
 turns it off). A window outside the bounds is clamped; a verdict that still
 fails is discarded and the engine window kept. Reel modes (`--reel-mode`): `goals` (default,
-unchanged), `with-rough` (fights/majors in the main reel), `separate-rough` (separate
+unchanged), `with-rough` (fights/majors/scrums in the main reel), `separate-rough` (separate
 rough-stuff reel).
 
 Backends. `api` (default) is any OpenAI-compatible vision endpoint, two passes (coarse sheets,

@@ -134,7 +134,7 @@ def cmd_packets(a) -> None:
 def stratum(x: Dict[str, Any]) -> str:
     if x["kind"] == "goal":
         return "goal_alert" if x["scorebug_alert"] else "goal_normal"
-    return "rough" if x["class"] in ("major", "fight") else "minor"
+    return "rough" if x["class"] in ("major", "scrum", "fight") else "minor"
 
 
 def cmd_sample(a) -> None:
@@ -476,7 +476,7 @@ def cmd_judge_packets(a) -> None:
             key_letters[letter] = {"contestant": who, "in_t": w["in_t"], "out_t": w["out_t"]}
         jobs.append((video, anchor + c_lo, anchor + c_hi, pk / "context.mp4"))
         el = inc["time_elapsed"]
-        etype = {"goal": "goal", "minor": "minor penalty", "major": "major penalty / misconduct", "fight": "fight"}[inc["class"]]
+        etype = {"goal": "goal", "minor": "minor penalty", "major": "major penalty / misconduct", "scrum": "scrum (several penalties at one stoppage)", "fight": "fight"}[inc["class"]]
         if inc["kind"] == "goal":
             r = inc["sheet_rows"][0]
             desc = f'Goal by {r.get("team")}: {r.get("scorer")}' + (

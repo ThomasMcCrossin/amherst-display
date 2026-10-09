@@ -22,10 +22,10 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from . import REPO
+from .incidents import ROUGH_CLASSES  # major, scrum, fight: the rough-stuff reel
 
 REEL_MODES = ("goals", "with-rough", "separate-rough")
 ENGINE_WINDOW_STATUSES = {"keep", "unsure", "rejected", "no_verdict", "held_for_human"}
-ROUGH_CLASSES = {"major", "fight"}
 
 
 def cut_clip(video: Path, start: float, end: float, dest: Path) -> None:
@@ -111,6 +111,10 @@ def apply_overrides(game_dir: Path, out_dir: Path, video: Path, incidents: List[
                 cut_clip(video, w["in"], w["out"], path)
                 stamp.write_text(want)
         ev = _primary_event(inc)
+        if inc["class"] == "scrum":  # one clip for the whole stoppage; overlays read these fields
+            from penalty_incidents import scrum_summary
+            ev.update(kind="scrum", penalties=inc["rows"], penalty_count=len(inc["rows"]),
+                      infraction=scrum_summary(inc["rows"]), minutes=sum(int(r.get("minutes") or 0) for r in inc["rows"]))
         ev.update(path=str(path), clip_filename=path.name, review_status=row["status"],
                   clip_video_start=w["in"], clip_video_end=w["out"],
                   video_time=row.get("event_video_time") or ev.get("video_time"))

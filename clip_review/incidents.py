@@ -13,6 +13,7 @@ from . import REPO
 
 sys.path.insert(0, str(REPO))
 import config  # noqa: E402
+from penalty_incidents import cluster_by_stoppage, incident_kind  # noqa: E402
 
 WANTED_RE = re.compile(r"fight|major|misconduct|match penalty|game misconduct|gross", re.I)
 
@@ -30,6 +31,8 @@ BOUNDS: Dict[str, Dict[str, float]] = {
               "near": 30, "relocate_max": 240, "drop_min_confidence": 0.6},
     "major": {"lead_min": 2, "lead_max": 45, "tail_min": 5, "tail_max": 60, "len_min": 10, "len_max": 90,
               "near": 45, "relocate_max": 360, "drop_min_confidence": 0.7},
+    "scrum": {"lead_min": 2, "lead_max": 45, "tail_min": 5, "tail_max": 60, "len_min": 10, "len_max": 90,
+              "near": 45, "relocate_max": 360, "drop_min_confidence": 0.7},
     "fight": {"lead_min": 2, "lead_max": 45, "tail_min": 5, "tail_max": 60, "len_min": 10, "len_max": 75,
               "near": 45, "relocate_max": 360, "drop_min_confidence": 0.7, "fight_pre": 10, "fight_post": 10},
 }
@@ -37,7 +40,7 @@ BOUNDS: Dict[str, Dict[str, float]] = {
 # after the celebration or call). An override's out-point is cut to at most this many seconds
 # after the event. CLIP_REVIEW_TAIL_TRIM=0 turns it off. Fights are bounded by fight_post instead.
 TAIL_TRIM_ON = os.environ.get("CLIP_REVIEW_TAIL_TRIM", "1") != "0"
-for _cls, _trim in (("goal", 16.0), ("minor", 12.0), ("major", 35.0)):
+for _cls, _trim in (("goal", 16.0), ("minor", 12.0), ("major", 35.0), ("scrum", 35.0)):
     BOUNDS[_cls]["tail_trim"] = _trim
 for _b in BOUNDS.values():
     _b.setdefault("fight_pre", 10)
@@ -61,7 +64,8 @@ def current_bounds(incident: Dict[str, Any]) -> Dict[str, Any]:
 
 # Coarse contact-sheet range per class: (before, after, step). Scorebug-alert games search wider
 # for goals because the anchor can be far off.
-COARSE = {"goal": (75.0, 40.0, 1.0), "minor": (60.0, 25.0, 1.5), "major": (120.0, 120.0, 2.0), "fight": (120.0, 120.0, 2.0)}
+COARSE = {"goal": (75.0, 40.0, 1.0), "minor": (60.0, 25.0, 1.5), "major": (120.0, 120.0, 2.0), "scrum": (120.0, 120.0, 2.0),
+          "fight": (120.0, 120.0, 2.0)}
 COARSE_ALERT_GOAL = (120.0, 60.0, 1.5)
 
 
@@ -83,7 +87,9 @@ def penalty_class(e: Dict[str, Any]) -> str:
     return "minor"
 
 
-CLASS_RANK = {"minor": 0, "major": 1, "fight": 2}
+CLASS_RANK = {"minor": 0, "major": 1, "scrum": 2, "fight": 3}
+# Classes that are consequential stoppages: rough-stuff reel, long windows, wider authority bounds.
+ROUGH_CLASSES = ("major", "scrum", "fight")
 
 
 def game_info(game_dir: Path) -> Dict[str, Any]:
@@ -115,7 +121,7 @@ def build_incidents(game_dir: Path) -> List[Dict[str, Any]]:
     clip_by_key = {(c.get("type"), c.get("period"), c.get("time")): c for c in clips}
 
     incidents: List[Dict[str, Any]] = []
-    groups: Dict[Tuple[Any, Any], Dict[str, Any]] = {}
+    penalty_events = []
     for e in events:
         etype = e.get("type")
         if etype == "goal":
@@ -134,34 +140,37 @@ def build_incidents(game_dir: Path) -> List[Dict[str, Any]]:
                                          "unreliable": bool(e.get("match_unreliable"))},
             })
         elif etype == "penalty":
-            key = (e.get("period"), e.get("time"))
-            g = groups.get(key)
-            if g is None:
-                g = {"kind": "penalty", "class": "minor", "period": e.get("period"), "time_elapsed": e.get("time"),
-                     "video_time": e.get("video_time"), "rows": [], "events": [],
-                     "match": {"confidence": e.get("match_confidence"), "refined_by": e.get("refined_by"),
-                               "unreliable": bool(e.get("match_unreliable"))}}
-                groups[key] = g
-                incidents.append(g)
+            penalty_events.append(e)
+    # Penalties at one stoppage (same period, game clock within a few seconds) are one incident.
+    def _stoppage_key(e: Dict[str, Any]) -> Tuple[Any, int]:
+        return (e.get("period"), clock_to_seconds(e.get("time")) or 0)
+
+    for cluster in cluster_by_stoppage(penalty_events, _stoppage_key):
+        first = cluster[0]
+        cls = incident_kind([(e.get("infraction"), e.get("minutes")) for e in cluster])
+        g = {"kind": "penalty", "class": cls, "period": first.get("period"), "time_elapsed": first.get("time"),
+             "video_time": next((e.get("video_time") for e in cluster if e.get("video_time") is not None), None),
+             "rows": [], "events": cluster,
+             "match": {"confidence": first.get("match_confidence"), "refined_by": first.get("refined_by"),
+                       "unreliable": bool(first.get("match_unreliable"))}}
+        for e in cluster:
             name = e.get("player")
             name = name.get("name") if isinstance(name, dict) else name
             g["rows"].append({"team": e.get("team"), "player": name, "infraction": e.get("infraction"), "minutes": e.get("minutes")})
-            g["events"].append(e)
-            c = penalty_class(e)
-            if CLASS_RANK[c] > CLASS_RANK[g["class"]]:
-                g["class"] = c
-            if g["video_time"] is None and e.get("video_time") is not None:
-                g["video_time"] = e.get("video_time")
+        incidents.append(g)
     for g in incidents:
         if g["kind"] != "penalty":
             continue
         vt = g["video_time"]
-        big = g["class"] in ("major", "fight")
-        before = float(config.MAJOR_PENALTY_BEFORE_SECONDS if big else config.PENALTY_ALL_BEFORE_SECONDS)
-        after = float(config.MAJOR_PENALTY_AFTER_SECONDS if big else config.PENALTY_ALL_AFTER_SECONDS)
-        g["engine_in"] = None if vt is None else vt - before
-        g["engine_out"] = None if vt is None else vt + after
-        g["engine_source"] = "config:major" if big else "config:penalty_all"
+        if g["class"] == "scrum":
+            before, after, source = config.SCRUM_BEFORE_SECONDS, config.SCRUM_AFTER_SECONDS, "config:scrum"
+        elif g["class"] in ("major", "fight"):
+            before, after, source = config.MAJOR_PENALTY_BEFORE_SECONDS, config.MAJOR_PENALTY_AFTER_SECONDS, "config:major"
+        else:
+            before, after, source = config.PENALTY_ALL_BEFORE_SECONDS, config.PENALTY_ALL_AFTER_SECONDS, "config:penalty_all"
+        g["engine_in"] = None if vt is None else vt - float(before)
+        g["engine_out"] = None if vt is None else vt + float(after)
+        g["engine_source"] = source
         g["clip_filename"] = None
         g["clip_path"] = None
     incidents.sort(key=lambda g: (g["video_time"] is None, g["video_time"] or 0.0))

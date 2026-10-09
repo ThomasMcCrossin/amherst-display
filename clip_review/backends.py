@@ -127,8 +127,8 @@ class ApiBackend:
                      "that led to the goal. When in doubt go earlier: never less than 15 s before the goal, up to 45 s when "
                      "the play builds longer (cycle, sustained pressure, rush from its own zone). play_end = last frame of the live celebration, or the "
                      "first replay/graphic, whichever comes first. The clock freezes at the goal; the score digit changes later.\n")
-        elif cls in ("major", "fight"):
-            text += ("This is a major / misconduct / fight incident. Find it. If it is a fight, set fight.gloves_drop to when gloves "
+        elif cls in ("major", "scrum", "fight"):
+            text += ("This is a major / misconduct / scrum / fight incident (several penalties can share one stoppage). Find it. If it is a fight, set fight.gloves_drop to when gloves "
                      "come off, fight.separated to when the linesmen have them apart, event_moment to the gloves drop; play_start = "
                      "a few seconds before the confrontation begins, play_end = when the players are separated or sent off. "
                      "If it is a scrum or a hit, set fight to null.\n")
@@ -441,7 +441,7 @@ ESCALATE_MIN_CONFIDENCE = float(os.environ.get("CLIP_REVIEW_ESCALATE_MIN_CONFIDE
 
 def should_escalate(verdict: Optional[Dict[str, Any]], incident: Dict[str, Any], error: Optional[str] = None) -> Optional[str]:
     """Why the api verdict needs the agent, or None. Shared by EscalateBackend and the bake-off."""
-    if incident.get("class") in ("major", "fight"):
+    if incident.get("class") in ("major", "scrum", "fight"):
         return "fight_or_major"
     if incident.get("scorebug_alert"):
         return "scorebug_alert"

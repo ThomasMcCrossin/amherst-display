@@ -104,7 +104,7 @@ def build_packets(game_dir: Path, video: Path, root: Path, kinds: Optional[set] 
     incidents = build_incidents(game_dir)
     duration = video_duration(video)
     sel = [g for g in incidents if not kinds or g["kind"] in kinds or g["class"] in kinds
-           or ("wanted" in kinds and g["class"] in ("major", "fight"))]
+           or ("wanted" in kinds and g["class"] in ("major", "scrum", "fight"))]
     if only:
         sel = [g for g in sel if any(g["id"].startswith(w) for w in only)]
     packets, unplaced = {}, []

@@ -1,0 +1,4198 @@
+{
+ "2026-03-14_06_goal_p1_15-21": {
+  "anchor": 3864.0,
+  "best_score": 8.75,
+  "class": "goal",
+  "date": "2026-03-14",
+  "end": 15.5,
+  "game": "2026-03-14-summerside-western-capitals-vs-amherst-ramblers",
+  "incident": "2026-03-14_06_goal_p1_15-21",
+  "kind": "goal",
+  "label": "firm",
+  "label_spread": {
+   "end_iqr_s": 1.0,
+   "n_top": 3,
+   "start_iqr_s": 0.0
+  },
+  "match_unreliable": false,
+  "moment": 0.0,
+  "n_judges": 2,
+  "n_penalties": 0,
+  "n_reviewer_events": 6,
+  "period": 1,
+  "play_start": -32.0,
+  "refined_by": "clock_stop",
+  "scorebug_alert": true,
+  "time_elapsed": "15:21",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 0,
+    "ending": 3,
+    "flags": [
+     "missing_goal",
+     "starts_late"
+    ],
+    "in": 9.0,
+    "out": 29.0,
+    "score": 1.25
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 6.5,
+    "ending": 8.5,
+    "flags": [
+     "correct"
+    ],
+    "in": -15.0,
+    "out": 16.0,
+    "score": 7.25
+   },
+   "engine": {
+    "build_up": 9,
+    "ending": 2.5,
+    "flags": [
+     "ends_early"
+    ],
+    "in": -32.0,
+    "out": 3.0,
+    "score": 4
+   },
+   "escalate": {
+    "build_up": 9.5,
+    "ending": 8,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -38.0,
+    "out": 17.0,
+    "score": 7.5
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 7.5,
+    "ending": 8.5,
+    "flags": [
+     "correct"
+    ],
+    "in": -18.0,
+    "out": 15.0,
+    "score": 8.25
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 9.5,
+    "ending": 8,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -38.0,
+    "out": 17.0,
+    "score": 7.5
+   },
+   "pi-gemma4-31b": {
+    "build_up": 9,
+    "ending": 6.5,
+    "flags": [
+     "correct"
+    ],
+    "in": -32.0,
+    "out": 12.0,
+    "score": 7.75
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 9,
+    "ending": 9,
+    "flags": [
+     "correct"
+    ],
+    "in": -32.0,
+    "out": 16.0,
+    "score": 8.75
+   }
+  }
+ },
+ "2026-03-14_08_goal_p2_2-49": {
+  "anchor": 5516.75,
+  "best_score": 9,
+  "class": "goal",
+  "date": "2026-03-14",
+  "end": 19.5,
+  "game": "2026-03-14-summerside-western-capitals-vs-amherst-ramblers",
+  "incident": "2026-03-14_08_goal_p2_2-49",
+  "kind": "goal",
+  "label": "firm",
+  "label_spread": {
+   "end_iqr_s": 6.2,
+   "n_top": 4,
+   "start_iqr_s": 3.8
+  },
+  "match_unreliable": false,
+  "moment": -0.5,
+  "n_judges": 2,
+  "n_penalties": 0,
+  "n_reviewer_events": 6,
+  "period": 2,
+  "play_start": -20.0,
+  "refined_by": "clock_stop",
+  "scorebug_alert": true,
+  "time_elapsed": "2:49",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 3.5,
+    "ending": 7,
+    "flags": [
+     "ends_early",
+     "starts_late"
+    ],
+    "in": -13.5,
+    "out": 9.5,
+    "score": 4
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 5,
+    "ending": 8.5,
+    "flags": [
+     "correct",
+     "starts_late"
+    ],
+    "in": -15.5,
+    "out": 19.8,
+    "score": 5.5
+   },
+   "engine": {
+    "build_up": 10,
+    "ending": 1.5,
+    "flags": [
+     "ends_early"
+    ],
+    "in": -32.0,
+    "out": 3.0,
+    "score": 4.5
+   },
+   "escalate": {
+    "build_up": 9,
+    "ending": 9,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -20.0,
+    "out": 20.0,
+    "score": 9
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 5,
+    "ending": 8.5,
+    "flags": [
+     "correct",
+     "starts_late"
+    ],
+    "in": -15.5,
+    "out": 19.5,
+    "score": 5.5
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 9,
+    "ending": 9,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -20.0,
+    "out": 20.0,
+    "score": 9
+   },
+   "pi-gemma4-31b": {
+    "build_up": 9,
+    "ending": 8,
+    "flags": [
+     "correct"
+    ],
+    "in": -25.0,
+    "out": 12.0,
+    "score": 8.25
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 9,
+    "ending": 9,
+    "flags": [
+     "correct"
+    ],
+    "in": -20.0,
+    "out": 19.0,
+    "score": 8.75
+   }
+  }
+ },
+ "2026-03-14_09_minor_p2_04-46": {
+  "anchor": 5697.0,
+  "best_score": 8.25,
+  "class": "minor",
+  "date": "2026-03-14",
+  "end": 10.0,
+  "game": "2026-03-14-summerside-western-capitals-vs-amherst-ramblers",
+  "incident": "2026-03-14_09_minor_p2_04-46",
+  "kind": "penalty",
+  "label": "firm",
+  "label_spread": {
+   "end_iqr_s": 1.0,
+   "n_top": 3,
+   "start_iqr_s": 0.0
+  },
+  "match_unreliable": false,
+  "moment": -2.5,
+  "n_judges": 2,
+  "n_penalties": 1,
+  "n_reviewer_events": 6,
+  "period": 2,
+  "play_start": -10.5,
+  "refined_by": null,
+  "scorebug_alert": true,
+  "time_elapsed": "04:46",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 6,
+    "ending": 4.5,
+    "flags": [
+     "ends_early"
+    ],
+    "in": -9.5,
+    "out": 3.0,
+    "score": 5.25
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 8,
+    "ending": 8,
+    "flags": [
+     "correct"
+    ],
+    "in": -10.5,
+    "out": 9.0,
+    "score": 8.25
+   },
+   "engine": {
+    "build_up": 0.5,
+    "ending": 4.5,
+    "flags": [
+     "ends_early",
+     "starts_late"
+    ],
+    "in": -2.0,
+    "out": 3.0,
+    "score": 2.75
+   },
+   "escalate": {
+    "build_up": 6,
+    "ending": 8,
+    "flags": [
+     "correct"
+    ],
+    "in": -8.0,
+    "out": 10.0,
+    "score": 7.5
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 8,
+    "ending": 6,
+    "flags": [
+     "too_long"
+    ],
+    "in": -10.5,
+    "out": 14.0,
+    "score": 7
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 6,
+    "ending": 8,
+    "flags": [
+     "correct"
+    ],
+    "in": -8.0,
+    "out": 10.0,
+    "score": 7.5
+   },
+   "pi-gemma4-31b": {
+    "build_up": 7.5,
+    "ending": 4.5,
+    "flags": [
+     "ends_early"
+    ],
+    "in": -12.0,
+    "out": 3.0,
+    "score": 5.5
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 8,
+    "ending": 6,
+    "flags": [
+     "too_long"
+    ],
+    "in": -10.5,
+    "out": 14.0,
+    "score": 7
+   }
+  }
+ },
+ "2026-03-14_10_goal_p2_4-54": {
+  "anchor": 5756.0,
+  "best_score": 8.25,
+  "class": "goal",
+  "date": "2026-03-14",
+  "end": 17.5,
+  "game": "2026-03-14-summerside-western-capitals-vs-amherst-ramblers",
+  "incident": "2026-03-14_10_goal_p2_4-54",
+  "kind": "goal",
+  "label": "firm",
+  "label_spread": {
+   "end_iqr_s": 0.8,
+   "n_top": 5,
+   "start_iqr_s": 0.3
+  },
+  "match_unreliable": false,
+  "moment": -0.2,
+  "n_judges": 2,
+  "n_penalties": 0,
+  "n_reviewer_events": 6,
+  "period": 2,
+  "play_start": -15.1,
+  "refined_by": "clock_stop",
+  "scorebug_alert": true,
+  "time_elapsed": "4:54",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 7.5,
+    "ending": 4.5,
+    "flags": [
+     "ends_early"
+    ],
+    "in": -16.5,
+    "out": 6.5,
+    "score": 6.5
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 8,
+    "ending": 7.5,
+    "flags": [
+     "correct"
+    ],
+    "in": -15.2,
+    "out": 10.0,
+    "score": 8
+   },
+   "engine": {
+    "build_up": 9,
+    "ending": 1.5,
+    "flags": [
+     "ends_early"
+    ],
+    "in": -32.0,
+    "out": 3.0,
+    "score": 5.25
+   },
+   "escalate": {
+    "build_up": 8,
+    "ending": 8,
+    "flags": [
+     "correct"
+    ],
+    "in": -15.0,
+    "out": 17.5,
+    "score": 8.25
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 8,
+    "ending": 8,
+    "flags": [
+     "correct"
+    ],
+    "in": -15.3,
+    "out": 17.0,
+    "score": 8.25
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 8,
+    "ending": 8,
+    "flags": [
+     "correct"
+    ],
+    "in": -15.0,
+    "out": 17.5,
+    "score": 8.25
+   },
+   "pi-gemma4-31b": {
+    "build_up": 9,
+    "ending": 5.5,
+    "flags": [
+     "ends_early",
+     "too_long"
+    ],
+    "in": -32.0,
+    "out": 6.0,
+    "score": 7
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 7,
+    "ending": 8,
+    "flags": [
+     "correct"
+    ],
+    "in": -13.0,
+    "out": 18.0,
+    "score": 8
+   }
+  }
+ },
+ "2026-03-14_14_goal_p3_0-48": {
+  "anchor": 8332.5,
+  "best_score": 8,
+  "class": "goal",
+  "date": "2026-03-14",
+  "end": 17.5,
+  "game": "2026-03-14-summerside-western-capitals-vs-amherst-ramblers",
+  "incident": "2026-03-14_14_goal_p3_0-48",
+  "kind": "goal",
+  "label": "firm",
+  "label_spread": {
+   "end_iqr_s": 0.0,
+   "n_top": 5,
+   "start_iqr_s": 0.0
+  },
+  "match_unreliable": false,
+  "moment": 0.0,
+  "n_judges": 2,
+  "n_penalties": 0,
+  "n_reviewer_events": 6,
+  "period": 3,
+  "play_start": -32.0,
+  "refined_by": "clock_stop",
+  "scorebug_alert": true,
+  "time_elapsed": "0:48",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 0,
+    "ending": 1,
+    "flags": [
+     "missing_goal",
+     "starts_late"
+    ],
+    "in": 12.0,
+    "out": 33.0,
+    "score": 1
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 6.5,
+    "ending": 8.5,
+    "flags": [
+     "correct"
+    ],
+    "in": -15.0,
+    "out": 17.5,
+    "score": 7
+   },
+   "engine": {
+    "build_up": 9,
+    "ending": 5.5,
+    "flags": [
+     "ends_early"
+    ],
+    "in": -32.0,
+    "out": 3.0,
+    "score": 5
+   },
+   "escalate": {
+    "build_up": 9,
+    "ending": 8.5,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -32.0,
+    "out": 17.5,
+    "score": 8
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 6.5,
+    "ending": 8.5,
+    "flags": [
+     "correct"
+    ],
+    "in": -16.0,
+    "out": 17.5,
+    "score": 7
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 9,
+    "ending": 8.5,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -32.0,
+    "out": 17.5,
+    "score": 8
+   },
+   "pi-gemma4-31b": {
+    "build_up": 0,
+    "ending": 1,
+    "flags": [
+     "missing_goal",
+     "starts_late",
+     "wrong_event"
+    ],
+    "in": 17.5,
+    "out": 37.5,
+    "score": 1
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 6.5,
+    "ending": 8.5,
+    "flags": [
+     "correct"
+    ],
+    "in": -15.8,
+    "out": 17.5,
+    "score": 7
+   }
+  }
+ },
+ "2026-03-14_15_goal_p3_2-47": {
+  "anchor": 8545.75,
+  "best_score": 8.75,
+  "class": "goal",
+  "date": "2026-03-14",
+  "end": 18.0,
+  "game": "2026-03-14-summerside-western-capitals-vs-amherst-ramblers",
+  "incident": "2026-03-14_15_goal_p3_2-47",
+  "kind": "goal",
+  "label": "firm",
+  "label_spread": {
+   "end_iqr_s": 1.5,
+   "n_top": 5,
+   "start_iqr_s": 1.0
+  },
+  "match_unreliable": false,
+  "moment": 0.0,
+  "n_judges": 2,
+  "n_penalties": 0,
+  "n_reviewer_events": 6,
+  "period": 3,
+  "play_start": -15.0,
+  "refined_by": "clock_stop",
+  "scorebug_alert": true,
+  "time_elapsed": "2:47",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 6.5,
+    "ending": 6,
+    "flags": [
+     "ends_early",
+     "starts_late"
+    ],
+    "in": -13.5,
+    "out": 9.5,
+    "score": 7.0
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 9,
+    "ending": 8.5,
+    "flags": [
+     "correct"
+    ],
+    "in": -15.0,
+    "out": 18.0,
+    "score": 8.5
+   },
+   "engine": {
+    "build_up": 6,
+    "ending": 2.5,
+    "flags": [
+     "ends_early",
+     "too_long"
+    ],
+    "in": -32.0,
+    "out": 3.0,
+    "score": 3.75
+   },
+   "escalate": {
+    "build_up": 9,
+    "ending": 8.5,
+    "flags": [
+     "correct"
+    ],
+    "in": -16.0,
+    "out": 17.0,
+    "score": 8.75
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 9,
+    "ending": 9,
+    "flags": [
+     "correct"
+    ],
+    "in": -15.0,
+    "out": 18.5,
+    "score": 8.75
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 9,
+    "ending": 8.5,
+    "flags": [
+     "correct"
+    ],
+    "in": -16.0,
+    "out": 17.0,
+    "score": 8.75
+   },
+   "pi-gemma4-31b": {
+    "build_up": 7,
+    "ending": 7,
+    "flags": [
+     "correct"
+    ],
+    "in": -21.0,
+    "out": 9.0,
+    "score": 6.5
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 9,
+    "ending": 9,
+    "flags": [
+     "correct"
+    ],
+    "in": -15.0,
+    "out": 18.5,
+    "score": 8.75
+   }
+  }
+ },
+ "2026-03-14_16_minor_p3_10-05": {
+  "anchor": 9312.0,
+  "best_score": 8.0,
+  "class": "minor",
+  "date": "2026-03-14",
+  "end": 16.0,
+  "game": "2026-03-14-summerside-western-capitals-vs-amherst-ramblers",
+  "incident": "2026-03-14_16_minor_p3_10-05",
+  "kind": "penalty",
+  "label": "firm",
+  "label_spread": {
+   "end_iqr_s": 0.0,
+   "n_top": 3,
+   "start_iqr_s": 5.0
+  },
+  "match_unreliable": false,
+  "moment": -0.8,
+  "n_judges": 2,
+  "n_penalties": 2,
+  "n_reviewer_events": 6,
+  "period": 3,
+  "play_start": -5.0,
+  "refined_by": null,
+  "scorebug_alert": true,
+  "time_elapsed": "10:05",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 7,
+    "ending": 7,
+    "flags": [
+     "correct"
+    ],
+    "in": -5.0,
+    "out": 13.5,
+    "score": 7.75
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 6,
+    "ending": 5,
+    "flags": [
+     "ends_early"
+    ],
+    "in": -3.5,
+    "out": 12.0,
+    "score": 6.5
+   },
+   "engine": {
+    "build_up": 2.5,
+    "ending": 0.5,
+    "flags": [
+     "ends_early",
+     "starts_late"
+    ],
+    "in": -2.0,
+    "out": 3.0,
+    "score": 2.0
+   },
+   "escalate": {
+    "build_up": 6,
+    "ending": 3,
+    "flags": [
+     "ends_early"
+    ],
+    "in": -4.0,
+    "out": 10.0,
+    "score": 5.5
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 5,
+    "ending": 7.5,
+    "flags": [
+     "correct"
+    ],
+    "in": -2.0,
+    "out": 16.0,
+    "score": 7.75
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 6,
+    "ending": 4.5,
+    "flags": [
+     "ends_early"
+    ],
+    "in": -4.0,
+    "out": 10.0,
+    "score": 6.25
+   },
+   "pi-gemma4-31b": {
+    "build_up": 5,
+    "ending": 3.5,
+    "flags": [
+     "ends_early"
+    ],
+    "in": -2.0,
+    "out": 12.0,
+    "score": 5.5
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 7.5,
+    "ending": 8,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -7.0,
+    "out": 16.0,
+    "score": 8.0
+   }
+  }
+ },
+ "2026-03-16_13_major_p3_12-55": {
+  "anchor": 9677.0,
+  "best_score": 7.75,
+  "class": "major",
+  "date": "2026-03-16",
+  "end": 15.0,
+  "game": "2026-03-16-amherst-ramblers-vs-summerside-western-capitals",
+  "incident": "2026-03-16_13_major_p3_12-55",
+  "kind": "penalty",
+  "label": "firm",
+  "label_spread": {
+   "end_iqr_s": 17.0,
+   "n_top": 3,
+   "start_iqr_s": 6.0
+  },
+  "match_unreliable": false,
+  "moment": -23.0,
+  "n_judges": 2,
+  "n_penalties": 4,
+  "n_reviewer_events": 6,
+  "period": 3,
+  "play_start": -25.0,
+  "refined_by": null,
+  "scorebug_alert": false,
+  "time_elapsed": "12:55",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 0.5,
+    "ending": 0,
+    "flags": [
+     "missing_goal",
+     "starts_late",
+     "wrong_event"
+    ],
+    "in": -60.0,
+    "out": -42.0,
+    "score": 1
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 4.5,
+    "ending": 5,
+    "flags": [
+     "ends_early"
+    ],
+    "in": -21.0,
+    "out": 10.0,
+    "score": 5.5
+   },
+   "engine": {
+    "build_up": 7,
+    "ending": 8.5,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -30.0,
+    "out": 90.0,
+    "score": 5.25
+   },
+   "escalate": {
+    "build_up": 0.5,
+    "ending": 0,
+    "flags": [
+     "missing_goal",
+     "wrong_event"
+    ],
+    "in": -66.0,
+    "out": -44.0,
+    "score": 1
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 6,
+    "ending": 6.25,
+    "flags": [
+     "correct"
+    ],
+    "in": -25.0,
+    "out": 13.0,
+    "score": 6.75
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 0.5,
+    "ending": 0,
+    "flags": [
+     "missing_goal",
+     "wrong_event"
+    ],
+    "in": -66.0,
+    "out": -44.0,
+    "score": 1
+   },
+   "pi-gemma4-31b": {
+    "build_up": 6,
+    "ending": 6.25,
+    "flags": [
+     "correct"
+    ],
+    "in": -25.0,
+    "out": 15.0,
+    "score": 6.75
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 7.25,
+    "ending": 7.25,
+    "flags": [
+     "correct"
+    ],
+    "in": -31.0,
+    "out": 30.0,
+    "score": 7.75
+   }
+  }
+ },
+ "2026-03-21_01_goal_p1_4-31": {
+  "anchor": 2075.0,
+  "best_score": 7.5,
+  "class": "goal",
+  "date": "2026-03-21",
+  "end": 10.5,
+  "game": "2026-03-21-amherst-ramblers-vs-summerside-western-capitals",
+  "incident": "2026-03-21_01_goal_p1_4-31",
+  "kind": "goal",
+  "label": "firm",
+  "label_spread": {
+   "end_iqr_s": 9.0,
+   "n_top": 3,
+   "start_iqr_s": 4.0
+  },
+  "match_unreliable": false,
+  "moment": -3.4,
+  "n_judges": 2,
+  "n_penalties": 0,
+  "n_reviewer_events": 6,
+  "period": 1,
+  "play_start": -30.0,
+  "refined_by": "clock_stop",
+  "scorebug_alert": true,
+  "time_elapsed": "4:31",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 4,
+    "ending": 9,
+    "flags": [
+     "starts_late"
+    ],
+    "in": -16.5,
+    "out": 6.5,
+    "score": 4.5
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 6.5,
+    "ending": 7.5,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -20.0,
+    "out": 12.0,
+    "score": 6.5
+   },
+   "engine": {
+    "build_up": 10,
+    "ending": 7.5,
+    "flags": [
+     "correct"
+    ],
+    "in": -32.0,
+    "out": 3.0,
+    "score": 7.5
+   },
+   "escalate": {
+    "build_up": 5,
+    "ending": 7.5,
+    "flags": [
+     "correct",
+     "starts_late",
+     "too_long"
+    ],
+    "in": -18.5,
+    "out": 11.0,
+    "score": 5.5
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 5,
+    "ending": 7.5,
+    "flags": [
+     "correct",
+     "starts_late",
+     "too_long"
+    ],
+    "in": -17.8,
+    "out": 14.0,
+    "score": 5.5
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 5,
+    "ending": 7.5,
+    "flags": [
+     "correct",
+     "starts_late",
+     "too_long"
+    ],
+    "in": -18.5,
+    "out": 11.0,
+    "score": 5.5
+   },
+   "pi-gemma4-31b": {
+    "build_up": 8.5,
+    "ending": 7.5,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -28.0,
+    "out": 10.5,
+    "score": 7.5
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 6.5,
+    "ending": 7,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -19.3,
+    "out": 17.0,
+    "score": 6
+   }
+  }
+ },
+ "2026-03-21_06_goal_p1_19-56": {
+  "anchor": 3593.5,
+  "best_score": 8.67,
+  "class": "goal",
+  "date": "2026-03-21",
+  "end": 3.0,
+  "game": "2026-03-21-amherst-ramblers-vs-summerside-western-capitals",
+  "incident": "2026-03-21_06_goal_p1_19-56",
+  "kind": "goal",
+  "label": "firm",
+  "label_spread": {
+   "end_iqr_s": 0.0,
+   "n_top": 3,
+   "start_iqr_s": 0.0
+  },
+  "match_unreliable": false,
+  "moment": -10.0,
+  "n_judges": 3,
+  "n_penalties": 0,
+  "n_reviewer_events": 6,
+  "period": 1,
+  "play_start": -32.0,
+  "refined_by": "clock_stop",
+  "scorebug_alert": true,
+  "time_elapsed": "19:56",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 4.67,
+    "ending": 5.67,
+    "flags": [
+     "correct",
+     "ends_early",
+     "starts_late"
+    ],
+    "in": -24.0,
+    "out": -1.0,
+    "score": 5.17
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 6.5,
+    "ending": 7.83,
+    "flags": [
+     "correct",
+     "starts_late"
+    ],
+    "in": -25.0,
+    "out": 10.0,
+    "score": 6.67
+   },
+   "engine": {
+    "build_up": 9.33,
+    "ending": 8,
+    "flags": [
+     "correct"
+    ],
+    "in": -32.0,
+    "out": 3.0,
+    "score": 8.67
+   },
+   "escalate": {
+    "build_up": 9.33,
+    "ending": 6.67,
+    "flags": [
+     "correct",
+     "ends_early",
+     "too_long"
+    ],
+    "in": -32.0,
+    "out": 14.0,
+    "score": 7.83
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 6.5,
+    "ending": 8.17,
+    "flags": [
+     "correct",
+     "starts_late"
+    ],
+    "in": -25.0,
+    "out": 9.5,
+    "score": 6.83
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 9.33,
+    "ending": 6.67,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -32.0,
+    "out": 14.0,
+    "score": 7.83
+   },
+   "pi-gemma4-31b": {
+    "build_up": 6,
+    "ending": 8,
+    "flags": [
+     "correct",
+     "starts_late"
+    ],
+    "in": -24.2,
+    "out": 8.0,
+    "score": 6.5
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 6.33,
+    "ending": 7,
+    "flags": [
+     "correct",
+     "ends_early"
+    ],
+    "in": -25.4,
+    "out": 14.5,
+    "score": 6.33
+   }
+  }
+ },
+ "2026-03-21_08_goal_p2_3-26": {
+  "anchor": 3672.24,
+  "best_score": 1,
+  "class": "goal",
+  "date": "2026-03-21",
+  "game": "2026-03-21-amherst-ramblers-vs-summerside-western-capitals",
+  "incident": "2026-03-21_08_goal_p2_3-26",
+  "kind": "goal",
+  "label": "unlabelled",
+  "match_unreliable": true,
+  "moment": 0.0,
+  "n_judges": 2,
+  "n_penalties": 0,
+  "n_reviewer_events": 1,
+  "period": 2,
+  "refined_by": null,
+  "scorebug_alert": true,
+  "time_elapsed": "3:26",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 0,
+    "ending": 0,
+    "flags": [
+     "missing_goal",
+     "wrong_event"
+    ],
+    "in": -28.0,
+    "out": 4.0,
+    "score": 0
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 0,
+    "ending": 0,
+    "flags": [
+     "missing_goal",
+     "wrong_event"
+    ],
+    "in": -28.0,
+    "out": 4.0,
+    "score": 0
+   },
+   "engine": {
+    "build_up": 0,
+    "ending": 0,
+    "flags": [
+     "missing_goal",
+     "wrong_event"
+    ],
+    "in": -28.0,
+    "out": 4.0,
+    "score": 0
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 0,
+    "ending": 0,
+    "flags": [
+     "missing_goal",
+     "wrong_event"
+    ],
+    "in": -28.0,
+    "out": 4.0,
+    "score": 0
+   },
+   "pi-gemma4-31b": {
+    "build_up": 0.5,
+    "ending": 0,
+    "flags": [
+     "missing_goal",
+     "wrong_event"
+    ],
+    "in": -220.0,
+    "out": -190.0,
+    "score": 1
+   }
+  }
+ },
+ "2026-03-21_09_goal_p2_7-28": {
+  "anchor": 3713.63,
+  "best_score": 1,
+  "class": "goal",
+  "date": "2026-03-21",
+  "game": "2026-03-21-amherst-ramblers-vs-summerside-western-capitals",
+  "incident": "2026-03-21_09_goal_p2_7-28",
+  "kind": "goal",
+  "label": "unlabelled",
+  "match_unreliable": true,
+  "moment": 0.0,
+  "n_judges": 2,
+  "n_penalties": 0,
+  "n_reviewer_events": 1,
+  "period": 2,
+  "refined_by": null,
+  "scorebug_alert": true,
+  "time_elapsed": "7:28",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 0,
+    "ending": 0,
+    "flags": [
+     "missing_goal",
+     "wrong_event"
+    ],
+    "in": -28.0,
+    "out": 4.0,
+    "score": 0
+   },
+   "engine": {
+    "build_up": 0,
+    "ending": 0,
+    "flags": [
+     "missing_goal",
+     "wrong_event"
+    ],
+    "in": -28.0,
+    "out": 4.0,
+    "score": 0
+   },
+   "pi-gemma4-31b": {
+    "build_up": 0,
+    "ending": 0,
+    "flags": [
+     "missing_goal",
+     "wrong_event"
+    ],
+    "in": -100.0,
+    "out": -73.0,
+    "score": 1
+   }
+  }
+ },
+ "2026-03-21_10_goal_p2_8-32": {
+  "anchor": 3724.58,
+  "best_score": 2.67,
+  "class": "goal",
+  "date": "2026-03-21",
+  "game": "2026-03-21-amherst-ramblers-vs-summerside-western-capitals",
+  "incident": "2026-03-21_10_goal_p2_8-32",
+  "kind": "goal",
+  "label": "unlabelled",
+  "match_unreliable": true,
+  "moment": 0.0,
+  "n_judges": 3,
+  "n_penalties": 0,
+  "n_reviewer_events": 2,
+  "period": 2,
+  "refined_by": null,
+  "scorebug_alert": true,
+  "time_elapsed": "8:32",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 0,
+    "ending": 0,
+    "flags": [
+     "missing_goal",
+     "wrong_event"
+    ],
+    "in": -28.0,
+    "out": 4.0,
+    "score": 0
+   },
+   "engine": {
+    "build_up": 0,
+    "ending": 0,
+    "flags": [
+     "missing_goal",
+     "wrong_event"
+    ],
+    "in": -28.0,
+    "out": 4.0,
+    "score": 0
+   },
+   "escalate": {
+    "build_up": 0,
+    "ending": 0,
+    "flags": [
+     "missing_goal",
+     "wrong_event"
+    ],
+    "in": -28.0,
+    "out": 4.0,
+    "score": 0
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 0,
+    "ending": 0,
+    "flags": [
+     "missing_goal",
+     "wrong_event"
+    ],
+    "in": -28.0,
+    "out": 4.0,
+    "score": 0
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 0,
+    "ending": 0,
+    "flags": [
+     "missing_goal",
+     "wrong_event"
+    ],
+    "in": -28.0,
+    "out": 4.0,
+    "score": 0
+   },
+   "pi-gemma4-31b": {
+    "build_up": 3.33,
+    "ending": 1.67,
+    "flags": [
+     "ends_early",
+     "missing_goal",
+     "wrong_event"
+    ],
+    "in": -185.0,
+    "out": -137.5,
+    "score": 2.67
+   }
+  }
+ },
+ "2026-03-21_11_goal_p2_12-07": {
+  "anchor": 3761.36,
+  "best_score": 0,
+  "class": "goal",
+  "date": "2026-03-21",
+  "game": "2026-03-21-amherst-ramblers-vs-summerside-western-capitals",
+  "incident": "2026-03-21_11_goal_p2_12-07",
+  "kind": "goal",
+  "label": "unlabelled",
+  "match_unreliable": true,
+  "moment": 0.0,
+  "n_judges": 2,
+  "n_penalties": 0,
+  "n_reviewer_events": 0,
+  "period": 2,
+  "refined_by": null,
+  "scorebug_alert": true,
+  "time_elapsed": "12:07",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 0,
+    "ending": 0,
+    "flags": [
+     "missing_goal"
+    ],
+    "in": -28.0,
+    "out": 4.0,
+    "score": 0
+   },
+   "engine": {
+    "build_up": 0,
+    "ending": 0,
+    "flags": [
+     "missing_goal"
+    ],
+    "in": -28.0,
+    "out": 4.0,
+    "score": 0
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 0,
+    "ending": 0,
+    "flags": [
+     "missing_goal"
+    ],
+    "in": -28.0,
+    "out": 4.0,
+    "score": 0
+   }
+  }
+ },
+ "2026-03-21_13_goal_p2_17-55": {
+  "anchor": 6771.5,
+  "best_score": 8.5,
+  "class": "goal",
+  "date": "2026-03-21",
+  "end": 6.5,
+  "game": "2026-03-21-amherst-ramblers-vs-summerside-western-capitals",
+  "incident": "2026-03-21_13_goal_p2_17-55",
+  "kind": "goal",
+  "label": "firm",
+  "label_spread": {
+   "end_iqr_s": 11.9,
+   "n_top": 4,
+   "start_iqr_s": 12.0
+  },
+  "match_unreliable": false,
+  "moment": -6.0,
+  "n_judges": 3,
+  "n_penalties": 0,
+  "n_reviewer_events": 6,
+  "period": 2,
+  "play_start": -32.0,
+  "refined_by": "clock_stop",
+  "scorebug_alert": true,
+  "time_elapsed": "17:55",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 4.33,
+    "ending": 6.33,
+    "flags": [
+     "ends_early",
+     "starts_late"
+    ],
+    "in": -19.5,
+    "out": 3.5,
+    "score": 5
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 5.33,
+    "ending": 8.33,
+    "flags": [
+     "correct",
+     "starts_late"
+    ],
+    "in": -21.0,
+    "out": 16.0,
+    "score": 6.0
+   },
+   "engine": {
+    "build_up": 9.67,
+    "ending": 7.33,
+    "flags": [
+     "correct",
+     "ends_early"
+    ],
+    "in": -32.0,
+    "out": 3.0,
+    "score": 8.5
+   },
+   "escalate": {
+    "build_up": 9,
+    "ending": 7.67,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -44.0,
+    "out": 7.0,
+    "score": 7.67
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 5.67,
+    "ending": 7.67,
+    "flags": [
+     "correct",
+     "starts_late"
+    ],
+    "in": -21.5,
+    "out": 17.0,
+    "score": 6.17
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 8.67,
+    "ending": 7,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -44.0,
+    "out": 7.0,
+    "score": 6.0
+   },
+   "pi-gemma4-31b": {
+    "build_up": 7.67,
+    "ending": 7.67,
+    "flags": [
+     "correct"
+    ],
+    "in": -25.0,
+    "out": 6.0,
+    "score": 8.0
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 9.67,
+    "ending": 7.67,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -32.0,
+    "out": 18.5,
+    "score": 7.83
+   }
+  }
+ },
+ "2026-03-21_15_goal_p3_9-21": {
+  "anchor": 8914.5,
+  "best_score": 8.5,
+  "class": "goal",
+  "date": "2026-03-21",
+  "end": 19.0,
+  "game": "2026-03-21-amherst-ramblers-vs-summerside-western-capitals",
+  "incident": "2026-03-21_15_goal_p3_9-21",
+  "kind": "goal",
+  "label": "firm",
+  "label_spread": {
+   "end_iqr_s": 2.0,
+   "n_top": 5,
+   "start_iqr_s": 0.0
+  },
+  "match_unreliable": false,
+  "moment": -6.0,
+  "n_judges": 3,
+  "n_penalties": 0,
+  "n_reviewer_events": 6,
+  "period": 3,
+  "play_start": -32.0,
+  "refined_by": "clock_stop",
+  "scorebug_alert": true,
+  "time_elapsed": "9:21",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 4,
+    "ending": 5.33,
+    "flags": [
+     "ends_early",
+     "starts_late"
+    ],
+    "in": -19.5,
+    "out": 3.5,
+    "score": 4.33
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 5.33,
+    "ending": 9,
+    "flags": [
+     "correct"
+    ],
+    "in": -20.5,
+    "out": 19.0,
+    "score": 6.67
+   },
+   "engine": {
+    "build_up": 9.67,
+    "ending": 7,
+    "flags": [
+     "correct",
+     "ends_early"
+    ],
+    "in": -32.0,
+    "out": 3.0,
+    "score": 8.0
+   },
+   "escalate": {
+    "build_up": 6.33,
+    "ending": 9,
+    "flags": [
+     "correct"
+    ],
+    "in": -22.0,
+    "out": 19.0,
+    "score": 7.5
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 6.67,
+    "ending": 9.33,
+    "flags": [
+     "correct"
+    ],
+    "in": -22.3,
+    "out": 17.0,
+    "score": 7.5
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 6.33,
+    "ending": 9,
+    "flags": [
+     "correct"
+    ],
+    "in": -22.0,
+    "out": 19.0,
+    "score": 7.5
+   },
+   "pi-gemma4-31b": {
+    "build_up": 9.67,
+    "ending": 7.67,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -32.0,
+    "out": 8.0,
+    "score": 8.5
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 6.33,
+    "ending": 9,
+    "flags": [
+     "correct"
+    ],
+    "in": -21.5,
+    "out": 18.5,
+    "score": 7.33
+   }
+  }
+ },
+ "2026-03-21_16_goal_p5_8-58": {
+  "anchor": 11206.48,
+  "best_score": 0.75,
+  "class": "goal",
+  "date": "2026-03-21",
+  "game": "2026-03-21-amherst-ramblers-vs-summerside-western-capitals",
+  "incident": "2026-03-21_16_goal_p5_8-58",
+  "kind": "goal",
+  "label": "unlabelled",
+  "match_unreliable": true,
+  "moment": 1946.0,
+  "n_judges": 2,
+  "n_penalties": 0,
+  "n_reviewer_events": 3,
+  "period": 5,
+  "refined_by": null,
+  "scorebug_alert": true,
+  "time_elapsed": "8:58",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 0,
+    "ending": 1,
+    "flags": [
+     "missing_goal",
+     "wrong_event"
+    ],
+    "in": -87.0,
+    "out": -64.0,
+    "score": 0.75
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 0,
+    "ending": 0.5,
+    "flags": [
+     "missing_goal"
+    ],
+    "in": -60.0,
+    "out": 4.0,
+    "score": 0.5
+   },
+   "engine": {
+    "build_up": 0,
+    "ending": 0.5,
+    "flags": [
+     "missing_goal"
+    ],
+    "in": -60.0,
+    "out": 4.0,
+    "score": 0.5
+   },
+   "escalate": {
+    "build_up": 0,
+    "ending": 0.5,
+    "flags": [
+     "missing_goal"
+    ],
+    "in": -60.0,
+    "out": 4.0,
+    "score": 0.5
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 0,
+    "ending": 0.5,
+    "flags": [
+     "missing_goal"
+    ],
+    "in": -60.0,
+    "out": 4.0,
+    "score": 0.5
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 0,
+    "ending": 0.5,
+    "flags": [
+     "missing_goal"
+    ],
+    "in": -60.0,
+    "out": 4.0,
+    "score": 0.5
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 0,
+    "ending": 0.5,
+    "flags": [
+     "missing_goal"
+    ],
+    "in": -60.0,
+    "out": 4.0,
+    "score": 0.5
+   }
+  }
+ },
+ "2026-09-10_01_fight_p3_08-24": {
+  "anchor": 210.0,
+  "best_score": 8.5,
+  "class": "fight",
+  "date": "2026-09-10",
+  "end": 0.0,
+  "game": "2026-09-10-pictou-county-weeks-crushers-vs-amherst-ramblers",
+  "incident": "2026-09-10_01_fight_p3_08-24",
+  "kind": "penalty",
+  "label": "firm",
+  "label_spread": {
+   "end_iqr_s": 0.0,
+   "n_top": 3,
+   "start_iqr_s": 1.0
+  },
+  "match_unreliable": false,
+  "moment": -14.0,
+  "n_judges": 2,
+  "n_penalties": 4,
+  "n_reviewer_events": 6,
+  "period": 3,
+  "play_start": -24.0,
+  "refined_by": null,
+  "scorebug_alert": false,
+  "time_elapsed": "08:24",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 3.5,
+    "ending": 8.5,
+    "flags": [
+     "starts_late"
+    ],
+    "in": -16.0,
+    "out": 6.0,
+    "score": 6.75
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 5.5,
+    "ending": 8.5,
+    "flags": [
+     "correct",
+     "starts_late"
+    ],
+    "in": -18.5,
+    "out": 3.0,
+    "score": 7.25
+   },
+   "engine": {
+    "build_up": 6,
+    "ending": 8.5,
+    "flags": [
+     "too_long"
+    ],
+    "in": -30.0,
+    "out": 90.0,
+    "score": 3
+   },
+   "escalate": {
+    "build_up": 8,
+    "ending": 8.5,
+    "flags": [
+     "correct"
+    ],
+    "in": -24.0,
+    "out": 0.0,
+    "score": 8.5
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 6,
+    "ending": 5.5,
+    "flags": [
+     "correct",
+     "ends_early",
+     "starts_late"
+    ],
+    "in": -20.0,
+    "out": -2.0,
+    "score": 6.25
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 8,
+    "ending": 8.5,
+    "flags": [
+     "correct"
+    ],
+    "in": -24.0,
+    "out": 0.0,
+    "score": 8.5
+   },
+   "pi-gemma4-31b": {
+    "build_up": 7.5,
+    "ending": 9,
+    "flags": [
+     "too_long"
+    ],
+    "in": -22.0,
+    "out": 38.0,
+    "score": 5
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 8.5,
+    "ending": 8.5,
+    "flags": [
+     "correct"
+    ],
+    "in": -23.0,
+    "out": 0.0,
+    "score": 8.5
+   }
+  }
+ },
+ "2026-09-10_02_minor_p3_10-28": {
+  "anchor": 535.0,
+  "best_score": 4,
+  "class": "minor",
+  "date": "2026-09-10",
+  "game": "2026-09-10-pictou-county-weeks-crushers-vs-amherst-ramblers",
+  "incident": "2026-09-10_02_minor_p3_10-28",
+  "kind": "penalty",
+  "label": "unlabelled",
+  "match_unreliable": false,
+  "moment": -20.8,
+  "n_judges": 2,
+  "n_penalties": 2,
+  "n_reviewer_events": 6,
+  "period": 3,
+  "refined_by": null,
+  "scorebug_alert": false,
+  "time_elapsed": "10:28",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 0.5,
+    "ending": 2.5,
+    "flags": [
+     "ends_early",
+     "starts_late"
+    ],
+    "in": -2.0,
+    "out": 3.0,
+    "score": 1.75
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 3,
+    "ending": 4.5,
+    "flags": [
+     "ends_early",
+     "starts_late",
+     "too_long"
+    ],
+    "in": -35.0,
+    "out": -2.0,
+    "score": 4
+   },
+   "engine": {
+    "build_up": 0.5,
+    "ending": 2.5,
+    "flags": [
+     "ends_early",
+     "starts_late"
+    ],
+    "in": -2.0,
+    "out": 3.0,
+    "score": 1.75
+   },
+   "escalate": {
+    "build_up": 2,
+    "ending": 4.5,
+    "flags": [
+     "starts_late",
+     "too_long"
+    ],
+    "in": -28.0,
+    "out": 5.0,
+    "score": 3.5
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 1,
+    "ending": 3.5,
+    "flags": [
+     "ends_early",
+     "starts_late"
+    ],
+    "in": -24.0,
+    "out": -13.0,
+    "score": 2.75
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 2,
+    "ending": 4.5,
+    "flags": [
+     "starts_late",
+     "too_long"
+    ],
+    "in": -28.0,
+    "out": 5.0,
+    "score": 3.5
+   },
+   "pi-gemma4-31b": {
+    "build_up": 0.5,
+    "ending": 2.5,
+    "flags": [
+     "missing_goal",
+     "starts_late",
+     "wrong_event"
+    ],
+    "in": 6.0,
+    "out": 18.0,
+    "score": 1.75
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 2,
+    "ending": 4,
+    "flags": [
+     "ends_early",
+     "starts_late",
+     "too_long"
+    ],
+    "in": -30.0,
+    "out": -2.0,
+    "score": 3.75
+   }
+  }
+ },
+ "2026-09-12_07_major_p2_12-11": {
+  "anchor": 7146.68,
+  "best_score": 4.67,
+  "class": "major",
+  "date": "2026-09-12",
+  "game": "2026-09-12-amherst-ramblers-vs-grand-falls-rapids",
+  "incident": "2026-09-12_07_major_p2_12-11",
+  "kind": "penalty",
+  "label": "unlabelled",
+  "match_unreliable": true,
+  "moment": -35.5,
+  "n_judges": 3,
+  "n_penalties": 2,
+  "n_reviewer_events": 5,
+  "period": 2,
+  "refined_by": null,
+  "scorebug_alert": false,
+  "time_elapsed": "12:11",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 0.33,
+    "ending": 3.67,
+    "flags": [
+     "missing_goal",
+     "starts_late",
+     "wrong_event"
+    ],
+    "in": 10.0,
+    "out": 30.0,
+    "score": 1
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 1.67,
+    "ending": 4.33,
+    "flags": [
+     "ends_early",
+     "missing_goal",
+     "starts_late"
+    ],
+    "in": -48.0,
+    "out": -14.0,
+    "score": 3
+   },
+   "engine": {
+    "build_up": 2.67,
+    "ending": 5.67,
+    "flags": [
+     "missing_goal",
+     "starts_late",
+     "too_long"
+    ],
+    "in": -30.0,
+    "out": 90.0,
+    "score": 3.67
+   },
+   "escalate": {
+    "build_up": 2.67,
+    "ending": 5.67,
+    "flags": [
+     "missing_goal",
+     "starts_late",
+     "too_long"
+    ],
+    "in": -30.0,
+    "out": 90.0,
+    "score": 3.67
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 4.33,
+    "ending": 4,
+    "flags": [
+     "correct",
+     "missing_goal",
+     "starts_late"
+    ],
+    "in": -60.0,
+    "out": -32.0,
+    "score": 4.67
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 2.67,
+    "ending": 5.67,
+    "flags": [
+     "missing_goal",
+     "starts_late",
+     "too_long"
+    ],
+    "in": -30.0,
+    "out": 90.0,
+    "score": 3.67
+   },
+   "pi-gemma4-31b": {
+    "build_up": 0.33,
+    "ending": 3.67,
+    "flags": [
+     "missing_goal",
+     "starts_late",
+     "wrong_event"
+    ],
+    "in": 6.0,
+    "out": 32.0,
+    "score": 1
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 4.33,
+    "ending": 4,
+    "flags": [
+     "correct",
+     "missing_goal",
+     "starts_late"
+    ],
+    "in": -60.0,
+    "out": -32.0,
+    "score": 4.67
+   }
+  }
+ },
+ "2026-09-12_11_goal_p3_8-14": {
+  "anchor": 9736.75,
+  "best_score": 8.75,
+  "class": "goal",
+  "date": "2026-09-12",
+  "end": 17.0,
+  "game": "2026-09-12-amherst-ramblers-vs-grand-falls-rapids",
+  "incident": "2026-09-12_11_goal_p3_8-14",
+  "kind": "goal",
+  "label": "firm",
+  "label_spread": {
+   "end_iqr_s": 10.0,
+   "n_top": 2,
+   "start_iqr_s": 7.5
+  },
+  "match_unreliable": false,
+  "moment": -0.2,
+  "n_judges": 2,
+  "n_penalties": 0,
+  "n_reviewer_events": 6,
+  "period": 3,
+  "play_start": -23.8,
+  "refined_by": "clock_stop",
+  "scorebug_alert": false,
+  "time_elapsed": "8:14",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 4.5,
+    "ending": 5.5,
+    "flags": [
+     "correct",
+     "starts_late"
+    ],
+    "in": -15.0,
+    "out": 8.0,
+    "score": 5
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 5,
+    "ending": 8.5,
+    "flags": [
+     "starts_late",
+     "too_long"
+    ],
+    "in": -15.0,
+    "out": 23.0,
+    "score": 6
+   },
+   "engine": {
+    "build_up": 9,
+    "ending": 3,
+    "flags": [
+     "ends_early",
+     "too_long"
+    ],
+    "in": -32.0,
+    "out": 3.0,
+    "score": 5.25
+   },
+   "escalate": {
+    "build_up": 4.5,
+    "ending": 5.5,
+    "flags": [
+     "correct",
+     "starts_late"
+    ],
+    "in": -15.0,
+    "out": 8.0,
+    "score": 5
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 5,
+    "ending": 8.5,
+    "flags": [
+     "starts_late",
+     "too_long"
+    ],
+    "in": -15.5,
+    "out": 21.5,
+    "score": 6
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 9,
+    "ending": 8,
+    "flags": [
+     "correct"
+    ],
+    "in": -20.0,
+    "out": 22.0,
+    "score": 8.75
+   },
+   "pi-gemma4-31b": {
+    "build_up": 9,
+    "ending": 8,
+    "flags": [
+     "correct"
+    ],
+    "in": -27.5,
+    "out": 12.0,
+    "score": 8.5
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 9.5,
+    "ending": 9,
+    "flags": [
+     "too_long"
+    ],
+    "in": -32.0,
+    "out": 23.0,
+    "score": 7
+   }
+  }
+ },
+ "2026-09-12_15_major_p3_17-38": {
+  "anchor": 11125.0,
+  "best_score": 8,
+  "class": "major",
+  "date": "2026-09-12",
+  "end": 36.5,
+  "game": "2026-09-12-amherst-ramblers-vs-grand-falls-rapids",
+  "incident": "2026-09-12_15_major_p3_17-38",
+  "kind": "penalty",
+  "label": "firm",
+  "label_spread": {
+   "end_iqr_s": 7.0,
+   "n_top": 2,
+   "start_iqr_s": 0.0
+  },
+  "match_unreliable": false,
+  "moment": -22.0,
+  "n_judges": 2,
+  "n_penalties": 16,
+  "n_reviewer_events": 6,
+  "period": 3,
+  "play_start": -30.0,
+  "refined_by": null,
+  "scorebug_alert": false,
+  "time_elapsed": "17:38",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 3.5,
+    "ending": 3,
+    "flags": [
+     "ends_early",
+     "starts_late"
+    ],
+    "in": -22.0,
+    "out": 8.0,
+    "score": 4
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 7.5,
+    "ending": 3.5,
+    "flags": [
+     "ends_early"
+    ],
+    "in": -30.0,
+    "out": 12.0,
+    "score": 5.75
+   },
+   "engine": {
+    "build_up": 7.5,
+    "ending": 8,
+    "flags": [
+     "too_long"
+    ],
+    "in": -30.0,
+    "out": 90.0,
+    "score": 5
+   },
+   "escalate": {
+    "build_up": 5.5,
+    "ending": 3.5,
+    "flags": [
+     "ends_early"
+    ],
+    "in": -27.0,
+    "out": 12.0,
+    "score": 5
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 4.5,
+    "ending": 3.5,
+    "flags": [
+     "ends_early",
+     "starts_late"
+    ],
+    "in": -24.5,
+    "out": 13.0,
+    "score": 4.5
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 5.5,
+    "ending": 3.5,
+    "flags": [
+     "ends_early"
+    ],
+    "in": -27.0,
+    "out": 12.0,
+    "score": 5
+   },
+   "pi-gemma4-31b": {
+    "build_up": 7.5,
+    "ending": 7,
+    "flags": [
+     "correct"
+    ],
+    "in": -30.0,
+    "out": 40.0,
+    "score": 8.0
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 7.5,
+    "ending": 7,
+    "flags": [
+     "correct"
+    ],
+    "in": -30.0,
+    "out": 33.0,
+    "score": 8
+   }
+  }
+ },
+ "2026-09-16_04_goal_p2_6-29": {
+  "anchor": 1920.5,
+  "best_score": 8.0,
+  "class": "goal",
+  "date": "2026-09-16",
+  "end": 16.0,
+  "game": "2026-09-16-valley-wildcats-vs-amherst-ramblers",
+  "incident": "2026-09-16_04_goal_p2_6-29",
+  "kind": "goal",
+  "label": "firm",
+  "label_spread": {
+   "end_iqr_s": 0.0,
+   "n_top": 3,
+   "start_iqr_s": 8.0
+  },
+  "match_unreliable": false,
+  "moment": -7.5,
+  "n_judges": 3,
+  "n_penalties": 0,
+  "n_reviewer_events": 6,
+  "period": 2,
+  "play_start": -32.0,
+  "refined_by": "clock_stop",
+  "scorebug_alert": false,
+  "time_elapsed": "6:29",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 3,
+    "ending": 7.67,
+    "flags": [
+     "ends_early",
+     "starts_late"
+    ],
+    "in": -19.0,
+    "out": 4.0,
+    "score": 3.83
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 5.67,
+    "ending": 8.33,
+    "flags": [
+     "correct",
+     "starts_late",
+     "too_long"
+    ],
+    "in": -23.0,
+    "out": 17.0,
+    "score": 6
+   },
+   "engine": {
+    "build_up": 8,
+    "ending": 7.67,
+    "flags": [
+     "correct",
+     "ends_early"
+    ],
+    "in": -32.0,
+    "out": 3.0,
+    "score": 7.33
+   },
+   "escalate": {
+    "build_up": 3,
+    "ending": 7.67,
+    "flags": [
+     "ends_early",
+     "starts_late"
+    ],
+    "in": -19.0,
+    "out": 4.0,
+    "score": 3.83
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 6.67,
+    "ending": 7.67,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -26.0,
+    "out": 17.5,
+    "score": 6.83
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 8.33,
+    "ending": 8,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -32.0,
+    "out": 16.0,
+    "score": 8
+   },
+   "pi-gemma4-31b": {
+    "build_up": 6.17,
+    "ending": 7.83,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -25.0,
+    "out": 14.0,
+    "score": 6.83
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 9.83,
+    "ending": 7.67,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -40.0,
+    "out": 14.5,
+    "score": 8.0
+   }
+  }
+ },
+ "2026-09-16_10_goal_p3_9-19": {
+  "anchor": 5073.0,
+  "best_score": 8.5,
+  "class": "goal",
+  "date": "2026-09-16",
+  "end": 11.0,
+  "game": "2026-09-16-valley-wildcats-vs-amherst-ramblers",
+  "incident": "2026-09-16_10_goal_p3_9-19",
+  "kind": "goal",
+  "label": "firm",
+  "label_spread": {
+   "end_iqr_s": 0.0,
+   "n_top": 1,
+   "start_iqr_s": 0.0
+  },
+  "match_unreliable": false,
+  "moment": -1.0,
+  "n_judges": 2,
+  "n_penalties": 0,
+  "n_reviewer_events": 6,
+  "period": 3,
+  "play_start": -31.0,
+  "refined_by": "clock_stop",
+  "scorebug_alert": false,
+  "time_elapsed": "9:19",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 7,
+    "ending": 5.5,
+    "flags": [
+     "correct",
+     "ends_early"
+    ],
+    "in": -16.0,
+    "out": 7.0,
+    "score": 6.75
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 7.5,
+    "ending": 8.5,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -15.5,
+    "out": 21.0,
+    "score": 7.25
+   },
+   "engine": {
+    "build_up": 9.5,
+    "ending": 2,
+    "flags": [
+     "ends_early"
+    ],
+    "in": -32.0,
+    "out": 3.0,
+    "score": 6
+   },
+   "escalate": {
+    "build_up": 7,
+    "ending": 5.5,
+    "flags": [
+     "correct",
+     "ends_early"
+    ],
+    "in": -16.0,
+    "out": 7.0,
+    "score": 6.75
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 7,
+    "ending": 8.5,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -15.0,
+    "out": 18.0,
+    "score": 7.25
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 10,
+    "ending": 8.5,
+    "flags": [
+     "too_long"
+    ],
+    "in": -32.0,
+    "out": 24.0,
+    "score": 7.25
+   },
+   "pi-gemma4-31b": {
+    "build_up": 9.5,
+    "ending": 8.5,
+    "flags": [
+     "correct"
+    ],
+    "in": -31.0,
+    "out": 11.0,
+    "score": 8.5
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 7.5,
+    "ending": 8.5,
+    "flags": [
+     "too_long"
+    ],
+    "in": -16.0,
+    "out": 24.0,
+    "score": 6.75
+   }
+  }
+ },
+ "2026-09-16_11_goal_p3_10-24": {
+  "anchor": 5184.75,
+  "best_score": 8.75,
+  "class": "goal",
+  "date": "2026-09-16",
+  "end": 19.2,
+  "game": "2026-09-16-valley-wildcats-vs-amherst-ramblers",
+  "incident": "2026-09-16_11_goal_p3_10-24",
+  "kind": "goal",
+  "label": "firm",
+  "label_spread": {
+   "end_iqr_s": 0.5,
+   "n_top": 2,
+   "start_iqr_s": 0.0
+  },
+  "match_unreliable": false,
+  "moment": -6.0,
+  "n_judges": 2,
+  "n_penalties": 0,
+  "n_reviewer_events": 6,
+  "period": 3,
+  "play_start": -25.0,
+  "refined_by": "clock_stop",
+  "scorebug_alert": false,
+  "time_elapsed": "10:24",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 1,
+    "ending": 1.5,
+    "flags": [
+     "missing_goal",
+     "wrong_event"
+    ],
+    "in": -43.0,
+    "out": -20.0,
+    "score": 0.25
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 8.5,
+    "ending": 8.5,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -25.0,
+    "out": 19.5,
+    "score": 8.75
+   },
+   "engine": {
+    "build_up": 8,
+    "ending": 4.5,
+    "flags": [
+     "ends_early",
+     "too_long"
+    ],
+    "in": -32.0,
+    "out": 3.0,
+    "score": 6.5
+   },
+   "escalate": {
+    "build_up": 1,
+    "ending": 1.5,
+    "flags": [
+     "missing_goal",
+     "wrong_event"
+    ],
+    "in": -43.0,
+    "out": -20.0,
+    "score": 0.25
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 5.5,
+    "ending": 7,
+    "flags": [
+     "ends_early",
+     "starts_late"
+    ],
+    "in": -20.5,
+    "out": 8.0,
+    "score": 6.5
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 8.5,
+    "ending": 5,
+    "flags": [
+     "ends_early",
+     "too_long"
+    ],
+    "in": -32.0,
+    "out": 6.0,
+    "score": 7
+   },
+   "pi-gemma4-31b": {
+    "build_up": 1,
+    "ending": 1.5,
+    "flags": [
+     "missing_goal",
+     "wrong_event"
+    ],
+    "in": -44.5,
+    "out": -21.0,
+    "score": 0.25
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 7.5,
+    "ending": 8.5,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -22.0,
+    "out": 19.0,
+    "score": 8.25
+   }
+  }
+ },
+ "2026-09-16_12_minor_p3_14-48": {
+  "anchor": 5827.0,
+  "best_score": 7,
+  "class": "minor",
+  "date": "2026-09-16",
+  "end": -70.0,
+  "game": "2026-09-16-valley-wildcats-vs-amherst-ramblers",
+  "incident": "2026-09-16_12_minor_p3_14-48",
+  "kind": "penalty",
+  "label": "conflict",
+  "label_spread": {
+   "end_iqr_s": 0.0,
+   "n_top": 1,
+   "start_iqr_s": 0.0
+  },
+  "match_unreliable": false,
+  "moment": -16.5,
+  "n_judges": 2,
+  "n_penalties": 2,
+  "n_reviewer_events": 6,
+  "period": 3,
+  "play_start": -95.0,
+  "refined_by": null,
+  "scorebug_alert": false,
+  "time_elapsed": "14:48",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 1,
+    "ending": 4,
+    "flags": [
+     "ends_early",
+     "starts_late",
+     "wrong_event"
+    ],
+    "in": -23.5,
+    "out": -14.5,
+    "score": 2.5
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 0,
+    "ending": 2.5,
+    "flags": [
+     "missing_goal",
+     "too_long",
+     "wrong_event"
+    ],
+    "in": -17.0,
+    "out": 10.0,
+    "score": 1
+   },
+   "engine": {
+    "build_up": 0,
+    "ending": 2.5,
+    "flags": [
+     "missing_goal",
+     "wrong_event"
+    ],
+    "in": -2.0,
+    "out": 3.0,
+    "score": 0.75
+   },
+   "escalate": {
+    "build_up": 1,
+    "ending": 4,
+    "flags": [
+     "ends_early",
+     "starts_late",
+     "wrong_event"
+    ],
+    "in": -23.5,
+    "out": -14.5,
+    "score": 2.5
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 1,
+    "ending": 3.5,
+    "flags": [
+     "starts_late",
+     "too_long",
+     "wrong_event"
+    ],
+    "in": -24.0,
+    "out": -6.0,
+    "score": 2.5
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 1,
+    "ending": 4,
+    "flags": [
+     "starts_late",
+     "wrong_event"
+    ],
+    "in": -30.0,
+    "out": -19.0,
+    "score": 2.5
+   },
+   "pi-gemma4-31b": {
+    "build_up": 0,
+    "ending": 2.5,
+    "flags": [
+     "missing_goal",
+     "too_long",
+     "wrong_event"
+    ],
+    "in": -20.0,
+    "out": 4.0,
+    "score": 1
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 7.5,
+    "ending": 6,
+    "flags": [
+     "correct"
+    ],
+    "in": -95.0,
+    "out": -70.0,
+    "score": 7
+   }
+  }
+ },
+ "2026-09-24_06_major_p2_19-07": {
+  "anchor": 6797.0,
+  "best_score": 6.5,
+  "class": "major",
+  "date": "2026-09-24",
+  "end": 12.0,
+  "game": "2026-09-24-west-kent-steamers-vs-amherst-ramblers",
+  "incident": "2026-09-24_06_major_p2_19-07",
+  "kind": "penalty",
+  "label": "weak",
+  "label_spread": {
+   "end_iqr_s": 2.0,
+   "n_top": 3,
+   "start_iqr_s": 0.0
+  },
+  "match_unreliable": false,
+  "moment": -13.5,
+  "n_judges": 2,
+  "n_penalties": 5,
+  "n_reviewer_events": 6,
+  "period": 2,
+  "play_start": -20.0,
+  "refined_by": null,
+  "scorebug_alert": false,
+  "time_elapsed": "19:07",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 6,
+    "ending": 6,
+    "flags": [
+     "too_long"
+    ],
+    "in": -20.0,
+    "out": 46.0,
+    "score": 5
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 6.5,
+    "ending": 5.5,
+    "flags": [
+     "correct"
+    ],
+    "in": -20.0,
+    "out": 10.0,
+    "score": 6.5
+   },
+   "engine": {
+    "build_up": 7.5,
+    "ending": 7.5,
+    "flags": [
+     "too_long"
+    ],
+    "in": -30.0,
+    "out": 90.0,
+    "score": 5
+   },
+   "escalate": {
+    "build_up": 6.5,
+    "ending": 6,
+    "flags": [
+     "correct"
+    ],
+    "in": -20.0,
+    "out": 12.0,
+    "score": 6.5
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 6,
+    "ending": 6,
+    "flags": [
+     "too_long"
+    ],
+    "in": -20.0,
+    "out": 45.0,
+    "score": 5
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 6.5,
+    "ending": 6,
+    "flags": [
+     "correct"
+    ],
+    "in": -20.0,
+    "out": 12.0,
+    "score": 6.5
+   },
+   "pi-gemma4-31b": {
+    "build_up": 0,
+    "ending": 3,
+    "flags": [
+     "missing_goal",
+     "starts_late",
+     "wrong_event"
+    ],
+    "in": 18.0,
+    "out": 46.0,
+    "score": 1
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 7,
+    "ending": 6,
+    "flags": [
+     "too_long"
+    ],
+    "in": -22.0,
+    "out": 43.0,
+    "score": 5
+   }
+  }
+ },
+ "2026-09-24_07_minor_p3_03-18": {
+  "anchor": 8387.0,
+  "best_score": 8.5,
+  "class": "minor",
+  "date": "2026-09-24",
+  "end": 4.5,
+  "game": "2026-09-24-west-kent-steamers-vs-amherst-ramblers",
+  "incident": "2026-09-24_07_minor_p3_03-18",
+  "kind": "penalty",
+  "label": "firm",
+  "label_spread": {
+   "end_iqr_s": 1.0,
+   "n_top": 2,
+   "start_iqr_s": 0.0
+  },
+  "match_unreliable": false,
+  "moment": -1.4,
+  "n_judges": 2,
+  "n_penalties": 1,
+  "n_reviewer_events": 6,
+  "period": 3,
+  "play_start": -8.5,
+  "refined_by": null,
+  "scorebug_alert": false,
+  "time_elapsed": "03:18",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 7.5,
+    "ending": 6.5,
+    "flags": [
+     "ends_early"
+    ],
+    "in": -8.5,
+    "out": 0.5,
+    "score": 6
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 8.5,
+    "ending": 8.5,
+    "flags": [
+     "correct"
+    ],
+    "in": -8.5,
+    "out": 4.0,
+    "score": 8.5
+   },
+   "engine": {
+    "build_up": 1.5,
+    "ending": 7,
+    "flags": [
+     "starts_late"
+    ],
+    "in": -2.0,
+    "out": 3.0,
+    "score": 3.75
+   },
+   "escalate": {
+    "build_up": 7.5,
+    "ending": 6.5,
+    "flags": [
+     "ends_early"
+    ],
+    "in": -8.5,
+    "out": 0.5,
+    "score": 6
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 7.5,
+    "ending": 8,
+    "flags": [
+     "correct"
+    ],
+    "in": -7.0,
+    "out": 5.0,
+    "score": 7.75
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 5.5,
+    "ending": 7.5,
+    "flags": [
+     "correct"
+    ],
+    "in": -6.0,
+    "out": 3.0,
+    "score": 6.75
+   },
+   "pi-gemma4-31b": {
+    "build_up": 7,
+    "ending": 8,
+    "flags": [
+     "correct",
+     "ends_early"
+    ],
+    "in": -8.0,
+    "out": 2.0,
+    "score": 6.75
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 6.5,
+    "ending": 8,
+    "flags": [
+     "correct"
+    ],
+    "in": -6.0,
+    "out": 6.0,
+    "score": 7
+   }
+  }
+ },
+ "2026-09-26_03_goal_p1_15-22": {
+  "anchor": 3649.0,
+  "best_score": 8.67,
+  "class": "goal",
+  "date": "2026-09-26",
+  "end": 17.5,
+  "game": "2026-09-26-amherst-ramblers-vs-miramichi-timberwolves",
+  "incident": "2026-09-26_03_goal_p1_15-22",
+  "kind": "goal",
+  "label": "firm",
+  "label_spread": {
+   "end_iqr_s": 1.0,
+   "n_top": 3,
+   "start_iqr_s": 12.0
+  },
+  "match_unreliable": false,
+  "moment": -1.8,
+  "n_judges": 3,
+  "n_penalties": 0,
+  "n_reviewer_events": 6,
+  "period": 1,
+  "play_start": -28.0,
+  "refined_by": "clock_stop",
+  "scorebug_alert": false,
+  "time_elapsed": "15:22",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 6,
+    "ending": 4.33,
+    "flags": [
+     "ends_early",
+     "starts_late"
+    ],
+    "in": -18.0,
+    "out": 5.0,
+    "score": 5.33
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 5.33,
+    "ending": 8.33,
+    "flags": [
+     "correct",
+     "starts_late"
+    ],
+    "in": -15.0,
+    "out": 19.0,
+    "score": 5.67
+   },
+   "engine": {
+    "build_up": 9.67,
+    "ending": 3.33,
+    "flags": [
+     "ends_early"
+    ],
+    "in": -32.0,
+    "out": 3.0,
+    "score": 6.17
+   },
+   "escalate": {
+    "build_up": 6,
+    "ending": 4.33,
+    "flags": [
+     "ends_early",
+     "starts_late"
+    ],
+    "in": -18.0,
+    "out": 5.0,
+    "score": 5.33
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 5,
+    "ending": 8.33,
+    "flags": [
+     "starts_late"
+    ],
+    "in": -15.5,
+    "out": 18.0,
+    "score": 5.5
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 10,
+    "ending": 8.67,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -32.0,
+    "out": 17.0,
+    "score": 8.5
+   },
+   "pi-gemma4-31b": {
+    "build_up": 9.67,
+    "ending": 6.67,
+    "flags": [
+     "correct"
+    ],
+    "in": -28.0,
+    "out": 12.0,
+    "score": 7.83
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 8.67,
+    "ending": 8.33,
+    "flags": [
+     "correct"
+    ],
+    "in": -20.0,
+    "out": 18.0,
+    "score": 8.67
+   }
+  }
+ },
+ "2026-09-26_04_minor_p2_07-20": {
+  "anchor": 5815.0,
+  "best_score": 6.75,
+  "class": "minor",
+  "date": "2026-09-26",
+  "end": 11.0,
+  "game": "2026-09-26-amherst-ramblers-vs-miramichi-timberwolves",
+  "incident": "2026-09-26_04_minor_p2_07-20",
+  "kind": "penalty",
+  "label": "weak",
+  "label_spread": {
+   "end_iqr_s": 0.0,
+   "n_top": 2,
+   "start_iqr_s": 0.0
+  },
+  "match_unreliable": false,
+  "moment": -2.5,
+  "n_judges": 2,
+  "n_penalties": 1,
+  "n_reviewer_events": 5,
+  "period": 2,
+  "play_start": -21.0,
+  "refined_by": null,
+  "scorebug_alert": false,
+  "time_elapsed": "07:20",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 0,
+    "ending": 2,
+    "flags": [
+     "missing_goal",
+     "starts_late"
+    ],
+    "in": -2.0,
+    "out": 3.0,
+    "score": 1.75
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 5.5,
+    "ending": 8,
+    "flags": [
+     "starts_late",
+     "too_long"
+    ],
+    "in": -9.5,
+    "out": 11.0,
+    "score": 6.5
+   },
+   "engine": {
+    "build_up": 0,
+    "ending": 2,
+    "flags": [
+     "missing_goal",
+     "starts_late"
+    ],
+    "in": -2.0,
+    "out": 3.0,
+    "score": 1.75
+   },
+   "escalate": {
+    "build_up": 5,
+    "ending": 3,
+    "flags": [
+     "ends_early",
+     "starts_late"
+    ],
+    "in": -10.5,
+    "out": 4.0,
+    "score": 4.75
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 5,
+    "ending": 3,
+    "flags": [
+     "ends_early",
+     "starts_late"
+    ],
+    "in": -10.5,
+    "out": 3.5,
+    "score": 4.75
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 5,
+    "ending": 3,
+    "flags": [
+     "ends_early",
+     "starts_late"
+    ],
+    "in": -10.5,
+    "out": 4.0,
+    "score": 4.75
+   },
+   "pi-gemma4-31b": {
+    "build_up": 8,
+    "ending": 3.5,
+    "flags": [
+     "ends_early"
+    ],
+    "in": -22.0,
+    "out": 2.0,
+    "score": 5.25
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 8,
+    "ending": 7.5,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -21.0,
+    "out": 12.5,
+    "score": 6.75
+   }
+  }
+ },
+ "2026-09-26_05_minor_p2_08-03": {
+  "anchor": 5940.0,
+  "best_score": 6.5,
+  "class": "minor",
+  "date": "2026-09-26",
+  "end": 23.0,
+  "game": "2026-09-26-amherst-ramblers-vs-miramichi-timberwolves",
+  "incident": "2026-09-26_05_minor_p2_08-03",
+  "kind": "penalty",
+  "label": "weak",
+  "label_spread": {
+   "end_iqr_s": 2.8,
+   "n_top": 4,
+   "start_iqr_s": 0.0
+  },
+  "match_unreliable": false,
+  "moment": 0.0,
+  "n_judges": 2,
+  "n_penalties": 1,
+  "n_reviewer_events": 6,
+  "period": 2,
+  "play_start": -8.0,
+  "refined_by": null,
+  "scorebug_alert": false,
+  "time_elapsed": "08:03",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 2,
+    "ending": 3.5,
+    "flags": [
+     "ends_early",
+     "wrong_event"
+    ],
+    "in": 11.5,
+    "out": 22.0,
+    "score": 3.5
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 6.5,
+    "ending": 4,
+    "flags": [
+     "ends_early",
+     "too_long"
+    ],
+    "in": -8.0,
+    "out": 22.0,
+    "score": 5.5
+   },
+   "engine": {
+    "build_up": 3,
+    "ending": 1.5,
+    "flags": [
+     "ends_early",
+     "wrong_event"
+    ],
+    "in": -2.0,
+    "out": 3.0,
+    "score": 2
+   },
+   "escalate": {
+    "build_up": 2,
+    "ending": 3.5,
+    "flags": [
+     "ends_early",
+     "wrong_event"
+    ],
+    "in": 11.5,
+    "out": 22.0,
+    "score": 3.5
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 6.5,
+    "ending": 5.75,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -8.0,
+    "out": 24.0,
+    "score": 6.0
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 6.5,
+    "ending": 4,
+    "flags": [
+     "ends_early",
+     "too_long"
+    ],
+    "in": -8.0,
+    "out": 22.0,
+    "score": 5.5
+   },
+   "pi-gemma4-31b": {
+    "build_up": 5,
+    "ending": 3,
+    "flags": [
+     "ends_early",
+     "missing_goal"
+    ],
+    "in": -5.0,
+    "out": 6.0,
+    "score": 3.75
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 6.5,
+    "ending": 6.75,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -8.0,
+    "out": 25.0,
+    "score": 6.5
+   }
+  }
+ },
+ "2026-09-26_06_goal_p2_10-33": {
+  "anchor": 6153.75,
+  "best_score": 8.17,
+  "class": "goal",
+  "date": "2026-09-26",
+  "end": 3.0,
+  "game": "2026-09-26-amherst-ramblers-vs-miramichi-timberwolves",
+  "incident": "2026-09-26_06_goal_p2_10-33",
+  "kind": "goal",
+  "label": "firm",
+  "label_spread": {
+   "end_iqr_s": 0.0,
+   "n_top": 4,
+   "start_iqr_s": 3.0
+  },
+  "match_unreliable": false,
+  "moment": -11.0,
+  "n_judges": 3,
+  "n_penalties": 0,
+  "n_reviewer_events": 6,
+  "period": 2,
+  "play_start": -32.0,
+  "refined_by": "clock_stop",
+  "scorebug_alert": false,
+  "time_elapsed": "10:33",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 8,
+    "ending": 5,
+    "flags": [
+     "ends_early"
+    ],
+    "in": -28.0,
+    "out": -5.0,
+    "score": 6.67
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 6.67,
+    "ending": 7.33,
+    "flags": [
+     "correct",
+     "starts_late"
+    ],
+    "in": -26.0,
+    "out": -0.5,
+    "score": 6.83
+   },
+   "engine": {
+    "build_up": 9.33,
+    "ending": 8,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -32.0,
+    "out": 3.0,
+    "score": 8.17
+   },
+   "escalate": {
+    "build_up": 8,
+    "ending": 5,
+    "flags": [
+     "ends_early"
+    ],
+    "in": -28.0,
+    "out": -5.0,
+    "score": 6.67
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 6.67,
+    "ending": 7,
+    "flags": [
+     "correct",
+     "ends_early",
+     "starts_late"
+    ],
+    "in": -26.0,
+    "out": -2.0,
+    "score": 6.83
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 9.33,
+    "ending": 7.33,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -32.0,
+    "out": 7.0,
+    "score": 7.5
+   },
+   "pi-gemma4-31b": {
+    "build_up": 8,
+    "ending": 7.67,
+    "flags": [
+     "correct"
+    ],
+    "in": -28.0,
+    "out": 3.0,
+    "score": 7.83
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 9.33,
+    "ending": 6.67,
+    "flags": [
+     "correct",
+     "ends_early"
+    ],
+    "in": -32.0,
+    "out": -3.0,
+    "score": 8.0
+   }
+  }
+ },
+ "2026-09-26_11_goal_p3_8-42": {
+  "anchor": 9088.75,
+  "best_score": 9,
+  "class": "goal",
+  "date": "2026-09-26",
+  "end": 3.0,
+  "game": "2026-09-26-amherst-ramblers-vs-miramichi-timberwolves",
+  "incident": "2026-09-26_11_goal_p3_8-42",
+  "kind": "goal",
+  "label": "firm",
+  "label_spread": {
+   "end_iqr_s": 0.0,
+   "n_top": 2,
+   "start_iqr_s": 0.0
+  },
+  "match_unreliable": false,
+  "moment": -6.4,
+  "n_judges": 2,
+  "n_penalties": 0,
+  "n_reviewer_events": 6,
+  "period": 3,
+  "play_start": -32.0,
+  "refined_by": "clock_stop",
+  "scorebug_alert": false,
+  "time_elapsed": "8:42",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 6,
+    "ending": 4,
+    "flags": [
+     "correct",
+     "ends_early"
+    ],
+    "in": -23.0,
+    "out": -3.0,
+    "score": 6.0
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 4,
+    "ending": 6.5,
+    "flags": [
+     "starts_late",
+     "too_long"
+    ],
+    "in": -20.5,
+    "out": 13.0,
+    "score": 4.0
+   },
+   "engine": {
+    "build_up": 9.5,
+    "ending": 8,
+    "flags": [
+     "correct"
+    ],
+    "in": -32.0,
+    "out": 3.0,
+    "score": 9
+   },
+   "escalate": {
+    "build_up": 6,
+    "ending": 4,
+    "flags": [
+     "correct",
+     "ends_early"
+    ],
+    "in": -23.0,
+    "out": -3.0,
+    "score": 6.0
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 4,
+    "ending": 7.5,
+    "flags": [
+     "starts_late"
+    ],
+    "in": -20.5,
+    "out": 4.5,
+    "score": 4.75
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 9.5,
+    "ending": 8,
+    "flags": [
+     "correct"
+    ],
+    "in": -32.0,
+    "out": 3.0,
+    "score": 9
+   },
+   "pi-gemma4-31b": {
+    "build_up": 9.5,
+    "ending": 6.5,
+    "flags": [
+     "too_long"
+    ],
+    "in": -32.0,
+    "out": 12.0,
+    "score": 7
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 8,
+    "ending": 7,
+    "flags": [
+     "correct"
+    ],
+    "in": -27.0,
+    "out": 4.0,
+    "score": 7.75
+   }
+  }
+ },
+ "2026-09-26_12_goal_p3_10-38": {
+  "anchor": 9247.75,
+  "best_score": 8.5,
+  "class": "goal",
+  "date": "2026-09-26",
+  "end": 5.0,
+  "game": "2026-09-26-amherst-ramblers-vs-miramichi-timberwolves",
+  "incident": "2026-09-26_12_goal_p3_10-38",
+  "kind": "goal",
+  "label": "firm",
+  "label_spread": {
+   "end_iqr_s": 2.5,
+   "n_top": 3,
+   "start_iqr_s": 0.0
+  },
+  "match_unreliable": false,
+  "moment": -1.0,
+  "n_judges": 2,
+  "n_penalties": 0,
+  "n_reviewer_events": 6,
+  "period": 3,
+  "play_start": -32.0,
+  "refined_by": "clock_stop",
+  "scorebug_alert": false,
+  "time_elapsed": "10:38",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 4.5,
+    "ending": 6.75,
+    "flags": [
+     "starts_late"
+    ],
+    "in": -14.0,
+    "out": 6.0,
+    "score": 5
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 6.5,
+    "ending": 6,
+    "flags": [
+     "correct"
+    ],
+    "in": -15.5,
+    "out": 8.0,
+    "score": 6.75
+   },
+   "engine": {
+    "build_up": 9,
+    "ending": 7.75,
+    "flags": [
+     "correct",
+     "ends_early"
+    ],
+    "in": -32.0,
+    "out": 3.0,
+    "score": 7.75
+   },
+   "escalate": {
+    "build_up": 4.5,
+    "ending": 7,
+    "flags": [
+     "starts_late"
+    ],
+    "in": -14.0,
+    "out": 6.0,
+    "score": 5
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 9,
+    "ending": 7.5,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -32.0,
+    "out": 5.5,
+    "score": 8
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 9,
+    "ending": 7.5,
+    "flags": [
+     "correct"
+    ],
+    "in": -32.0,
+    "out": 5.0,
+    "score": 8.5
+   },
+   "pi-gemma4-31b": {
+    "build_up": 7.5,
+    "ending": 4.5,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -22.0,
+    "out": 11.0,
+    "score": 6.25
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 6.5,
+    "ending": 6.5,
+    "flags": [
+     "correct"
+    ],
+    "in": -16.0,
+    "out": 7.0,
+    "score": 7.0
+   }
+  }
+ },
+ "2026-10-03_04_goal_p1_17-59": {
+  "anchor": 3712.0,
+  "best_score": 9,
+  "class": "goal",
+  "date": "2026-10-03",
+  "end": 10.0,
+  "game": "2026-10-03-amherst-ramblers-vs-pictou-county-weeks-crushers",
+  "incident": "2026-10-03_04_goal_p1_17-59",
+  "kind": "goal",
+  "label": "firm",
+  "label_spread": {
+   "end_iqr_s": 0.0,
+   "n_top": 3,
+   "start_iqr_s": 7.0
+  },
+  "match_unreliable": false,
+  "moment": -1.0,
+  "n_judges": 2,
+  "n_penalties": 0,
+  "n_reviewer_events": 6,
+  "period": 1,
+  "play_start": -32.0,
+  "refined_by": "clock_stop",
+  "scorebug_alert": false,
+  "time_elapsed": "17:59",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 4.5,
+    "ending": 7.5,
+    "flags": [
+     "correct",
+     "starts_late"
+    ],
+    "in": -18.0,
+    "out": 5.0,
+    "score": 5.75
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 3.5,
+    "ending": 8,
+    "flags": [
+     "starts_late"
+    ],
+    "in": -15.0,
+    "out": 11.0,
+    "score": 4.75
+   },
+   "engine": {
+    "build_up": 10,
+    "ending": 5,
+    "flags": [
+     "correct",
+     "ends_early"
+    ],
+    "in": -32.0,
+    "out": 3.0,
+    "score": 7.0
+   },
+   "escalate": {
+    "build_up": 4.5,
+    "ending": 7.5,
+    "flags": [
+     "correct",
+     "starts_late"
+    ],
+    "in": -18.0,
+    "out": 5.0,
+    "score": 5.75
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 10,
+    "ending": 8,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -32.0,
+    "out": 10.0,
+    "score": 8.5
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 10,
+    "ending": 7,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -32.0,
+    "out": 14.0,
+    "score": 8
+   },
+   "pi-gemma4-31b": {
+    "build_up": 9,
+    "ending": 8,
+    "flags": [
+     "correct"
+    ],
+    "in": -25.0,
+    "out": 10.0,
+    "score": 9
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 6.5,
+    "ending": 8,
+    "flags": [
+     "correct"
+    ],
+    "in": -19.0,
+    "out": 13.5,
+    "score": 7.0
+   }
+  }
+ },
+ "2026-10-03_05_minor_p2_08-18": {
+  "anchor": 5992.0,
+  "best_score": 7.5,
+  "class": "minor",
+  "date": "2026-10-03",
+  "end": 15.0,
+  "game": "2026-10-03-amherst-ramblers-vs-pictou-county-weeks-crushers",
+  "incident": "2026-10-03_05_minor_p2_08-18",
+  "kind": "penalty",
+  "label": "firm",
+  "label_spread": {
+   "end_iqr_s": 0.0,
+   "n_top": 4,
+   "start_iqr_s": 0.5
+  },
+  "match_unreliable": false,
+  "moment": -1.5,
+  "n_judges": 3,
+  "n_penalties": 1,
+  "n_reviewer_events": 6,
+  "period": 2,
+  "play_start": -9.2,
+  "refined_by": null,
+  "scorebug_alert": false,
+  "time_elapsed": "08:18",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 7.67,
+    "ending": 4.33,
+    "flags": [
+     "ends_early"
+    ],
+    "in": -8.0,
+    "out": 2.5,
+    "score": 5.83
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 8.67,
+    "ending": 6.67,
+    "flags": [
+     "correct"
+    ],
+    "in": -9.5,
+    "out": 8.0,
+    "score": 7.5
+   },
+   "engine": {
+    "build_up": 0.33,
+    "ending": 3.67,
+    "flags": [
+     "ends_early",
+     "starts_late"
+    ],
+    "in": -2.0,
+    "out": 3.0,
+    "score": 2.33
+   },
+   "escalate": {
+    "build_up": 7.67,
+    "ending": 4.33,
+    "flags": [
+     "ends_early"
+    ],
+    "in": -8.0,
+    "out": 2.5,
+    "score": 5.83
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 7.67,
+    "ending": 6.67,
+    "flags": [
+     "correct"
+    ],
+    "in": -8.0,
+    "out": 6.0,
+    "score": 7.33
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 4.67,
+    "ending": 4.33,
+    "flags": [
+     "ends_early",
+     "starts_late"
+    ],
+    "in": -6.0,
+    "out": 3.5,
+    "score": 5.17
+   },
+   "pi-gemma4-31b": {
+    "build_up": 7.67,
+    "ending": 6,
+    "flags": [
+     "correct",
+     "ends_early"
+    ],
+    "in": -8.0,
+    "out": 5.0,
+    "score": 6.83
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 8,
+    "ending": 8,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -9.0,
+    "out": 15.0,
+    "score": 6.83
+   }
+  }
+ },
+ "2026-10-03_06_goal_p2_15-52": {
+  "anchor": 6749.25,
+  "best_score": 7.5,
+  "class": "goal",
+  "date": "2026-10-03",
+  "end": 10.0,
+  "game": "2026-10-03-amherst-ramblers-vs-pictou-county-weeks-crushers",
+  "incident": "2026-10-03_06_goal_p2_15-52",
+  "kind": "goal",
+  "label": "firm",
+  "label_spread": {
+   "end_iqr_s": 5.8,
+   "n_top": 5,
+   "start_iqr_s": 0.0
+  },
+  "match_unreliable": false,
+  "moment": -13.2,
+  "n_judges": 2,
+  "n_penalties": 0,
+  "n_reviewer_events": 6,
+  "period": 2,
+  "play_start": -32.0,
+  "refined_by": "clock_stop",
+  "scorebug_alert": false,
+  "time_elapsed": "15:52",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 5,
+    "ending": 4.5,
+    "flags": [
+     "ends_early",
+     "starts_late"
+    ],
+    "in": -28.0,
+    "out": -5.0,
+    "score": 4.75
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 7.5,
+    "ending": 7.5,
+    "flags": [
+     "correct"
+    ],
+    "in": -30.0,
+    "out": 5.5,
+    "score": 7.5
+   },
+   "engine": {
+    "build_up": 8.5,
+    "ending": 5.5,
+    "flags": [
+     "correct",
+     "ends_early"
+    ],
+    "in": -32.0,
+    "out": 3.0,
+    "score": 7.25
+   },
+   "escalate": {
+    "build_up": 5,
+    "ending": 4.5,
+    "flags": [
+     "ends_early",
+     "starts_late"
+    ],
+    "in": -28.0,
+    "out": -5.0,
+    "score": 4.75
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 7.5,
+    "ending": 7.5,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -29.5,
+    "out": 10.0,
+    "score": 7.5
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 7.5,
+    "ending": 7.5,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -30.0,
+    "out": 10.0,
+    "score": 7.5
+   },
+   "pi-gemma4-31b": {
+    "build_up": 4,
+    "ending": 7.5,
+    "flags": [
+     "starts_late"
+    ],
+    "in": -26.0,
+    "out": 10.0,
+    "score": 4.75
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 7.5,
+    "ending": 7.5,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -30.0,
+    "out": 10.0,
+    "score": 7.5
+   }
+  }
+ },
+ "2026-10-03_10_goal_p3_17-29": {
+  "anchor": 9750.5,
+  "best_score": 7.83,
+  "class": "goal",
+  "date": "2026-10-03",
+  "end": 14.0,
+  "game": "2026-10-03-amherst-ramblers-vs-pictou-county-weeks-crushers",
+  "incident": "2026-10-03_10_goal_p3_17-29",
+  "kind": "goal",
+  "label": "firm",
+  "label_spread": {
+   "end_iqr_s": 4.9,
+   "n_top": 5,
+   "start_iqr_s": 12.0
+  },
+  "match_unreliable": false,
+  "moment": -0.8,
+  "n_judges": 3,
+  "n_penalties": 0,
+  "n_reviewer_events": 6,
+  "period": 3,
+  "play_start": -25.0,
+  "refined_by": "clock_stop",
+  "scorebug_alert": false,
+  "time_elapsed": "17:29",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 8.67,
+    "ending": 3.33,
+    "flags": [
+     "ends_early"
+    ],
+    "in": -28.0,
+    "out": 4.0,
+    "score": 5.33
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 7.33,
+    "ending": 8.33,
+    "flags": [
+     "correct"
+    ],
+    "in": -16.0,
+    "out": 14.0,
+    "score": 7.5
+   },
+   "engine": {
+    "build_up": 9.33,
+    "ending": 3,
+    "flags": [
+     "ends_early",
+     "too_long"
+    ],
+    "in": -32.0,
+    "out": 3.0,
+    "score": 5.17
+   },
+   "escalate": {
+    "build_up": 8.67,
+    "ending": 3.33,
+    "flags": [
+     "ends_early"
+    ],
+    "in": -28.0,
+    "out": 4.0,
+    "score": 5.33
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 7,
+    "ending": 7.33,
+    "flags": [
+     "correct"
+    ],
+    "in": -15.5,
+    "out": 12.0,
+    "score": 7.0
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 9.33,
+    "ending": 8.67,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -32.0,
+    "out": 14.0,
+    "score": 6.83
+   },
+   "pi-gemma4-31b": {
+    "build_up": 8.67,
+    "ending": 8.67,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -25.0,
+    "out": 12.0,
+    "score": 7.83
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 8.67,
+    "ending": 8.67,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -20.0,
+    "out": 18.5,
+    "score": 7.83
+   }
+  }
+ },
+ "2026-10-03_11_goal_p3_19-24": {
+  "anchor": 9972.25,
+  "best_score": 8.75,
+  "class": "goal",
+  "date": "2026-10-03",
+  "end": 13.5,
+  "game": "2026-10-03-amherst-ramblers-vs-pictou-county-weeks-crushers",
+  "incident": "2026-10-03_11_goal_p3_19-24",
+  "kind": "goal",
+  "label": "firm",
+  "label_spread": {
+   "end_iqr_s": 0.8,
+   "n_top": 5,
+   "start_iqr_s": 5.0
+  },
+  "match_unreliable": false,
+  "moment": -3.0,
+  "n_judges": 2,
+  "n_penalties": 0,
+  "n_reviewer_events": 6,
+  "period": 3,
+  "play_start": -24.0,
+  "refined_by": "clock_stop",
+  "scorebug_alert": false,
+  "time_elapsed": "19:24",
+  "windows": {
+   "api-deepseek-flash": {
+    "build_up": 5,
+    "ending": 6,
+    "flags": [
+     "starts_late"
+    ],
+    "in": -18.0,
+    "out": 2.0,
+    "score": 5
+   },
+   "cu-deepseek-v4.1-flash": {
+    "build_up": 9,
+    "ending": 9,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -26.0,
+    "out": 14.0,
+    "score": 8.0
+   },
+   "engine": {
+    "build_up": 9.5,
+    "ending": 7,
+    "flags": [
+     "correct"
+    ],
+    "in": -32.0,
+    "out": 3.0,
+    "score": 7.5
+   },
+   "escalate": {
+    "build_up": 5,
+    "ending": 6,
+    "flags": [
+     "starts_late"
+    ],
+    "in": -18.0,
+    "out": 2.0,
+    "score": 5
+   },
+   "pi-deepseek-v4.1-flash": {
+    "build_up": 9,
+    "ending": 9,
+    "flags": [
+     "correct"
+    ],
+    "in": -24.0,
+    "out": 13.5,
+    "score": 8.75
+   },
+   "pi-deepseek-v4.1-flash-lean": {
+    "build_up": 9.5,
+    "ending": 8.5,
+    "flags": [
+     "correct",
+     "too_long"
+    ],
+    "in": -30.0,
+    "out": 13.5,
+    "score": 7.75
+   },
+   "pi-gemma4-31b": {
+    "build_up": 8.5,
+    "ending": 9,
+    "flags": [
+     "correct"
+    ],
+    "in": -22.0,
+    "out": 14.0,
+    "score": 8.75
+   },
+   "pi-glm-5.3-flash": {
+    "build_up": 8.5,
+    "ending": 9,
+    "flags": [
+     "correct"
+    ],
+    "in": -24.0,
+    "out": 13.0,
+    "score": 8.5
+   }
+  }
+ }
+}
