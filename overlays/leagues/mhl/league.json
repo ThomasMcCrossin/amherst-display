@@ -1,0 +1,169 @@
+{
+  "id": "mhl",
+  "name": "Maritime Junior Hockey League",
+  "short": "MHL",
+  "sport": "hockey",
+  "logo": "assets/logos/league-mhl.png",
+  "primary": "#0b2d6b",
+  "secondary": "#c8102e",
+  "fallback_logo": "assets/logos/fallback.png",
+  "periods": {
+    "1": "1st",
+    "2": "2nd",
+    "3": "3rd",
+    "4": "OT",
+    "5": "SO"
+  },
+  "clock": "remaining",
+  "provider": {
+    "type": "hockeytech",
+    "client_code": "mhl",
+    "league_id": "1"
+  },
+  "teams": [
+    {
+      "id": "amherst-ramblers",
+      "provider_id": "1",
+      "short": "AMH",
+      "city": "Amherst",
+      "nickname": "Ramblers",
+      "name": "Amherst Ramblers",
+      "logo": "assets/logos/mhl/amherst-ramblers.png",
+      "primary": "#412580",
+      "secondary": "#24114f",
+      "text": "#ffffff"
+    },
+    {
+      "id": "campbellton-tigers",
+      "provider_id": "8",
+      "short": "CAM",
+      "city": "Campbellton",
+      "nickname": "Tigers",
+      "name": "Campbellton Tigers",
+      "logo": "assets/logos/mhl/campbellton-tigers.png",
+      "primary": "#f2a900",
+      "secondary": "#1a1a1a",
+      "text": "#111111"
+    },
+    {
+      "id": "chaleur-lightning",
+      "provider_id": "21",
+      "short": "CHA",
+      "city": "Chaleur",
+      "nickname": "Lightning",
+      "name": "Chaleur Lightning",
+      "logo": "assets/logos/mhl/chaleur-lightning.png",
+      "primary": "#1f3f8f",
+      "secondary": "#0d1f4a",
+      "text": "#ffffff"
+    },
+    {
+      "id": "edmundston-blizzard",
+      "provider_id": "2",
+      "short": "EDM",
+      "city": "Edmundston",
+      "nickname": "Blizzard",
+      "name": "Edmundston Blizzard",
+      "logo": "assets/logos/mhl/edmundston-blizzard.png",
+      "primary": "#4ba4ff",
+      "secondary": "#103d6f",
+      "text": "#ffffff"
+    },
+    {
+      "id": "grand-falls-rapids",
+      "provider_id": "12",
+      "short": "GFR",
+      "city": "Grand Falls",
+      "nickname": "Rapids",
+      "name": "Grand Falls Rapids",
+      "logo": "assets/logos/mhl/grand-falls-rapids.png",
+      "primary": "#1f8a3c",
+      "secondary": "#0c3d1a",
+      "text": "#ffffff"
+    },
+    {
+      "id": "miramichi-timberwolves",
+      "provider_id": "9",
+      "short": "MIR",
+      "city": "Miramichi",
+      "nickname": "Timberwolves",
+      "name": "Miramichi Timberwolves",
+      "logo": "assets/logos/mhl/miramichi-timberwolves.png",
+      "primary": "#7a1f2b",
+      "secondary": "#3b0d14",
+      "text": "#ffffff"
+    },
+    {
+      "id": "pictou-county-weeks-crushers",
+      "provider_id": "7",
+      "short": "PCC",
+      "city": "Pictou County",
+      "nickname": "Weeks Crushers",
+      "name": "Pictou County Weeks Crushers",
+      "logo": "assets/logos/mhl/pictou-county-weeks-crushers.png",
+      "primary": "#c8102e",
+      "secondary": "#5a0a14",
+      "text": "#ffffff"
+    },
+    {
+      "id": "summerside-western-capitals",
+      "provider_id": "10",
+      "short": "SWC",
+      "city": "Summerside",
+      "nickname": "Western Capitals",
+      "name": "Summerside Western Capitals",
+      "logo": "assets/logos/mhl/summerside-western-capitals.png",
+      "primary": "#cf4859",
+      "secondary": "#7e1827",
+      "text": "#ffffff"
+    },
+    {
+      "id": "truro-bearcats",
+      "provider_id": "3",
+      "short": "TRU",
+      "city": "Truro",
+      "nickname": "Bearcats",
+      "name": "Truro Bearcats",
+      "logo": "assets/logos/mhl/truro-bearcats.png",
+      "primary": "#6f51d8",
+      "secondary": "#2f2758",
+      "text": "#ffffff"
+    },
+    {
+      "id": "valley-wildcats",
+      "provider_id": "4",
+      "short": "VAL",
+      "city": "Valley",
+      "nickname": "Wildcats",
+      "name": "Valley Wildcats",
+      "logo": "assets/logos/mhl/valley-wildcats.png",
+      "primary": "#1c1c1c",
+      "secondary": "#6d1a24",
+      "text": "#ffffff"
+    },
+    {
+      "id": "west-kent-steamers",
+      "provider_id": "6",
+      "short": "WKS",
+      "city": "West Kent",
+      "nickname": "Steamers",
+      "name": "West Kent Steamers",
+      "logo": "assets/logos/mhl/west-kent-steamers.png",
+      "primary": "#1b2a6b",
+      "secondary": "#0b1438",
+      "text": "#ffffff"
+    },
+    {
+      "id": "yarmouth-mariners",
+      "provider_id": "5",
+      "short": "YAR",
+      "city": "Yarmouth",
+      "nickname": "Mariners",
+      "name": "Yarmouth Mariners",
+      "logo": "assets/logos/mhl/yarmouth-mariners.png",
+      "primary": "#18b58f",
+      "secondary": "#0f5f52",
+      "text": "#ffffff"
+    }
+  ]
+}
