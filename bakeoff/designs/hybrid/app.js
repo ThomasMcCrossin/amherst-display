@@ -1,6 +1,6 @@
 (function(){
 'use strict';
-var DWELL=12000, TZ='America/Halifax', REFRESH=300000, MAXP=7;
+var DWELL=12000, TZ='America/Halifax', REFRESH=300000, MAXP=8;
 var qs=new URLSearchParams(location.search), override=qs.get('now'), offset=0;
 if(override){var t0=Date.parse(override);if(!isNaN(t0))offset=t0-Date.now();else override=null;}
 function now(){return Date.now()+offset;}
@@ -146,6 +146,19 @@ function heroAway(m){
   var g=m.game,T=teams(g),n=T.n;
   return '<div class="hero">'+heroSide(T.us,'VISITORS')+'<div class="hc rise" style="--i:2"><div class="eyebrow gold">ROAD GAME</div><div class="when">'+tonightWord(g)+' · '+tnice(g.ms)+'</div><div class="cdbig mid cd" data-ms="'+g.ms+'"></div><div class="until">UNTIL PUCK DROP</div><div class="flo"><div class="a">WATCH LIVE ON FLOHOCKEY</div><div class="b">'+(n&&n.flo_url?'Search Amherst Ramblers on flohockey.tv':'Find the Ramblers game on flohockey.tv')+'</div></div><div class="venue">AT '+esc(String(g.venue||'').toUpperCase())+'</div></div>'+heroSide(T.th,'HOME')+'</div>';
 }
+/* ---------- tickets (Tom, #20): next game at home -> buy online + QR; gone once pickup closes ---------- */
+var TIX_URL='curlys.ca/pucks';           /* redirects to the live Curly's ticket listing; qr-tickets.svg encodes https://curlys.ca/pucks */
+function tixGame(){var g=nextUp(now());return g&&g.home&&g.ms-3600e3>now()&&g.ms-now()<7*864e5?g:null;}
+function tixCut(g){return tnice(g.ms-3600e3);}  /* store closes 1 h before puck drop */
+function tixHtml(){
+  var g=tixGame();if(!g)return '';
+  var today=dkey(now())===dkey(g.ms),day=today?'TONIGHT':dnice(g.ms).toUpperCase();
+  return hd('RAMBLERS TICKETS',day+' · '+tnice(g.ms)+' · VS '+String((g.opp||{}).name||'').toUpperCase())+
+   '<div class="tix"><div class="tl rise"><div class="t1">Buy online at curlys.ca</div>'+
+   '<div class="t2">Pick up at <b>Curly\'s Sports &amp; Supplements</b>, 81 South Albion St, before <b class="gold">'+tixCut(g)+'</b>'+(today?' today.':' on game day.')+'</div>'+
+   '<div class="t3"><span>Adult $15</span><span>Child 5 to 12 $10</span><span>4 and under free</span></div></div>'+
+   '<div class="tq rise" style="--i:2"><img src="qr-tickets.svg" alt=""><div class="scan">Scan to buy</div><div class="url">'+TIX_URL+'</div><div class="nr">No refunds on online orders.</div></div></div>';
+}
 function lastHtml(m){
   var g=m.game.rec;if(!g)return '';
   var win=g.result==='W',ot=g.ot_so?(' / '+g.ot_so):'',o=g.opp||{};
@@ -257,6 +270,7 @@ function mhlHeavy(){return lgToday().length>0;}
 /* panel registry: key -> [bug title, builder, dynamic?] */
 var REG={
   hero:['GAME DAY',function(m){return m.key==='away'?heroAway(m):heroHome(m);}],
+  tix:['TICKETS',tixHtml],
   last:['LAST GAME',lastHtml],
   tape:['TALE OF THE TAPE',function(m){var g=(m.key==='home'||m.key==='away')?m.game:nextUp(now());return tapeHtml(g);}],
   standings:['STANDINGS',standingsHtml],
@@ -267,10 +281,10 @@ var REG={
   stories:['STORYLINES',storiesHtml,true]
 };
 var SEQ={
-  home:['hero','tape','mhl','standings','leaders','stories'],
+  home:['hero','tix','tape','mhl','standings','leaders','stories'],
   away:['hero','tape','mhl','standings','leaders','stories'],
-  recap:['last','mhl','standings','tape','leaders','stories'],
-  off:['standings','mhl','tape','leaders','streaks','sched','stories']
+  recap:['last','tix','mhl','standings','tape','leaders','stories'],
+  off:['standings','tix','mhl','tape','leaders','streaks','sched','stories']
 };
 
 /* ---------- ticker: starts at an item boundary, items scroll in from the right ---------- */
@@ -280,6 +294,7 @@ function tickerItems(){
   var lt=lgToday(),lk=null;
   if(!lt.length){var pk={};lgAll().forEach(function(x){if(lgState(x)==='final'&&x.ms<=now())pk[dkey(x.ms)]=1;});var ks=Object.keys(pk).sort();lk=ks.length?ks[ks.length-1]:null;lt=lk?lgAll().filter(function(x){return dkey(x.ms)===lk&&lgState(x)==='final';}):[];}
   lt.slice(0,6).forEach(function(x){var st=lgState(x),lb=lgLabel(x,st),g=x.g;if(st==='scheduled')return;it.push([lb.lv?'MHL LIVE':'MHL '+lb.t,g.away.abbr+' '+g.away.goals+'  '+g.home.abbr+' '+g.home.goals+(lb.lv?'  ('+lb.t+')':'')]);});
+  var tg=tixGame();if(tg)it.push(['TICKETS','Buy online at '+TIX_URL+'. Pick up at Curly\'s Sports & Supplements, 81 South Albion St, before '+tixCut(tg)+' on game day']);
   var nx=nextUp(now());if(nx)it.push(['NEXT',(nx.home?'vs ':'at ')+(nx.opp.name||'')+' - '+dnice(nx.ms)+', '+tnice(nx.ms)]);
   realInsights().slice(0,12).forEach(function(i){it.push([String(i.kind||'INSIGHT').toUpperCase(),trunc(i.headline,110)]);});
   var d=myDiv();if(d&&d.rows[0])it.push(['STANDINGS',d.rows[0].team+' lead '+d.name+' with '+d.rows[0].pts+' points']);
@@ -369,7 +384,7 @@ function next(){
   }
   timer=setTimeout(next,DWELL);
 }
-function sigNow(){mode=mode||pickMode();var m=pickMode();return m.key+'|'+(m.game?m.game.id:'')+'|'+(B&&B.generated_at)+'|'+(INS&&INS.generated_at);}
+function sigNow(){mode=mode||pickMode();var m=pickMode();return m.key+'|'+(m.game?m.game.id:'')+'|'+(tixGame()?1:0)+'|'+(B&&B.generated_at)+'|'+(INS&&INS.generated_at);}
 function render(){
   var sig=sigNow();
   if(sig===lastSig){bugNext();return;}
