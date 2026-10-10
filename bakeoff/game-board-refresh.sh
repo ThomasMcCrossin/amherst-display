@@ -8,7 +8,11 @@ DEPLOY="${GAME_BOARD_DIR:-$HOME/.local/share/watch-rams/game-board}"
 set -a; . "$HOME/.local/state/watch-rams/amherst-highlights.env"; set +a   # HOCKEYTECH_API_KEY
 cd "$HERE/.."
 node bakeoff/build_board_data.mjs >/dev/null
-node bakeoff/build_insights.mjs >/dev/null
+# A failed insights build must not freeze the board: publish board.json anyway and keep the last good insights.json
+# (the page drops insights past valid_until). The unit still fails so the error is visible.
+files=(board.json insights.json); rc=0
+node bakeoff/build_insights.mjs >/dev/null || { rc=$?; files=(board.json); }
 mkdir -p "$DEPLOY/data" "$DEPLOY/designs/hybrid"
 rsync -a --delete "$HERE/designs/hybrid/" "$DEPLOY/designs/hybrid/"
-for f in board.json insights.json; do cp "$HERE/data/$f" "$DEPLOY/data/.$f.tmp" && mv "$DEPLOY/data/.$f.tmp" "$DEPLOY/data/$f"; done
+for f in "${files[@]}"; do cp "$HERE/data/$f" "$DEPLOY/data/.$f.tmp" && mv "$DEPLOY/data/.$f.tmp" "$DEPLOY/data/$f"; done
+exit "$rc"

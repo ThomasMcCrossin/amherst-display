@@ -24,6 +24,15 @@ const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', '
 const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const dayOf = ymd => DAYS[new Date(`${ymd}T12:00:00Z`).getUTCDay()];
 const mdOf = ymd => `${MONTHS[+ymd.slice(5, 7) - 1]} ${+ymd.slice(8, 10)}`;
+// A head-to-head list grows with every meeting; past the 140-char detail limit, say the record and the last meeting instead.
+const fitDetail = (full, summary) => full.length <= 140 ? full : summary();
+const h2hSummary = (newestFirst, w) => {
+  const home = newestFirst.filter(g => g.home), road = newestFirst.filter(g => !g.home);
+  const rec = gs => { const gw = gs.filter(g => g.result === 'W').length; return `${gw}-${gs.length - gw}`; };
+  const last = newestFirst[0];
+  const verb = last.result === 'W' ? 'won' : last.result === 'L' ? 'lost' : `lost in ${last.ot_so}`;
+  return `Won ${w} of ${newestFirst.length}: ${rec(home)} at home, ${rec(road)} on the road. Last met ${mdOf(last.date)}: ${verb} ${last.score.for}-${last.score.against} ${last.home ? 'at home' : 'on the road'}.`;
+};
 const addDays = (ymd, n) => new Date(new Date(`${ymd}T12:00:00Z`).getTime() + n * 864e5).toISOString().slice(0, 10);
 const clock12 = iso => { let h = +iso.slice(11, 13); const m = iso.slice(14, 16); const ap = h >= 12 ? 'PM' : 'AM'; h = h % 12 || 12; return `${h}:${m} ${ap}`; };
 const ord = n => { const s = ['th', 'st', 'nd', 'rd'], v = n % 100; return n + (s[(v - 20) % 10] || s[v] || s[0]); };
@@ -170,13 +179,14 @@ export function buildItems(board, opts = {}) {
       const lines = sorted.map(g => `${g.result === 'W' ? 'Won' : g.result === 'L' ? 'Lost' : 'Lost in ' + g.ot_so} ${g.score.for}-${g.score.against} ${g.home ? 'at home' : 'on the road'} ${mdOf(g.date)}${g === crowd ? ` in front of ${g.attendance.toLocaleString('en-CA')}` : ''}`);
       add({ id: 'h2h-last-season', kind: 'matchup', priority: 2, team_id: opp.id, valid_until: gameEndIso,
         headline: oneGoal ? `Last year vs ${oTown}: ${word(w)} win, ${word(l)} loss, both by one goal`.replace('one win, one loss', 'a win and a loss') : `Last year vs ${oTown}: ${w}-${l}`,
-        detail: `${lines.join('. ')}.`,
+        detail: fitDetail(`${lines.join('. ')}.`, () => h2hSummary(sorted, w)),
         stat: { value: `${w}-${l}`, label: `last season vs ${opp.abbr}` }, sources: [`${srcNg}.h2h_last_season`] });
     }
     if ((ng.h2h_this_season ?? []).length) {
       const t = ng.h2h_this_season, w = t.filter(g => g.result === 'W').length;
       add({ id: 'h2h-this-season', kind: 'matchup', priority: 2, team_id: opp.id, valid_until: gameEndIso,
-        headline: `Season series vs ${oTown}: ${w}-${t.length - w}`, detail: t.map(g => `${g.result} ${g.score.for}-${g.score.against} ${mdOf(g.date)}`).join(', ') + '.',
+        headline: `Season series vs ${oTown}: ${w}-${t.length - w}`, detail: fitDetail(t.map(g => `${g.result} ${g.score.for}-${g.score.against} ${mdOf(g.date)}`).join(', ') + '.',
+          () => h2hSummary([...t].sort((a, b) => b.date.localeCompare(a.date)), w)),
         stat: { value: `${w}-${t.length - w}`, label: 'this season' }, sources: [`${srcNg}.h2h_this_season`] });
     }
 
