@@ -102,9 +102,9 @@ UID:mhl-5045@amherst-display
 DTSTAMP:20261010T220000Z
 DTSTART:20261010T220000Z
 DTEND:20261011T010000Z
-SUMMARY:Amherst Ramblers @ Summerside Western Capitals
+SUMMARY:Amherst Ramblers @ Summerside Western Capitals (L 0-1)
 LOCATION:Credit Union Place
-DESCRIPTION:MHL\nHockeyTech game 5045
+DESCRIPTION:MHL\nHockeyTech game 5045\nFinal: L 0-1
 STATUS:CONFIRMED
 END:VEVENT
 BEGIN:VEVENT
