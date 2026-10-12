@@ -152,7 +152,7 @@ function tixGame(){var g=nextUp(now());return g&&g.home&&g.ms-3600e3>now()&&g.ms
 function tixCut(g){return tnice(g.ms-3600e3);}  /* store closes 1 h before puck drop */
 function tixHtml(){
   var g=tixGame();if(!g)return '';
-  var today=dkey(now())===dkey(g.ms),day=today?'TONIGHT':dnice(g.ms).toUpperCase();
+  var today=dkey(now())===dkey(g.ms),day=tonightWord(g);  /* TODAY for a matinee, TONIGHT from 5 PM */
   return hd('RAMBLERS TICKETS',day+' · '+tnice(g.ms)+' · VS '+String((g.opp||{}).name||'').toUpperCase())+
    '<div class="tix"><div class="tl rise"><div class="t1">Buy online at curlys.ca</div>'+
    '<div class="t2">Pick up at <b>Curly\'s Sports &amp; Supplements</b>, 81 South Albion St, before <b class="gold">'+tixCut(g)+'</b>'+(today?' today.':' on game day.')+'</div>'+
