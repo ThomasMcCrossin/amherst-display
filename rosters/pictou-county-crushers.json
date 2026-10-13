@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 7,
-  "updated_at": "2026-10-12T15:51:57.048Z",
+  "updated_at": "2026-10-13T14:27:43.434Z",
   "player_count": 25,
   "players": [
     {
@@ -664,11 +664,11 @@
         "losses": 2,
         "ot_losses": 0,
         "minutes_played": 185,
-        "saves": 92,
-        "shots": 103,
+        "saves": 97,
+        "shots": 108,
         "goals_against": 11,
         "shutouts": 0,
-        "save_percentage": 0.893,
+        "save_percentage": 0.898,
         "goals_against_average": 3.57
       },
       "hockeytech_id": "3794",

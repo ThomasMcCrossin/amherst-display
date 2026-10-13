@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 2,
-  "updated_at": "2026-10-12T15:51:44.023Z",
+  "updated_at": "2026-10-13T14:27:34.540Z",
   "player_count": 23,
   "players": [
     {
@@ -158,8 +158,8 @@
       "stats": {
         "games_played": 7,
         "goals": 2,
-        "assists": 4,
-        "points": 6,
+        "assists": 5,
+        "points": 7,
         "plus_minus": 0,
         "penalty_minutes": 6,
         "power_play_goals": 0,
@@ -170,7 +170,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.86
+        "points_per_game": 1
       },
       "hockeytech_id": "4144",
       "person_id": "4829",
@@ -581,11 +581,11 @@
         "losses": 0,
         "ot_losses": 0,
         "minutes_played": 180,
-        "saves": 63,
-        "shots": 73,
+        "saves": 68,
+        "shots": 78,
         "goals_against": 10,
         "shutouts": 0,
-        "save_percentage": 0.863,
+        "save_percentage": 0.872,
         "goals_against_average": 3.33
       },
       "hockeytech_id": "3842",
@@ -652,8 +652,8 @@
       "stats": {
         "games_played": 7,
         "goals": 1,
-        "assists": 2,
-        "points": 3,
+        "assists": 3,
+        "points": 4,
         "plus_minus": 0,
         "penalty_minutes": 4,
         "power_play_goals": 0,
@@ -664,7 +664,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.43
+        "points_per_game": 0.57
       },
       "hockeytech_id": "4141",
       "person_id": "4826",
@@ -736,8 +736,8 @@
       "stats": {
         "games_played": 8,
         "goals": 6,
-        "assists": 8,
-        "points": 14,
+        "assists": 9,
+        "points": 15,
         "plus_minus": 0,
         "penalty_minutes": 2,
         "power_play_goals": 2,
@@ -748,7 +748,7 @@
         "short_handed_points": 1,
         "game_winning_goals": 2,
         "overtime_goals": 0,
-        "points_per_game": 1.75
+        "points_per_game": 1.88
       },
       "hockeytech_id": "3022",
       "person_id": "3528",

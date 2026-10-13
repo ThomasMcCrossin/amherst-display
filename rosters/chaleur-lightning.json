@@ -5,8 +5,8 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 21,
-  "updated_at": "2026-10-12T15:52:09.559Z",
-  "player_count": 22,
+  "updated_at": "2026-10-13T14:27:51.100Z",
+  "player_count": 21,
   "players": [
     {
       "player_id": "mhl-3495",
@@ -133,49 +133,6 @@
       },
       "hockeytech_id": "3296",
       "person_id": "3851",
-      "flags": [
-        "ht-played-major-junior"
-      ]
-    },
-    {
-      "player_id": "mhl-3182",
-      "number": "7",
-      "first_name": "Sam",
-      "last_name": "Rocca",
-      "name": "Sam Rocca",
-      "position": "RW",
-      "height": "6'0",
-      "height_inches": 72,
-      "weight": 165,
-      "shoots": "R",
-      "birthdate": "2007-08-20",
-      "birth_year": "'07",
-      "age": 19,
-      "hometown": "French Lake, NB",
-      "birthplace": "French Lake, NB, NB",
-      "rookie": false,
-      "veteran": false,
-      "headshot": "assets/headshots/Chaleur-Lightning/7-sam-rocca.jpg",
-      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3182.jpg",
-      "stats": {
-        "games_played": 7,
-        "goals": 1,
-        "assists": 2,
-        "points": 3,
-        "plus_minus": 0,
-        "penalty_minutes": 2,
-        "power_play_goals": 0,
-        "power_play_assists": 1,
-        "power_play_points": 1,
-        "short_handed_goals": 0,
-        "short_handed_assists": 0,
-        "short_handed_points": 0,
-        "game_winning_goals": 0,
-        "overtime_goals": 0,
-        "points_per_game": 0.43
-      },
-      "hockeytech_id": "3182",
-      "person_id": "3702",
       "flags": [
         "ht-played-major-junior"
       ]
@@ -626,11 +583,11 @@
         "losses": 1,
         "ot_losses": 0,
         "minutes_played": 282,
-        "saves": 123,
-        "shots": 142,
+        "saves": 121,
+        "shots": 140,
         "goals_against": 19,
         "shutouts": 0,
-        "save_percentage": 0.866,
+        "save_percentage": 0.864,
         "goals_against_average": 4.04
       },
       "hockeytech_id": "3716",

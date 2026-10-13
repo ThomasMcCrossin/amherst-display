@@ -112,9 +112,9 @@ UID:mhl-5051@amherst-display
 DTSTAMP:20261012T170000Z
 DTSTART:20261012T170000Z
 DTEND:20261012T200000Z
-SUMMARY:Summerside Western Capitals @ Amherst Ramblers
+SUMMARY:Summerside Western Capitals @ Amherst Ramblers (W 4-2)
 LOCATION:Amherst Stadium
-DESCRIPTION:MHL\nHockeyTech game 5051
+DESCRIPTION:MHL\nHockeyTech game 5051\nFinal: W 4-2
 STATUS:CONFIRMED
 END:VEVENT
 BEGIN:VEVENT
