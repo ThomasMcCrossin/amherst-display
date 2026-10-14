@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 7,
-  "updated_at": "2026-10-13T14:27:43.434Z",
+  "updated_at": "2026-10-14T12:13:09.793Z",
   "player_count": 25,
   "players": [
     {
@@ -418,8 +418,8 @@
       "stats": {
         "games_played": 10,
         "goals": 4,
-        "assists": 3,
-        "points": 7,
+        "assists": 2,
+        "points": 6,
         "plus_minus": 0,
         "penalty_minutes": 19,
         "power_play_goals": 1,
@@ -430,7 +430,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.7
+        "points_per_game": 0.6
       },
       "hockeytech_id": "3548",
       "person_id": "4130",
@@ -627,11 +627,11 @@
         "losses": 4,
         "ot_losses": 1,
         "minutes_played": 420,
-        "saves": 233,
-        "shots": 258,
+        "saves": 237,
+        "shots": 262,
         "goals_against": 25,
         "shutouts": 0,
-        "save_percentage": 0.903,
+        "save_percentage": 0.905,
         "goals_against_average": 3.57
       },
       "hockeytech_id": "2773",
@@ -884,7 +884,23 @@
       "veteran": false,
       "headshot": "assets/headshots/Pictou-County-Crushers/77-michael-pilgrim.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3369.jpg",
-      "stats": {},
+      "stats": {
+        "games_played": 8,
+        "goals": 0,
+        "assists": 1,
+        "points": 1,
+        "plus_minus": 0,
+        "penalty_minutes": 19,
+        "power_play_goals": 0,
+        "power_play_assists": 0,
+        "power_play_points": 0,
+        "short_handed_goals": 0,
+        "short_handed_assists": 0,
+        "short_handed_points": 0,
+        "game_winning_goals": 0,
+        "overtime_goals": 0,
+        "points_per_game": 0.13
+      },
       "hockeytech_id": "3369",
       "person_id": "3931",
       "flags": []

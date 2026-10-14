@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 21,
-  "updated_at": "2026-10-13T14:27:51.100Z",
+  "updated_at": "2026-10-14T12:13:14.835Z",
   "player_count": 21,
   "players": [
     {
@@ -201,19 +201,19 @@
       "stats": {
         "games_played": 7,
         "goals": 4,
-        "assists": 5,
-        "points": 9,
+        "assists": 6,
+        "points": 10,
         "plus_minus": 0,
         "penalty_minutes": 0,
         "power_play_goals": 1,
-        "power_play_assists": 2,
-        "power_play_points": 3,
+        "power_play_assists": 3,
+        "power_play_points": 4,
         "short_handed_goals": 0,
         "short_handed_assists": 0,
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 1,
-        "points_per_game": 1.29
+        "points_per_game": 1.43
       },
       "hockeytech_id": "3718",
       "person_id": "4333",
@@ -724,8 +724,8 @@
       "stats": {
         "games_played": 7,
         "goals": 1,
-        "assists": 1,
-        "points": 2,
+        "assists": 0,
+        "points": 1,
         "plus_minus": 0,
         "penalty_minutes": 20,
         "power_play_goals": 0,
@@ -736,7 +736,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.29
+        "points_per_game": 0.14
       },
       "hockeytech_id": "3902",
       "person_id": "4548",

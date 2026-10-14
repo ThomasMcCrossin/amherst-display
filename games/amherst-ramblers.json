@@ -7,7 +7,7 @@
   "season_ids": [
     46
   ],
-  "updated_at": "2026-10-13T14:28:35.926Z",
+  "updated_at": "2026-10-14T12:13:58.736Z",
   "summary": {
     "games_played": 11,
     "wins": 4,
@@ -1561,8 +1561,8 @@
         },
         "mhl-3766": {
           "position": "G",
-          "saves": 32,
-          "shots_against": 33,
+          "saves": 34,
+          "shots_against": 35,
           "goals_against": 1,
           "save_percentage": "0.000",
           "time_on_ice": "59:09"
@@ -1579,16 +1579,16 @@
       "box_score": {
         "shots_by_period": {
           "ramblers": {
-            "period1": 15,
-            "period2": 18,
-            "period3": 10,
-            "total": 43
+            "period1": 9,
+            "period2": 13,
+            "period3": 12,
+            "total": 34
           },
           "opponent": {
-            "period1": 9,
+            "period1": 10,
             "period2": 15,
-            "period3": 9,
-            "total": 33
+            "period3": 10,
+            "total": 35
           }
         },
         "scoring_by_period": {
@@ -1624,8 +1624,8 @@
             {
               "name": "Brandon Lavoie",
               "time_on_ice": "59:09",
-              "saves": 32,
-              "shots_against": 33,
+              "saves": 34,
+              "shots_against": 35,
               "on_ice": "1st/0:00",
               "off_ice": "3rd/19:09",
               "decision": "L"
@@ -1635,8 +1635,8 @@
             {
               "name": "Max Picard",
               "time_on_ice": "60:00",
-              "saves": 43,
-              "shots_against": 43,
+              "saves": 34,
+              "shots_against": 34,
               "on_ice": "1st/0:00",
               "off_ice": "3rd/20:00",
               "decision": "W"
@@ -2044,10 +2044,6 @@
               "player_id": "mhl-3545",
               "name": "Jameson George",
               "number": 4
-            },
-            {
-              "name": "Marek Dubuc",
-              "number": 88
             }
           ],
           "power_play": false,
@@ -2071,6 +2067,11 @@
               "player_id": "mhl-3756",
               "name": "Zach Wheeler",
               "number": 19
+            },
+            {
+              "player_id": "mhl-4138",
+              "name": "Max Sheppard",
+              "number": 58
             }
           ],
           "power_play": false,
@@ -2096,9 +2097,9 @@
               "number": 19
             },
             {
-              "player_id": "mhl-3433",
-              "name": "Nathan Weber",
-              "number": 11
+              "player_id": "mhl-3833",
+              "name": "Owen Dyke",
+              "number": 82
             }
           ],
           "power_play": false,
@@ -2121,6 +2122,11 @@
               "player_id": "mhl-4018",
               "name": "Malcom Dumont",
               "number": 91
+            },
+            {
+              "player_id": "mhl-3402",
+              "name": "Alex Symes",
+              "number": 12
             }
           ],
           "power_play": true,
@@ -2172,11 +2178,6 @@
               "player_id": "mhl-3833",
               "name": "Owen Dyke",
               "number": 82
-            },
-            {
-              "player_id": "mhl-4025",
-              "name": "Jonathan Lau",
-              "number": 9
             }
           ],
           "power_play": false,
@@ -2202,9 +2203,9 @@
               "number": 13
             },
             {
-              "player_id": "mhl-3402",
-              "name": "Alex Symes",
-              "number": 12
+              "player_id": "mhl-3192",
+              "name": "Carter Bromley",
+              "number": 10
             }
           ],
           "power_play": true,
@@ -2439,8 +2440,8 @@
         "mhl-4025": {
           "position": "C",
           "goals": 0,
-          "assists": 1,
-          "points": 1,
+          "assists": 0,
+          "points": 0,
           "penalty_minutes": 2,
           "shots": 0,
           "plus_minus": "0",
@@ -2465,8 +2466,8 @@
         "mhl-3433": {
           "position": "LW",
           "goals": 0,
-          "assists": 1,
-          "points": 1,
+          "assists": 0,
+          "points": 0,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -2595,8 +2596,8 @@
         "mhl-4138": {
           "position": "D",
           "goals": 0,
-          "assists": 0,
-          "points": 0,
+          "assists": 1,
+          "points": 1,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -2621,8 +2622,8 @@
         "mhl-3833": {
           "position": "D",
           "goals": 0,
-          "assists": 2,
-          "points": 2,
+          "assists": 3,
+          "points": 3,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
