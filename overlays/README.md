@@ -27,7 +27,7 @@ Adding a league means adding a pack and logos. No code changes.
 
 ```jsonc
 {
-  "kind": "score|penalty|fight|save|moment|break|final|intro",
+  "kind": "score|penalty|fight|save|moment|break|final|intro|shootout",
   "sport": "hockey", "width": 1920, "height": 1080,
   "league": {"id","name","short","logo","primary","secondary"},
   "home": {team}, "away": {team},          // team = {id,name,city,nickname,short,logo,primary,secondary,text}
@@ -39,7 +39,8 @@ Adding a league means adding a pack and logos. No code changes.
   "others": [{"name", "number", "side"}],  // e.g. the other fighter
   "lines": ["Assists: ..."],               // supporting lines, pre-formatted
   "tags": ["PP", "GWG"], "badge": "UNVERIFIED" | null,
-  "context": "MHL Regular Season", "stats": [{"label", "home", "away"}]
+  "context": "MHL Regular Season", "stats": [{"label", "home", "away"}],
+  "shootout": {"home": [true, false, null], "away": [...]}   // kind shootout only, see below
 }
 ```
 
@@ -65,6 +66,10 @@ and no JavaScript animation (the output is a still PNG; a theme may later gain m
 Rules every theme must meet (`render.mjs` checks the first three):
 - Text is never clipped or cut off. Long names shrink or wrap within their box.
 - Nothing goes off-frame. Keep a 96 px side and 54 px top/bottom title-safe margin.
+- `shootout` is a tally bar along the bottom: each team's attempts in order (`true` goal,
+  `false` no goal, `null` still to shoot; at least 3 slots), `score` = shootout goals,
+  `side` = the team that just shot, `headline` and an optional `lines[0]` caption in the
+  middle. Themes without it fall back to `moment`. Only community-rink draws it so far.
 - Lower-third kinds (`score penalty fight save moment`) stay clear of the top-left
   broadcast scorebug zone (0,0)-(720,190). Keep them in the bottom ~30% of the frame.
 - They are readable on a canteen TV across the room. Text over video sits on a solid or
