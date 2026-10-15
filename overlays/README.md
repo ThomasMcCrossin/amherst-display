@@ -69,7 +69,8 @@ Rules every theme must meet (`render.mjs` checks the first three):
 - `shootout` is a tally bar along the bottom: each team's attempts in order (`true` goal,
   `false` no goal, `null` still to shoot; at least 3 slots), `score` = shootout goals,
   `side` = the team that just shot, `headline` and an optional `lines[0]` caption in the
-  middle. Themes without it fall back to `moment`. Only community-rink draws it so far.
+  middle. Themes without it fall back to `moment`. Only community-rink draws it so far: up to 8
+  rounds full size, 9-11 smaller, past 11 the last 9 rounds behind a `+N` count (any length).
 - Lower-third kinds (`score penalty fight save moment`) stay clear of the top-left
   broadcast scorebug zone (0,0)-(720,190). Keep them in the bottom ~30% of the frame.
 - They are readable on a canteen TV across the room. Text over video sits on a solid or

@@ -208,10 +208,15 @@ const LOWER_CSS = `
 function shootout(spec, e) {
   const so = spec.shootout || { home: [], away: [] };
   const slots = Math.max(3, (so.home || []).length, (so.away || []).length);
+  // Full size fits 8 marks, small 11. Past that both rows show the same last 9 rounds behind a
+  // "+N" chip for the earlier ones; the score square still counts every goal.
+  const small = slots > 8;
+  const first = slots > 11 ? slots - 9 : 0;
   const block = (side) => {
     const t = spec[side];
-    const marks = Array.from({ length: slots }, (_, i) => {
-      const v = (so[side] || [])[i];
+    const marks = (first ? `<span class="moreso">+${first}</span>` : "") +
+      Array.from({ length: slots - first }, (_, i) => {
+      const v = (so[side] || [])[first + i];
       const cls = v === true ? "goal" : v === false ? "miss" : "todo";
       return `<i class="mk ${cls}"></i>`;
     }).join("");
@@ -221,7 +226,7 @@ function shootout(spec, e) {
       <span class="sobar" style="background:${t.primary}"></span>
       ${plate(t.logo, "soplate")}
       <span class="socode">${e(t.short)}</span>
-      <span class="somarks">${marks}</span>
+      <span class="somarks${small ? " sm" : ""}">${marks}</span>
       <span class="sonum" style="background:${t.primary};color:${t.text}">${e(score)}</span></div>`;
   };
   const cap = (spec.lines || []).filter(Boolean)[0] || "";
@@ -258,6 +263,10 @@ const BAR_CSS = `
   border-radius:3px;background:${INK};transform:rotate(45deg)}
 .mk.miss::after{transform:rotate(-45deg)}
 .mk.todo{box-shadow:inset 0 0 0 2px rgba(247,241,230,.28)}
+.somarks.sm{gap:6px;align-items:center}
+.somarks.sm .mk{width:24px;height:24px}
+.somarks.sm .mk.miss::before,.somarks.sm .mk.miss::after{left:4px;right:4px;top:10px;height:4px;border-radius:2px}
+.moreso{font-family:"Bebas Neue",sans-serif;font-size:30px;line-height:1;color:${MUTED};flex:none;margin-right:4px}
 .sonum{font-family:"Bebas Neue",sans-serif;font-size:64px;line-height:1;width:84px;height:84px;flex:none;
   display:flex;align-items:center;justify-content:center;border-radius:12px;
   box-shadow:inset 0 0 0 2px rgba(0,0,0,.20)}
