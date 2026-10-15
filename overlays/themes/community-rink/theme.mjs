@@ -10,6 +10,7 @@ export const meta = {
 
 const LOWER_KINDS = new Set(["score", "penalty", "fight", "save", "moment"]);
 const CARD_KINDS = new Set(["break", "final", "intro"]);
+const BAR_KINDS = new Set(["shootout"]);
 
 const INK = "#f7f1e6";       // warm cream
 const MUTED = "#bdb3a2";     // worn paint
@@ -200,6 +201,73 @@ const LOWER_CSS = `
 .snum{font-family:"Bebas Neue",sans-serif;font-size:44px;line-height:1}
 `;
 
+// ---------- shootout tally bar ----------
+// spec.shootout = {home: [true|false|null...], away: [...]}: each team's attempts in order
+// (true = goal, false = no goal, null = still to shoot). spec.score = shootout goals.
+// spec.side = the team that just shot (its row is lit). lines[0] = an optional caption.
+function shootout(spec, e) {
+  const so = spec.shootout || { home: [], away: [] };
+  const slots = Math.max(3, (so.home || []).length, (so.away || []).length);
+  const block = (side) => {
+    const t = spec[side];
+    const marks = Array.from({ length: slots }, (_, i) => {
+      const v = (so[side] || [])[i];
+      const cls = v === true ? "goal" : v === false ? "miss" : "todo";
+      return `<i class="mk ${cls}"></i>`;
+    }).join("");
+    const lit = spec.side === side ? " lit" : "";
+    const score = spec.score ? spec.score[side] : "";
+    return `<div class="sob ${side}${lit}">
+      <span class="sobar" style="background:${t.primary}"></span>
+      ${plate(t.logo, "soplate")}
+      <span class="socode">${e(t.short)}</span>
+      <span class="somarks">${marks}</span>
+      <span class="sonum" style="background:${t.primary};color:${t.text}">${e(score)}</span></div>`;
+  };
+  const cap = (spec.lines || []).filter(Boolean)[0] || "";
+  return { css: BAR_CSS, html: `
+  <div class="so">
+    ${block("away")}
+    <div class="somid"><span class="sohead">${e(spec.headline || "")}</span>
+      ${cap ? `<span class="socap" style="font-size:${fit(cap, 330, 26, 18)}px">${e(cap)}</span>` : ""}</div>
+    ${block("home")}
+  </div>` };
+}
+
+const BAR_CSS = `
+.so{position:absolute;left:96px;right:96px;bottom:54px;height:112px;display:flex;align-items:stretch;
+  border-radius:14px;overflow:hidden;color:${INK};font-family:"Barlow Semi Condensed",sans-serif;
+  background:linear-gradient(180deg,#252932 0%,#181b22 100%);border:1px solid rgba(255,255,255,.10);
+  box-shadow:0 14px 36px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.10)}
+.so::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background:repeating-linear-gradient(115deg,rgba(255,255,255,.035) 0 2px,transparent 2px 34px)}
+.sob{flex:1;min-width:0;display:flex;align-items:center;gap:18px;padding:0 18px 0 0;position:relative;z-index:1}
+.sob.home{flex-direction:row-reverse;padding:0 0 0 18px}
+.sob.lit{background:rgba(232,178,94,.12)}
+.sobar{width:12px;align-self:stretch;flex:none}
+.plate{display:flex;align-items:center;justify-content:center;background:${INK};border-radius:50%;
+  box-shadow:0 3px 10px rgba(0,0,0,.5), inset 0 0 0 3px rgba(20,22,28,.16)}
+.soplate{width:78px;height:78px;flex:none}
+.soplate img{width:60px;height:60px;object-fit:contain}
+.socode{font-family:"Bebas Neue",sans-serif;font-size:44px;letter-spacing:3px;line-height:1;flex:none}
+.somarks{display:flex;gap:10px;flex:1;min-width:0;justify-content:center}
+.mk{width:34px;height:34px;border-radius:50%;flex:none;position:relative}
+.mk.goal{background:${BRASS};box-shadow:0 0 0 2px ${BRASS}}
+.mk.miss{box-shadow:inset 0 0 0 3px ${MUTED}}
+.mk.miss::before,.mk.miss::after{content:"";position:absolute;left:6px;right:6px;top:14px;height:6px;
+  border-radius:3px;background:${INK};transform:rotate(45deg)}
+.mk.miss::after{transform:rotate(-45deg)}
+.mk.todo{box-shadow:inset 0 0 0 2px rgba(247,241,230,.28)}
+.sonum{font-family:"Bebas Neue",sans-serif;font-size:64px;line-height:1;width:84px;height:84px;flex:none;
+  display:flex;align-items:center;justify-content:center;border-radius:12px;
+  box-shadow:inset 0 0 0 2px rgba(0,0,0,.20)}
+.sob.lit .sonum{box-shadow:inset 0 0 0 3px rgba(255,255,255,.8)}
+.somid{width:360px;flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+  background:rgba(0,0,0,.30);position:relative;z-index:1}
+.sohead{font-family:"Bebas Neue",sans-serif;font-size:40px;letter-spacing:6px;color:${BRASS};line-height:1}
+.socap{color:${INK};white-space:nowrap;text-align:center}
+`;
+
 // ---------- full-screen card ----------
 function card(spec, e) {
   const kind = CARD_KINDS.has(spec.kind) ? spec.kind : "break";
@@ -296,6 +364,7 @@ const CARD_CSS = `
 
 export function render(spec, ctx) {
   const e = ctx.esc;
+  if (BAR_KINDS.has(spec.kind)) return shootout(spec, e);
   if (LOWER_KINDS.has(spec.kind) || !CARD_KINDS.has(spec.kind)) return lower(spec, e);
   return card(spec, e);
 }

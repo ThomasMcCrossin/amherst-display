@@ -1,0 +1,74 @@
+{
+  "kind": "shootout",
+  "sport": "hockey",
+  "width": 1920,
+  "height": 1080,
+  "league": {
+    "id": "mhl",
+    "name": "Maritime Junior Hockey League",
+    "short": "MHL",
+    "logo": "assets/logos/league-mhl.png",
+    "primary": "#0b2d6b",
+    "secondary": "#c8102e"
+  },
+  "home": {
+    "id": "west-kent-steamers",
+    "name": "West Kent Steamers",
+    "city": "West Kent",
+    "nickname": "Steamers",
+    "short": "WKS",
+    "logo": "assets/logos/mhl/west-kent-steamers.png",
+    "primary": "#1b2a6b",
+    "secondary": "#0b1438",
+    "text": "#ffffff"
+  },
+  "away": {
+    "id": "amherst-ramblers",
+    "name": "Amherst Ramblers",
+    "city": "Amherst",
+    "nickname": "Ramblers",
+    "short": "AMH",
+    "logo": "assets/logos/mhl/amherst-ramblers.png",
+    "primary": "#412580",
+    "secondary": "#24114f",
+    "text": "#ffffff"
+  },
+  "side": "home",
+  "score": {
+    "home": 3,
+    "away": 2
+  },
+  "clock": null,
+  "headline": "SHOOTOUT",
+  "subject": null,
+  "others": [],
+  "lines": [
+    "#19 Zachary Paulhus scores"
+  ],
+  "tags": [],
+  "badge": null,
+  "context": "",
+  "stats": [],
+  "shootout": {
+    "home": [
+      true,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      true
+    ],
+    "away": [
+      false,
+      false,
+      true,
+      false,
+      true,
+      false,
+      false,
+      false
+    ]
+  }
+}
