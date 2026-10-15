@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T12:13:59.784Z",
+  "generated_at": "2026-10-15T11:53:47.767Z",
   "season": "2026-27",
   "season_id": 46,
   "league": "MHL",
@@ -3481,7 +3481,7 @@
         "streak_length": 4,
         "assists": 8,
         "points": 12,
-        "active": true
+        "active": false
       },
       {
         "player_id": "3790",

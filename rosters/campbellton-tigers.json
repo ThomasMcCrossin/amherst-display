@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 8,
-  "updated_at": "2026-10-14T12:13:10.694Z",
+  "updated_at": "2026-10-15T11:52:17.807Z",
   "player_count": 22,
   "players": [
     {
@@ -366,30 +366,6 @@
       "flags": []
     },
     {
-      "player_id": "mhl-3971",
-      "number": "17",
-      "first_name": "Nathan",
-      "last_name": "LeBlanc",
-      "name": "Nathan LeBlanc",
-      "position": "LW",
-      "height": "6",
-      "weight": 203,
-      "shoots": "L",
-      "birthdate": "2010-02-20",
-      "birth_year": "'10",
-      "age": 16,
-      "hometown": "Dieppe, NB",
-      "birthplace": "Dieppe, NB, ",
-      "rookie": false,
-      "veteran": false,
-      "stats": {},
-      "hockeytech_id": "3971",
-      "person_id": "4642",
-      "flags": [
-        "ht-affiliate"
-      ]
-    },
-    {
       "player_id": "mhl-4123",
       "number": "19",
       "first_name": "Zakary",
@@ -688,6 +664,45 @@
       },
       "hockeytech_id": "2993",
       "person_id": "3499",
+      "flags": []
+    },
+    {
+      "player_id": "mhl-4149",
+      "number": "48",
+      "first_name": "Sebastian",
+      "last_name": "Erkenbolling",
+      "name": "Sebastian Erkenbolling",
+      "position": "LW",
+      "height": "6'2",
+      "height_inches": 74,
+      "weight": 195,
+      "shoots": "L",
+      "birthdate": "2006-07-16",
+      "birth_year": "'06",
+      "age": 20,
+      "hometown": "Oslo, Norway",
+      "birthplace": "Oslo, Norway, ",
+      "rookie": false,
+      "veteran": true,
+      "stats": {
+        "games_played": 0,
+        "goals": 0,
+        "assists": 0,
+        "points": 0,
+        "plus_minus": 0,
+        "penalty_minutes": 0,
+        "power_play_goals": 0,
+        "power_play_assists": 0,
+        "power_play_points": 0,
+        "short_handed_goals": 0,
+        "short_handed_assists": 0,
+        "short_handed_points": 0,
+        "game_winning_goals": 0,
+        "overtime_goals": 0,
+        "points_per_game": 0
+      },
+      "hockeytech_id": "4149",
+      "person_id": "4838",
       "flags": []
     },
     {
