@@ -1,6 +1,6 @@
 {
   "schema_version": "amherst.monitor-plan.v1",
-  "generated_at": "2026-10-15T11:52:12.335Z",
+  "generated_at": "2026-10-16T11:43:51.263Z",
   "complete": true,
   "client_code": "mhl",
   "league_id": "1",
@@ -121,7 +121,7 @@
       "starts_at": "2026-10-15T19:00:00-03:00",
       "home_team_id": "7",
       "away_team_id": "1",
-      "final": false,
+      "final": true,
       "monitorable": true
     },
     {
@@ -496,7 +496,7 @@
         "season_id": "46",
         "team_id": "1",
         "row_count": 52,
-        "sha256": "caaacef04ad31929a46e4939d84d7b2cc50eb8578fbea50a26e5f7ba59de6369"
+        "sha256": "0f966301293cc89f6d1b762aa65dd757e3cee52524896882e80b93c7087b38a1"
       }
     ]
   }

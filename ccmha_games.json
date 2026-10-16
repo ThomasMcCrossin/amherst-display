@@ -1,16 +1,7 @@
 {
-  "generated_at": "2026-10-15T11:53:48.043Z",
+  "generated_at": "2026-10-16T11:45:53.066Z",
   "timezone": "America/Halifax",
   "games": [
-    {
-      "league": "U11-C",
-      "home_team": "Sackville U11 C",
-      "away_team": "Cumberland U11C Ramblers",
-      "start": "2026-10-15T18:45:00-03:00",
-      "end": "2026-10-15T19:45:00-03:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
     {
       "league": "U11-A",
       "home_team": "Kent Sud Flames",
@@ -44,6 +35,15 @@
       "away_team": "Cumberland Ramblers",
       "start": "2026-10-18T15:30:00-03:00",
       "end": "2026-10-18T17:00:00-03:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U18-C",
+      "home_team": "Lewisville Ayles",
+      "away_team": "Cumberland U18C Ramblers",
+      "start": "2026-10-22T20:00:00-03:00",
+      "end": "2026-10-22T21:00:00-03:00",
       "location": "Amherst Stadium",
       "source": "ccmha"
     }

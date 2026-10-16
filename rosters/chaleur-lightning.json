@@ -5,8 +5,8 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 21,
-  "updated_at": "2026-10-15T11:52:20.085Z",
-  "player_count": 21,
+  "updated_at": "2026-10-16T11:44:15.454Z",
+  "player_count": 20,
   "players": [
     {
       "player_id": "mhl-3495",
@@ -672,33 +672,6 @@
       "person_id": "4022",
       "flags": [
         "ht-rookie"
-      ]
-    },
-    {
-      "player_id": "mhl-3361",
-      "number": "77",
-      "first_name": "Mason",
-      "last_name": "Cook",
-      "name": "Mason Cook",
-      "position": "D",
-      "height": "6'2",
-      "height_inches": 74,
-      "weight": 200,
-      "shoots": "L",
-      "birthdate": "2008-06-28",
-      "birth_year": "'08",
-      "age": 18,
-      "hometown": "Summerside, PE",
-      "birthplace": "Summerside, PE, PE",
-      "rookie": false,
-      "veteran": false,
-      "headshot": "assets/headshots/Chaleur-Lightning/77-mason-cook.jpg",
-      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3361.jpg",
-      "stats": {},
-      "hockeytech_id": "3361",
-      "person_id": "3923",
-      "flags": [
-        "ht-played-major-junior"
       ]
     },
     {
