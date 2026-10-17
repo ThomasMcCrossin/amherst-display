@@ -1,10 +1,10 @@
 (function(){
 'use strict';
-var DWELL=12000, TZ='America/Halifax', REFRESH=60000, MAXP=8;
+var DWELL=12000, TZ='America/Halifax', REFRESH=60000, MAXP=10;
 var qs=new URLSearchParams(location.search), override=qs.get('now'), offset=0;
 if(override){var t0=Date.parse(override);if(!isNaN(t0))offset=t0-Date.now();else override=null;}
 function now(){return Date.now()+offset;}
-var B=null, INS=null, mode=null, seq=[], panels=[], dots=[], cur=-1, timer=0, lastSig='', cdEls=[], storyPage=0, tickSig='', cycle=0, fixture=(qs.get('fixture')||'').match(/^[\w.\-]+\.json$/)?qs.get('fixture'):null;
+var resume=null, B=null, INS=null, mode=null, seq=[], panels=[], dots=[], cur=-1, timer=0, lastSig='', cdEls=[], storyPage=0, tickSig='', cycle=0, fixture=(qs.get('fixture')||'').match(/^[\w.\-]+\.json$/)?qs.get('fixture'):null;
 var $=function(id){return document.getElementById(id);};
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
 function has(v){return v!==null&&v!==undefined&&v!==''&&!(typeof v==='number'&&isNaN(v));}
@@ -138,29 +138,32 @@ function tapeHtml(g){
 }
 function heroSide(t,tag){return '<div class="hs2 '+t.cls+' rise">'+disc(t.logo)+'<div class="tag">'+tag+'</div><div class="tn">'+esc(t.name)+'</div><div class="rec">'+esc(t.rec||'')+'</div><div class="tr">'+esc(t.div)+'</div>'+(t.form.length?'<div class="form"><span class="fl">LAST '+t.form.length+'</span>'+formPills(t.form)+'</div>':'')+'</div>';}
 function tonightWord(g){var h=+dfHour.format(new Date(g.ms));return dkey(now())===dkey(g.ms)?(h>=17?'TONIGHT':'TODAY'):dnice(g.ms).toUpperCase();}
+function cdCls(g){return g.ms-now()>=864e5?' far':'';}
 function heroHome(m){
   var g=m.game,T=teams(g);
-  return '<div class="hero">'+heroSide(T.us,'HOME')+'<div class="hc rise" style="--i:2"><div class="eyebrow">HOME GAME DAY</div><div class="when">'+tonightWord(g)+' · '+tnice(g.ms)+'</div><div class="cdbig cd" data-ms="'+g.ms+'"></div><div class="until">UNTIL PUCK DROP</div><div class="venue">'+esc(String(g.venue||'Amherst Stadium').toUpperCase())+'</div></div>'+heroSide(T.th,'VISITORS')+'</div>';
+  return '<div class="hero">'+heroSide(T.us,'HOME')+'<div class="hc rise" style="--i:2"><div class="eyebrow">'+(m.eyebrow||'HOME GAME DAY')+'</div><div class="when">'+tonightWord(g)+' · '+tnice(g.ms)+'</div><div class="cdbig cd'+cdCls(g)+'" data-ms="'+g.ms+'"></div><div class="until">UNTIL PUCK DROP</div><div class="venue">'+esc(String(g.venue||'Amherst Stadium').toUpperCase())+'</div></div>'+heroSide(T.th,'VISITORS')+'</div>';
 }
 function heroAway(m){
   var g=m.game,T=teams(g),n=T.n;
-  return '<div class="hero">'+heroSide(T.us,'VISITORS')+'<div class="hc rise" style="--i:2"><div class="eyebrow gold">ROAD GAME</div><div class="when">'+tonightWord(g)+' · '+tnice(g.ms)+'</div><div class="cdbig mid cd" data-ms="'+g.ms+'"></div><div class="until">UNTIL PUCK DROP</div><div class="flo"><div class="a">WATCH LIVE ON FLOHOCKEY</div><div class="b">'+(n&&n.flo_url?'Search Amherst Ramblers on flohockey.tv':'Find the Ramblers game on flohockey.tv')+'</div></div><div class="venue">AT '+esc(String(g.venue||'').toUpperCase())+'</div></div>'+heroSide(T.th,'HOME')+'</div>';
+  return '<div class="hero">'+heroSide(T.us,'VISITORS')+'<div class="hc rise" style="--i:2"><div class="eyebrow gold">'+(m.eyebrow||'ROAD GAME')+'</div><div class="when">'+tonightWord(g)+' · '+tnice(g.ms)+'</div><div class="cdbig mid cd'+cdCls(g)+'" data-ms="'+g.ms+'"></div><div class="until">UNTIL PUCK DROP</div><div class="flo"><div class="a">WATCH LIVE ON FLOHOCKEY</div><div class="b">'+(n&&n.flo_url?'Search Amherst Ramblers on flohockey.tv':'Find the Ramblers game on flohockey.tv')+'</div></div><div class="venue">AT '+esc(String(g.venue||'').toUpperCase())+'</div></div>'+heroSide(T.th,'HOME')+'</div>';
 }
+function nextHtml(){var g=nextUp(now());if(!g||dkey(g.ms)===dkey(now()))return '';var m={game:g,eyebrow:g.home?'NEXT HOME GAME':'NEXT ROAD GAME'};return g.home?heroHome(m):heroAway(m);}
 /* ---------- tickets (Tom, #20): next game at home -> buy online + QR; gone once pickup closes ---------- */
 var TIX_URL='curlys.ca/pucks';           /* redirects to the live Curly's ticket listing; qr-tickets.svg encodes https://curlys.ca/pucks */
-function tixGame(){var g=nextUp(now());return g&&g.home&&g.ms-3600e3>now()&&g.ms-now()<7*864e5?g:null;}
+function tixGame(){var G=games(),t=now();for(var i=0;i<G.length;i++){var g=G[i];if(!g.final&&g.home&&g.ms-3600e3>t)return g.ms-t<14*864e5?g:null;}return null;}
 function tixCut(g){return tnice(g.ms-3600e3);}  /* store closes 1 h before puck drop */
 function tixHtml(){
   var g=tixGame();if(!g)return '';
   var today=dkey(now())===dkey(g.ms),day=tonightWord(g);  /* TODAY for a matinee, TONIGHT from 5 PM */
   return hd('RAMBLERS TICKETS',day+' · '+tnice(g.ms)+' · VS '+String((g.opp||{}).name||'').toUpperCase())+
-   '<div class="tix"><div class="tl rise"><div class="t1">Buy online at curlys.ca</div>'+
+   '<div class="tix"><div class="tl rise"><div class="t1">Buy 4 Ramblers tickets,<br><span class="gold">add a $30 Canteen gift card for $15.</span></div>'+
+   '<div class="t2">The gift card is emailed when you pay.</div>'+
    '<div class="t2">Pick up at <b>Curly\'s Sports &amp; Supplements</b>, 81 South Albion St, before <b class="gold">'+tixCut(g)+'</b>'+(today?' today.':' on game day.')+'</div>'+
    '<div class="t3"><span>Adult $15</span><span>Child 5 to 12 $10</span><span>4 and under free</span></div></div>'+
    '<div class="tq rise" style="--i:2"><img src="qr-tickets.svg" alt=""><div class="scan">Scan to buy</div><div class="url">'+TIX_URL+'</div><div class="nr">No refunds on online orders.</div></div></div>';
 }
 function lastHtml(m){
-  var g=m.game.rec;if(!g)return '';
+  var g=(m.game&&m.game.rec)||(B.recent||[])[0];if(!g)return '';
   var win=g.result==='W',ot=g.ot_so?(' / '+g.ot_so):'',o=g.opp||{};
   function tm(abbr,logo,sc,w){return '<div class="tm">'+disc(logo)+'<div class="a">'+esc(abbr)+'</div><div class="s '+(w?'w':'l')+'">'+esc(sc)+'</div></div>';}
   var us=tm('AMH',B.team.logo_url,g.score['for'],win),th=tm(o.abbr,o.logo_url,g.score.against,!win);
@@ -271,6 +274,7 @@ function mhlHeavy(){return lgToday().length>0;}
 var REG={
   hero:['GAME DAY',function(m){return m.key==='away'?heroAway(m):heroHome(m);}],
   tix:['TICKETS',tixHtml],
+  next:['NEXT GAME',nextHtml],
   last:['LAST GAME',lastHtml],
   tape:['TALE OF THE TAPE',function(m){var g=(m.key==='home'||m.key==='away')?m.game:nextUp(now());return tapeHtml(g);}],
   standings:['STANDINGS',standingsHtml],
@@ -283,8 +287,8 @@ var REG={
 var SEQ={
   home:['hero','tix','tape','mhl','standings','leaders','stories'],
   away:['hero','tape','mhl','standings','leaders','stories'],
-  recap:['last','tix','mhl','standings','tape','leaders','stories'],
-  off:['standings','tix','mhl','tape','leaders','streaks','sched','stories']
+  recap:['last','next','tix','mhl','standings','tape','leaders','stories'],
+  off:['last','next','standings','tix','mhl','tape','leaders','streaks','sched','stories']
 };
 
 /* ---------- ticker: starts at an item boundary, items scroll in from the right ---------- */
@@ -294,7 +298,7 @@ function tickerItems(){
   var lt=lgToday(),lk=null;
   if(!lt.length){var pk={};lgAll().forEach(function(x){if(lgState(x)==='final'&&x.ms<=now())pk[dkey(x.ms)]=1;});var ks=Object.keys(pk).sort();lk=ks.length?ks[ks.length-1]:null;lt=lk?lgAll().filter(function(x){return dkey(x.ms)===lk&&lgState(x)==='final';}):[];}
   lt.slice(0,6).forEach(function(x){var st=lgState(x),lb=lgLabel(x,st),g=x.g;if(st==='scheduled')return;it.push([lb.lv?'MHL LIVE':'MHL '+lb.t,g.away.abbr+' '+g.away.goals+'  '+g.home.abbr+' '+g.home.goals+(lb.lv?'  ('+lb.t+')':'')]);});
-  var tg=tixGame();if(tg)it.push(['TICKETS','Buy online at '+TIX_URL+'. Pick up at Curly\'s Sports & Supplements, 81 South Albion St, before '+tixCut(tg)+' on game day']);
+  var tg=tixGame();if(tg)it.push(['TICKETS','Buy 4 Ramblers tickets at '+TIX_URL+', add a $30 Canteen gift card for $15. Pick up the paper tickets at Curly\'s Sports & Supplements, 81 South Albion St, before '+tixCut(tg)+' on game day']);
   var nx=nextUp(now());if(nx)it.push(['NEXT',(nx.home?'vs ':'at ')+(nx.opp.name||'')+' - '+dnice(nx.ms)+', '+tnice(nx.ms)]);
   realInsights().slice(0,12).forEach(function(i){it.push([String(i.kind||'INSIGHT').toUpperCase(),trunc(i.headline,110)]);});
   var d=myDiv();if(d&&d.rows[0])it.push(['STANDINGS',d.rows[0].team+' lead '+d.name+' with '+d.rows[0].pts+' points']);
@@ -331,16 +335,15 @@ function bugNext(){
   var today=dkey(nx.ms)===dkey(now());
   $('bugLab').textContent=today?(nx.home?'HOME GAME':'ROAD GAME'):'NEXT GAME';
   $('bugWhen').textContent=(nx.home?'vs ':'at ')+(nx.opp.abbr||'')+'  '+(today?'TODAY':dnice(nx.ms))+', '+tnice(nx.ms);
-  el.style.display='';el.dataset.ms=nx.ms;
+  el.style.display='none'; /* the countdown is its own screen (hero / next), never over another panel (Tom 2026-10-17) */
 }
 function p2(x){return (x<10?'0':'')+x;}
 function tick(){
   if(!B)return;
-  var t=now(),el=$('bugCd'),ms=+el.dataset.ms;
-  if(ms){var d=ms-t;if(d<=0)el.textContent='GAME ON';else{var s=Math.floor(d/1000),dd=Math.floor(s/86400);el.textContent=(dd?dd+'D ':'')+p2(Math.floor(s%86400/3600))+':'+p2(Math.floor(s%3600/60))+':'+p2(s%60);}}
+  var t=now();
   for(var i=0;i<cdEls.length;i++){
     var c=cdEls[i],r=+c.dataset.ms-t;
-    if(r>0){var x=Math.floor(r/1000);c.textContent=p2(Math.floor(x/3600))+':'+p2(Math.floor(x%3600/60))+':'+p2(x%60);}
+    if(r>0){var x=Math.floor(r/1000),dd=Math.floor(x/86400);c.textContent=(dd?dd+'D ':'')+p2(Math.floor(x%86400/3600))+':'+p2(Math.floor(x%3600/60))+':'+p2(x%60);}
     else c.textContent=r>-3*3600e3?'GAME ON':'FINAL SOON';
   }
 }
@@ -367,6 +370,7 @@ function show(i){
   if(prev&&prev!==panels[i]){prev.className='panel out';setTimeout(function(){if(prev!==panels[cur])prev.className='panel';},100);}
   panels[i].className='panel active';
   cur=i;
+  if(i>0)try{localStorage.setItem('hybridPanel',seq[i]);}catch(e){}
   var pr=$('prog');pr.className='';void pr.offsetWidth;pr.className='run';
   cdEls=[].slice.call(document.querySelectorAll('.cd'));tick();
 }
@@ -374,6 +378,7 @@ function next(){
   clearTimeout(timer);
   if(!seq.length)return;
   var n=(cur+1)%seq.length;
+  if(cur===0&&resume){var j=seq.indexOf(resume);resume=null;if(j>0)n=(j+1)%seq.length||1;if(n>=seq.length)n=0;}
   if(cur>=0&&n===0)cycle++;
   if(panels[n].dataset.q&&cycle%2===1&&seq.length>1)n=(n+1)%seq.length; /* quiet league page: every other cycle */
   if(cur<0||seq.length===1){show(n);}
@@ -390,6 +395,7 @@ function render(){
   if(sig===lastSig){bugNext();return;}
   lastSig=sig;
   fillAll();buildBug();buildTicker(true);
+  try{resume=localStorage.getItem('hybridPanel');}catch(e){resume=null;}
   cur=-1;clearTimeout(timer);next();
 }
 function load(){

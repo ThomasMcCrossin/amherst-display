@@ -188,6 +188,7 @@ img{display:block}
 .when{font:700 46px/1.1 var(--disp);letter-spacing:.08em;color:var(--dim)}
 .cdbig{font:800 250px/1 var(--disp);color:var(--gold);font-variant-numeric:tabular-nums;letter-spacing:.01em;margin:8px 0 0;text-shadow:0 8px 0 rgba(0,0,0,.4),0 0 60px rgba(244,185,50,.25)}
 .cdbig.mid{font-size:190px}
+.cdbig.far{font-size:150px}
 .until{font:800 44px/1 var(--disp);letter-spacing:.2em;color:#fff;margin-top:6px}
 .venue{font:700 40px/1.1 var(--disp);letter-spacing:.08em;color:var(--dim);margin-top:26px}
 .flo{margin-top:26px;border:4px solid var(--gold);background:rgba(0,0,0,.35);padding:18px 40px;max-width:860px}
@@ -243,7 +244,8 @@ img{display:block}
 
 /* tickets page: next game at home (QR encodes https://curlys.ca/pucks) */
 .tix{display:grid;grid-template-columns:1fr 560px;gap:56px;align-items:center;height:690px}
-.tix .t1{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:120px;line-height:1;color:#fff}
+.tix .t1{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:84px;line-height:1.05;color:#fff}
+.tix .t1 .gold{color:var(--gold,#f2b632)}
 .tix .t2{font-size:46px;line-height:1.3;color:#e6dcf5;margin-top:36px;max-width:1150px}
 .tix .t2 b{color:#fff}.tix .t2 b.gold{color:var(--gold,#f2b632)}
 .tix .t3{display:flex;gap:22px;margin-top:44px}
