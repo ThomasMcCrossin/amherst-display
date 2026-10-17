@@ -5,8 +5,8 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 3,
-  "updated_at": "2026-10-16T11:43:57.546Z",
-  "player_count": 27,
+  "updated_at": "2026-10-17T11:02:03.899Z",
+  "player_count": 28,
   "players": [
     {
       "player_id": "mhl-3092",
@@ -291,6 +291,31 @@
       "flags": [
         "ht-import"
       ]
+    },
+    {
+      "player_id": "mhl-3508",
+      "number": "18",
+      "first_name": "Ben",
+      "last_name": "Lindsay",
+      "name": "Ben Lindsay",
+      "position": "D",
+      "height": "6'3",
+      "height_inches": 75,
+      "weight": 197,
+      "shoots": "L",
+      "birthdate": "2007-03-22",
+      "birth_year": "'07",
+      "age": 19,
+      "hometown": "Middle Sackville, NS",
+      "birthplace": "Middle Sackville, NS, Nova Scotia",
+      "rookie": false,
+      "veteran": false,
+      "headshot": "assets/headshots/Truro-Bearcats/18-ben-lindsay.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3508.jpg",
+      "stats": {},
+      "hockeytech_id": "3508",
+      "person_id": "4071",
+      "flags": []
     },
     {
       "player_id": "mhl-3414",
