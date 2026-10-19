@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-18T11:31:23.931Z",
-  "completed_at": "2026-10-18T11:33:33.736Z",
+  "generated_at": "2026-10-19T13:46:34.377Z",
+  "completed_at": "2026-10-19T13:47:46.859Z",
   "complete": true,
   "season_ids": [
     "46"
@@ -8,11 +8,5 @@
   "schedule_rows": 52,
   "plan_games": 52,
   "snapshot": "success",
-  "optional_warnings": [
-    {
-      "stage": "boxscores",
-      "status": "failed_preserved_prior_data",
-      "message": "Optional box score acquisition incomplete; retaining previous enrichments"
-    }
-  ]
+  "optional_warnings": []
 }
