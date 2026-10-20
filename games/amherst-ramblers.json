@@ -7,7 +7,7 @@
   "season_ids": [
     46
   ],
-  "updated_at": "2026-10-19T13:47:44.849Z",
+  "updated_at": "2026-10-20T11:57:35.588Z",
   "summary": {
     "games_played": 14,
     "wins": 4,
@@ -2583,9 +2583,9 @@
           "time": "0:41",
           "team": "opponent",
           "scorer": {
-            "player_id": "mhl-3226",
-            "name": "Justin Ouellette",
-            "number": 77,
+            "player_id": "mhl-3848",
+            "name": "Lane Sim",
+            "number": 7,
             "position": "LW"
           },
           "assists": [
@@ -2594,9 +2594,9 @@
               "number": 56
             },
             {
-              "player_id": "mhl-3848",
-              "name": "Lane Sim",
-              "number": 7
+              "player_id": "mhl-3226",
+              "name": "Justin Ouellette",
+              "number": 77
             }
           ],
           "power_play": true,
@@ -2648,11 +2648,6 @@
               "player_id": "mhl-3848",
               "name": "Ty Peddigrew",
               "number": 7
-            },
-            {
-              "player_id": "mhl-3833",
-              "name": "Owen Dyke",
-              "number": 82
             }
           ],
           "power_play": true,
@@ -2693,7 +2688,13 @@
             "number": 16,
             "position": "LW"
           },
-          "assists": [],
+          "assists": [
+            {
+              "player_id": "mhl-3833",
+              "name": "Owen Dyke",
+              "number": 82
+            }
+          ],
           "power_play": false,
           "short_handed": false,
           "game_winning": false,
@@ -3171,8 +3172,8 @@
         },
         "mhl-3766": {
           "position": "G",
-          "saves": 37,
-          "shots_against": 39,
+          "saves": 33,
+          "shots_against": 35,
           "goals_against": 2,
           "save_percentage": "0.000",
           "time_on_ice": "60:00"
@@ -3189,16 +3190,16 @@
       "box_score": {
         "shots_by_period": {
           "ramblers": {
-            "period1": 20,
-            "period2": 8,
-            "period3": 6,
-            "total": 34
+            "period1": 16,
+            "period2": 7,
+            "period3": 4,
+            "total": 27
           },
           "opponent": {
-            "period1": 8,
-            "period2": 12,
-            "period3": 19,
-            "total": 39
+            "period1": 5,
+            "period2": 8,
+            "period3": 22,
+            "total": 35
           }
         },
         "scoring_by_period": {
@@ -3234,8 +3235,8 @@
             {
               "name": "Brandon Lavoie",
               "time_on_ice": "60:00",
-              "saves": 37,
-              "shots_against": 39,
+              "saves": 33,
+              "shots_against": 35,
               "on_ice": "1st/0:00",
               "off_ice": "3rd/20:00",
               "decision": "W"
@@ -3245,8 +3246,8 @@
             {
               "name": "Max Picard",
               "time_on_ice": "58:25",
-              "saves": 28,
-              "shots_against": 31,
+              "saves": 23,
+              "shots_against": 26,
               "on_ice": "1st/0:00",
               "off_ice": "3rd/18:25",
               "decision": "L"
@@ -3254,8 +3255,8 @@
             {
               "name": "Max Picard",
               "time_on_ice": "00:07",
-              "saves": 2,
-              "shots_against": 2,
+              "saves": 0,
+              "shots_against": 0,
               "on_ice": "3rd/19:20",
               "off_ice": "3rd/19:27",
               "decision": "L"
@@ -7773,7 +7774,17 @@
             "number": 27,
             "position": "RW"
           },
-          "assists": [],
+          "assists": [
+            {
+              "name": "Émile Fournier",
+              "number": 81
+            },
+            {
+              "player_id": "mhl-4025",
+              "name": "Darien Thomson",
+              "number": 9
+            }
+          ],
           "power_play": false,
           "short_handed": false,
           "game_winning": false,
