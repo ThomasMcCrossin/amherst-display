@@ -7,7 +7,7 @@
   "season_ids": [
     46
   ],
-  "updated_at": "2026-10-21T12:11:12.749Z",
+  "updated_at": "2026-10-22T12:14:43.691Z",
   "summary": {
     "games_played": 14,
     "wins": 4,
@@ -503,8 +503,8 @@
         },
         "mhl-3766": {
           "position": "G",
-          "saves": 25,
-          "shots_against": 28,
+          "saves": 31,
+          "shots_against": 34,
           "goals_against": 3,
           "save_percentage": "0.000",
           "time_on_ice": "59:20"
@@ -521,16 +521,16 @@
       "box_score": {
         "shots_by_period": {
           "ramblers": {
-            "period1": 11,
-            "period2": 13,
-            "period3": 17,
-            "total": 41
+            "period1": 12,
+            "period2": 12,
+            "period3": 12,
+            "total": 36
           },
           "opponent": {
-            "period1": 9,
+            "period1": 15,
             "period2": 15,
             "period3": 5,
-            "total": 29
+            "total": 35
           }
         },
         "scoring_by_period": {
@@ -566,8 +566,8 @@
             {
               "name": "Brandon Lavoie",
               "time_on_ice": "58:23",
-              "saves": 25,
-              "shots_against": 28,
+              "saves": 31,
+              "shots_against": 34,
               "on_ice": "1st/0:00",
               "off_ice": "3rd/18:23",
               "decision": "L"
@@ -586,8 +586,8 @@
             {
               "name": "Brett Ruddy",
               "time_on_ice": "60:00",
-              "saves": 41,
-              "shots_against": 41,
+              "saves": 36,
+              "shots_against": 36,
               "on_ice": "1st/0:00",
               "off_ice": "3rd/20:00",
               "decision": "W"
@@ -720,6 +720,10 @@
             {
               "name": "Justin Hanscomb",
               "number": 20
+            },
+            {
+              "name": "Kieran Thibault",
+              "number": 22
             }
           ],
           "power_play": false,
@@ -1330,8 +1334,8 @@
         },
         "mhl-3187": {
           "position": "G",
-          "saves": 27,
-          "shots_against": 31,
+          "saves": 25,
+          "shots_against": 29,
           "goals_against": 4,
           "save_percentage": "0.000",
           "time_on_ice": "58:00"
@@ -1340,16 +1344,16 @@
       "box_score": {
         "shots_by_period": {
           "ramblers": {
-            "period1": 11,
-            "period2": 15,
-            "period3": 22,
-            "total": 48
+            "period1": 6,
+            "period2": 14,
+            "period3": 18,
+            "total": 38
           },
           "opponent": {
-            "period1": 10,
-            "period2": 17,
-            "period3": 5,
-            "total": 32
+            "period1": 11,
+            "period2": 16,
+            "period3": 3,
+            "total": 30
           }
         },
         "scoring_by_period": {
@@ -1403,8 +1407,8 @@
             {
               "name": "Hudson Bradley",
               "time_on_ice": "00:31",
-              "saves": 4,
-              "shots_against": 4,
+              "saves": 2,
+              "shots_against": 2,
               "on_ice": "3rd/19:29",
               "off_ice": "3rd/20:00",
               "decision": "L"
@@ -1414,8 +1418,8 @@
             {
               "name": "Samuel Quimper",
               "time_on_ice": "60:00",
-              "saves": 46,
-              "shots_against": 48,
+              "saves": 36,
+              "shots_against": 38,
               "on_ice": "1st/0:00",
               "off_ice": "3rd/20:00",
               "decision": "W"
@@ -1748,7 +1752,17 @@
             "number": 19,
             "position": "C"
           },
-          "assists": [],
+          "assists": [
+            {
+              "player_id": "mhl-4018",
+              "name": "Tanner Hayden",
+              "number": 91
+            },
+            {
+              "name": "Quinn Price",
+              "number": 49
+            }
+          ],
           "power_play": false,
           "short_handed": false,
           "game_winning": false,
@@ -1900,7 +1914,18 @@
             "number": 11,
             "position": "D"
           },
-          "assists": [],
+          "assists": [
+            {
+              "player_id": "mhl-3848",
+              "name": "Brennan O'Donnell",
+              "number": 7
+            },
+            {
+              "player_id": "mhl-4023",
+              "name": "Owen Bell",
+              "number": 21
+            }
+          ],
           "power_play": false,
           "short_handed": false,
           "game_winning": true,
@@ -2302,8 +2327,8 @@
         },
         "mhl-3766": {
           "position": "G",
-          "saves": 23,
-          "shots_against": 29,
+          "saves": 29,
+          "shots_against": 35,
           "goals_against": 6,
           "save_percentage": "0.000",
           "time_on_ice": "59:09"
@@ -2320,16 +2345,16 @@
       "box_score": {
         "shots_by_period": {
           "ramblers": {
-            "period1": 14,
-            "period2": 10,
-            "period3": 8,
-            "total": 32
+            "period1": 15,
+            "period2": 12,
+            "period3": 7,
+            "total": 34
           },
           "opponent": {
-            "period1": 6,
+            "period1": 9,
             "period2": 16,
-            "period3": 8,
-            "total": 30
+            "period3": 11,
+            "total": 36
           }
         },
         "scoring_by_period": {
@@ -2365,8 +2390,8 @@
             {
               "name": "Brandon Lavoie",
               "time_on_ice": "58:52",
-              "saves": 23,
-              "shots_against": 29,
+              "saves": 29,
+              "shots_against": 35,
               "on_ice": "1st/0:00",
               "off_ice": "3rd/18:52",
               "decision": "L"
@@ -2385,8 +2410,8 @@
             {
               "name": "George Gallant",
               "time_on_ice": "60:00",
-              "saves": 27,
-              "shots_against": 32,
+              "saves": 29,
+              "shots_against": 34,
               "on_ice": "1st/0:00",
               "off_ice": "3rd/20:00",
               "decision": "W"
