@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T12:13:41.213Z",
+  "generated_at": "2026-10-23T11:54:43.328Z",
   "season": "2026-27",
   "season_id": 46,
   "api_source": "HockeyTech",
@@ -51,7 +51,7 @@
       "team_name": "West-Kent-Steamers",
       "league": "MHL",
       "team_id": 6,
-      "player_count": 22,
+      "player_count": 23,
       "file": "rosters/west-kent-steamers.json"
     },
     {
@@ -99,7 +99,7 @@
       "team_name": "Chaleur-Lightning",
       "league": "MHL",
       "team_id": 21,
-      "player_count": 21,
+      "player_count": 22,
       "file": "rosters/chaleur-lightning.json"
     }
   ]
