@@ -7,28 +7,28 @@
   "season_ids": [
     46
   ],
-  "updated_at": "2026-10-23T11:55:41.015Z",
+  "updated_at": "2026-10-24T11:23:13.901Z",
   "summary": {
-    "games_played": 14,
-    "wins": 4,
+    "games_played": 15,
+    "wins": 5,
     "losses": 8,
     "ot_losses": 2,
     "shootout_losses": 1,
-    "points": 10,
-    "goals_for": 40,
-    "goals_against": 57,
+    "points": 12,
+    "goals_for": 43,
+    "goals_against": 59,
     "home_record": {
       "wins": 2,
       "losses": 3,
       "ot_losses": 1
     },
     "away_record": {
-      "wins": 2,
+      "wins": 3,
       "losses": 5,
       "ot_losses": 1
     },
-    "goal_differential": -17,
-    "record": "4-8-2"
+    "goal_differential": -16,
+    "record": "5-8-2"
   },
   "playoff_summary": {
     "games_played": 0,
@@ -53,6 +53,576 @@
     "record": "0-0-0"
   },
   "games": [
+    {
+      "game_id": "5067",
+      "season_id": 46,
+      "date": "2026-10-23",
+      "date_time": "2026-10-23T19:00:00-03:00",
+      "opponent": {
+        "team_id": 8,
+        "team_name": "Campbellton Tigers",
+        "team_code": "CAM"
+      },
+      "home_game": false,
+      "playoff": false,
+      "schedule_notes": "",
+      "venue": "Campbellton Memorial Civic Centre",
+      "result": {
+        "won": true,
+        "ramblers_score": 3,
+        "opponent_score": 2,
+        "overtime": true,
+        "shootout": false,
+        "final_score": "3-2 (OT)"
+      },
+      "attendance": 896,
+      "scoring": [
+        {
+          "period": 1,
+          "period_name": "1st",
+          "time": "1:40",
+          "team": "opponent",
+          "scorer": {
+            "player_id": "mhl-3756",
+            "name": "Zakary Savoie",
+            "number": 19,
+            "position": "RW"
+          },
+          "assists": [
+            {
+              "name": "Alexandre Dallaire",
+              "number": 3
+            },
+            {
+              "name": "Justin Hanscomb",
+              "number": 20
+            }
+          ],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 1,
+          "period_name": "1st",
+          "time": "7:03",
+          "team": "amherst-ramblers",
+          "scorer": {
+            "player_id": "mhl-2794",
+            "name": "Coen Miller",
+            "number": 16,
+            "position": "LW"
+          },
+          "assists": [],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "17:49",
+          "team": "amherst-ramblers",
+          "scorer": {
+            "player_id": "mhl-3562",
+            "name": "Elliot Wright",
+            "number": 13,
+            "position": "C"
+          },
+          "assists": [],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "7:06",
+          "team": "opponent",
+          "scorer": {
+            "name": "Sebastian Erkenbolling",
+            "number": 48,
+            "position": "LW"
+          },
+          "assists": [
+            {
+              "player_id": "mhl-3243",
+              "name": "Philippe Canuel",
+              "number": 15
+            },
+            {
+              "player_id": "mhl-2794",
+              "name": "Liam Duquette",
+              "number": 16
+            }
+          ],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 4,
+          "period_name": "1st OT",
+          "time": "1:26",
+          "team": "amherst-ramblers",
+          "scorer": {
+            "player_id": "mhl-2794",
+            "name": "Coen Miller",
+            "number": 16,
+            "position": "LW"
+          },
+          "assists": [],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": true,
+          "empty_net": false
+        }
+      ],
+      "penalties": [
+        {
+          "period": 1,
+          "period_name": "1st",
+          "time": "00:40",
+          "team": "ramblers",
+          "player": {
+            "player_id": "mhl-3562",
+            "name": "Elliot Wright",
+            "number": 13,
+            "position": "C"
+          },
+          "infraction": "High Sticking - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 1,
+          "period_name": "1st",
+          "time": "20:00",
+          "team": "opponent",
+          "player": {
+            "name": "Dominique Allard",
+            "number": 4,
+            "position": "D"
+          },
+          "infraction": "Hooking - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "06:06",
+          "team": "opponent",
+          "player": {
+            "name": "Loic Mburanumwe",
+            "number": 7,
+            "position": "D"
+          },
+          "infraction": "Hooking - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "06:23",
+          "team": "ramblers",
+          "player": {
+            "player_id": "mhl-3833",
+            "name": "Owen Dyke",
+            "number": 82,
+            "position": "D"
+          },
+          "infraction": "Charging - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "06:23",
+          "team": "ramblers",
+          "player": {
+            "player_id": "mhl-3833",
+            "name": "Owen Dyke",
+            "number": 82,
+            "position": "D"
+          },
+          "infraction": "Fighting - Major",
+          "minutes": 5,
+          "duration": 5,
+          "is_bench": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "06:23",
+          "team": "ramblers",
+          "player": {
+            "player_id": "mhl-3833",
+            "name": "Owen Dyke",
+            "number": 82,
+            "position": "D"
+          },
+          "infraction": "Fighting Game Misconduct - Game Misconduct",
+          "minutes": 10,
+          "duration": 10,
+          "is_bench": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "06:23",
+          "team": "opponent",
+          "player": {
+            "name": "Tucker Makinen",
+            "number": 98,
+            "position": "RW"
+          },
+          "infraction": "Instigator - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "06:23",
+          "team": "opponent",
+          "player": {
+            "name": "Tucker Makinen",
+            "number": 98,
+            "position": "RW"
+          },
+          "infraction": "Fighting - Major",
+          "minutes": 5,
+          "duration": 5,
+          "is_bench": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "06:23",
+          "team": "opponent",
+          "player": {
+            "name": "Tucker Makinen",
+            "number": 98,
+            "position": "RW"
+          },
+          "infraction": "Fighting Game Misconduct - Game Misconduct",
+          "minutes": 10,
+          "duration": 10,
+          "is_bench": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "05:02",
+          "team": "ramblers",
+          "player": {
+            "player_id": "mhl-4118",
+            "name": "Cohen McNeil",
+            "number": 17,
+            "position": "C"
+          },
+          "infraction": "Goaltender Interference - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "11:41",
+          "team": "ramblers",
+          "player": {
+            "player_id": "mhl-4118",
+            "name": "Cohen McNeil",
+            "number": 17,
+            "position": "C"
+          },
+          "infraction": "Kneeing - Double Minor",
+          "minutes": 4,
+          "duration": 4,
+          "is_bench": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "14:01",
+          "team": "opponent",
+          "player": {
+            "name": "Sebastian Erkenbolling",
+            "number": 48,
+            "position": "LW"
+          },
+          "infraction": "Cross Checking - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        }
+      ],
+      "player_stats": {
+        "mhl-3848": {
+          "position": "C",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-4025": {
+          "position": "C",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3192": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3433": {
+          "position": "LW",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3562": {
+          "position": "C",
+          "goals": 1,
+          "assists": 0,
+          "points": 1,
+          "penalty_minutes": 2,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3243": {
+          "position": "C",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-2794": {
+          "position": "LW",
+          "goals": 2,
+          "assists": 0,
+          "points": 2,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-4118": {
+          "position": "C",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 6,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-2760": {
+          "position": "RW",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3756": {
+          "position": "C",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-4023": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3322": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-4119": {
+          "position": "C",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3647": {
+          "position": "RW",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-4138": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3226": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3833": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 17,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3867": {
+          "position": "LW",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3766": {
+          "position": "G",
+          "saves": 35,
+          "shots_against": 37,
+          "goals_against": 2,
+          "save_percentage": "0.000",
+          "time_on_ice": "61:26"
+        },
+        "mhl-3187": {
+          "position": "G",
+          "saves": 0,
+          "shots_against": 0,
+          "goals_against": 0,
+          "save_percentage": "0.000",
+          "time_on_ice": "00:00"
+        }
+      }
+    },
     {
       "game_id": "5064",
       "season_id": 46,
@@ -320,19 +890,6 @@
           "faceoff_losses": 0
         },
         "mhl-3433": {
-          "position": "LW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3402": {
           "position": "LW",
           "goals": 0,
           "assists": 0,
@@ -826,7 +1383,6 @@
           },
           "assists": [
             {
-              "player_id": "mhl-3402",
               "name": "Samuel Deveau",
               "number": 12
             }
@@ -1148,19 +1704,6 @@
           "assists": 0,
           "points": 0,
           "penalty_minutes": 2,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3402": {
-          "position": "LW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -1754,7 +2297,6 @@
           },
           "assists": [
             {
-              "player_id": "mhl-4018",
               "name": "Tanner Hayden",
               "number": 91
             },
@@ -1881,7 +2423,6 @@
           "time": "10:06",
           "team": "opponent",
           "scorer": {
-            "player_id": "mhl-4018",
             "name": "Tanner Hayden",
             "number": 91,
             "position": "RW"
@@ -2156,19 +2697,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-3402": {
-          "position": "LW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3562": {
           "position": "C",
           "goals": 2,
@@ -2292,19 +2820,6 @@
           "assists": 0,
           "points": 2,
           "penalty_minutes": 2,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-4018": {
-          "position": "C",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -2902,7 +3417,6 @@
           "time": "07:49",
           "team": "ramblers",
           "player": {
-            "player_id": "mhl-3402",
             "name": "Aidan Silvaggio",
             "number": 12,
             "position": "LW"
@@ -3014,19 +3528,6 @@
           "faceoff_losses": 0
         },
         "mhl-3433": {
-          "position": "LW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 2,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3402": {
           "position": "LW",
           "goals": 0,
           "assists": 0,
@@ -3161,19 +3662,6 @@
           "goals": 0,
           "assists": 1,
           "points": 1,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-4018": {
-          "position": "C",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -3613,7 +4101,6 @@
           "time": "15:50",
           "team": "ramblers",
           "player": {
-            "player_id": "mhl-3402",
             "name": "Aidan Silvaggio",
             "number": 12,
             "position": "LW"
@@ -3881,19 +4368,6 @@
           "assists": 0,
           "points": 0,
           "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3402": {
-          "position": "LW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 2,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -4425,7 +4899,6 @@
           "time": "11:53",
           "team": "opponent",
           "scorer": {
-            "player_id": "mhl-4018",
             "name": "Malcom Dumont",
             "number": 91,
             "position": "RW"
@@ -4489,7 +4962,6 @@
               "number": 14
             },
             {
-              "player_id": "mhl-4018",
               "name": "Malcom Dumont",
               "number": 91
             }
@@ -4617,12 +5089,10 @@
           },
           "assists": [
             {
-              "player_id": "mhl-4018",
               "name": "Malcom Dumont",
               "number": 91
             },
             {
-              "player_id": "mhl-3402",
               "name": "Alex Symes",
               "number": 12
             }
@@ -4689,7 +5159,6 @@
           "time": "8:53",
           "team": "opponent",
           "scorer": {
-            "player_id": "mhl-4018",
             "name": "Malcom Dumont",
             "number": 91,
             "position": "RW"
@@ -4724,7 +5193,6 @@
           },
           "assists": [
             {
-              "player_id": "mhl-4018",
               "name": "Malcom Dumont",
               "number": 91
             }
@@ -5472,7 +5940,6 @@
           },
           "assists": [
             {
-              "player_id": "mhl-4018",
               "name": "Tanner Hayden",
               "number": 91
             }
@@ -6143,7 +6610,6 @@
               "number": 21
             },
             {
-              "player_id": "mhl-3402",
               "name": "Hudson Sisk",
               "number": 12
             }
@@ -6452,19 +6918,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-3402": {
-          "position": "LW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3562": {
           "position": "C",
           "goals": 0,
@@ -6597,19 +7050,6 @@
         },
         "mhl-3833": {
           "position": "D",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-4018": {
-          "position": "C",
           "goals": 0,
           "assists": 0,
           "points": 0,
@@ -7170,19 +7610,6 @@
           "faceoff_losses": 0
         },
         "mhl-3433": {
-          "position": "LW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3402": {
           "position": "LW",
           "goals": 0,
           "assists": 0,
@@ -8120,19 +8547,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-4018": {
-          "position": "C",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3867": {
           "position": "LW",
           "goals": 0,
@@ -8398,7 +8812,6 @@
               "number": 21
             },
             {
-              "player_id": "mhl-4018",
               "name": "Antoine L'Italien",
               "number": 91
             }
@@ -8531,7 +8944,6 @@
           },
           "assists": [
             {
-              "player_id": "mhl-4018",
               "name": "Antoine L'Italien",
               "number": 91
             },
@@ -8764,7 +9176,6 @@
           "time": "09:36",
           "team": "ramblers",
           "player": {
-            "player_id": "mhl-4018",
             "name": "Nathaniel Noah",
             "number": 91,
             "position": "C"
@@ -8992,19 +9403,6 @@
           "assists": 1,
           "points": 1,
           "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-4018": {
-          "position": "C",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 2,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -9422,7 +9820,6 @@
           },
           "assists": [
             {
-              "player_id": "mhl-4018",
               "name": "Nathaniel Noah",
               "number": 91
             }
@@ -9782,19 +10179,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-3402": {
-          "position": "LW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3562": {
           "position": "C",
           "goals": 1,
@@ -9914,19 +10298,6 @@
         },
         "mhl-3833": {
           "position": "D",
-          "goals": 0,
-          "assists": 1,
-          "points": 1,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-4018": {
-          "position": "C",
           "goals": 0,
           "assists": 1,
           "points": 1,
@@ -10434,7 +10805,6 @@
           "time": "13:45",
           "team": "ramblers",
           "player": {
-            "player_id": "mhl-3402",
             "name": "Aidan Silvaggio",
             "number": 12,
             "position": "LW"
@@ -10937,19 +11307,6 @@
           "assists": 0,
           "points": 0,
           "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3402": {
-          "position": "LW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 2,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -11807,19 +12164,6 @@
           "faceoff_losses": 0
         },
         "mhl-3433": {
-          "position": "LW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3402": {
           "position": "LW",
           "goals": 0,
           "assists": 0,

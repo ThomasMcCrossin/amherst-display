@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T11:54:43.328Z",
+  "generated_at": "2026-10-24T11:23:07.870Z",
   "season": "2026-27",
   "season_id": 46,
   "api_source": "HockeyTech",
@@ -11,7 +11,7 @@
       "team_name": "Amherst-Ramblers",
       "league": "MHL",
       "team_id": 1,
-      "player_count": 23,
+      "player_count": 22,
       "file": "rosters/amherst-ramblers.json"
     },
     {
@@ -67,7 +67,7 @@
       "team_name": "Campbellton-Tigers",
       "league": "MHL",
       "team_id": 8,
-      "player_count": 24,
+      "player_count": 25,
       "file": "rosters/campbellton-tigers.json"
     },
     {
@@ -83,7 +83,7 @@
       "team_name": "Summerside-Capitals",
       "league": "MHL",
       "team_id": 10,
-      "player_count": 21,
+      "player_count": 22,
       "file": "rosters/summerside-capitals.json"
     },
     {
