@@ -7,7 +7,7 @@
   "season_ids": [
     46
   ],
-  "updated_at": "2026-10-25T11:54:56.251Z",
+  "updated_at": "2026-10-26T13:26:19.384Z",
   "summary": {
     "games_played": 16,
     "wins": 6,
@@ -413,24 +413,9 @@
             "number": 12,
             "position": "D"
           },
-          "infraction": "Checking To The Head - Major",
-          "minutes": 5,
-          "duration": 5,
-          "is_bench": false
-        },
-        {
-          "period": 2,
-          "period_name": "2nd",
-          "time": "12:15",
-          "team": "opponent",
-          "player": {
-            "name": "Alex Symes",
-            "number": 12,
-            "position": "D"
-          },
-          "infraction": "Game Misconduct",
-          "minutes": 10,
-          "duration": 10,
+          "infraction": "Interference - Minor",
+          "minutes": 2,
+          "duration": 2,
           "is_bench": false
         },
         {
@@ -819,8 +804,8 @@
           "opponent": {
             "power_play_goals": 2,
             "power_play_opportunities": 6,
-            "penalty_minutes": 23,
-            "penalties": 6
+            "penalty_minutes": 10,
+            "penalties": 5
           }
         },
         "goaltenders": {
@@ -953,8 +938,8 @@
               "name": "Alex Symes",
               "number": null
             },
-            "infraction": "Checking To The Head - Major",
-            "minutes": 5
+            "infraction": "Interference - Minor",
+            "minutes": 2
           },
           {
             "period": 3,
