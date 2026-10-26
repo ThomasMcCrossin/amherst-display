@@ -21,7 +21,7 @@ pandas==2.3.2
 
 # HTTP requests for API calls
 requests==2.33.0
-urllib3==2.7.0
+urllib3==2.8.0
 certifi==2025.8.3
 python-dotenv==1.2.2
 
