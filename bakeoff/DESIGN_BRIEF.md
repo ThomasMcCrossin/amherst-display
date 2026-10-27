@@ -47,7 +47,7 @@ real `data/board.json` before designing.
 where frames x frame_ms lets the screenshot tool capture each rotation state (max 6 frames).
 
 Self-check: the gallery server runs at http://127.0.0.1:8794 (serves `bakeoff/`). Screenshot your
-design with `cd ~/worktrees/amherst-display-board-bakeoff && node bakeoff/shoot.mjs <slug>`, then open
+design with `cd ~/amherst-display && node bakeoff/shoot.mjs <slug>`, then open
 `bakeoff/shots/<slug>-*.png` with your image reader and fix what looks wrong (overflow, clipping,
 tiny text, empty panels, console errors in `designs/manifest.json`). Iterate at least twice.
 Do not edit anything outside your own `designs/<slug>/` folder.

@@ -141,6 +141,20 @@ the endpoint host, enable a collector, run GitHub Actions, update a Pi, change
 `file:///opt/canteen-kiosk/content/index.html`, or control mpv/HLS/video.
 Do not replace the current Pi board or stream merely to enable this feature.
 
+## Where it runs on canteenhub
+
+Every amherst-display service on canteenhub runs from the one main checkout, `~/amherst-display`
+(user units in `~/.config/systemd/user/`, not rendered from a repo). Update it with `git pull` there.
+
+| Unit | Runs |
+|---|---|
+| `game-board-http.service` | `bakeoff/serve.py` on `192.168.2.12:8810`, serving `~/.local/share/watch-rams/game-board` to the Pi 4 |
+| `game-board-refresh.timer` / `.service` | `bakeoff/game-board-refresh.sh` every minute; rebuilds the untracked `bakeoff/data/board.json` and `insights.json` and publishes them |
+| `amherst-live-observations.service` | `scripts/live_game_monitor.py`; state in `~/.local/state/my-web-scrapers/amherst-live-observations` |
+
+The Rams director, intermission/postgame highlights and Pi TV rotation live in the separate `watch-rams`
+repo (`~/watch-rams-live`).
+
 ## Highlight Pipeline
 
 The highlight workflow is local-first and does not require Drive ingest for normal runs.
