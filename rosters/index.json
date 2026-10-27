@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T13:25:14.018Z",
+  "generated_at": "2026-10-27T12:32:10.813Z",
   "season": "2026-27",
   "season_id": 46,
   "api_source": "HockeyTech",
@@ -35,7 +35,7 @@
       "team_name": "Valley-Wildcats",
       "league": "MHL",
       "team_id": 4,
-      "player_count": 25,
+      "player_count": 24,
       "file": "rosters/valley-wildcats.json"
     },
     {
@@ -51,7 +51,7 @@
       "team_name": "West-Kent-Steamers",
       "league": "MHL",
       "team_id": 6,
-      "player_count": 24,
+      "player_count": 23,
       "file": "rosters/west-kent-steamers.json"
     },
     {
@@ -83,7 +83,7 @@
       "team_name": "Summerside-Capitals",
       "league": "MHL",
       "team_id": 10,
-      "player_count": 24,
+      "player_count": 23,
       "file": "rosters/summerside-capitals.json"
     },
     {

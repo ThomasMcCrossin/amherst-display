@@ -7,7 +7,7 @@
   "season_ids": [
     46
   ],
-  "updated_at": "2026-10-26T13:26:19.384Z",
+  "updated_at": "2026-10-27T12:33:18.188Z",
   "summary": {
     "games_played": 16,
     "wins": 6,
@@ -146,6 +146,11 @@
               "player_id": "mhl-3433",
               "name": "Nathan Weber",
               "number": 11
+            },
+            {
+              "player_id": "mhl-3192",
+              "name": "Ben Manos",
+              "number": 10
             }
           ],
           "power_play": false,
@@ -226,9 +231,8 @@
               "number": 9
             },
             {
-              "player_id": "mhl-2794",
-              "name": "Will Clark",
-              "number": 16
+              "name": "Louis Dumoulin",
+              "number": 20
             }
           ],
           "power_play": false,
@@ -301,7 +305,13 @@
             "number": 13,
             "position": "C"
           },
-          "assists": [],
+          "assists": [
+            {
+              "player_id": "mhl-2760",
+              "name": "Darien Reynolds",
+              "number": 18
+            }
+          ],
           "power_play": false,
           "short_handed": true,
           "game_winning": false,
@@ -556,8 +566,8 @@
         "mhl-3192": {
           "position": "D",
           "goals": 0,
-          "assists": 1,
-          "points": 1,
+          "assists": 2,
+          "points": 2,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -634,8 +644,8 @@
         "mhl-2760": {
           "position": "RW",
           "goals": 1,
-          "assists": 1,
-          "points": 2,
+          "assists": 2,
+          "points": 3,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -750,8 +760,8 @@
         },
         "mhl-3766": {
           "position": "G",
-          "saves": 47,
-          "shots_against": 50,
+          "saves": 44,
+          "shots_against": 47,
           "goals_against": 3,
           "save_percentage": "0.000",
           "time_on_ice": "60:00"
@@ -768,16 +778,16 @@
       "box_score": {
         "shots_by_period": {
           "ramblers": {
-            "period1": 10,
-            "period2": 8,
-            "period3": 5,
-            "total": 23
+            "period1": 12,
+            "period2": 9,
+            "period3": 10,
+            "total": 31
           },
           "opponent": {
-            "period1": 23,
-            "period2": 16,
-            "period3": 11,
-            "total": 50
+            "period1": 21,
+            "period2": 13,
+            "period3": 13,
+            "total": 47
           }
         },
         "scoring_by_period": {
@@ -813,8 +823,8 @@
             {
               "name": "Brandon Lavoie",
               "time_on_ice": "60:00",
-              "saves": 47,
-              "shots_against": 50,
+              "saves": 44,
+              "shots_against": 47,
               "on_ice": "1st/0:00",
               "off_ice": "3rd/20:00",
               "decision": "W"
@@ -824,8 +834,8 @@
             {
               "name": "Will Morgan",
               "time_on_ice": "23:26",
-              "saves": 8,
-              "shots_against": 12,
+              "saves": 11,
+              "shots_against": 15,
               "on_ice": "1st/0:00",
               "off_ice": "2nd/3:26",
               "decision": "L"
@@ -833,8 +843,8 @@
             {
               "name": "Will Cole ()",
               "time_on_ice": "34:06",
-              "saves": 9,
-              "shots_against": 10,
+              "saves": 14,
+              "shots_against": 15,
               "on_ice": "2nd/3:26",
               "off_ice": "3rd/17:32",
               "decision": null
@@ -1087,7 +1097,18 @@
             "number": 16,
             "position": "LW"
           },
-          "assists": [],
+          "assists": [
+            {
+              "player_id": "mhl-3756",
+              "name": "Zach Wheeler",
+              "number": 19
+            },
+            {
+              "player_id": "mhl-4138",
+              "name": "Max Sheppard",
+              "number": 58
+            }
+          ],
           "power_play": false,
           "short_handed": false,
           "game_winning": false,
@@ -1464,8 +1485,8 @@
         "mhl-3756": {
           "position": "C",
           "goals": 0,
-          "assists": 0,
-          "points": 0,
+          "assists": 1,
+          "points": 1,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -1529,8 +1550,8 @@
         "mhl-4138": {
           "position": "D",
           "goals": 0,
-          "assists": 0,
-          "points": 0,
+          "assists": 1,
+          "points": 1,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -1580,8 +1601,8 @@
         },
         "mhl-3766": {
           "position": "G",
-          "saves": 35,
-          "shots_against": 37,
+          "saves": 15,
+          "shots_against": 17,
           "goals_against": 2,
           "save_percentage": "0.000",
           "time_on_ice": "61:26"
@@ -1598,17 +1619,17 @@
       "box_score": {
         "shots_by_period": {
           "ramblers": {
-            "period1": 11,
-            "period2": 15,
-            "period3": 10,
-            "total": 37,
+            "period1": 9,
+            "period2": 11,
+            "period3": 6,
+            "total": 27,
             "overtime": 1
           },
           "opponent": {
-            "period1": 12,
-            "period2": 13,
-            "period3": 12,
-            "total": 37,
+            "period1": 7,
+            "period2": 4,
+            "period3": 6,
+            "total": 17,
             "overtime": 0
           }
         },
@@ -1645,8 +1666,8 @@
             {
               "name": "Brandon Lavoie",
               "time_on_ice": "61:26",
-              "saves": 35,
-              "shots_against": 37,
+              "saves": 15,
+              "shots_against": 17,
               "on_ice": "1st/0:00",
               "off_ice": "1st OT/1:26",
               "decision": "W"
@@ -1656,8 +1677,8 @@
             {
               "name": "Samuel Quimper (OTL)",
               "time_on_ice": "61:26",
-              "saves": 34,
-              "shots_against": 37,
+              "saves": 24,
+              "shots_against": 27,
               "on_ice": "1st/0:00",
               "off_ice": "1st OT/1:26",
               "decision": null

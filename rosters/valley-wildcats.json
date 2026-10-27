@@ -5,8 +5,8 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 4,
-  "updated_at": "2026-10-26T13:24:59.218Z",
-  "player_count": 25,
+  "updated_at": "2026-10-27T12:31:52.149Z",
+  "player_count": 24,
   "players": [
     {
       "player_id": "mhl-4145",
@@ -84,49 +84,6 @@
       },
       "hockeytech_id": "3622",
       "person_id": "4237",
-      "flags": [
-        "ht-rookie"
-      ]
-    },
-    {
-      "player_id": "mhl-4108",
-      "number": "6",
-      "first_name": "Riley",
-      "last_name": "Cave",
-      "name": "Riley Cave",
-      "position": "C",
-      "height": "6'00",
-      "height_inches": 72,
-      "weight": 172,
-      "shoots": "L",
-      "birthdate": "2008-12-12",
-      "birth_year": "'08",
-      "age": 18,
-      "hometown": "Corner Brook, NL",
-      "birthplace": "Corner Brook, NL, NL",
-      "rookie": true,
-      "veteran": false,
-      "headshot": "assets/headshots/Valley-Wildcats/6-riley-cave.jpg",
-      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4108.jpg",
-      "stats": {
-        "games_played": 6,
-        "goals": 2,
-        "assists": 0,
-        "points": 2,
-        "plus_minus": 0,
-        "penalty_minutes": 4,
-        "power_play_goals": 0,
-        "power_play_assists": 0,
-        "power_play_points": 0,
-        "short_handed_goals": 0,
-        "short_handed_assists": 0,
-        "short_handed_points": 0,
-        "game_winning_goals": 0,
-        "overtime_goals": 0,
-        "points_per_game": 0.33
-      },
-      "hockeytech_id": "4108",
-      "person_id": "4782",
       "flags": [
         "ht-rookie"
       ]
@@ -388,8 +345,8 @@
       "stats": {
         "games_played": 17,
         "goals": 5,
-        "assists": 9,
-        "points": 14,
+        "assists": 10,
+        "points": 15,
         "plus_minus": 0,
         "penalty_minutes": 30,
         "power_play_goals": 1,
@@ -400,7 +357,7 @@
         "short_handed_points": 2,
         "game_winning_goals": 2,
         "overtime_goals": 0,
-        "points_per_game": 0.82
+        "points_per_game": 0.88
       },
       "hockeytech_id": "4128",
       "person_id": "4803",
@@ -431,8 +388,8 @@
       "stats": {
         "games_played": 17,
         "goals": 9,
-        "assists": 11,
-        "points": 20,
+        "assists": 12,
+        "points": 21,
         "plus_minus": 0,
         "penalty_minutes": 26,
         "power_play_goals": 3,
@@ -443,7 +400,7 @@
         "short_handed_points": 3,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 1.18
+        "points_per_game": 1.24
       },
       "hockeytech_id": "4109",
       "person_id": "4783",
@@ -597,8 +554,8 @@
       "stats": {
         "games_played": 17,
         "goals": 7,
-        "assists": 18,
-        "points": 25,
+        "assists": 17,
+        "points": 24,
         "plus_minus": 0,
         "penalty_minutes": 23,
         "power_play_goals": 2,
@@ -609,7 +566,7 @@
         "short_handed_points": 2,
         "game_winning_goals": 2,
         "overtime_goals": 0,
-        "points_per_game": 1.47
+        "points_per_game": 1.41
       },
       "hockeytech_id": "2778",
       "person_id": "3205",
@@ -959,11 +916,11 @@
         "losses": 0,
         "ot_losses": 0,
         "minutes_played": 425,
-        "saves": 217,
-        "shots": 233,
+        "saves": 198,
+        "shots": 214,
         "goals_against": 16,
         "shutouts": 0,
-        "save_percentage": 0.931,
+        "save_percentage": 0.925,
         "goals_against_average": 2.26
       },
       "hockeytech_id": "3859",
@@ -998,8 +955,8 @@
         "losses": 2,
         "ot_losses": 0,
         "minutes_played": 598,
-        "saves": 371,
-        "shots": 395,
+        "saves": 367,
+        "shots": 391,
         "goals_against": 24,
         "shutouts": 0,
         "save_percentage": 0.939,

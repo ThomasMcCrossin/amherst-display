@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 21,
-  "updated_at": "2026-10-26T13:25:14.018Z",
+  "updated_at": "2026-10-27T12:32:10.812Z",
   "player_count": 22,
   "players": [
     {
@@ -371,8 +371,8 @@
       "stats": {
         "games_played": 12,
         "goals": 3,
-        "assists": 2,
-        "points": 5,
+        "assists": 1,
+        "points": 4,
         "plus_minus": 0,
         "penalty_minutes": 2,
         "power_play_goals": 1,
@@ -383,7 +383,7 @@
         "short_handed_points": 1,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.42
+        "points_per_game": 0.33
       },
       "hockeytech_id": "3458",
       "person_id": "4021",
@@ -453,8 +453,8 @@
       "stats": {
         "games_played": 10,
         "goals": 0,
-        "assists": 1,
-        "points": 1,
+        "assists": 2,
+        "points": 2,
         "plus_minus": 0,
         "penalty_minutes": 47,
         "power_play_goals": 0,
@@ -465,7 +465,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.1
+        "points_per_game": 0.2
       },
       "hockeytech_id": "3947",
       "person_id": "4618",
@@ -610,11 +610,11 @@
         "losses": 2,
         "ot_losses": 0,
         "minutes_played": 366,
-        "saves": 168,
-        "shots": 194,
+        "saves": 171,
+        "shots": 197,
         "goals_against": 26,
         "shutouts": 0,
-        "save_percentage": 0.866,
+        "save_percentage": 0.868,
         "goals_against_average": 4.26
       },
       "hockeytech_id": "3716",
@@ -647,11 +647,11 @@
         "losses": 3,
         "ot_losses": 0,
         "minutes_played": 358,
-        "saves": 185,
-        "shots": 208,
+        "saves": 190,
+        "shots": 213,
         "goals_against": 23,
         "shutouts": 0,
-        "save_percentage": 0.889,
+        "save_percentage": 0.892,
         "goals_against_average": 3.85
       },
       "hockeytech_id": "3354",

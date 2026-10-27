@@ -5,8 +5,8 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 10,
-  "updated_at": "2026-10-26T13:25:10.467Z",
-  "player_count": 24,
+  "updated_at": "2026-10-27T12:32:06.301Z",
+  "player_count": 23,
   "players": [
     {
       "player_id": "mhl-4069",
@@ -33,11 +33,11 @@
         "losses": 4,
         "ot_losses": 0,
         "minutes_played": 538,
-        "saves": 253,
-        "shots": 283,
+        "saves": 243,
+        "shots": 273,
         "goals_against": 30,
         "shutouts": 2,
-        "save_percentage": 0.894,
+        "save_percentage": 0.89,
         "goals_against_average": 3.35
       },
       "hockeytech_id": "4069",
@@ -315,7 +315,9 @@
       "stats": {},
       "hockeytech_id": "4066",
       "person_id": "4738",
-      "flags": []
+      "flags": [
+        "ht-affiliate"
+      ]
     },
     {
       "player_id": "mhl-4133",
@@ -841,33 +843,6 @@
       ]
     },
     {
-      "player_id": "mhl-4153",
-      "number": "82",
-      "first_name": "Landon",
-      "last_name": "Wilson",
-      "name": "Landon Wilson",
-      "position": "G",
-      "shoots": "R",
-      "rookie": false,
-      "veteran": false,
-      "stats": {
-        "games_played": 0,
-        "wins": 0,
-        "losses": 0,
-        "ot_losses": 0,
-        "minutes_played": 0,
-        "saves": 0,
-        "shots": 0,
-        "goals_against": 0,
-        "shutouts": 0,
-        "save_percentage": 0,
-        "goals_against_average": 0
-      },
-      "hockeytech_id": "4153",
-      "person_id": "4843",
-      "flags": []
-    },
-    {
       "player_id": "mhl-3796",
       "number": "90",
       "first_name": "Cade",
@@ -943,7 +918,9 @@
       },
       "hockeytech_id": "3927",
       "person_id": "4592",
-      "flags": []
+      "flags": [
+        "ht-affiliate"
+      ]
     }
   ]
 }
