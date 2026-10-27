@@ -101,3 +101,24 @@ render(spec, "<theme>", "overlay.png")  # transparent 1920x1080; composite with 
 Teams resolve by short code, provider id, slug, name, nickname or city. An unknown team
 gets the fallback logo and neutral colours.
 CLI: `node overlays/render.mjs --theme <name> --spec one.json --output one.png`.
+
+## Final-score card (`final_card.mjs`)
+
+The TSN-style full-screen final for one MHL game: both logos, FINAL (/ OT, / SO), the score and
+each team's goal scorers (a count badge for 2+, an OT tag on the overtime winner), no goal times.
+A shutout credits the goalie who played the whole game; a shootout names the deciding shooter.
+It is the closing frame of a Ramblers post-game highlight reel (watch-rams#10, #31).
+
+```
+node overlays/final_card.mjs --game <HockeyTech game_id> --out card.png [--assists] [--fixture summary.json]
+```
+
+- Opaque 1920x1080 PNG, sized to stay readable after the reel scales it to 1280x720.
+- Exit 0 written; 2 the game is not final; 3 a layout check failed (PNG still written); else error.
+- Data: `statviewfeed gameSummary` for that game only, cached once final in
+  `~/.local/state/amherst-display/final-card/` (`FINAL_CARD_CACHE`). Key from `HOCKEYTECH_API_KEY`
+  or `~/.local/state/watch-rams/amherst-highlights.env`.
+- Logos: the MHL pack's local files by HockeyTech team id, else the summary's logo URL, else a disc
+  with the team code. A name too wide for its column becomes initial + last name.
+- Review set (real finals plus long-name and missing-logo cases):
+  `python3 overlays/tools/final_card_review.py OUT_DIR` writes the PNGs and an `index.html`.
