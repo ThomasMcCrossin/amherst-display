@@ -1,0 +1,1 @@
+{"name": "Broadcast Package", "concept": "A national-broadcast pre-game graphics package: wipe-transitioned full-screen panels under a persistent score bug and a scrolling bottom ticker.", "panels": ["Tale of the Tape", "Division Standings", "Ramblers Leaders", "Last Game + Three Stars", "Storylines", "Schedule + By The Numbers"], "frames": 6, "frame_ms": 12000}
