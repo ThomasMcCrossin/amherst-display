@@ -69,3 +69,6 @@ bakeoff/data/raw/
 bakeoff/node_modules
 bakeoff/shots/
 bakeoff/designs/manifest.json
+# Game TV board build output, rebuilt every minute by game-board-refresh
+bakeoff/data/board.json
+bakeoff/data/insights.json
