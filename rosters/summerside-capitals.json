@@ -5,8 +5,8 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 10,
-  "updated_at": "2026-10-27T12:32:06.301Z",
-  "player_count": 23,
+  "updated_at": "2026-10-28T13:20:11.348Z",
+  "player_count": 24,
   "players": [
     {
       "player_id": "mhl-4069",
@@ -629,6 +629,42 @@
       "person_id": "4799",
       "flags": [
         "ht-played-major-junior"
+      ]
+    },
+    {
+      "player_id": "mhl-4154",
+      "number": "30",
+      "first_name": "Cesare",
+      "last_name": "Della Santina",
+      "name": "Cesare Della Santina",
+      "position": "G",
+      "height": "6'3",
+      "height_inches": 75,
+      "weight": 181,
+      "shoots": "L",
+      "birthdate": "2008-05-03",
+      "birth_year": "'08",
+      "age": 18,
+      "hometown": "Montreal, QC",
+      "rookie": true,
+      "veteran": false,
+      "stats": {
+        "games_played": 0,
+        "wins": 0,
+        "losses": 0,
+        "ot_losses": 0,
+        "minutes_played": 0,
+        "saves": 0,
+        "shots": 0,
+        "goals_against": 0,
+        "shutouts": 0,
+        "save_percentage": 0,
+        "goals_against_average": 0
+      },
+      "hockeytech_id": "4154",
+      "person_id": "4844",
+      "flags": [
+        "ht-rookie"
       ]
     },
     {

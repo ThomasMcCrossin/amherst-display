@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T12:33:19.733Z",
+  "generated_at": "2026-10-28T13:21:24.877Z",
   "season": "2026-27",
   "season_id": 46,
   "league": "MHL",
@@ -3968,9 +3968,9 @@
         "name": "Campbellton Tigers",
         "code": "CAM",
         "gp": 13,
-        "pp_goals": 9,
+        "pp_goals": 10,
         "pp_opportunities": 49,
-        "pp_pct": 18.4,
+        "pp_pct": 20.4,
         "pk_pct": 82.9,
         "shg_for": 0,
         "shg_against": 2
@@ -4007,7 +4007,7 @@
         "pp_goals": 7,
         "pp_opportunities": 61,
         "pp_pct": 11.5,
-        "pk_pct": 75.4,
+        "pk_pct": 73.7,
         "shg_for": 3,
         "shg_against": 0
       },
@@ -4053,7 +4053,7 @@
         "pk_goals_against": 7,
         "pk_times_shorthanded": 41,
         "pk_pct": 82.9,
-        "pp_pct": 18.4
+        "pp_pct": 20.4
       },
       {
         "team_id": "2",
@@ -4086,16 +4086,6 @@
         "pp_pct": 29.8
       },
       {
-        "team_id": "1",
-        "name": "Amherst Ramblers",
-        "code": "AMH",
-        "gp": 16,
-        "pk_goals_against": 14,
-        "pk_times_shorthanded": 57,
-        "pk_pct": 75.4,
-        "pp_pct": 11.5
-      },
-      {
         "team_id": "21",
         "name": "Chaleur Lightning",
         "code": "CHA",
@@ -4104,6 +4094,16 @@
         "pk_times_shorthanded": 55,
         "pk_pct": 74.5,
         "pp_pct": 31.4
+      },
+      {
+        "team_id": "1",
+        "name": "Amherst Ramblers",
+        "code": "AMH",
+        "gp": 16,
+        "pk_goals_against": 15,
+        "pk_times_shorthanded": 57,
+        "pk_pct": 73.7,
+        "pp_pct": 11.5
       },
       {
         "team_id": "12",

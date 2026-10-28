@@ -7,7 +7,7 @@
   "season_ids": [
     46
   ],
-  "updated_at": "2026-10-27T12:33:18.188Z",
+  "updated_at": "2026-10-28T13:21:23.653Z",
   "summary": {
     "games_played": 16,
     "wins": 6,
@@ -1081,7 +1081,7 @@
               "number": 20
             }
           ],
-          "power_play": false,
+          "power_play": true,
           "short_handed": false,
           "game_winning": false,
           "empty_net": false
@@ -1655,7 +1655,7 @@
             "penalties": 7
           },
           "opponent": {
-            "power_play_goals": 0,
+            "power_play_goals": 1,
             "power_play_opportunities": 3,
             "penalty_minutes": 23,
             "penalties": 6
