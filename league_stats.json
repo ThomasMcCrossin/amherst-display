@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T13:21:24.877Z",
+  "generated_at": "2026-10-29T13:30:32.879Z",
   "season": "2026-27",
   "season_id": 46,
   "league": "MHL",
@@ -3912,7 +3912,7 @@
         "pp_opportunities": 35,
         "pp_pct": 31.4,
         "pk_pct": 82,
-        "shg_for": 2,
+        "shg_for": 3,
         "shg_against": 1
       },
       {
@@ -3949,7 +3949,7 @@
         "pp_pct": 26.4,
         "pk_pct": 71.4,
         "shg_for": 1,
-        "shg_against": 3
+        "shg_against": 4
       },
       {
         "team_id": "9",

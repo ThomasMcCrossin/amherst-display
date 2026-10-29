@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 2,
-  "updated_at": "2026-10-28T13:19:50.235Z",
+  "updated_at": "2026-10-29T13:29:11.209Z",
   "player_count": 23,
   "players": [
     {
@@ -501,9 +501,9 @@
         "power_play_goals": 0,
         "power_play_assists": 0,
         "power_play_points": 0,
-        "short_handed_goals": 0,
+        "short_handed_goals": 1,
         "short_handed_assists": 0,
-        "short_handed_points": 0,
+        "short_handed_points": 1,
         "game_winning_goals": 1,
         "overtime_goals": 0,
         "points_per_game": 0.58
@@ -787,8 +787,8 @@
         "power_play_assists": 2,
         "power_play_points": 2,
         "short_handed_goals": 0,
-        "short_handed_assists": 1,
-        "short_handed_points": 1,
+        "short_handed_assists": 2,
+        "short_handed_points": 2,
         "game_winning_goals": 0,
         "overtime_goals": 0,
         "points_per_game": 1

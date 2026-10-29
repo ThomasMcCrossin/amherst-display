@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 10,
-  "updated_at": "2026-10-28T13:20:11.348Z",
+  "updated_at": "2026-10-29T13:29:24.544Z",
   "player_count": 24,
   "players": [
     {
@@ -633,7 +633,7 @@
     },
     {
       "player_id": "mhl-4154",
-      "number": "30",
+      "number": "33",
       "first_name": "Cesare",
       "last_name": "Della Santina",
       "name": "Cesare Della Santina",
