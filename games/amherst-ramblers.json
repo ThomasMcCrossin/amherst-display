@@ -7,7 +7,7 @@
   "season_ids": [
     46
   ],
-  "updated_at": "2026-10-29T13:30:31.749Z",
+  "updated_at": "2026-10-30T13:18:34.753Z",
   "summary": {
     "games_played": 16,
     "wins": 6,
@@ -117,6 +117,7 @@
           },
           "assists": [
             {
+              "player_id": "mhl-3402",
               "name": "Alex Symes",
               "number": 12
             },
@@ -2107,6 +2108,19 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
+        "mhl-3402": {
+          "position": "LW",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
         "mhl-3562": {
           "position": "C",
           "goals": 0,
@@ -2588,6 +2602,7 @@
           },
           "assists": [
             {
+              "player_id": "mhl-3402",
               "name": "Samuel Deveau",
               "number": 12
             }
@@ -2909,6 +2924,19 @@
           "assists": 0,
           "points": 0,
           "penalty_minutes": 2,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3402": {
+          "position": "LW",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -3902,6 +3930,19 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
+        "mhl-3402": {
+          "position": "LW",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
         "mhl-3562": {
           "position": "C",
           "goals": 2,
@@ -4622,6 +4663,7 @@
           "time": "07:49",
           "team": "ramblers",
           "player": {
+            "player_id": "mhl-3402",
             "name": "Aidan Silvaggio",
             "number": 12,
             "position": "LW"
@@ -4733,6 +4775,19 @@
           "faceoff_losses": 0
         },
         "mhl-3433": {
+          "position": "LW",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 2,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3402": {
           "position": "LW",
           "goals": 0,
           "assists": 0,
@@ -5306,6 +5361,7 @@
           "time": "15:50",
           "team": "ramblers",
           "player": {
+            "player_id": "mhl-3402",
             "name": "Aidan Silvaggio",
             "number": 12,
             "position": "LW"
@@ -5573,6 +5629,19 @@
           "assists": 0,
           "points": 0,
           "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3402": {
+          "position": "LW",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 2,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -6298,6 +6367,7 @@
               "number": 91
             },
             {
+              "player_id": "mhl-3402",
               "name": "Alex Symes",
               "number": 12
             }
@@ -7815,6 +7885,7 @@
               "number": 21
             },
             {
+              "player_id": "mhl-3402",
               "name": "Hudson Sisk",
               "number": 12
             }
@@ -8111,6 +8182,19 @@
           "faceoff_losses": 0
         },
         "mhl-3433": {
+          "position": "LW",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3402": {
           "position": "LW",
           "goals": 0,
           "assists": 0,
@@ -8815,6 +8899,19 @@
           "faceoff_losses": 0
         },
         "mhl-3433": {
+          "position": "LW",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3402": {
           "position": "LW",
           "goals": 0,
           "assists": 0,
@@ -11384,6 +11481,19 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
+        "mhl-3402": {
+          "position": "LW",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
         "mhl-3562": {
           "position": "C",
           "goals": 1,
@@ -12010,6 +12120,7 @@
           "time": "13:45",
           "team": "ramblers",
           "player": {
+            "player_id": "mhl-3402",
             "name": "Aidan Silvaggio",
             "number": 12,
             "position": "LW"
@@ -12512,6 +12623,19 @@
           "assists": 0,
           "points": 0,
           "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3402": {
+          "position": "LW",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 2,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -13369,6 +13493,19 @@
           "faceoff_losses": 0
         },
         "mhl-3433": {
+          "position": "LW",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3402": {
           "position": "LW",
           "goals": 0,
           "assists": 0,

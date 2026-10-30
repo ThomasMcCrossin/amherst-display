@@ -5,8 +5,8 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 6,
-  "updated_at": "2026-10-29T13:29:17.928Z",
-  "player_count": 23,
+  "updated_at": "2026-10-30T13:17:23.612Z",
+  "player_count": 25,
   "players": [
     {
       "player_id": "mhl-4113",
@@ -29,17 +29,17 @@
       "headshot": "assets/headshots/West-Kent-Steamers/1-samuel-pitcher.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4113.jpg",
       "stats": {
-        "games_played": 4,
+        "games_played": 5,
         "wins": 0,
-        "losses": 2,
+        "losses": 3,
         "ot_losses": 1,
-        "minutes_played": 203,
-        "saves": 118,
-        "shots": 133,
-        "goals_against": 15,
+        "minutes_played": 263,
+        "saves": 143,
+        "shots": 164,
+        "goals_against": 21,
         "shutouts": 0,
-        "save_percentage": 0.887,
-        "goals_against_average": 4.44
+        "save_percentage": 0.872,
+        "goals_against_average": 4.8
       },
       "hockeytech_id": "4113",
       "person_id": "4787",
@@ -68,7 +68,7 @@
       "headshot": "assets/headshots/West-Kent-Steamers/6-th-o-lebrun.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3907.jpg",
       "stats": {
-        "games_played": 15,
+        "games_played": 16,
         "goals": 1,
         "assists": 2,
         "points": 3,
@@ -82,7 +82,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.2
+        "points_per_game": 0.19
       },
       "hockeytech_id": "3907",
       "person_id": "4560",
@@ -176,10 +176,10 @@
       "headshot": "assets/headshots/West-Kent-Steamers/9-jean-christophe-gemme.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3682.jpg",
       "stats": {
-        "games_played": 11,
+        "games_played": 12,
         "goals": 1,
-        "assists": 9,
-        "points": 10,
+        "assists": 10,
+        "points": 11,
         "plus_minus": 0,
         "penalty_minutes": 16,
         "power_play_goals": 0,
@@ -190,7 +190,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.91
+        "points_per_game": 0.92
       },
       "hockeytech_id": "3682",
       "person_id": "4297",
@@ -216,23 +216,7 @@
       "veteran": false,
       "headshot": "assets/headshots/West-Kent-Steamers/10-maxime-morin.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4051.jpg",
-      "stats": {
-        "games_played": 1,
-        "goals": 0,
-        "assists": 0,
-        "points": 0,
-        "plus_minus": 0,
-        "penalty_minutes": 0,
-        "power_play_goals": 0,
-        "power_play_assists": 0,
-        "power_play_points": 0,
-        "short_handed_goals": 0,
-        "short_handed_assists": 0,
-        "short_handed_points": 0,
-        "game_winning_goals": 0,
-        "overtime_goals": 0,
-        "points_per_game": 0
-      },
+      "stats": {},
       "hockeytech_id": "4051",
       "person_id": "4723",
       "flags": [
@@ -260,7 +244,7 @@
       "headshot": "assets/headshots/West-Kent-Steamers/11-tristan-richard.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3318.jpg",
       "stats": {
-        "games_played": 15,
+        "games_played": 16,
         "goals": 0,
         "assists": 2,
         "points": 2,
@@ -279,6 +263,31 @@
       "hockeytech_id": "3318",
       "person_id": "3880",
       "flags": []
+    },
+    {
+      "player_id": "mhl-4053",
+      "number": "13",
+      "first_name": "Malik",
+      "last_name": "Bell",
+      "name": "Malik Bell",
+      "position": "C",
+      "height": "6'1\"",
+      "height_inches": 73,
+      "weight": 171,
+      "shoots": "L",
+      "birthdate": "2010-09-29",
+      "birth_year": "'10",
+      "age": 16,
+      "hometown": "Fredericton, NB",
+      "birthplace": "Fredericton, NB, NB",
+      "rookie": false,
+      "veteran": false,
+      "stats": {},
+      "hockeytech_id": "4053",
+      "person_id": "4725",
+      "flags": [
+        "ht-affiliate"
+      ]
     },
     {
       "player_id": "mhl-4124",
@@ -301,12 +310,12 @@
       "headshot": "assets/headshots/West-Kent-Steamers/14-samuel-nowlan.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4124.jpg",
       "stats": {
-        "games_played": 15,
+        "games_played": 16,
         "goals": 8,
-        "assists": 6,
-        "points": 14,
+        "assists": 7,
+        "points": 15,
         "plus_minus": 0,
-        "penalty_minutes": 10,
+        "penalty_minutes": 12,
         "power_play_goals": 2,
         "power_play_assists": 3,
         "power_play_points": 5,
@@ -315,7 +324,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.93
+        "points_per_game": 0.94
       },
       "hockeytech_id": "4124",
       "person_id": "4798",
@@ -344,7 +353,7 @@
       "headshot": "assets/headshots/West-Kent-Steamers/16-olivier-o-brien.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3051.jpg",
       "stats": {
-        "games_played": 15,
+        "games_played": 16,
         "goals": 1,
         "assists": 5,
         "points": 6,
@@ -358,7 +367,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.4
+        "points_per_game": 0.38
       },
       "hockeytech_id": "3051",
       "person_id": "3569",
@@ -385,21 +394,21 @@
       "headshot": "assets/headshots/West-Kent-Steamers/18-samuel-fontaine.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4064.jpg",
       "stats": {
-        "games_played": 15,
-        "goals": 5,
+        "games_played": 16,
+        "goals": 6,
         "assists": 11,
-        "points": 16,
+        "points": 17,
         "plus_minus": 0,
         "penalty_minutes": 24,
-        "power_play_goals": 3,
+        "power_play_goals": 4,
         "power_play_assists": 6,
-        "power_play_points": 9,
+        "power_play_points": 10,
         "short_handed_goals": 0,
         "short_handed_assists": 0,
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 1.07
+        "points_per_game": 1.06
       },
       "hockeytech_id": "4064",
       "person_id": "4736",
@@ -426,10 +435,10 @@
       "headshot": "assets/headshots/West-Kent-Steamers/19-zachary-paulhus.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3602.jpg",
       "stats": {
-        "games_played": 15,
-        "goals": 7,
-        "assists": 4,
-        "points": 11,
+        "games_played": 16,
+        "goals": 8,
+        "assists": 5,
+        "points": 13,
         "plus_minus": 0,
         "penalty_minutes": 38,
         "power_play_goals": 2,
@@ -440,7 +449,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.73
+        "points_per_game": 0.81
       },
       "hockeytech_id": "3602",
       "person_id": "4217",
@@ -492,7 +501,7 @@
       "headshot": "assets/headshots/West-Kent-Steamers/23-mathys-panneton.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4057.jpg",
       "stats": {
-        "games_played": 15,
+        "games_played": 16,
         "goals": 0,
         "assists": 4,
         "points": 4,
@@ -506,7 +515,7 @@
         "short_handed_points": 1,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.27
+        "points_per_game": 0.25
       },
       "hockeytech_id": "4057",
       "person_id": "4729",
@@ -535,25 +544,62 @@
       "headshot": "assets/headshots/West-Kent-Steamers/27-olivier-leblanc.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3049.jpg",
       "stats": {
-        "games_played": 15,
+        "games_played": 16,
         "goals": 5,
-        "assists": 9,
-        "points": 14,
+        "assists": 11,
+        "points": 16,
         "plus_minus": 0,
         "penalty_minutes": 2,
         "power_play_goals": 3,
-        "power_play_assists": 3,
-        "power_play_points": 6,
+        "power_play_assists": 4,
+        "power_play_points": 7,
         "short_handed_goals": 0,
         "short_handed_assists": 2,
         "short_handed_points": 2,
         "game_winning_goals": 1,
         "overtime_goals": 1,
-        "points_per_game": 0.93
+        "points_per_game": 1
       },
       "hockeytech_id": "3049",
       "person_id": "3567",
       "flags": []
+    },
+    {
+      "player_id": "mhl-4068",
+      "number": "30",
+      "first_name": "Mason",
+      "last_name": "MacAusland",
+      "name": "Mason MacAusland",
+      "position": "G",
+      "height": "5'9''",
+      "height_inches": 69,
+      "weight": 175,
+      "shoots": "R",
+      "birthdate": "2009-10-29",
+      "birth_year": "'09",
+      "age": 17,
+      "hometown": "Stratford, PE",
+      "birthplace": "Stratford, PE, PE",
+      "rookie": false,
+      "veteran": false,
+      "stats": {
+        "games_played": 0,
+        "wins": 0,
+        "losses": 0,
+        "ot_losses": 0,
+        "minutes_played": 0,
+        "saves": 0,
+        "shots": 0,
+        "goals_against": 0,
+        "shutouts": 0,
+        "save_percentage": 0,
+        "goals_against_average": 0
+      },
+      "hockeytech_id": "4068",
+      "person_id": "4740",
+      "flags": [
+        "ht-affiliate"
+      ]
     },
     {
       "player_id": "mhl-3231",
@@ -613,10 +659,10 @@
       "headshot": "assets/headshots/West-Kent-Steamers/34-nathan-vincelette.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4050.jpg",
       "stats": {
-        "games_played": 13,
-        "goals": 0,
-        "assists": 5,
-        "points": 5,
+        "games_played": 14,
+        "goals": 1,
+        "assists": 6,
+        "points": 7,
         "plus_minus": 0,
         "penalty_minutes": 4,
         "power_play_goals": 0,
@@ -627,7 +673,7 @@
         "short_handed_points": 1,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.38
+        "points_per_game": 0.5
       },
       "hockeytech_id": "4050",
       "person_id": "4722",
@@ -656,12 +702,12 @@
       "headshot": "assets/headshots/West-Kent-Steamers/44-quinlan-parry.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4065.jpg",
       "stats": {
-        "games_played": 15,
+        "games_played": 16,
         "goals": 0,
         "assists": 3,
         "points": 3,
         "plus_minus": 0,
-        "penalty_minutes": 6,
+        "penalty_minutes": 10,
         "power_play_goals": 0,
         "power_play_assists": 0,
         "power_play_points": 0,
@@ -670,7 +716,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.2
+        "points_per_game": 0.19
       },
       "hockeytech_id": "4065",
       "person_id": "4737",
@@ -763,21 +809,21 @@
       "headshot": "assets/headshots/West-Kent-Steamers/77-austin-sanchez.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2845.jpg",
       "stats": {
-        "games_played": 15,
+        "games_played": 16,
         "goals": 8,
-        "assists": 3,
-        "points": 11,
+        "assists": 4,
+        "points": 12,
         "plus_minus": 0,
         "penalty_minutes": 0,
         "power_play_goals": 2,
-        "power_play_assists": 1,
-        "power_play_points": 3,
+        "power_play_assists": 2,
+        "power_play_points": 4,
         "short_handed_goals": 2,
         "short_handed_assists": 0,
         "short_handed_points": 2,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.73
+        "points_per_game": 0.75
       },
       "hockeytech_id": "2845",
       "person_id": "3272",
@@ -804,12 +850,12 @@
       "headshot": "assets/headshots/West-Kent-Steamers/88-noah-breau.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2818.jpg",
       "stats": {
-        "games_played": 15,
-        "goals": 3,
-        "assists": 4,
-        "points": 7,
+        "games_played": 16,
+        "goals": 4,
+        "assists": 5,
+        "points": 9,
         "plus_minus": 0,
-        "penalty_minutes": 12,
+        "penalty_minutes": 14,
         "power_play_goals": 0,
         "power_play_assists": 2,
         "power_play_points": 2,
@@ -818,7 +864,7 @@
         "short_handed_points": 1,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.47
+        "points_per_game": 0.56
       },
       "hockeytech_id": "2818",
       "person_id": "3245",
@@ -845,12 +891,12 @@
       "headshot": "assets/headshots/West-Kent-Steamers/91-alexis-legault.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4063.jpg",
       "stats": {
-        "games_played": 15,
+        "games_played": 16,
         "goals": 2,
         "assists": 9,
         "points": 11,
         "plus_minus": 0,
-        "penalty_minutes": 4,
+        "penalty_minutes": 6,
         "power_play_goals": 1,
         "power_play_assists": 5,
         "power_play_points": 6,
@@ -859,7 +905,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.73
+        "points_per_game": 0.69
       },
       "hockeytech_id": "4063",
       "person_id": "4735",
@@ -886,7 +932,7 @@
       "headshot": "assets/headshots/West-Kent-Steamers/96-brody-breau.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3424.jpg",
       "stats": {
-        "games_played": 11,
+        "games_played": 12,
         "goals": 1,
         "assists": 0,
         "points": 1,
@@ -900,7 +946,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.09
+        "points_per_game": 0.08
       },
       "hockeytech_id": "3424",
       "person_id": "3987",

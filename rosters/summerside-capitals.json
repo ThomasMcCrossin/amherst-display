@@ -5,8 +5,8 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 10,
-  "updated_at": "2026-10-29T13:29:24.544Z",
-  "player_count": 24,
+  "updated_at": "2026-10-30T13:17:28.529Z",
+  "player_count": 25,
   "players": [
     {
       "player_id": "mhl-4069",
@@ -482,6 +482,31 @@
       },
       "hockeytech_id": "2717",
       "person_id": "3144",
+      "flags": []
+    },
+    {
+      "player_id": "mhl-3402",
+      "number": "15",
+      "first_name": "Aidan",
+      "last_name": "Silvaggio",
+      "name": "Aidan Silvaggio",
+      "position": "LW",
+      "height": "6'03",
+      "height_inches": 75,
+      "weight": 189,
+      "shoots": "L",
+      "birthdate": "2007-09-07",
+      "birth_year": "'07",
+      "age": 19,
+      "hometown": "Charlottetown, PE",
+      "birthplace": "Charlottetown, PE, PE",
+      "rookie": false,
+      "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/15-aidan-silvaggio.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3402.jpg",
+      "stats": {},
+      "hockeytech_id": "3402",
+      "person_id": "3964",
       "flags": []
     },
     {
