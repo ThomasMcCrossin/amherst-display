@@ -84,11 +84,14 @@ harness may stop you at a hard limit, and a run with no verdict counts as a fail
 
 - **Goal in-point: show the build-up.** Start where the scoring play starts: the zone entry,
   the possession change (turnover, won battle), or the faceoff win that led to the goal.
-  **When in doubt, go earlier.** Never less than `bounds.lead_min` (15 s) before the goal;
-  up to `bounds.lead_max` (45 s) when the play genuinely builds longer (an offensive-zone
-  cycle, sustained pressure, a rush from its own zone). A clip that starts on the shot is a
-  failed highlight even when the goal is in it. The code pulls any in-point later than 15 s
-  back to 15 s.
+  Size the lead-in to the play (Tom, 2026-10-30): a quick goal, a won faceoff or a turnover
+  a few seconds before the shot, starts at that faceoff or turnover (`in_kind` `faceoff` or
+  `possession_change`), as little as `bounds.lead_min_quick` (6 s) before the goal. Any other
+  play starts where it begins, never less than `bounds.lead_min` (15 s) before the goal and up
+  to `bounds.lead_max` (45 s) when the play genuinely builds longer (an offensive-zone cycle,
+  sustained pressure, a rush from its own zone). **When in doubt, go earlier.** A clip that
+  starts on the shot is a failed highlight even when the goal is in it. The code pulls a later
+  in-point back to the floor for its `in_kind` (6 s or 15 s).
 - **Goal out-point**: when the live celebration ends (fist bumps done, players skating off) or
   the first replay/graphic wipe, whichever comes first, and at least `bounds.tail_min` (8 s)
   after the puck crosses the line. Set `replay_t` when you see the replay start; if it starts
@@ -176,7 +179,8 @@ when the reviewer dropped the clip or was unsure: then check the coarse sheets).
   in the frames), `other`.
 - Object only to **material** faults, judged by the cut rules above, not by taste:
   - `starts_too_early` only with more than ~20 s of play unrelated to the scoring play (or
-    to the incident) before it. A 15-45 s lead-in that shows the play developing is wanted.
+    to the incident) before it. A lead-in that shows the play developing is wanted: 6 s or more from the won faceoff or
+    turnover on a quick goal, 15-45 s on a play that builds.
   - For a goal, object `starts_mid_play` when the clip misses the build-up (it starts after
     the zone entry / possession change that led to the goal). This is the main fault to catch.
   - `ends_early` only when the clip stops less than `bounds.tail_min` after the event, or

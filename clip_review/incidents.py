@@ -20,11 +20,14 @@ WANTED_RE = re.compile(r"fight|major|misconduct|match penalty|game misconduct|gr
 # A goal clip must show the build-up: the in-point is never less than this many seconds
 # before the goal (Tom, 2026-10-08, issue #21). Up to lead_max (45 s) when the play builds longer.
 MIN_GOAL_LEAD_S = float(os.environ.get("CLIP_REVIEW_MIN_LEAD_S", "15"))
+# ...except a quick goal: a won faceoff or a turnover right before it needs only this much
+# (Tom, 2026-10-30: quick goals don't need the long build-up; built-up plays still get it).
+MIN_QUICK_GOAL_LEAD_S = float(os.environ.get("CLIP_REVIEW_MIN_QUICK_LEAD_S", "6"))
 
 # Authority bounds per incident class (seconds; *_t values relative to the anchor). The code
 # clamps a reviewer's window into these and rejects a verdict that still breaks them.
 BOUNDS: Dict[str, Dict[str, float]] = {
-    "goal":  {"lead_min": MIN_GOAL_LEAD_S, "lead_max": 45, "tail_min": 8, "tail_max": 25, "len_min": 8, "len_max": 60,
+    "goal":  {"lead_min": MIN_GOAL_LEAD_S, "lead_min_quick": MIN_QUICK_GOAL_LEAD_S, "lead_max": 45, "tail_min": 8, "tail_max": 25, "len_min": 8, "len_max": 60,
               "near": 30, "relocate_max": 240, "drop_min_confidence": 0.8,
               "tail_min_replay": 5},
     "minor": {"lead_min": 1, "lead_max": 20, "tail_min": 2, "tail_max": 25, "len_min": 9, "len_max": 40,
@@ -56,6 +59,8 @@ def current_bounds(incident: Dict[str, Any]) -> Dict[str, Any]:
     if not cur:
         return incident
     nb = dict(b, lead_min=max(b.get("lead_min", 0), cur["lead_min"]))
+    if "lead_min_quick" in cur:
+        nb["lead_min_quick"] = cur["lead_min_quick"]
     if TAIL_TRIM_ON and "tail_trim" in cur:
         nb["tail_trim"] = cur["tail_trim"]
     else:
