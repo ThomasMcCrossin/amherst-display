@@ -123,9 +123,11 @@ class ApiBackend:
             + ("; ".join(f"{n['what']} at {n['placed_t']:+.0f}" for n in inc["neighbours"]) or "none") + ".\n\n")
         if kind == "goal":
             text += ("Find the goal. event_moment = puck crosses the line. play_start = first frame of the possession that "
-                     "produced the goal, to show the build-up: the zone entry, the possession change, or the faceoff win "
-                     "that led to the goal. When in doubt go earlier: never less than 15 s before the goal, up to 45 s when "
-                     "the play builds longer (cycle, sustained pressure, rush from its own zone). play_end = last frame of the live celebration, or the "
+                     "produced the goal: the zone entry, the possession change, or the faceoff win that led to it. Size the "
+                     "lead-in to the play. A quick goal (a won faceoff or a turnover a few seconds before the shot) starts "
+                     "at that faceoff or turnover, as little as 6 s before the goal: set play_start_kind faceoff or "
+                     "possession_change. Any other play (rush, zone entry, cycle, sustained pressure) starts where it "
+                     "begins, at least 15 s and up to 45 s before the goal; when in doubt go earlier. play_end = last frame of the live celebration, or the "
                      "first replay/graphic, whichever comes first. The clock freezes at the goal; the score digit changes later.\n")
         elif cls in ("major", "scrum", "fight"):
             text += ("This is a major / misconduct / scrum / fight incident (several penalties can share one stoppage). Find it. If it is a fight, set fight.gloves_drop to when gloves "
@@ -190,10 +192,13 @@ class ApiBackend:
         else:
             rtext = (f"Hockey broadcast, one {cls}. A first pass proposed: start {p_in:+.1f} ({c.get('play_start_kind')}), end "
                      f"{p_out:+.1f} ({c.get('play_end_kind')}), event {moment:+.1f}. Confirm or correct each boundary on the dense sheets "
-                     "(0.5 s apart, labelled on the same scale). start = the first frame of the play that produced the event (for a goal the build-up: zone entry, possession change or "
-                     "faceoff win, at least 15 s before the goal; when in doubt earlier); end = last "
+                     "(0.5 s apart, labelled on the same scale). start = the first frame of the play that produced the event (for a goal: a won faceoff or turnover just "
+                     "before a quick goal, as little as 6 s before it, start_kind faceoff/possession_change; otherwise the "
+                     "zone entry or start of the pressure, at least 15 s before the goal; when in doubt earlier); end = last "
                      "frame worth keeping, before any replay/graphic/commercial.\n"
-                     'Reply with JSON only: {"start": <label>, "end": <label>, "start_what": "...", "end_what": "..."}')
+                     'Reply with JSON only: {"start": <label>, "end": <label>, "start_kind": "faceoff|zone_entry|'
+                     'possession_change|rush|dump_in|cycle|pre_foul|pre_whistle|pre_confrontation|other", '
+                     '"start_what": "...", "end_what": "..."}')
         rcontent: List[Dict[str, Any]] = [{"type": "text", "text": rtext}]
         for name, centre, sheets in bnds:
             for sh in sheets:
@@ -205,6 +210,8 @@ class ApiBackend:
             r_in, r_out = _num(rf.get("start")), _num(rf.get("end"))
             if r_in is not None and (moment - 20.5 <= r_in <= moment + 2.5 if minor else abs(r_in - p_in) <= 7.5):
                 p_in = r_in
+                if rf.get("start_kind") in _IN_KINDS:
+                    c["play_start_kind"] = rf["start_kind"]
             elif minor:
                 p_in = moment - 8.0
             if r_out is not None and abs(r_out - p_out) <= 7.5:
@@ -243,7 +250,8 @@ class ApiBackend:
                 "Look for: the event not in the clip, the clip ending before the puck crosses the line / the foul, starting mid-play, "
                 "a long unrelated lead-in, the celebration or fight cut off, a replay included, a neighbour's event instead of this "
                 "one, a dropped/unsure event that is actually visible. Object ONLY to material faults: starts_too_early only with "
-                "more than ~20 s of play unrelated to this play before it (a 5-30 s lead-in showing the play develop is wanted); "
+                "more than ~20 s of play unrelated to this play before it (a lead-in showing the play develop is wanted: a few "
+                "seconds from a won faceoff or turnover on a quick goal, 15-30 s on a play that builds); "
                 f"ends_early only when the clip stops less than {inc['bounds']['tail_min']:.0f} s after the event, mid-fight, or "
                 "mid-celebration with the scorer still celebrating on screen; replay_included only with at least 1.5 s of replay "
                 "inside the clip (a replay starting at the out-point is correct); too_long only past the length cap or with more "

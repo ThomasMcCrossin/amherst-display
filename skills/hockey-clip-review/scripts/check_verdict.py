@@ -77,6 +77,17 @@ def _num(v: Any) -> Optional[float]:
     return float(v) if isinstance(v, (int, float)) and not isinstance(v, bool) else None
 
 
+# A quick goal (won faceoff or turnover right before it) needs only bounds.lead_min_quick of
+# lead-in; every other play keeps bounds.lead_min (Tom, 2026-10-30).
+QUICK_IN_KINDS = {"faceoff", "possession_change"}
+
+
+def lead_floor(verdict: Dict[str, Any], b: Dict[str, Any]) -> float:
+    if verdict.get("in_kind") in QUICK_IN_KINDS and "lead_min_quick" in b:
+        return float(b["lead_min_quick"])
+    return float(b["lead_min"])
+
+
 # ---- invariants ----
 def check(verdict: Dict[str, Any], incident: Dict[str, Any]) -> Tuple[List[str], List[str]]:
     """(errors, warnings) for a verdict against its incident packet."""
@@ -150,8 +161,9 @@ def check(verdict: Dict[str, Any], incident: Dict[str, Any]) -> Tuple[List[str],
                 errors.append(f"fight out_t must be <= separated_t + {b['fight_post']:.0f} s ({s + b['fight_post']:+.1f})")
     else:
         lead, tail = ev - t_in, t_out - ev
-        if lead < b["lead_min"] - 0.01:
-            errors.append(f"in_t is only {lead:.1f} s before the event; need >= {b['lead_min']:.0f} s")
+        floor = lead_floor(verdict, b)
+        if lead < floor - 0.01:
+            errors.append(f"in_t is only {lead:.1f} s before the event; need >= {floor:.0f} s")
         if lead > b["lead_max"] + 0.01:
             errors.append(f"in_t is {lead:.1f} s before the event; at most {b['lead_max']:.0f} s")
         replay = _num(verdict.get("replay_t"))
@@ -202,8 +214,9 @@ def clamp(verdict: Dict[str, Any], incident: Dict[str, Any]) -> Tuple[Dict[str, 
     else:
         if ev - t_in > b["lead_max"]:
             t_in = ev - b["lead_max"]; note(f"in-point clamped to {b['lead_max']:.0f} s before the event")
-        if ev - t_in < b["lead_min"]:
-            t_in = ev - b["lead_min"]; note(f"in-point pulled back to {b['lead_min']:.0f} s before the event")
+        floor = lead_floor(v, b)
+        if ev - t_in < floor:
+            t_in = ev - floor; note(f"in-point pulled back to {floor:.0f} s before the event")
         if replay is not None and ev + b.get("tail_min_replay", 2.0) < replay < t_out:
             t_out = replay; note("out-point moved to the start of the replay")
         tail_min = b["tail_min"] if replay is None or replay <= ev else min(b["tail_min"], max(b.get("tail_min_replay", 2.0), replay - ev))
