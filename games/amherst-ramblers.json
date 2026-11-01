@@ -7,7 +7,7 @@
   "season_ids": [
     46
   ],
-  "updated_at": "2026-10-31T12:56:09.639Z",
+  "updated_at": "2026-11-01T13:42:13.287Z",
   "summary": {
     "games_played": 17,
     "wins": 6,
@@ -376,22 +376,6 @@
             "number": 17,
             "position": "C"
           },
-          "infraction": "Fighting - Major",
-          "minutes": 5,
-          "duration": 5,
-          "is_bench": false
-        },
-        {
-          "period": 3,
-          "period_name": "3rd",
-          "time": "08:13",
-          "team": "ramblers",
-          "player": {
-            "player_id": "mhl-4118",
-            "name": "Cohen McNeil",
-            "number": 17,
-            "position": "C"
-          },
           "infraction": "Cross Checking - Major",
           "minutes": 5,
           "duration": 5,
@@ -408,39 +392,7 @@
             "number": 17,
             "position": "C"
           },
-          "infraction": "Instigator - Minor",
-          "minutes": 2,
-          "duration": 2,
-          "is_bench": false
-        },
-        {
-          "period": 3,
-          "period_name": "3rd",
-          "time": "08:13",
-          "team": "ramblers",
-          "player": {
-            "player_id": "mhl-4118",
-            "name": "Cohen McNeil",
-            "number": 17,
-            "position": "C"
-          },
           "infraction": "Game Misconduct",
-          "minutes": 10,
-          "duration": 10,
-          "is_bench": false
-        },
-        {
-          "period": 3,
-          "period_name": "3rd",
-          "time": "08:13",
-          "team": "ramblers",
-          "player": {
-            "player_id": "mhl-4118",
-            "name": "Cohen McNeil",
-            "number": 17,
-            "position": "C"
-          },
-          "infraction": "Fighting Game Misconduct - Game Misconduct",
           "minutes": 10,
           "duration": 10,
           "is_bench": false
@@ -742,7 +694,7 @@
           "goals": 0,
           "assists": 0,
           "points": 0,
-          "penalty_minutes": 32,
+          "penalty_minutes": 15,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -916,15 +868,15 @@
         "power_play_summary": {
           "opponent": {
             "power_play_goals": 2,
-            "power_play_opportunities": 4,
+            "power_play_opportunities": 3,
             "penalty_minutes": 44,
             "penalties": 11
           },
           "ramblers": {
             "power_play_goals": 0,
             "power_play_opportunities": 4,
-            "penalty_minutes": 69,
-            "penalties": 14
+            "penalty_minutes": 52,
+            "penalties": 11
           }
         },
         "goaltenders": {
@@ -1116,30 +1068,8 @@
               "name": "Cohen McNeil",
               "number": null
             },
-            "infraction": "Fighting - Major",
-            "minutes": 5
-          },
-          {
-            "period": 3,
-            "time": "08:13",
-            "team": "ramblers",
-            "player": {
-              "name": "Cohen McNeil",
-              "number": null
-            },
             "infraction": "Cross Checking - Major",
             "minutes": 5
-          },
-          {
-            "period": 3,
-            "time": "08:13",
-            "team": "ramblers",
-            "player": {
-              "name": "Cohen McNeil",
-              "number": null
-            },
-            "infraction": "Instigator - Minor",
-            "minutes": 2
           },
           {
             "period": 3,
