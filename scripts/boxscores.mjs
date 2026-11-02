@@ -24,7 +24,6 @@ const ROOT_DIR = process.env.METADATA_OUTPUT_DIR || path.resolve(__dirname, '..'
 
 const MHL_BASE_URL = 'https://www.themhl.ca/stats/game-summary/';
 import { config } from './hockeytech.mjs';
-import puppeteer from 'puppeteer';
 const AMHERST_TEAM_ID = Number(config.team_id);
 
 const nowISO = () => new Date().toISOString();
@@ -666,7 +665,6 @@ export async function scrapeRamblersBoxScores(options = {}) {
   console.log(`[boxscores] Scraping ${gamesToScrape.length} games...`);
 
   const browser = await chromium.launch({
-    executablePath: await puppeteer.executablePath(),
     headless: true,
     args: ['--no-sandbox', '--disable-setuid-sandbox']
   });
