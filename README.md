@@ -395,10 +395,10 @@ The public plan is published at the repository root alongside the display metada
 `https://raw.githubusercontent.com/ThomasMcCrossin/amherst-display/main/monitor_plan.json`.
 The [game-only worker](docs/live-game-worker.md) consumes this plan; it does not independently discover daily schedules.
 
-Node 22.12 or newer is required by the pinned Puppeteer dependency (Actions uses Node 22).
+Node 22.12 or newer is required by the pinned Playwright dependency (Actions uses Node 22).
 Run the scoped acquisition regressions with `node --test tests/central_metadata.test.mjs`.
 For local builds, export `HOCKEYTECH_API_KEY`, run `npm ci` and
-`npx puppeteer browsers install chrome`, then `npm run build` (including the PNG gate).
+`npx playwright install --with-deps chromium`, then `npm run build` (including the PNG gate).
 
 ## Key Design Decisions
 
@@ -510,7 +510,7 @@ All CSS is inline in `index.html` for easy customization. Look for the `<style>`
 |------------|---------|
 | **Vanilla HTML/CSS/JS** | Frontend display (no frameworks) |
 | **Node.js 20** | Backend data processing |
-| **Puppeteer** | Headless browser for JS-rendered sites |
+| **Playwright** | Headless browser for JS-rendered sites |
 | **Cheerio** | HTML parsing for scraping |
 | **date-fns** | Date/time manipulation |
 | **GitHub Actions** | CI/CD automation |

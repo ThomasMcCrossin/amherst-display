@@ -1,6 +1,6 @@
 // Render the successfully acquired season, never an independently scraped page default.
 import fs from 'node:fs/promises';
-import puppeteer from 'puppeteer';
+import { chromium } from 'playwright';
 import { pathToFileURL } from 'node:url';
 import { config } from './hockeytech.mjs';
 
@@ -27,12 +27,11 @@ export function standingsHTML(data) {
 export async function snapshotStandings() {
   const data = JSON.parse(await fs.readFile('standings_mhl.json', 'utf8'));
   const html = standingsHTML(data);
-  const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+  const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
   try {
-    const page = await browser.newPage();
-    await page.setViewport({ width: 1200, height: 1200, deviceScaleFactor: 2 });
+    const page = await browser.newPage({ viewport: { width: 1200, height: 1200 }, deviceScaleFactor: 2 });
     await page.setContent(html, { waitUntil: 'load' });
-    await page.waitForSelector('table tbody tr td', { visible: true, timeout: 10000 });
+    await page.waitForSelector('table tbody tr td', { state: 'visible', timeout: 10000 });
     await page.evaluate(() => document.fonts.ready);
     const surface = await page.$('main');
     const rect = await surface.boundingBox();
