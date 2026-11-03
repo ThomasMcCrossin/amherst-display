@@ -11,7 +11,8 @@ Pick the scorebug layout for a recording before the full OCR pass.
 Returns a ScorebugProfile, or None to keep the catalog/auto-probe behaviour.
 
 Vision env: SCOREBUG_VISION_API_KEY (or DEEPSEEK_API_KEY), SCOREBUG_VISION_BASE_URL
-(default https://api.deepseek.com), SCOREBUG_VISION_MODEL (default deepseek-flash).
+(default https://api.deepseek.com), SCOREBUG_VISION_MODEL (default deepseek-flash); routed by
+vision_api.chat (ollama native with SCOREBUG_VISION_THINK, or Anthropic for claude-* models).
 """
 
 from __future__ import annotations
@@ -94,7 +95,7 @@ def vision_choose(frames: List[np.ndarray], profiles: List[ScorebugProfile]) -> 
     api_key = os.environ.get("SCOREBUG_VISION_API_KEY") or os.environ.get("DEEPSEEK_API_KEY")
     if not api_key or not frames:
         return None, {"skipped": "no vision API key" if not api_key else "no frames"}
-    import requests
+    import vision_api
 
     base_url = (os.environ.get("SCOREBUG_VISION_BASE_URL") or DEFAULT_VISION_BASE_URL).rstrip("/")
     model = os.environ.get("SCOREBUG_VISION_MODEL") or DEFAULT_VISION_MODEL
@@ -125,10 +126,7 @@ def vision_choose(frames: List[np.ndarray], profiles: List[ScorebugProfile]) -> 
     }
     if "deepseek" in base_url:
         body["thinking"] = {"type": "disabled"}
-    resp = requests.post(f"{base_url}/chat/completions", json=body, timeout=120,
-                         headers={"Authorization": f"Bearer {api_key}"})
-    resp.raise_for_status()
-    payload = resp.json()
+    payload = vision_api.chat(base_url, api_key, body, 120)
     answer = json.loads(payload["choices"][0]["message"]["content"])
     report = {"answer": answer, "usage": payload.get("usage", {}), "model": model}
     choice = str(answer.get("choice") or "").strip()

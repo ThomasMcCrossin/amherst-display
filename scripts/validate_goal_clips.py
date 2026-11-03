@@ -42,6 +42,7 @@ import cv2
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
+import vision_api  # noqa: E402
 from scorebug_detect import DEFAULT_VISION_BASE_URL, DEFAULT_VISION_MODEL, _jpeg_data_url  # noqa: E402
 
 # Seconds relative to the matched goal time. The bug usually updates the score within
@@ -73,8 +74,6 @@ def _team_key(name: str) -> str:
 
 
 def ask_vision(frames: List[Dict[str, Any]], goal: Dict[str, Any]) -> Dict[str, Any]:
-    import requests
-
     api_key = os.environ.get("SCOREBUG_VISION_API_KEY") or os.environ.get("DEEPSEEK_API_KEY")
     if not api_key:
         raise RuntimeError("no vision API key (DEEPSEEK_API_KEY or SCOREBUG_VISION_API_KEY)")
@@ -109,10 +108,7 @@ def ask_vision(frames: List[Dict[str, Any]], goal: Dict[str, Any]) -> Dict[str, 
     }
     if "deepseek" in base_url:
         body["thinking"] = {"type": "disabled"}
-    resp = requests.post(f"{base_url}/chat/completions", json=body, timeout=180,
-                         headers={"Authorization": f"Bearer {api_key}"})
-    resp.raise_for_status()
-    payload = resp.json()
+    payload = vision_api.chat(base_url, api_key, body, 180)
     answer = json.loads(payload["choices"][0]["message"]["content"])
     return {"answer": answer, "usage": payload.get("usage", {}), "model": model}
 
