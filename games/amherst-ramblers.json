@@ -7,7 +7,7 @@
   "season_ids": [
     46
   ],
-  "updated_at": "2026-11-02T18:38:31.616Z",
+  "updated_at": "2026-11-03T14:33:37.411Z",
   "summary": {
     "games_played": 17,
     "wins": 6,
@@ -143,6 +143,11 @@
               "player_id": "mhl-2794",
               "name": "Nathan Curson",
               "number": 16
+            },
+            {
+              "player_id": "mhl-3756",
+              "name": "Matthew Merryweather",
+              "number": 19
             }
           ],
           "power_play": false,
@@ -167,8 +172,9 @@
               "number": 74
             },
             {
-              "name": "Sam Flemming",
-              "number": 2
+              "player_id": "mhl-4023",
+              "name": "Chace Munden",
+              "number": 21
             }
           ],
           "power_play": false,
@@ -213,12 +219,7 @@
             "number": 26,
             "position": "RW"
           },
-          "assists": [
-            {
-              "name": "Sam Flemming",
-              "number": 2
-            }
-          ],
+          "assists": [],
           "power_play": false,
           "short_handed": false,
           "game_winning": false,
@@ -821,8 +822,8 @@
         },
         "mhl-3766": {
           "position": "G",
-          "saves": 44,
-          "shots_against": 51,
+          "saves": 43,
+          "shots_against": 50,
           "goals_against": 7,
           "save_percentage": "0.000",
           "time_on_ice": "60:00"
@@ -839,16 +840,16 @@
       "box_score": {
         "shots_by_period": {
           "ramblers": {
-            "period1": 9,
-            "period2": 15,
+            "period1": 8,
+            "period2": 13,
             "period3": 10,
-            "total": 34
+            "total": 31
           },
           "opponent": {
             "period1": 15,
-            "period2": 19,
+            "period2": 18,
             "period3": 17,
-            "total": 51
+            "total": 50
           }
         },
         "scoring_by_period": {
@@ -884,8 +885,8 @@
             {
               "name": "Brandon Lavoie",
               "time_on_ice": "60:00",
-              "saves": 44,
-              "shots_against": 51,
+              "saves": 43,
+              "shots_against": 50,
               "on_ice": "1st/0:00",
               "off_ice": "3rd/20:00",
               "decision": "L"
@@ -895,8 +896,8 @@
             {
               "name": "Jordan Rittenberg",
               "time_on_ice": "60:00",
-              "saves": 34,
-              "shots_against": 34,
+              "saves": 31,
+              "shots_against": 31,
               "on_ice": "1st/0:00",
               "off_ice": "3rd/20:00",
               "decision": "W"
