@@ -77,7 +77,7 @@ def bracket(period: int, remaining: int, readings: List[Dict[str, Any]]) -> Opti
 
 
 def label_frames(video_path: str, lo: float, hi: float, usage: Dict[str, int]) -> List[Tuple[float, str]]:
-    import requests
+    import vision_api
 
     settings = _vision_settings()
     if settings is None:
@@ -100,10 +100,7 @@ def label_frames(video_path: str, lo: float, hi: float, usage: Dict[str, int]) -
                                     "messages": [{"role": "user", "content": content}]}
             if "deepseek" in base_url:
                 body["thinking"] = {"type": "disabled"}
-            resp = requests.post(f"{base_url}/chat/completions", json=body, timeout=180,
-                                 headers={"Authorization": f"Bearer {api_key}"})
-            resp.raise_for_status()
-            payload = resp.json()
+            payload = vision_api.chat(base_url, api_key, body, 180)
             for k in ("prompt_tokens", "completion_tokens"):
                 usage[k] = usage.get(k, 0) + int((payload.get("usage") or {}).get(k) or 0)
             for row in json.loads(payload["choices"][0]["message"]["content"]).get("frames", []):

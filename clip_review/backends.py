@@ -58,7 +58,7 @@ class ApiBackend:
         return f"api|{self.base_url}|{self.model}|v1"
 
     def _call(self, content: List[Dict[str, Any]], required: Tuple[str, ...], stats: Dict[str, Any], retries: int = 2) -> Dict[str, Any]:
-        import requests
+        import vision_api
 
         key = os.environ.get("SCOREBUG_VISION_API_KEY") or os.environ.get("DEEPSEEK_API_KEY")
         if not key:
@@ -70,10 +70,7 @@ class ApiBackend:
         last: Optional[Exception] = None
         for attempt in range(retries + 1):
             try:
-                resp = requests.post(f"{self.base_url}/chat/completions", json=body, timeout=240,
-                                     headers={"Authorization": f"Bearer {key}"})
-                resp.raise_for_status()
-                payload = resp.json()
+                payload = vision_api.chat(self.base_url, key, body, 240)
                 u = payload.get("usage", {})
                 stats["input_tokens"] += int(u.get("prompt_tokens") or 0)
                 stats["output_tokens"] += int(u.get("completion_tokens") or 0)

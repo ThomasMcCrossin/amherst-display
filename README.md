@@ -249,7 +249,11 @@ rough-stuff reel).
 Backends. `api` (default) is any OpenAI-compatible vision endpoint, two passes (coarse sheets,
 then 0.5 s sheets around each boundary): `SCOREBUG_VISION_API_KEY` or `DEEPSEEK_API_KEY`,
 `SCOREBUG_VISION_BASE_URL` (default `https://api.deepseek.com`), `SCOREBUG_VISION_MODEL`
-(default `deepseek-flash`). `agent` runs any agent harness that can read images and run bash
+(default `deepseek-flash`). Every vision call (this backend, `scorebug_detect.py`, `goal_locator.py`,
+`scripts/validate_goal_clips.py`) goes through `vision_api.chat` (Tom, 2026-11-03): an `ollama.com`
+base URL uses ollama's native `/api/chat` with `SCOREBUG_VISION_THINK` (default `low`, `off` disables;
+ollama's `/v1` ignores a low setting, and DeepSeek Flash ran 22k reasoning tokens a call there), and a
+`claude-*` model uses the Anthropic Messages API, with `ANTHROPIC_WORKSPACE_ID` as its workspace header. `agent` runs any agent harness that can read images and run bash
 in the packet directory; it reads `skills/hockey-clip-review/SKILL.md`, pulls more frames itself
 with `scripts/frames.py`, writes the verdict and checks it. The command is configuration,
 `{prompt}` is replaced by the prompt (without it the prompt goes on stdin) and `{skill}` by the
