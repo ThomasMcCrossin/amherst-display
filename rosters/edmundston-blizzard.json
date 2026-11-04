@@ -5,8 +5,8 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 2,
-  "updated_at": "2026-11-03T18:05:35.141Z",
-  "player_count": 22,
+  "updated_at": "2026-11-04T14:46:36.149Z",
+  "player_count": 23,
   "players": [
     {
       "player_id": "mhl-3332",
@@ -711,6 +711,49 @@
       "person_id": "4137",
       "flags": [
         "ht-rookie"
+      ]
+    },
+    {
+      "player_id": "mhl-3022",
+      "number": "71",
+      "first_name": "Michael",
+      "last_name": "Arsenault",
+      "name": "Michael Arsenault",
+      "position": "LW",
+      "height": "6'2",
+      "height_inches": 74,
+      "weight": 195,
+      "shoots": "L",
+      "birthdate": "2006-06-22",
+      "birth_year": "'06",
+      "age": 20,
+      "hometown": "Cornwall, PE",
+      "birthplace": "Cornwall, PE, ",
+      "rookie": false,
+      "veteran": true,
+      "headshot": "assets/headshots/Edmundston-Blizzard/71-michael-arsenault.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3022.jpg",
+      "stats": {
+        "games_played": 12,
+        "goals": 6,
+        "assists": 10,
+        "points": 16,
+        "plus_minus": 0,
+        "penalty_minutes": 4,
+        "power_play_goals": 2,
+        "power_play_assists": 0,
+        "power_play_points": 2,
+        "short_handed_goals": 1,
+        "short_handed_assists": 0,
+        "short_handed_points": 1,
+        "game_winning_goals": 2,
+        "overtime_goals": 0,
+        "points_per_game": 1.33
+      },
+      "hockeytech_id": "3022",
+      "person_id": "3528",
+      "flags": [
+        "ht-played-major-junior"
       ]
     },
     {
