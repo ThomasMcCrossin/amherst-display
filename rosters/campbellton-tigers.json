@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 8,
-  "updated_at": "2026-11-04T14:46:47.217Z",
+  "updated_at": "2026-11-05T14:51:45.031Z",
   "player_count": 25,
   "players": [
     {
@@ -67,6 +67,8 @@
       "birthplace": "Sherbrook, QC, ",
       "rookie": false,
       "veteran": false,
+      "headshot": "assets/headshots/Campbellton-Tigers/4-dominique-allard.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4151.jpg",
       "stats": {
         "games_played": 3,
         "goals": 0,
@@ -723,6 +725,8 @@
       "birthplace": "Montague, PE, ",
       "rookie": true,
       "veteran": false,
+      "headshot": "assets/headshots/Campbellton-Tigers/31-jase-macpherson.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3775.jpg",
       "stats": {
         "games_played": 1,
         "wins": 0,

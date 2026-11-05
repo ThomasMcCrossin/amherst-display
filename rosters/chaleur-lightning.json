@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 21,
-  "updated_at": "2026-11-04T14:46:53.966Z",
+  "updated_at": "2026-11-05T14:51:56.052Z",
   "player_count": 25,
   "players": [
     {
@@ -366,6 +366,8 @@
       "birthplace": "Mississauga, ON, ON",
       "rookie": false,
       "veteran": true,
+      "headshot": "assets/headshots/Chaleur-Lightning/15-liam-harry.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4156.jpg",
       "stats": {},
       "hockeytech_id": "4156",
       "person_id": "4848",
@@ -738,6 +740,8 @@
       "birthplace": "Alexandria, VA, VA",
       "rookie": false,
       "veteran": true,
+      "headshot": "assets/headshots/Chaleur-Lightning/34-carsten-komorowski.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4155.jpg",
       "stats": {
         "games_played": 1,
         "wins": 1,
