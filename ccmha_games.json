@@ -1,16 +1,7 @@
 {
-  "generated_at": "2026-11-06T14:30:31.247Z",
+  "generated_at": "2026-11-07T13:24:59.087Z",
   "timezone": "America/Halifax",
   "games": [
-    {
-      "league": "U18-A",
-      "home_team": "Truro Bearcats",
-      "away_team": "Cumberland Ramblers",
-      "start": "2026-11-06T19:45:00-03:00",
-      "end": "2026-11-06T21:15:00-03:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
     {
       "league": "U9-INT",
       "home_team": "Truro Bearcats",
@@ -80,6 +71,33 @@
       "away_team": "Cumberland Ramblers",
       "start": "2026-11-13T19:45:00-04:00",
       "end": "2026-11-13T21:15:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U9-ADV",
+      "home_team": "Truro Bearcats",
+      "away_team": "Cumberland Ramblers",
+      "start": "2026-11-14T10:45:00-04:00",
+      "end": "2026-11-14T11:45:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U11-A",
+      "home_team": "Cape Breton County Islanders Red",
+      "away_team": "Cumberland Ramblers",
+      "start": "2026-11-14T12:00:00-04:00",
+      "end": "2026-11-14T13:30:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U13-A",
+      "home_team": "Strait Richmond Pirates",
+      "away_team": "Cumberland Ramblers",
+      "start": "2026-11-14T13:45:00-04:00",
+      "end": "2026-11-14T15:15:00-04:00",
       "location": "Amherst Stadium",
       "source": "ccmha"
     }

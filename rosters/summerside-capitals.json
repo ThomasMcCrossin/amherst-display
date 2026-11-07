@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 10,
-  "updated_at": "2026-11-06T14:29:12.513Z",
+  "updated_at": "2026-11-07T13:23:46.150Z",
   "player_count": 26,
   "players": [
     {
@@ -998,7 +998,9 @@
       "stats": {},
       "hockeytech_id": "4070",
       "person_id": "4742",
-      "flags": []
+      "flags": [
+        "ht-affiliate"
+      ]
     }
   ]
 }

@@ -7,7 +7,7 @@
   "season_ids": [
     46
   ],
-  "updated_at": "2026-11-06T14:30:28.173Z",
+  "updated_at": "2026-11-07T13:24:57.689Z",
   "summary": {
     "games_played": 17,
     "wins": 6,
@@ -93,6 +93,7 @@
               "number": 73
             },
             {
+              "player_id": "mhl-3903",
               "name": "Antoine Fontaine",
               "number": 91
             }
@@ -1192,6 +1193,7 @@
               "number": 12
             },
             {
+              "player_id": "mhl-3903",
               "name": "Malcom Dumont",
               "number": 91
             }
@@ -1328,6 +1330,7 @@
               "number": 92
             },
             {
+              "player_id": "mhl-3903",
               "name": "Malcom Dumont",
               "number": 91
             }
@@ -4573,6 +4576,7 @@
           },
           "assists": [
             {
+              "player_id": "mhl-3903",
               "name": "Tanner Hayden",
               "number": 91
             },
@@ -4699,6 +4703,7 @@
           "time": "10:06",
           "team": "opponent",
           "scorer": {
+            "player_id": "mhl-3903",
             "name": "Tanner Hayden",
             "number": 91,
             "position": "RW"
@@ -5096,6 +5101,19 @@
           "assists": 0,
           "points": 2,
           "penalty_minutes": 2,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3903": {
+          "position": "C",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -5938,6 +5956,19 @@
           "goals": 0,
           "assists": 1,
           "points": 1,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3903": {
+          "position": "C",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -7175,6 +7206,7 @@
           "time": "11:53",
           "team": "opponent",
           "scorer": {
+            "player_id": "mhl-3903",
             "name": "Malcom Dumont",
             "number": 91,
             "position": "RW"
@@ -7238,6 +7270,7 @@
               "number": 14
             },
             {
+              "player_id": "mhl-3903",
               "name": "Malcom Dumont",
               "number": 91
             }
@@ -7365,6 +7398,7 @@
           },
           "assists": [
             {
+              "player_id": "mhl-3903",
               "name": "Malcom Dumont",
               "number": 91
             },
@@ -7435,6 +7469,7 @@
           "time": "8:53",
           "team": "opponent",
           "scorer": {
+            "player_id": "mhl-3903",
             "name": "Malcom Dumont",
             "number": 91,
             "position": "RW"
@@ -7469,6 +7504,7 @@
           },
           "assists": [
             {
+              "player_id": "mhl-3903",
               "name": "Malcom Dumont",
               "number": 91
             }
@@ -8216,6 +8252,7 @@
           },
           "assists": [
             {
+              "player_id": "mhl-3903",
               "name": "Tanner Hayden",
               "number": 91
             }
@@ -9326,6 +9363,19 @@
         },
         "mhl-3833": {
           "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3903": {
+          "position": "C",
           "goals": 0,
           "assists": 0,
           "points": 0,
@@ -10823,6 +10873,19 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
+        "mhl-3903": {
+          "position": "C",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
         "mhl-3867": {
           "position": "LW",
           "goals": 0,
@@ -11088,6 +11151,7 @@
               "number": 21
             },
             {
+              "player_id": "mhl-3903",
               "name": "Antoine L'Italien",
               "number": 91
             }
@@ -11220,6 +11284,7 @@
           },
           "assists": [
             {
+              "player_id": "mhl-3903",
               "name": "Antoine L'Italien",
               "number": 91
             },
@@ -11452,6 +11517,7 @@
           "time": "09:36",
           "team": "ramblers",
           "player": {
+            "player_id": "mhl-3903",
             "name": "Nathaniel Noah",
             "number": 91,
             "position": "C"
@@ -11679,6 +11745,19 @@
           "assists": 1,
           "points": 1,
           "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3903": {
+          "position": "C",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 2,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -12096,6 +12175,7 @@
           },
           "assists": [
             {
+              "player_id": "mhl-3903",
               "name": "Nathaniel Noah",
               "number": 91
             }
@@ -12574,6 +12654,19 @@
         },
         "mhl-3833": {
           "position": "D",
+          "goals": 0,
+          "assists": 1,
+          "points": 1,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3903": {
+          "position": "C",
           "goals": 0,
           "assists": 1,
           "points": 1,
