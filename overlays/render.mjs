@@ -83,7 +83,12 @@ async function main() {
 
   const names = single ? [path.basename(a.spec)] : (await fs.readdir(samplesDir)).filter((f) => f.endsWith(".json")).sort()
     .filter((f) => !a.only || f === `${a.only}.json`);
-  const browser = await chromium.launch({ headless: true });
+  const env = { ...process.env };
+  for (const key of ["WAYLAND_DISPLAY", "WAYLAND_SOCKET", "XAUTHORITY"]) delete env[key];
+  if (env.DISPLAY === ":0" || env.DISPLAY === ":1" || (env.DISPLAY || "").startsWith(":0.")) delete env.DISPLAY;
+  env.GDK_BACKEND = "x11";
+  env.MOZ_ENABLE_WAYLAND = "0";
+  const browser = await chromium.launch({ headless: true, env, args: ["--ozone-platform=headless"] });
   const checks = {};
   try {
     for (const file of names) {
