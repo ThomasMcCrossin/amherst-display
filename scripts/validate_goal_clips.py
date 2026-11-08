@@ -42,6 +42,10 @@ import cv2
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
+
+from concurrent.futures import ThreadPoolExecutor  # noqa: E402
+
+from pipeline_progress import progress  # noqa: E402
 import vision_api  # noqa: E402
 from scorebug_detect import DEFAULT_VISION_BASE_URL, DEFAULT_VISION_MODEL, _jpeg_data_url  # noqa: E402
 
@@ -205,19 +209,21 @@ def validate(game_dir: Path, video: Path, out: Optional[Path] = None) -> Dict[st
     clip_by_key = {(c.get("period"), c.get("time")): c for c in clips if c.get("type") == "goal"}
     cap = cv2.VideoCapture(str(video))
     results, usage = [], {"prompt_tokens": 0, "completion_tokens": 0}
+    goals = [e for e in log.get("entries", []) if (e.get("event") or {}).get("type") == "goal"]
+    progress.stage("validate", total=len(goals), detail="vision check per goal clip")
+    jobs = []  # (row, event, clip, frames): frames grabbed serially (one reader), vision calls in parallel
     try:
-        for entry in log.get("entries", []):
+        for entry in goals:
             event = entry.get("event") or {}
-            if event.get("type") != "goal":
-                continue
             clip = clip_by_key.get((event.get("period"), event.get("time_boxscore")))
             row: Dict[str, Any] = {"period": event.get("period"), "time_elapsed": event.get("time_boxscore"),
                                    "team": event.get("team"), "player": event.get("player"),
                                    "clip": (clip or {}).get("clip_filename")}
+            results.append(row)
             if not clip:
                 row.update(verdict="missed" if _covered(event, readings) else "not_recorded",
                            reason=(entry.get("match_result") or {}).get("unreliable_reason"))
-                results.append(row)
+                progress.tick(detail=f"P{row['period']} {row['time_elapsed']} {row['verdict']}")
                 continue
             t0 = float(clip["video_time"])
             next_goal = min((float(c["video_time"]) for c in clips
@@ -232,25 +238,34 @@ def validate(game_dir: Path, video: Path, out: Optional[Path] = None) -> Dict[st
                 band = frame[: max(1, int(frame.shape[0] * 0.22))]
                 frames.append({"label": f"t{o:+d}", "offset": o, "band": band,
                                "full": frame if o in FULL_FRAME_OFFSETS else None})
-            try:
-                vision = ask_vision(frames, event)
-            except Exception as exc:
-                row.update(verdict="unclear", error=str(exc))
-                results.append(row)
-                continue
-            for k in usage:
-                usage[k] += int(vision["usage"].get(k) or 0)
-            window = (-float(clip.get("before_seconds") or 15.0), float(clip.get("after_seconds") or 4.0))
-            row.update(video_time=t0, **judge(event, vision["answer"], opponent=next(
-                (t for t in teams if t and t != event.get("team")), ""), clip_window=window),
-                reads=vision["answer"].get("frames"))
-            results.append(row)
+            jobs.append((row, event, clip, frames))
     finally:
         cap.release()
+
+    def check(job):
+        row, event, clip, frames = job
+        try:
+            vision = ask_vision(frames, event)
+        except Exception as exc:
+            row.update(verdict="unclear", error=str(exc))
+            return None
+        finally:
+            progress.tick(detail=f"P{row['period']} {row['time_elapsed']}")
+        window = (-float(clip.get("before_seconds") or 15.0), float(clip.get("after_seconds") or 4.0))
+        row.update(video_time=float(clip["video_time"]), **judge(event, vision["answer"], opponent=next(
+            (t for t in teams if t and t != event.get("team")), ""), clip_window=window),
+            reads=vision["answer"].get("frames"))
+        return vision["usage"]
+
+    with ThreadPoolExecutor(max_workers=max(1, int(os.environ.get("VALIDATE_WORKERS", "4") or 4))) as pool:
+        for u in pool.map(check, jobs):
+            for k in usage:
+                usage[k] += int((u or {}).get(k) or 0)
     counts: Dict[str, int] = {}
     for r in results:
         counts[r["verdict"]] = counts.get(r["verdict"], 0) + 1
     report = {"game_dir": str(game_dir), "video": str(video), "counts": counts, "usage": usage, "goals": results}
+    progress.finish(", ".join(f"{k} {v}" for k, v in sorted(counts.items())))
     (out or game_dir / "data" / "goal_validation.json").write_text(json.dumps(report, indent=2))
     return report
 

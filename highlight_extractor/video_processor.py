@@ -5,12 +5,19 @@ Video Processor - Handles video loading, clip creation, and rendering
 import json
 import logging
 import re
+import os
 import subprocess
+import threading
 import unicodedata
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import List, Optional, Tuple
 import numpy as np
 from tqdm import tqdm
+
+from pipeline_progress import progress
+
+_MOVIEPY_LOCK = threading.Lock()  # the MoviePy reader is shared and not thread-safe
 
 try:
     from moviepy import VideoFileClip, concatenate_videoclips, TextClip, CompositeVideoClip
@@ -184,16 +191,38 @@ class VideoProcessor:
                 self._write_source_segment(start_time, end_time, output_path)
                 return _WrittenClipHandle()
 
-            # Create subclip
-            clip = self.video_clip.subclipped(start_time, end_time)
+            # Overlay fast path (amherst-display#48): the name is rendered once to a PNG with the
+            # same TextClip settings and composited by ffmpeg, instead of MoviePy compositing every
+            # frame in Python (~105 s a goal clip on 2026-11-07). Any failure takes the MoviePy path.
+            if output_path and apply_overlay and os.environ.get("CLIP_OVERLAY_FFMPEG", "1") != "0":
+                text = self._overlay_text(overlay_config)
+                if text is None:
+                    self._write_source_segment(start_time, end_time, output_path)
+                    return _WrittenClipHandle()
+                try:
+                    png = output_path.with_name(f".{output_path.stem}.overlay.png")
+                    self._render_overlay_png(text, png)
+                    try:
+                        dur = min(float(getattr(self.config, 'OVERLAY_DURATION_SECONDS', 5.0)), end_time - start_time)
+                        self._write_source_segment(start_time, end_time, output_path, overlay_png=png, overlay_seconds=dur)
+                    finally:
+                        png.unlink(missing_ok=True)
+                    logger.debug(f"Added overlay (ffmpeg): '{text}'")
+                    return _WrittenClipHandle()
+                except Exception as exc:  # noqa: BLE001
+                    logger.warning(f"ffmpeg overlay path failed ({exc}); using MoviePy")
 
-            # Add overlay if configured
-            if apply_overlay:
-                clip = self._add_overlay(clip, overlay_config)
+            with _MOVIEPY_LOCK:
+                # Create subclip
+                clip = self.video_clip.subclipped(start_time, end_time)
 
-            # Save if output path provided
-            if output_path:
-                self._write_video(clip, output_path)
+                # Add overlay if configured
+                if apply_overlay:
+                    clip = self._add_overlay(clip, overlay_config)
+
+                # Save if output path provided
+                if output_path:
+                    self._write_video(clip, output_path)
 
             return clip
 
@@ -201,8 +230,10 @@ class VideoProcessor:
             logger.error(f"Failed to create clip: {e}")
             return None
 
-    def _write_source_segment(self, start_time: float, end_time: float, output_path: Path) -> None:
-        """Cut and encode a source segment directly with ffmpeg."""
+    def _write_source_segment(self, start_time: float, end_time: float, output_path: Path,
+                              overlay_png: Optional[Path] = None, overlay_seconds: float = 0.0) -> None:
+        """Cut and encode a source segment directly with ffmpeg, optionally with the name overlay PNG
+        in the lower third (x 40, 60 px above the bottom, the first overlay_seconds) like _add_overlay."""
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
         duration = max(0.05, float(end_time) - float(start_time))
@@ -224,8 +255,14 @@ class VideoProcessor:
             f'{duration:.3f}',
             '-i',
             str(self.video_path),
-            '-map',
-            '0:v:0',
+        ]
+        if overlay_png is not None:
+            cmd += ['-i', str(overlay_png), '-filter_complex',
+                    f"[0:v:0][1:v]overlay=40:H-h-60:enable='lt(t,{float(overlay_seconds):.3f})'[v]",
+                    '-map', '[v]']
+        else:
+            cmd += ['-map', '0:v:0']
+        cmd += [
             '-map',
             '0:a?',
             '-c:v',
@@ -379,6 +416,50 @@ class VideoProcessor:
 
         temp_output.replace(output_path)
 
+    @staticmethod
+    def _overlay_text(overlay_config: dict) -> Optional[str]:
+        """The lower-third text for a clip, or None when the clip gets no overlay."""
+        if overlay_config.get('is_penalty'):
+            player = overlay_config.get('player_name', 'Unknown')
+            infraction = overlay_config.get('infraction', '')
+            minutes = overlay_config.get('minutes', 2)
+            return f"{player} - {infraction} ({minutes} min)"
+        scorer = overlay_config.get('scorer_name', '')
+        if not scorer:
+            return None
+        suffix = ''
+        if overlay_config.get('is_power_play'):
+            suffix = ' PP'
+        elif overlay_config.get('is_short_handed'):
+            suffix = ' SH'
+        elif overlay_config.get('is_empty_net'):
+            suffix = ' EN'
+        return f"{scorer}{suffix}"
+
+    def _text_clip(self, text: str):
+        return TextClip(
+            text=text,
+            font_size=getattr(self.config, 'OVERLAY_FONT_SIZE', 42),
+            color='white',
+            font=getattr(self.config, 'OVERLAY_FONT', 'Arial-Bold'),
+            stroke_color='black',
+            stroke_width=2,
+        )
+
+    def _render_overlay_png(self, text: str, dest: Path) -> Path:
+        """The overlay text as an RGBA PNG, rendered by the same TextClip _add_overlay uses."""
+        from PIL import Image
+
+        txt = self._text_clip(text)
+        rgb = np.asarray(txt.get_frame(0))[:, :, :3].astype(np.uint8)
+        if txt.mask is not None:
+            alpha = (np.clip(np.asarray(txt.mask.get_frame(0)), 0, 1) * 255).round().astype(np.uint8)
+        else:
+            alpha = np.full(rgb.shape[:2], 255, np.uint8)
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        Image.fromarray(np.dstack([rgb, alpha]), "RGBA").save(dest)
+        return dest
+
     def _add_overlay(self, clip: VideoFileClip, overlay_config: dict) -> VideoFileClip:
         """
         Add text overlay to a clip.
@@ -391,45 +472,15 @@ class VideoProcessor:
             Clip with overlay composited
         """
         try:
-            # Build overlay text
-            if overlay_config.get('is_penalty'):
-                # Penalty clip overlay: "Player - Infraction (2 min)"
-                player = overlay_config.get('player_name', 'Unknown')
-                infraction = overlay_config.get('infraction', '')
-                minutes = overlay_config.get('minutes', 2)
-                display_text = f"{player} - {infraction} ({minutes} min)"
-            else:
-                # Goal clip overlay: "Scorer Name PP" or "Scorer Name"
-                scorer = overlay_config.get('scorer_name', '')
-                if not scorer:
-                    return clip  # No overlay if no scorer name
-
-                suffix = ''
-                if overlay_config.get('is_power_play'):
-                    suffix = ' PP'
-                elif overlay_config.get('is_short_handed'):
-                    suffix = ' SH'
-                elif overlay_config.get('is_empty_net'):
-                    suffix = ' EN'
-
-                display_text = f"{scorer}{suffix}"
-
-            # Create text clip
-            font_size = getattr(self.config, 'OVERLAY_FONT_SIZE', 42)
-            font = getattr(self.config, 'OVERLAY_FONT', 'Arial-Bold')
+            display_text = self._overlay_text(overlay_config)
+            if display_text is None:
+                return clip  # No overlay if no scorer name
             duration = getattr(self.config, 'OVERLAY_DURATION_SECONDS', 5.0)
 
             # Limit overlay duration to clip duration
             overlay_duration = min(duration, clip.duration)
 
-            txt_clip = TextClip(
-                text=display_text,
-                font_size=font_size,
-                color='white',
-                font=font,
-                stroke_color='black',
-                stroke_width=2
-            )
+            txt_clip = self._text_clip(display_text)
 
             # Position in lower-third area with margin
             margin_x = 40
@@ -518,57 +569,50 @@ class VideoProcessor:
             logger.error("No video loaded")
             return []
 
-        created_clips = []
+        # Clips are independent ffmpeg encodes: CLIP_WORKERS of them at once (amherst-display#48).
+        # The MoviePy fallback path is not thread-safe, so it stays serial (CLIP_WORKERS=1).
+        workers = max(1, int(os.environ.get("CLIP_WORKERS", "3") or 3))
+        if os.environ.get("CLIP_OVERLAY_FFMPEG", "1") == "0":
+            workers = 1
+        progress.set_total(len(events))
+        progress_bar = tqdm(total=len(events), desc="Creating Clips", unit="clip", ncols=100)
+        lock = threading.Lock()
 
-        # Create progress bar for clip creation
-        progress_bar = tqdm(
-            events,
-            desc="Creating Clips",
-            unit="clip",
-            ncols=100
-        )
-
-        for i, event in enumerate(progress_bar, 1):
+        def make(item):
+            i, event = item
             try:
                 video_time = event.get('video_time')
                 if video_time is None:
                     logger.warning(f"Event {i} missing video_time")
-                    progress_bar.set_postfix({'status': 'skipped'})
-                    continue
-
+                    return None
                 event_before = float(event.get('before_seconds', before_seconds))
                 event_after = float(event.get('after_seconds', after_seconds))
-
-                # Calculate clip boundaries
                 start_time = max(0, video_time - event_before)
                 end_time = min(self.duration, video_time + event_after)
-
                 clip_filename = _event_clip_filename(event, index=i)
                 clip_path = clips_dir / clip_filename
-
-                # Update progress bar with current clip info
-                progress_bar.set_postfix({'clip': clip_filename[:30]})
-
-                # Build overlay configuration from event data
                 overlay_config = self._build_overlay_config(event)
-
-                # Create and save clip
                 logger.debug(f"Creating clip {i}/{len(events)}: {clip_filename}")
-
                 clip = self.create_clip(start_time, end_time, clip_path, overlay_config)
-
                 if clip:
-                    created_clips.append((event, clip_path))
-                    # Close clip to free memory
                     clip.close()
-                    progress_bar.set_postfix({'status': 'done'})
-
+                    return (event, clip_path)
+                return None
             except Exception as e:
                 logger.error(f"Failed to create clip {i}: {e}")
-                progress_bar.set_postfix({'status': 'error'})
-                continue
+                return None
+            finally:
+                with lock:
+                    progress_bar.update(1)
+                progress.tick(detail=f"clip {i}/{len(events)}")
 
-        # Close progress bar
+        items = list(enumerate(events, 1))
+        if workers > 1:
+            with ThreadPoolExecutor(max_workers=workers) as pool:
+                results = list(pool.map(make, items))
+        else:
+            results = [make(it) for it in items]
+        created_clips = [r for r in results if r is not None]
         progress_bar.close()
 
         logger.info(f"Created {len(created_clips)}/{len(events)} highlight clips")

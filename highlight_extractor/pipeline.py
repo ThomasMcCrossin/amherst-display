@@ -34,6 +34,7 @@ from penalty_incidents import cluster_by_stoppage, incident_kind, scrum_summary
 from .description_generator import generate_and_save_description
 from .major_penalty_handler import process_major_penalties, detect_major_penalties
 from .version import __version__ as HIGHLIGHT_EXTRACTOR_VERSION
+from pipeline_progress import progress
 
 logger = logging.getLogger(__name__)
 
@@ -634,6 +635,7 @@ class HighlightPipeline:
             logger.info(f"Reel mode: {self.reel_mode}")
 
             # STEP 1: Parse filename and create folders
+            progress.stage("parse_and_setup")
             try:
                 self._step1_parse_and_setup()
             except Exception as e:
@@ -644,6 +646,7 @@ class HighlightPipeline:
                 return self._create_result(False, errors, warnings)
 
             # STEP 2: Fetch box score
+            progress.stage("fetch_box_score")
             try:
                 self._step2_fetch_box_score()
             except Exception as e:
@@ -654,6 +657,7 @@ class HighlightPipeline:
                 return self._create_result(False, errors, warnings)
 
             # STEP 3: Load video
+            progress.stage("load_video")
             try:
                 self._step3_load_video()
             except Exception as e:
@@ -664,6 +668,7 @@ class HighlightPipeline:
                 return self._create_result(False, errors, warnings)
 
             # STEP 3.5: Auto-detect game start (optional)
+            progress.stage("detect_game_start")
             game_start_time = 0.0
             self._detected_game_start_time = None
             if auto_detect_start:
@@ -679,6 +684,7 @@ class HighlightPipeline:
                     logger.warning(f"Game start detection failed: {e}, starting from beginning")
 
             # STEP 4: Extract timestamps via OCR
+            progress.stage("extract_timestamps")
             try:
                 self._step4_extract_timestamps(
                     sample_interval=sample_interval,
@@ -694,6 +700,7 @@ class HighlightPipeline:
                 return self._create_result(False, errors, warnings)
 
             # STEP 5: Match events to video
+            progress.stage("match_events")
             try:
                 self._step5_match_events(
                     tolerance_seconds=tolerance_seconds,
@@ -707,6 +714,7 @@ class HighlightPipeline:
                 return self._create_result(False, errors, warnings)
 
             # STEP 6: Create individual clips
+            progress.stage("create_clips")
             try:
                 self._step6_create_clips(
                     before_seconds=before_seconds,
@@ -720,6 +728,7 @@ class HighlightPipeline:
                 warnings.append(error_msg)
 
             # STEP 6.5: Handle major penalties (async review workflow)
+            progress.stage("major_penalties")
             try:
                 self._step6_5_process_major_penalties()
             except Exception as e:
@@ -749,6 +758,7 @@ class HighlightPipeline:
 
             highlights_path = None
             if build_reel:
+                progress.stage("create_highlights_reel")
                 try:
                     highlights_path = self._step7_create_highlights_reel(max_clips=max_clips)
                 except Exception as e:
@@ -760,6 +770,7 @@ class HighlightPipeline:
                 logger.info("Skipping per-game highlights reel build")
 
             if build_description:
+                progress.stage("generate_description")
                 try:
                     self._step8_generate_description()
                 except Exception as e:
@@ -771,6 +782,7 @@ class HighlightPipeline:
 
             # Generate summary
             self._log_summary(highlights_path)
+            progress.finish()
 
             # Success if we got through all steps (even with warnings)
             success = len(errors) == 0 or (len(self.created_clips) > 0)
@@ -785,6 +797,8 @@ class HighlightPipeline:
             return self._create_result(False, errors, warnings)
 
         finally:
+            if progress.name:
+                progress.finish(ok=False)
             # Always cleanup
             self._cleanup()
 

@@ -7,18 +7,18 @@
   "season_ids": [
     46
   ],
-  "updated_at": "2026-11-07T13:24:57.689Z",
+  "updated_at": "2026-11-08T04:47:11.886Z",
   "summary": {
-    "games_played": 17,
-    "wins": 6,
+    "games_played": 18,
+    "wins": 7,
     "losses": 9,
     "ot_losses": 2,
     "shootout_losses": 1,
-    "points": 14,
-    "goals_for": 49,
-    "goals_against": 69,
+    "points": 16,
+    "goals_for": 54,
+    "goals_against": 73,
     "home_record": {
-      "wins": 2,
+      "wins": 3,
       "losses": 4,
       "ot_losses": 1
     },
@@ -27,8 +27,8 @@
       "losses": 5,
       "ot_losses": 1
     },
-    "goal_differential": -20,
-    "record": "6-9-2"
+    "goal_differential": -19,
+    "record": "7-9-2"
   },
   "playoff_summary": {
     "games_played": 0,
@@ -53,6 +53,749 @@
     "record": "0-0-0"
   },
   "games": [
+    {
+      "game_id": "5098",
+      "season_id": 46,
+      "date": "2026-11-07",
+      "date_time": "2026-11-07T19:00:00-04:00",
+      "opponent": {
+        "team_id": 3,
+        "team_name": "Truro Bearcats",
+        "team_code": "TRU"
+      },
+      "home_game": true,
+      "playoff": false,
+      "schedule_notes": "",
+      "venue": "Amherst Stadium",
+      "result": {
+        "won": true,
+        "ramblers_score": 5,
+        "opponent_score": 4,
+        "overtime": true,
+        "shootout": true,
+        "final_score": "5-4 (OT) (SO)"
+      },
+      "attendance": 645,
+      "scoring": [
+        {
+          "period": 1,
+          "period_name": "1st",
+          "time": "0:33",
+          "team": "amherst-ramblers",
+          "scorer": {
+            "player_id": "mhl-3903",
+            "name": "Jax Ginnish",
+            "number": 91,
+            "position": "D"
+          },
+          "assists": [
+            {
+              "player_id": "mhl-2760",
+              "name": "Darien Reynolds",
+              "number": 18
+            },
+            {
+              "player_id": "mhl-3433",
+              "name": "Nathan Weber",
+              "number": 11
+            }
+          ],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 1,
+          "period_name": "1st",
+          "time": "11:23",
+          "team": "amherst-ramblers",
+          "scorer": {
+            "player_id": "mhl-3903",
+            "name": "Jax Ginnish",
+            "number": 91,
+            "position": "D"
+          },
+          "assists": [
+            {
+              "player_id": "mhl-3433",
+              "name": "Nathan Weber",
+              "number": 11
+            },
+            {
+              "player_id": "mhl-3562",
+              "name": "Elliot Wright",
+              "number": 13
+            }
+          ],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 1,
+          "period_name": "1st",
+          "time": "17:47",
+          "team": "opponent",
+          "scorer": {
+            "player_id": "mhl-3433",
+            "name": "Callum Aucoin",
+            "number": 11,
+            "position": "LW"
+          },
+          "assists": [
+            {
+              "name": "Tristan St.Gelais",
+              "number": 73
+            },
+            {
+              "player_id": "mhl-3903",
+              "name": "Antoine Fontaine",
+              "number": 91
+            }
+          ],
+          "power_play": true,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "11:10",
+          "team": "opponent",
+          "scorer": {
+            "player_id": "mhl-4119",
+            "name": "Zach Gill",
+            "number": 27,
+            "position": "D"
+          },
+          "assists": [
+            {
+              "player_id": "mhl-2760",
+              "name": "Ben Lindsay",
+              "number": 18
+            },
+            {
+              "player_id": "mhl-3433",
+              "name": "Callum Aucoin",
+              "number": 11
+            }
+          ],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "12:40",
+          "team": "amherst-ramblers",
+          "scorer": {
+            "player_id": "mhl-3756",
+            "name": "Zach Wheeler",
+            "number": 19,
+            "position": "C"
+          },
+          "assists": [
+            {
+              "player_id": "mhl-3647",
+              "name": "Ethan Fraser",
+              "number": 28
+            },
+            {
+              "player_id": "mhl-2794",
+              "name": "Coen Miller",
+              "number": 16
+            }
+          ],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "1:43",
+          "team": "amherst-ramblers",
+          "scorer": {
+            "player_id": "mhl-3647",
+            "name": "Ethan Fraser",
+            "number": 28,
+            "position": "RW"
+          },
+          "assists": [
+            {
+              "player_id": "mhl-3903",
+              "name": "Jax Ginnish",
+              "number": 91
+            }
+          ],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "9:59",
+          "team": "opponent",
+          "scorer": {
+            "name": "Caylen Blake",
+            "number": 55,
+            "position": "LW"
+          },
+          "assists": [
+            {
+              "name": "Tristan St.Gelais",
+              "number": 73
+            },
+            {
+              "player_id": "mhl-3903",
+              "name": "Antoine Fontaine",
+              "number": 91
+            }
+          ],
+          "power_play": true,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "17:47",
+          "team": "opponent",
+          "scorer": {
+            "name": "Jace Evans",
+            "number": 5,
+            "position": "C"
+          },
+          "assists": [],
+          "power_play": false,
+          "short_handed": false,
+          "game_winning": false,
+          "empty_net": false
+        }
+      ],
+      "penalties": [
+        {
+          "period": 1,
+          "period_name": "1st",
+          "time": "17:05",
+          "team": "ramblers",
+          "player": {
+            "player_id": "mhl-4016",
+            "name": "Gabriel Boivin",
+            "number": 37,
+            "position": "C"
+          },
+          "infraction": "Slashing - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "07:41",
+          "team": "opponent",
+          "player": {
+            "name": "Eric Halliday",
+            "number": 10,
+            "position": "D"
+          },
+          "infraction": "Goaltender Interference - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 2,
+          "period_name": "2nd",
+          "time": "13:50",
+          "team": "opponent",
+          "player": {
+            "name": "Zach Gill",
+            "number": 27,
+            "position": "D"
+          },
+          "infraction": "High Sticking - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "03:15",
+          "team": "opponent",
+          "player": {
+            "name": "Eric Halliday",
+            "number": 10,
+            "position": "D"
+          },
+          "infraction": "Hooking - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "09:37",
+          "team": "ramblers",
+          "player": {
+            "player_id": "mhl-3243",
+            "name": "Evan Nicholson",
+            "number": 15,
+            "position": "C"
+          },
+          "infraction": "Cross Checking - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        },
+        {
+          "period": 3,
+          "period_name": "3rd",
+          "time": "12:24",
+          "team": "opponent",
+          "player": {
+            "name": "James Martin",
+            "number": 26,
+            "position": "RW"
+          },
+          "infraction": "Kneeing - Minor",
+          "minutes": 2,
+          "duration": 2,
+          "is_bench": false
+        }
+      ],
+      "player_stats": {
+        "mhl-3545": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3848": {
+          "position": "C",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3192": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3433": {
+          "position": "LW",
+          "goals": 0,
+          "assists": 2,
+          "points": 2,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3562": {
+          "position": "C",
+          "goals": 0,
+          "assists": 1,
+          "points": 1,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3243": {
+          "position": "C",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 2,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-2794": {
+          "position": "LW",
+          "goals": 0,
+          "assists": 1,
+          "points": 1,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-2760": {
+          "position": "RW",
+          "goals": 0,
+          "assists": 1,
+          "points": 1,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3756": {
+          "position": "C",
+          "goals": 1,
+          "assists": 0,
+          "points": 1,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3322": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-4119": {
+          "position": "C",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3647": {
+          "position": "RW",
+          "goals": 1,
+          "assists": 1,
+          "points": 2,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-4016": {
+          "position": "C",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 2,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-4138": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3226": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3833": {
+          "position": "D",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3903": {
+          "position": "D",
+          "goals": 2,
+          "assists": 1,
+          "points": 3,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3867": {
+          "position": "LW",
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "penalty_minutes": 0,
+          "shots": 0,
+          "plus_minus": "0",
+          "hits": 0,
+          "blocked_shots": 0,
+          "faceoff_wins": 0,
+          "faceoff_losses": 0
+        },
+        "mhl-3766": {
+          "position": "G",
+          "saves": 43,
+          "shots_against": 47,
+          "goals_against": 4,
+          "save_percentage": "0.000",
+          "time_on_ice": "65:00"
+        },
+        "mhl-3187": {
+          "position": "G",
+          "saves": 0,
+          "shots_against": 0,
+          "goals_against": 0,
+          "save_percentage": "0.000",
+          "time_on_ice": "00:00"
+        }
+      },
+      "box_score": {
+        "shots_by_period": {
+          "ramblers": {
+            "period1": 15,
+            "period2": 21,
+            "period3": 13,
+            "total": 1,
+            "overtime": 7
+          },
+          "opponent": {
+            "period1": 21,
+            "period2": 11,
+            "period3": 11,
+            "total": 0,
+            "overtime": 4
+          }
+        },
+        "scoring_by_period": {
+          "opponent": {
+            "period1": 1,
+            "period2": 1,
+            "period3": 2,
+            "total": 0
+          },
+          "ramblers": {
+            "period1": 2,
+            "period2": 1,
+            "period3": 1,
+            "total": 0
+          }
+        },
+        "power_play_summary": {
+          "opponent": {
+            "power_play_goals": 2,
+            "power_play_opportunities": 2,
+            "penalty_minutes": 8,
+            "penalties": 4
+          },
+          "ramblers": {
+            "power_play_goals": 0,
+            "power_play_opportunities": 4,
+            "penalty_minutes": 4,
+            "penalties": 2
+          }
+        },
+        "goaltenders": {
+          "ramblers": [
+            {
+              "name": "Brandon Lavoie",
+              "time_on_ice": "65:00",
+              "saves": 43,
+              "shots_against": 47,
+              "on_ice": "1st/0:00",
+              "off_ice": "1st OT/5:00",
+              "decision": "W"
+            }
+          ],
+          "opponent": [
+            {
+              "name": "Louca Connolly (SOL)",
+              "time_on_ice": "65:00",
+              "saves": 52,
+              "shots_against": 56,
+              "on_ice": "1st/0:00",
+              "off_ice": "1st OT/5:00",
+              "decision": null
+            }
+          ]
+        },
+        "shootout": null,
+        "three_stars": null,
+        "penalties": [
+          {
+            "period": 1,
+            "time": "17:05",
+            "team": "ramblers",
+            "player": {
+              "name": "Gabriel Boivin",
+              "number": null
+            },
+            "infraction": "Slashing - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 2,
+            "time": "13:50",
+            "team": "opponent",
+            "player": {
+              "name": "Zach Gill",
+              "number": null
+            },
+            "infraction": "High Sticking - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 2,
+            "time": "07:41",
+            "team": "opponent",
+            "player": {
+              "name": "Eric Halliday",
+              "number": null
+            },
+            "infraction": "Goaltender Interference - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 3,
+            "time": "12:24",
+            "team": "opponent",
+            "player": {
+              "name": "James Martin",
+              "number": null
+            },
+            "infraction": "Kneeing - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 3,
+            "time": "09:37",
+            "team": "ramblers",
+            "player": {
+              "name": "Evan Nicholson",
+              "number": null
+            },
+            "infraction": "Cross Checking - Minor",
+            "minutes": 2
+          },
+          {
+            "period": 3,
+            "time": "03:15",
+            "team": "opponent",
+            "player": {
+              "name": "Eric Halliday",
+              "number": null
+            },
+            "infraction": "Hooking - Minor",
+            "minutes": 2
+          }
+        ]
+      },
+      "game_info": {
+        "arena": "Amherst Stadium Attendance: 645 Start: 7:03 pm AST End: 9:35 pm AST Length: 2:32",
+        "attendance": 645,
+        "start_time": "7:03 pm AST",
+        "end_time": "9:35 pm AST",
+        "duration": "2:32",
+        "referees": [
+          {
+            "name": "Josh Tannahill",
+            "number": 0
+          },
+          {
+            "name": "Jared McIsaac",
+            "number": 0
+          }
+        ],
+        "linesmen": [
+          {
+            "name": "Thomas Devine",
+            "number": 0
+          },
+          {
+            "name": "Leighton Hayden",
+            "number": 0
+          }
+        ]
+      }
+    },
     {
       "game_id": "5081",
       "season_id": 46,

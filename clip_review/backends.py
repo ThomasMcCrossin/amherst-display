@@ -307,6 +307,15 @@ and fix the verdict until it prints OK.
 Budget: at most ~20 turns and ~12 frame pulls; coarse sheets first, dense frames only around the boundaries.
 {extra}Finish with one line: VERDICT {out}"""
 
+ESCALATION_NOTE = """You are the ESCALATION reviewer: a first review and a second review of this incident were both
+disputed by an adversary. The whole record (both verdicts, their enforced windows and both objections) is in
+"{record}". Review the incident fresh, check every objection and both verdicts against the frames yourself
+(the adversary can be wrong; so can the reviewers), and write the verdict you judge right. It is applied as is,
+with no further challenge, so get the event and both boundaries right. Answer the objections in objection_answer.
+The code still trims a goal's tail to the configured length after the event; an out-point past that is cut.
+Budget: up to ~30 turns and ~20 frame pulls.
+"""
+
 ADVERSARY_PROMPT = """You are the ADVERSARY for one hockey highlight incident.
 Read the skill file {skill}/SKILL.md and follow its "Adversary role" section exactly (SKILL_DIR={skill}).
 Packet directory: "{packet}". Read "{packet}/incident.json", then the adversary input "{adv_input}"
@@ -417,10 +426,13 @@ class AgentBackend:
             err = err or f"agent wrote no verdict (rc={rc}): {stats.get('final_text', '')[-200:]}"
         return {"verdict": verdict, "stats": stats, "error": err, "log": str(log)}
 
-    def review(self, packet: Path, out_path: Path, objection_path: Optional[Path] = None, retry_note: str = "", **_: Any) -> Dict[str, Any]:
+    def review(self, packet: Path, out_path: Path, objection_path: Optional[Path] = None, retry_note: str = "",
+               escalation_path: Optional[Path] = None, **_: Any) -> Dict[str, Any]:
         inc = json.loads((packet / "incident.json").read_text())
         extra = ""
-        if objection_path:
+        if escalation_path:
+            extra += ESCALATION_NOTE.format(record=escalation_path)
+        elif objection_path:
             extra += (f"An adversary disputed a first review of this incident. Its objection is in {objection_path} "
                       "(see the skill's 'Second review' section); answer it in objection_answer.\n")
         if retry_note:
