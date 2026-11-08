@@ -314,7 +314,10 @@ instead of one ffmpeg seek a frame), `GOAL_LOCATOR_WORKERS` (default 6 vision fr
 flight), `CLIP_WORKERS` (default 3 clips encoded at once), `CLIP_OVERLAY_FFMPEG=0`
 (back to the MoviePy overlay path), `VALIDATE_WORKERS` (default 4 vision calls at once).
 Step 5's split and these numbers: `docs/postgame-match-performance.md`, reproduced with
-`scripts/bench_match_events.py`.
+`scripts/bench_match_events.py`. Production/reviewed reels batch lower-thirds in one browser and report
+`reel_overlays` and `reel_encode` progress (media seconds). The final encode defaults to x264 `medium`
+at unchanged CRF 18; `--encoder-preset slow` restores the previous setting. Measurements and full-reel
+quality checks: `docs/postgame-reel-performance.md`.
 
 To run the engine itself on a raw recording with no Drive, email or review-monitor side
 effects (back catalogue, test corpora): `scripts/run_engine_offline.py --video V --game-id N
