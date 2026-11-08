@@ -6,10 +6,13 @@ testable, reusable, and easier to maintain.
 """
 
 import logging
+import os
+import threading
 import time
 import json
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
-from typing import Optional, Dict, List
+from typing import Callable, Optional, Dict, List
 
 from .models import GameInfo, Event, VideoTimestamp, PipelineResult
 from .goal import Goal, GoalSummary
@@ -19,7 +22,7 @@ try:
     from .video_processor import VideoProcessor
 except ModuleNotFoundError:
     VideoProcessor = None  # type: ignore[assignment]
-from .ocr_engine import OCREngine
+from .ocr_engine import OCREngine, ROI_PINNED_BROADCAST_TYPES, _parallel_frame_grabber
 from .event_matcher import EventMatcher
 from .time_utils import (
     game_clock_rules_from_context,
@@ -37,6 +40,31 @@ from .version import __version__ as HIGHLIGHT_EXTRACTOR_VERSION
 from pipeline_progress import progress
 
 logger = logging.getLogger(__name__)
+
+
+class _StepProgress:
+    """Item counters for one step's phases on the shared live-progress record (amherst-display#48).
+
+    The record has one total per stage, and step 5 learns its work as it goes (goals to refine,
+    then clock samples, then vision frame batches). `plan` adds a phase's items to the total
+    before they start, `tick` reports one done, `note` moves the line without counting.
+    The goal locator takes this object directly, so both halves of step 5 report the same line.
+    """
+
+    def __init__(self) -> None:
+        self.total = 0
+
+    def plan(self, items: int, detail: str = "") -> None:
+        self.total += max(0, int(items))
+        progress.set_total(self.total or None)
+        if detail:
+            progress.note(detail)
+
+    def tick(self, n: int = 1, detail: Optional[str] = None) -> None:
+        progress.tick(n, detail)
+
+    def note(self, detail: str) -> None:
+        progress.note(detail)
 
 
 class HighlightPipeline:
@@ -154,6 +182,10 @@ class HighlightPipeline:
         self.reel_mode = str(getattr(self.config, "DEFAULT_REEL_MODE", "goals_only"))
         self._refine_goal_clock = True
         self._refine_local_ocr = True
+        # (broadcast, roi) detected once per run for the refinement OCR pass.
+        self._refinement_roi_cache: Optional[tuple] = None
+        # frame-at-time reader for the refinement OCR pass, chosen once by timing this file.
+        self._refinement_reader: Optional[tuple[Callable[[float], object], bool]] = None
         self._goal_legacy_timing_fallback_override: Optional[bool] = None
         self._detected_game_start_time: Optional[float] = None
         self._game_context: Dict = {}
@@ -302,7 +334,11 @@ class HighlightPipeline:
         event["match_unreliable"] = False
         event.pop("match_unreliable_reason", None)
 
-    def _locate_goals_by_vision(self, matched_events: List[Dict]) -> None:
+    def _locate_goals_by_vision(
+        self,
+        matched_events: List[Dict],
+        step_progress: Optional[_StepProgress] = None,
+    ) -> Optional[Dict]:
         """Place goals the scorebug couldn't time (frozen bug) from the broadcast itself."""
         pending = [
             e for e in matched_events
@@ -310,7 +346,7 @@ class HighlightPipeline:
             and str(e.get("refined_by") or "").strip().lower() not in {"clock_stop", "manual_source_review"}
         ]
         if not pending:
-            return
+            return None
         import goal_locator
 
         report = goal_locator.locate_goals(
@@ -318,11 +354,13 @@ class HighlightPipeline:
             pending,
             self.video_timestamps,
             lambda g: self.event_matcher._event_time_to_remaining_seconds(g.get("period"), g.get("time", "00:00")),
+            progress=step_progress,
         )
         data_dir = (self.game_folders or {}).get("data_dir")
         if data_dir:
             with open(Path(data_dir) / "goal_locator.json", "w") as f:
                 json.dump(report, f, indent=2)
+        return report
 
     def _finalize_goal_timing_verification(self, matched_events: List[Dict]) -> None:
         """
@@ -1092,6 +1130,11 @@ class HighlightPipeline:
             if game_dir:
                 game_id = game_dir.name if hasattr(game_dir, 'name') else str(game_dir).split('/')[-1]
 
+        # One live line for the whole step: matching, then the clock-stop OCR pass, then the
+        # vision locator, each adding its own work as it starts (amherst-display#48).
+        step_progress = _StepProgress()
+        step_progress.plan(1, "matching events to OCR readings")
+
         # Normalize raw OCR timestamps first (period inference + glitch filtering),
         # then interpolate within inferred periods to fill long gaps. This ordering
         # avoids interpolating using unknown periods (period=0) which can create
@@ -1137,33 +1180,46 @@ class HighlightPipeline:
 
         # Refine any low-confidence goal matches by locating the clock-stop moment
         # (the scoreboard freezes at the goal time during the stoppage).
+        step_progress.tick(1, "clock-stop OCR")
+        refined = 0
+        phase_started = time.time()
         if self._refine_goal_clock:
             try:
-                refined = self._refine_goal_events_by_clock_stop(self.matched_events)
+                refined = self._refine_goal_events_by_clock_stop(
+                    self.matched_events, step_progress=step_progress
+                )
                 if refined:
                     logger.info(f"Refined {refined} goal timestamps via clock-stop OCR")
             except Exception as e:
                 logger.warning(f"Goal timestamp refinement failed: {e}")
         else:
             logger.info("Skipping goal clock-stop refinement")
+        self._step_timings['match_events.clock_stop'] = time.time() - phase_started
 
         # Generic fallback: for low-confidence matches, do a small local OCR scan around the
         # approximate match timestamp and snap to the closest persistent clock reading.
+        phase_started = time.time()
         if self._refine_local_ocr:
             try:
-                refined_any = self._refine_low_confidence_events_by_local_ocr(self.matched_events)
+                refined_any = self._refine_low_confidence_events_by_local_ocr(
+                    self.matched_events, step_progress=step_progress
+                )
                 if refined_any:
                     logger.info(f"Refined {refined_any} event timestamps via local OCR")
             except Exception as e:
                 logger.warning(f"Local OCR refinement failed: {e}")
         else:
             logger.info("Skipping local OCR refinement")
+        self._step_timings['match_events.local_ocr'] = time.time() - phase_started
 
+        located: Optional[Dict] = None
+        phase_started = time.time()
         if getattr(self.config, "GOAL_VISION_LOCATOR", True):
             try:
-                self._locate_goals_by_vision(self.matched_events)
+                located = self._locate_goals_by_vision(self.matched_events, step_progress=step_progress)
             except Exception as e:  # best-effort; never block highlights on it
                 logger.warning(f"Vision goal locator failed: {e}")
+        self._step_timings['match_events.vision'] = time.time() - phase_started
 
         self._finalize_goal_timing_verification(self.matched_events)
 
@@ -1187,17 +1243,140 @@ class HighlightPipeline:
         self.file_manager.save_events(self.game_folders, self.matched_events)
 
         self._step_timings['match_events'] = time.time() - start_time
+        brackets = len((located or {}).get("brackets") or [])
+        progress.finish(
+            f"{len(valid_events)}/{len(self.events)} events placed, {refined} by clock stop"
+            + (f", {brackets} vision bracket(s)" if brackets else "")
+        )
 
-    def _ocr_clock_sample(self, t: float, *, expected_period: int, period_length: int) -> Dict:
-        frame = self.video_processor.get_frame_at_time(float(t))
+    def _refinement_scorebug_roi(self, ocr_engine, broadcast: str) -> Optional[tuple]:
+        """The pinned scorebug box, detected once per run instead of once per sampled frame.
+
+        `_ensure_ocr_engine()` re-applies the broadcast type, which drops the engine's cached
+        ROI, so every refinement frame re-detected a box that is a fixed layout. Pass the box
+        in instead; an unpinned broadcast still detects per frame, as before.
+        """
+        if str(broadcast or "").strip().lower() not in ROI_PINNED_BROADCAST_TYPES:
+            return None
+        if self._refinement_roi_cache and self._refinement_roi_cache[0] == broadcast:
+            return self._refinement_roi_cache[1]
+        detect = getattr(ocr_engine, "detect_scoreboard_roi", None)
+        roi = None
+        if callable(detect):
+            try:
+                frame = self.video_processor.get_frame_at_time(0.0)
+                roi = detect(frame, method=broadcast) if frame is not None else None
+            except Exception:
+                roi = None
+        self._refinement_roi_cache = (broadcast, roi)
+        return roi
+
+    def _refinement_frame_reader(self) -> tuple[Callable[[float], object], bool]:
+        """Frame-at-time reader for the refinement pass, and whether it may be called in parallel.
+
+        Default: the parallel ffmpeg grab, the same seek the OCR capture pass uses, one process
+        a frame (the postgame join's faststart recording made it ~2x the MoviePy reader in
+        extract_timestamps). MATCH_OCR_CAPTURE=moviepy keeps the single MoviePy decoder instead,
+        for a recording where a fresh ffmpeg seek is the slower way in.
+        """
+        if self._refinement_reader is None:
+            self._refinement_reader = self._build_refinement_reader()
+        return self._refinement_reader
+
+    def _build_refinement_reader(self) -> tuple[Callable[[float], object], bool]:
+        moviepy_read = self.video_processor.get_frame_at_time
+        reader_lock = threading.Lock()
+
+        def moviepy_frame(t: float):
+            with reader_lock:
+                return moviepy_read(float(t))
+
+        choice = str(os.environ.get("MATCH_OCR_CAPTURE", "grab") or "grab").strip().lower()
+        if choice == "moviepy":
+            return moviepy_frame, False
+        grab = _parallel_frame_grabber(self.video_processor)
+        if grab is None:
+            return moviepy_frame, False
+        return grab, True
+
+    def _ocr_clock_samples(
+        self,
+        times: List[float],
+        *,
+        expected_period: int,
+        period_length: int,
+        step_progress: Optional[_StepProgress] = None,
+    ) -> List[Dict]:
+        """Clock reads for `times`, with frame capture and OCR overlapping (amherst-display#48).
+
+        One serial MoviePy seek plus a tesseract read cost about 0.5 s a sample, which was most
+        of the clock-stop pass. Capture uses the reader this file made fastest
+        (`_refinement_frame_reader`) and tesseract runs as its own process, so MATCH_OCR_WORKERS
+        reads overlap. The reads themselves are unchanged.
+        """
+        if not times:
+            return []
+        ocr_engine = self._ensure_ocr_engine()
+        broadcast = self._refinement_broadcast_type()
+        roi = self._refinement_scorebug_roi(ocr_engine, broadcast)
+        read_frame, parallel_capture = self._refinement_frame_reader()
+        workers = max(1, int(os.environ.get("MATCH_OCR_WORKERS", "8") or 8))
+
+        def read(frame, t: float) -> Dict:
+            result = self._ocr_clock_sample(
+                t,
+                frame,
+                ocr_engine=ocr_engine,
+                broadcast=broadcast,
+                roi=roi,
+                expected_period=expected_period,
+                period_length=period_length,
+            )
+            if step_progress is not None:
+                step_progress.tick()
+            return result
+
+        if step_progress is not None:
+            step_progress.plan(len(times))
+        if workers <= 1 or len(times) == 1:
+            return [read(read_frame(t), t) for t in times]
+
+        with ThreadPoolExecutor(max_workers=min(workers, len(times))) as pool:
+            if parallel_capture:
+                return list(pool.map(lambda t: read(read_frame(t), t), times))
+
+            # One decoder: read the window in time order so each frame is a short forward jump,
+            # and let the pool read the clocks while the next frames are captured.
+            results: List[Dict] = []
+            pending = []
+            for start in range(0, len(times), workers):
+                chunk = times[start:start + workers]
+                frames = [read_frame(t) for t in chunk]
+                results.extend(future.result() for future in pending)
+                pending = [pool.submit(read, frame, t) for frame, t in zip(frames, chunk)]
+            results.extend(future.result() for future in pending)
+            return results
+
+    def _ocr_clock_sample(
+        self,
+        t: float,
+        frame,
+        *,
+        ocr_engine,
+        broadcast: str,
+        roi: Optional[tuple],
+        expected_period: int,
+        period_length: int,
+    ) -> Dict:
         if frame is None:
             return {"t": float(t), "sec": None, "period": None, "confidence": 0.0}
 
         ocr = None
         try:
-            ocr = self._ensure_ocr_engine().extract_time_from_frame_detailed(
+            ocr = ocr_engine.extract_time_from_frame_detailed(
                 frame,
-                broadcast_type=self._refinement_broadcast_type(),
+                roi=roi,
+                broadcast_type=broadcast,
             )
         except Exception:
             ocr = None
@@ -1228,19 +1407,19 @@ class HighlightPipeline:
         step_seconds: float,
         expected_period: int,
         period_length: int,
+        step_progress: Optional[_StepProgress] = None,
     ) -> List[Dict]:
-        samples: List[Dict] = []
+        times: List[float] = []
         t = float(search_start)
         while t <= float(search_end) + 1e-6:
-            samples.append(
-                self._ocr_clock_sample(
-                    t,
-                    expected_period=int(expected_period or 1),
-                    period_length=int(period_length),
-                )
-            )
+            times.append(t)
             t += float(step_seconds)
-        return samples
+        return self._ocr_clock_samples(
+            times,
+            expected_period=int(expected_period or 1),
+            period_length=int(period_length),
+            step_progress=step_progress,
+        )
 
     def _find_clock_stop_from_samples(
         self,
@@ -1364,13 +1543,18 @@ class HighlightPipeline:
         lookforward_seconds: float = 20.0,
         persistence_window_seconds: float = 8.0,
         min_target_hits: int = 4,
+        step_progress: Optional[_StepProgress] = None,
     ) -> int:
         """
         Refine goal video timestamps by locating the first stable clock-stop at the
         box-score goal time. Coarse OCR markers narrow the search range before a
         finer stop-time scan runs inside likely intervals.
         """
-        if not matched_events:
+        goals = [
+            event for event in matched_events or []
+            if str(event.get("type") or "").strip().lower() == "goal" and event.get("video_time") is not None
+        ]
+        if not goals:
             return 0
 
         refined_count = 0
@@ -1383,14 +1567,8 @@ class HighlightPipeline:
             0,
             int(getattr(self.config, "GOAL_CLOCK_STOP_ALLOW_CLOSE_SECONDS", 0) or 0),
         )
-        for event in matched_events:
-            if str(event.get("type") or "").strip().lower() != "goal":
-                continue
-
+        for index, event in enumerate(goals, 1):
             video_time = event.get("video_time")
-            if video_time is None:
-                continue
-
             try:
                 period = int(event.get("period") or 1)
             except Exception:
@@ -1448,12 +1626,16 @@ class HighlightPipeline:
             if search_end <= search_start:
                 continue
 
+            if step_progress is not None:
+                step_progress.note(f"clock-stop OCR: P{period} {time_str} ({index}/{len(goals)} goals)")
+
             coarse_samples = self._sample_clock_window(
                 search_start=search_start,
                 search_end=search_end,
                 step_seconds=float(coarse_step_seconds),
                 expected_period=period,
                 period_length=period_length,
+                step_progress=step_progress,
             )
             candidate_ranges = self._candidate_goal_search_ranges(
                 coarse_samples,
@@ -1471,6 +1653,7 @@ class HighlightPipeline:
                     step_seconds=float(fine_step_seconds),
                     expected_period=period,
                     period_length=period_length,
+                    step_progress=step_progress,
                 )
 
                 refined_time = self._find_clock_stop_from_samples(
@@ -1545,7 +1728,12 @@ class HighlightPipeline:
 
         return refined_count
 
-    def _refine_low_confidence_events_by_local_ocr(self, matched_events: List[Dict]) -> int:
+    def _refine_low_confidence_events_by_local_ocr(
+        self,
+        matched_events: List[Dict],
+        *,
+        step_progress: Optional[_StepProgress] = None,
+    ) -> int:
         """
         For low-confidence matches, run a small local OCR scan around the approximate
         video timestamp and snap to the best persistent clock reading.
@@ -1557,25 +1745,23 @@ class HighlightPipeline:
         if not matched_events:
             return 0
 
-        refined = 0
-        for event in matched_events:
-            video_time = event.get("video_time")
-            if video_time is None:
-                continue
+        def _questionable(event: Dict) -> bool:
+            if event.get("video_time") is None:
+                return False
 
             is_goal = str(event.get("type") or "").strip().lower() == "goal"
 
             # Goals-only reels do not benefit from rescanning penalties or other
             # non-goal events during the generic local-OCR fallback.
             if self.reel_mode == "goals_only" and not is_goal:
-                continue
+                return False
 
             if is_goal and not self._goal_local_ocr_fallback_enabled(event):
-                continue
+                return False
 
             # Skip events already refined by the stronger clock-stop mechanism.
             if str(event.get("refined_by") or "") in {"clock_stop", "manual_source_review"}:
-                continue
+                return False
 
             try:
                 conf = float(event.get("match_confidence") or 0.0)
@@ -1587,11 +1773,19 @@ class HighlightPipeline:
                 diff = 0.0
 
             # Only refine when the match looks questionable.
-            if not (conf < 0.90 or diff > 10.0 or bool(event.get("match_unreliable"))):
-                continue
+            return bool(conf < 0.90 or diff > 10.0 or event.get("match_unreliable"))
+
+        candidates = [event for event in matched_events if _questionable(event)]
+        if step_progress is not None and candidates:
+            step_progress.plan(len(candidates), f"local OCR: {len(candidates)} questionable event(s)")
+
+        refined = 0
+        for event in candidates:
+            if step_progress is not None:
+                step_progress.note(f"local OCR: P{event.get('period')} {event.get('time')}")
 
             try:
-                approx = float(video_time)
+                approx = float(event["video_time"])
             except Exception:
                 continue
 
@@ -1604,6 +1798,11 @@ class HighlightPipeline:
             event["video_time"] = float(refined_time)
             event["refined_by"] = "local_ocr"
             refined += 1
+            if step_progress is not None:
+                step_progress.tick(detail=f"local OCR: P{event.get('period')} {event.get('time')} -> {refined_time:.0f}s")
+
+        if step_progress is not None:
+            step_progress.tick(len(candidates) - refined)  # events that found no stable read still count
 
         return refined
 
@@ -1679,47 +1878,39 @@ class HighlightPipeline:
         if end <= start:
             return None
 
-        hits: List[Dict] = []
-        best = None  # (diff, confidence, t)
-
+        times: List[float] = []
         t = start
         while t <= end:
-            frame = get_frame(t)
-            if frame is None:
-                t += step_seconds
+            times.append(t)
+            t += step_seconds
+
+        # The sampling pass already drops frames whose period does not match, or whose read is
+        # outside the period.
+        samples = self._ocr_clock_samples(
+            times,
+            expected_period=period,
+            period_length=period_length,
+        )
+
+        hits: List[Dict] = []
+        best = None  # (diff, confidence, t)
+        for sample in samples:
+            sec = sample.get("sec")
+            if sec is None:
                 continue
 
-            ocr = None
-            try:
-                ocr = self._ensure_ocr_engine().extract_time_from_frame_detailed(
-                    frame,
-                    broadcast_type=self._refinement_broadcast_type(),
-                )
-            except Exception:
-                ocr = None
+            diff = abs(int(sec) - int(target_remaining))
+            conf = float(sample.get("confidence") or 0.0)
 
-            if ocr is not None:
-                # If OCR can read a period here, require it to match.
-                if int(getattr(ocr, "period", 0) or 0) not in {0, period}:
-                    t += step_seconds
-                    continue
+            # Track best single-frame hit (used as a fallback if no stable cluster).
+            if best is None or (diff, conf) < (best[0], best[1]):
+                best = (diff, conf, float(sample["t"]))
 
-                sec = int(getattr(ocr, "time_seconds", -1) or -1)
-                if 0 <= sec <= period_length:
-                    diff = abs(int(sec) - int(target_remaining))
-                    conf = float(getattr(ocr, "confidence", 0.0) or 0.0)
-
-                    # Track best single-frame hit (used as a fallback if no stable cluster).
-                    if best is None or (diff, conf) < (best[0], best[1]):
-                        best = (diff, conf, float(t))
-
-                    if is_goal:
-                        if diff <= float(goal_allow_close_seconds):
-                            hits.append({"t": float(t), "diff": int(diff), "conf": conf})
-                    elif diff <= max_diff_seconds:
-                        hits.append({"t": float(t), "diff": int(diff), "conf": conf})
-
-            t += step_seconds
+            if is_goal:
+                if diff <= float(goal_allow_close_seconds):
+                    hits.append({"t": float(sample["t"]), "diff": int(diff), "conf": conf})
+            elif diff <= max_diff_seconds:
+                hits.append({"t": float(sample["t"]), "diff": int(diff), "conf": conf})
 
         if not hits:
             # Fallback to best single-frame candidate if it's close enough.

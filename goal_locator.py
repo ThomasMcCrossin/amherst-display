@@ -10,7 +10,9 @@ restarts with a faceoff at the centre-ice dot.
    first showed the closest value above the goal's remaining time and before it first
    showed a value below it (a frozen clock just makes the bracket wider).
 2. Scan: frames every few seconds across the bracket are labelled by a cheap vision model
-   (same OpenAI-compatible settings as scorebug_detect: DeepSeek by default).
+   (same OpenAI-compatible settings as scorebug_detect: DeepSeek by default), one request per
+   BATCH frames with GOAL_LOCATOR_WORKERS requests in flight (amherst-display#48: 24-45 s a
+   request, 6 requests for the 2026-11-07 game, run one after another).
 3. A goal candidate is a run of celebration/close-up frames containing at least one group
    celebration. When the number of candidates equals the number of unverified goals in the
    bracket they are assigned in order; otherwise nothing is set.
@@ -23,6 +25,7 @@ from __future__ import annotations
 import json
 import logging
 import os
+from concurrent.futures import Future, ThreadPoolExecutor
 from typing import Any, Dict, List, Optional, Tuple
 
 import cv2
@@ -34,6 +37,7 @@ logger = logging.getLogger(__name__)
 SCAN_STEP_SECONDS = 6
 MAX_BRACKET_SECONDS = 1500
 BATCH = 24
+DEFAULT_WORKERS = 6
 # Celebrations start a few seconds after the puck crosses the line.
 CELEBRATION_LAG_SECONDS = 5
 GOAL_LABELS = {"celebration", "closeup"}
@@ -76,16 +80,15 @@ def bracket(period: int, remaining: int, readings: List[Dict[str, Any]]) -> Opti
     return (lo, hi) if 0 < hi - lo <= MAX_BRACKET_SECONDS else None
 
 
-def label_frames(video_path: str, lo: float, hi: float, usage: Dict[str, int]) -> List[Tuple[float, str]]:
-    import vision_api
+def _batch_bodies(video_path: str, lo: float, hi: float, model: str) -> List[Dict[str, Any]]:
+    """One vision request per BATCH frames of a bracket: capture the frames now, send them later.
 
-    settings = _vision_settings()
-    if settings is None:
-        return []
-    api_key, base_url, model = settings
+    Capturing all of a bracket's frames first (a few MB of 512 px JPEGs) is what lets every
+    request go out at once instead of one per capture loop.
+    """
     times = [lo + i * SCAN_STEP_SECONDS for i in range(int((hi - lo) // SCAN_STEP_SECONDS) + 1)]
+    bodies: List[Dict[str, Any]] = []
     cap = cv2.VideoCapture(str(video_path))
-    labels: List[Tuple[float, str]] = []
     try:
         for i in range(0, len(times), BATCH):
             content: List[Dict[str, Any]] = [{"type": "text", "text": PROMPT.format(step=SCAN_STEP_SECONDS)}]
@@ -96,20 +99,31 @@ def label_frames(video_path: str, lo: float, hi: float, usage: Dict[str, int]) -
                     continue
                 content.append({"type": "text", "text": f"t={int(t)}"})
                 content.append({"type": "image_url", "image_url": {"url": _jpeg_data_url(frame, width=512)}})
-            body: Dict[str, Any] = {"model": model, "temperature": 0, "response_format": {"type": "json_object"},
-                                    "messages": [{"role": "user", "content": content}]}
-            if "deepseek" in base_url:
-                body["thinking"] = {"type": "disabled"}
-            payload = vision_api.chat(base_url, api_key, body, 180)
-            for k in ("prompt_tokens", "completion_tokens"):
-                usage[k] = usage.get(k, 0) + int((payload.get("usage") or {}).get(k) or 0)
-            for row in json.loads(payload["choices"][0]["message"]["content"]).get("frames", []):
-                try:
-                    labels.append((float(row["t"]), str(row["label"]).strip().lower()))
-                except (KeyError, TypeError, ValueError):
-                    continue
+            bodies.append({"model": model, "temperature": 0, "response_format": {"type": "json_object"},
+                           "messages": [{"role": "user", "content": content}]})
     finally:
         cap.release()
+    return bodies
+
+
+def _request(base_url: str, api_key: str, body: Dict[str, Any]) -> Dict[str, Any]:
+    import vision_api
+
+    if "deepseek" in base_url:
+        body["thinking"] = {"type": "disabled"}
+    return vision_api.chat(base_url, api_key, body, 180)
+
+
+def _read_labels(payloads: List[Dict[str, Any]], usage: Dict[str, int]) -> List[Tuple[float, str]]:
+    labels: List[Tuple[float, str]] = []
+    for payload in payloads:
+        for k in ("prompt_tokens", "completion_tokens"):
+            usage[k] = usage.get(k, 0) + int((payload.get("usage") or {}).get(k) or 0)
+        for row in json.loads(payload["choices"][0]["message"]["content"]).get("frames", []):
+            try:
+                labels.append((float(row["t"]), str(row["label"]).strip().lower()))
+            except (KeyError, TypeError, ValueError):
+                continue
     return sorted(labels)
 
 
@@ -139,13 +153,16 @@ def candidates(labels: List[Tuple[float, str]]) -> List[float]:
 
 
 def locate_goals(video_path: str, goals: List[Dict[str, Any]], readings: List[Dict[str, Any]],
-                 remaining_of) -> Dict[str, Any]:
+                 remaining_of, progress=None) -> Dict[str, Any]:
     """
     Set `video_time` / `refined_by="vision_celebration"` on goals it can place.
     `remaining_of(goal)` returns the goal's remaining seconds in its period.
+    `progress` is optional: an object with plan(n, detail) / tick(n, detail) / note(detail), the
+    pipeline's live-progress adapter; without it the scan is silent.
     """
     report: Dict[str, Any] = {"usage": {}, "brackets": []}
-    if _vision_settings() is None:
+    settings = _vision_settings()
+    if settings is None:
         report["skipped"] = "no vision API key"
         return report
     groups: Dict[Tuple[float, float], List[Dict[str, Any]]] = {}
@@ -155,12 +172,44 @@ def locate_goals(video_path: str, goals: List[Dict[str, Any]], readings: List[Di
             report["brackets"].append({"goal": f'P{goal.get("period")} {goal.get("time")}', "bracket": None})
             continue
         groups.setdefault(span, []).append(goal)
+    if not groups:
+        return report
+    api_key, base_url, model = settings
+    workers = max(1, int(os.environ.get("GOAL_LOCATOR_WORKERS", str(DEFAULT_WORKERS)) or DEFAULT_WORKERS))
+    pending: Dict[Tuple[float, float], List[Future]] = {}
+    batches = 0
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        # Every bracket's requests are in flight together: a bracket can be one request, and the
+        # last one used to wait for the first bracket's whole scan.
+        for (lo, hi) in groups:
+            bodies = _batch_bodies(video_path, lo, hi, model)
+            batches += len(bodies)
+            if progress is not None:
+                progress.plan(len(bodies), f"vision locator: {len(bodies)} frame batch(es) at {lo:.0f}-{hi:.0f}s")
+            pending[(lo, hi)] = [pool.submit(_request, base_url, api_key, body) for body in bodies]
+        read = 0
+        payloads: Dict[Tuple[float, float], List[Dict[str, Any]]] = {}
+        failed = set()
+        for span, futures in pending.items():
+            payloads[span] = []
+            for future in futures:
+                try:
+                    payloads[span].append(future.result())
+                except Exception as exc:  # Never assign goals from an incompletely scanned bracket.
+                    failed.add(span)
+                    logger.warning("Vision goal locator: request for %.0f-%.0fs failed: %s", span[0], span[1], exc)
+                read += 1
+                if progress is not None:
+                    progress.tick(1, f"vision locator: {read}/{batches} frame batches read")
     for (lo, hi), members in groups.items():
-        labels = label_frames(video_path, lo, hi, report["usage"])
+        labels = _read_labels(payloads.get((lo, hi)) or [], report["usage"])
         found = candidates(labels)
         entry = {"bracket": [lo, hi], "goals": [f'P{g.get("period")} {g.get("time")}' for g in members],
                  "candidates": found, "labels": [[t, lab] for t, lab in labels if lab != "play"]}
         report["brackets"].append(entry)
+        if (lo, hi) in failed:
+            entry["error"] = "incomplete vision scan; goals left unverified"
+            continue
         if len(found) != len(members):
             logger.warning("Vision goal locator: %d candidate(s) for %d goal(s) in %.0f-%.0fs; leaving them unverified",
                            len(found), len(members), lo, hi)
