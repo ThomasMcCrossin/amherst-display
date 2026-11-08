@@ -1,0 +1,31 @@
+{
+  "schema": "hockey-clip-review/verdict@1",
+  "role": "reviewer",
+  "incident_id": "09_goal_p3_1-43",
+  "decision": "adjust",
+  "event_visible": true,
+  "event_t": -12.5,
+  "in_t": -32.0,
+  "out_t": 10.0,
+  "in_kind": "possession_change",
+  "out_kind": "celebration_over",
+  "replay_t": null,
+  "whistle_t": null,
+  "foul_visible": null,
+  "foul_what": null,
+  "fight": null,
+  "scorebug": "frozen",
+  "evidence": [
+    {"t": -27.0, "what": "Amherst turns Truro over in the neutral zone and carries up ice"},
+    {"t": -25.5, "what": "Amherst curls into the Truro zone, wall battle at half boards"},
+    {"t": -17.5, "what": "Amherst shot from the slot, net-front traffic on Truro net"},
+    {"t": -12.5, "what": "net-front grind resolves, puck in behind Truro goalie (approx crossing)"},
+    {"t": -10.5, "what": "Rambler raises arms at crease, play stopped, celebration on"},
+    {"t": -12.0, "what": "scorebug frozen at 19:03 while live play continues"},
+    {"t": 6.0, "what": "scorer and teammates fist-bump along the bench glass"},
+    {"t": 10.0, "what": "celebration over, players skate back for faceoff"},
+    {"t": 16.0, "what": "referee sets centre-ice goal faceoff BEARCATS 2 RAMBLERS 3, clock 18:17"}
+  ],
+  "confidence": 0.8,
+  "reason": "Scorebug was frozen at 19:03 and repaired to official 18:17 only at +0, so the anchor is ~12 s late; the puck crossed during the net-front scramble at about -12.5, celebration ran until ~+8, so keep the engine in at -32 (turnover/entry build-up) and end at +10 before the faceoff setup."
+}

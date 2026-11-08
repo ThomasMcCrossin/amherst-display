@@ -6,7 +6,9 @@ Flow per incident (results under <packet>/out/<contestant>/):
      a1 agrees            -> accepted
      a1 disputes          -> r2 fresh reviewer with the objection -> enforce -> a2
         a2 agrees         -> accepted (r2)
-        a2 disputes       -> held_for_human (engine window kept)
+        a2 disputes       -> r3 escalation reviewer (a stronger model) with the whole record -> enforce
+           r3 valid       -> applied as final (no further challenge): resolved_by_escalation
+           r3 fails / none-> held_for_human (engine window kept, escalation error recorded)
 Malformed or invalid output is retried (with the check errors) up to `attempts` times.
 Every role result is cached by (contestant identity, incident, prompt hash, run tag).
 """
@@ -23,6 +25,7 @@ from typing import Any, Dict, List, Optional
 
 from . import SKILL_DIR, checker, frames
 from .incidents import current_bounds
+from pipeline_progress import progress
 
 ADVERSARY_CLASSES = {"goal", "major", "scrum", "fight"}
 
@@ -120,6 +123,10 @@ def run_role(backend: Any, role: str, packet: Path, out_dir: Path, tag: str, inc
     total: Dict[str, Any] = {}
     note, res, errors = "", None, []
     n = 0
+    label = f"{incident['incident_id']} {tag} ({role}, {backend.name})"
+    progress.note(label)
+    print(f"{time.strftime('%H:%M:%S')} start {label}", flush=True)
+    t_role = time.time()
     for n in range(1, attempts + 1):
         call = getattr(backend, "review" if role == "reviewer" else "adversary")
         res = call(packet, path, retry_note=note, **{k: v for k, v in kw.items() if k != "cache_salt"})
@@ -142,6 +149,8 @@ def run_role(backend: Any, role: str, packet: Path, out_dir: Path, tag: str, inc
         note = ("Your previous attempt failed the check: " + "; ".join(errors[:6]) +
                 ". Write a corrected verdict and run check_verdict.py until it prints OK.")
     ok = not errors
+    print(f"{time.strftime('%H:%M:%S')} {'done' if ok else 'FAILED'} {label} in {time.time() - t_role:.0f}s"
+          + (f", attempt {n}" if n > 1 else "") + ("" if ok else f": {'; '.join(errors)[:200]}"), flush=True)
     meta = {"key": key, "ok": ok, "attempts": n, "errors": errors, "stats": total, "log": (res or {}).get("log"),
             "backend": backend.name, "role": role, "tag": tag, "at": time.strftime("%Y-%m-%dT%H:%M:%S")}
     path.with_suffix(".meta.json").write_text(json.dumps(meta, indent=2))
@@ -154,7 +163,7 @@ def run_role(backend: Any, role: str, packet: Path, out_dir: Path, tag: str, inc
 # one incident end to end
 # ---------------------------------------------------------------------------------------
 def review_incident(packet: Path, reviewer: Any, adversary: Optional[Any] = None, run_tag: str = "run1",
-                    adversary_all: bool = False, attempts: int = 3) -> Dict[str, Any]:
+                    adversary_all: bool = False, attempts: int = 3, escalator: Optional[Any] = None) -> Dict[str, Any]:
     incident = current_bounds(json.loads((packet / "incident.json").read_text()))
     out_dir = packet / "out" / reviewer.name / run_tag
     t0 = time.time()
@@ -197,9 +206,14 @@ def review_incident(packet: Path, reviewer: Any, adversary: Optional[Any] = None
                 res["final"], res["verdict"] = final2, v2
                 res["dispute"] = "resolved_by_second_review"
             else:
-                res["final"] = dict(enforce(None, incident), status="held_for_human",
-                                    disputed=final, objections=a1["verdict"].get("objections"))
-                res["dispute"] = "held_for_human"
+                held = dict(enforce(None, incident), status="held_for_human",
+                            disputed=final, objections=a1["verdict"].get("objections"))
+                res["final"], res["dispute"] = held, "held_for_human"
+                if escalator is not None:
+                    _escalate(res, step, escalator, packet, adv_dir, incident, attempts, held,
+                              {"r1": res.get("r1"), "r1_final": res.get("r1_final"), "a1": a1["verdict"],
+                               "r2": v2, "r2_final": final2, "a2": (a2 or {}).get("verdict"),
+                               "r2_error": r2.get("error"), "a2_error": (a2 or {}).get("error")})
         elif a1["verdict"] is not None:
             res["dispute"] = "none"
     res["wall_s"] = round(time.time() - t0, 1)
@@ -217,6 +231,36 @@ def review_incident(packet: Path, reviewer: Any, adversary: Optional[Any] = None
     name = "result.json" if not adversary else f"result_adv-{adversary.name}.json"
     (out_dir / name).write_text(json.dumps(res, indent=2, default=str))
     return res
+
+
+# statuses from enforce() that mean the escalation produced nothing usable
+_ESCALATION_FAILED = {"no_verdict", "rejected"}
+
+
+def _escalate(res: Dict[str, Any], step: Any, escalator: Any, packet: Path, adv_dir: Path, incident: Dict[str, Any],
+              attempts: int, held: Dict[str, Any], record: Dict[str, Any]) -> None:
+    """Still disputed after the second review: a stronger reviewer sees the same packet plus the whole
+    dispute record and its enforced verdict is final. held_for_human only when the escalation fails."""
+    esc_dir = adv_dir / f"esc-{escalator.name}"
+    esc_dir.mkdir(parents=True, exist_ok=True)
+    record_path = esc_dir / "dispute_record.json"
+    record_path.write_text(json.dumps(record, indent=2, default=str))
+    try:
+        r3 = run_role(escalator, "reviewer", packet, esc_dir, "r3", incident, attempts=attempts,
+                      escalation_path=record_path, objection=record.get("a2") or record.get("a1"))
+    except Exception as exc:  # noqa: BLE001 - a failed escalation holds the clip, it never sinks the game
+        r3 = {"verdict": None, "error": f"escalation crashed: {exc}", "attempts": 0, "cached": False, "stats": {}}
+    step("r3", r3)
+    v3 = r3["verdict"] if r3.get("error") is None else None
+    final3 = enforce(v3, incident)
+    res.update(r3=v3, r3_final=final3, escalated_to=escalator.name)
+    if v3 is not None and final3["status"] not in _ESCALATION_FAILED:
+        res["final"], res["verdict"] = dict(final3, escalated=True, disputed=held.get("disputed")), v3
+        res["dispute"] = "resolved_by_escalation"
+    else:
+        err = r3.get("error") or f"escalation verdict unusable ({final3['status']}: {final3.get('errors')})"
+        res["final"] = dict(held, escalation_error=err)
+        res["escalation_error"] = err
 
 
 def _adversary(adversary: Any, packet: Path, adv_dir: Path, tag: str, incident: Dict[str, Any], verdict_path: Path,

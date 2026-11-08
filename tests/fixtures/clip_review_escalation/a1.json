@@ -1,0 +1,17 @@
+{
+  "schema": "hockey-clip-review/adversary@1",
+  "role": "adversary",
+  "incident_id": "09_goal_p3_1-43",
+  "agree": false,
+  "objections": [
+    {
+      "kind": "ends_early",
+      "t": 3.5,
+      "detail": "Clip stops at +3.5 while the Ramblers are still celebrating: frame +5.0 (read from the clip) shows players leaning over the bench banging sticks/fist-bumping with the scorer's line, and coarse_05 still shows bench fist bumps at +6 and +7; the live celebration only breaks up around +7-8. The proposed out-point cuts it mid-celebration."
+    }
+  ],
+  "suggested_in_t": -32.0,
+  "suggested_out_t": 8.0,
+  "confidence": 0.8,
+  "reason": "The goal (~-12.5) and its build-up are correctly inside the clip, but the out at +3.5 truncates the still-ongoing bench celebration, which runs to about +7-8."
+}

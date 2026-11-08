@@ -1,0 +1,124 @@
+{
+  "schema": "hockey-clip-review/incident@1",
+  "incident_id": "09_goal_p3_1-43",
+  "kind": "goal",
+  "class": "goal",
+  "game": {
+    "name": "2026-11-07_Amherst Ramblers_vs_Truro Bearcats",
+    "date": "2026-11-07",
+    "game_id": "5098"
+  },
+  "teams": {
+    "home": "Amherst Ramblers",
+    "away": "Truro Bearcats"
+  },
+  "period": 3,
+  "time_elapsed": "1:43",
+  "time_remaining": "18:17",
+  "sheet_rows": [
+    {
+      "team": "Amherst Ramblers",
+      "scorer": "Ethan Fraser",
+      "assist1": "Jax Ginnish",
+      "assist2": "",
+      "special": "",
+      "empty_net": false
+    }
+  ],
+  "video": "/home/canteenhub/.local/state/watch-rams/postgame/20261107T223121Z_e258346/recording.mp4",
+  "video_duration": 11074.93,
+  "anchor": 8237.5,
+  "engine_window": {
+    "in_t": -32.0,
+    "out_t": 16.0,
+    "source": "clips_manifest"
+  },
+  "engine_match": {
+    "confidence": 1.0,
+    "refined_by": "clock_stop",
+    "unreliable": false
+  },
+  "scorebug_alert": false,
+  "neighbours": [
+    {
+      "id": "10_minor_p3_03-15",
+      "what": "penalty: Truro Bearcats Hooking - Minor",
+      "period": 3,
+      "time_elapsed": "03:15",
+      "placed_t": 144.5
+    }
+  ],
+  "bounds": {
+    "lead_min": 15.0,
+    "lead_min_quick": 6.0,
+    "lead_max": 45,
+    "tail_min": 8,
+    "tail_max": 25,
+    "len_min": 8,
+    "len_max": 60,
+    "near": 30,
+    "relocate_max": 240,
+    "drop_min_confidence": 0.8,
+    "tail_min_replay": 5,
+    "tail_trim": 16.0,
+    "fight_pre": 10,
+    "fight_post": 10,
+    "engine_in": -32.0,
+    "engine_out": 16.0,
+    "video_from": -8237.5,
+    "video_to": 2837.43
+  },
+  "coarse": {
+    "from": -75.0,
+    "to": 40.0,
+    "step": 1.0
+  },
+  "tools": {
+    "python": "/home/canteenhub/amherst-display/.venv/bin/python",
+    "skill_dir": "/home/canteenhub/amherst-display/skills/hockey-clip-review"
+  },
+  "coarse_sheets": [
+    {
+      "path": "sheets/coarse_01.jpg",
+      "from": -75.0,
+      "to": -56.0,
+      "frames": 20,
+      "step": 1.0
+    },
+    {
+      "path": "sheets/coarse_02.jpg",
+      "from": -55.0,
+      "to": -36.0,
+      "frames": 20,
+      "step": 1.0
+    },
+    {
+      "path": "sheets/coarse_03.jpg",
+      "from": -35.0,
+      "to": -16.0,
+      "frames": 20,
+      "step": 1.0
+    },
+    {
+      "path": "sheets/coarse_04.jpg",
+      "from": -15.0,
+      "to": 4.0,
+      "frames": 20,
+      "step": 1.0
+    },
+    {
+      "path": "sheets/coarse_05.jpg",
+      "from": 5.0,
+      "to": 24.0,
+      "frames": 20,
+      "step": 1.0
+    },
+    {
+      "path": "sheets/coarse_06.jpg",
+      "from": 25.0,
+      "to": 40.0,
+      "frames": 16,
+      "step": 1.0
+    }
+  ]
+}

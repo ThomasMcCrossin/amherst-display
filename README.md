@@ -225,8 +225,13 @@ pre/post-roll. `scripts/review_game.py` reviews those clips against the recordin
 3. **adversary** (`--adversary`, goals, majors, scrums and fights): a second model gets the proposed
    final clip as contact sheets and tries to refute it (goal not in clip, cut before the
    puck crosses, starts mid-play, replay included, fight cut off, wrong incident). A dispute
-   gets a fresh second review with the objection; still disputed = `held_for_human` (engine
-   window kept, listed in the summary).
+   gets a fresh second review with the objection. Still disputed goes to the **escalation
+   reviewer** (`CLIP_REVIEW_ESCALATE_CMD`, a stronger model, e.g. Opus 5.5 through `claude-unified`;
+   amherst-display#47): same packet plus the whole dispute record (`dispute_record.json`: both
+   verdicts, both enforced windows, both objections); its verdict passes the same code bounds
+   and is final (`dispute: resolved_by_escalation`). `held_for_human` (engine window kept, listed in
+   the summary, `escalation_error` recorded) is only the result when that escalation fails or none is
+   configured. Only goals, majors, scrums and fights disputed twice escalate.
 4. **apply** (`--apply`): `data/review/overrides.json`, reviewed clips in `data/review/clips/`,
    reel manifests `data/review/reel_main.json` (+ `reel_rough_stuff.json`).
    `--build-reel` renders them with `build_production_highlight_reel.py` into
@@ -280,8 +285,12 @@ python3 scripts/review_game.py --game-dir "Games/<game>" --video recording.mp4 -
 # api first, the lean agent above only where needed
 python3 scripts/review_game.py --game-dir "Games/<game>" --video recording.mp4 --backend escalate --apply
 
-# Claude Code as the harness
-export CLIP_REVIEW_AGENT_CMD='claude -p --model <model> --output-format json --max-turns 30 --tools Read,Bash --permission-mode bypassPermissions {prompt}'
+# Claude Code as the harness (`--tools` takes a list, so the prompt goes after -p, not after it)
+export CLIP_REVIEW_AGENT_CMD='claude --model <model> --output-format json --max-turns 30 --tools Read,Bash --permission-mode bypassPermissions -p {prompt}'
+
+# escalation reviewer for goals/majors still disputed after the second review (canteenhub production)
+export CLIP_REVIEW_ESCALATE_CMD='claude-unified --model claude-opus-5-5 --output-format json --max-turns 40 --tools Read,Bash -p {prompt}'
+export CLIP_REVIEW_ESCALATE_NAME=claude-opus-5.5   # --escalate-timeout / CLIP_REVIEW_ESCALATE_TIMEOUT, default 1500 s
 ```
 
 Other flags: `--kinds goal,penalty|wanted`, `--only <id prefix>`, `--workers` (default 4),
@@ -290,6 +299,17 @@ Other flags: `--kinds goal,penalty|wanted`, `--only <id prefix>`, `--workers` (d
 pays for what changed. `data/review/summary.json` has per-incident status, disputes, wall time
 and tokens (and cost where the harness reports it). Exit code is 0 once the summary is written.
 Model comparison: `scripts/clip_review_bakeoff.py` and `docs/2026-10-07-clip-review-bakeoff.md`.
+
+**Live progress** (amherst-display#48). With `PIPELINE_PROGRESS_JSON=<file>` the engine (each step;
+OCR capture and reads, clips n/total), `validate_goal_clips.py` (goals n/total) and `review_game.py`
+(packets, incidents n/total, each reviewer/adversary/escalation role as it starts) write a `progress`
+key into that JSON: `stage`, `done`/`total`/`pct`, `detail`, `last_activity_at`, `eta_s`/`eta_at`,
+`line` (one human line) and `history` (one summary line per finished stage). Only that key is
+written, so it can be the job's status file; watch-rams points it at `highlights-status.json` and
+serves it at `/postgame` on the review server. `review_game.py` also logs a line as each role starts
+and ends. Speed knobs: `OCR_CAPTURE_WORKERS` (default 8 parallel ffmpeg seeks for OCR frames when
+the broadcast type is pinned), `CLIP_WORKERS` (default 3 clips encoded at once), `CLIP_OVERLAY_FFMPEG=0`
+(back to the MoviePy overlay path), `VALIDATE_WORKERS` (default 4 vision calls at once).
 
 To run the engine itself on a raw recording with no Drive, email or review-monitor side
 effects (back catalogue, test corpora): `scripts/run_engine_offline.py --video V --game-id N

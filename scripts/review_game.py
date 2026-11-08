@@ -5,7 +5,8 @@ Vision review of one processed game's highlight clips: the single entry point.
 Code builds an incident packet per game-sheet goal/penalty the engine placed; a cheap vision
 reviewer (api or agent backend) picks in/out points from the play on screen and may overrule
 the engine (adjust, relocate within bounds, drop); an optional adversary tries to refute each
-goal/major verdict (dispute -> second review -> held_for_human); --apply writes overrides and
+goal/major verdict (dispute -> second review -> escalation reviewer, a stronger model, whose
+verdict is applied; held_for_human only when that escalation fails or none is configured); --apply writes overrides and
 cuts reviewed clips and reel manifests; --build-reel renders them.
 
   .venv/bin/python scripts/review_game.py --game-dir "Games/<game>" --video <recording.mp4> \
@@ -15,7 +16,8 @@ Backends:
   api    OpenAI-compatible vision endpoint (default DeepSeek). Env SCOREBUG_VISION_API_KEY or
          DEEPSEEK_API_KEY, SCOREBUG_VISION_BASE_URL, SCOREBUG_VISION_MODEL.
   agent  any agent harness that can Read images and run bash: CLIP_REVIEW_AGENT_CMD (reviewer),
-         CLIP_REVIEW_ADVERSARY_CMD (adversary). "{prompt}" in the command is replaced by the
+         CLIP_REVIEW_ADVERSARY_CMD (adversary), CLIP_REVIEW_ESCALATE_CMD (escalation reviewer for a
+         goal/major still disputed after the second review). "{prompt}" in the command is replaced by the
          prompt; without it the prompt goes on stdin; "{skill}" is the skill dir. Examples in README.md.
   escalate  api for every incident; the agent (CLIP_REVIEW_AGENT_CMD) re-reviews only a low-confidence,
          unsure or failed call, a scorebug-alert game, or a fight/major. summary.json reports the hand-off rate.
@@ -43,6 +45,7 @@ from clip_review.apply import REEL_MODES, apply_overrides, write_overrides  # no
 from clip_review.backends import AgentBackend, ApiBackend, EscalateBackend  # noqa: E402
 from clip_review.packet import build_packets, slug  # noqa: E402
 from clip_review.review import review_incident  # noqa: E402
+from pipeline_progress import progress  # noqa: E402
 
 
 def make_backend(kind: str, cmd: str, name: str, timeout: float):
@@ -68,6 +71,10 @@ def main() -> int:
                     help="default: agent when CLIP_REVIEW_ADVERSARY_CMD is set, else api")
     ap.add_argument("--adversary-cmd", default=env("CLIP_REVIEW_ADVERSARY_CMD") or "")
     ap.add_argument("--adversary-name", default=env("CLIP_REVIEW_ADVERSARY_NAME") or "")
+    ap.add_argument("--escalate-cmd", default=env("CLIP_REVIEW_ESCALATE_CMD") or "",
+                    help="agent command for the escalation reviewer (still disputed after the second review)")
+    ap.add_argument("--escalate-name", default=env("CLIP_REVIEW_ESCALATE_NAME") or "", help="label for the escalation reviewer")
+    ap.add_argument("--escalate-timeout", type=float, default=float(env("CLIP_REVIEW_ESCALATE_TIMEOUT") or 1500))
     ap.add_argument("--adversary-all", action="store_true", help="also challenge minor-penalty verdicts")
     ap.add_argument("--kinds", default="goal,penalty", help="goal, penalty, minor, major, fight, wanted (= major+fight)")
     ap.add_argument("--only", default="", help="comma list of incident id prefixes")
@@ -105,30 +112,50 @@ def main() -> int:
             adv = make_backend(adv_kind, args.adversary_cmd, args.adversary_name or "", args.timeout)
             if adv.name == reviewer.name:
                 adv.name = adv.name + "-adv"
-        summary.update(reviewer=reviewer.name, adversary=getattr(adv, "name", None), run_tag=args.run_tag)
+        escalator = None
+        if adv is not None and args.escalate_cmd:
+            escalator = AgentBackend(args.escalate_cmd, args.escalate_name or "escalation", timeout=args.escalate_timeout)
+        summary.update(reviewer=reviewer.name, adversary=getattr(adv, "name", None), run_tag=args.run_tag,
+                       escalator=getattr(escalator, "name", None))
         kinds = {k.strip() for k in args.kinds.split(",") if k.strip()}
         only = [s.strip() for s in args.only.split(",") if s.strip()]
+        progress.stage("review_packets", detail="contact sheets per incident")
         built = build_packets(game_dir, video, out_dir / "packets", kinds=kinds, only=only or None)
         results = {}
+        progress.stage("review", total=len(built["packets"]),
+                       detail=f"{reviewer.name}" + (f" vs {adv.name}" if adv else "") + (f", escalation {escalator.name}" if escalator else ""))
 
         def work(item):
             iid, pk = item
             try:
-                return iid, review_incident(pk, reviewer, adv, run_tag=args.run_tag, attempts=args.attempts)
+                return iid, review_incident(pk, reviewer, adv, run_tag=args.run_tag, attempts=args.attempts,
+                                            escalator=escalator)
             except Exception as exc:  # noqa: BLE001 - one incident must not sink the game
                 return iid, {"incident_id": iid, "final": {"status": "error"}, "error": f"{exc}\n{traceback.format_exc()[-800:]}"}
 
         with cf.ThreadPoolExecutor(max_workers=max(1, args.workers)) as pool:
-            for iid, r in pool.map(work, sorted(built["packets"].items())):
+            futures = [pool.submit(work, item) for item in sorted(built["packets"].items())]
+            for fut in cf.as_completed(futures):
+                iid, r = fut.result()
                 results[iid] = r
                 f = r.get("final") or {}
+                progress.tick(detail=f"{iid} {f.get('status', '?')}" + (f" ({r['dispute']})" if r.get("dispute") not in (None, "none") else ""))
                 print(f'{iid:28} {f.get("status", "?"):15} {f.get("in_t")}..{f.get("out_t")} {r.get("dispute") or ""}', flush=True)
 
         incidents = built["incidents"]
+        counts_now = {}
+        for r in results.values():
+            st = (r.get("final") or {}).get("status", "error")
+            counts_now[st] = counts_now.get(st, 0) + 1
+        progress.finish(", ".join(f"{k} {v}" for k, v in sorted(counts_now.items())))
+        if args.apply:
+            progress.stage("review_apply", detail="cut reviewed clips" + (", build reel" if args.build_reel else ""))
         overrides = write_overrides(game_dir, out_dir, video, incidents, results,
                                     {"reviewer": reviewer.name, "adversary": getattr(adv, "name", None)}) if args.apply else None
         applied = apply_overrides(game_dir, out_dir, video, incidents, overrides, reel_mode=args.reel_mode,
                                   build=args.build_reel) if args.apply else None
+        if args.apply:
+            progress.finish("reel built" if args.build_reel else "manifests written")
         counts, usage = {}, {}
         for r in results.values():
             st = (r.get("final") or {}).get("status", "error")
@@ -143,6 +170,8 @@ def main() -> int:
         summary.update(
             ok=True, counts=counts, usage=usage, unplaced=built["unplaced"],
             held_for_human=[i for i, r in results.items() if (r.get("final") or {}).get("status") == "held_for_human"],
+            escalated={i: {"result": r.get("dispute"), "status": (r.get("final") or {}).get("status"),
+                           "error": r.get("escalation_error")} for i, r in results.items() if r.get("escalated_to")},
             dropped=[i for i, r in results.items() if (r.get("final") or {}).get("status") == "drop"],
             errors={i: r["error"] for i, r in results.items() if r.get("error")},
             incidents=[{"id": i, "class": r.get("class"), "status": (r.get("final") or {}).get("status"),
