@@ -16,6 +16,7 @@ import json
 import os
 import re
 import subprocess
+import sys
 import tempfile
 import unicodedata
 from dataclasses import dataclass
@@ -26,6 +27,10 @@ from PIL import Image, ImageDraw, ImageFont
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(REPO_ROOT))
+from pipeline_progress import progress
+
+_overlay_jobs: Optional[List[Dict[str, Any]]] = None
 
 TEAM_COLOR_PRESETS: Dict[str, Dict[str, str]] = {
     "amherst-ramblers": {"primary": "#412580", "secondary": "#24114f"},
@@ -380,6 +385,9 @@ def _result_badge_text(result_display: str, *, fallback: str = "Final") -> str:
 
 def _render_browser_graphics(jobs: List[Dict[str, Any]]) -> None:
     if not jobs:
+        return
+    if _overlay_jobs is not None:
+        _overlay_jobs.extend(jobs)
         return
     with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False, encoding="utf-8") as handle:
         json.dump({"jobs": jobs}, handle, indent=2)
@@ -1305,8 +1313,14 @@ def main() -> int:
     clip_paths: List[Path] = []
     score_cache: Dict[Tuple[str, str, str], Tuple[TeamInfo, TeamInfo, List[str], List[str]]] = {}
 
+    # Render all lower thirds in one browser session rather than launching Chromium
+    # once per clip. Cards above must remain immediate because they are encoded there.
+    global _overlay_jobs
+    _overlay_jobs = []
+    progress.stage("reel_overlays", total=len(clip_items) + 1, detail="preparing overlays")
     unreliable_clips = []
     for idx, item in enumerate(clip_items, 1):
+        progress.tick(detail=f"preparing overlay {idx}/{len(clip_items)}")
         e = item.event
         clip_type = item.type
 
@@ -1430,6 +1444,16 @@ def main() -> int:
         )
         overlay_paths.append(overlay_path)
 
+    jobs, _overlay_jobs = _overlay_jobs, None
+    progress.note("rendering overlays")
+    try:
+        _render_browser_graphics(jobs)
+    except Exception:
+        progress.finish("overlay render failed", ok=False)
+        raise
+    progress.tick(detail="overlays rendered")
+    progress.finish("overlays rendered")
+
     # Summary warning for unreliable clips
     if unreliable_clips:
         print("\n" + "=" * 70)
@@ -1534,9 +1558,34 @@ def main() -> int:
     except Exception:
         pass
 
-    env = os.environ.copy()
-    subprocess.run(cmd, check=True, env=env)
-    tmp_path.replace(output_path)
+    # ffmpeg's machine-readable clock keeps the shared status alive throughout the
+    # long encode, rather than reporting only after the entire reel has finished.
+    duration = max(1, int(sum(durations) - float(args.transition_seconds) * (len(durations) - 1)))
+    progress.stage("reel_encode", total=duration, detail="encoding reel")
+    cmd[1:1] = ["-progress", "pipe:1", "-nostats"]
+    done = 0
+    try:
+        with subprocess.Popen(cmd, stdout=subprocess.PIPE, text=True, env=os.environ.copy()) as proc:
+            assert proc.stdout is not None
+            for line in proc.stdout:
+                if line.startswith("out_time_us="):
+                    try:
+                        current = min(duration, max(done, int(line.partition("=")[2]) // 1_000_000))
+                    except ValueError:
+                        continue
+                    if current > done:
+                        progress.tick(current - done, detail="encoding reel (video seconds)")
+                        done = current
+                    else:
+                        progress.note("encoding reel")
+            rc = proc.wait()
+        if rc:
+            raise subprocess.CalledProcessError(rc, cmd)
+        tmp_path.replace(output_path)
+    except BaseException:
+        progress.finish("reel encode failed", ok=False)
+        raise
+    progress.finish("reel built")
     print(f"Wrote: {output_path}")
 
     # Copy YouTube description alongside output if available.
