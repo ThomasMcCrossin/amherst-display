@@ -1195,8 +1195,8 @@ def main() -> int:
     parser.add_argument("--crf", type=int, default=18, help="H.264 CRF quality (lower=better, default: 18)")
     parser.add_argument(
         "--encoder-preset",
-        default="slow",
-        help="ffmpeg/x264 preset for the final encode (default: slow)",
+        default="medium",
+        help="ffmpeg/x264 preset for the final encode (default: medium; use slow for the previous setting)",
     )
     parser.add_argument(
         "--ffmpeg-threads",
