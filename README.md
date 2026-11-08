@@ -308,8 +308,13 @@ key into that JSON: `stage`, `done`/`total`/`pct`, `detail`, `last_activity_at`,
 written, so it can be the job's status file; watch-rams points it at `highlights-status.json` and
 serves it at `/postgame` on the review server. `review_game.py` also logs a line as each role starts
 and ends. Speed knobs: `OCR_CAPTURE_WORKERS` (default 8 parallel ffmpeg seeks for OCR frames when
-the broadcast type is pinned), `CLIP_WORKERS` (default 3 clips encoded at once), `CLIP_OVERLAY_FFMPEG=0`
+the broadcast type is pinned), `MATCH_OCR_WORKERS` (default 8 clock-stop / local-OCR samples read at
+once in step 5), `MATCH_OCR_CAPTURE=moviepy` (read step 5's frames with the single MoviePy decoder
+instead of one ffmpeg seek a frame), `GOAL_LOCATOR_WORKERS` (default 6 vision frame batches in
+flight), `CLIP_WORKERS` (default 3 clips encoded at once), `CLIP_OVERLAY_FFMPEG=0`
 (back to the MoviePy overlay path), `VALIDATE_WORKERS` (default 4 vision calls at once).
+Step 5's split and these numbers: `docs/postgame-match-performance.md`, reproduced with
+`scripts/bench_match_events.py`.
 
 To run the engine itself on a raw recording with no Drive, email or review-monitor side
 effects (back catalogue, test corpora): `scripts/run_engine_offline.py --video V --game-id N
