@@ -9,7 +9,10 @@ New API for diagnostics + confidence-aware logic:
 
 import json
 import logging
+import os
 import re
+import subprocess
+import threading
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Optional, Tuple, List, Dict
@@ -28,6 +31,7 @@ except ImportError:
 
 from .ocr_types import OcrResult
 from .ocr_backends import TesseractBackend, EasyOcrBackend
+from pipeline_progress import progress
 
 logger = logging.getLogger(__name__)
 
@@ -63,6 +67,39 @@ FLO_LIKE_BROADCAST_TYPES = {
     "mhl_amherst",
 }
 OCR_STYLE_BROADCAST_TYPES = FLO_LIKE_BROADCAST_TYPES | {"yarmouth"}
+
+
+def _parallel_frame_grabber(video_processor):
+    """A thread-safe frame-at-time function backed by one ffmpeg seek per call, or None.
+
+    Returns RGB uint8 frames the size of the MoviePy reader's, so crops and OCR are unchanged
+    (same decoder and seek: identical pixels on 18 of 20 test frames of the 2026-11-07 recording,
+    the other two one frame apart). None (caller falls back to MoviePy) when the processor has no
+    video path or size. A failed grab returns None for that frame only.
+    """
+    path = getattr(video_processor, "video_path", None)
+    clip = getattr(video_processor, "video_clip", None)
+    size = getattr(clip, "size", None)
+    duration = float(getattr(video_processor, "duration", 0) or 0)
+    if not path or not size:
+        return None
+    width, height = int(size[0]), int(size[1])
+
+    def grab(t: float):
+        t = max(0.0, min(float(t), duration)) if duration else max(0.0, float(t))
+        try:
+            out = subprocess.run(
+                ["ffmpeg", "-v", "error", "-nostdin", "-ss", f"{t:.3f}", "-i", str(path), "-frames:v", "1",
+                 "-vf", f"scale={width}:{height}", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"],
+                capture_output=True, timeout=60,
+            ).stdout
+        except (OSError, subprocess.SubprocessError):
+            return None
+        if len(out) != width * height * 3:
+            return None
+        return np.frombuffer(out, np.uint8).reshape(height, width, 3)
+
+    return grab
 
 
 @dataclass
@@ -1865,45 +1902,73 @@ class OCREngine:
 
             sample_payloads: List[Dict] = []
             capture_bar = tqdm(total=total_samples, desc="Capture Frames", unit="frame", ncols=100)
+            progress.set_total(2 * total_samples)
+            progress.note("capturing scorebug frames")
+            pin = {"roi": pinned_roi, "broadcast": pinned_broadcast}
 
-            for idx, sample_time in enumerate(sample_times):
-                frame = video_processor.get_frame_at_time(float(sample_time))
+            def _capture(idx: int, sample_time: float, frame) -> Dict:
                 if frame is None:
-                    sample_payloads.append({"idx": idx, "sample_time": float(sample_time), "crop": None})
-                    capture_bar.update(1)
-                    continue
-
-                if pinned_roi is None or requested_broadcast == "auto":
+                    return {"idx": idx, "sample_time": float(sample_time), "crop": None}
+                if pin["roi"] is None or requested_broadcast == "auto":
                     if requested_broadcast == "auto":
                         bt, roi_sel, style_sel, backend_sel = self._select_best_settings(frame)
                         self._broadcast_type = bt
                         self.scoreboard_roi = roi_sel
                         self._preprocess_style = style_sel
                         self._backend_name = backend_sel
-                        pinned_broadcast = bt
-                        pinned_roi = roi_sel
+                        pin["broadcast"] = bt
+                        pin["roi"] = roi_sel
                     else:
                         method = requested_broadcast if requested_broadcast in ROI_PINNED_BROADCAST_TYPES else "auto"
-                        pinned_roi = self.detect_scoreboard_roi(frame, method=method)
-                        self.scoreboard_roi = pinned_roi
+                        pin["roi"] = self.detect_scoreboard_roi(frame, method=method)
+                        self.scoreboard_roi = pin["roi"]
 
-                if debug_dir and idx in debug_sample_indices and pinned_roi is not None:
+                if debug_dir and idx in debug_sample_indices and pin["roi"] is not None:
                     debug_path = debug_dir / f"debug_ocr_frame_{idx:04d}_{sample_time:.1f}s.jpg"
-                    self.save_debug_frame(frame, debug_path, pinned_roi)
+                    self.save_debug_frame(frame, debug_path, pin["roi"])
 
-                crop = self._extract_scorebug_crop(frame, pinned_roi, pinned_broadcast)
-                sample_payloads.append(
-                    {
-                        "idx": idx,
-                        "sample_time": float(sample_time),
-                        "crop": crop,
-                        "broadcast_type": str(pinned_broadcast or requested_broadcast or "standard"),
-                        "roi": pinned_roi,
-                    }
-                )
-                capture_bar.update(1)
+                return {
+                    "idx": idx,
+                    "sample_time": float(sample_time),
+                    "crop": self._extract_scorebug_crop(frame, pin["roi"], pin["broadcast"]),
+                    "broadcast_type": str(pin["broadcast"] or requested_broadcast or "standard"),
+                    "roi": pin["roi"],
+                }
+
+            # The first frame pins the ROI. With a pinned broadcast type the rest are independent
+            # seeks, fetched by parallel ffmpeg processes (amherst-display#48: the serial MoviePy
+            # capture was ~0.45 s a frame, 776 of the 869 s of extract_timestamps on 2026-11-07).
+            first = video_processor.get_frame_at_time(float(sample_times[0]))
+            sample_payloads.append(_capture(0, sample_times[0], first))
+            capture_bar.update(1)
+            progress.tick()
+            grab = _parallel_frame_grabber(video_processor)
+            capture_workers = int(os.environ.get("OCR_CAPTURE_WORKERS", "8") or 8)
+            if grab is not None and requested_broadcast != "auto" and pin["roi"] is not None and capture_workers > 1:
+                def _fetch(item):
+                    idx, sample_time = item
+                    frame = grab(float(sample_time))
+                    if frame is None:  # odd stream: fall back to the MoviePy reader for this one
+                        with capture_lock:
+                            frame = video_processor.get_frame_at_time(float(sample_time))
+                    payload = _capture(idx, sample_time, frame)
+                    capture_bar.update(1)
+                    progress.tick()
+                    return payload
+
+                capture_lock = threading.Lock()
+                with ThreadPoolExecutor(max_workers=capture_workers) as executor:
+                    sample_payloads.extend(executor.map(_fetch, list(enumerate(sample_times))[1:]))
+            else:
+                for idx, sample_time in list(enumerate(sample_times))[1:]:
+                    frame = video_processor.get_frame_at_time(float(sample_time))
+                    sample_payloads.append(_capture(idx, sample_time, frame))
+                    capture_bar.update(1)
+                    progress.tick()
+            pinned_roi, pinned_broadcast = pin["roi"], pin["broadcast"]
 
             capture_bar.close()
+            progress.note("reading scorebug clocks")
 
             def _ocr_payload(payload: Dict) -> Dict:
                 crop = payload.get("crop")
@@ -1967,6 +2032,7 @@ class OCREngine:
                             }
                         )
                     ocr_bar.update(1)
+                    progress.tick()
             ocr_bar.close()
 
             ocr_results.sort(key=lambda item: float(item.get("video_time") or 0.0))
