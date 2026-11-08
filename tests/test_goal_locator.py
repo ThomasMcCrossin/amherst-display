@@ -36,3 +36,21 @@ def test_only_runs_with_a_celebration_are_goals():
 def test_two_celebrations_far_apart_are_two_candidates():
     labels = [(100.0, "celebration"), (106.0, "closeup"), (400.0, "closeup"), (406.0, "celebration")]
     assert gl.candidates(labels) == [100.0, 400.0]
+
+
+def test_failed_batch_never_assigns_from_partial_bracket(monkeypatch):
+    monkeypatch.setattr(gl, "_vision_settings", lambda: ("test", "test", "test"))
+    monkeypatch.setattr(gl, "_batch_bodies", lambda *args: [{"batch": 0}, {"batch": 1}])
+
+    def request(_url, _key, body):
+        if body["batch"]:
+            raise TimeoutError("second batch failed")
+        return {"choices": [{"message": {"content": '{"frames":[{"t":110,"label":"celebration"}]}'}}]}
+
+    monkeypatch.setattr(gl, "_request", request)
+    goal = {"period": 1, "time": "10:00", "video_time": 105.0}
+    readings = [_r(100, 1, 610), _r(200, 1, 590)]
+    report = gl.locate_goals("unused", [goal], readings, lambda _: 600)
+    assert goal == {"period": 1, "time": "10:00", "video_time": 105.0}
+    assert report["brackets"][0]["candidates"] == [110.0]
+    assert report["brackets"][0]["error"] == "incomplete vision scan; goals left unverified"

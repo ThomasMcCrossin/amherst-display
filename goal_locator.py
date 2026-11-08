@@ -189,12 +189,14 @@ def locate_goals(video_path: str, goals: List[Dict[str, Any]], readings: List[Di
             pending[(lo, hi)] = [pool.submit(_request, base_url, api_key, body) for body in bodies]
         read = 0
         payloads: Dict[Tuple[float, float], List[Dict[str, Any]]] = {}
+        failed = set()
         for span, futures in pending.items():
             payloads[span] = []
             for future in futures:
                 try:
                     payloads[span].append(future.result())
-                except Exception as exc:  # one failed batch: label what came back, place nothing on a partial bracket
+                except Exception as exc:  # Never assign goals from an incompletely scanned bracket.
+                    failed.add(span)
                     logger.warning("Vision goal locator: request for %.0f-%.0fs failed: %s", span[0], span[1], exc)
                 read += 1
                 if progress is not None:
@@ -205,6 +207,9 @@ def locate_goals(video_path: str, goals: List[Dict[str, Any]], readings: List[Di
         entry = {"bracket": [lo, hi], "goals": [f'P{g.get("period")} {g.get("time")}' for g in members],
                  "candidates": found, "labels": [[t, lab] for t, lab in labels if lab != "play"]}
         report["brackets"].append(entry)
+        if (lo, hi) in failed:
+            entry["error"] = "incomplete vision scan; goals left unverified"
+            continue
         if len(found) != len(members):
             logger.warning("Vision goal locator: %d candidate(s) for %d goal(s) in %.0f-%.0fs; leaving them unverified",
                            len(found), len(members), lo, hi)
