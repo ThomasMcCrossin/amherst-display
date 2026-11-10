@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 7,
-  "updated_at": "2026-11-09T16:43:55.905Z",
+  "updated_at": "2026-11-10T15:08:26.934Z",
   "player_count": 25,
   "players": [
     {
@@ -627,11 +627,11 @@
         "losses": 5,
         "ot_losses": 1,
         "minutes_played": 660,
-        "saves": 376,
-        "shots": 416,
+        "saves": 367,
+        "shots": 407,
         "goals_against": 40,
         "shutouts": 0,
-        "save_percentage": 0.904,
+        "save_percentage": 0.902,
         "goals_against_average": 3.64
       },
       "hockeytech_id": "2773",
@@ -800,23 +800,7 @@
       "hometown": "Upper Tantallon, NS",
       "rookie": true,
       "veteran": false,
-      "stats": {
-        "games_played": 1,
-        "goals": 0,
-        "assists": 0,
-        "points": 0,
-        "plus_minus": 0,
-        "penalty_minutes": 0,
-        "power_play_goals": 0,
-        "power_play_assists": 0,
-        "power_play_points": 0,
-        "short_handed_goals": 0,
-        "short_handed_assists": 0,
-        "short_handed_points": 0,
-        "game_winning_goals": 0,
-        "overtime_goals": 0,
-        "points_per_game": 0
-      },
+      "stats": {},
       "hockeytech_id": "4037",
       "person_id": "4709",
       "flags": [

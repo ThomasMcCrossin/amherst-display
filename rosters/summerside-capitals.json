@@ -5,8 +5,8 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 10,
-  "updated_at": "2026-11-09T16:44:04.638Z",
-  "player_count": 26,
+  "updated_at": "2026-11-10T15:08:34.800Z",
+  "player_count": 27,
   "players": [
     {
       "player_id": "mhl-4069",
@@ -362,6 +362,29 @@
       ]
     },
     {
+      "player_id": "mhl-4026",
+      "number": "10",
+      "first_name": "Jayden",
+      "last_name": "Simpson",
+      "name": "Jayden Simpson",
+      "position": "RW",
+      "height": "6'01",
+      "height_inches": 73,
+      "weight": 181,
+      "shoots": "R",
+      "birthdate": "2009-05-24",
+      "birth_year": "'09",
+      "age": 17,
+      "hometown": "Vancouver, BC",
+      "birthplace": "Vancouver, BC, ",
+      "rookie": false,
+      "veteran": false,
+      "stats": {},
+      "hockeytech_id": "4026",
+      "person_id": "4698",
+      "flags": []
+    },
+    {
       "player_id": "mhl-3365",
       "number": "11",
       "first_name": "Isaac",
@@ -425,8 +448,8 @@
       "stats": {
         "games_played": 19,
         "goals": 3,
-        "assists": 10,
-        "points": 13,
+        "assists": 9,
+        "points": 12,
         "plus_minus": 0,
         "penalty_minutes": 28,
         "power_play_goals": 1,
@@ -437,7 +460,7 @@
         "short_handed_points": 1,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.68
+        "points_per_game": 0.63
       },
       "hockeytech_id": "3007",
       "person_id": "3513",
