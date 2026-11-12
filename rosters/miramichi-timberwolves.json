@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 9,
-  "updated_at": "2026-11-10T15:08:32.580Z",
+  "updated_at": "2026-11-12T15:29:47.270Z",
   "player_count": 24,
   "players": [
     {
@@ -34,11 +34,11 @@
         "losses": 8,
         "ot_losses": 2,
         "minutes_played": 858,
-        "saves": 448,
-        "shots": 506,
+        "saves": 442,
+        "shots": 500,
         "goals_against": 58,
         "shutouts": 0,
-        "save_percentage": 0.885,
+        "save_percentage": 0.884,
         "goals_against_average": 4.06
       },
       "hockeytech_id": "4013",
@@ -92,23 +92,7 @@
       "veteran": false,
       "headshot": "assets/headshots/Miramichi-Timberwolves/6-cody-macloon.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3443.jpg",
-      "stats": {
-        "games_played": 18,
-        "goals": 0,
-        "assists": 2,
-        "points": 2,
-        "plus_minus": 0,
-        "penalty_minutes": 4,
-        "power_play_goals": 0,
-        "power_play_assists": 0,
-        "power_play_points": 0,
-        "short_handed_goals": 0,
-        "short_handed_assists": 0,
-        "short_handed_points": 0,
-        "game_winning_goals": 0,
-        "overtime_goals": 0,
-        "points_per_game": 0.11
-      },
+      "stats": {},
       "hockeytech_id": "3443",
       "person_id": "4006",
       "flags": [
@@ -428,7 +412,23 @@
       "veteran": false,
       "headshot": "assets/headshots/Miramichi-Timberwolves/19-cam-griffin.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3769.jpg",
-      "stats": {},
+      "stats": {
+        "games_played": 11,
+        "goals": 0,
+        "assists": 1,
+        "points": 1,
+        "plus_minus": 0,
+        "penalty_minutes": 12,
+        "power_play_goals": 0,
+        "power_play_assists": 0,
+        "power_play_points": 0,
+        "short_handed_goals": 0,
+        "short_handed_assists": 0,
+        "short_handed_points": 0,
+        "game_winning_goals": 0,
+        "overtime_goals": 0,
+        "points_per_game": 0.09
+      },
       "hockeytech_id": "3769",
       "person_id": "4385",
       "flags": [
@@ -540,8 +540,8 @@
       "stats": {
         "games_played": 19,
         "goals": 3,
-        "assists": 10,
-        "points": 13,
+        "assists": 11,
+        "points": 14,
         "plus_minus": 0,
         "penalty_minutes": 49,
         "power_play_goals": 0,
@@ -552,7 +552,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.68
+        "points_per_game": 0.74
       },
       "hockeytech_id": "3799",
       "person_id": "4417",
@@ -581,8 +581,8 @@
       "stats": {
         "games_played": 20,
         "goals": 2,
-        "assists": 11,
-        "points": 13,
+        "assists": 12,
+        "points": 14,
         "plus_minus": 0,
         "penalty_minutes": 6,
         "power_play_goals": 1,
@@ -593,7 +593,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.65
+        "points_per_game": 0.7
       },
       "hockeytech_id": "2900",
       "person_id": "3346",
@@ -622,8 +622,8 @@
       "stats": {
         "games_played": 19,
         "goals": 8,
-        "assists": 5,
-        "points": 13,
+        "assists": 4,
+        "points": 12,
         "plus_minus": 0,
         "penalty_minutes": 25,
         "power_play_goals": 1,
@@ -634,7 +634,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.68
+        "points_per_game": 0.63
       },
       "hockeytech_id": "3173",
       "person_id": "3693",
