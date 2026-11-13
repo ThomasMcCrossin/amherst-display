@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T15:29:35.873Z",
+  "generated_at": "2026-11-13T14:47:28.694Z",
   "timezone": "America/Halifax",
   "teams": [
     {
@@ -15,7 +15,7 @@
         {
           "opponent_slug": "valley-wildcats",
           "home": true,
-          "start": "2026-11-21T19:00:00-04:00",
+          "start": "2026-11-21T19:30:00-04:00",
           "venue": "Amherst Stadium",
           "city": ""
         },

@@ -5,8 +5,8 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 9,
-  "updated_at": "2026-11-12T15:29:47.270Z",
-  "player_count": 24,
+  "updated_at": "2026-11-13T14:47:48.406Z",
+  "player_count": 27,
   "players": [
     {
       "player_id": "mhl-4013",
@@ -70,6 +70,33 @@
       "person_id": "4784",
       "flags": [
         "ht-played-major-junior"
+      ]
+    },
+    {
+      "player_id": "mhl-3539",
+      "number": "4",
+      "first_name": "Dawson",
+      "last_name": "Swift",
+      "name": "Dawson Swift",
+      "position": "D",
+      "height": "6'0",
+      "height_inches": 72,
+      "weight": 170,
+      "shoots": "L",
+      "birthdate": "2008-09-13",
+      "birth_year": "'08",
+      "age": 18,
+      "hometown": "Halifax, NS",
+      "birthplace": "Halifax, NS, ",
+      "rookie": true,
+      "veteran": false,
+      "headshot": "assets/headshots/Miramichi-Timberwolves/4-dawson-swift.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3539.jpg",
+      "stats": {},
+      "hockeytech_id": "3539",
+      "person_id": "4116",
+      "flags": [
+        "ht-rookie"
       ]
     },
     {
@@ -347,6 +374,29 @@
       },
       "hockeytech_id": "2695",
       "person_id": "3122",
+      "flags": []
+    },
+    {
+      "player_id": "mhl-4158",
+      "number": "16",
+      "first_name": "Nathan",
+      "last_name": "Kydd",
+      "name": "Nathan Kydd",
+      "position": "C",
+      "height": "5'9",
+      "height_inches": 69,
+      "weight": 149,
+      "shoots": "L",
+      "birthdate": "2009-09-25",
+      "birth_year": "'09",
+      "age": 17,
+      "hometown": "Bedford, NS",
+      "birthplace": "Bedford, NS, ",
+      "rookie": false,
+      "veteran": false,
+      "stats": {},
+      "hockeytech_id": "4158",
+      "person_id": "4854",
       "flags": []
     },
     {
@@ -679,6 +729,43 @@
       },
       "hockeytech_id": "3790",
       "person_id": "4408",
+      "flags": []
+    },
+    {
+      "player_id": "mhl-2773",
+      "number": "29",
+      "first_name": "George",
+      "last_name": "Gallant",
+      "name": "George Gallant",
+      "position": "G",
+      "height": "5'9",
+      "height_inches": 69,
+      "weight": 165,
+      "shoots": "L",
+      "birthdate": "2006-12-21",
+      "birth_year": "'06",
+      "age": 20,
+      "hometown": "Summerside, PE",
+      "birthplace": "Summerside, PE, ",
+      "rookie": false,
+      "veteran": true,
+      "headshot": "assets/headshots/Miramichi-Timberwolves/29-george-gallant.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2773.jpg",
+      "stats": {
+        "games_played": 12,
+        "wins": 5,
+        "losses": 5,
+        "ot_losses": 2,
+        "minutes_played": 721,
+        "saves": 396,
+        "shots": 441,
+        "goals_against": 45,
+        "shutouts": 0,
+        "save_percentage": 0.898,
+        "goals_against_average": 3.74
+      },
+      "hockeytech_id": "2773",
+      "person_id": "3200",
       "flags": []
     },
     {
