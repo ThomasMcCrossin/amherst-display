@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T14:47:54.228Z",
+  "generated_at": "2026-11-14T13:43:33.506Z",
   "season": "2026-27",
   "season_id": 46,
   "api_source": "HockeyTech",
@@ -59,7 +59,7 @@
       "team_name": "Pictou-County-Crushers",
       "league": "MHL",
       "team_id": 7,
-      "player_count": 28,
+      "player_count": 26,
       "file": "rosters/pictou-county-crushers.json"
     },
     {
@@ -67,7 +67,7 @@
       "team_name": "Campbellton-Tigers",
       "league": "MHL",
       "team_id": 8,
-      "player_count": 25,
+      "player_count": 24,
       "file": "rosters/campbellton-tigers.json"
     },
     {
@@ -75,7 +75,7 @@
       "team_name": "Miramichi-Timberwolves",
       "league": "MHL",
       "team_id": 9,
-      "player_count": 27,
+      "player_count": 24,
       "file": "rosters/miramichi-timberwolves.json"
     },
     {
