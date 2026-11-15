@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T13:43:33.506Z",
+  "generated_at": "2026-11-15T14:11:52.412Z",
   "season": "2026-27",
   "season_id": 46,
   "api_source": "HockeyTech",
@@ -35,7 +35,7 @@
       "team_name": "Valley-Wildcats",
       "league": "MHL",
       "team_id": 4,
-      "player_count": 24,
+      "player_count": 25,
       "file": "rosters/valley-wildcats.json"
     },
     {
