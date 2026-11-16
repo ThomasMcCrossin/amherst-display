@@ -5,8 +5,8 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 1,
-  "updated_at": "2026-11-15T14:11:37.988Z",
-  "player_count": 23,
+  "updated_at": "2026-11-16T16:14:27.774Z",
+  "player_count": 22,
   "players": [
     {
       "player_id": "mhl-3545",
@@ -432,33 +432,6 @@
       "person_id": "4372",
       "flags": [
         "ht-played-major-junior"
-      ]
-    },
-    {
-      "player_id": "mhl-4023",
-      "number": "21",
-      "first_name": "Louis-Thomas",
-      "last_name": "Bédard",
-      "name": "Louis-Thomas Bédard",
-      "position": "D",
-      "height": "6'00",
-      "height_inches": 72,
-      "weight": 178,
-      "shoots": "R",
-      "birthdate": "2007-10-20",
-      "birth_year": "'07",
-      "age": 19,
-      "hometown": "Bécancour, QC",
-      "birthplace": "Bécancour, QC, ",
-      "rookie": true,
-      "veteran": false,
-      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4023.jpg",
-      "stats": {},
-      "hockeytech_id": "4023",
-      "person_id": "4695",
-      "flags": [
-        "ht-rookie",
-        "ht-import"
       ]
     },
     {
