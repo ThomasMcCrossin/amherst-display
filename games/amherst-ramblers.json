@@ -7,7 +7,7 @@
   "season_ids": [
     46
   ],
-  "updated_at": "2026-11-17T16:21:27.876Z",
+  "updated_at": "2026-11-18T15:55:20.660Z",
   "summary": {
     "games_played": 20,
     "wins": 8,
@@ -1095,9 +1095,8 @@
               "number": 24
             },
             {
-              "player_id": "mhl-4016",
-              "name": "Riley Creelman",
-              "number": 37
+              "name": "Will Shearer",
+              "number": 21
             }
           ],
           "power_play": true,
@@ -1670,8 +1669,8 @@
         },
         "mhl-3766": {
           "position": "G",
-          "saves": 26,
-          "shots_against": 31,
+          "saves": 13,
+          "shots_against": 18,
           "goals_against": 5,
           "save_percentage": "0.000",
           "time_on_ice": "65:00"
@@ -1688,18 +1687,18 @@
       "box_score": {
         "shots_by_period": {
           "ramblers": {
-            "period1": 21,
-            "period2": 11,
+            "period1": 11,
+            "period2": 7,
             "period3": 10,
             "total": 0,
-            "overtime": 5
+            "overtime": 2
           },
           "opponent": {
-            "period1": 6,
-            "period2": 11,
-            "period3": 11,
+            "period1": 4,
+            "period2": 8,
+            "period3": 4,
             "total": 1,
-            "overtime": 3
+            "overtime": 2
           }
         },
         "scoring_by_period": {
@@ -1735,8 +1734,8 @@
             {
               "name": "Brandon Lavoie (SOL)",
               "time_on_ice": "65:00",
-              "saves": 26,
-              "shots_against": 31,
+              "saves": 13,
+              "shots_against": 18,
               "on_ice": "1st/0:00",
               "off_ice": "1st OT/5:00",
               "decision": null
@@ -1746,8 +1745,8 @@
             {
               "name": "Brett Ruddy",
               "time_on_ice": "65:00",
-              "saves": 42,
-              "shots_against": 47,
+              "saves": 25,
+              "shots_against": 30,
               "on_ice": "1st/0:00",
               "off_ice": "1st OT/5:00",
               "decision": "W"
