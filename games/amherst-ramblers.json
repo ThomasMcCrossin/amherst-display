@@ -7,7 +7,7 @@
   "season_ids": [
     46
   ],
-  "updated_at": "2026-11-18T15:55:20.660Z",
+  "updated_at": "2026-11-19T15:58:37.168Z",
   "summary": {
     "games_played": 20,
     "wins": 8,
@@ -704,8 +704,8 @@
         },
         "mhl-3187": {
           "position": "G",
-          "saves": 30,
-          "shots_against": 33,
+          "saves": 32,
+          "shots_against": 35,
           "goals_against": 3,
           "save_percentage": "0.000",
           "time_on_ice": "60:00"
@@ -714,16 +714,16 @@
       "box_score": {
         "shots_by_period": {
           "ramblers": {
-            "period1": 9,
-            "period2": 8,
+            "period1": 13,
+            "period2": 6,
             "period3": 8,
-            "total": 25
+            "total": 27
           },
           "opponent": {
-            "period1": 10,
-            "period2": 13,
+            "period1": 11,
+            "period2": 14,
             "period3": 10,
-            "total": 33
+            "total": 35
           }
         },
         "scoring_by_period": {
@@ -759,8 +759,8 @@
             {
               "name": "Hudson Bradley",
               "time_on_ice": "60:00",
-              "saves": 30,
-              "shots_against": 33,
+              "saves": 32,
+              "shots_against": 35,
               "on_ice": "1st/0:00",
               "off_ice": "3rd/20:00",
               "decision": "W"
@@ -770,8 +770,8 @@
             {
               "name": "Jake Poirier",
               "time_on_ice": "60:00",
-              "saves": 21,
-              "shots_against": 25,
+              "saves": 23,
+              "shots_against": 27,
               "on_ice": "1st/0:00",
               "off_ice": "3rd/20:00",
               "decision": "L"
