@@ -5,8 +5,8 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 2,
-  "updated_at": "2026-11-19T15:57:16.504Z",
-  "player_count": 27,
+  "updated_at": "2026-11-20T15:40:26.326Z",
+  "player_count": 28,
   "players": [
     {
       "player_id": "mhl-3332",
@@ -1041,6 +1041,32 @@
       "hockeytech_id": "3695",
       "person_id": "4310",
       "flags": [
+        "ht-affiliate"
+      ]
+    },
+    {
+      "player_id": "mhl-4160",
+      "number": "99",
+      "first_name": "Marc-Gabriel",
+      "last_name": "Roussel",
+      "name": "Marc-Gabriel Roussel",
+      "position": "RW",
+      "height": "6'0",
+      "height_inches": 72,
+      "weight": 181,
+      "shoots": "L",
+      "birthdate": "2008-01-06",
+      "birth_year": "'08",
+      "age": 18,
+      "hometown": "Le Goulet, NB",
+      "birthplace": "Le Goulet, NB, ",
+      "rookie": true,
+      "veteran": false,
+      "stats": {},
+      "hockeytech_id": "4160",
+      "person_id": "4859",
+      "flags": [
+        "ht-rookie",
         "ht-affiliate"
       ]
     },
