@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T15:40:34.697Z",
+  "generated_at": "2026-11-21T14:50:46.903Z",
   "season": "2026-27",
   "season_id": 46,
   "api_source": "HockeyTech",
@@ -83,7 +83,7 @@
       "team_name": "Summerside-Capitals",
       "league": "MHL",
       "team_id": 10,
-      "player_count": 28,
+      "player_count": 30,
       "file": "rosters/summerside-capitals.json"
     },
     {
@@ -91,7 +91,7 @@
       "team_name": "Grand-Falls-Rapids",
       "league": "MHL",
       "team_id": 12,
-      "player_count": 22,
+      "player_count": 21,
       "file": "rosters/grand-falls-rapids.json"
     },
     {
