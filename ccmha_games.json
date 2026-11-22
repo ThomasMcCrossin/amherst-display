@@ -1,25 +1,7 @@
 {
-  "generated_at": "2026-11-21T14:52:05.871Z",
+  "generated_at": "2026-11-22T14:48:56.317Z",
   "timezone": "America/Halifax",
   "games": [
-    {
-      "league": "U9-ADV",
-      "home_team": "Antigonish Bulldogs u9 Adv",
-      "away_team": "Cumberland Ramblers",
-      "start": "2026-11-21T10:45:00-04:00",
-      "end": "2026-11-21T11:45:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
-    {
-      "league": "U13-A",
-      "home_team": "New Waterford Sharks",
-      "away_team": "Cumberland Ramblers",
-      "start": "2026-11-21T13:45:00-04:00",
-      "end": "2026-11-21T15:15:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
     {
       "league": "U9-INT",
       "home_team": "Pictou Red Crushers",
@@ -107,6 +89,15 @@
       "away_team": "Cumberland Ramblers",
       "start": "2026-11-28T16:45:00-04:00",
       "end": "2026-11-28T18:15:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U9-INT",
+      "home_team": "SCMHA U9 INTERMEDIATE BLACK",
+      "away_team": "Cumberland Ramblers - Parrell",
+      "start": "2026-11-29T09:15:00-04:00",
+      "end": "2026-11-29T10:15:00-04:00",
       "location": "Amherst Stadium",
       "source": "ccmha"
     }
