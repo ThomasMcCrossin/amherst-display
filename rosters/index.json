@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T14:47:27.266Z",
+  "generated_at": "2026-11-23T18:35:40.965Z",
   "season": "2026-27",
   "season_id": 46,
   "api_source": "HockeyTech",
@@ -67,7 +67,7 @@
       "team_name": "Campbellton-Tigers",
       "league": "MHL",
       "team_id": 8,
-      "player_count": 24,
+      "player_count": 28,
       "file": "rosters/campbellton-tigers.json"
     },
     {
@@ -75,7 +75,7 @@
       "team_name": "Miramichi-Timberwolves",
       "league": "MHL",
       "team_id": 9,
-      "player_count": 24,
+      "player_count": 25,
       "file": "rosters/miramichi-timberwolves.json"
     },
     {

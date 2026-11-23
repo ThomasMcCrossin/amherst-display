@@ -1,25 +1,7 @@
 {
-  "generated_at": "2026-11-22T14:48:56.317Z",
+  "generated_at": "2026-11-23T18:37:14.513Z",
   "timezone": "America/Halifax",
   "games": [
-    {
-      "league": "U9-INT",
-      "home_team": "Pictou Red Crushers",
-      "away_team": "Cumberland Ramblers - Parrell",
-      "start": "2026-11-22T09:30:00-04:00",
-      "end": "2026-11-22T10:30:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
-    {
-      "league": "U15-C",
-      "home_team": "SCMHA U15 ELKS RED",
-      "away_team": "Cumberland U15C Ramblers 1",
-      "start": "2026-11-22T13:45:00-04:00",
-      "end": "2026-11-22T14:45:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
     {
       "league": "U11-C",
       "home_team": "West Colchester U11C Cobras",
@@ -42,8 +24,8 @@
       "league": "U9-DEV",
       "home_team": "SCMHA U9 DEVELOPMENT WHITE",
       "away_team": "Cumberland Ramblers - Development",
-      "start": "2026-11-28T08:15:00-04:00",
-      "end": "2026-11-28T09:15:00-04:00",
+      "start": "2026-11-28T07:45:00-04:00",
+      "end": "2026-11-28T08:45:00-04:00",
       "location": "Amherst Stadium",
       "source": "ccmha"
     },
@@ -51,8 +33,8 @@
       "league": "U9-INT",
       "home_team": "Truro Bearcats",
       "away_team": "Cumberland Ramblers - Leblanc",
-      "start": "2026-11-28T09:30:00-04:00",
-      "end": "2026-11-28T10:30:00-04:00",
+      "start": "2026-11-28T09:15:00-04:00",
+      "end": "2026-11-28T10:15:00-04:00",
       "location": "Amherst Stadium",
       "source": "ccmha"
     },
@@ -98,6 +80,15 @@
       "away_team": "Cumberland Ramblers - Parrell",
       "start": "2026-11-29T09:15:00-04:00",
       "end": "2026-11-29T10:15:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U13-A",
+      "home_team": "Pictou County Crushers",
+      "away_team": "Cumberland Ramblers",
+      "start": "2026-11-29T12:00:00-04:00",
+      "end": "2026-11-29T13:30:00-04:00",
       "location": "Amherst Stadium",
       "source": "ccmha"
     }
