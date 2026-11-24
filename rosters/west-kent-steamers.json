@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 6,
-  "updated_at": "2026-11-23T18:35:25.462Z",
+  "updated_at": "2026-11-24T18:03:49.320Z",
   "player_count": 26,
   "players": [
     {
@@ -670,8 +670,8 @@
         "losses": 4,
         "ot_losses": 1,
         "minutes_played": 1087,
-        "saves": 612,
-        "shots": 663,
+        "saves": 614,
+        "shots": 665,
         "goals_against": 51,
         "shutouts": 0,
         "save_percentage": 0.923,
