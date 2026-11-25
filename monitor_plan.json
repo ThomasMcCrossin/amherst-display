@@ -1,6 +1,6 @@
 {
   "schema_version": "amherst.monitor-plan.v1",
-  "generated_at": "2026-11-24T18:03:40.940Z",
+  "generated_at": "2026-11-25T17:29:37.835Z",
   "complete": true,
   "client_code": "mhl",
   "league_id": "1",
@@ -496,7 +496,7 @@
         "season_id": "46",
         "team_id": "1",
         "row_count": 52,
-        "sha256": "e09039d041b10f7cbf665cdb78ffa62075d26de1440a4e2f13701f59764ee0ee"
+        "sha256": "ea624b66d2e28eb2478db4ee8cdc11176573a5f8382fd0080ee8ef4a074b369e"
       }
     ]
   }

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-24T18:05:28.568Z",
+  "generated_at": "2026-11-25T17:31:12.547Z",
   "season": "2026-27",
   "league": "MHL",
   "divisions": [
@@ -229,9 +229,9 @@
       "slug": "miramichi-timberwolves"
     },
     {
-      "gp": 22,
+      "gp": 21,
       "w": 7,
-      "l": 11,
+      "l": 10,
       "otl": 3,
       "sol": 1,
       "pts": 18,
@@ -242,8 +242,8 @@
       "ga": 105,
       "diff": -24,
       "pim": 543,
-      "pct": "0.409",
-      "streak": "0-3-1-0",
+      "pct": "0.429",
+      "streak": "0-2-1-0",
       "p10": "4-5-1-0",
       "division_rank": 5,
       "team": "Grand Falls Rapids",

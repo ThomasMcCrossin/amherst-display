@@ -7,7 +7,7 @@
   "season_ids": [
     46
   ],
-  "updated_at": "2026-11-24T18:05:28.100Z",
+  "updated_at": "2026-11-25T17:31:12.351Z",
   "summary": {
     "games_played": 22,
     "wins": 9,
@@ -214,6 +214,11 @@
               "player_id": "mhl-2794",
               "name": "Coen Miller",
               "number": 16
+            },
+            {
+              "player_id": "mhl-3756",
+              "name": "Zach Wheeler",
+              "number": 19
             }
           ],
           "power_play": true,
@@ -235,6 +240,11 @@
             {
               "name": "Ryan Fletcher",
               "number": 26
+            },
+            {
+              "player_id": "mhl-3243",
+              "name": "Felix Pronovost",
+              "number": 15
             }
           ],
           "power_play": true,
@@ -622,8 +632,8 @@
         "mhl-3756": {
           "position": "C",
           "goals": 1,
-          "assists": 1,
-          "points": 2,
+          "assists": 2,
+          "points": 3,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -746,8 +756,8 @@
         },
         "mhl-3187": {
           "position": "G",
-          "saves": 62,
-          "shots_against": 67,
+          "saves": 44,
+          "shots_against": 49,
           "goals_against": 5,
           "save_percentage": "0.000",
           "time_on_ice": "61:13"
@@ -756,18 +766,18 @@
       "box_score": {
         "shots_by_period": {
           "ramblers": {
-            "period1": 11,
-            "period2": 16,
-            "period3": 7,
-            "total": 34,
+            "period1": 7,
+            "period2": 15,
+            "period3": 6,
+            "total": 28,
             "overtime": 0
           },
           "opponent": {
-            "period1": 27,
-            "period2": 22,
-            "period3": 15,
-            "total": 67,
-            "overtime": 3
+            "period1": 21,
+            "period2": 14,
+            "period3": 13,
+            "total": 49,
+            "overtime": 1
           }
         },
         "scoring_by_period": {
@@ -803,8 +813,8 @@
             {
               "name": "Hudson Bradley (OTL)",
               "time_on_ice": "61:13",
-              "saves": 62,
-              "shots_against": 67,
+              "saves": 44,
+              "shots_against": 49,
               "on_ice": "1st/0:00",
               "off_ice": "1st OT/1:13",
               "decision": null
@@ -814,8 +824,8 @@
             {
               "name": "Jack Bell",
               "time_on_ice": "61:13",
-              "saves": 30,
-              "shots_against": 34,
+              "saves": 24,
+              "shots_against": 28,
               "on_ice": "1st/0:00",
               "off_ice": "1st OT/1:13",
               "decision": "W"
@@ -1111,9 +1121,8 @@
           },
           "assists": [
             {
-              "player_id": "mhl-3756",
-              "name": "Jacob Pineau",
-              "number": 19
+              "name": "Drew Lutz",
+              "number": 20
             },
             {
               "name": "Ryan Fletcher",
@@ -1140,10 +1149,6 @@
             {
               "name": "Raphael Bergeron",
               "number": 21
-            },
-            {
-              "name": "Jesse Sinclair",
-              "number": 23
             }
           ],
           "power_play": false,
@@ -1213,13 +1218,7 @@
             "number": 15,
             "position": "C"
           },
-          "assists": [
-            {
-              "player_id": "mhl-3647",
-              "name": "Ethan Fraser",
-              "number": 28
-            }
-          ],
+          "assists": [],
           "power_play": false,
           "short_handed": false,
           "game_winning": false,
@@ -1263,17 +1262,7 @@
             "number": 6,
             "position": "RD"
           },
-          "assists": [
-            {
-              "name": "Aidan Bent",
-              "number": 22
-            },
-            {
-              "player_id": "mhl-3192",
-              "name": "Jack Brown",
-              "number": 10
-            }
-          ],
+          "assists": [],
           "power_play": false,
           "short_handed": false,
           "game_winning": false,
@@ -1318,11 +1307,6 @@
             "position": "C"
           },
           "assists": [
-            {
-              "player_id": "mhl-3756",
-              "name": "Zach Wheeler",
-              "number": 19
-            },
             {
               "player_id": "mhl-2794",
               "name": "Coen Miller",
@@ -1705,8 +1689,8 @@
         "mhl-3756": {
           "position": "C",
           "goals": 3,
-          "assists": 1,
-          "points": 4,
+          "assists": 0,
+          "points": 3,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -1744,8 +1728,8 @@
         "mhl-3647": {
           "position": "RW",
           "goals": 0,
-          "assists": 2,
-          "points": 2,
+          "assists": 1,
+          "points": 1,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -1829,8 +1813,8 @@
         },
         "mhl-3187": {
           "position": "G",
-          "saves": 32,
-          "shots_against": 35,
+          "saves": 26,
+          "shots_against": 29,
           "goals_against": 3,
           "save_percentage": "0.000",
           "time_on_ice": "50:58"
@@ -1839,16 +1823,16 @@
       "box_score": {
         "shots_by_period": {
           "ramblers": {
-            "period1": 15,
-            "period2": 12,
-            "period3": 10,
-            "total": 37
+            "period1": 13,
+            "period2": 9,
+            "period3": 8,
+            "total": 30
           },
           "opponent": {
-            "period1": 16,
-            "period2": 16,
-            "period3": 8,
-            "total": 40
+            "period1": 14,
+            "period2": 11,
+            "period3": 9,
+            "total": 34
           }
         },
         "scoring_by_period": {
@@ -1893,8 +1877,8 @@
             {
               "name": "Hudson Bradley",
               "time_on_ice": "50:58",
-              "saves": 32,
-              "shots_against": 35,
+              "saves": 26,
+              "shots_against": 29,
               "on_ice": "1st/9:02",
               "off_ice": "3rd/20:00",
               "decision": "W"
@@ -1904,8 +1888,8 @@
             {
               "name": "Sean Hogan",
               "time_on_ice": "58:12",
-              "saves": 26,
-              "shots_against": 33,
+              "saves": 21,
+              "shots_against": 28,
               "on_ice": "1st/0:00",
               "off_ice": "3rd/18:12",
               "decision": "L"
@@ -1922,8 +1906,8 @@
             {
               "name": "Sean Hogan",
               "time_on_ice": "00:56",
-              "saves": 2,
-              "shots_against": 2,
+              "saves": 0,
+              "shots_against": 0,
               "on_ice": "3rd/19:04",
               "off_ice": "3rd/20:00",
               "decision": "L"
