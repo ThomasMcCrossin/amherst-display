@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 10,
-  "updated_at": "2026-11-25T17:29:45.365Z",
+  "updated_at": "2026-11-26T17:11:20.751Z",
   "player_count": 31,
   "players": [
     {
@@ -21,7 +21,9 @@
       "stats": {},
       "hockeytech_id": "4027",
       "person_id": "4699",
-      "flags": []
+      "flags": [
+        "ht-affiliate"
+      ]
     },
     {
       "player_id": "mhl-4069",
@@ -74,7 +76,9 @@
       "stats": {},
       "hockeytech_id": "4028",
       "person_id": "4700",
-      "flags": []
+      "flags": [
+        "ht-affiliate"
+      ]
     },
     {
       "player_id": "mhl-3935",
@@ -833,6 +837,30 @@
       ]
     },
     {
+      "player_id": "mhl-3774",
+      "number": "55",
+      "first_name": "Seth",
+      "last_name": "Lawless",
+      "name": "Seth Lawless",
+      "position": "D",
+      "height": "6'1",
+      "height_inches": 73,
+      "weight": 201,
+      "shoots": "R",
+      "birthdate": "2007-12-17",
+      "birth_year": "'07",
+      "age": 19,
+      "hometown": "Charlottetown, PE",
+      "rookie": false,
+      "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/55-seth-lawless.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3774.jpg",
+      "stats": {},
+      "hockeytech_id": "3774",
+      "person_id": "4390",
+      "flags": []
+    },
+    {
       "player_id": "mhl-2771",
       "number": "56",
       "first_name": "Lincoln",
@@ -1039,21 +1067,6 @@
       ]
     },
     {
-      "player_id": "mhl-3774",
-      "number": "194",
-      "first_name": "Seth",
-      "last_name": "Lawless",
-      "name": "Seth Lawless",
-      "position": "D",
-      "shoots": "R",
-      "rookie": false,
-      "veteran": false,
-      "stats": {},
-      "hockeytech_id": "3774",
-      "person_id": "4390",
-      "flags": []
-    },
-    {
       "player_id": "mhl-4070",
       "number": "198",
       "first_name": "Harrison",
@@ -1083,7 +1096,9 @@
       "stats": {},
       "hockeytech_id": "4161",
       "person_id": "4860",
-      "flags": []
+      "flags": [
+        "ht-affiliate"
+      ]
     }
   ]
 }
