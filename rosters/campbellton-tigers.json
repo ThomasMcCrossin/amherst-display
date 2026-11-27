@@ -5,8 +5,8 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 8,
-  "updated_at": "2026-11-26T17:11:19.714Z",
-  "player_count": 28,
+  "updated_at": "2026-11-27T16:53:45.707Z",
+  "player_count": 24,
   "players": [
     {
       "player_id": "mhl-4143",
@@ -214,33 +214,6 @@
       "flags": []
     },
     {
-      "player_id": "mhl-3854",
-      "number": "11",
-      "first_name": "Nathan",
-      "last_name": "Lebrasseur",
-      "name": "Nathan Lebrasseur",
-      "position": "D",
-      "height": "6'",
-      "weight": 185,
-      "shoots": "L",
-      "birthdate": "2007-06-07",
-      "birth_year": "'07",
-      "age": 19,
-      "hometown": "Sept-Iles, Qc",
-      "birthplace": "Sept-Iles, Qc, ",
-      "rookie": false,
-      "veteran": false,
-      "headshot": "assets/headshots/Campbellton-Tigers/11-nathan-lebrasseur.jpg",
-      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3854.jpg",
-      "stats": {},
-      "hockeytech_id": "3854",
-      "person_id": "4482",
-      "flags": [
-        "ht-injured",
-        "ht-suspended"
-      ]
-    },
-    {
       "player_id": "mhl-3315",
       "number": "12",
       "first_name": "Samuel",
@@ -323,47 +296,6 @@
       "flags": [
         "ht-rookie"
       ]
-    },
-    {
-      "player_id": "mhl-3964",
-      "number": "15",
-      "first_name": "Philippe",
-      "last_name": "Canuel",
-      "name": "Philippe Canuel",
-      "position": "D",
-      "height": "6'3",
-      "height_inches": 75,
-      "weight": 180,
-      "shoots": "L",
-      "birthdate": "2007-12-15",
-      "birth_year": "'07",
-      "age": 19,
-      "hometown": "Amqui, Qc",
-      "birthplace": "Amqui, Qc, ",
-      "rookie": false,
-      "veteran": false,
-      "headshot": "assets/headshots/Campbellton-Tigers/15-philippe-canuel.jpg",
-      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3964.jpg",
-      "stats": {
-        "games_played": 20,
-        "goals": 0,
-        "assists": 6,
-        "points": 6,
-        "plus_minus": 0,
-        "penalty_minutes": 20,
-        "power_play_goals": 0,
-        "power_play_assists": 4,
-        "power_play_points": 4,
-        "short_handed_goals": 0,
-        "short_handed_assists": 0,
-        "short_handed_points": 0,
-        "game_winning_goals": 0,
-        "overtime_goals": 0,
-        "points_per_game": 0.3
-      },
-      "hockeytech_id": "3964",
-      "person_id": "4635",
-      "flags": []
     },
     {
       "player_id": "mhl-3005",
@@ -450,48 +382,6 @@
       ]
     },
     {
-      "player_id": "mhl-3787",
-      "number": "20",
-      "first_name": "Justin",
-      "last_name": "Hanscomb",
-      "name": "Justin Hanscomb",
-      "position": "C",
-      "height": "6'",
-      "weight": 165,
-      "shoots": "L",
-      "birthdate": "2009-07-02",
-      "birth_year": "'09",
-      "age": 17,
-      "hometown": "Riverview, NB",
-      "birthplace": "Riverview, NB, ",
-      "rookie": true,
-      "veteran": false,
-      "headshot": "assets/headshots/Campbellton-Tigers/20-justin-hanscomb.jpg",
-      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3787.jpg",
-      "stats": {
-        "games_played": 19,
-        "goals": 6,
-        "assists": 11,
-        "points": 17,
-        "plus_minus": 0,
-        "penalty_minutes": 2,
-        "power_play_goals": 1,
-        "power_play_assists": 6,
-        "power_play_points": 7,
-        "short_handed_goals": 0,
-        "short_handed_assists": 0,
-        "short_handed_points": 0,
-        "game_winning_goals": 2,
-        "overtime_goals": 1,
-        "points_per_game": 0.89
-      },
-      "hockeytech_id": "3787",
-      "person_id": "4405",
-      "flags": [
-        "ht-rookie"
-      ]
-    },
-    {
       "player_id": "mhl-3970",
       "number": "21",
       "first_name": "Cohen",
@@ -511,23 +401,7 @@
       "veteran": false,
       "headshot": "assets/headshots/Campbellton-Tigers/21-cohen-paul.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3970.jpg",
-      "stats": {
-        "games_played": 17,
-        "goals": 1,
-        "assists": 0,
-        "points": 1,
-        "plus_minus": 0,
-        "penalty_minutes": 24,
-        "power_play_goals": 0,
-        "power_play_assists": 0,
-        "power_play_points": 0,
-        "short_handed_goals": 0,
-        "short_handed_assists": 0,
-        "short_handed_points": 0,
-        "game_winning_goals": 0,
-        "overtime_goals": 0,
-        "points_per_game": 0.06
-      },
+      "stats": {},
       "hockeytech_id": "3970",
       "person_id": "4641",
       "flags": [
@@ -630,6 +504,49 @@
       ]
     },
     {
+      "player_id": "mhl-4025",
+      "number": "26",
+      "first_name": "Jonathan",
+      "last_name": "Lau",
+      "name": "Jonathan Lau",
+      "position": "C",
+      "height": "5'09",
+      "height_inches": 69,
+      "weight": 161,
+      "shoots": "R",
+      "birthdate": "2008-01-03",
+      "birth_year": "'08",
+      "age": 18,
+      "hometown": "Montréal, QC",
+      "birthplace": "Montréal, QC, ",
+      "rookie": true,
+      "veteran": false,
+      "headshot": "assets/headshots/Campbellton-Tigers/26-jonathan-lau.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4025.jpg",
+      "stats": {
+        "games_played": 17,
+        "goals": 3,
+        "assists": 6,
+        "points": 9,
+        "plus_minus": 0,
+        "penalty_minutes": 4,
+        "power_play_goals": 1,
+        "power_play_assists": 2,
+        "power_play_points": 3,
+        "short_handed_goals": 0,
+        "short_handed_assists": 0,
+        "short_handed_points": 0,
+        "game_winning_goals": 1,
+        "overtime_goals": 0,
+        "points_per_game": 0.53
+      },
+      "hockeytech_id": "4025",
+      "person_id": "4697",
+      "flags": [
+        "ht-rookie"
+      ]
+    },
+    {
       "player_id": "mhl-2815",
       "number": "27",
       "first_name": "Marco",
@@ -668,43 +585,6 @@
       },
       "hockeytech_id": "2815",
       "person_id": "3242",
-      "flags": []
-    },
-    {
-      "player_id": "mhl-3905",
-      "number": "29",
-      "first_name": "Maxime",
-      "last_name": "Giguère",
-      "name": "Maxime Giguère",
-      "position": "G",
-      "height": "6'2",
-      "height_inches": 74,
-      "weight": 201,
-      "shoots": "R",
-      "birthdate": "2007-04-04",
-      "birth_year": "'07",
-      "age": 19,
-      "hometown": "Laguna Hills, CA, USA",
-      "birthplace": "Laguna Hills, CA, USA, ",
-      "rookie": false,
-      "veteran": false,
-      "headshot": "assets/headshots/Campbellton-Tigers/29-maxime-gigu-re.jpg",
-      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3905.jpg",
-      "stats": {
-        "games_played": 2,
-        "wins": 0,
-        "losses": 1,
-        "ot_losses": 0,
-        "minutes_played": 99,
-        "saves": 49,
-        "shots": 63,
-        "goals_against": 14,
-        "shutouts": 0,
-        "save_percentage": 0.778,
-        "goals_against_average": 8.51
-      },
-      "hockeytech_id": "3905",
-      "person_id": "4553",
       "flags": []
     },
     {
@@ -870,21 +750,6 @@
       "flags": []
     },
     {
-      "player_id": "mhl-3623",
-      "number": "61",
-      "first_name": "Mathis-Olivier",
-      "last_name": "Landry",
-      "name": "Mathis-Olivier Landry",
-      "position": "LW",
-      "shoots": "R",
-      "rookie": false,
-      "veteran": false,
-      "stats": {},
-      "hockeytech_id": "3623",
-      "person_id": "4238",
-      "flags": []
-    },
-    {
       "player_id": "mhl-3000",
       "number": "70",
       "first_name": "Samuel",
@@ -963,23 +828,8 @@
       "flags": []
     },
     {
-      "player_id": "mhl-4162",
-      "number": "101",
-      "first_name": "Finn",
-      "last_name": "Buchanan",
-      "name": "Finn Buchanan",
-      "position": "D",
-      "shoots": "R",
-      "rookie": false,
-      "veteran": false,
-      "stats": {},
-      "hockeytech_id": "4162",
-      "person_id": "4861",
-      "flags": []
-    },
-    {
       "player_id": "mhl-4163",
-      "number": "102",
+      "number": "0",
       "first_name": "Xavier",
       "last_name": "Boulay",
       "name": "Xavier Boulay",
@@ -990,22 +840,43 @@
       "stats": {},
       "hockeytech_id": "4163",
       "person_id": "4862",
-      "flags": []
+      "flags": [
+        "ht-affiliate"
+      ]
     },
     {
-      "player_id": "mhl-4164",
-      "number": "103",
-      "first_name": "Mathis",
-      "last_name": "Landry",
-      "name": "Mathis Landry",
-      "position": "RW",
+      "player_id": "mhl-4162",
+      "number": "0",
+      "first_name": "Finn",
+      "last_name": "Buchanan",
+      "name": "Finn Buchanan",
+      "position": "D",
       "shoots": "R",
       "rookie": false,
       "veteran": false,
       "stats": {},
-      "hockeytech_id": "4164",
-      "person_id": "4863",
-      "flags": []
+      "hockeytech_id": "4162",
+      "person_id": "4861",
+      "flags": [
+        "ht-affiliate"
+      ]
+    },
+    {
+      "player_id": "mhl-3623",
+      "number": "0",
+      "first_name": "Mathis-Olivier",
+      "last_name": "Landry",
+      "name": "Mathis-Olivier Landry",
+      "position": "LW",
+      "shoots": "R",
+      "rookie": false,
+      "veteran": false,
+      "stats": {},
+      "hockeytech_id": "3623",
+      "person_id": "4238",
+      "flags": [
+        "ht-affiliate"
+      ]
     }
   ]
 }

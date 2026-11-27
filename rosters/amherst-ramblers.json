@@ -5,8 +5,8 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 1,
-  "updated_at": "2026-11-26T17:11:15.403Z",
-  "player_count": 22,
+  "updated_at": "2026-11-27T16:53:34.255Z",
+  "player_count": 21,
   "players": [
     {
       "player_id": "mhl-3545",
@@ -93,46 +93,45 @@
       ]
     },
     {
-      "player_id": "mhl-4025",
+      "player_id": "mhl-3867",
       "number": "9",
-      "first_name": "Jonathan",
-      "last_name": "Lau",
-      "name": "Jonathan Lau",
-      "position": "C",
-      "height": "5'09",
-      "height_inches": 69,
-      "weight": 161,
-      "shoots": "R",
-      "birthdate": "2008-01-03",
-      "birth_year": "'08",
-      "age": 18,
-      "hometown": "Montréal, QC",
-      "birthplace": "Montréal, QC, ",
+      "first_name": "Brock",
+      "last_name": "Lyons",
+      "name": "Brock Lyons",
+      "position": "LW",
+      "height": "6'01",
+      "height_inches": 73,
+      "weight": 185,
+      "shoots": "L",
+      "birthdate": "2009-02-18",
+      "birth_year": "'09",
+      "age": 17,
+      "hometown": "Quispamsis, NB",
+      "birthplace": "Quispamsis, NB, ",
       "rookie": true,
       "veteran": false,
-      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4025.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3867.jpg",
       "stats": {
-        "games_played": 17,
-        "goals": 3,
-        "assists": 6,
-        "points": 9,
+        "games_played": 22,
+        "goals": 8,
+        "assists": 9,
+        "points": 17,
         "plus_minus": 0,
-        "penalty_minutes": 4,
+        "penalty_minutes": 20,
         "power_play_goals": 1,
-        "power_play_assists": 2,
-        "power_play_points": 3,
+        "power_play_assists": 3,
+        "power_play_points": 4,
         "short_handed_goals": 0,
         "short_handed_assists": 0,
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.53
+        "points_per_game": 0.77
       },
-      "hockeytech_id": "4025",
-      "person_id": "4697",
+      "hockeytech_id": "3867",
+      "person_id": "4505",
       "flags": [
-        "ht-rookie",
-        "ht-import"
+        "ht-rookie"
       ]
     },
     {
@@ -854,48 +853,6 @@
       "flags": [
         "ht-rookie",
         "ht-played-major-junior"
-      ]
-    },
-    {
-      "player_id": "mhl-3867",
-      "number": "95",
-      "first_name": "Brock",
-      "last_name": "Lyons",
-      "name": "Brock Lyons",
-      "position": "LW",
-      "height": "6'01",
-      "height_inches": 73,
-      "weight": 185,
-      "shoots": "L",
-      "birthdate": "2009-02-18",
-      "birth_year": "'09",
-      "age": 17,
-      "hometown": "Quispamsis, NB",
-      "birthplace": "Quispamsis, NB, ",
-      "rookie": true,
-      "veteran": false,
-      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3867.jpg",
-      "stats": {
-        "games_played": 22,
-        "goals": 8,
-        "assists": 9,
-        "points": 17,
-        "plus_minus": 0,
-        "penalty_minutes": 20,
-        "power_play_goals": 1,
-        "power_play_assists": 3,
-        "power_play_points": 4,
-        "short_handed_goals": 0,
-        "short_handed_assists": 0,
-        "short_handed_points": 0,
-        "game_winning_goals": 1,
-        "overtime_goals": 0,
-        "points_per_game": 0.77
-      },
-      "hockeytech_id": "3867",
-      "person_id": "4505",
-      "flags": [
-        "ht-rookie"
       ]
     }
   ]

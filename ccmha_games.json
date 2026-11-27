@@ -1,25 +1,7 @@
 {
-  "generated_at": "2026-11-26T17:12:47.649Z",
+  "generated_at": "2026-11-27T16:55:20.007Z",
   "timezone": "America/Halifax",
   "games": [
-    {
-      "league": "U11-C",
-      "home_team": "West Colchester U11C Cobras",
-      "away_team": "Cumberland U11C Ramblers",
-      "start": "2026-11-26T18:45:00-04:00",
-      "end": "2026-11-26T19:45:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
-    {
-      "league": "U18-C",
-      "home_team": "Sackville Rangers",
-      "away_team": "Cumberland U18C Ramblers",
-      "start": "2026-11-26T20:00:00-04:00",
-      "end": "2026-11-26T21:00:00-04:00",
-      "location": "Amherst Stadium",
-      "source": "ccmha"
-    },
     {
       "league": "U9-DEV",
       "home_team": "SCMHA U9 DEVELOPMENT WHITE",
@@ -98,6 +80,24 @@
       "away_team": "Cumberland U18C Ramblers",
       "start": "2026-12-03T20:00:00-04:00",
       "end": "2026-12-03T21:00:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U18-C",
+      "home_team": "Truro U18C Bearcats 1",
+      "away_team": "Cumberland U18C Ramblers",
+      "start": "2026-12-04T18:30:00-04:00",
+      "end": "2026-12-04T19:30:00-04:00",
+      "location": "Amherst Stadium",
+      "source": "ccmha"
+    },
+    {
+      "league": "U18-A",
+      "home_team": "Truro Bearcats",
+      "away_team": "Cumberland Ramblers",
+      "start": "2026-12-04T19:45:00-04:00",
+      "end": "2026-12-04T21:15:00-04:00",
       "location": "Amherst Stadium",
       "source": "ccmha"
     }

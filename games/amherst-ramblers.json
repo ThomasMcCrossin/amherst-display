@@ -7,7 +7,7 @@
   "season_ids": [
     46
   ],
-  "updated_at": "2026-11-26T17:12:46.741Z",
+  "updated_at": "2026-11-27T16:55:18.556Z",
   "summary": {
     "games_played": 22,
     "wins": 9,
@@ -141,7 +141,7 @@
           },
           "assists": [
             {
-              "player_id": "mhl-4025",
+              "player_id": "mhl-3867",
               "name": "Felix Belanger",
               "number": 9
             },
@@ -733,19 +733,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-3867": {
-          "position": "LW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3766": {
           "position": "G",
           "saves": 0,
@@ -1242,7 +1229,6 @@
               "number": 77
             },
             {
-              "player_id": "mhl-3867",
               "name": "Brock Lyons",
               "number": 95
             }
@@ -1542,7 +1528,6 @@
           "time": "09:13",
           "team": "ramblers",
           "player": {
-            "player_id": "mhl-3867",
             "name": "Brock Lyons",
             "number": 95,
             "position": "LW"
@@ -1782,19 +1767,6 @@
           "goals": 0,
           "assists": 2,
           "points": 2,
-          "penalty_minutes": 2,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3867": {
-          "position": "LW",
-          "goals": 0,
-          "assists": 1,
-          "points": 1,
           "penalty_minutes": 2,
           "shots": 0,
           "plus_minus": "0",
@@ -2349,7 +2321,6 @@
           "time": "19:10",
           "team": "ramblers",
           "player": {
-            "player_id": "mhl-3867",
             "name": "Brock Lyons",
             "number": 95,
             "position": "LW"
@@ -2707,19 +2678,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-3867": {
-          "position": "LW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 4,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3766": {
           "position": "G",
           "saves": 0,
@@ -3053,7 +3011,6 @@
           "time": "13:48",
           "team": "amherst-ramblers",
           "scorer": {
-            "player_id": "mhl-3867",
             "name": "Brock Lyons",
             "number": 95,
             "position": "LW"
@@ -3148,7 +3105,6 @@
               "number": 11
             },
             {
-              "player_id": "mhl-3867",
               "name": "Brock Lyons",
               "number": 95
             }
@@ -3259,7 +3215,6 @@
               "number": 16
             },
             {
-              "player_id": "mhl-3867",
               "name": "Brock Lyons",
               "number": 95
             }
@@ -3307,7 +3262,6 @@
           "time": "05:02",
           "team": "ramblers",
           "player": {
-            "player_id": "mhl-3867",
             "name": "Brock Lyons",
             "number": 95,
             "position": "LW"
@@ -3673,19 +3627,6 @@
           "assists": 0,
           "points": 2,
           "penalty_minutes": 4,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3867": {
-          "position": "LW",
-          "goals": 1,
-          "assists": 2,
-          "points": 3,
-          "penalty_minutes": 2,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -4478,19 +4419,6 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-3867": {
-          "position": "LW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
         "mhl-3766": {
           "position": "G",
           "saves": 51,
@@ -4738,7 +4666,7 @@
           },
           "assists": [
             {
-              "player_id": "mhl-4025",
+              "player_id": "mhl-3867",
               "name": "Cédrik Laberge",
               "number": 9
             },
@@ -5235,7 +5163,7 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-4025": {
+        "mhl-3867": {
           "position": "C",
           "goals": 0,
           "assists": 0,
@@ -5419,19 +5347,6 @@
         },
         "mhl-3833": {
           "position": "D",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3867": {
-          "position": "LW",
           "goals": 0,
           "assists": 0,
           "points": 0,
@@ -5777,7 +5692,7 @@
           "time": "6:57",
           "team": "amherst-ramblers",
           "scorer": {
-            "player_id": "mhl-4025",
+            "player_id": "mhl-3867",
             "name": "Jonathan Lau",
             "number": 9,
             "position": "C"
@@ -5859,7 +5774,6 @@
           "time": "18:22",
           "team": "amherst-ramblers",
           "scorer": {
-            "player_id": "mhl-3867",
             "name": "Brock Lyons",
             "number": 95,
             "position": "LW"
@@ -5887,7 +5801,6 @@
           "time": "3:26",
           "team": "amherst-ramblers",
           "scorer": {
-            "player_id": "mhl-3867",
             "name": "Brock Lyons",
             "number": 95,
             "position": "LW"
@@ -5921,7 +5834,7 @@
           },
           "assists": [
             {
-              "player_id": "mhl-4025",
+              "player_id": "mhl-3867",
               "name": "Cole Kerr",
               "number": 9
             },
@@ -6130,7 +6043,7 @@
           "time": "13:45",
           "team": "ramblers",
           "player": {
-            "player_id": "mhl-4025",
+            "player_id": "mhl-3867",
             "name": "Jonathan Lau",
             "number": 9,
             "position": "C"
@@ -6177,7 +6090,7 @@
           "time": "14:26",
           "team": "ramblers",
           "player": {
-            "player_id": "mhl-4025",
+            "player_id": "mhl-3867",
             "name": "Jonathan Lau",
             "number": 9,
             "position": "C"
@@ -6246,7 +6159,7 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-4025": {
+        "mhl-3867": {
           "position": "C",
           "goals": 1,
           "assists": 0,
@@ -6421,19 +6334,6 @@
           "assists": 0,
           "points": 0,
           "penalty_minutes": 4,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3867": {
-          "position": "LW",
-          "goals": 2,
-          "assists": 0,
-          "points": 2,
-          "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -7061,7 +6961,7 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-4025": {
+        "mhl-3867": {
           "position": "C",
           "goals": 0,
           "assists": 0,
@@ -7249,19 +7149,6 @@
           "assists": 0,
           "points": 0,
           "penalty_minutes": 17,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3867": {
-          "position": "LW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -7737,7 +7624,7 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-4025": {
+        "mhl-3867": {
           "position": "C",
           "goals": 0,
           "assists": 0,
@@ -7895,19 +7782,6 @@
         },
         "mhl-3833": {
           "position": "D",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3867": {
-          "position": "LW",
           "goals": 0,
           "assists": 0,
           "points": 0,
@@ -8155,7 +8029,7 @@
           "time": "10:55",
           "team": "opponent",
           "scorer": {
-            "player_id": "mhl-4025",
+            "player_id": "mhl-3867",
             "name": "Neka Jean",
             "number": 9,
             "position": "LW"
@@ -8193,7 +8067,7 @@
               "number": 48
             },
             {
-              "player_id": "mhl-4025",
+              "player_id": "mhl-3867",
               "name": "Neka Jean",
               "number": 9
             }
@@ -8237,7 +8111,7 @@
           "time": "17:40",
           "team": "opponent",
           "scorer": {
-            "player_id": "mhl-4025",
+            "player_id": "mhl-3867",
             "name": "Neka Jean",
             "number": 9,
             "position": "LW"
@@ -8533,7 +8407,7 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-4025": {
+        "mhl-3867": {
           "position": "C",
           "goals": 0,
           "assists": 0,
@@ -8708,19 +8582,6 @@
           "assists": 1,
           "points": 1,
           "penalty_minutes": 2,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3867": {
-          "position": "LW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -9217,7 +9078,6 @@
               "number": 16
             },
             {
-              "player_id": "mhl-3867",
               "name": "Brock Lyons",
               "number": 95
             }
@@ -9233,7 +9093,6 @@
           "time": "3:45",
           "team": "amherst-ramblers",
           "scorer": {
-            "player_id": "mhl-3867",
             "name": "Brock Lyons",
             "number": 95,
             "position": "LW"
@@ -9519,7 +9378,7 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-4025": {
+        "mhl-3867": {
           "position": "C",
           "goals": 0,
           "assists": 0,
@@ -9680,19 +9539,6 @@
           "goals": 0,
           "assists": 0,
           "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3867": {
-          "position": "LW",
-          "goals": 1,
-          "assists": 1,
-          "points": 2,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -10018,7 +9864,7 @@
           },
           "assists": [
             {
-              "player_id": "mhl-4025",
+              "player_id": "mhl-3867",
               "name": "Jonathan Lau",
               "number": 9
             },
@@ -10039,7 +9885,7 @@
           "time": "6:55",
           "team": "amherst-ramblers",
           "scorer": {
-            "player_id": "mhl-4025",
+            "player_id": "mhl-3867",
             "name": "Jonathan Lau",
             "number": 9,
             "position": "C"
@@ -10062,7 +9908,7 @@
           "time": "15:41",
           "team": "opponent",
           "scorer": {
-            "player_id": "mhl-4025",
+            "player_id": "mhl-3867",
             "name": "Declan MacLauchlan",
             "number": 9,
             "position": "LW"
@@ -10230,7 +10076,6 @@
           "time": "05:40",
           "team": "ramblers",
           "player": {
-            "player_id": "mhl-3867",
             "name": "Brock Lyons",
             "number": 95,
             "position": "LW"
@@ -10362,7 +10207,7 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-4025": {
+        "mhl-3867": {
           "position": "C",
           "goals": 1,
           "assists": 1,
@@ -10524,19 +10369,6 @@
           "assists": 0,
           "points": 0,
           "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3867": {
-          "position": "LW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 10,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -11195,7 +11027,7 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-4025": {
+        "mhl-3867": {
           "position": "C",
           "goals": 0,
           "assists": 0,
@@ -11353,19 +11185,6 @@
         },
         "mhl-3833": {
           "position": "D",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3867": {
-          "position": "LW",
           "goals": 0,
           "assists": 0,
           "points": 0,
@@ -11779,7 +11598,7 @@
           },
           "assists": [
             {
-              "player_id": "mhl-4025",
+              "player_id": "mhl-3867",
               "name": "Cole Kerr",
               "number": 9
             },
@@ -11985,7 +11804,6 @@
           "time": "3:14",
           "team": "amherst-ramblers",
           "scorer": {
-            "player_id": "mhl-3867",
             "name": "Brock Lyons",
             "number": 95,
             "position": "LW"
@@ -12153,7 +11971,7 @@
           "time": "16:10",
           "team": "ramblers",
           "player": {
-            "player_id": "mhl-4025",
+            "player_id": "mhl-3867",
             "name": "Jonathan Lau",
             "number": 9,
             "position": "C"
@@ -12254,7 +12072,7 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-4025": {
+        "mhl-3867": {
           "position": "C",
           "goals": 0,
           "assists": 0,
@@ -12428,19 +12246,6 @@
           "goals": 0,
           "assists": 3,
           "points": 3,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3867": {
-          "position": "LW",
-          "goals": 1,
-          "assists": 0,
-          "points": 1,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -12969,7 +12774,7 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-4025": {
+        "mhl-3867": {
           "position": "C",
           "goals": 0,
           "assists": 0,
@@ -13153,19 +12958,6 @@
         },
         "mhl-3833": {
           "position": "D",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3867": {
-          "position": "LW",
           "goals": 0,
           "assists": 0,
           "points": 0,
@@ -13490,14 +13282,13 @@
           "time": "13:19",
           "team": "amherst-ramblers",
           "scorer": {
-            "player_id": "mhl-3867",
             "name": "Brock Lyons",
             "number": 95,
             "position": "LW"
           },
           "assists": [
             {
-              "player_id": "mhl-4025",
+              "player_id": "mhl-3867",
               "name": "Jonathan Lau",
               "number": 9
             }
@@ -13520,7 +13311,7 @@
           },
           "assists": [
             {
-              "player_id": "mhl-4025",
+              "player_id": "mhl-3867",
               "name": "Alexis Doucet",
               "number": 9
             }
@@ -13565,7 +13356,7 @@
           },
           "assists": [
             {
-              "player_id": "mhl-4025",
+              "player_id": "mhl-3867",
               "name": "Alexis Doucet",
               "number": 9
             },
@@ -13717,7 +13508,7 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-4025": {
+        "mhl-3867": {
           "position": "C",
           "goals": 0,
           "assists": 1,
@@ -13891,19 +13682,6 @@
           "goals": 0,
           "assists": 0,
           "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3867": {
-          "position": "LW",
-          "goals": 1,
-          "assists": 0,
-          "points": 1,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -14182,7 +13960,6 @@
           "time": "07:14",
           "team": "ramblers",
           "player": {
-            "player_id": "mhl-3867",
             "name": "Brock Lyons",
             "number": 95,
             "position": "LW"
@@ -14421,7 +14198,7 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-4025": {
+        "mhl-3867": {
           "position": "C",
           "goals": 0,
           "assists": 0,
@@ -14583,19 +14360,6 @@
           "assists": 1,
           "points": 1,
           "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3867": {
-          "position": "LW",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 2,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -15057,7 +14821,7 @@
               "number": 81
             },
             {
-              "player_id": "mhl-4025",
+              "player_id": "mhl-3867",
               "name": "Darien Thomson",
               "number": 9
             }
@@ -15177,7 +14941,7 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-4025": {
+        "mhl-3867": {
           "position": "C",
           "goals": 0,
           "assists": 0,
@@ -15361,19 +15125,6 @@
         },
         "mhl-3903": {
           "position": "C",
-          "goals": 0,
-          "assists": 0,
-          "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3867": {
-          "position": "LW",
           "goals": 0,
           "assists": 0,
           "points": 0,
@@ -15625,7 +15376,7 @@
           "time": "15:55",
           "team": "opponent",
           "scorer": {
-            "player_id": "mhl-4025",
+            "player_id": "mhl-3867",
             "name": "Zackarie Michaud",
             "number": 9,
             "position": "C"
@@ -15659,7 +15410,7 @@
           },
           "assists": [
             {
-              "player_id": "mhl-4025",
+              "player_id": "mhl-3867",
               "name": "Jonathan Lau",
               "number": 9
             },
@@ -15741,7 +15492,6 @@
           },
           "assists": [
             {
-              "player_id": "mhl-3867",
               "name": "Brock Lyons",
               "number": 95
             },
@@ -15773,7 +15523,7 @@
               "number": 91
             },
             {
-              "player_id": "mhl-4025",
+              "player_id": "mhl-3867",
               "name": "Zackarie Michaud",
               "number": 9
             }
@@ -15846,7 +15596,7 @@
           },
           "assists": [
             {
-              "player_id": "mhl-4025",
+              "player_id": "mhl-3867",
               "name": "Jonathan Lau",
               "number": 9
             }
@@ -16041,7 +15791,7 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-4025": {
+        "mhl-3867": {
           "position": "C",
           "goals": 0,
           "assists": 2,
@@ -16229,19 +15979,6 @@
           "assists": 0,
           "points": 0,
           "penalty_minutes": 2,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3867": {
-          "position": "LW",
-          "goals": 0,
-          "assists": 1,
-          "points": 1,
-          "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
           "hits": 0,
@@ -16590,7 +16327,6 @@
           },
           "assists": [
             {
-              "player_id": "mhl-3867",
               "name": "Brock Lyons",
               "number": 95
             },
@@ -16623,7 +16359,7 @@
               "number": 10
             },
             {
-              "player_id": "mhl-4025",
+              "player_id": "mhl-3867",
               "name": "Felix Belanger",
               "number": 9
             }
@@ -16669,7 +16405,6 @@
           },
           "assists": [
             {
-              "player_id": "mhl-3867",
               "name": "Brock Lyons",
               "number": 95
             },
@@ -16965,7 +16700,7 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-4025": {
+        "mhl-3867": {
           "position": "C",
           "goals": 0,
           "assists": 0,
@@ -17126,19 +16861,6 @@
           "goals": 0,
           "assists": 1,
           "points": 1,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3867": {
-          "position": "LW",
-          "goals": 0,
-          "assists": 2,
-          "points": 2,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -17473,7 +17195,6 @@
               "number": 13
             },
             {
-              "player_id": "mhl-3867",
               "name": "Brock Lyons",
               "number": 95
             }
@@ -17501,7 +17222,7 @@
               "number": 19
             },
             {
-              "player_id": "mhl-4025",
+              "player_id": "mhl-3867",
               "name": "Jonathan Lau",
               "number": 9
             }
@@ -17517,14 +17238,13 @@
           "time": "18:33",
           "team": "amherst-ramblers",
           "scorer": {
-            "player_id": "mhl-3867",
             "name": "Brock Lyons",
             "number": 95,
             "position": "LW"
           },
           "assists": [
             {
-              "player_id": "mhl-4025",
+              "player_id": "mhl-3867",
               "name": "Jonathan Lau",
               "number": 9
             }
@@ -17585,14 +17305,13 @@
           "time": "15:54",
           "team": "amherst-ramblers",
           "scorer": {
-            "player_id": "mhl-4025",
+            "player_id": "mhl-3867",
             "name": "Jonathan Lau",
             "number": 9,
             "position": "C"
           },
           "assists": [
             {
-              "player_id": "mhl-3867",
               "name": "Brock Lyons",
               "number": 95
             },
@@ -18098,7 +17817,7 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-4025": {
+        "mhl-3867": {
           "position": "C",
           "goals": 1,
           "assists": 2,
@@ -18259,19 +17978,6 @@
           "goals": 0,
           "assists": 0,
           "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3867": {
-          "position": "LW",
-          "goals": 1,
-          "assists": 2,
-          "points": 3,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
@@ -18755,7 +18461,6 @@
           "time": "14:15",
           "team": "amherst-ramblers",
           "scorer": {
-            "player_id": "mhl-3867",
             "name": "Brock Lyons",
             "number": 95,
             "position": "LW"
@@ -18946,7 +18651,7 @@
           "faceoff_wins": 0,
           "faceoff_losses": 0
         },
-        "mhl-4025": {
+        "mhl-3867": {
           "position": "C",
           "goals": 0,
           "assists": 0,
@@ -19107,19 +18812,6 @@
           "goals": 0,
           "assists": 0,
           "points": 0,
-          "penalty_minutes": 0,
-          "shots": 0,
-          "plus_minus": "0",
-          "hits": 0,
-          "blocked_shots": 0,
-          "faceoff_wins": 0,
-          "faceoff_losses": 0
-        },
-        "mhl-3867": {
-          "position": "LW",
-          "goals": 1,
-          "assists": 0,
-          "points": 1,
           "penalty_minutes": 0,
           "shots": 0,
           "plus_minus": "0",
