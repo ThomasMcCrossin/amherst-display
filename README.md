@@ -148,7 +148,7 @@ Every amherst-display service on canteenhub runs from the one main checkout, `~/
 
 | Unit | Runs |
 |---|---|
-| `game-board-http.service` | `bakeoff/serve.py` on `192.168.2.12:8810`, serving `~/.local/share/watch-rams/game-board` to the Pi 4 |
+| `game-board-http.service` | `bakeoff/serve.py` on `0.0.0.0:8810` (the LAN bind, so it follows the box DHCP address), serving `~/.local/share/watch-rams/game-board` to the Pi 4 |
 | `game-board-refresh.timer` / `.service` | `bakeoff/game-board-refresh.sh` every minute; rebuilds the untracked `bakeoff/data/board.json` and `insights.json` and publishes them |
 | `amherst-live-observations.service` | `scripts/live_game_monitor.py`; state in `~/.local/state/my-web-scrapers/amherst-live-observations` |
 
