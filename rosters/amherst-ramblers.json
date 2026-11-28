@@ -5,8 +5,8 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 1,
-  "updated_at": "2026-11-27T16:53:34.255Z",
-  "player_count": 21,
+  "updated_at": "2026-11-28T15:44:36.605Z",
+  "player_count": 22,
   "players": [
     {
       "player_id": "mhl-3545",
@@ -729,6 +729,33 @@
       "hockeytech_id": "4138",
       "person_id": "4823",
       "flags": []
+    },
+    {
+      "player_id": "mhl-3643",
+      "number": "71",
+      "first_name": "Cayden",
+      "last_name": "Maxwell",
+      "name": "Cayden Maxwell",
+      "position": "C",
+      "height": "5'11",
+      "height_inches": 71,
+      "weight": 140,
+      "shoots": "L",
+      "birthdate": "2008-08-08",
+      "birth_year": "'08",
+      "age": 18,
+      "hometown": "Dieppe, NB",
+      "birthplace": "Dieppe, NB, ",
+      "rookie": true,
+      "veteran": false,
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3643.jpg",
+      "stats": {},
+      "hockeytech_id": "3643",
+      "person_id": "4258",
+      "flags": [
+        "ht-rookie",
+        "ht-affiliate"
+      ]
     },
     {
       "player_id": "mhl-3226",

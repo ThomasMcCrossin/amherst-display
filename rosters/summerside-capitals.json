@@ -5,26 +5,9 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 10,
-  "updated_at": "2026-11-27T16:53:48.957Z",
-  "player_count": 32,
+  "updated_at": "2026-11-28T15:44:57.237Z",
+  "player_count": 33,
   "players": [
-    {
-      "player_id": "mhl-4027",
-      "number": "1",
-      "first_name": "Remy",
-      "last_name": "Belliveau",
-      "name": "Remy Belliveau",
-      "position": "LW",
-      "shoots": "R",
-      "rookie": false,
-      "veteran": false,
-      "stats": {},
-      "hockeytech_id": "4027",
-      "person_id": "4699",
-      "flags": [
-        "ht-affiliate"
-      ]
-    },
     {
       "player_id": "mhl-4069",
       "number": "1",
@@ -61,23 +44,6 @@
       "person_id": "4741",
       "flags": [
         "ht-rookie"
-      ]
-    },
-    {
-      "player_id": "mhl-4028",
-      "number": "2",
-      "first_name": "Jack",
-      "last_name": "Baldwin",
-      "name": "Jack Baldwin",
-      "position": "C",
-      "shoots": "R",
-      "rookie": false,
-      "veteran": false,
-      "stats": {},
-      "hockeytech_id": "4028",
-      "person_id": "4700",
-      "flags": [
-        "ht-affiliate"
       ]
     },
     {
@@ -944,6 +910,30 @@
       "flags": []
     },
     {
+      "player_id": "mhl-4166",
+      "number": "79",
+      "first_name": "Colby",
+      "last_name": "Monette",
+      "name": "Colby Monette",
+      "position": "LW",
+      "height": "5'10",
+      "height_inches": 70,
+      "weight": 180,
+      "shoots": "L",
+      "birthdate": "2008-07-25",
+      "birth_year": "'08",
+      "age": 18,
+      "hometown": "Pitt Meadows, BC",
+      "rookie": false,
+      "veteran": false,
+      "headshot": "assets/headshots/Summerside-Capitals/79-colby-monette.jpg",
+      "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4166.jpg",
+      "stats": {},
+      "hockeytech_id": "4166",
+      "person_id": "4865",
+      "flags": []
+    },
+    {
       "player_id": "mhl-3770",
       "number": "81",
       "first_name": "Ashton",
@@ -1079,7 +1069,9 @@
       "stats": {},
       "hockeytech_id": "3771",
       "person_id": "4387",
-      "flags": []
+      "flags": [
+        "ht-affiliate"
+      ]
     },
     {
       "player_id": "mhl-4070",
@@ -1111,6 +1103,40 @@
       "stats": {},
       "hockeytech_id": "4161",
       "person_id": "4860",
+      "flags": [
+        "ht-affiliate"
+      ]
+    },
+    {
+      "player_id": "mhl-4028",
+      "number": "0",
+      "first_name": "Jack",
+      "last_name": "Baldwin",
+      "name": "Jack Baldwin",
+      "position": "C",
+      "shoots": "R",
+      "rookie": false,
+      "veteran": false,
+      "stats": {},
+      "hockeytech_id": "4028",
+      "person_id": "4700",
+      "flags": [
+        "ht-affiliate"
+      ]
+    },
+    {
+      "player_id": "mhl-4027",
+      "number": "0",
+      "first_name": "Remy",
+      "last_name": "Belliveau",
+      "name": "Remy Belliveau",
+      "position": "LW",
+      "shoots": "R",
+      "rookie": false,
+      "veteran": false,
+      "stats": {},
+      "hockeytech_id": "4027",
+      "person_id": "4699",
       "flags": [
         "ht-affiliate"
       ]

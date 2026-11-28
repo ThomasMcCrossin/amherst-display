@@ -7,7 +7,7 @@
   "season_ids": [
     46
   ],
-  "updated_at": "2026-11-27T16:55:18.556Z",
+  "updated_at": "2026-11-28T15:46:32.036Z",
   "summary": {
     "games_played": 22,
     "wins": 9,
@@ -14686,6 +14686,7 @@
           "time": "11:38",
           "team": "opponent",
           "scorer": {
+            "player_id": "mhl-3643",
             "name": "Michael Arsenault",
             "number": 71,
             "position": "LW"
@@ -14723,6 +14724,7 @@
               "number": 79
             },
             {
+              "player_id": "mhl-3643",
               "name": "Michael Arsenault",
               "number": 71
             }
@@ -14738,6 +14740,7 @@
           "time": "11:34",
           "team": "opponent",
           "scorer": {
+            "player_id": "mhl-3643",
             "name": "Michael Arsenault",
             "number": 71,
             "position": "LW"

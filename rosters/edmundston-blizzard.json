@@ -5,7 +5,7 @@
   "season": "2026-27",
   "season_id": 46,
   "team_id": 2,
-  "updated_at": "2026-11-27T16:53:36.373Z",
+  "updated_at": "2026-11-28T15:44:40.479Z",
   "player_count": 28,
   "players": [
     {
@@ -29,7 +29,7 @@
       "headshot": "assets/headshots/Edmundston-Blizzard/4-lucas-hannay.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3332.jpg",
       "stats": {
-        "games_played": 21,
+        "games_played": 22,
         "goals": 0,
         "assists": 13,
         "points": 13,
@@ -43,7 +43,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.62
+        "points_per_game": 0.59
       },
       "hockeytech_id": "3332",
       "person_id": "3894",
@@ -72,7 +72,7 @@
       "headshot": "assets/headshots/Edmundston-Blizzard/6-colby-train.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/2722.jpg",
       "stats": {
-        "games_played": 10,
+        "games_played": 11,
         "goals": 2,
         "assists": 3,
         "points": 5,
@@ -86,7 +86,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.5
+        "points_per_game": 0.45
       },
       "hockeytech_id": "2722",
       "person_id": "3149",
@@ -115,21 +115,21 @@
       "headshot": "assets/headshots/Edmundston-Blizzard/7-robin-poitras.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4142.jpg",
       "stats": {
-        "games_played": 19,
-        "goals": 5,
-        "assists": 4,
-        "points": 9,
+        "games_played": 20,
+        "goals": 6,
+        "assists": 5,
+        "points": 11,
         "plus_minus": 0,
-        "penalty_minutes": 14,
+        "penalty_minutes": 16,
         "power_play_goals": 0,
         "power_play_assists": 0,
         "power_play_points": 0,
         "short_handed_goals": 0,
         "short_handed_assists": 0,
         "short_handed_points": 0,
-        "game_winning_goals": 1,
+        "game_winning_goals": 2,
         "overtime_goals": 0,
-        "points_per_game": 0.47
+        "points_per_game": 0.55
       },
       "hockeytech_id": "4142",
       "person_id": "4827",
@@ -156,12 +156,12 @@
       "headshot": "assets/headshots/Edmundston-Blizzard/8-justin-bouchard.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/4144.jpg",
       "stats": {
-        "games_played": 20,
+        "games_played": 21,
         "goals": 3,
-        "assists": 13,
-        "points": 16,
+        "assists": 14,
+        "points": 17,
         "plus_minus": 0,
-        "penalty_minutes": 16,
+        "penalty_minutes": 18,
         "power_play_goals": 0,
         "power_play_assists": 5,
         "power_play_points": 5,
@@ -170,7 +170,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.8
+        "points_per_game": 0.81
       },
       "hockeytech_id": "4144",
       "person_id": "4829",
@@ -197,10 +197,10 @@
       "headshot": "assets/headshots/Edmundston-Blizzard/9-darien-thomson.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3108.jpg",
       "stats": {
-        "games_played": 21,
-        "goals": 6,
+        "games_played": 22,
+        "goals": 7,
         "assists": 21,
-        "points": 27,
+        "points": 28,
         "plus_minus": 0,
         "penalty_minutes": 8,
         "power_play_goals": 1,
@@ -211,7 +211,7 @@
         "short_handed_points": 1,
         "game_winning_goals": 3,
         "overtime_goals": 0,
-        "points_per_game": 1.29
+        "points_per_game": 1.27
       },
       "hockeytech_id": "3108",
       "person_id": "3626",
@@ -238,21 +238,21 @@
       "headshot": "assets/headshots/Edmundston-Blizzard/10-felix-sylvain-hache.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3720.jpg",
       "stats": {
-        "games_played": 18,
-        "goals": 7,
+        "games_played": 19,
+        "goals": 8,
         "assists": 5,
-        "points": 12,
+        "points": 13,
         "plus_minus": 0,
-        "penalty_minutes": 8,
+        "penalty_minutes": 10,
         "power_play_goals": 2,
         "power_play_assists": 2,
         "power_play_points": 4,
-        "short_handed_goals": 1,
+        "short_handed_goals": 2,
         "short_handed_assists": 0,
-        "short_handed_points": 1,
+        "short_handed_points": 2,
         "game_winning_goals": 2,
         "overtime_goals": 0,
-        "points_per_game": 0.67
+        "points_per_game": 0.68
       },
       "hockeytech_id": "3720",
       "person_id": "4335",
@@ -308,7 +308,7 @@
       "headshot": "assets/headshots/Edmundston-Blizzard/18-alexis-ch-nard.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3483.jpg",
       "stats": {
-        "games_played": 20,
+        "games_played": 21,
         "goals": 0,
         "assists": 12,
         "points": 12,
@@ -322,7 +322,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.6
+        "points_per_game": 0.57
       },
       "hockeytech_id": "3483",
       "person_id": "4046",
@@ -349,7 +349,7 @@
       "headshot": "assets/headshots/Edmundston-Blizzard/20-eliott-guenette.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3692.jpg",
       "stats": {
-        "games_played": 21,
+        "games_played": 22,
         "goals": 5,
         "assists": 14,
         "points": 19,
@@ -363,7 +363,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.9
+        "points_per_game": 0.86
       },
       "hockeytech_id": "3692",
       "person_id": "4307",
@@ -392,7 +392,7 @@
       "headshot": "assets/headshots/Edmundston-Blizzard/22-benjamin-damphousse.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3112.jpg",
       "stats": {
-        "games_played": 20,
+        "games_played": 21,
         "goals": 1,
         "assists": 6,
         "points": 7,
@@ -406,7 +406,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.35
+        "points_per_game": 0.33
       },
       "hockeytech_id": "3112",
       "person_id": "3630",
@@ -433,12 +433,12 @@
       "headshot": "assets/headshots/Edmundston-Blizzard/24-noah-larochelle.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3597.jpg",
       "stats": {
-        "games_played": 21,
+        "games_played": 22,
         "goals": 23,
         "assists": 21,
         "points": 44,
         "plus_minus": 0,
-        "penalty_minutes": 10,
+        "penalty_minutes": 25,
         "power_play_goals": 5,
         "power_play_assists": 8,
         "power_play_points": 13,
@@ -447,7 +447,7 @@
         "short_handed_points": 3,
         "game_winning_goals": 2,
         "overtime_goals": 0,
-        "points_per_game": 2.1
+        "points_per_game": 2
       },
       "hockeytech_id": "3597",
       "person_id": "4212",
@@ -476,7 +476,7 @@
       "headshot": "assets/headshots/Edmundston-Blizzard/27-fran-ois-xavier-mercier.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3697.jpg",
       "stats": {
-        "games_played": 18,
+        "games_played": 19,
         "goals": 5,
         "assists": 9,
         "points": 14,
@@ -490,7 +490,7 @@
         "short_handed_points": 2,
         "game_winning_goals": 1,
         "overtime_goals": 0,
-        "points_per_game": 0.78
+        "points_per_game": 0.74
       },
       "hockeytech_id": "3697",
       "person_id": "4312",
@@ -517,10 +517,10 @@
       "headshot": "assets/headshots/Edmundston-Blizzard/28-charles-ric-tremblay.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3839.jpg",
       "stats": {
-        "games_played": 21,
-        "goals": 16,
-        "assists": 15,
-        "points": 31,
+        "games_played": 22,
+        "goals": 17,
+        "assists": 16,
+        "points": 33,
         "plus_minus": 0,
         "penalty_minutes": 10,
         "power_play_goals": 4,
@@ -531,7 +531,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 2,
         "overtime_goals": 1,
-        "points_per_game": 1.48
+        "points_per_game": 1.5
       },
       "hockeytech_id": "3839",
       "person_id": "4457",
@@ -560,17 +560,17 @@
       "headshot": "assets/headshots/Edmundston-Blizzard/31-william-stonehouse.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3842.jpg",
       "stats": {
-        "games_played": 11,
-        "wins": 10,
+        "games_played": 12,
+        "wins": 11,
         "losses": 1,
         "ot_losses": 0,
-        "minutes_played": 659,
-        "saves": 271,
-        "shots": 303,
-        "goals_against": 32,
+        "minutes_played": 719,
+        "saves": 289,
+        "shots": 325,
+        "goals_against": 36,
         "shutouts": 0,
-        "save_percentage": 0.894,
-        "goals_against_average": 2.91
+        "save_percentage": 0.889,
+        "goals_against_average": 3
       },
       "hockeytech_id": "3842",
       "person_id": "4466",
@@ -745,10 +745,10 @@
       "headshot": "assets/headshots/Edmundston-Blizzard/77-lucas-fortin.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3690.jpg",
       "stats": {
-        "games_played": 21,
+        "games_played": 22,
         "goals": 3,
-        "assists": 19,
-        "points": 22,
+        "assists": 20,
+        "points": 23,
         "plus_minus": 0,
         "penalty_minutes": 14,
         "power_play_goals": 0,
@@ -788,10 +788,10 @@
       "headshot": "assets/headshots/Edmundston-Blizzard/79-william-labranche.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3569.jpg",
       "stats": {
-        "games_played": 21,
-        "goals": 16,
+        "games_played": 22,
+        "goals": 18,
         "assists": 21,
-        "points": 37,
+        "points": 39,
         "plus_minus": 0,
         "penalty_minutes": 6,
         "power_play_goals": 1,
@@ -802,7 +802,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 1.76
+        "points_per_game": 1.77
       },
       "hockeytech_id": "3569",
       "person_id": "4156",
@@ -831,7 +831,7 @@
       "headshot": "assets/headshots/Edmundston-Blizzard/81-mile-fournier.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3468.jpg",
       "stats": {
-        "games_played": 20,
+        "games_played": 21,
         "goals": 16,
         "assists": 9,
         "points": 25,
@@ -845,7 +845,7 @@
         "short_handed_points": 1,
         "game_winning_goals": 3,
         "overtime_goals": 0,
-        "points_per_game": 1.25
+        "points_per_game": 1.19
       },
       "hockeytech_id": "3468",
       "person_id": "4031",
@@ -872,7 +872,7 @@
       "headshot": "assets/headshots/Edmundston-Blizzard/93-brayden-waterhouse.jpg",
       "headshot_url": "https://assets.leaguestat.com/mhl/240x240/3704.jpg",
       "stats": {
-        "games_played": 20,
+        "games_played": 21,
         "goals": 1,
         "assists": 4,
         "points": 5,
@@ -886,7 +886,7 @@
         "short_handed_points": 0,
         "game_winning_goals": 0,
         "overtime_goals": 0,
-        "points_per_game": 0.25
+        "points_per_game": 0.24
       },
       "hockeytech_id": "3704",
       "person_id": "4319",
